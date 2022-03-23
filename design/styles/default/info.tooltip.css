@@ -1,0 +1,54 @@
+.tooltip {
+	z-index: 55;
+	position: relative;
+	display: inline-block;
+}
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+.dropdown:hover .tooltiptext {
+	visibility: visible;
+}
+
+.tooltipbox {
+	display: block;
+}
+
+.tooltiptext {
+	z-index: 55;
+	position: absolute;
+	visibility: hidden;
+
+	white-space: pre;
+	font-family: Monospace;
+
+	color: FC_DROP;
+	background: BC_DROP;
+	text-align: left;
+
+	padding: 7px 15px 12px;
+	border: 1px solid OUTLINE;
+	border-radius: 10px;
+	left: 10px;
+	top: 105%;
+
+	min-width: 350px;
+}
+
+/* ******************************************************** */
+/* tutorial */
+/* ******************************************************** */
+.tuthed {
+	color: white;
+	background-color: cadetblue;
+	padding: 5px 15px;
+
+	margin-bottom: 3px;
+	font-weight: bold;
+	border-radius: 7px;
+}
+.tutinf {
+	margin-bottom: 12px;
+}
+

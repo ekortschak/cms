@@ -1,0 +1,37 @@
+[dic.de]
+act.add = Act.add*
+act.drop = Act.drop*
+act.login = Anmelden
+apply.to = Apply.to*
+caption.de = Caption.de*
+css.add = Statische CSS Datei erstellen
+css.del = Statische CSS Datei entfernen
+css.info = Statische Stylesheets können auf manchen Systemen die Bearbeitung beschleunigen.
+css.static = Statische CSS Datei
+de.en = De.en*
+ftp.check = Verbindungstest
+ftp.empty = Keine Übertragungen erforderlich
+ftp.experimental = Diese Funktion ist noch im <b>Versuchsstadium</b>.
+ftp.job = Datenübertragung
+ftp.mkdir = Error creating directory xxx
+ftp.mode = Übertrage
+ftp.report = FTP Bericht
+page.edit = Page.edit*
+pfs.info = Statische Menüs können den Seitenaufbau erheblich beschleunigen.
+pfs.static = Statisches Menü
+pfs.freeze = Statisches Menü (Menü einfrieren)
+pfs.thaw = Dynamisches Menü (Menü auftauen)
+tip.xmedit = Tip.xmedit*
+unq.data = Daten
+unq.dest = Dest*
+unq.file = Datei
+unq.language = Sprache
+unq.layout = Layout
+unq.method = Method*
+unq.section = Section*
+unq.subset = Subset*
+unq.view = View
+x.css.php = X.css.php*prop.[app] = [app]*timeout = Timeout*
+std = Std*
+title = Title*
+pwd = Pwd*

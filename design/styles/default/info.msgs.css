@@ -1,0 +1,80 @@
+/* ******************************************************** */
+/* debugging, error tracing, help messages */
+/* ******************************************************** */
+dbg, err, msg, code, php, .confirm {
+	z-index: 85;
+	color: FC_PAGE;
+	background: BC_PAGE;
+
+    vertical-align: middle;
+	display: inline-block;
+	max-width: W_BODY;
+
+	border: 1px solid OUTLINE;
+	border-radius: 10px;
+	margin: 0px;
+	padding: 2px 7px 3px;
+}
+php, code, dbg {
+	font-family: monospace;
+	font-size: 0.85em;
+	white-space: pre-wrap;
+}
+.err {
+	font-family: monospace;
+	font-size: 0.85em;
+}
+.err1 {
+	background: BC_BODY;
+	border: 0px;
+	margin: 5px -6px 3px;
+	padding: 5px 6px 2px;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	font-family: monospace;
+	font-size: 0.85em;
+	color: FC_DEAD;
+}
+
+.confirm {
+	padding: 10px 15px;
+	display: block;
+	border: 0px;
+}
+
+msg > ul {
+	margin: 0px;
+}
+
+/* ******************************************************** */
+trace {
+	background: transparent;
+	border: 0px;
+	padding: 0px;
+	font-size: 0.85em;
+}
+
+dbg  { color: FC_WARN; }
+msg  { color: FC_MSG;  background: BC_MSG;  }
+err  { color: FC_WARN; background: BC_WARN; }
+hint { color: FC_DEAD; background: BC_DEAD; font-size: 0.85em; font-style: normal; }
+
+/* ******************************************************** */
+code { overflow: auto; display: block; }
+
+/* ******************************************************** */
+/* info-button */
+/* ******************************************************** */
+.info {
+	display: inline-block;
+	color: FC_TOC;
+	background: BC_BODY;
+	border: 1px solid OUTLINE;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	font-family: monospace;
+	font-weight: bold;
+}
+

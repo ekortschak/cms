@@ -1,0 +1,10 @@
+<?php
+
+$loc = PFS::getLoc();
+
+incCls("other/survey.php");
+
+$qiz = new survey();
+$qiz->results($loc);
+
+?>

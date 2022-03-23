@@ -1,0 +1,16 @@
+<?php
+
+$loc = PFS::getLoc();
+
+incCls("other/survey.php");
+
+$qiz = new survey();
+$qiz->reset($loc);
+
+?>
+
+<h4>Info</h4>
+
+<p>Ihre Eingabe wurde zurückgesetzt.</p>
+
+<p><a href="?btn.menu=I">Weiter</a></p>

@@ -1,0 +1,32 @@
+
+<?php
+
+$act = ENV::getParm("act"); if ($act) ENV::set("survey.who", uniqid());
+$usr = ENV::get("survey.who", uniqid());
+
+?>
+<br>
+<p>Umfrage-ID: <kbd><?php echo $usr; ?></kbd> <small>oder: <a href='?act=next'>Neuer Teilnehmer</a></small></p>
+
+<h4>Info</h4>
+
+<ul>
+<li>Es werden während der Eingabe keine Daten (permanent) gespeichert.</li>
+<li>Klicken Sie auf <a href="?btn.menu=U"><kbd>Fragen</kbd></a>, um mit der Eingabe zu beginnen.</li>
+<li>Nach der Eingabe können Sie die Daten für weitere Auswertungen speichern.</li>
+<li>Wenn Sie ihre Eingabe verwerfen wollen, drücken Sie auf <kbd><maroon>&cross;</maroon></kbd></li>
+</ul>
+
+
+<h4>Ergebnisse</h4>
+
+<ul>
+<li>Klicken Sie nach der Eingabe auf <kbd>Ergebnisse</kbd>, um den aktuellen Stand der Daten anzusehen.</li>
+</ul>
+
+
+<h4>Danke</h4>
+
+<p>Danke für Ihre Teilnahme!</p>
+
+<p align="right"><a href="?btn.menu=U">Zu den Fragen</a></p>

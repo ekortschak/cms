@@ -1,0 +1,12 @@
+[dic.de]
+tabs = Tabs
+tabs.toggle = Toggle tabs on and off
+tag.props = Eigenschaften
+unq.font = Schriftart
+unq.tab = Tab
+unq.tabset = TabSet
+
+title = Titel
+std = Standard
+uid = Uid*
+

@@ -1,0 +1,29 @@
+
+/* ******************************************************** */
+/* top navigation bar - single line */
+/* ******************************************************** */
+.regtabs {
+	display: inline-block;
+	overflow: hidden;
+	margin: 0px;
+	padding: 5px 0px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.regtabs a {
+	color: FC_DROP;
+	background: BC_DROP;
+	border-radius: 0px;
+#	padding: 7px 20px;
+    text-shadow: 1px 1px 2px grey;
+}
+.regtabs a:hover {
+	color: FC_MARK;
+	background: BC_MARK;
+	font-weight: normal;
+	text-decoration: none;
+}
+.regtabs a.active {
+	color: FC_MARK;
+	background: BC_MARK;
+}

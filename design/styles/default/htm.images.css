@@ -1,0 +1,27 @@
+/* ******************************************************** */
+/* images */
+/* ******************************************************** */
+img {
+	margin: 0px;
+	border: 0px;
+	vertical-align: middle;
+}
+img.flag {
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+}
+img.rgt {
+	text-align: right;
+	padding-left: 25px;
+}
+img.lft {
+	text-align: left;
+	padding-right: 15px;
+}
+
+.thumb {
+	display: inline-block;
+	margin: 0px 5px 3px;
+	width: 110px;
+}
+

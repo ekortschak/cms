@@ -1,0 +1,96 @@
+
+/* ******************************************************** */
+/* dropdown menus and other dropdown objects */
+/* ******************************************************** */
+.dropdown {
+	display: inline-block;
+}
+.dropdown:hover .dropdown-content {
+	z-index: 90;
+	display: block;
+}
+
+.dd-block {
+	display: block;
+}
+
+/* ******************************************************** */
+/* dropdown buttons */
+/* ******************************************************** */
+.dd-text {
+	padding: 5px 15px 0px 7px;
+}
+
+.dropdown-button {
+	display: inline-block;
+	border: 1px solid OUTLINE;
+	margin: 0px 7px 0px 0px;
+	padding: 0px 7px 0px 10px;
+}
+
+.dropdown-icon {
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+	padding: 4px 7px 1px;
+}
+.dropdown-stripes {
+	background: grey;
+	margin-bottom: 2px;
+	width: 20px;
+	height: 3px;
+}
+
+/* ******************************************************** */
+.dropdown-beam {
+	display: block;
+	height: 35px;
+	width: 100%;
+	color: FC_HEAD;
+	background: lightgrey linear-gradient(white, light-grey);
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	padding: 4px 7px 3px 10px;
+	font-size: 1.25em;
+	text-align: left;
+}
+.dropdown-beam::after {
+	float: right;
+	content: "▾";
+	font-size: 0.85em;
+	padding-left: 15px;
+	padding-right: 5px;
+}
+
+/* ******************************************************** */
+/* dropdown content */
+/* ******************************************************** */
+.dropdown-content {
+	max-height: 450px;
+	overflow: auto;
+
+	position: absolute;
+	display: none;
+	color: FC_DROP;
+	background: BC_DROP;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	min-width: 160px;
+	padding: 3px 7px;
+
+	font-weight: normal;
+}
+.dropdown-content a {
+	display: block;
+	color: FC_DROP;
+	padding: 0px 5px;
+	font-weight: normal;
+}
+.dropdown-content a:hover {
+	color: FC_MARK;
+	background: BC_MARK;
+}
+
+.dropdown-content h4 {
+	margin: 5px;
+}

@@ -1,0 +1,75 @@
+[dic.en]
+act.backup = Backup
+act.rename = Rename to
+act.restore = Restore
+act.show = Show
+act.sync = Mirror
+act.syncback = Fetch
+app.update = Update version
+ask.confirm = Confirmation required
+ask.sure = Sure?
+bkp.mode = Task
+bkp.report = Backup report
+dir.empty = Folder is empty ...
+dir.inaccessible = Check folder privileges: xxx
+dir.not readable = Cannot read folder: xxx
+dir.unknown = Folder unknown: xxx
+edit.deny = This feature is reserved fot the <b>localhost</b>!
+edit.none = File does not exist (yet)!
+file.denied = No write acces: xxx
+file.exists = File exists already: xxx
+file.inaccessible = Check file permissions: xxx
+file.lost = File is no longer available: xxx
+file.max_size = Max. size
+file.moved = File has been moved => xxx
+file.not copied = File has not been copied: xxx
+file.not processed = File has not been processed: xxx
+file.overwrite = Overwrite file
+file.pattern = File type
+file.unknown = File unknown: xxx
+file.upload = xxx file(s) have been uploaded
+grp.add = New group
+grp.create = Create new group
+grp.members = Group members
+mail.adresse = Mail address
+mail.check = Send test mail to TESTMASTER
+mail.con = Connection = xxx
+mail.failed = Cannot deliver mail !
+mail.force preview = Localhost => Mails will NOT be sent!
+mail.no message = Message is empty
+mail.no recipients = Missing recipient(s)
+mail.no sender = Missing sender
+mail.no subject = Missing subject
+mail.off = Mail is deactivated
+mail.register = Register
+mailing = Mailing
+mnu.unknown = Menu type unknown: xxx
+mod.vars = Optional modules
+nav.back = <a href="?">Back</a>
+nav.login = <a href="?vmode=login&btn.usr=L">login</a> now
+net.ip error = Missing IP address
+net.mac error = MAC addresse invalid: xxx
+no.data = No data
+no.effect = These settings have no effect
+no.restore = No backups have yet been created.
+node.new = Folder name
+not.appliccable = Not appliccable ...
+opt.dbg = Debug options
+opt.debug = Preview mode
+opt.feedback = Show form
+opt.ignore = Transfer page
+opt.overwrite = Overwrite existing file(s)
+opt.save = Save
+opt.tooltip = Tool tips
+opt.user = User optionen
+para = &para;
+search.sep = Search range
+sec.unknown = Template section not defined: xxx
+sort.by = Sort by
+sort.mode = Sort order
+tan.outdated = Transaction has timed out: 'xxx'
+tan.unknown = TAN: missing or processed already: 'xxx'
+tpc.desc = Abstract
+tpc.list = Topics
+tpc.select = Select a topic ...
+tpc.nodesc = No abstract available ...

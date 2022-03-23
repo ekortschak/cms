@@ -1,0 +1,26 @@
+@media only screen and (max-width: 1125px) {
+
+	html {
+		transform: scale(0.95);
+		transform-origin: top left;
+		height: 100vh;
+	}
+	.banner {  position: absolute; }
+	.modmenu { position: absolute; }
+}
+
+@media only screen and (max-width: 1025px) {
+	html { transform: scale(0.85); height: calc(100% / 0.85); }
+}
+@media only screen and (max-width: 925px) {
+	html { transform: scale(0.78); height: calc(100% / 0.78); }
+}
+@media only screen and (max-width: 825px) {
+	html { transform: scale(0.65); height: calc(100% / 0.65); }
+}
+@media only screen and (max-width: 725px) {
+	html { transform: scale(0.55); height: calc(100% / 0.55); }
+}
+@media only screen and (max-width: 625px) {
+	html { transform: scale(0.50); height: calc(100% / 0.50); }
+}

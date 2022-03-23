@@ -1,0 +1,61 @@
+/* ******************************************************** */
+/* tool bars */
+/* ******************************************************** */
+.toolbar {
+	z-index: 35;
+	position: relative;
+	margin: 0px 0px 3px;
+	vertical-align: middle;
+}
+
+.btnbar {
+	vertical-align: baseline;
+	background: linear-gradient(-1deg, #A2EA31, forestgreen 70%);
+	padding: 1px 0px 1px;
+	border-radius: 5px;
+}
+
+/* ******************************************************** */
+/* menu icon */
+/* ******************************************************** */
+.ibar {
+  width: 15px;
+  height: 3px;
+  background-color: FC_TOC;
+  margin: 2px 0px 1px;
+}
+
+.micon {
+	display: none;
+}
+
+/* ******************************************************** */
+/* buttons */
+/* ******************************************************** */
+button.icon {
+	min-width: 30px;
+	padding: 0px 7px;
+	vertical-align: baseline;
+}
+button.rose, .rose {
+	background: linear-gradient(#FCC, snow);
+}
+
+button.selected {
+	background: linear-gradient(white, snow);
+	font-weight: bold;
+}
+
+dmbtn {
+	display: inline-block;
+	color: FC_BODY;
+	background: linear-gradient(snow, lightgrey);
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+	font-size: 0.8em;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0px;
+	min-width: 30px;
+	height: 19px;
+}

@@ -1,0 +1,105 @@
+/* ******************************************************** */
+/* lookup info */
+/* ******************************************************** */
+refbox {
+	position: relative;
+	display: inline-block;
+	color: FC_HEAD;
+	text-decoration: underline dotted;
+}
+refbox:hover refbox-content {
+	display: block;
+}
+
+refbox-content {
+	z-index: 99;
+	position: absolute;
+	display: none;
+	overflow: auto;
+	color: FC_HINT;
+	background: BC_HINT;
+	font-weight: normal;
+	font-style: normal;
+	padding: 5px 10px 7px;
+	border: 1px solid OUTLINE;
+	border-radius: 12px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	text-align: left;
+#	white-space: nowrap;
+}
+
+refbox-content p {
+	text-align: left;
+}
+
+/* ******************************************************** */
+/* help symbol */
+/* ******************************************************** */
+.helpbox {
+	display: inline-block;
+	position: relative;
+	margin: -45px -7px 0px 0px;
+	float: right;
+	right: 0px;
+}
+.helpbox:hover .helpbox-content {
+	display: block;
+}
+
+.helpbox-button {
+	display: inline-block;
+	float: right;
+	right: 0px;
+	border: 0px;
+}
+.helpbox-content {
+	z-index: 30;
+	position: absolute;
+	right: 20px;
+	display: none;
+	color: FC_HINT;
+	background: BC_HINT;
+	padding: 10px 10px 3px;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	margin-top: 20px;
+	min-width: 575px;
+	padding: 25px;
+}
+
+/* ******************************************************** */
+/* help symbol */
+/* ******************************************************** */
+.readme {
+	display: inline-block;
+}
+.readme:hover .readme-content {
+	display: block;
+}
+.readme-button {
+	display: inline-block;
+	color: FC_BODY;
+	background: BC_BODY;
+	border: 1px solid OUTLINE;
+	width: 25px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 24px;
+	border-radius: 50%;
+}
+.readme-content {
+	position: absolute;
+	right: 50px;
+	display: none;
+	z-index: 30;
+	color: FC_HINT;
+	background: BC_HINT;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	width: calc(W_BODY - 200px);
+	margin: 3px 0px 0px;
+	padding: 3px 15px 0px;
+	text-align: left;
+}

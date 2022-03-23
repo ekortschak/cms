@@ -1,0 +1,11 @@
+[dic.en]
+tabs = Tabs
+tabs.toggle = Toggle tabs on and off
+tag.props = Properties
+unq.font = Font
+unq.tab = Tab
+unq.tabset = TabSetstd = Std*
+
+title = Title
+std = Default
+

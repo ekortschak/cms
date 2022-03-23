@@ -1,0 +1,24 @@
+[dic.de]
+check uids - ok = Überprüfung der UIDs - ok
+files.upload = Dateien hochladen
+msg.start = Start-Info
+page.props = Seiten-Eigenschaften
+tab.props = Tab-Eigenschaften
+menu.static = Menü ist eingefroren ...
+
+destination = Destination
+filetypes = Erweiterungen
+maxcnt = Max. Anzahl
+maxsize = Max. Größe
+
+files = Dateien
+typ = Typ*
+
+noprint = Noprint*
+
+meta = Meta*
+
+pbreak = Pbreak*
+
+head = Head*
+

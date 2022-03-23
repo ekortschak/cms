@@ -1,0 +1,42 @@
+
+/* ******************************************************** */
+/* sections */
+/* ******************************************************** */
+.selSection {
+	color: FC_HEAD;
+	font-style: italic;
+	vertical-align: bottom;
+	background: BC_PAGE;
+	border-radius: 7px;
+}
+.spacer {
+	border: 0px;
+}
+
+/* ******************************************************** */
+/* read only representation */
+/* ******************************************************** */
+.selHead {
+	white-space: nowrap;
+	padding: 5px 7px 0px;
+	vertical-align: middle;
+}
+.selData {
+	padding: 2px 0px 0px;
+	vertical-align: middle;
+}
+
+/* ******************************************************** */
+/* ratings */
+/* ******************************************************** */
+.rating {
+	width: 105px;
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+
+    background: url("CMS_URL/core/icons/input/rating.png") no-repeat top;
+}
+.ratImg {
+	margin: 2px 0px;
+	opacity: 100%;
+}

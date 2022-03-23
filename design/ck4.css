@@ -1,0 +1,1521 @@
+/* ******************************************************** */
+/* bible quotes */
+/* ******************************************************** */
+div.bq {
+	color: navy;
+	background-color: whitesmoke;
+
+	border: 1px solid #AAA;
+	border-radius: 10px;
+
+	margin: 0px 0px 12px;
+	padding: 7px 5px 5px 10px;
+}
+
+p.dc {
+	display: block;
+	margin: 0px 10px 7px 10px;
+	visibility: visible;
+}
+p.dc > b {
+	font-weight: normal;
+	border-radius: 4px;
+	background-color: Gold;
+	padding: 0px 2px;
+}
+@charset "UTF-8";
+
+/* ******************************************************** */
+/* css default */
+/* ******************************************************** */
+html {
+ 	background: white;
+	height: 100%;
+}
+
+body {
+	position: relative;
+	height: 100%;
+
+	font: 12pt normal normal Arial, DejaVu Sans;
+	color: black;
+	background: white no-repeat right top;
+
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+body.print {
+	margin: 25px 20px 75px;
+	width: 100%;
+}
+
+/* ******************************************************** */
+/* container */
+/* ******************************************************** */
+.container {
+	background: transparent;
+	padding: 0px 20px 35px;
+	overflow: visible;
+}
+.conToc  { padding: 15px 15px 35px; }
+.conDeco { padding:  0px 35px 35px; }
+
+/* ******************************************************** */
+/* panels */
+/* ******************************************************** */
+.modtabs {
+	overflow: hidden;
+	position: fixed;
+	height: 100%;
+    width: 45px;
+
+    color: navy;
+    background: rgb(238,238,238) url("/cms/img/tabs/pborder.png") repeat-y right;
+}
+
+.modtoc {
+	overflow: auto;
+	position: fixed;
+	left: 45px;
+	height: 100%;
+    width: 300px;
+
+	color: navy;
+	background: whitesmoke;
+}
+
+.modmbar {
+	overflow: hidden;
+	position: fixed;
+	left: calc(45px + 300px);
+	height: 100%;
+    width: 70px;
+
+    background: url("/cms/img/mbar/spirals.png") repeat-y;
+}
+
+.modbody {
+	overflow: auto;
+	position: fixed;
+	left: calc(45px + 300px + 70px);
+	height: 100%;
+	width: 693px;
+
+	font-size: 12pt;
+	color: black;
+    background: white;
+}
+.moddeco {
+	overflow: auto;
+	position: fixed;
+	left: calc(45px + 300px + 70px + 693px);
+	height: 100%;
+    width: calc(100% - 45px - 300px - 70px - 693px);
+    min-width: 300px;
+
+	color: black;
+    background: gainsboro url("/cms/img/deco/pborder.png") repeat-y;
+}
+/* ******************************************************** */
+/* standard tags */
+/* ******************************************************** */
+h1, h2, h3, h4, h5, h6 {
+	margin: 15px 0px 7px;
+	color: navy;
+}
+h4, hx {
+	border-bottom: 1px solid;
+}
+h5, h6, hy {
+	margin: 5px 0px 3px;
+
+	font-size: 1em;
+	font-weight: normal;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+hx, hy {
+	display: block;
+	font-size: 1em;
+	color: black;
+	margin-bottom: 5px;
+}
+
+.modtoc > h3 {
+	margin-top: 0px;
+}
+
+p {
+	margin: 3px 0px 7px;
+}
+b {
+    font-weight: bold;
+}
+
+/* ******************************************************** */
+/* images */
+/* ******************************************************** */
+img {
+	margin: 0px;
+	border: 0px;
+	vertical-align: middle;
+}
+img.flag {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+img.rgt {
+	text-align: right;
+	padding-left: 25px;
+}
+img.lft {
+	text-align: left;
+	padding-right: 15px;
+}
+
+.view {
+	width: 100%;
+}
+
+.thumb {
+	display: inline-block;
+	margin: 0px 5px 3px;
+	width: 110px;
+}
+
+/* ******************************************************** */
+/* anchors */
+/* ******************************************************** */
+a {
+	color: forestgreen;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:visited {
+#	color: #9FC700;
+}
+
+a.inactive {
+	color: grey;
+	background: ;
+	font-weight: normal;
+}
+
+a.norm {
+	color: black;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+/* ******************************************************** */
+/* sup sub */
+/* ******************************************************** */
+sup, sub {
+	font-size: 0.6em;
+}
+
+hr {
+	border: 0px;
+	padding: 0px;
+	height: 1px;
+	background: #AAA;
+}
+hr.low {
+	margin: 0px 0px 5px;
+}
+
+abbr {
+	margin: 0px;
+	padding: 0px;
+	color: black;
+	background: whitesmoke;
+}
+
+/* ******************************************************** */
+/* other */
+/* ******************************************************** */
+details {
+	display: inline-block;
+	cursor: pointer;
+}
+details-content {
+	display: inline-block;
+	margin: 0px 18px;
+	padding: 3px 10px 5px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+}
+/* ******************************************************** */
+/* editor styles */
+/* ******************************************************** */
+[contenteditable] {
+	outline: 0px solid transparent;
+}
+
+.inedit {
+	display: none;
+}
+.tarea {
+	display: block;
+	position: relative;
+	width: 100%;
+}
+.filename {
+	text-align: right;
+	margin-right: 7px;
+	padding: 0px 12px 1px;
+	min-width: 350px;
+}
+
+.hidden {
+	display: none;
+}
+
+/* ******************************************************** */
+/* preview window and frame */
+/* ******************************************************** */
+.cold {
+	overflow: auto;
+	border: 1px solid #AAA;
+	border-radius: 15px;
+	padding: 7px 15px 25px;
+	min-height: 25px;
+	max-height: 500px;
+}
+.hot {
+	overflow: auto;
+	border: 1px solid red;
+	border-radius: 15px;
+	padding: 7px 15px 25px;
+	min-height: 25px;
+	max-height: 500px;
+}
+
+.frmPreview {
+	display: block;
+	border: 0px;
+	width: 100%;
+	height: 450px;
+}
+/* ******************************************************** */
+/* images */
+/* ******************************************************** */
+img {
+	margin: 0px;
+	border: 0px;
+	vertical-align: middle;
+}
+img.flag {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+img.rgt {
+	text-align: right;
+	padding-left: 25px;
+}
+img.lft {
+	text-align: left;
+	padding-right: 15px;
+}
+
+.thumb {
+	display: inline-block;
+	margin: 0px 5px 3px;
+	width: 110px;
+}
+/* ******************************************************** */
+/* labels */
+/* ******************************************************** */
+label {
+	padding: 2px 10px 2px 7px;
+	background: linear-gradient(snow, lightgrey);
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+
+label.text {
+	background: transparent none;
+	border: 0px;
+}
+label.tr {
+	padding: 2px 3px;
+	background: transparent none;
+	border: 0px;
+	vertical-align: top;
+}
+
+label.red {
+	background: #FFC0CB none;
+	border: 1px solid #AAA;
+	cursor: pointer;
+}
+label.blue {
+	background: #D2EDEF none;
+	border: 1px solid #AAA;
+	cursor: pointer;
+}
+label.mauve {
+	background: #EBD2EB none;
+	border: 1px solid #AAA;
+	cursor: pointer;
+}
+label.upload {
+	display: inline-block;
+	color: #fff;
+	background: #5cb85c none;
+	border: 1px solid #AAA;
+
+	margin: -1px 0px 0px;
+	padding: 2px 12px;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 300px;
+}
+/* ******************************************************** */
+/* listings */
+/* ******************************************************** */
+ul, ol {
+	list-style-position: outside;
+	margin: 7px 0px 12px;
+	padding: 0px 15px;
+}
+ol {
+	padding: 0px 20px;
+}
+
+[draggable] {
+	background: linear-gradient(snow, lightgrey);
+	margin: 2px 0px;
+	padding: 3px 15px 3px 7px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	list-style: none;
+	user-select: none;
+}
+
+/* ******************************************************** */
+dl {
+	display: block;
+	border: 1px solid #AAA;
+	border-radius: 10px;
+
+	margin: 7px 0px 12px;
+	padding: 7px 15px 10px;
+}
+dt {
+    font-style: italic;
+	color: navy;
+}
+dd {
+    margin: 0px 15px 5px;
+}
+table {
+	font-size: 1em;
+	font-weight: normal;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.fullwidth {
+	background: rgb(238,238,238);
+	max-width: 693px;
+	overflow: auto;
+}
+
+/* ******************************************************** */
+/* rows */
+/* ******************************************************** */
+tr {
+	vertical-align: top;
+}
+
+tr.rh {
+	color: snow;
+	background: #05819C;
+	vertical-align: middle;
+}
+
+tr.rw                 { color: ; background: snow; }
+tr.rw:nth-child(odd)  { color: ;  background: #F0F0F0;  }
+tr.rw:hover           { color: ; background: #E6FFF4; }
+
+tr.rf {
+	color: ;
+	background: #E9E5E5;
+	vertical-align: middle;
+}
+
+/* ******************************************************** */
+/* cells */
+/* ******************************************************** */
+th {
+	color: snow;
+	background: #05819C;
+    text-align: left;
+	padding: 3px 5px 1px;
+}
+
+td {
+	margin: 0px;
+	padding: 0px 5px;
+}
+td.pre {
+	white-space: pre;
+	font-family: monospace;
+	font-size: 1em;
+}
+
+td.nopad {
+	padding: 0px;
+}
+/* ******************************************************** */
+/* simple color tags */
+/* ******************************************************** */
+white	{ color: white;	 }
+light	{ color: lightgrey;	}
+grey	{ color: grey;   }
+black	{ color: black;  }
+
+red     { color: red;	 }
+green	{ color: green;	 }
+blue	{ color: navy;	 }
+mauve	{ color: purple; }
+maroon	{ color: maroon; }
+
+tpl {
+	display: inline-block;
+	color: #AAA;
+	cursor: pointer;
+}
+
+small {
+	font-size: 0.75em;
+}
+
+blockquote {
+	margin: 3px 0px 12px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	padding: 5px 10px;
+}
+
+dfn {
+	color: purple;
+}
+
+kbd {
+	display: inline-block;
+	border: 1px solid black;
+	text-align: center;
+	border-radius: 7px;
+	padding: 1px 5px;
+	min-width: 12px;
+	font-size: 0.75em;
+}
+fnote {
+	color: red;
+	display: inline-block;
+	border: 1px solid black;
+	text-align: center;
+	padding: 1px 3px;
+	border-radius: 50%;
+	font-size: 0.75em;
+}
+
+mark, mark1, mark2, mark3, mark4, mark5 {
+#	background: gold;
+	border: 1px solid orange;
+	border-radius: 7px;
+	padding: 0px 5px;
+}
+markp {
+	background: yellow;
+	border: 0px;
+	padding: 0px 5px;
+}
+mark1 { background: yellow;  }
+mark2 { background: #FFE100; }
+mark3 { background: #E3FF00; }
+mark4 { background: #D5F7F7; }
+mark5 { background: #F7D8F7; }
+
+.pre {
+	overflow: auto;
+	font-family: Monospace;
+	font-size: 0.75em;
+	white-space: pre;
+	max-height: 150px;
+}
+/* ******************************************************** */
+/* info cards */
+/* ******************************************************** */
+.chip {
+    display: inline-block;
+    margin: 7px;
+    padding: 0px;
+    width: 500px;
+    border-radius: 35px;
+    background: whitesmoke;
+}
+
+.chip img {
+    float: left;
+    margin: 0px 35px 0px 0px;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+}
+
+.chip p {
+	padding: 10px;
+}
+/* ******************************************************** */
+/* lookup info */
+/* ******************************************************** */
+refbox {
+	position: relative;
+	display: inline-block;
+	color: navy;
+	text-decoration: underline dotted;
+}
+refbox:hover refbox-content {
+	display: block;
+}
+
+refbox-content {
+	z-index: 99;
+	position: absolute;
+	display: none;
+	overflow: auto;
+	color: black;
+	background: whitesmoke;
+	font-weight: normal;
+	font-style: normal;
+	padding: 5px 10px 7px;
+	border: 1px solid #AAA;
+	border-radius: 12px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	text-align: left;
+#	white-space: nowrap;
+}
+
+refbox-content p {
+	text-align: left;
+}
+
+/* ******************************************************** */
+/* help symbol */
+/* ******************************************************** */
+.helpbox {
+	display: inline-block;
+	position: relative;
+	margin: -45px -7px 0px 0px;
+	float: right;
+	right: 0px;
+}
+.helpbox:hover .helpbox-content {
+	display: block;
+}
+
+.helpbox-button {
+	display: inline-block;
+	float: right;
+	right: 0px;
+	border: 0px;
+}
+.helpbox-content {
+	z-index: 30;
+	position: absolute;
+	right: 20px;
+	display: none;
+	color: black;
+	background: whitesmoke;
+	padding: 10px 10px 3px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	margin-top: 20px;
+	min-width: 575px;
+	padding: 25px;
+}
+
+/* ******************************************************** */
+/* help symbol */
+/* ******************************************************** */
+.readme {
+	display: inline-block;
+}
+.readme:hover .readme-content {
+	display: block;
+}
+.readme-button {
+	display: inline-block;
+	color: black;
+	background: white;
+	border: 1px solid #AAA;
+	width: 25px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 24px;
+	border-radius: 50%;
+}
+.readme-content {
+	position: absolute;
+	right: 50px;
+	display: none;
+	z-index: 30;
+	color: black;
+	background: whitesmoke;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	width: calc(693px - 200px);
+	margin: 3px 0px 0px;
+	padding: 3px 15px 0px;
+	text-align: left;
+}
+/* ******************************************************** */
+/* debugging, error tracing, help messages */
+/* ******************************************************** */
+dbg, err, msg, code, php, .confirm {
+	z-index: 85;
+	color: navy;
+	background: whitesmoke;
+
+    vertical-align: middle;
+	display: inline-block;
+	max-width: 693px;
+
+	border: 1px solid #AAA;
+	border-radius: 10px;
+	margin: 0px;
+	padding: 2px 7px 3px;
+}
+php, code, dbg {
+	font-family: monospace;
+	font-size: 0.85em;
+	white-space: pre-wrap;
+}
+.err {
+	font-family: monospace;
+	font-size: 0.85em;
+}
+.err1 {
+	background: white;
+	border: 0px;
+	margin: 5px -6px 3px;
+	padding: 5px 6px 2px;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	font-family: monospace;
+	font-size: 0.85em;
+	color: grey;
+}
+
+.confirm {
+	padding: 10px 15px;
+	display: block;
+	border: 0px;
+}
+
+msg > ul {
+	margin: 0px;
+}
+
+/* ******************************************************** */
+trace {
+	background: transparent;
+	border: 0px;
+	padding: 0px;
+	font-size: 0.85em;
+}
+
+dbg  { color: maroon; }
+msg  { color: black;  background: rgb(255,240,230);  }
+err  { color: maroon; background: ; }
+hint { color: grey; background: ; font-size: 0.85em; font-style: normal; }
+
+/* ******************************************************** */
+code { overflow: auto; display: block; }
+
+/* ******************************************************** */
+/* info-button */
+/* ******************************************************** */
+.info {
+	display: inline-block;
+	color: navy;
+	background: white;
+	border: 1px solid #AAA;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	font-family: monospace;
+	font-weight: bold;
+}
+/* ******************************************************** */
+/* teaser banner */
+/* ******************************************************** */
+.teaser {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	overflow: hidden;
+	background: gainsboro;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.fader {
+	position: relative;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+}
+.fader img {
+	vertical-align: middle;
+	width: 1080px;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -25%;
+}
+.fader_x img.next {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+
+/* ******************************************************** */
+/* collection */
+/* ******************************************************** */
+.collection {
+	max-width: 100%;
+	min-height: 400px;
+	max-height: 400px;
+	background-position: center;
+	background-size: cover;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+}
+.tooltip {
+	z-index: 55;
+	position: relative;
+	display: inline-block;
+}
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+.dropdown:hover .tooltiptext {
+	visibility: visible;
+}
+
+.tooltipbox {
+	display: block;
+}
+
+.tooltiptext {
+	z-index: 55;
+	position: absolute;
+	visibility: hidden;
+
+	white-space: pre;
+	font-family: Monospace;
+
+	color: black;
+	background: rgb(238,238,238);
+	text-align: left;
+
+	padding: 7px 15px 12px;
+	border: 1px solid #AAA;
+	border-radius: 10px;
+	left: 10px;
+	top: 105%;
+
+	min-width: 350px;
+}
+
+/* ******************************************************** */
+/* tutorial */
+/* ******************************************************** */
+.tuthed {
+	color: white;
+	background-color: cadetblue;
+	padding: 5px 15px;
+
+	margin-bottom: 3px;
+	font-weight: bold;
+	border-radius: 7px;
+}
+.tutinf {
+	margin-bottom: 12px;
+}
+form {
+	margin: 2px 0px 15px;
+}
+
+/* ******************************************************** */
+/* input fields */
+/* ******************************************************** */
+input {
+	line-height: 22px;
+	color: ;
+	background: #FFFFE5;
+	padding: 0px 5px;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	font-size: 14px;
+	overflow: auto;
+}
+
+input[type='text'] {
+	height: 24px;
+}
+
+input[type='file'] {}
+
+input[type='checkbox'] {
+	display: inline-block;
+	margin: 0px 3px 0px 0px;
+	vertical-align: middle;
+}
+.cb { /* needed for js (toggling) */
+	vertical-align: middle;
+	padding: 0px 10px 1px 5px;
+}
+
+input[type='datetime-local'] { /* date input */
+	padding: 1px;
+}
+
+input[type='color'] { /* color input */
+	margin: 1px 0px 3px;
+}
+
+/* ******************************************************** */
+/* buttons */
+/* ******************************************************** */
+input[type='submit'] {
+	background: linear-gradient(snow, lightgrey);
+	padding: 0px 15px;
+	cursor: pointer;
+}
+
+input[type='button'], button, button.icon {
+	background: linear-gradient(snow, lightgrey);
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 3px 9px;
+#	vertical-align: middle;
+	height: 24px;
+	cursor: pointer;
+	min-width: 40px;
+}
+
+/* ******************************************************** */
+/* combo boxes */
+/* ******************************************************** */
+select {
+	background: rgb(238,238,238) url("/cms/core/icons/input/combodown.png") no-repeat right;
+
+	vertical-align: middle;
+	font-weight: normal;
+
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+
+	border: 1px solid #AAA;
+	border-radius: 5px;
+#	outline: none;
+
+	margin: 0px;
+	padding: 0px 15px 0px 1px;
+	min-width: 105px;
+	height: 24px;
+
+    cursor: pointer;
+}
+select::after {
+	content: "▾";
+#	padding: 3px 7px 0px 0px;
+}
+
+option {
+	line-height: 14px;
+	max-height: 14px;
+}
+
+/* ******************************************************** */
+/* textareas  */
+/* ******************************************************** */
+textarea {
+	background: white;
+	max-width: calc(693px - 10px);
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 5px 2px 5px 7px;
+
+	overflow: auto;
+}
+
+/* ******************************************************** */
+/* info */
+/* ******************************************************** */
+.comment { /* help text */
+	display: inline-block;
+	margin: 3px 0px 5px;
+	padding: 0px 7px;
+	vertical-align: middle;
+	font-size: 0.85em;
+}
+
+.ronly { /* data */
+	border: 1px solid cadetblue;
+	border-radius: 5px;
+	padding: 0px 5px;
+	min-width: 150px;
+	line-height: 22px;
+	font-size: 0.9em;
+	display: inline-block;
+	padding: 0px 5px;
+	vertical-align: middle;
+}
+/* ******************************************************** */
+/* sections */
+/* ******************************************************** */
+.selSection {
+	color: navy;
+	font-style: italic;
+	vertical-align: bottom;
+	background: whitesmoke;
+	border-radius: 7px;
+}
+.spacer {
+	border: 0px;
+}
+
+/* ******************************************************** */
+/* read only representation */
+/* ******************************************************** */
+.selHead {
+	white-space: nowrap;
+	padding: 5px 7px 0px;
+	vertical-align: middle;
+}
+.selData {
+	padding: 2px 0px 0px;
+	vertical-align: middle;
+}
+
+/* ******************************************************** */
+/* ratings */
+/* ******************************************************** */
+.rating {
+	width: 105px;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+
+    background: url("/cms/core/icons/input/rating.png") no-repeat top;
+}
+.ratImg {
+	margin: 2px 0px;
+	opacity: 100%;
+}
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.localmenu, .localicon {
+	z-index: 85;
+	display: block;
+	color: snow;
+	background: linear-gradient(-3deg, #80BFFF, navy 45%);
+	border: 1px solid navy;
+	border-width: 1px 0px;
+	border-radius: 7px;
+
+	font-weight: bold;
+	padding: 7px 0px 0px;
+	margin: 0px 0px 4px;
+}
+
+.localicon {
+	padding: 4px 0px 3px;
+}
+
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.topmenu {
+	z-index: 99;
+	position: relative;
+	display: inline-block;
+	background: #80BFFF;
+	background: linear-gradient(-2deg, navy, #80BFFF 50%, #80BFFF, #4D7FB2);
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.topmenu a {
+	color: snow;
+}
+.topmenu .active {
+	color: snow;
+	background: navy;
+}
+
+/* ******************************************************** */
+.topmenu-item {
+	display: inline-block;
+}
+.topmenu-item:hover .topmenu-content {
+	display: block;
+}
+
+/* ******************************************************** */
+.topmenu-button {
+	display: inline-block;
+	border: 0px;
+	padding: 7px 20px;
+	height: 19px;
+    text-shadow: 1px 1px 2px grey;
+#   border-radius: 10px 10px 0px 0px;
+    margin-right: 5px;
+}
+.topmenu-button:hover{
+	color: snow;
+	background: navy;
+}
+
+/* ******************************************************** */
+.topmenu-content {
+	z-index: 99;
+	position: absolute;
+	display: none;
+	color: black;
+	background: rgb(238,238,238);
+	font-weight: normal;
+	border: 1px solid #AAA;
+	border-radius: 0px 15px 15px 15px;
+  	padding: 3px 10px 10px;
+  	max-height: 400px;
+  	overflow: auto;
+}
+
+.topmenu-content a {
+	display: block;
+	padding: 3px 10px;
+	color: black;
+	font-size: 1.15em;
+	font-weight: normal;
+}
+
+.topmenu-content a:hover {
+	color: black;
+	background: gold;
+}
+/* ******************************************************** */
+/* tool bars */
+/* ******************************************************** */
+.toolbar {
+	z-index: 35;
+	position: relative;
+	margin: 0px 0px 3px;
+	vertical-align: middle;
+}
+
+.btnbar {
+	vertical-align: baseline;
+	background: linear-gradient(-1deg, #A2EA31, forestgreen 70%);
+	padding: 1px 0px 1px;
+	border-radius: 5px;
+}
+
+/* ******************************************************** */
+/* buttons */
+/* ******************************************************** */
+button.icon {
+	min-width: 30px;
+	padding: 0px 7px;
+	vertical-align: baseline;
+}
+button.rose, .rose {
+	background: linear-gradient(#FCC, snow);
+}
+
+button.selected {
+	background: linear-gradient(white, snow);
+	font-weight: bold;
+}
+
+dmbtn {
+	display: inline-block;
+	color: black;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	font-size: 0.8em;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 0.8em;
+	padding: 0px;
+	width: 40px;
+	line-height: 22px;
+	height: 24px;
+}
+/* ******************************************************** */
+/* dropdown menus and other dropdown objects */
+/* ******************************************************** */
+.dropdown {
+	display: inline-block;
+}
+.dropdown:hover .dropdown-content {
+	z-index: 90;
+	display: block;
+}
+
+.dd-block {
+	display: block;
+}
+
+/* ******************************************************** */
+/* dropdown buttons */
+/* ******************************************************** */
+.dd-text {
+	padding: 5px 15px 0px 7px;
+}
+
+.dropdown-button {
+	display: inline-block;
+	border: 1px solid #AAA;
+	margin: 0px 7px 0px 0px;
+	padding: 0px 7px 0px 10px;
+}
+
+.dropdown-icon {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 4px 7px 1px;
+}
+.dropdown-stripes {
+	background: grey;
+	margin-bottom: 2px;
+	width: 20px;
+	height: 3px;
+}
+
+/* ******************************************************** */
+.dropdown-beam {
+	display: block;
+	height: 35px;
+	width: 100%;
+	color: navy;
+	background: lightgrey linear-gradient(white, light-grey);
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	padding: 4px 7px 3px 10px;
+	font-size: 1.25em;
+	text-align: left;
+}
+.dropdown-beam::after {
+	float: right;
+	content: "▾";
+	font-size: 0.85em;
+	padding-left: 15px;
+	padding-right: 5px;
+}
+
+/* ******************************************************** */
+/* dropdown content */
+/* ******************************************************** */
+.dropdown-content {
+	max-height: 450px;
+	overflow: auto;
+
+	position: absolute;
+	display: none;
+	color: black;
+	background: rgb(238,238,238);
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	min-width: 160px;
+	padding: 3px 7px;
+
+	font-weight: normal;
+}
+.dropdown-content a {
+	display: block;
+	color: black;
+	padding: 0px 5px;
+	font-weight: normal;
+}
+.dropdown-content a:hover {
+	color: black;
+	background: gold;
+}
+
+.dropdown-content h4 {
+	margin: 5px;
+}
+/* ******************************************************** */
+/* top navigation bar - single line */
+/* ******************************************************** */
+.regtabs {
+	display: inline-block;
+	overflow: hidden;
+	margin: 0px;
+	padding: 5px 0px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+.regtabs a {
+	color: black;
+	background: rgb(238,238,238);
+	border-radius: 0px;
+#	padding: 7px 20px;
+    text-shadow: 1px 1px 2px grey;
+}
+.regtabs a:hover {
+	color: black;
+	background: gold;
+	font-weight: normal;
+	text-decoration: none;
+}
+.regtabs a.active {
+	color: black;
+	background: gold;
+}
+/* ******************************************************** */
+/* tabs */
+/* ******************************************************** */
+vtab {
+	display: block;
+	color: black;
+	background: gainsboro;
+
+	border-radius: 10px 0px 0px 10px;
+	border: 1px solid #AAA;
+	border-right: 0px;
+
+	width: 17px;
+	margin: 0px 0px 5px 14px;
+	padding: 15px 0px 15px 9px;
+
+	text-align: middle;
+
+	font-weight: normal;
+}
+vtab.active {
+	color: navy;
+	background: whitesmoke;
+#	border: 1px solid navy;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.vertical {
+	writing-mode: sideways-lr;
+	text-orientation: mixed;
+}
+
+.verticalMS {
+	transform: rotate(90deg);
+
+	-webkit-transform: rotate(-90deg); 	/* Safari */
+	-ms-transform: rotate(-90deg); 		/* IE */
+	-o-transform: rotate(-90deg); 		/* Opera */
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+.toc {
+	color: navy;
+	background: whitesmoke;
+
+	overflow: hidden;
+    line-height: 18px;
+	vertical-align: middle;
+
+	font-size: F_MENU;
+	white-space: nowrap;
+}
+.toc a {
+	color: navy;
+    text-decoration: none;
+    font-weight: normal;
+}
+.toc a.inactive {
+	color: grey;
+	background: ;
+}
+
+/* ******************************************************** */
+.mnuTopic {
+	margin: 7px 0px -7px;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+.mnu {} /* neded for javascript */
+
+/* ******************************************************** */
+/* toc hierarchy */
+/* ******************************************************** */
+.lev1 {
+	font-size: 1.2em;
+	background: rgb(238,238,238);
+	margin: 0px 0px 10px;
+	padding: 7px 7px 3px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+}
+.lev2 {
+	font-size: 1.05em;
+}
+
+.lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {
+	display: block;
+}
+
+.lev2 { background-position:  5px top; padding-left: 25px; }
+.lev3 { background-position: 15px top; padding-left: 35px; }
+.lev4 { background-position: 25px top; padding-left: 45px; }
+.lev5 { background-position: 35px top; padding-left: 55px; }
+.lev6 { background-position: 45px top; padding-left: 65px; }
+.lev7 { background-position: 55px top; padding-left: 75px; }
+.lev8 { background-position: 65px top; padding-left: 85px; }
+.lev9 { background-position: 75px top; padding-left: 95px; }
+
+/* ******************************************************** */
+/* folders */
+/* ******************************************************** */
+.dir {
+    background-image: url("/cms/img/menus/folder.gif");
+    background-repeat: no-repeat;
+}
+.dir a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ******************************************************** */
+/* files */
+/* ******************************************************** */
+.file {
+    background-image: url("/cms/img/menus/page.gif");
+    background-repeat: no-repeat;
+}
+.file a {
+	color: black;
+}
+.file a:hover {
+    text-decoration: underline;
+}
+
+.sel {
+	color: black;
+    background: gold;
+    border-radius: 5px;
+}
+
+.hidden > a {
+	color: grey;
+	background: ;
+}
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+topic {
+	display: block;
+	color: snow;
+	background: navy;
+	border: 1px solid #AAA;
+	border-radius: 13px;
+	margin: 0px 0px 7px;
+}
+
+topichead {
+	display: block;
+	cursor: hand;
+	color: snow;
+	padding: 7px 10px 5px 15px;
+}
+topichead::after {
+	content: "▾";
+	padding-right: 5px;
+	float: right;
+}
+
+topicdesc {
+	display: none;
+	color: black;
+	background: white;
+	font-weight: normal;
+	border: none;
+	border-radius: 0px 0px 10px 10px;
+	padding: 5px 15px;
+	color: black;
+}
+
+topic:hover topicdesc {
+	display: block;
+}
+pbr, .pbr {
+	page-break-after: always;
+}
+
+/* ******************************************************** */
+@media print {
+/* ******************************************************** */
+@page {
+	margin: 2cm 2cm 2.5cm;
+}
+
+body.print {
+	max-width: 950px;
+	margin: 0px;
+}
+
+h1, h2 {
+	page-break-after: avoid;
+	color: maroon;
+}
+
+h1 + h2 {
+#	page-break-before: initial;
+}
+
+h3, h4, h5, h6 {
+	page-break-after: avoid;
+	border: 0px;
+	text-decoration: none;
+}
+
+
+p {
+	widows: 3;
+	orphans: 2;
+}
+
+table {
+#	page-break-inside: avoid;
+	widows: 3;
+	orphans: 2;
+}
+
+.helpbox {
+	display: none;
+}

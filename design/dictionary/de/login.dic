@@ -1,0 +1,18 @@
+[dic.de]
+pwd.short = Passwort muß mindestens 6 Zeichen lang sein!
+unq.group = Gruppe
+usr.account = Benutzer
+usr.accounts = Benutzernamen
+usr.chg = Aktuellen Benutzer ändern
+usr.create = Neuen Benutzer anlegen
+usr.current = Sie sind derzeit angemeldet als "<b>CUR_USER</b>".
+usr.fail = Keine passenden User
+usr.group = Gruppe
+usr.groups = Gruppen
+usr.known = Benutzerkonto existiert bereits: 'xxx'
+usr.modify = Benutzer bearbeiten
+usr.name = Benutzername
+usr.pwd = user.pwd*
+usr.register = Registrieren
+usr.reset = This will (re-)define all mandatory user privileges ...
+usr.search = Suche nach

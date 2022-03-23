@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+/* ******************************************************** */
+/* css default */
+/* ******************************************************** */
+html {
+	background: BC_BODY;
+	height: 100%;
+}
+
+body {
+	position: relative;
+	height: 100%;
+
+	font: F_SIZE normal normal Arial, DejaVu Sans;
+	color: FC_BODY;
+	background: BC_BODY no-repeat right top;
+
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+body.print {
+	max-width: 950px;
+	margin: 25px 20px 35px;
+}
+
+/* ******************************************************** */
+/* panels */
+/* ******************************************************** */
+.modtabs {
+	overflow: hidden;
+    color: FC_TABS;
+    background: BC_TABS url("img/tabs/pborder.png") repeat-y right;
+    min-width: W_TABS;
+    max-width: W_TABS;
+    padding: 7px 0px 20px;
+}
+
+.modtoc {
+	overflow: auto;
+	color: FC_TOC;
+	background: BC_TOC;
+    min-width: W_TOC;
+    max-width: W_TOC;
+	padding: 15px 15px 35px;
+}
+
+.modmbar {
+	overflow: hidden;
+    background: url("img/mbar/spirals.png") repeat-y;
+    min-width: W_MBAR;
+    max-width: W_MBAR;
+}
+
+.modbody {
+	font-size: F_BODY;
+	color: FC_BODY;
+    background: BC_BODY;
+	min-width: W_BODY;
+	max-width: W_BODY;
+	padding: 15px 15px 35px;
+}
+.moddeco {
+	overflow: auto;
+	color: FC_DECO;
+    background: BC_DECO url("img/deco/pborder.png") repeat-y;
+
+    width: 100%;
+	padding: 0px 25px 15px 35px;
+}

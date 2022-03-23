@@ -1,0 +1,36 @@
+[dic.de]
+de.a = De.a*
+de.b = De.b*
+de.c = De.c*
+de.d = De.d*
+lang.target = Zielsprache
+pic.png = Pic.png*
+tag.leviticus = Leviticus*
+unq.snip = Extrasprop.[props] = [props]*input = Input*
+tab = Tab*
+energy = Energy*
+
+spirit = Spirit*
+
+person = Person*
+
+info = Info*
+
+www = Www*
+
+xdic.edot = Xdic.edot*
+
+target == source? = Target == source?*
+
+target (en) == source (de.php) ? = Target (en) == source (de.php) ?*
+
+target (en) == source (de) ? = Target (en) == source (de) ?*
+
+target (en) == source (en) ? = Target (en) == source (en) ?*
+
+target (en) == source (en.htm) ? = Target (en) == source (en.htm) ?*
+
+target (en) = source (en.htm) ? = Target (en) = source (en.htm) ?*
+
+target (en) = source (en.php) ? = Target (en) = source (en.php) ?*
+

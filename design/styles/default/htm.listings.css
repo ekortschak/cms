@@ -1,0 +1,39 @@
+
+/* ******************************************************** */
+/* listings */
+/* ******************************************************** */
+ul, ol {
+	list-style-position: outside;
+	margin: 7px 0px 12px;
+	padding: 0px 15px;
+}
+ol {
+	padding: 0px 20px;
+}
+
+[draggable] {
+	background: linear-gradient(snow, lightgrey);
+	margin: 2px 0px;
+	padding: 3px 15px 3px 7px;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	list-style: none;
+	user-select: none;
+}
+
+/* ******************************************************** */
+dl {
+	display: block;
+	border: 1px solid OUTLINE;
+	border-radius: 10px;
+
+	margin: 7px 0px 12px;
+	padding: 7px 15px 10px;
+}
+dt {
+    font-style: italic;
+	color: FC_HEAD;
+}
+dd {
+    margin: 0px 15px 5px;
+}

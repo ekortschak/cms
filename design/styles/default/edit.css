@@ -1,0 +1,52 @@
+/* ******************************************************** */
+/* editor styles */
+/* ******************************************************** */
+[contenteditable] {
+	outline: 0px solid transparent;
+}
+
+.inedit {
+	display: none;
+}
+.tarea {
+	display: block;
+	position: relative;
+	width: 100%;
+}
+.filename {
+	text-align: right;
+	margin-right: 7px;
+	padding: 0px 12px 1px;
+	min-width: 350px;
+}
+
+.hidden {
+	display: none;
+}
+
+/* ******************************************************** */
+/* preview window and frame */
+/* ******************************************************** */
+.cold {
+	overflow: auto;
+	border: 1px solid OUTLINE;
+	border-radius: 15px;
+	padding: 7px 15px 25px;
+	min-height: 25px;
+	max-height: 500px;
+}
+.hot {
+	overflow: auto;
+	border: 1px solid red;
+	border-radius: 15px;
+	padding: 7px 15px 25px;
+	min-height: 25px;
+	max-height: 500px;
+}
+
+.frmPreview {
+	display: block;
+	border: 0px;
+	width: 100%;
+	height: 450px;
+}

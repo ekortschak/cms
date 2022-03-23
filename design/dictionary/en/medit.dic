@@ -1,0 +1,17 @@
+[dic.en]
+check uids - ok = UID check - ok
+files.upload = Upload files
+msg.start = Start-Info
+page.props = Page proprties
+tab.props = Tab propertiesmenu.static = Menu.static*
+
+destination = Destination*
+
+filetypes = Filetypes*
+
+maxcnt = Maxcnt*
+
+maxsize = Maxsize*
+
+files = Files*
+

@@ -1,0 +1,38 @@
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+topic {
+	display: block;
+	color: FC_INFO;
+	background: BC_INFO;
+	border: 1px solid OUTLINE;
+	border-radius: 13px;
+	margin: 0px 0px 7px;
+}
+
+topichead {
+	display: block;
+	cursor: hand;
+	color: FC_INFO;
+	padding: 7px 10px 5px 15px;
+}
+topichead::after {
+	content: "▾";
+	padding-right: 5px;
+	float: right;
+}
+
+topicdesc {
+	display: none;
+	color: FC_BODY;
+	background: BC_BODY;
+	font-weight: normal;
+	border: none;
+	border-radius: 0px 0px 10px 10px;
+	padding: 5px 15px;
+	color: black;
+}
+
+topic:hover topicdesc {
+	display: block;
+}

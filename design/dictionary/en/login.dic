@@ -1,0 +1,18 @@
+[dic.en]
+pwd.short = Password must have at least 6 characters!
+unq.group = Group
+usr.account = Account
+usr.accounts = Accounts
+usr.chg = Change current user
+usr.create = Create new user
+usr.current = You are currently logged in as "<b>CUR_USER</b>".
+usr.fail = No matching accounts
+usr.group = Group
+usr.groups = Groups
+usr.known = Account exists already: 'xxx'
+usr.modify = Modify account
+usr.name = User name
+usr.pwd = Password
+usr.register = Register
+usr.reset = This will (re-)define all mandatory user privileges ...
+usr.search = Search for

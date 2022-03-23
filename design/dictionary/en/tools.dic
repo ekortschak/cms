@@ -1,0 +1,5 @@
+[dic.en]
+color.chroma = Saturation
+color.names = Named color
+color.set = Color palette
+color.unknown = Unknown color: xxx

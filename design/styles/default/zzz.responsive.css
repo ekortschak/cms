@@ -1,0 +1,35 @@
+@media only screen and (max-width: 1300px) {
+
+	html {
+		transform: scale(0.95);
+		transform-origin: top left;
+		height: calc(100% / 0.95);
+	}
+	.banner {  position: absolute; }
+	.modmenu { position: absolute; }
+}
+
+@media only screen and (max-width: 1275px) {
+	html { transform: scale(0.85); height: calc(100% / 0.85); }
+}
+@media only screen and (max-width: 1175px) {
+	html { transform: scale(0.78); height: calc(100% / 0.78); }
+}
+@media only screen and (max-width: 950px) {
+	html { transform: scale(0.70); height: calc(100% / 0.70); }
+	html { transform: scale(1); height: 100%; }
+	.micon { display: block; }
+	.modtoc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
+	.modmbar { display: none; }
+	.modbody { left: W_TABS; }
+	.moddeco { left: calc(W_TABS + W_BODY); }
+}
+
+/*
+@media only screen and (max-width: 975px) {
+	html { transform: scale(0-65); height: calc(100% / 0.65); }
+}
+@media only screen and (max-width: 875px) {
+	html { transform: scale(0.60); height: calc(100% / 0.60); }
+}
+*/

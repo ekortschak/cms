@@ -1,0 +1,96 @@
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+.toc {
+	color: FC_TOC;
+	background: BC_TOC;
+
+	overflow: hidden;
+    line-height: 18px;
+	vertical-align: middle;
+
+	font-size: F_MENU;
+	white-space: nowrap;
+}
+.toc a {
+	color: FC_TOC;
+    text-decoration: none;
+    font-weight: normal;
+}
+.toc a.inactive {
+	color: FC_DEAD;
+	background: BC_DEAD;
+}
+
+/* ******************************************************** */
+.mnuTopic {
+	margin: 7px 0px -7px;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+.mnu {} /* neded for javascript */
+
+/* ******************************************************** */
+/* toc hierarchy */
+/* ******************************************************** */
+.lev1 {
+	font-size: 1.2em;
+	background: BC_DROP;
+	margin: 0px 0px 10px;
+	padding: 7px 7px 3px;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+}
+.lev2 {
+	font-size: 1.05em;
+}
+
+.lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {
+	display: block;
+}
+
+.lev2 { background-position:  5px top; padding-left: 25px; }
+.lev3 { background-position: 15px top; padding-left: 35px; }
+.lev4 { background-position: 25px top; padding-left: 45px; }
+.lev5 { background-position: 35px top; padding-left: 55px; }
+.lev6 { background-position: 45px top; padding-left: 65px; }
+.lev7 { background-position: 55px top; padding-left: 75px; }
+.lev8 { background-position: 65px top; padding-left: 85px; }
+.lev9 { background-position: 75px top; padding-left: 95px; }
+
+/* ******************************************************** */
+/* folders */
+/* ******************************************************** */
+.dir {
+    background-image: url("CMS_URL/img/menus/folder.gif");
+    background-repeat: no-repeat;
+}
+.dir a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ******************************************************** */
+/* files */
+/* ******************************************************** */
+.file {
+    background-image: url("CMS_URL/img/menus/page.gif");
+    background-repeat: no-repeat;
+}
+.file a {
+	color: FC_BODY;
+}
+.file a:hover {
+    text-decoration: underline;
+}
+
+.sel {
+	color: FC_MARK;
+    background: BC_MARK;
+    border-radius: 5px;
+}
+
+.hidden > a {
+	color: FC_DEAD;
+	background: BC_DEAD;
+}

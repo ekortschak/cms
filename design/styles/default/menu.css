@@ -1,0 +1,95 @@
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.localmenu, .localicon {
+	z-index: 85;
+	display: block;
+	color: FC_INFO;
+	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
+	border: 1px solid navy;
+	border-width: 1px 0px;
+	border-radius: 7px;
+
+	font-weight: bold;
+	padding: 7px 0px 0px;
+	margin: 0px 0px 4px;
+}
+
+.localicon {
+	padding: 4px 0px 3px;
+}
+
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.topmenu {
+	z-index: 99;
+	position: relative;
+	display: inline-block;
+	background: BC_MENU;
+	background: linear-gradient(-2deg, BC_INFO, BC_MENU 50%, BC_MENU, #4D7FB2);
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.topmenu a {
+	color: FC_MENU;
+}
+.topmenu .active {
+	color: FC_INFO;
+	background: BC_INFO;
+}
+
+/* ******************************************************** */
+.topmenu-item {
+	display: inline-block;
+}
+.topmenu-item:hover .topmenu-content {
+	display: block;
+}
+
+/* ******************************************************** */
+.topmenu-button {
+	display: inline-block;
+	border: 0px;
+	padding: 7px 20px;
+	height: H_MENU;
+    text-shadow: 1px 1px 2px grey;
+#   border-radius: 10px 10px 0px 0px;
+    margin-right: 5px;
+}
+.topmenu-button:hover{
+	color: FC_INFO;
+	background: BC_INFO;
+}
+
+/* ******************************************************** */
+.topmenu-content {
+	z-index: 99;
+	position: absolute;
+	display: none;
+	color: FC_DROP;
+	background: BC_DROP;
+	font-weight: normal;
+	border: 1px solid OUTLINE;
+	border-radius: 0px 15px 15px 15px;
+  	padding: 3px 10px 10px;
+  	max-height: 400px;
+  	overflow: auto;
+}
+
+.topmenu-content a {
+	display: block;
+	padding: 3px 10px;
+	color: FC_BODY;
+	font-size: 1.15em;
+	font-weight: normal;
+}
+
+.topmenu-content a:hover {
+	color: FC_MARK;
+	background: BC_MARK;
+}

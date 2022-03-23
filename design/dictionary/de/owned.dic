@@ -1,0 +1,74 @@
+[dic.de]
+act.backup = Sichern
+act.rename = Umbenennen in
+act.restore = Wiederherstellen
+act.show = Anzeigen
+act.sync = Spiegeln
+act.syncback = Zurückholen
+app.update = Version aktualisieren
+ask.confirm = Bestätigung erforderlich
+ask.sure = Sicher?
+bkp.mode = Aufgabe
+bkp.report = Backup Bericht
+dir.empty = Ordner ist leer ...
+dir.inaccessible = Ordner-Berechtigungen überprüfen: xxx
+dir.not readable = Ordner kann nicht gelesen werden: xxx
+dir.unknown = Unbekannter Dateiordner: xxx
+edit.deny = Diese Funktion ist nur am <b>localhost</b> verfügbar.
+edit.none = Diese Datei gibt es (noch) nicht!
+file.denied = Kein Schreibzugriff: xxx
+file.exists = Datei besteht bereits: xxx
+file.inaccessible = Datei-Berechtigungen überprüfen: xxx
+file.lost = Datei ist nicht mehr verfügbar: xxx
+file.max_size = Max. Größe
+file.moved = Datei wurde verschoben => xxx
+file.not copied = Datei wurde nicht kopiert: xxx
+file.not processed = Datei wurde nicht verarbeitet: xxx
+file.overwrite = Datei überschreiben
+file.pattern = Dateityp
+file.unknown = Unbekannte Datei: xxx
+file.upload = xxx Datei(en) wurden hochgeladen
+grp.add = Neue Gruppe
+grp.create = Neue Gruppe anlegen
+grp.members = Mitglieder der Gruppe
+mail.adresse = Mail-Adresse
+mail.check = Test Mail an TESTMASTER
+mail.con = Verbindung = xxx
+mail.failed = Mail konnte nicht gesendet werden!
+mail.force preview = Localhost => Mails werden nicht verschickt!
+mail.no message = Nachricht ist leer
+mail.no recipients = Empfänger wurde nicht angegeben
+mail.no sender = Sender wurde nicht angegeben
+mail.no subject = Betreff wurde nicht angegeben
+mail.off = Mail ist deaktiviert
+mail.register = Benutzer Registrierung
+mailing = Mailing
+mnu.unknown = Unbekannter Menütyp: xxx
+mod.vars = Optionale Module
+nav.back = <a href="?">Zurück</a>
+nav.login = jetzt <a href="?vmode=login&btn.usr=L">anmelden</a>
+net.ip error = Es wurde keine IP Addresse angegeben.
+net.mac error = MAC Adresse ungültig: xxx
+no.data = Keine Daten
+no.effect = Diese Angaben sind wirkungslos
+no.restore = Es wurde noch kein Backup erstellt.
+node.new = Ordner Name
+not.appliccable = Nicht zutreffend ...
+opt.dbg = Debug-Options
+opt.debug = Vorschau-Modus
+opt.feedback = Formular anzeigen
+opt.ignore = Vollständige Seite übertragen
+opt.overwrite = Bestehende Datei(en) überschreiben
+opt.save = Speichern
+opt.tooltip = Tool-Tips
+opt.user = User-Optionen
+para = &para;
+search.sep = Suchumfang
+sec.unknown = Vorlagenabschnitt nicht definiert: xxx
+sort.by = Sortieren
+sort.mode = Reihung
+tan.outdated = Transaktion ist veraltet: 'xxx'
+tan.unknown = TAN: fehlend oder bereits verarbeitet: 'xxx'
+tpc.desc = Abstrakt
+tpc.list = Themen
+tpc.select = Wähle ein Thema ...

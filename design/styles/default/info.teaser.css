@@ -1,0 +1,46 @@
+
+/* ******************************************************** */
+/* teaser banner */
+/* ******************************************************** */
+.teaser {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	overflow: hidden;
+	background: BC_DECO;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.fader {
+	position: relative;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+}
+.fader img {
+	vertical-align: middle;
+	width: 1080px;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -25%;
+}
+.fader_x img.next {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+
+/* ******************************************************** */
+/* collection */
+/* ******************************************************** */
+.collection {
+	max-width: 100%;
+	min-height: 400px;
+	max-height: 400px;
+	background-position: center;
+	background-size: cover;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+}

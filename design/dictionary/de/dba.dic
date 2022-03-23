@@ -1,0 +1,87 @@
+[dic.de]
+access denied = Access denied*
+data.clean = Bereinigen
+db.con = Verbindung zur Datenbank = xxx
+db.dbase = Datenbank
+db.error = xxx
+db.field = Feld
+db.fields = Felder
+db.fperm = Rechte
+db.module = Fehlendes Datenbank Modul: 'xxx'
+db.mperm = Rechte
+db.objects = DB Objekte
+db.privs = Rechte
+db.table = Tabelle
+db.tables = Tabellen
+db.tperm = Rechte
+db.type unknown = DB-Type unbekannt: 'xxx'
+db.unknown = Unbekannte Datenbank: 'xxx'
+dbo.analize = Prüfe Datenbank
+dbo.check con = Prüfe DB-Verbindung
+dbo.check objects = Prüfe DB-Objekte
+dbo.check privs = Prüfe DB-Berechtigungen
+dbo.con = Verbindung = xxx
+dbo.reset = This will (re-)create all mandatory DB objects ...
+dbs.new = Neue Datenbank
+dbs.create = Erstelle Datenbank
+dbs.drop = Lösche Datenbank
+dbs.backup = Sicherung
+dbo.check admin = Dbo.check admin*
+dbs.rename = Db umbenennen
+dbs.new = Neue Datenbank
+dbs.known = Datenbank existiert bereits: 'xxx'
+
+tbl.access = Berechtigungen
+tbl.copy = Ausgewählte Tabelle kopieren
+tbl.create = Neue Tabelle erstellen
+tbl.fields = Feld
+tbl.known = Tabelle existiert bereits: 'xxx'
+tbl.list = Tabelle
+tbl.new = Neue Tabelle
+tbl.perms = Tabellen-Berechtigungen für Gruppe
+tbl.rename = Tabelle umbenennen
+tbl.sort = Daten sortieren
+tbl.trunc = Tabelle leeren
+tbl.unknown = Tabelle unbekannt: 'xxx'
+tbl.drop = Tabelle löschen
+tbl.empty = Tabelle 'xxx' ist leer oder fehlt überhaupt.
+
+fld.access = Feldzugang
+fld.copy = Feld kopieren
+fld.create = Neues Feld anlegen
+fld.decimals = Dezimalstellen
+fld.default = Vorgabewert
+fld.drop = Feld löschen
+fld.dvs = Eindeutige Werte
+fld.empty = Feld darf nicht leer sein: 'xxx'
+fld.format = Format
+fld.known = Feld existiert bereits: 'xxx'
+fld.length = Feldlänge
+fld.modify = Feld ändern
+fld.move = Feld verschieben
+fld.move after = Einordnen nach
+fld.name = Feldname
+fld.null = Darf leer sein
+fld.perms = Feld-Berechtigungen für Gruppe
+fld.props = Feldeigenschaften
+fld.rename = Feld umbenennen
+fld.type = Feldtyp
+fld.unknown = Feld unbekannt: 'xxx'
+fld.new = Neues Feld
+
+info.de = Info.de*
+lang.props = Sprachabhängige Eigenschaften
+
+tag.info = Info
+tag.done = Fertig
+
+unq.ugroup = Gruppen
+sortby = Sortierung
+where = Filterung
+change.to = Ändern zu
+unq.dbase = Datenbank
+new = Neu
+usr.drop = Benutzerkonto löschen
+
+
+

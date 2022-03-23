@@ -1,0 +1,45 @@
+
+/* ******************************************************** */
+/* tabs */
+/* ******************************************************** */
+vtab {
+	display: block;
+	color: FC_DROP;
+	background: BC_TABS;
+
+	border-radius: 10px 0px 0px 10px;
+	border: 1px solid OUTLINE;
+	border-right: 0px;
+
+	width: 17px;
+	margin: 0px 0px 5px 14px;
+	padding: 15px 0px 15px 9px;
+
+	text-align: middle;
+
+	font-weight: normal;
+}
+vtab.active {
+	color: FC_TOC;
+	background: BC_TOC;
+#	border: 1px solid navy;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.vertical {
+	writing-mode: sideways-lr;
+	text-orientation: mixed;
+}
+
+.verticalMS {
+	transform: rotate(90deg);
+
+	-webkit-transform: rotate(-90deg); 	/* Safari */
+	-ms-transform: rotate(-90deg); 		/* IE */
+	-o-transform: rotate(-90deg); 		/* Opera */
+
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
