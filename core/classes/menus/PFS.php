@@ -85,16 +85,14 @@ private static function import() {
 // ***********************************************************
 public static function readTree($dir = NV) {
 	if (self::import()) return;
-
 	if ($dir == NV) $dir = self::$dir;
-	$dir = APP::dir($dir); if (! $dir) return;
-	$vis = (EDITING == "view");
 
-	$nxt = self::readProps($dir);    if (! $nxt) return;
-	$arr = FSO::folders($dir, $vis); if (! $arr) return;
+	$dir = APP::dir($dir); if (! $dir) return;
+	$arr = FSO::folders($dir, ! IS_LOCAL);
+	self::readProps($dir);
 
     foreach ($arr as $dir => $nam) {
-        self::readTree($dir, $vis);
+        self::readTree($dir);
     }
 #	self::dump();
 }
@@ -236,19 +234,16 @@ public static function mnuInfo($index) {
 // ***********************************************************
 private static function mnuType($idx, $lev, $typ) {
 	if (EDITING == "view") {
-		if ($typ == "col")    return "file";
+#		if ($typ == "col") return "file";
 	}
-	if (  $lev < 2)           return "root";
-	if (! APP::folders($idx)) return "file";
-    if (  APP::find($idx))    return "both";
-    return "menu";
+	return self::getProp($idx, "mtype", false);
 }
 
 // ***********************************************************
 // handling properties
 // ***********************************************************
 private static function readProps($dir) { // single page info
-	$dir = APP::dir($dir); if (! is_dir($dir)) return;
+	$dir = APP::dir($dir); if (! is_dir($dir)) return false;
 	$idx = self::index($dir);
 
 	$ini = new ini($dir);
@@ -257,11 +252,15 @@ private static function readProps($dir) { // single page info
 	$uid = $ini->getUID();
 	$typ = STR::left($ini->get("props.typ"));
 
+	$lev = self::getLevel($idx);
+	$nxt = self::getMType($idx, $typ, $lev);
+
 	self::setPropVal($idx, "title", $tit);
 	self::setPropVal($idx, "uid",   $uid);
 	self::setPropVal($idx, "index", self::$cnt);
-	self::setPropVal($idx, "level", self::getLevel($idx));
 	self::setPropVal($idx, "sname", self::getStatic()); // for static output
+	self::setPropVal($idx, "level", $lev);
+	self::setPropVal($idx, "mtype", $nxt);
 	self::setPropVal($idx, "fpath", $idx);
 
 	foreach ($inf as $key => $val) {
@@ -270,18 +269,19 @@ private static function readProps($dir) { // single page info
 	self::$idx[] = $idx;
 	self::$uid[$uid] = $idx;
 
-	return self::hasFolders($typ);
+	return $nxt;
 }
 
-private static function hasFolders($typ) {
-	$chk = ( !STR::contains(".col.sur.", $typ));
+private static function getMType($dir, $typ, $lev) {
+	if (STR::contains(".col.sur.", $typ)) return "file"; // collections & surveys
+	if ($lev < 2) return "root";
 
-	if (EDITING == "medit") {
-		$btn = ENV::get("btn.menu"); if ($btn != "S") return true;
-		return $chk;
-	}
-	if (EDITING == "view") return $chk;
-	return true;
+	$fld = (bool) FSO::folders($dir, ! IS_LOCAL);
+	$fil = (bool) APP::find($dir);
+
+	if ($fld && $fil) return "both";
+	if ($fld) return "menu";
+	return "file";
 }
 
 

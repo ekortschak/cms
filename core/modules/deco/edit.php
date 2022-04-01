@@ -1,7 +1,7 @@
 <?php
 
 switch (APP_CALL) {
-	case "config.php": return $tpl->show("view");
+	case "config.php": return $tpl->show("config");
 	case "x.edit.php": break;
 	case "index.php":  break;
 	default: return;
@@ -37,18 +37,5 @@ if (is_file("config.php")) {
 	if (! $cfg->get("setup.edit")) $tpl->setSec("xedit");
 	$tpl->show("admin");
 }
-
-// ***********************************************************
-// one click options
-// ***********************************************************
-if (! is_file("x.edit.php")) return;
-
-incCls("menus/qikLink.php");
-
-echo "<p>";
-$qik = new qikLink();
-$qik->getVal("opt.tooltip", 0);
-$qik->show();
-echo "</p>";
 
 ?>

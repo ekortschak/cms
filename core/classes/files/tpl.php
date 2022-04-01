@@ -22,7 +22,7 @@ $lin = $tpl->getSection($nam)
 // ***********************************************************
 class tpl extends objects {
 	protected $sec = array();   // tpl sections
-	protected $hst = array();   // list of included files
+	private   $hst = array();   // list of included files
 
 function __construct() {
 	$this->read("design/templates/msgs/no.tpl.tpl");
@@ -34,8 +34,6 @@ function __construct() {
 // ***********************************************************
 public function read($file) {
 	$this->set("file", $file);
-
-LOG::write("tplcalls.log", $file);
 
 	$cod = new code();
 	$cod->read($file);
@@ -150,7 +148,7 @@ public function gc($sec = "main") {
 	$fil = end($this->hst);
 
 	$out = "<!-- $fil -->\n";;
-	$out.= $this->getHist(); // debug mode only
+#	$out.= $this->getHist(); // debug mode only
 	$out.= $this->getSection($sec);
 
 	if ($this->isSec($sec)) return $out;

@@ -92,14 +92,14 @@ protected function aggregate($data) { // prepare for webexec()
 	$out = array();
 
 	foreach ($data as $act => $lst) {
-		if ($act == "cpf") { // no bulk operations
+		if (STR::contains(".mkd.cpf.", $act)) { // no bulk operations
 			$out[$act] = $lst;
 			continue;
 		}
 		$arr = array(); $str = ""; $idx = 0;
 
 		foreach ($lst as $fso) {
-			if (strlen("$str\n$fso") < 2000) $str.= "$fso;";
+			if (strlen("$str;$fso") < 2000) $str.= "$fso;";
 			else {
 				$str = "$fso;";
 				$idx++;
@@ -173,8 +173,8 @@ protected function chkRename($arr) {
 		if ($src == $dst)    continue;
 
 		if ($typ == "d") {
-			$arr["mkd"] = VEC::drop($arr["mkd"], $src);
-			$arr["rmd"] = VEC::drop($arr["rmd"], $dst);
+			$arr["mkd"] = VEC::purge($arr["mkd"], $src);
+			$arr["rmd"] = VEC::purge($arr["rmd"], $dst);
 		}
 		else {
 			$arr["cpf"] = VEC::drop($arr["cpf"], $src);
@@ -207,6 +207,12 @@ protected function doExec() { // prepare for webexec()
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
+protected function mkDir($dst) { // single dir op
+	$pfx = $this->ftp->get("ftp.froot");
+	$dst = FSO::join($pfx, $dst);
+	return $this->ftp->remote_mkdir($dst);
+}
+
 protected function copy($src, $dst) { // single file op
 	if ($this->isProtected($src)) return false;
 
@@ -221,11 +227,11 @@ protected function fsRen($arr) { // bulk operation
 	$out = $this->webExec($cmd);
 	return intval($out);
 }
-protected function mkDir($arr) { // bulk operation
-	$cmd = $this->getUrl("mkd", $arr);
-	$out = $this->webExec($cmd);
-	return intval($out);
-}
+#protected function mkDir($arr) { // bulk operation
+#	$cmd = $this->getUrl("mkd", $arr);
+#	$out = $this->webExec($cmd);
+#	return intval($out);
+#}
 protected function rmDir($arr) { // bulk operation
 	$cmd = $this->getUrl("rmd", $arr);
 	$out = $this->webExec($cmd);

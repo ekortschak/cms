@@ -24,6 +24,7 @@ class sync extends objects {
 	protected $lst = array();	// list of verified destination dirs
 	protected $rep = array();   // transaction report
 	protected $ren = array();   // fso's without numbers
+	protected $drp = array();   // dirs to drop
 
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
@@ -106,7 +107,7 @@ protected function getNewer($src, $dst) {
 
 #dbg(count($src)."/".count($dst), "Files found on src/dst");
 
-	foreach ($src as $key => $itm) { // source - e.g. local files
+	foreach ($src as $itm) { // source - e.g. local files
 		$tmp = $this->split($itm); if (! $tmp) continue; extract($tmp);
 		$fso = STR::after($fso, $roots); if (! $fso) continue;
 
@@ -142,6 +143,8 @@ protected function getNewer($src, $dst) {
 		if ($md5s === $md5d) continue;
 
 		$act = $this->getAction($typs.$typd, $dats, $datd);
+		$act = $this->chkDrop($act, $fso);
+
 		if ($act == "x") continue;
 
 		$out[$act][] = $fso;
@@ -156,6 +159,13 @@ protected function chkCount($arr) {
 		if (! $itm) unset($arr[$key]);
 	}
 	return $arr;
+}
+
+protected function chkDrop($act, $fso) {
+	if (STR::misses(".rmd.dpf.", $act)) return $act;
+	if (STR::begins($fso, $this->drp))  return "x";
+	if ($act == "rmd") $this->drp[] = $fso;
+	return $act;
 }
 
 // ***********************************************************
@@ -218,14 +228,15 @@ protected function split($itm) {
 
 // ***********************************************************
 protected function report($head) {
-	HTM::tag($head); $blk = "ren.mkd.rmd.dpf";
+	HTM::tag($head); $blk = "ren.rmd.dpf";
 
 	$out = "<table>\n";
 
 	foreach ($this->rep as $key => $val) {
 		$inf = DIC::check("arr", $key);
-		$cat = "file(s)"; if (STR::contains($blk, $key))
-		$cat = "block(s)";
+		$cat = "file(s)";  if (STR::contains($blk, $key))
+		$cat = "block(s)"; if ($key == "mkd")
+		$cat = "dir(s)";
 
 		$out.= "<tr><td width=200>$inf</td><td align='right'>$val</td><td><hint>$cat</hint></td><tr>\n";
 	}

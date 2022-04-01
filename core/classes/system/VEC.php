@@ -93,11 +93,22 @@ public static function append($arr, $key, $value, $initVal = "", $glue = "") {
 }
 
 public static function drop($arr, $value) {
-	$out = array(); if (! $arr) return false;
+	$out = array(); if (! $arr) return $out;
 
-	foreach ($arr as $val) {
+	foreach ($arr as $key => $val) {
 		if ($val == $value) continue;
-		$out[] = $val;
+		if (is_numeric($key)) $out[] = $val;
+		else $out[$key] = $val;
+	}
+	return $out;
+}
+public static function purge($arr, $vals) {
+	$out = array(); if (! $arr) return $out;
+
+	foreach ($arr as $key => $val) {
+		if (STR::begins($val, $vals)) continue;
+		if (is_numeric($key)) $out[] = $val;
+		else $out[$key] = $val;
 	}
 	return $out;
 }

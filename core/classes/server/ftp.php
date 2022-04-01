@@ -61,6 +61,7 @@ public function connect() {
 	$erg = ftp_login($con, $usr, $pwd); if (! $erg) return false;
 	$xxx = ftp_raw($con, 'OPTS UTF8 ON');
 	$xxx = ftp_pasv($con, true);
+	$xxx = ftp_set_option($con, FTP_TIMEOUT_SEC, 5);
 
 	$this->con = $con;
 	return $con;
@@ -68,7 +69,10 @@ public function connect() {
 
 // ***********************************************************
 public function isProtected($fso) {
-	return in_array($fso, $this->prt);
+	foreach ($this->prt as $itm) {
+		if (STR::begins($fso, $itm)) return true;
+	}
+	return false;
 }
 
 public function test() {
@@ -92,13 +96,21 @@ public function test() {
 // ***********************************************************
 // remote operations
 // ***********************************************************
-public function remote_rmdir($dir) {
-	return (bool) ftp_rmdir($this->con, $dir);
-}
 public function remote_mkDir($dir) {
 	$dst = $this->chkChars($dir); if (! $dst) return false;
 	$erg = ftp_mkdir($this->con, $dst); if ($erg)
 	$xxx = ftp_site($this->con, "CHMOD 0755 $dst");
+	return (bool) $erg;
+}
+public function remote_rmdir($dir) {
+	$erg = ftp_rmdir($this->con, $dir);
+	return (bool) $erg;
+}
+
+// ***********************************************************
+public function remote_rename($old, $new) {
+	$dst = $this->chkChars($dir); if (! $dst) return false;
+	$erg = ftp_rename($this->con, $old, $new);
 	return (bool) $erg;
 }
 

@@ -78,6 +78,8 @@ private function getTree($dir, $mode = "std") {
 	$arr = FSO::fdtree($dir); $out = array("root" => $dir);
 
 	foreach ($arr as $fso => $nam) {
+		if (filesize($fso) < 1) continue; // 0 Byte files
+
 		if (! $fso) continue; $val = $this->getEntry($fso);
 		if (! $val) continue; $out[] = $val;
 	}

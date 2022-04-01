@@ -105,10 +105,10 @@ public static function copyDir($src, $dst) {
 	$dst = self::force($dir);
 	$cnt = 0; krsort($fso);
 
-	foreach ($fso as $src => $nam) {
-		$new = STR::after($src, $dst);
+	foreach ($fso as $fil => $nam) {
+		$new = STR::after($fil, $src);
 		$new = self::join($dst, $new);
-		$cnt+= self::copy($src, $new);
+		$cnt+= self::copy($fil, $new);
 	}
 	return $cnt;
 }

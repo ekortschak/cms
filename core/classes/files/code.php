@@ -21,7 +21,7 @@ $txt = $code->read($file);
 class code extends objects {
 	protected $sec = array(); // sections
 	protected $vrs = array(); // variables
-	protected $hst = array(); // file history
+	private   $hst = array(); // file history
 
 function __construct() {}
 

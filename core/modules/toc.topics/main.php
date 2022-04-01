@@ -11,6 +11,10 @@ incCls("menus/tabs.php");
 $tab = new tabs();
 $arr = $tab->getTopics();
 
+foreach ($arr as $key => $val) {
+	if (STR::contains($key, "~")) $arr[$key] = "# $val";
+}
+
 $box = new dbox();
 $box->getKey("tpc", $arr);
 $box->show("topic");

@@ -35,3 +35,17 @@ x.css.php = X.css.php*prop.[app] = [app]*timeout = Timeout*
 std = Std*
 title = Title*
 pwd = Pwd*
+cms = Cms*
+
+config/config.ini = Config/config.ini*
+
+config/mods.ini = Config/mods.ini*
+
+config/dbase.ini = Config/dbase.ini*
+
+new.dir = New.dir*
+
+dir.new = Dir.new*
+
+froot = Froot*
+

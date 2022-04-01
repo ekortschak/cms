@@ -143,7 +143,7 @@ public static function find($dir, $snip = "", $fext = false) {
 
 	foreach ($lgs as $lng) {
 		$ptn = FSO::join($dir, "$snip.$lng.*");
-		$arr = self::files($ptn, ""); if (! $arr) continue;
+		$arr = self::files($ptn, $fext, ! IS_LOCAL); if (! $arr) continue;
 		$fls = array();
 
 		foreach ($arr as $fil => $nam) {

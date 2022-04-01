@@ -21,11 +21,11 @@ class KONST {
 	private static $dat = array();
 
 public static function init() {
-	self::set("DIR_SEP", "/");
-	self::set("NV", "N/A");
-	self::set("HIDE", "~");
-	self::set("CUR_DATE", date("Y/m/d"));
-	self::set("CUR_YEAR", date("Y"));
+	define("DIR_SEP", "/");
+	define("NV", "N/A");
+	define("HIDE", "~");
+	define("CUR_DATE", date("Y/m/d"));
+	define("CUR_YEAR", date("Y"));
 
 	self::fixForced(); // constants set before config.ini
 	self::fixServer();
@@ -35,10 +35,12 @@ public static function init() {
 // appropriating server environment
 // ***********************************************************
 private static function fixForced() {
-	if (defined("SRV_ROOT")) self::$dat["SRV_ROOT"] = SRV_ROOT;
+	$arr = get_defined_constants(true);
+	$arr = $arr["user"];
 
-	if (defined("LAYOUT")) self::$dat["LAYOUT"] = LAYOUT;
-	if (defined("COLORS")) self::$dat["COLORS"] = COLORS;
+	foreach ($arr as $key => $val) {
+		self::$dat[$key] = $val;
+	}
 }
 
 private static function fixServer() {

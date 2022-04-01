@@ -9,7 +9,7 @@ class xsite {
 	protected $num = array(); // chapter numeration
 	protected $toc = array(); // tabel of contents
 	protected $nts = array(); // end notes
-	protected $hst = array(); // list of end note keys
+	private   $hst = array(); // list of end note keys
 
 	protected $lvl = 4;  // max depth of ToC (+ 1)
 	protected $dat = ""; // transformed string

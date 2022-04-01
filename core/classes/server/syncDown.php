@@ -59,6 +59,9 @@ protected function ask() {
 	return $cnf->act();
 }
 
+protected function aggregate($data) {
+	return $data; // no bulk ops on local system
+}
 
 // ***********************************************************
 // overwrite file actions

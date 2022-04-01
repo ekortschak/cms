@@ -44,7 +44,8 @@ public function remove($key) {
 }
 
 public function getTopics($dir = TAB_ROOT) {
-	$arr = FSO::folders($dir); $out = array();
+	$vis = (! IS_LOCAL);
+	$arr = FSO::folders($dir, $vis); $out = array();
 
 	foreach ($arr as $dir => $nam) {
 		$cap = HTM::pgeTitle($dir);

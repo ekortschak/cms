@@ -30,13 +30,13 @@ public static function beginning($haystack, $needle) {
 }
 
 public static function begins($haystack, $needle, $start = 0) {
-	$out = self::simplify($haystack, $needle); if (! $needle) return true;
+	$out = self::simplify($haystack, $needle); if (! $needle) return false;
 	$out = substr($out, $start, strlen(self::$sep));
 	return ($out == self::$sep);
 }
 
 public static function matches($haystack, $needle) {
-	$obj = new searchstring($haystack); if (! $needle) return true;
+	$obj = new searchstring($haystack); if (! $needle) return false;
 	return $obj->match($needle);
 }
 
@@ -51,7 +51,7 @@ public static function contains($haystack, $needle) {
 }
 
 public static function ends($haystack, $needle) {
-	$out = self::simplify($haystack, $needle); if (! $needle) return true;
+	$out = self::simplify($haystack, $needle); if (! $needle) return false;
 	$out = substr($out, -strlen(self::$sep));
 	return ($out == self::$sep);
 }
