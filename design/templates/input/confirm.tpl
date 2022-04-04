@@ -1,9 +1,11 @@
 [dic]
 confirm = Confirmation required
+check = Preview
 ok = YES, I want this now!
 
 [dic.de]
 confirm = Bestätigung erforderlich
+check = Preview
 ok = JA, genau das will ich jetzt!
 
 [vars]
@@ -11,6 +13,8 @@ tpl = sql
 tspace = 12
 bspace = 7
 link = ?
+
+button = <!DIC:ok!>
 
 
 # ***********************************************************
@@ -23,7 +27,7 @@ link = ?
 	<div class="confirm"><!VAR:items!></div>
 	<div class="rf" align="right">
 		<input type="hidden" name="oid" value="<!VAR:oid!>" />
-		<input type="submit" name="cnf.act" value="<!DIC:ok!>" />
+		<input type="submit" name="cnf.act" value="<!VAR:button!>" />
 	</div>
 </form>
 </div>
@@ -32,12 +36,32 @@ link = ?
 [main.item]
 <div><!VAR:msg!></div><nolf>
 
+
+# ***********************************************************
+[check]
+# ***********************************************************
+<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+<form method="post" action="?cnf.chk=1">
+
+	<div class="rh"><!DIC:confirm!></div>
+	<div class="confirm"><!VAR:items!></div>
+	<div class="rf" align="right">
+		<input type="hidden" name="oid" value="<!VAR:oid!>" />
+		<input type="submit" name="dummy" value="<!VAR:check!>" />
+	</div>
+</form>
+</div>
+
+[check.item]
+<div><!VAR:msg!></div><nolf>
+
+
 # ***********************************************************
 [done]
 # ***********************************************************
 <h5>Info</h5>
-<p>Pending action has been confirmed!</p>
+<p>Pending action has been executed!</p>
 
 [done.de]
 <h5>Info</h5>
-<p>Angefragte Aktion wurde bestätigt!</p>
+<p>Angefragte Aktion wurde ausgeführt!</p>

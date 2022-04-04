@@ -46,8 +46,8 @@ public function xfer($src = false, $dst = false) {
 	if ($dst) $this->dst = FSO::norm($dst, true);
 
 	switch ($this->ask()) {
-		case true: $this->doExec(); break;
-		default:   $this->doView();
+		case "done": $this->doExec(); break;
+		default:     $this->doView();
 	}
 }
 
@@ -57,6 +57,9 @@ protected function ask() {
 	$frm = DIC::get("from");
 
 	$cnf = new confirm();
+	$sec = "main"; if ($cnf->checked())
+	$sec = "check";
+
 	$cnf->head($msg);
 	$cnf->add("$frm $this->src");
 	$cnf->add("&rarr; <a href='http://$url' target='_blank'>$url</a>");

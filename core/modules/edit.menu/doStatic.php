@@ -3,27 +3,21 @@
 include_once("core/inc.css.php");
 
 // ***********************************************************
-HTM::tag("pfs.static");
-HTM::tag("pfs.info", "p");
-
-// ***********************************************************
-if (ENV::getPost("cnf_act")) {
+if (ENV::getPost("mnu_stat")) {
 	PFS::toggle();
 }
-
-switch (PFS::isStatic()) {
-	case true: $msg = "pfs.thaw"; break;
-	default:   $msg = "pfs.freeze";
-}
-
-$msg = DIC::get($msg);
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-$cnf = new confirm();
-$cnf->add($msg);
-$cnf->add("&rarr; ".TOP_PATH);
-$cnf->show();
+$sts = PFS::isStatic();
+$sec = "act.freeze"; if ($sts)
+$sec = "act.thaw";
+
+
+$tpl = new tpl();
+$tpl->read("design/templates/editor/mnuStat.tpl");
+$tpl->copy($sec, "act");
+$tpl->show();
 
 ?>

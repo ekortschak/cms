@@ -8,10 +8,24 @@ if (! is_dir(APP_FBK."core")) {
 	return MSG::now("cms.sync");
 }
 
-incCls("server/syncCms.php");
+// ***********************************************************
+$act = ENV::get("sync");
+$pnd = ENV::get("ftp.pend");
 
-$dir = __DIR__;
-include_once("$dir/syncCms.htm"); // warnings
+$snc = $act; if ($snc) $snc = 0; else $snc = 1;
+
+$tpl = new tpl();
+$tpl->read("design/templates/editor/mnuSync.tpl");
+$tpl->set("sync", $snc);
+$tpl->show("cms"); if ($snc)
+$tpl->copy("act.reset", "act");
+$tpl->show();
+
+if ($snc == 0) return;
+if ($act) ENV::set("ftp.pend", "act");
+
+// ***********************************************************
+incCls("server/syncCms.php");
 
 $ftp = new syncCms();
 $ftp->xfer();

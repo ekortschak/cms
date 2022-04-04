@@ -35,7 +35,7 @@ public static function init($dir = TOP_PATH) {
 	self::$dat = self::$uid = self::$idx = array();
 
 	self::$dir = self::norm($dir);
-	self::$fil = self::getMFile($dir);
+	self::$fil = FSO::join(self::$dir, "pfs.stat");
 	self::$cnt = 1;
 
 	self::readTree($dir);
@@ -54,17 +54,13 @@ public static function toggle() {
 	self::export();
 }
 
-private static function getMFile($dir) {
-	$lng = CUR_LANG;
-	$fil = FSO::join($dir, "$lng.pfs.stat");
-	return $fil;
+public static function isStatic() {
+	return is_file(self::$fil);
 }
 
-public static function isStatic($dir = TOP_PATH) {
-	$fil = self::getMFile($dir);
-	return is_file($fil);
-}
-
+// ***********************************************************
+// static menues
+// ***********************************************************
 private static function export() {
 	$dat = var_export(self::$dat, true);
 	$uid = var_export(self::$uid, true);
@@ -77,6 +73,7 @@ private static function import() {
 	if (  EDITING != "view")   return false;
 	if (! is_file(self::$fil)) return false;
 	include_once(self::$fil);
+
 	return count(self::$dat);
 }
 
@@ -126,6 +123,16 @@ public static function getTree($index) {
 }
 
 // ***********************************************************
+public static function setLang($lang) {
+	$lang = LNG::find($lang);
+
+	foreach (self::$dat as $uid => $prp) {
+		$prp["title"] = $prp["$lang.title"];
+		self::$dat[$uid] = $prp;
+	}
+}
+
+// ***********************************************************
 public static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
@@ -167,6 +174,8 @@ public static function getType($index = NV) {
 	return STR::left($out);
 }
 public static function getTitle($index = NV) {
+	$lng = CUR_LANG;
+	$out = self::getProp($index, "$lng.title"); if ($out) return $out;
 	return self::getProp($index, "title", $index);
 }
 public static function getHead($index = NV) {
@@ -220,12 +229,12 @@ public static function mnuInfo($index) {
 		"title" => self::getTitle($idx),
 		"head"  => self::getHead($idx),
 		"uid"   => self::getProp($idx, "uid"),
+		"sname" => self::getProp($idx, "sname"),
 		"fpath" => self::getPath($idx),
 		"plink" => self::getLink($idx),
 		"level" => $lev,
 		"dtype" => $typ,
 		"mtype" => self::mnuType($idx, $lev, $typ),
-		"sname" => self::getProp($idx, "sname"),
 		"grey"  => self::refType($idx)
 	);
 	return $out;
@@ -258,10 +267,10 @@ private static function readProps($dir) { // single page info
 	self::setPropVal($idx, "title", $tit);
 	self::setPropVal($idx, "uid",   $uid);
 	self::setPropVal($idx, "index", self::$cnt);
-	self::setPropVal($idx, "sname", self::getStatic()); // for static output
 	self::setPropVal($idx, "level", $lev);
 	self::setPropVal($idx, "mtype", $nxt);
 	self::setPropVal($idx, "fpath", $idx);
+	self::setPropVal($idx, "sname", self::getStatic()); // for static output
 
 	foreach ($inf as $key => $val) {
 		self::setPropVal($idx, $key, $val);

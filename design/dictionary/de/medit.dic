@@ -24,3 +24,5 @@ head = Head*
 
 path = Path*
 
+dir.state = Dir.state*
+

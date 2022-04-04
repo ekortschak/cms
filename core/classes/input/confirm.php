@@ -25,6 +25,7 @@ if ($cnf->act()) ...
 // ***********************************************************
 class confirm extends tpl {
 	private $msg = array();
+	private $val = "done";
 
 function __construct() {
 	parent::__construct();
@@ -46,6 +47,11 @@ public function add($msg) {
 	$this->msg[] = trim($msg);
 }
 
+public function button($msg, $value) {
+	$this->set("button", DIC::get($msg));
+	$this->val = $value;
+}
+
 // ***********************************************************
 // output
 // ***********************************************************
@@ -63,10 +69,16 @@ public function gc($sec = "main") {
 	return $this->getSection($sec);
 }
 
+// ***********************************************************
 public function act() {
-	$oid = $this->get("oid");
-	$vgl = ENV::getPost("oid");	if (! $vgl) return false;
-	return ENV::getPost("cnf_act");
+	$vgl = ENV::getPost("oid");	    if (! $vgl) return false;
+	$act = ENV::getPost("cnf_act"); if (! $act) return false;
+	return $this->val;
+}
+public function checked() {
+	$vgl = ENV::getPost("oid");	    if (! $vgl) return false;
+	$act = ENV::getPost("cnf_chk"); if (! $act) return false;
+	return true;
 }
 
 // ***********************************************************
