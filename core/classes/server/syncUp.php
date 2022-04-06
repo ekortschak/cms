@@ -95,6 +95,8 @@ protected function aggregate($data) { // prepare for webexec()
 	$out = array();
 
 	foreach ($data as $act => $lst) {
+		if (! is_array($lst)) continue;
+
 		if (STR::contains(".mkd.cpf.", $act)) { // no bulk operations
 			$out[$act] = $lst;
 			continue;

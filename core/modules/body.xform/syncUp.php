@@ -5,20 +5,19 @@ if (FTP_MODE == "none") {
 }
 
 // ***********************************************************
-$act = ENV::get("sync");
-$pnd = ENV::get("ftp.pend");
-
-$snc = $act; if ($snc) $snc = 0; else $snc = 1;
+$snc = ENV::get("sync", 0);
+$snc = $act = (bool) $snc; $snc = ! $snc;
 
 $tpl = new tpl();
 $tpl->read("design/templates/editor/mnuSync.tpl");
 $tpl->set("sync", $snc);
-$tpl->show("info"); if ($snc)
+$tpl->show("info"); if ($act)
 $tpl->copy("act.reset", "act");
 $tpl->show();
 
-if ($snc == 0) return;
-if ($act) ENV::set("ftp.pend", "act");
+if (! $act) return;
+
+ENV::set("ftp.pend", "act");
 
 // ***********************************************************
 incCls("server/syncUp.php");
