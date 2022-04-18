@@ -90,7 +90,7 @@ Das schließt auch die Konfigurationsdateien ein, denn das CMS-Verzeichnis selbs
 <p>Diese Funktion ersetzt ihr aktuelles CMS durch die neueste Version.<br>
 Dadurch kann es zu Problemen kommen.</p>
 
-<p><red>Sichern Sie vor dem Update ihr aktuelles Systems!</red></p>
+<p><red>Sichern Sie vor dem Update ihr aktuelles System!</red></p>
 
 
 

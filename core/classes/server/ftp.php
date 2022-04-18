@@ -141,7 +141,7 @@ public function remote_put($src, $dst) {
 public function save($src, $dst) {
 	$tim = ftp_mdtm($this->con, $src); if ($tim < 1) return false;
 	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
-	touch ($dst, $tim);
+	if ($tim > 1) touch ($dst, $tim);
 	return $erg;
 }
 

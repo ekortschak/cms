@@ -5,6 +5,7 @@ if (FTP_MODE == "none") {
 }
 
 // ***********************************************************
+$pnd = ENV::get("ftp.pend");
 $snc = ENV::get("sync", 0);
 $snc = $act = (bool) $snc; $snc = ! $snc;
 
@@ -16,8 +17,7 @@ $tpl->copy("act.reset", "act");
 $tpl->show();
 
 if (! $act) return;
-
-ENV::set("ftp.pend", "act");
+if (! is_array($pnd)) ENV::set("ftp.pend", "act");
 
 // ***********************************************************
 incCls("server/syncDown.php");

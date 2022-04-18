@@ -15,12 +15,12 @@ $pub->xfer();
 */
 
 incCls("input/confirm.php");
-incCls("server/syncUp.php");
+incCls("server/syncDown.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class syncCms extends syncUp {
+class syncCms extends syncDown {
 
 function __construct() {
 	parent::__construct();
@@ -28,15 +28,14 @@ function __construct() {
 	$this->src = ".";
 	$this->dst = APP_FBK;
 
-	$this->read("config/ftp_cms.ini");
+	$this->ftp->read("$this->dst/config/ftp_cms.ini");
 }
 
 // ***********************************************************
 // acting
 // ***********************************************************
 protected function ask() {
-#	$url = $this->ftp->get("web.url");
-	$url = "cms.glaubeistmehr.at";
+	$url = $this->ftp->get("web.url");
 	$msg = DIC::get("cms.update");
 	$frm = DIC::get("from");
 
@@ -56,7 +55,7 @@ protected function getTree($src, $dst) {
 	$src = $this->webList($src); if (! $src) return false;
 	$dst = $this->getList($dst); if (! $dst) return false;
 	$out = $this->getNewer($src, $dst);
-	$out = $this->filter($out);
+#	$out = $this->filter($out);
 	$out = $this->chkCount($out);
 	return $out;
 }
@@ -72,17 +71,6 @@ protected function filter($lst) {
 		}
 	}
 	return $out;
-}
-
-// **********************************************************
-// executing retrieved data
-// **********************************************************
-public function download() {
-	$this->exec($this->src, $this->dst);
-}
-
-protected function copy($src, $dst) {
-	return $this->ftp->save($src, $dst);
 }
 
 // ***********************************************************

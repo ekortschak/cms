@@ -70,8 +70,8 @@ public static function noFile() {
 public static function csv($file, $sep = ";") {
 	incCls("files/csv.php");
 
-	$loc = ENV::getPage();
-	$fil = STR::replace($file, "./", "$loc/");
+	$pge = ENV::getPage();
+	$fil = STR::replace($file, "./", "$pge/");
 
 	$csv = new csv($sep);
 	$csv->read($fil);

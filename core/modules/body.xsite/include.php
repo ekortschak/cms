@@ -1,8 +1,8 @@
 <?php
 
-$loc = ENV::getPage();
+$pge = ENV::getPage();
 
-$txt = APP::gc($loc);
+$txt = APP::gc($pge);
 $arr = APP::files("lookup");
 
 if ($arr) {

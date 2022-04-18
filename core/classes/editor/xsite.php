@@ -24,7 +24,7 @@ function __construct($cnt = 3) {
 // read all ini files
 // ***********************************************************
 public function read($pfs) {
-	$pge = ENV::getPage(); // back up current page
+	$pge = ENV::getPage(); // backup current page
 	$skp = $old = ""; $cnt = 0;
 
 	foreach($pfs as $dir => $nam) {

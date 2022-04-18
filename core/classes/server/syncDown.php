@@ -68,26 +68,50 @@ protected function aggregate($data) {
 // ***********************************************************
 protected function copy($src, $dst) { // single file op
 	if ($this->isProtected($dst)) return false;
-
 	$pfx = $this->ftp->get("ftp.froot");
-	$src = FSO::join($pfx, $dst);
+
+	$src = FSO::clearRoot($src);
+	$src = FSO::join($pfx, $src);
+	$dst = $this->destName($dst);
+
 	return $this->ftp->save($src, $dst);
 }
 
 // ***********************************************************
 protected function fsRen($fso) {
 	$prp = explode("|", $fso); if (count($prp) < 3) return false;
-	return (bool) FSO::rename($prp[1], $prp[2]);
+
+	$src = $this->lclName($fso);
+	$dst = $this->destName($fso);
+
+	return (bool) FSO::rename($src, $dst);
 }
 
 protected function mkDir($dst) {
+	$dst = $this->destName($dst);
 	return (bool) FSO::force($dst);
 }
 protected function rmDir($dst) {
+	$dst = $this->destName($dst); if ($dst == APP_DIR) return false;
 	return (bool) FSO::rmDir($dst);
 }
 protected function kill($dst)  {
+	$dst = $this->destName($dst);
 	return (bool) FSO::kill($dst);
+}
+
+// ***********************************************************
+protected function lclName($fso) {
+	if (! $fso) return false; $src = $this->src; if ($dst == ".") $dst = APP_DIR;
+	if (STR::begins($fso, $src)) return $fso;
+	$src = FSO::join($src, $fso);
+	return $src;
+}
+protected function destName($fso) {
+	if (! $fso) return false; $dst = $this->dst; if ($dst == ".") $dst = APP_DIR;
+	if (STR::begins($fso, $dst)) return $fso;
+	$dst = FSO::join($dst, $fso);
+	return $dst;
 }
 
 // ***********************************************************

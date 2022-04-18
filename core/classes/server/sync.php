@@ -139,7 +139,7 @@ protected function getNewer($src, $dst) {
 		$md5d = VEC::get($prp, "md5d", 0);
 		$datd = VEC::get($prp, "datd", 0);
 
-		if ($typs == "f") // check if files are identical
+#		if ($typs == "f") // check if files are identical
 		if ($md5s === $md5d) continue;
 
 		$act = $this->getAction($typs.$typd, $dats, $datd);

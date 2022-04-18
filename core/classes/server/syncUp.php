@@ -71,7 +71,7 @@ protected function ask() {
 // ***********************************************************
 // synching to server (= upload)
 // ***********************************************************
-protected function doView() { // upload newer files
+protected function doView() { // xfer newer files
 	$this->ftp->connect();
 
 	$arr = $this->getTree($this->src, $this->dst); if (! $arr) return MSG::now("do.nothing");
