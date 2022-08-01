@@ -30,10 +30,10 @@ public static function init() {
 		case "medit": return self::execute("mnuEdit");
 		case "pedit": return self::execute("genEdit");
 	}
-	if (VEC::get($_POST, "val_dbo") == "dboEdit") {
+	if (ENV::getPost("val_dbo") == "dboEdit") {
 		return self::execute("dboEdit");
 	}
-	if (VEC::get($_POST, "val_user") == "usrEdit") {
+	if (ENV::getPost("val_user") == "usrEdit") {
 		return self::execute("usrEdit");
 	}
 	if ($_FILES) {
@@ -52,9 +52,9 @@ private static function execute($fnc) {
 }
 
 private static function fileUpload() { // upload any file to $dir
-	$act = VEC::get($_POST, "opt_act"); if ($act != "upload") return;
-	$ovr = VEC::get($_POST, "opt_overwrite");
-	$dir = VEC::get($_POST, "val_dest");
+	$act = ENV::getPost("opt_act"); if ($act != "upload") return;
+	$ovr = ENV::getPost("opt_overwrite");
+	$dir = ENV::getPost("val_dest");
 
 	incCls("server/upload.php");
 

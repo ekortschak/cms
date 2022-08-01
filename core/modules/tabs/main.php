@@ -2,16 +2,12 @@
 
 incCls("menus/tabs.php");
 
-$qid = "deco"; if (! IS_LOCAL)
-$qid = "online";
-
 // ***********************************************************
 // read mods.ini
 // ***********************************************************
-$cfg = new ini("config/mods.ini");
-$vis = $cfg->get("tabs.show", 1); if (! $vis) return;
-$edt = $cfg->get("$qid.tedit", 0);
-$sch = $cfg->get("tabs.glass", 1);
+$vis = CFG::getVar("mods", "tabs.show", 1); if (! $vis) return;
+$edt = CFG::getVar("mods", "tabs.tedit", 0);
+$sch = CFG::getVar("mods", "tabs.search", 1);
 
 $stc = ENV::get("output"); if ($stc == "static") return;
 

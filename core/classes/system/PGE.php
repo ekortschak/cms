@@ -19,11 +19,14 @@ public static function init() {
 	$tpc = self::getTopic($tab, $typ);
 	$pge = self::getPage($tpc);
 
-	KONST::set("TOP_PATH", $tpc);
-	KONST::set("TAB_ROOT", APP::dir($tab.DIR_SEP));
-	KONST::set("TAB_PATH", APP::dir($tpc.DIR_SEP));
-	KONST::set("CUR_TAB",  FSO::clearRoot($tpc));
-	KONST::set("TAB_TYPE", $typ);
+	if ($typ != "select") {
+		$tab = $tpc;
+	}
+	CFG::set("TOP_PATH", $tpc);
+	CFG::set("TAB_ROOT", APP::dir($tab.DIR_SEP));
+	CFG::set("TAB_PATH", APP::dir($tpc.DIR_SEP));
+	CFG::set("CUR_TAB",  FSO::clearRoot($tpc));
+	CFG::set("TAB_TYPE", $typ);
 
 	ENV::set("tab.$idx", $tab);
 	ENV::set("tpc.$tab", $tpc);
@@ -34,9 +37,8 @@ public static function init() {
 // auxilliary methods
 // ***********************************************************
 private static function getTab() {
-	$tab = ENV::getParm("tpc"); if ($tab) {
-		$arr = explode(DIR_SEP, $tab); if (count($arr) > 2) array_pop($arr);
-		return implode(DIR_SEP, $arr);;
+	$tpc = ENV::getParm("tpc"); if ($tpc) {
+		return dirname($tpc);
 	}
 	$tab = ENV::getParm("tab");      if ($tab) return $tab;
 	$tab = ENV::get("tab.".APP_IDX); if ($tab) return $tab;
@@ -65,8 +67,7 @@ private static function getTopic($tab, $typ) {
 	$tpc = ENV::getParm("tpc");  if ($tpc) return $tpc;
 	$tpc = ENV::get("tpc.$tab"); if ($tpc) return $tpc;
 
-	if ($typ != "select")
-	return $tab;
+	if ($typ != "select") return $tab;
 	return FSO::join($tab, self::$tpc);
 }
 
@@ -76,7 +77,8 @@ private static function getPage($tab) {
 	$pge = ENV::get("pge.$tab");   if ($pge) return $pge;
 
 	$ini = new ini("$tab/tab.ini");
-	return $ini->get("props.std");
+	$pge = $ini->get("props.std");
+	return $pge;
 }
 
 // ***********************************************************

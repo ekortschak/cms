@@ -51,7 +51,7 @@ public static function sql($msg, $sql) {
 // ***********************************************************
 public static function last() {
 	$err = error_get_last(); if (! $err) return false;
-	echo "<pre>"; print_r($err); echo "</pre>";
+	DBG::vector($err);
 	return true;
 }
 
@@ -89,12 +89,12 @@ public static function raise($msg) {
 // ***********************************************************
 // error tracing
 // ***********************************************************
-public static function trace($sec = "short") {
-	$out = self::getInfo("short");
+public static function trace() {
+	$arr = self::getInfo();
 
 	$tpl = new tpl();
 	$tpl->read("design/templates/msgs/error.tpl");
-	$tpl->set("items", trim($out));
+	$tpl->set("items", trim($arr));
 	$tpl->show("trace");
 }
 private static function getInfo($sec = "short") {

@@ -3,7 +3,8 @@
 $dir = FSO::mySep(__DIR__);
 
 // ***********************************************************
-$cfg = new ini("config/mods.ini");
+$cfg = new ini("config/mods.ini"); if (! IS_LOCAL)
+$cfg->read("config/mods.srv");
 
 $tpl = new tpl();
 $tpl->read("$dir/deco.tpl");

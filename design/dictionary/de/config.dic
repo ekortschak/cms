@@ -6,7 +6,8 @@ apply.to = Apply.to*
 caption.de = Caption.de*
 css.add = Statische CSS Datei erstellen
 css.del = Statische CSS Datei entfernen
-css.info = Statische Stylesheets können auf manchen Systemen die Bearbeitung beschleunigen.
+css.info = Statische Stylesheets können auf manchen Systemen den Seitenaufbau beschleunigen. _
+Sie befinden sich in <dfn>design/site.css</dfn>.
 css.static = Statische CSS Datei
 de.en = De.en*
 ftp.check = Verbindungstest
@@ -15,7 +16,7 @@ ftp.experimental = Diese Funktion ist noch im <b>Versuchsstadium</b>.
 ftp.job = Datenübertragung
 ftp.mkdir = Error creating directory xxx
 ftp.mode = Übertrage
-ftp.report = FTP Bericht
+ftp.report = Transfer-Protokoll
 page.edit = Page.edit*
 tip.xmedit = Tip.xmedit*
 unq.data = Daten
@@ -33,15 +34,16 @@ title = Title*
 pwd = Pwd*
 cms = Cms*
 
-config/config.ini = Config/config.ini*
+prj.new = Neues Projekt
 
-config/mods.ini = Config/mods.ini*
+froot = Stammverzeichnis
+
+
+no.grps = No.grps*
+no.grps.kill = No.grps.kill*
+
+css.part = Css.part*
+glass = Glass*
 
 config/dbase.ini = Config/dbase.ini*
-
-new.dir = New.dir*
-
-dir.new = Dir.new*
-
-froot = Froot*
-
+tag.settings = Einstellungen

@@ -7,33 +7,42 @@ This is used to handle file information
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("files/f_info.php");
+incCls("files/fileInfo.php");
 
-$obj = new f_info();
+$obj = new fileInfo($file);
+$xxx = $obj->read($file);
+$vls = $obj->getInfo();
+$txt = $obj->insVars($txt);
+
 */
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class fileInfo extends objects {
+	private $fil = "";
 
 // ***********************************************************
-function __construct($fil = "") {
-    $this->readInfo($fil);
+function __construct($file = "") {
+    $this->getInfo($file);
+    $this->fil = $file;
 }
 
 // ***********************************************************
 // setting & retrieving info
 // ***********************************************************
-public function readInfo($ful) {
-	$this->vls = array(); if (! is_file($ful)) return false;
-	$inf = pathinfo($ful);
+public function read($file) {
+	$this->fil = $file;
+	$this->vls = array(); if (! is_file($file)) return false;
+	$inf = pathinfo($file);
 
-	$this->setName($inf, $ful);
+	$this->setName($inf, $file);
 	$this->setExt($inf);
-	$this->setSize($ful);
-	$this->setDate($ful);
+	$this->setSize($file);
+	$this->setDate($file);
+}
 
+public function getInfo($ful) {
 	return $this->vls;
 }
 
@@ -48,6 +57,7 @@ private function setName($inf, $ful) {
 	$this->set("url",  $url);
 	$this->set("link", $url);
 	$this->set("icon", $url);
+	$this->set("md5",  md5_file($ful));
 
  // remove leading numbers and extension from dir like in 10.xxx.jpg
     $this->set("caption", PRG::clrDigits($inf["filename"]));

@@ -17,10 +17,3 @@ color = FC_BODY
 
 [pdf]
 <lookup><!VAR:caption!> <hint>(<!VAR:info!>)</hint></lookup>
-
-[bing]
-<refbox bing=1><!VAR:caption!>
-<refbox-content><a href="<!VAR:link!>" target="bing"><!VAR:info!></a><br>
-📌&nbsp;<!VAR:autor!>
-</refbox-content>
-</refbox><nolf>

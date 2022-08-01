@@ -1,49 +1,51 @@
 [vars]
-sync = 1
+head = <!DIC:confirm!>
+title = Sync
 
 [dic]
-mnu.state = Toggle menu status
-mnu.access = Data exchange
-mnu.compare = Activate
-mnu.reset = Deactivate
+confirm = Confirmation required
+
+sync.source = Source
+sync.analize = Analize
+sync.execute = Execute
 
 [dic.de]
-mnu.state = Status ändern
-mnu.access = Datenaustausch
-mnu.compare = Freigeben
-mnu.reset = Sperren
+confirm = Bestätigung erforderlich
+
+sync.source = Quelle
+sync.analize = Vergleichen
+sync.execute = Ausführen
 
 
 # ***********************************************************
 [main]
 # ***********************************************************
-<form method="post" action="?sync=<!VAR:sync!>">
-<hr>
-<table>
-#	<tr><td colspan="100%" height=5></td></tr>
-<!SEC:act!>
-</table>
-<hr>
+<h4><red><!VAR:title!></red></h4>
 
-</form>
+<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+	<div class="rh"><!VAR:head!></div>
+	<div class="confirm">
+		<div><!DIC:source!>: <!VAR:source!></div>
+		<div><!SEC:dest!></div>
+	</div>
+	<div class="rf" align="right">
+		<a href="?sync.act=1"><button><!DIC:sync.analize!></button></a>
+		<a href="?sync.act=2"><button><!DIC:sync.execute!></button></a>
+	</div>
+</div>
 
 # ***********************************************************
-# menu options
+# destination
 # ***********************************************************
-[act]
-<!SEC:act.analize!>
+[dest]
+<!SEC:dest.local!>
 
-[act.analize]
-	<tr>
-		<td width=150 style="vertical-align: middle;"><!DIC:mnu.access!></td>
-		<td><button name="mnu_stat" value=1><!DIC:mnu.compare!></td>
-	</tr>
+[dest.local]
+&rarr; <!VAR:dest!>
 
-[act.reset]
-	<tr>
-		<td width=150 style="vertical-align: middle;"><!DIC:mnu.access!></td>
-		<td><button name="mnu_stat" value=1><!DIC:mnu.reset!></td>
-	</tr>
+[dest.remote]
+&rarr; <a href="http://<!VAR:dest!>" target="dest"><!VAR:dest!></a>
+
 
 # ***********************************************************
 # help

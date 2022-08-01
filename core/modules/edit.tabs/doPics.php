@@ -1,28 +1,21 @@
 <?php
 
-incCls("menus/tabset.php");
 incCls("menus/dropbox.php");
 incCls("input/selector.php");
+
+$set = APP_CALL;
 
 // ***********************************************************
 // collect info
 // ***********************************************************
 $fnt = APP::files("design/fonts/*.ttf");
 
-$tbs = new tabset();
-$arr = $tbs->validSets();
-
 // ***********************************************************
 // show file selector
 // ***********************************************************
 $box = new dbox();
-$set = $box->getKey("TabSet", $arr, APP_CALL);
-$lst = $tbs->getTabs($set, true);
-$tab = $box->getKey("Tab", $lst, TOP_PATH);
-$xxx = $box->show("menu");
-
 $fnt = $box->getKey("Font", $fnt);
-$xxx = $box->show("table");
+$xxx = $box->show("menu");
 
 ENV::set("Font", $fnt);
 

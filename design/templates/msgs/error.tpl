@@ -22,17 +22,16 @@ err = Hinweis
 [trace]
 # ***********************************************************
 <div class="err1">
-	<!VAR:items!>
+<!VAR:items!>
 </div>
 
 [short]
-<hint><b><!VAR:line!></b> <!VAR:class!><blue>.<!VAR:function!></blue></hint><br>
+<b><!VAR:line!></b> <!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)<br>
 
 [item]
 <div>
-<hint><b><!VAR:line!></b> <!VAR:file!><br>
+<b><!VAR:line!></b> <!VAR:file!><br>
 &nbsp;<!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)
-</hint>
 </div>
 
 # ***********************************************************

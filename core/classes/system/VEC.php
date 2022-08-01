@@ -9,7 +9,7 @@ handling regular array tasks
 // ***********************************************************
 incCls("system/VEC.php");
 
-$str = VEC::toString($arr, $name);
+$str = VEC::xform($arr, $name);
 */
 
 // ***********************************************************
@@ -18,9 +18,17 @@ $str = VEC::toString($arr, $name);
 class VEC {
 
 // ***********************************************************
+// creating arrays
+// ***********************************************************
+public static function range($min, $max) {
+	$arr = range($min, $max);
+	return VEC::toAssoc($arr);
+}
+
+// ***********************************************************
 // converting into arrays
 // ***********************************************************
-public static function toString($arr, $name = false) {
+public static function xform($arr, $name = false) {
 	if (! $arr) return false;
 	if (! is_array($arr)) return $arr;
 
@@ -67,6 +75,11 @@ public static function get($arr, $key, $default = false) {
 	return      $arr[$key];
 }
 
+public static function indexOf($data, $sel, $default = false) {
+	$out = array_search($sel, $data); if ($out !== false) return $out;
+	return $default;
+}
+
 public static function find($data, $sel, $default = false) {
 	if (! is_array($data)) return $default;
 	if (self::get($data, $sel)) return $sel;
@@ -80,6 +93,32 @@ public static function find($data, $sel, $default = false) {
 public static function getFirst($data) {;
 	if (! $data) return ""; reset($data);
 	return key($data);
+}
+
+public static function keys($data) {
+	$out = array_keys($data);
+	return array_combine($out, $out);
+}
+public static function nums($data, $pfx) {
+	$out = array(); $cnt = 1;
+
+	foreach ($data as $key => $val) {
+		$out[$key] = "$pfx ".$cnt++;
+	}
+	return $out;
+}
+
+public static function match($data, $pfx = "") {
+	$out = array();
+
+	foreach ($data as $key => $val) {
+		if (! $key) continue;
+
+		if ($pfx) if (! STR::begins($key, $pfx)) continue;
+		if ($pfx) $key = STR::after($key, array("$pfx.", $pfx));
+		if ($key) $out[$key] = $val;
+	}
+	return $out;
 }
 
 // ***********************************************************
@@ -119,8 +158,12 @@ public static function merge($arr1, $arr2) {
 }
 
 public static function implode($arr, $sep = "\n") {
-	if (! is_array($arr)) return $arr;
-	return implode($sep, $arr);
+	if (! is_array($arr)) return trim($arr); $out = array();
+
+	foreach ($arr as $itm) {
+		if ($itm) $out [] = trim($itm);
+	}
+	return implode($sep, $out);
 }
 
 // ***********************************************************
@@ -155,7 +198,7 @@ public static function filter($arr, $crit, $key = false) {
 	$crt = self::getCrit($crit);
 
 	foreach ($arr as $rec) {
-		$vgl = implode("|", $rec);
+		$vgl = self::implode($rec, "|");
 
 		if ($crt["ign"]) if (  STR::contains($vgl, $crt["ign"])) continue;
 		if ($crt["yes"]) if (! STR::contains($vgl, $crt["yes"])) continue;

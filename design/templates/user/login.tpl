@@ -7,12 +7,14 @@ admin = This feature requres admin privileges!
 user = Account
 pwd = Password
 login = Login
+cancel = Cancel
 
 [dic.de]
 admin = Dieser Bereich erfordert Administrator-Rechte!
 user = Benutzer
 pwd = Passwort
 login = Anmelden
+cancel = Abbrechen
 
 
 # ***********************************************************
@@ -39,6 +41,7 @@ login = Anmelden
 		<tr>
 			<td>&nbsp;</td>
 			<td align="right">
+				<a href="?vmode=view"><input type="button" name="B2" value="<!DIC:cancel!>" /></a>
 				<input type="submit" name="B1" value="<!DIC:login!>" />
 			</td>
 		</tr>

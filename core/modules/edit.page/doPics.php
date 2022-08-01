@@ -4,7 +4,7 @@ $ini = new ini(dirname($fil));
 $uid = $ini->getUID();
 
 $tpl = new tpl();
-$tpl->read("design/templates/editor/viewEdit.tpl");
+$tpl->read("design/templates/editor/genEdit.tpl");
 $tpl->set("file", FSO::clearRoot($fil));
 $tpl->set("title", $uid);
 

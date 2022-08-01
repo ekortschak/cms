@@ -1,6 +1,6 @@
 <?php
 
-$dir = __DIR__;
+$dir = FSO::mySep(__DIR__);
 
 $usr = ENV::get("survey.who", uniqid());
 $age = array("N/A" => "keine Angabe", "bis 20" => "jünger als 20", "bis 40" => "jünger als 40", "bis 60" => "jünger als 60", "60+" => "älter");

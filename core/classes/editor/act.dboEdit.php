@@ -27,8 +27,8 @@ function __construct() {}
 // methods
 // ***********************************************************
 public function exec() {
-	$act = VEC::get($_POST, "val_chk");
-	$dbs = VEC::get($_POST, "val_dbs");  if (! $dbs) return;
+	$act = ENV::getPost("val_chk");
+	$dbs = ENV::getPost("val_dbs");  if (! $dbs) return;
 
 	if (! STR::contains(".tcProps.tlProps.fcProps.flProps.", ".$act.")) return;
 	self::$act($dbs);
@@ -36,8 +36,8 @@ public function exec() {
 
 // ***********************************************************
 private function tcProps($dbs) { // common table props
-	$tbl = VEC::get($_POST, "val_tbl");  if (! $tbl) return;
-	$arr = VEC::get($_POST, "val_prop"); if (! $arr) return;
+	$tbl = ENV::getPost("val_tbl");  if (! $tbl) return;
+	$arr = ENV::getPost("val_prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		if (! $prop) continue;
@@ -46,8 +46,8 @@ private function tcProps($dbs) { // common table props
 	}
 }
 private function tlProps($dbs) { // lang specific table props
-	$tbl = VEC::get($_POST, "val_tbl");  if (! $tbl) return;
-	$arr = VEC::get($_POST, "val_head"); if (! $arr) return;
+	$tbl = ENV::getPost("val_tbl");  if (! $tbl) return;
+	$arr = ENV::getPost("val_head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		if (! $val) continue; $prop = "head.$lang";
@@ -58,8 +58,8 @@ private function tlProps($dbs) { // lang specific table props
 
 // ***********************************************************
 private function fcProps($dbs) { // common field props
-	$fld = VEC::get($_POST, "val_fld");  if (! $fld) return;
-	$arr = VEC::get($_POST, "val_prop"); if (! $arr) return;
+	$fld = ENV::getPost("val_fld");  if (! $fld) return;
+	$arr = ENV::getPost("val_prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		if (! $prop) continue;
@@ -68,8 +68,8 @@ private function fcProps($dbs) { // common field props
 	}
 }
 private function flProps($dbs) { // lang specific field props
-	$fld = VEC::get($_POST, "val_fld");  if (! $fld) return;
-	$arr = VEC::get($_POST, "val_head"); if (! $arr) return;
+	$fld = ENV::getPost("val_fld");  if (! $fld) return;
+	$arr = ENV::getPost("val_head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		if (! $val) continue; $prop = "head.$lang";

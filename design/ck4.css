@@ -720,7 +720,7 @@ php, code, dbg {
 }
 
 .confirm {
-	padding: 10px 15px;
+	padding: 7px 15px 10px;
 	display: block;
 	border: 0px;
 }
@@ -1184,17 +1184,9 @@ dmbtn {
 	display: block;
 }
 
-.dd-block {
-	display: block;
-}
-
 /* ******************************************************** */
 /* dropdown buttons */
 /* ******************************************************** */
-.dd-text {
-	padding: 5px 15px 0px 7px;
-}
-
 .dropdown-button {
 	display: inline-block;
 	border: 1px solid #AAA;

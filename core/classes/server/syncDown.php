@@ -3,39 +3,82 @@
 // INFO
 // ***********************************************************
 Designed to sync server to local project ...
+* settings: config/ftp.ini
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
 incCls("server/syncDown.php");
 
-$pub = new syncDown($inifile);
-$pub->xfer($source, $destination);
+$pub = new syncDown();
+$pub->upgrade();
 
 */
 
 incCls("input/confirm.php");
-incCls("server/syncUp.php");
+incCls("server/sync.php");
+incCls("server/http.php");
+incCls("server/ftp.php");
+incCls("server/SSL.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class syncDown extends syncUp {
+class syncDown extends sync {
+	protected $htp;	// http object
+	protected $ftp;	// ftp object
+	protected $dbg = 0;
 
 function __construct() {
 	parent::__construct();
 
-	$this->src = ".";
-	$this->dst = APP_DIR;
+	$this->set("info", true);
+
+	$this->ftp = new ftp();
+	$this->read();
+}
+
+// ***********************************************************
+public function read($ini = false) {
+	$this->ftp->read($ini);
+
+	$src = $this->ftp->get("web.url", "???");
+	$this->setSource($src);
+
+	$this->htp = new http($this->src);
+}
+
+// ***********************************************************
+// set parameters
+// ***********************************************************
+public function setSource($dir = ".") {
+	$this->src = FSO::norm($dir);
+	$this->setOidVar("sync.src", $this->src);
+}
+public function setDest($dir = APP_DIR) {
+	$this->dst = FSO::norm($dir);
+	$this->setOidVar("sync.dst", $this->dst);
+}
+
+//// ***********************************************************
+// run jobs
+// ***********************************************************
+public function upgrade() {
+	if (! $this->ftp->test()) return;
+
+	$this->set("title", "Sync from server");
+	$this->showInfo();
+	$this->run();
 }
 
 // **********************************************************
 // retrieving data for action
 // **********************************************************
 protected function getTree($src, $dst) {
-	$src = $this->webList($src); if (! $src) return false; // local files
-	$dst = $this->getList($dst); if (! $dst) return false; // remote
+	$src = $this->FSremote();    if (! $src) return false; // remote
+	$dst = $this->FSlocal($dst); if (! $dst) return false; // local files
 	$out = $this->getNewer($src, $dst);
+
 	$out = $this->chkProtect($out);
 	$out = $this->chkRename($out);
 	$out = $this->chkCount($out);
@@ -43,75 +86,70 @@ protected function getTree($src, $dst) {
 }
 
 // ***********************************************************
-// acting
+// pass through methods
 // ***********************************************************
-protected function ask() {
-	$url = $this->ftp->get("web.url");
-	$msg = DIC::get("data.xfer");
-	$frm = DIC::get("from");
-
-	$cnf = new confirm();
-	$cnf->head($msg);
-	$cnf->add("$frm <a href='http://$url' target='_blank'>$url</a>");
-	$cnf->add("&rarr; $this->dst");
-	$cnf->show();
-
-	return $cnf->act();
+protected function FSremote() {
+	$out = $this->htp->query(".");
+	return $out;
 }
 
-protected function aggregate($data) {
-	return $data; // no bulk ops on local system
+protected function aggregate($data) { // prepare for webexec()
+	return $this->htp->aggregate($data);
+}
+
+// **********************************************************
+// check for protected files
+// **********************************************************
+protected function chkProtect($arr) {
+	foreach ($arr as $act => $itm) {
+		foreach ($itm as $fso) {
+			if (! $this->ftp->isProtected($fso)) continue;
+			$arr[$act] = VEC::drop($arr[$act], $fso);
+			$arr["man"][] = $fso;
+		}
+	}
+	return $arr;
+}
+
+// **********************************************************
+// executing retrieved data
+// **********************************************************
+protected function exec() { // prepare for webexec()
+	$this->ftp->connect(); parent::exec();
+	$this->ftp->disconnect();
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+protected function srcName($fso) {
+	$pfx = $this->ftp->get("ftp.froot");
+	return FSO::join($pfx, $fso);
 }
 
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
-protected function copy($src, $dst) { // single file op
-	if ($this->isProtected($dst)) return false;
-	$pfx = $this->ftp->get("ftp.froot");
-
-	$src = FSO::clearRoot($src);
-	$src = FSO::join($pfx, $src);
-	$dst = $this->destName($dst);
-
+protected function do_copy($src, $dst) { // single file op
+	if ($this->ftp->isProtected($dst)) return false;
 	return $this->ftp->save($src, $dst);
 }
 
 // ***********************************************************
-protected function fsRen($fso) {
+protected function do_ren($fso) {
 	$prp = explode("|", $fso); if (count($prp) < 3) return false;
-
-	$src = $this->lclName($fso);
-	$dst = $this->destName($fso);
-
 	return (bool) FSO::rename($src, $dst);
 }
 
-protected function mkDir($dst) {
-	$dst = $this->destName($dst);
+protected function do_mkDir($dst) {
 	return (bool) FSO::force($dst);
 }
-protected function rmDir($dst) {
-	$dst = $this->destName($dst); if ($dst == APP_DIR) return false;
+protected function do_rmDir($dst) {
+	if ($dst == APP_DIR) return false;
 	return (bool) FSO::rmDir($dst);
 }
-protected function kill($dst)  {
-	$dst = $this->destName($dst);
+protected function do_kill($dst)  {
 	return (bool) FSO::kill($dst);
-}
-
-// ***********************************************************
-protected function lclName($fso) {
-	if (! $fso) return false; $src = $this->src; if ($dst == ".") $dst = APP_DIR;
-	if (STR::begins($fso, $src)) return $fso;
-	$src = FSO::join($src, $fso);
-	return $src;
-}
-protected function destName($fso) {
-	if (! $fso) return false; $dst = $this->dst; if ($dst == ".") $dst = APP_DIR;
-	if (STR::begins($fso, $dst)) return $fso;
-	$dst = FSO::join($dst, $fso);
-	return $dst;
 }
 
 // ***********************************************************

@@ -98,7 +98,7 @@ private function getFiles($what = "file") {
     $inf = new fileInfo();
 
 	foreach($this->fls as $fil => $nam) {
-        $inf->readInfo($fil);
+        $xxx = $inf->read($fil);
 		$out.= $inf->insVars($lin);
 	}
 	if ($out) return $out;

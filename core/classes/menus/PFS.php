@@ -16,6 +16,7 @@ $arr = PFS::getMenu();
 $dat = PFS::getData($index);
 $tit = PFS::getTitle();
 $val = PFS::getCur("props.xxx", $default);
+$inf = PFS::mnuInfo($index);
 */
 
 // ***********************************************************
@@ -34,16 +35,12 @@ class PFS extends objects {
 public static function init($dir = TOP_PATH) {
 	self::$dat = self::$uid = self::$idx = array();
 
-	self::$dir = self::norm($dir);
-	self::$fil = FSO::join(self::$dir, "pfs.stat");
+	self::$dir = $dir;
+	self::$fil = FSO::join($dir, "pfs.stat");
 	self::$cnt = 1;
 
 	self::readTree($dir);
 	self::setLoc();
-}
-
-private static function norm($dir) {
-	return STR::replace($dir, "/", DIR_SEP);
 }
 
 // ***********************************************************
@@ -56,6 +53,11 @@ public static function toggle() {
 
 public static function isStatic() {
 	return is_file(self::$fil);
+}
+
+protected static function isCollection($typ) {
+	if (EDITING != "view") return false;
+	return (STR::contains(".col.sur.", $typ)); // collections & surveys
 }
 
 // ***********************************************************
@@ -86,7 +88,7 @@ public static function readTree($dir = NV) {
 
 	$dir = APP::dir($dir); if (! $dir) return;
 	$arr = FSO::folders($dir, ! IS_LOCAL);
-	self::readProps($dir);
+	$nxt = self::readProps($dir); if (! $nxt) return;
 
     foreach ($arr as $dir => $nam) {
         self::readTree($dir);
@@ -133,7 +135,7 @@ public static function setLang($lang) {
 }
 
 // ***********************************************************
-public static function setLoc($index = NV) {
+private static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
 	ENV::set("loc", $loc);
@@ -170,19 +172,13 @@ public static function getLink($index = NV) {
 
 // ***********************************************************
 public static function getType($index = NV) {
-	$out = self::getProp($index, "props.typ", "inc");
-	return STR::left($out);
+	return self::getProp($index, "props.typ", "inc");
 }
 public static function getTitle($index = NV) {
-	$lng = CUR_LANG;
-	$out = self::getProp($index, "$lng.title"); if ($out) return $out;
 	return self::getProp($index, "title", $index);
 }
 public static function getHead($index = NV) {
-	$lng = CUR_LANG;
-	$out = self::getProp($index, "$lng.head", $index);
-	$cnt = substr_count($out, DIR_SEP); if (! $cnt) return $out;
-	return self::getTitle($index);
+	return self::getProp($index, "head", $index);
 }
 public static function getLevel($idx) {
 	$idx = STR::after($idx, self::$dir);
@@ -194,27 +190,111 @@ private static function getStatic() {
 }
 
 // ***********************************************************
-public static function getIndex($index) { // dir or uid expected !
-	$key = $index;
+public static function getIndex($key) { // dir, uid or num index expected !
 	if ($key == NV) $key = ENV::getPage();
-	if (! $key) $key = 0;
+	if ($key === false) return false;
 
-	if (isset(self::$dat[$key])) return $key;
-	if (isset(self::$uid[$key])) return self::$uid[$key];
-	if (isset(self::$idx[$key])) return self::$idx[$key];
-
+	$out = VEC::get(self::$idx, $key); if ($out) return $out;
+	$out = VEC::get(self::$uid, $key); if ($out) return $out;
+	$out = VEC::get(self::$dat, $key); if ($out) return $key;
 	return false;
 }
 
-private static function index($dir) {
-	if (! $dir) return self::$dir;
+private static function norm($dir) {
 	$out = FSO::clearRoot($dir);
 	$out = trim($out, DIR_SEP);
 	return $out;
 }
 
 // ***********************************************************
+// handling properties
+// ***********************************************************
+private static function readProps($dir) { // single page info
+	$dir = APP::dir($dir); if (! is_dir($dir)) return false;
+	$idx = self::norm($dir);
+
+	$ini = new ini($dir);
+	$inf = $ini->getValues();
+	$tit = $ini->getTitle();
+	$uid = $ini->getUID();
+	$typ = STR::left($ini->get("props.typ"));
+
+	$lev = self::getLevel($idx);
+	$nxt = self::getMType($idx, $typ, $lev);
+
+	self::setPropVal($idx, "title", $tit);
+	self::setPropVal($idx, "head",  "");
+	self::setPropVal($idx, "uid",   $uid);
+	self::setPropVal($idx, "index", self::$cnt);
+	self::setPropVal($idx, "level", $lev);
+	self::setPropVal($idx, "mtype", $nxt);
+	self::setPropVal($idx, "fpath", $idx);
+	self::setPropVal($idx, "sname", self::getStatic()); // for static output
+
+	foreach ($inf as $key => $val) {
+		self::setPropVal($idx, $key, $val);
+	}
+	self::$idx[] = $idx;
+	self::$uid[$uid] = $idx;
+
+	return (! self::isCollection($typ));
+}
+
+private static function getMType($dir, $typ, $lev) {
+	if (self::isCollection($typ)) return "file";
+	if ($lev < 2) return "root";
+
+	$fld = (bool) APP::folders($dir, ! IS_LOCAL);
+	$fil = (bool) APP::find($dir);
+
+	if ($fld && $fil) return "both";
+	if ($fld) return "menu";
+	return "file";
+}
+
+
+// ***********************************************************
+public static function setProp($index, $key, $value) {
+	$idx = self::getIndex($index); if (! $idx) return;
+	self::setPropVal($idx, $key, $value);
+}
+private static function setPropVal($idx, $key, $value) {
+	self::$dat[$idx][$key] = $value;
+}
+
+// ***********************************************************
+public static function getCur($key, $default = false) {
+	return self::getProp(NV, $key, $default);
+}
+private static function getProp($index, $key, $default = false) {
+	$idx = self::getIndex($index);     if (! $idx) return $default;
+	$arr = VEC::get(self::$dat, $idx); if (! $arr) return $default;
+	return VEC::get($arr, $key, $default);
+}
+
+// ***********************************************************
+public static function count() {
+	return count(self::$dat);
+}
+
+private static function refType($idx) {
+	if (EDITING  !=  "view") return "active";
+	if (FSO::isHidden($idx)) return "inactive";
+	return "active";
+}
+
+// ***********************************************************
 // menu node info
+// ***********************************************************
+public static function getMenu() {
+	$out = array(); $max = count(self::$uid);
+
+	for ($i = 0; $i < $max; $i++) {
+		$out[$i] = self::mnuInfo($i);
+	}
+	return $out;
+}
+
 // ***********************************************************
 public static function mnuInfo($index) {
 	if (! is_numeric($index)) {
@@ -243,98 +323,11 @@ public static function mnuInfo($index) {
 // ***********************************************************
 private static function mnuType($idx, $lev, $typ) {
 	if (EDITING == "view") {
-#		if ($typ == "col") return "file";
+		if ($typ == "col") return "file";
 	}
 	return self::getProp($idx, "mtype", false);
 }
 
-// ***********************************************************
-// handling properties
-// ***********************************************************
-private static function readProps($dir) { // single page info
-	$dir = APP::dir($dir); if (! is_dir($dir)) return false;
-	$idx = self::index($dir);
-
-	$ini = new ini($dir);
-	$inf = $ini->getValues();
-	$tit = $ini->getTitle();
-	$uid = $ini->getUID();
-	$typ = STR::left($ini->get("props.typ"));
-
-	$lev = self::getLevel($idx);
-	$nxt = self::getMType($idx, $typ, $lev);
-
-	self::setPropVal($idx, "title", $tit);
-	self::setPropVal($idx, "uid",   $uid);
-	self::setPropVal($idx, "index", self::$cnt);
-	self::setPropVal($idx, "level", $lev);
-	self::setPropVal($idx, "mtype", $nxt);
-	self::setPropVal($idx, "fpath", $idx);
-	self::setPropVal($idx, "sname", self::getStatic()); // for static output
-
-	foreach ($inf as $key => $val) {
-		self::setPropVal($idx, $key, $val);
-	}
-	self::$idx[] = $idx;
-	self::$uid[$uid] = $idx;
-
-	return $nxt;
-}
-
-private static function getMType($dir, $typ, $lev) {
-	if (STR::contains(".col.sur.", $typ)) return "file"; // collections & surveys
-	if ($lev < 2) return "root";
-
-	$fld = (bool) FSO::folders($dir, ! IS_LOCAL);
-	$fil = (bool) APP::find($dir);
-
-	if ($fld && $fil) return "both";
-	if ($fld) return "menu";
-	return "file";
-}
-
-
-// ***********************************************************
-public static function setProp($index, $key, $value) {
-	$idx = self::getIndex($index); if (! $idx) return;
-	self::setPropVal($idx, $key, $value);
-}
-private static function setPropVal($idx, $key, $value) {
-	self::$dat[$idx][$key] = $value;
-}
-
-// ***********************************************************
-public static function getCur($key, $default = false) {
-	return self::getProp(NV, $key, $default);
-}
-private static function getProp($index, $key, $default = false) {
-	$idx = self::getIndex($index); if (! $idx) return;
-	$arr = VEC::get(self::$dat, $idx); if (! $arr) return $default;
-	return VEC::get($arr, $key, $default);
-}
-
-// ***********************************************************
-public static function count() {
-	return count(self::$dat);
-}
-
-private static function refType($idx) {
-	if (EDITING  !=  "view") return "active";
-	if (FSO::isHidden($idx)) return "inactive";
-	return "active";
-}
-
-// ***********************************************************
-// directory listings
-// ***********************************************************
-public static function getMenu() {
-	$out = array(); $cnt = 0;
-
-	foreach (self::$dat as $any) {
-		$out[$cnt] = self::mnuInfo($cnt++);
-	}
-	return $out;
-}
 
 // ***********************************************************
 // check user permissions

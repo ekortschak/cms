@@ -1,10 +1,10 @@
 [dic.de]
 act.backup = Sichern
 act.rename = Umbenennen in
-act.restore = Wiederherstellen
+act.restore = aus Sicherung
 act.show = Anzeigen
 act.sync = Spiegeln
-act.syncback = Zurückholen
+act.syncback = aus Spiegelung
 app.update = Version aktualisieren
 ask.confirm = Bestätigung erforderlich
 ask.sure = Sicher?
@@ -72,3 +72,4 @@ tan.unknown = TAN: fehlend oder bereits verarbeitet: 'xxx'
 tpc.desc = Abstrakt
 tpc.list = Themen
 tpc.select = Wähle ein Thema ...
+tpc.nodesc = Kein Abstrakt verfügbar ...

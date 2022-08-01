@@ -1,0 +1,3 @@
+timeout = TIMEOUT*
+
+use_mail = USE_MAIL*

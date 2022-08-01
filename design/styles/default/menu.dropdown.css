@@ -4,23 +4,17 @@
 /* ******************************************************** */
 .dropdown {
 	display: inline-block;
+	margin: 0px;
+	padding: 0px 7px;
 }
 .dropdown:hover .dropdown-content {
 	z-index: 90;
 	display: block;
 }
 
-.dd-block {
-	display: block;
-}
-
 /* ******************************************************** */
 /* dropdown buttons */
 /* ******************************************************** */
-.dd-text {
-	padding: 5px 15px 0px 7px;
-}
-
 .dropdown-button {
 	display: inline-block;
 	border: 1px solid OUTLINE;
@@ -66,9 +60,10 @@
 /* ******************************************************** */
 .dropdown-content {
 	max-height: 450px;
-	overflow: auto;
-
 	position: absolute;
+	overflow: auto;
+	overscroll-behavior: none;
+
 	display: none;
 	color: FC_DROP;
 	background: BC_DROP;

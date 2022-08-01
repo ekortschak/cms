@@ -1,7 +1,7 @@
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.localmenu, .localicon {
+.localmenu, .localicon, .submenu {
 	z-index: 85;
 	display: block;
 	color: FC_INFO;
@@ -17,6 +17,17 @@
 
 .localicon {
 	padding: 4px 0px 3px;
+}
+
+.submenu {
+	color: FC_MARK;
+	background: linear-gradient(-3deg, white, BC_MARK 45%);
+	border: 1px solid OUTLINE;
+	font-weight: normal;
+	font-size: 0.85em;
+}
+
+.seemless {
 }
 
 /* ******************************************************** */
@@ -69,7 +80,7 @@
 /* ******************************************************** */
 .topmenu-content {
 	z-index: 99;
-	position: absolute;
+	position: fixed;
 	display: none;
 	color: FC_DROP;
 	background: BC_DROP;

@@ -27,12 +27,13 @@ function __construct() {}
 // ***********************************************************
 // handling variables
 // ***********************************************************
-public function merge($arr) { // requires assoc array
+public function merge($arr, $pfx = false) { // requires assoc array
 	if (! $arr) return;
 	if (! is_array($arr)) return;
-    if ($arr == array_values($arr)) return;
+    if ($arr == array_values($arr)) return; // no assoc
 
 	foreach($arr as $key => $val) {
+		if ($pfx) $key = "$pfx.$key";
 		$this->set($key, $val);
 	}
 }
@@ -115,7 +116,6 @@ public function insVars($out) {
     }
     return $out;
 }
-
 // ***********************************************************
 // handling object IDs
 // ***********************************************************
@@ -125,8 +125,9 @@ protected function setOID($oid = NV) {
 }
 
 protected function setOidVar($key, $val) {
-	$oid = $this->get("oid"); if (! $oid) return;
-	ENV::oidSet($oid, $key, $val);
+	$oid = $this->get("oid"); if (! $oid) return false;
+	$val = ENV::oidSet($oid, $key, $val);
+	return $val;
 }
 protected function getOidVar($key, $default = false) {
 	$oid = $this->get("oid"); if (! $oid) return $default;
@@ -139,7 +140,6 @@ protected function getOIDs($key = NV, $default = false) {
 	$key = ENV::norm($key);
 	return VEC::get($out, $key, $default);
 }
-
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

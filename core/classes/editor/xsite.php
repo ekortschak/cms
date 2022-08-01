@@ -154,18 +154,6 @@ protected function getText($dir) {
 	return $txt;
 }
 
-protected function lookup($txt) {
-	incCls("search/lookup.php");
-	$arr = APP::files("lookup");
-
-	foreach ($arr as $fil => $nam) {
-		$lup = new lookup();
-		$lup->addRef($fil, $txt);
-	}
-	$txt = $lup->insert($txt);
-	return $txt;
-}
-
 protected function getNotes() {
 	$out = $this->dat;
 	$arr = STR::find($out, "<refbox", "</refbox>");

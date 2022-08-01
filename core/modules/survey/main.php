@@ -18,7 +18,9 @@ switch($btn) {
 		$don = ENV::set("survey.done", true); break;
 }
 
-$nav = new buttons("menu", "I", __DIR__);
+$dir = FSO::mySep(__DIR__);
+
+$nav = new buttons("menu", "I", $dir);
 $nav->add("I", "doInfo");
 $nav->add("D", "doReset");
 

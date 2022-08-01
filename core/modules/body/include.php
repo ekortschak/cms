@@ -1,20 +1,13 @@
 <?php
 
+$xxx = ENV::set("lookup", true);
+
+// ***********************************************************
 $loc = ENV::getPage();
-
 $txt = APP::gc($loc);
-$arr = APP::files("lookup");
+$txt = APP::lookup($txt);
 
-if ($arr) {
-	incCls("search/lookup.php");
-
-	foreach ($arr as $fil => $nam) {
-		$lup = new lookup();
-		$lup->addRef($fil);
-	}
-	$txt = $lup->insert($txt);
-}
-
+// ***********************************************************
 if (! $txt) $txt = NV;
 echo $txt;
 

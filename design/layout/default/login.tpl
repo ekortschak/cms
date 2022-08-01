@@ -5,5 +5,5 @@ design/layout/default/offline.tpl
 [layout]
 # ***********************************************************
 <div class="box">
-<!MOD:info.login!>
+<!MOD:user.login!>
 </div>

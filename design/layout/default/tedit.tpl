@@ -1,6 +1,12 @@
 [include]
 design/layout/LAYOUT/main.tpl
 
+[dic]
+vtabs = Vertical tabs
+
+[dic.de]
+vtabs = Registerkarten (Tabs)
+
 # ***********************************************************
 [toc.de] <!-- toc -->
 # ***********************************************************
@@ -8,7 +14,6 @@ design/layout/LAYOUT/main.tpl
 <h3>Tabs</h3>
 <h4>Anleitung</h4>
 <ul>
-<li>TabSet auswählen</li>
 <li>Tab auswählen</li>
 <li>Einstellungen bearbeiten</li>
 </ul>
@@ -31,7 +36,7 @@ design/layout/LAYOUT/main.tpl
 [body] <!-- body -->
 # ***********************************************************
 <div class="container">
-<h3>V-Tabs</h3>
+<h3><!DIC:vtabs!></h3>
 <!MOD:msgs!>
 <!MOD:edit.tabs!>
 </div>

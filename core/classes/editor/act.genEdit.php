@@ -28,18 +28,19 @@ public function exec() {
 	if (EDITING != "pedit") return;
 	$dir = ENV::get("loc");
 
-	$out = $this->saveFile();     if ($out) return;
-	$out = $this->conv2html();    if ($out) return;
-	$out = $this->dropFile($dir); if ($out) return;
+	if ($this->saveFile())     return;
+	if ($this->conv2html())    return;
+	if ($this->dropFile($dir)) return;
+	if ($this->picProps($dir)) return;
 }
 
 private function saveFile() {
-	$act = VEC::get($_POST, "file_act"); if ($act != "save")
-	$act = VEC::get($_GET,  "file_act"); if ($act != "save") return false;
+	$act = ENV::getPost("file_act"); if ($act != "save")
+	$act = ENV::getParm("file_act"); if ($act != "save") return false;
 
-	$old = VEC::get($_POST, "orgName", "");	if (! $old) return false;
-	$fil = VEC::get($_POST, "filName", "");	if (! $fil) return false;
-	$txt = VEC::get($_POST, "content");
+	$old = ENV::getPost("orgName", "");	if (! $old) return false;
+	$fil = ENV::getPost("filName", "");	if (! $fil) return false;
+	$txt = ENV::getPost("content");
 
 	if ($txt) { // prepare for storage
 		$txt = STR::replace($txt, "¶", "");
@@ -59,8 +60,8 @@ private function saveFile() {
 }
 
 private function conv2html() {
-	$cnv = VEC::get($_GET, "conv", ""); if (! $cnv) return false;
-	$fil = VEC::get($_GET, "fil",  ""); if (! $fil) return false;
+	$cnv = ENV::getParm("conv", ""); if (! $cnv) return false;
+	$fil = ENV::getParm("fil",  ""); if (! $fil) return false;
 	$txt = APP::getBlock($fil);
 	$ext = FSO::ext($fil);
 
@@ -74,10 +75,33 @@ private function conv2html() {
 }
 
 private function dropFile($loc) {
-	$act = VEC::get($_GET, "file_act"); if ($act != "drop") return false;
-	$fil = VEC::get($_GET, "fil"); if (! $fil) return false;
+	$act = ENV::getParm("file_act"); if ($act != "drop") return false;
+	$fil = ENV::getParm("fil"); if (! $fil) return false;
 	$erg = FSO::kill($fil);
 	return true;
+}
+
+// ***********************************************************
+// pic Opts
+// ***********************************************************
+private function picProps($dir) { // modify UID and title
+	$act = ENV::getPost("pic_act"); if (! $act) return;
+	$new = ENV::getPost("pic_new"); if (! $new) return;
+	$arr = LNG::get();
+
+	FSO::rename($act, $new);
+
+	$uid = basename($new);
+	$uid = str_replace(" ", "_", $uid);
+	$xxx = ENV::setPage($uid);
+
+	$ini = new iniWriter($dir);
+	$ini->set("props.uid", $uid);
+
+	foreach ($arr as $lng) {
+		$ini->set("$lng.title", $new);
+	}
+	$ini->save();
 }
 
 // ***********************************************************

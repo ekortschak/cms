@@ -31,23 +31,17 @@ incCls("server/SSL.php"); // string encryption
 // ***********************************************************
 // read config file(s)
 // ***********************************************************
-incCls("system/KONST.php");	// prepare constants
+incCls("system/CFG.php"); // prepare constants
 
 $arr = FSO::files("config/*.ini");
 
 foreach ($arr as $fil => $nam) {
-	KONST::read($fil);
+	CFG::read($fil);
 }
 
 // ***********************************************************
 // create environment
 // ***********************************************************
 incCls("system/ENV.php"); // session & env vars
-
-// ***********************************************************
-// provide default values for constants
-// ***********************************************************
-KONST::read("design/config/defaults.ini");
-KONST::roundup();
 
 ?>

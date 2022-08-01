@@ -42,6 +42,13 @@ public function setSpaces($before, $after) {
 }
 
 // ***********************************************************
+// setting info
+// ***********************************************************
+public function setProp($prop, $value) {
+	$this->set($prop, $value);
+}
+
+// ***********************************************************
 // setting data
 // ***********************************************************
 public function getCode($qid, $data, $selected = false) {
@@ -64,20 +71,27 @@ public function getKey($qid, $data, $selected = false) {
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $selected;
-	$new = $this->newSelect($qid, $sel);
+	$new = $this->isNew($qid, $sel);
 
-	switch ($new) {
+	switch ($new) { // first call?
 		case true: $sel = ENV::set($qid, $sel); break;
 		default:   $sel = ENV::setIf($qid, $sel);
 	}
+
 	$sel = $this->getSel($qid, $data, $sel);
 	$cur = VEC::get($data, $sel);
 
 	$this->data[$qid]["dat"] = $data;
 	$this->data[$qid]["sel"] = $sel;
 	$this->data[$qid]["cur"] = $cur;
-	$this->data[$qid]["typ"] = "cmb";
+
+	$this->setType($qid, "cmb");
 	return $sel;
+}
+
+public function setType($qid, $type) {
+#	$chk = ".table.combo.inline.icon.beam.topic.menu.button.";
+	$this->data[$qid]["typ"] = $type;
 }
 
 private function getSel($qid, $data, $sel) {
@@ -88,7 +102,7 @@ private function getSel($qid, $data, $sel) {
 	return VEC::find($data, $sel, $sel);
 }
 
-private function newSelect($qid, $sel) {
+private function isNew($qid, $sel) {
 	$chk = $sel;
 	if ($chk != NV) $chk = ENV::get("$qid.sel", NV);
 	if ($chk != NV) return ($chk != $sel);

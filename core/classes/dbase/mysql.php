@@ -97,7 +97,7 @@ private function run($sql) {
 	if (! $this->con) return false;
 	if (! $sql) return false;
 
-	$sql = KONST::insert($sql);
+	$sql = CFG::insert($sql);
 	$res = $this->con->query($sql); if ($res) return $res;
 
 	return ERR::sql($this->con->error."\nxxx", $sql);

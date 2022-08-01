@@ -1,6 +1,9 @@
 [include]
 dropbox.tpl
 
+[vars]
+boxhead = Kapitel
+
 # ***********************************************************
 [main]
 # ***********************************************************
@@ -18,13 +21,12 @@ dropbox.tpl
 </div>
 
 [main.box]
-<div class="dropdown">
-	&nbsp;<span class="dd-text"><!VAR:current!>&nbsp; ▾</span>
+<div class="dropdown"><!VAR:current!>&nbsp; ▾
 <!SEC:content!>
 </div>
 
 [main.one]
-&nbsp;<span class="dd-text"><!VAR:current!></span>
+<!VAR:current!>
 
 # ***********************************************************
 [nav]
@@ -78,3 +80,17 @@ dropbox.tpl
 
 [topic.one]
 <span style="padding: 5px 0px 0px 7px;"><!VAR:current!></span>
+
+# ***********************************************************
+[fixed]
+# ***********************************************************
+<!SEC:main!>
+
+[fixed.box]
+<div class="dropdown">
+	<span style="padding: 5px 0px 0px 7px;"><!VAR:boxhead!>&nbsp; ▾</span>
+<!SEC:content!>
+</div>
+
+[fixed.one]
+<span style="padding: 5px 0px 0px 7px;"><!VAR:boxhead!></span>

@@ -7,12 +7,26 @@
 	}
 	.banner {  position: absolute; }
 	.modmenu { position: absolute; }
-}
 
-.modtoc:hover {
-	border-right: 1px solid grey;
-	width: 650px;
-	z-index: 500;
+	.modtoc {
+		width: 250px;
+	}
+	.modtoc:hover {
+		border-right: 1px solid grey;
+		width: 650px;
+		z-index: 500;
+	}
+
+	.modmbar {
+		left: calc(W_TABS + 250px);
+	}
+	.modbody {
+		left: calc(W_TABS + 250px + W_MBAR);
+	}
+	.moddeco {
+		left: calc(W_TABS + 250px + W_MBAR + W_BODY);
+		width: calc(100% - W_TABS - 250px - W_MBAR - W_BODY);
+	}
 }
 
 @media only screen and (max-width: 1025px) {

@@ -3,7 +3,7 @@
 incCls("input/selector.php");
 
 $sel = new selector();
-$dir = $sel->input("dir.new", "project1");
+$dir = $sel->input("prj.new", "project1");
 $act = $sel->show();
 
 if (! $act) return;

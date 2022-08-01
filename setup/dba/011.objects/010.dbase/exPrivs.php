@@ -6,8 +6,8 @@ incCls("dbase/dbQuery.php");
 HTM::tag("dbo.check privs", "h5");
 // ***********************************************************
 $tbs = DBS::tables($dbs); if (! $tbs) return;
+$lst = VEC::implode($tbs, "','");
 
-$lst = implode("','", $tbs);
 dropEntries($dbs, "cat='tbl' AND spec NOT IN ('$lst')");
 
 foreach ($tbs as $tbl => $nam) {
@@ -15,7 +15,8 @@ foreach ($tbs as $tbl => $nam) {
 	addEntry($dbs, "tbl", $tbl);
 
 	$fds = DBS::fields($dbs, $tbl);
-	$lst = implode("','$tbl.", $fds);
+	$lst = VEC::implode($fds, "','$tbl.");
+
 	dropEntries($dbs, "cat='fld' AND spec LIKE '$tbl.%' AND spec NOT IN ('$tbl.$lst')");
 
 	foreach ($fds as $fld) {

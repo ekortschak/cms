@@ -318,7 +318,7 @@ function beautify(htm) {
 	htm = htm.replace(/(¶+)/gi, "");
 	htm = htm.trim();
 
-	htm = htm.replace(/<div>/gi, "<p>");
+	htm = htm.replace(/<div(.*?)>/gi, "<p>");
 	htm = htm.replace(/<\/div>/gi, "</p>");
 	htm = htm.replace(/<p>(\s?)/gi, "<p>");
 

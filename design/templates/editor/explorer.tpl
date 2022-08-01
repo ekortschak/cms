@@ -1,7 +1,5 @@
 [include]
 design/templates/modules/fview.gallery.tpl
-design/templates/edit/explorefolders.tpl
-design/templates/edit/explorefiles.tpl
 
 [dic]
 start = Default page

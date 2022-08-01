@@ -7,10 +7,12 @@ used for local backup and restore
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$bkp = new backup($bkpDir);
-$bkp->backup($dir);
+$bkp = new backup();
+$snc->setDest($dest);
+$bkp->backup();
 */
 
+incCls("menus/dropbox.php");
 incCls("server/sync.php");
 
 // ***********************************************************
@@ -23,28 +25,76 @@ function __construct() {
 }
 
 // ***********************************************************
-// local backups
+// set parameters
 // ***********************************************************
-public function restore($src, $dest) { // copy data from backup directory
-	$this->exec($src, $dest);
-	$this->report("Restore", $dest);
+public function setDevice($dev = SRV_ROOT) {
+	$this->dev = FSO::norm($dev);
+	$this->setDest(NV, $dev);
 }
 
-public function backup($src, $dest) { // copy data to backup directory
-	$this->exec($src, $dest);
-	$this->report("Backup", $src);
+// ***********************************************************
+// run jobs (backup mode)
+// ***********************************************************
+public function backup() {
+	$this->set("title", "Backup");
+
+	$this->setDest(APP::bkpDir("", $this->dev));
+	$this->showInfo();
+	$this->run();
+}
+public function restore($version = NV) {
+	$this->set("title", "Restore");
+
+	$vrs = $this->getBackups();
+	if (! $vrs) return MSG::now("restore.none");
+
+	$box = new dbox();
+	$dst = $box->getKey("as of", $vrs);
+	$vrs = $box->gc("seemless");
+
+	$this->setDest(APP::bkpDir(basename($dst), $this->dev));
+	$this->revertFlow();
+	$this->showInfo($vrs);
+	$this->run();
 }
 
-protected function exec($src, $dest = "") {
-    if (! $dest) return; FSO::force($dest);
-    parent::exec($src, $dest);
+// ***********************************************************
+// run jobs (sync mode)
+// ***********************************************************
+public function sync() {
+	$this->set("title", "Sync (Mirror)");
+	$this->showInfo();
+	$this->run();
+}
+public function syncBack($version = NV) {
+	if (! is_dir($this->dst)) return MSG::now("sync.none");
+
+	$this->set("title", "SyncBack");
+	$this->revertFlow();
+	$this->showInfo();
+	$this->run();
 }
 
-protected function srcName($fso) {
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+protected function revertFlow() {
+	$tmp = $this->src;
+	$this->src = $this->dst;
+	$this->dst = $tmp;
+}
+
+protected function getBackups() {
+	$dir = APP::bkpDir("", $this->dev); $dir = dirname($dir);
+	return FSO::folders("$dir/bkp*"); krsort($out);
+}
+
+// ***********************************************************
+protected function srcName($fso, $act = false) {
 	if (STR::begins($fso, $this->src)) return $fso;
 	return FSO::join($this->src, $fso);
 }
-protected function destName($fso) {
+protected function destName($fso, $act = false) {
 	if (STR::begins($fso, $this->dst)) return $fso;
 	return FSO::join($this->dst, $fso);
 }

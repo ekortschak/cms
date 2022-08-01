@@ -74,9 +74,7 @@ public function read($btn = "view") {
 // ***********************************************************
 private function getVis() {
 	$prp = $this->get("props.if"); if (! $prp) return true;
-
-	$ini = new ini("config/mods.ini");
-	return $ini->get($prp, true);
+	return CFG::getVar("mods", $prp, true);
 }
 
 // ***********************************************************

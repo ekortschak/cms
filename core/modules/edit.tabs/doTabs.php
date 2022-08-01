@@ -4,19 +4,12 @@ incCls("menus/tabset.php");
 incCls("menus/dropbox.php");
 incCls("input/selector.php");
 
+$set = APP_CALL;
+
 // ***********************************************************
 // collect info
 // ***********************************************************
 $tbs = new tabset();
-$arr = $tbs->validSets();
-
-// ***********************************************************
-// show file selector
-// ***********************************************************
-$box = new dbox();
-$set = $box->getVal("TabSet", $arr, APP_CALL);
-$xxx = $box->show("menu");
-
 $lst = $tbs->getTabs($set, true);
 $vis = $tbs->visTabs($set);
 
@@ -30,8 +23,9 @@ $dat = "";
 foreach ($lst as $tab => $tit) {
 	$tpl->set("tab", $tab);
 	$tpl->set("title", $tit);
+	$tpl->set("default", (STR::contains($vis[$tab], "default")) ? "CHECKED" : "");
 	$tpl->set("visible", ($vis[$tab]) ? "CHECKED" : "");
-	$tpl->set("default", ($vis[$tab] == "default") ? "CHECKED" : "");
+	$tpl->set("local", (STR::contains($vis[$tab], "local")) ? "CHECKED" : "");
 
 	$dat.= $tpl->getSection("row");
 }

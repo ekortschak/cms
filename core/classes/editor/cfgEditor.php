@@ -34,7 +34,7 @@ public function show($fil, $sec = "text") {
 	$this->save();
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/editor/viewEdit.tpl");
+	$tpl->read("design/templates/editor/genEdit.tpl");
 	$tpl->set("file", $fil);
 	$tpl->set("content", $this->getText());
 	$tpl->show($sec);

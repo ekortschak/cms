@@ -70,7 +70,7 @@ public function getSecs() {
 	$out = array();
 
 	foreach ($this->sec as $key => $val) {
-		$out[$key] = KONST::insert($val);
+		$out[$key] = CFG::insert($val);
 	}
 	return $out;
 }
@@ -188,7 +188,7 @@ protected function getItems($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;
 		$val = STR::after($itm, $del);
-		$val = KONST::insert($val);
+		$val = CFG::insert($val);
         $out[$key] = $val;
     }
     return $out;
@@ -203,7 +203,7 @@ protected function checkFile($fil) {
 		$ful = FSO::join(APP_FBK, $fil);
 	}
 	else {
-		$fil = KONST::insert($fil);
+		$fil = CFG::insert($fil);
 		$ful = APP::file($fil);
 	}
 	if (isset($this->hst[$ful])) return false;

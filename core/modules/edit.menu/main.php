@@ -4,10 +4,8 @@
 // login on remote system
 // ***********************************************************
 if (! IS_LOCAL) if (! FS_ADMIN) {
-	$cfg = new ini("config/mods.ini");
-
-	$mod = "stop";
-	if ($cfg->get("online.medit")) $mod = "login";
+	$edt = CFG::getVar("mods", "deco.medit", false);
+	if ($edt) $mod = "login";
 
 	incMod("body/$mod.php");
 	return;

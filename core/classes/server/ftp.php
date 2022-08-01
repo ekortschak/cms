@@ -97,31 +97,33 @@ public function test() {
 // remote operations
 // ***********************************************************
 public function remote_mkDir($dir) {
-	$dst = $this->chkChars($dir); if (! $dst) return false;
-	$erg = ftp_mkdir($this->con, $dst); if ($erg)
-	$xxx = ftp_site($this->con, "CHMOD 0755 $dst");
+	if (! $dir) return false;
+	$erg = ftp_mkdir($this->con, $dir); if ($erg)
+	$xxx = ftp_site($this->con, "CHMOD 0755 $dir");
 	return (bool) $erg;
 }
 public function remote_rmdir($dir) {
+	if (! $dir) return false;
 	$erg = ftp_rmdir($this->con, $dir);
 	return (bool) $erg;
 }
 
 // ***********************************************************
 public function remote_rename($old, $new) {
-	$dst = $this->chkChars($dir); if (! $dst) return false;
+	if (! $old) return false;
+	if (! $new) return false;
 	$erg = ftp_rename($this->con, $old, $new);
 	return (bool) $erg;
 }
 
 // ***********************************************************
 public function remote_del($file) {
-	$fil = $this->chkChars($file); if (! $fil) return false;
-	$erg = ftp_delete($this->con, $fil);
+	if (! $file) return false;
+	$erg = ftp_delete($this->con, $file);
 	return (bool) $erg;
 }
 public function remote_put($src, $dst) {
-	$dst = $this->chkChars($dst); if (! $dst) return false;
+	if (! $dst) return false;
 	$erg = ftp_put($this->con, $dst, $src, FTP_BINARY);
 
 	if ($erg) { // preserve timestamp
@@ -130,8 +132,8 @@ public function remote_put($src, $dst) {
 		ftp_site($this->con, "CHMOD 0755 $dst");
 		return true;
 	}
-	$src = FSO::clearRoot($src);
-	MSG::now("ftp.xfer error", $src);
+#	$src = FSO::clearRoot($src);
+#	MSG::now("ftp.xfer error", $src);
 	return false;
 }
 
@@ -143,19 +145,6 @@ public function save($src, $dst) {
 	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
 	if ($tim > 1) touch ($dst, $tim);
 	return $erg;
-}
-
-// ***********************************************************
-// char issues
-// ***********************************************************
-public function chkChars($fso, $level = 1) {
-	$lst = "[^A-Z_a-z0-9\/\.]";
-	$out = preg_replace("~($lst+)~", "", $fso);
-
-	if ($out == $fso) return $out;
-
-	$this->rep["bad"][] = $fso;
-	return false;
 }
 
 // ***********************************************************

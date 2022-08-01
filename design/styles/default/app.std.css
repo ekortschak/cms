@@ -30,6 +30,7 @@ hx, hy {
 
 p {
 	margin: 3px 0px 7px;
+	text-align: justify;
 }
 b {
     font-weight: bold;

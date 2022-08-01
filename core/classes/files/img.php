@@ -65,6 +65,27 @@ public function preview($file) {
 }
 
 // ***********************************************************
+public function getSize($file) {
+	if (! is_file($file)) return false;
+
+	$inf = getimagesize($file);
+	list($width, $height, $type, $attr) = $inf;
+
+	$out = array(
+		"width" => $width, "height" => $height,
+		"type" => $type, "attr" => $attr,
+	);
+	$out["mime"] = $inf["mime"];
+	return $out;
+}
+
+public function isPortrait($file) {
+	$inf = $this->getSize($file); if (! $inf) return false;
+	extract($inf);
+	return ($width <= $height);
+}
+
+// ***********************************************************
 // auxilliary methods
 // ***********************************************************
 public function setFont($font, $size = 12) {

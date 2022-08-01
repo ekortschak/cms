@@ -30,19 +30,13 @@ public function exec() {
 	if (EDITING != "tedit") return;
 	$act = ENV::get("btn.tab");
 
-	if ($act == "T") {
-		if ($this->toggle())   return; // turn tabs on/off
-		if ($this->tabAdd())   return; // create a new tab
-	}
-	if ($act == "P") {
-		if ($this->setProps()) return; // save props
-	}
-	if ($act == "R") {
-		if ($this->tabSort())  return; // sort tabs
-	}
-	if ($act == "G") {
- 		if ($this->pngTab())  return; // create xx.png files
-		if ($this->pngDel())  return; // delete xx.png files
+	switch ($act) {
+		case "P": if ($this->setProps()) return; // save props
+		case "T": if ($this->toggle())   return; // turn tabs on/off
+		          if ($this->tabAdd())   return; // create a new tab
+		case "S": if ($this->tabSort())  return; // sort tabs
+		case "G": if ($this->pngTab())   return; // create xx.png files
+		          if ($this->pngDel())   return; // delete xx.png files
 	}
 }
 
@@ -50,18 +44,27 @@ public function exec() {
 // visibility & sort order
 // ***********************************************************
 private function toggle() {
-	$cmd = VEC::get($_POST, "set_act"); if (! $cmd) return false;
-	$vls = VEC::get($_POST, "tabs");    if (! $vls) return false;
-	$set = VEC::get($_POST, "tabset");  if (! $set) return false;
-	$std = VEC::get($_POST, "tab_default");
+	$cmd = ENV::getPost("set.act"); if (! $cmd) return false;
+	$set = ENV::getPost("tabset");  if (! $set) return false;
+	$vls = ENV::getPost("tabs");    if (! $vls) return false;
+	$lcs = ENV::getPost("tabl");
+	$std = ENV::getPost("tab.default");
 
 	$ini = new iniWriter("design/config/tabsets.ini");
 	$ini->read("config/tabsets.ini");
 
 	$set = basename($set);
+	$frc = $lcs[$std];
 
 	foreach ($vls as $key => $val) {
-		if ($key == $std) $val = "default";
+		if ($key == $std) {
+			$val = "default";
+		}
+		if ($frc) $val = "$val, local";
+		else {
+			$lcl = VEC::get($lcs, $key);
+			if ($lcl) $val = "$val, local";
+		}
 		$ini->set("$set.$key", $val);
 	}
 	$ini->save();
@@ -70,9 +73,9 @@ private function toggle() {
 
 // ***********************************************************
 private function tabAdd() {
-	$cmd = VEC::get($_POST, "tab_act"); if (! $cmd) return false;
-	$dir = VEC::get($_POST, "tab_dir"); if (! $dir) return true;
-	$set = VEC::get($_POST, "tabset");  if (! $set) return true;
+	$cmd = ENV::getPost("tab_act"); if (! $cmd) return false;
+	$dir = ENV::getPost("tab_dir"); if (! $dir) return true;
+	$set = APP_CALL;
 
 	$dir = FSO::join(APP_DIR, $dir);
 	$dir = FSO::force($dir);
@@ -92,9 +95,11 @@ private function tabAdd() {
 
 // ***********************************************************
 private function tabSort() {
-	$cmd = VEC::get($_POST, "sort_act"); if (! $cmd) return false;
-	$lst = VEC::get($_POST, "slist");    if (! $lst) return true;
-	$set = VEC::get($_POST, "sparm");
+	$cmd = ENV::getPost("sort_act"); if (! $cmd) return false;
+	$lst = ENV::getPost("slist");
+
+	if (! $lst) return true;
+	$set = ENV::getPost("sparm");
 	$lst = VEC::explode($lst, ";");
 
 	$ini = new iniWriter("design/config/tabsets.ini");
@@ -106,6 +111,7 @@ private function tabSort() {
 		if (! $itm) continue;
 		$out[$itm] = VEC::get($vls, $itm, 1);
 	}
+	$ini->clearSec($set);
 	$ini->setValues($set, $out);
 	$ini->save();
 	return true;
@@ -115,7 +121,7 @@ private function tabSort() {
 // methods for design/tabsets
 // ***********************************************************
 private function setProps() {
-	$chk = VEC::get($_POST, "val_props"); if (! $chk) return false;
+	$chk = ENV::getPost("val_props"); if (! $chk) return false;
 	$tab = ENV::get("tab");
 	$fil = FSO::join($tab, "tab.ini");
 
@@ -125,6 +131,7 @@ private function setProps() {
 
 	$ini = new iniWriter("design/config/tab.ini");
 	$ini->read($fil);
+	$ini->getPost();
 	$ini->setVals($chk);
 	$ini->save($fil);
 	return true;
@@ -134,7 +141,7 @@ private function setProps() {
 // graphic tabs
 // ***********************************************************
 private function pngDel() {
-	$tab = VEC::get($_GET, "tab.drop"); if (! $tab) return false;
+	$tab = ENV::getParm("tab.drop"); if (! $tab) return false;
 	$fil = FSO::join($tab, "tab.png");
 	$xxx = FSO::kill($fil);
 
@@ -146,10 +153,10 @@ private function pngDel() {
 }
 
 private function pngTab() {
-	$cmd = VEC::get($_POST, "tab_act");	if (! $cmd) return false;
-	$tab = VEC::get($_POST, "tab_name");
-	$rep = VEC::get($_POST, "tab_rep");
-	$all = VEC::get($_POST, "tab_all");
+	$cmd = ENV::getPost("tab.act");	if (! $cmd) return false;
+	$tab = ENV::getPost("tab.name");
+	$rep = ENV::getPost("tab.rep");
+	$all = ENV::getPost("tab.all");
 
 	foreach (LNG::get() as $lng) {
 		$this->pngMake($tab, $lng, $rep);

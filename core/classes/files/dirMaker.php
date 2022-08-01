@@ -59,7 +59,11 @@ public function getNumPath() {
 }
 
 private function normValue($val) {
+	$val = PRG::replace($val, "(\d+)\. ", "");
+
+	$pos = strpos($val, "."); if ($pos < 3)
 	$val = STR::afterX($val, ".");
+
 	$val = STR::pathify($val);
 	$arr = STR::toArray($val, " ,-"); $out = "";
 
@@ -71,8 +75,17 @@ private function normValue($val) {
 
 private function encoding($text) {
 	foreach(mb_list_encodings() as $chr){
-		$txt = mb_convert_encoding($text, 'UTF-8', $chr);
+		$txt = mb_convert_encoding($text, "UTF-8", $chr);
 		echo "$chr: $txt<br>";
+	}
+}
+
+// ***********************************************************
+// debugging
+// ***********************************************************
+private function debug() {
+	for ($i = 0; $i < $this->size; $i++) {
+		echo "\n<li>".$this->num[$i]." ".$this->dat[$i];
 	}
 }
 

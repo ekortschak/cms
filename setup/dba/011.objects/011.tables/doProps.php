@@ -23,8 +23,7 @@ $lng = CUR_LANG;
 // ***********************************************************
 HTM::Tag("props");
 // ***********************************************************
-$sel = new iniEdit(TAB_ROOT);
-$sel->forget();
+$sel = new iniEdit();
 $sel->hidden("dbo", "dboEdit");
 $sel->hidden("dbs", "$dbs");
 $sel->hidden("tbl", "$tbl");
@@ -37,7 +36,7 @@ foreach ($arr as $prp) {
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
 
-	$sel->addByDefault("prop[$prp]", $vls, $val);
+	$sel->addInput("prop[$prp]", $vls, $val);
 	$sel->setProp("title", $cap);
 	$sel->setProp("hint", $hnt);
 }
@@ -46,8 +45,7 @@ $sel->show();
 // ***********************************************************
 HTM::Tag("lang.props");
 // ***********************************************************
-$sel = new iniEdit(TAB_ROOT);
-$sel->forget();
+$sel = new iniEdit();
 $sel->hidden("dbo", "dboEdit");
 $sel->hidden("dbs", "$dbs");
 $sel->hidden("tbl", "$tbl");

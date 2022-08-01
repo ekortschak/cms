@@ -1,4 +1,5 @@
 <?php
+
 /* ***********************************************************
 // INFO
 // ***********************************************************
@@ -10,9 +11,6 @@ used to control databases
 incCls("dbase/DBS.php");
 
 */
-
-incCls("dbase/dbBasics.php");
-incCls("dbase/dbInfo.php");
 
 DBS::init();
 
@@ -26,13 +24,10 @@ class DBS {
 
 
 public static function init() {
-	KONST::set("DB_CON",   self::loadDbs());
-	KONST::set("DB_LOGIN", self::isUser());
-	KONST::set("DB_ADMIN", self::isAdmin());
-	KONST::set("USR_GRPS", self::getGroups());
-
-	KONST::set("DB_USER",  "dba");
-	KONST::set("DB_PASS",  "db25cz24");
+	CFG::set("DB_CON",   self::loadDbs());
+	CFG::set("DB_LOGIN", self::isUser());
+	CFG::set("DB_ADMIN", self::isAdmin());
+	CFG::set("USR_GRPS", self::getGroups());
 }
 
 // ***********************************************************

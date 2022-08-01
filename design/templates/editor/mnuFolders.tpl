@@ -108,6 +108,8 @@ check     = Prüfen
 
 [chknodes]
 <h4><!DIC:dir.all!></h4>
+<input name="root.dir" type="hidden" value="TOP_PATH">
+
 <table>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:chk.UIDs!></td>

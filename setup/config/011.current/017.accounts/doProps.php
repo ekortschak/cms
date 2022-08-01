@@ -5,12 +5,13 @@ incCls("input/confirm.php");
 incCls("input/selector.php");
 
 // ***********************************************************
-// read ini
+// get ini vals
 // ***********************************************************
-$ini = new ini("config/users.ini");
-$arr = $ini->getValues("user");
-$arr = array_keys($arr);
-$arr = array_combine($arr, $arr);
+$arr = CFG::getCfg("users");
+
+if (! $arr) {
+	return MSG::now("no.grps.kill");
+}
 
 // ***********************************************************
 // show menu

@@ -32,7 +32,7 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function setData($arr) { // directly from pfs->mnuInfo() !!
+public function setData($arr) { // $arr as from PFS::mnuInfo();
 	$this->dat = $arr;
 }
 

@@ -2,3 +2,586 @@
 msg.start = Start-Meldungen
 search.rng = Suchbereich
 tag.demo table = Demo table*
+tag.heb 12 = Heb 12*
+
+tag.heb 9 = Heb 9*
+
+tag.1kor 15 = 1kor 15*
+
+tag.2tim 1 = 2tim 1*
+
+tag.1pet 4 = 1pet 4*
+
+tag.joh 6 = Joh 6*
+
+tag.gen 47 = Gen 47*
+
+tag.gen 27 = Gen 27*
+
+tag.gen 41 = Gen 41*
+
+tag.joh 13 = Joh 13*
+
+tag.joh 12 = Joh 12*
+
+tag.röm 3 = Röm 3*
+
+tag.phi 1 = Phi 1*
+
+tag.joh 7 = Joh 7*
+
+tag.joh 14 = Joh 14*
+
+tag.apg 2 = Apg 2*
+
+tag.dtn 29 = Dtn 29*
+
+tag.jer 31 = Jer 31*
+
+tag.jes 30 = Jes 30*
+
+tag.jer 44 = Jer 44*
+
+tag.hos 5 = Hos 5*
+
+tag.joel 3 = Joel 3*
+
+tag.ex 31 = Ex 31*
+
+tag.hes 11 = Hes 11*
+
+tag.hes 36 = Hes 36*
+
+tag.num 11 = Num 11*
+
+tag.2kön 2 = 2kön 2*
+
+tag.jes 11 = Jes 11*
+
+tag.jes 59 = Jes 59*
+
+tag.jes 61 = Jes 61*
+
+tag.ex 28 = Ex 28*
+
+tag.ex 35 = Ex 35*
+
+tag.dtn 34 = Dtn 34*
+
+tag.hes 43 = Hes 43*
+
+tag.num 24 = Num 24*
+
+tag.ri 3 = Ri 3*
+
+tag.ri 11 = Ri 11*
+
+tag.1sam 19 = 1sam 19*
+
+tag.ri 14 = Ri 14*
+
+tag.ri 15 = Ri 15*
+
+tag.1sam 10 = 1sam 10*
+
+tag.1sam 11 = 1sam 11*
+
+tag.1chr 28 = 1chr 28*
+
+tag.2chr 20 = 2chr 20*
+
+tag.2chr 24 = 2chr 24*
+
+tag.lk 1 = Lk 1*
+
+tag.mt 3 = Mt 3*
+
+tag.mt 12 = Mt 12*
+
+tag.mk 3 = Mk 3*
+
+tag.joh 3 = Joh 3*
+
+tag.apg 4 = Apg 4*
+
+tag.apg 7 = Apg 7*
+
+tag.apg 13 = Apg 13*
+
+tag.röm 1 = Röm 1*
+
+tag.röm 5 = Röm 5*
+
+tag.röm 7 = Röm 7*
+
+tag.röm 8 = Röm 8*
+
+tag.röm 14 = Röm 14*
+
+tag.röm 15 = Röm 15*
+
+tag.1kor 2 = 1kor 2*
+
+tag.1kor 3 = 1kor 3*
+
+tag.1kor 6 = 1kor 6*
+
+tag.1kor 7 = 1kor 7*
+
+tag.1kor 12 = 1kor 12*
+
+tag.2kor 3 = 2kor 3*
+
+tag.2kor 5 = 2kor 5*
+
+tag.eph 1 = Eph 1*
+
+tag.eph 2 = Eph 2*
+
+tag.eph 4 = Eph 4*
+
+tag.phi 3 = Phi 3*
+
+tag.heb 4 = Heb 4*
+
+tag.heb 10 = Heb 10*
+
+tag.jak 2 = Jak 2*
+
+tag.1pet 1 = 1pet 1*
+
+tag.2pet 1 = 2pet 1*
+
+tag.1joh 4 = 1joh 4*
+
+tag.offb 2 = Offb 2*
+
+tag.offb 17 = Offb 17*
+
+tag.1sam 16 = 1sam 16*
+
+tag.2chr 15 = 2chr 15*
+
+tag.hi 6 = Hi 6*
+
+tag.hi 33 = Hi 33*
+
+tag.pred 2 = Pred 2*
+
+tag.jes 31 = Jes 31*
+
+tag.hes 37 = Hes 37*
+
+tag.hes 39 = Hes 39*
+
+tag.dan 4 = Dan 4*
+
+tag.hag 1 = Hag 1*
+
+tag.lk 9 = Lk 9*
+
+tag.offb 1 = Offb 1*
+
+tag.ex 34 = Ex 34*
+
+tag.gen 38 = Gen 38*
+
+tag.hes 13 = Hes 13*
+
+tag.1kor 11 = 1kor 11*
+
+tag.2kor 4 = 2kor 4*
+
+tag.joh 11 = Joh 11*
+
+tag.lk 12 = Lk 12*
+
+tag.lk 22 = Lk 22*
+
+tag.mk 14 = Mk 14*
+
+tag.mt 10 = Mt 10*
+
+tag.heb 11 = Heb 11*
+
+tag.heb 8 = Heb 8*
+
+tag.heb 7 = Heb 7*
+
+tag.heb 6 = Heb 6*
+
+tag.heb 3 = Heb 3*
+
+tag.apg 16 = Apg 16*
+
+tag.1kor 4 = 1kor 4*
+
+tag.1tim 6 = 1tim 6*
+
+tag.lk 2 = Lk 2*
+
+tag.lk 4 = Lk 4*
+
+tag.mk 12 = Mk 12*
+
+tag.apg 5 = Apg 5*
+
+tag.apg 6 = Apg 6*
+
+tag.apg 9 = Apg 9*
+
+tag.apg 11 = Apg 11*
+
+tag.apg 19 = Apg 19*
+
+tag.1kor 14 = 1kor 14*
+
+tag.gal 6 = Gal 6*
+
+tag.kol 1 = Kol 1*
+
+tag.wei 1 = Wei 1*
+
+tag.sir 39 = Sir 39*
+
+tag.sir 48 = Sir 48*
+
+tag.tob 3 = Tob 3*
+
+tag.lk 24 = Lk 24*
+
+tag.lk 10 = Lk 10*
+
+tag.1chr 5 = 1chr 5*
+
+tag.es 1 = Es 1*
+
+tag.spr 1 = Spr 1*
+
+tag.jes 57 = Jes 57*
+
+tag.hes 3 = Hes 3*
+
+tag.dan 2 = Dan 2*
+
+tag.dan 5 = Dan 5*
+
+tag.gen 1 = Gen 1*
+
+tag.hi 12 = Hi 12*
+
+tag.gen 6 = Gen 6*
+
+tag.1sam 17 = 1sam 17*
+
+tag.1sam 18 = 1sam 18*
+
+tag.2kön 14 = 2kön 14*
+
+tag.2kön 15 = 2kön 15*
+
+tag.2kön 18 = 2kön 18*
+
+tag.1chr 15 = 1chr 15*
+
+tag.1chr 16 = 1chr 16*
+
+tag.ex 36 = Ex 36*
+
+tag.ex 37 = Ex 37*
+
+tag.1chr 2 = 1chr 2*
+
+tag.2chr 1 = 2chr 1*
+
+tag.es 10 = Es 10*
+
+tag.1kön 8 = 1kön 8*
+
+tag.2chr 6 = 2chr 6*
+
+tag.est 3 = Est 3*
+
+tag.jes 43 = Jes 43*
+
+tag.jes 45 = Jes 45*
+
+tag.2chr 34 = 2chr 34*
+
+tag.joh 20 = Joh 20*
+
+tag.sach 12 = Sach 12*
+
+tag.apg 8 = Apg 8*
+
+tag.joh 15 = Joh 15*
+
+tag.joh 16 = Joh 16*
+
+tag.joh 4 = Joh 4*
+
+tag.2thes 2 = 2thes 2*
+
+tag.1joh 3 = 1joh 3*
+
+tag.1joh 5 = 1joh 5*
+
+tag.mt 1 = Mt 1*
+
+tag.lk 3 = Lk 3*
+
+tag.lk 6 = Lk 6*
+
+tag.joh 1 = Joh 1*
+
+tag.apg 1 = Apg 1*
+
+tag.apg 10 = Apg 10*
+
+tag.röm 2 = Röm 2*
+
+tag.2kor 7 = 2kor 7*
+
+tag.2kor 11 = 2kor 11*
+
+tag.offb 16 = Offb 16*
+
+tag.offb 22 = Offb 22*
+
+tag.mt 4 = Mt 4*
+
+tag.2pet 2 = 2pet 2*
+
+tag.1kön 1 = 1kön 1*
+
+tag.1kön 2 = 1kön 2*
+
+tag.1kön 11 = 1kön 11*
+
+tag.1kön 9 = 1kön 9*
+
+tag.1chr 22 = 1chr 22*
+
+tag.1chr 29 = 1chr 29*
+
+tag.2chr 8 = 2chr 8*
+
+tag.2chr 13 = 2chr 13*
+
+tag.hoh 8 = Hoh 8*
+
+tag.1sam 13 = 1sam 13*
+
+tag.2sam 2 = 2sam 2*
+
+tag.2sam 5 = 2sam 5*
+
+tag.2sam 12 = 2sam 12*
+
+tag.1sam 2 = 1sam 2*
+
+tag.1sam 8 = 1sam 8*
+
+tag.1sam 15 = 1sam 15*
+
+tag.1sam 1 = 1sam 1*
+
+tag.1kön 14 = 1kön 14*
+
+tag.1kön 17 = 1kön 17*
+
+tag.pred 10 = Pred 10*
+
+tag.1sam 9 = 1sam 9*
+
+tag.mt 22 = Mt 22*
+
+tag.lk 20 = Lk 20*
+
+tag.mt 5 = Mt 5*
+
+tag.1pet 5 = 1pet 5*
+
+tag.1tim 3 = 1tim 3*
+
+tag.mt 28 = Mt 28*
+
+tag.mk 9 = Mk 9*
+
+tag.lk 23 = Lk 23*
+
+tag.joh 18 = Joh 18*
+
+tag.joh 19 = Joh 19*
+
+tag.joh 10 = Joh 10*
+
+tag.joh 5 = Joh 5*
+
+tag.lk 8 = Lk 8*
+
+tag.lk 15 = Lk 15*
+
+tag.lk 17 = Lk 17*
+
+tag.mk 15 = Mk 15*
+
+tag.mk 6 = Mk 6*
+
+tag.mk 5 = Mk 5*
+
+tag.mk 1 = Mk 1*
+
+tag.mt 8 = Mt 8*
+
+tag.mt 14 = Mt 14*
+
+tag.mt 16 = Mt 16*
+
+tag.mt 26 = Mt 26*
+
+tag.mt 27 = Mt 27*
+
+tag.heb 2 = Heb 2*
+
+tag.1thes 4 = 1thes 4*
+
+tag.ex 6 = Ex 6*
+
+tag.num 25 = Num 25*
+
+tag.num 31 = Num 31*
+
+tag.jos 22 = Jos 22*
+
+tag.ri 20 = Ri 20*
+
+tag.1kön 16 = 1kön 16*
+
+tag.2kön 9 = 2kön 9*
+
+tag.2kön 10 = 2kön 10*
+
+tag.2chr 22 = 2chr 22*
+
+tag.hos 1 = Hos 1*
+
+tag.jer 36 = Jer 36*
+
+tag.2kön 12 = 2kön 12*
+
+tag.2pet 3 = 2pet 3*
+
+tag.gen 3 = Gen 3*
+
+tag.hes 1 = Hes 1*
+
+tag.hes 10 = Hes 10*
+
+tag.mk 8 = Mk 8*
+
+tag.mt 21 = Mt 21*
+
+tag.kol 2 = Kol 2*
+
+tag.eph 3 = Eph 3*
+
+tag.mt 11 = Mt 11*
+
+tag.spr 23 = Spr 23*
+
+tag.spr 3 = Spr 3*
+
+tag.spr 4 = Spr 4*
+
+tag.spr 7 = Spr 7*
+
+tag.spr 5 = Spr 5*
+
+tag.spr 8 = Spr 8*
+
+tag.spr 9 = Spr 9*
+
+tag.spr 14 = Spr 14*
+
+tag.spr 13 = Spr 13*
+
+tag.spr 16 = Spr 16*
+
+tag.spr 27 = Spr 27*
+
+tag.apg 20 = Apg 20*
+
+tag.1chr 4 = 1chr 4*
+
+tag.2sam 6 = 2sam 6*
+
+tag.2kön 17 = 2kön 17*
+
+tag.2kön 19 = 2kön 19*
+
+tag.2kön 21 = 2kön 21*
+
+tag.2kön 23 = 2kön 23*
+
+tag.2kön 13 = 2kön 13*
+
+tag.2kön 1 = 2kön 1*
+
+tag.1kön 13 = 1kön 13*
+
+tag.num 12 = Num 12*
+
+
+tag.2kön 8 = 2kön 8*
+tag.2chr 23 = 2chr 23*
+tag.2kön 11 = 2kön 11*
+tag.1chr 8 = 1chr 8*
+tag.1kor 1 = 1kor 1*
+tag.röm 6 = Röm 6*
+tag.röm 11 = Röm 11*
+tag.röm 12 = Röm 12*
+tag.röm 16 = Röm 16*
+tag.1kor 16 = 1kor 16*
+tag.2kor 2 = 2kor 2*
+tag.kol 4 = Kol 4*
+tag.lk 14 = Lk 14*
+tag.1thes 5 = 1thes 5*
+tag.mt 24 = Mt 24*
+tag.mk 13 = Mk 13*
+tag.mt 6 = Mt 6*
+tag.lev 11 = Lev 11*
+tag.lev 19 = Lev 19*
+tag.lev 20 = Lev 20*
+tag.num 15 = Num 15*
+tag.dtn 32 = Dtn 32*
+tag.jos 24 = Jos 24*
+tag.2chr 30 = 2chr 30*
+tag.esr 8 = Esr 8*
+tag.neh 8 = Neh 8*
+tag.hes 20 = Hes 20*
+tag.sach 14 = Sach 14*
+tag.offb 20 = Offb 20*
+tag.phi 2 = Phi 2*
+tag.heb 5 = Heb 5*
+tag.lk 18 = Lk 18*
+tag.mk 4 = Mk 4*
+tag.jer 7 = Jer 7*
+tag.jer 26 = Jer 26*
+tag.hes 6 = Hes 6*
+tag.dtn 15 = Dtn 15*
+tag.gen 8 = Gen 8*
+tag.jer 32 = Jer 32*
+tag.ps 36 = Ps 36*
+tag.neh 1 = Neh 1*
+tag.neh 7 = Neh 7*
+tag.jer 3 = Jer 3*
+tag.joel 2 = Joel 2*
+tag.am 4 = Am 4*
+tag.sach 1 = Sach 1*
+tag.mal 3 = Mal 3*
+tag.apg 3 = Apg 3*
+tag.mt 2 = Mt 2*
+tag.gen 35 = Gen 35*
+tag.ex 1 = Ex 1*
+tag.gen 26 = Gen 26*

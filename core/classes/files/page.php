@@ -30,7 +30,7 @@ function __construct() {
 }
 
 public function read($tpl = "design/layout/LAYOUT/view.tpl") {
-	$tpl = KONST::insert($tpl);
+	$tpl = CFG::insert($tpl);
 	$tpl = APP::file($tpl); if (! $tpl)
 	$tpl = APP::file("design/layout/default/main.tpl");
 
@@ -63,8 +63,8 @@ private function getModules() {
 public function show($sec = "main") {
 	if (CUR_DEST == "csv") {
 		incCls("server/download.php");
-		$dwn = new download();
-		$dwn->csv("x.csv", $this->gc());
+		$srv = new download();
+		$srv->csv("x.csv", $this->gc());
 		return;
 	}
 	echo $this->gc($sec);

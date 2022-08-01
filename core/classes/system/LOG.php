@@ -21,9 +21,9 @@ LOG::init();
 class LOG {
 	private static $tim;           // timer
 	private static $dir = false;   // log dir
-	private static $dat = array();
 	private static $dbg = false;
 	private static $hed = "";
+	private static $dat = array();
 
 public static function init() {
 	if (! self::isLocal()) return;
@@ -44,14 +44,17 @@ public static function init() {
 
 // ***********************************************************
 private static function chkDir() {
-	if (! SRV_ROOT) return ""; $out = SRV_ROOT."temp/".APP_NAME."/log";
-	if (! is_dir($out)) mkdir($out, 0775, true);
-	return $out;
+	if (! SRV_ROOT) return false;
+	$app = basename(APP_DIR);
+	$dir = SRV_ROOT."temp/$app/log"; if (! is_dir($dir))
+	$out = mkdir($dir, 0755, true);
+	$out = is_dir($dir); if (! $out) return false;
+	return $dir;
 }
 private static function isLocal() {
 	if (! isset($_SERVER["SERVER_NAME"])) return false;
 	$srv = $_SERVER["SERVER_NAME"];
-	return (stripos($srv, "localhost") > 0);
+	return (stripos($srv, "localhost") !== false);
 }
 private static function isDebug() {
 	if (! defined("EDITING")) return false;
@@ -70,6 +73,7 @@ public static function dir() {
 	return self::$dir;
 }
 public static function file($file) {
+	$file = basename($file);
 	return self::$dir."/$file";
 }
 
@@ -131,6 +135,7 @@ private static function saveParms() {
 	$sep = "*** TIME = ";
 	$max = 5;
 
+	$txt = ""; if (is_file($log))
 	$txt = file_get_contents($log);
 	$arr = explode($sep, $txt);
 	$fst = count($arr);

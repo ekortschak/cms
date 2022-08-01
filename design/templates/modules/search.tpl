@@ -47,7 +47,7 @@ result =
 <!VAR:items!>
 
 [item]
-<div><a href="?prv=<!VAR:link!>"><!VAR:title!></a></div>
+<div style="white-space: nowrap;"><a href="?prv=<!VAR:link!>"><!VAR:title!></a></div>
 
 [nav.opts]
 <!DIC:show!> <red><!VAR:ref!></red>? - <!DIC:nav.back!>

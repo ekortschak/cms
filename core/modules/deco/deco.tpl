@@ -42,22 +42,25 @@ settings = Einstellungen
 <!BTN:print!>
 <!BTN:csv!>
 
-<!BTN:login!>
-
-<!BTN:manual!>
+<!SEC:login!>
+<!SEC:manual!>
 </div>
 
 # ***********************************************************
 [config]
 # ***********************************************************
+<h4><!DIC:loc!></h4>
+
+<div>
+<!BTN:view!>
+</div>
+
 <h4><!DIC:settings!></h4>
 
 <div>
 <!BTN:config!>
 <!BTN:xpedit!>
 <!BTN:xmedit!>
-&nbsp;
-<!BTN:view!>
 </div>
 
 # ***********************************************************
@@ -68,9 +71,10 @@ settings = Einstellungen
 <div>
 <!BTN:view!>
 <!SEC:pedit!>
+<!SEC:xedit!>
 <!SEC:medit!>
 &nbsp;
-<!SEC:xform!>
+<!SEC:xfer!>
 &nbsp;
 <!SEC:debug!>
 </div>
@@ -81,8 +85,10 @@ settings = Einstellungen
 <!BTN:medit!>
 [pedit]
 <!BTN:pedit!>
-[xform]
-<!BTN:xform!>
+[xedit]
+<!BTN:xedit!>
+[xfer]
+<!BTN:xfer!>
 
 [debug]
 <!BTN:debug!>
@@ -104,3 +110,11 @@ settings = Einstellungen
 <!BTN:config!>
 </div>
 
+[login]
+<!BTN:login!>
+
+[logout]
+<!BTN:logout!>
+
+[manual]
+<!BTN:manual!>

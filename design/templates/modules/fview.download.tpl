@@ -31,6 +31,7 @@ free = Kostenlose Downloads
 	<td nowrap><a href="<!VAR:url!>" target="_blank"><!VAR:caption!></a></td>
 	<td>&nbsp;</td>
 	<td><!VAR:ext3!></td>
-	<td align="right"><grey><!VAR:size!></grey></td>
+	<td nowrap align="right"><grey><!VAR:size!></grey></td>
 	<td><grey><!VAR:date!></grey></td>
+	<td><grey><!VAR:md5!></grey></td>
 </tr>

@@ -20,11 +20,11 @@ incCls("input/selector.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class iniEdit extends selector {
-	private $prp = array();
 
 function __construct() {
 	parent::__construct();
 	$this->read("design/templates/editor/iniEdit.tpl");
+	$this->forget();
 }
 
 // ***********************************************************
@@ -47,7 +47,7 @@ public function tabtype($caption = "Type", $sel = "root") {
 // ***********************************************************
 // adding selector items
 // ***********************************************************
-public function addByDefault($fname, $vals, $val) {
+public function addInput($fname, $vals, $val) {
 	if ($fname == "props[uid]") {
 		if (PFS::isStatic())
 		return $this->addObj("ronly", $fname, $vals, $val);
@@ -82,6 +82,7 @@ public function addByDefault($fname, $vals, $val) {
 	return $this->addObj("input", $fname, $val);
 }
 
+// ***********************************************************
 private function addObj($typ, $qid, $prm1, $prm2 = "") {
 	$cap = $qid;
 	if (STR::contains($qid, "@")) $cap = STR::afterX($qid, "@");

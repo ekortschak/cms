@@ -9,9 +9,11 @@ html {
 }
 
 body {
+	overflow: auto;
 	position: relative;
 	height: 100%;
 
+	hyphens: auto;
 	font: F_SIZE normal normal Arial, DejaVu Sans;
 	color: FC_BODY;
 	background: BC_BODY no-repeat right top;
@@ -30,17 +32,17 @@ body.print {
 /* ******************************************************** */
 .container {
 	background: transparent;
-	padding: 0px 20px 35px;
-	overflow: visible;
+	padding: 0px 20px 0px;
+#	overflow: visible;
 }
-.conToc  { padding: 15px 15px 35px; }
-.conDeco { padding:  0px 35px 35px; }
+.conToc  { padding: 15px 15px 7px; }
+.conDeco { padding:  0px 35px 7px; }
 
 /* ******************************************************** */
 /* panels */
 /* ******************************************************** */
 .modtabs {
-	overflow: hidden;
+	overflow: visible;
 	position: fixed;
 	height: 100%;
     width: W_TABS;
@@ -71,6 +73,7 @@ body.print {
 }
 
 .modbody {
+	z-index: 5;
 	overflow: auto;
 	position: fixed;
 	left: calc(W_TABS + W_TOC + W_MBAR);
@@ -82,6 +85,7 @@ body.print {
     background: BC_BODY;
 }
 .moddeco {
+	z-index: 1;
 	overflow: auto;
 	position: fixed;
 	left: calc(W_TABS + W_TOC + W_MBAR + W_BODY);

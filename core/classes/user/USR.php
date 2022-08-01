@@ -17,15 +17,15 @@ class USR extends objects {
 	private static $dat = array();
 
 public static function init() {
-	KONST::set("STD_LANG", current(STR::toArray(LANGUAGES)));
-	KONST::set("CUR_LANG", ENV::get("lang", STD_LANG));
-	KONST::set("CUR_USER", ENV::get("crdu", "www"));
-	KONST::set("CUR_PASS", ENV::get("crdp", "www"));
+	CFG::set("STD_LANG", current(STR::toArray(LANGUAGES)));
+	CFG::set("CUR_LANG", ENV::get("lang", STD_LANG));
+	CFG::set("CUR_USER", ENV::get("crdu", "www"));
+	CFG::set("CUR_PASS", ENV::get("crdp", "www"));
 
 	self::read();
 
-	KONST::set("FS_LOGIN", self::isUser());
-	KONST::set("FS_ADMIN", self::isAdmin());
+	CFG::set("FS_LOGIN", self::isUser());
+	CFG::set("FS_ADMIN", self::isAdmin());
 }
 
 // ***********************************************************

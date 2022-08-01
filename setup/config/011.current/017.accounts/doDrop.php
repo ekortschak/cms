@@ -4,12 +4,13 @@ incCls("menus/dropbox.php");
 incCls("input/confirm.php");
 
 // ***********************************************************
-// read ini
+// get ini vals
 // ***********************************************************
-$ini = new ini("config/users.ini");
-$arr = $ini->getValues("user");
-$arr = array_keys($arr);
-$arr = array_combine($arr, $arr);
+$arr = CFG::getCfg("users");
+
+if (! $arr) {
+	return MSG::now("no.grps.edit");
+}
 
 // ***********************************************************
 // show menu

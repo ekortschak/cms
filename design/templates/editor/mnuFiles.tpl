@@ -20,7 +20,7 @@ addfile = Create a new file
 create = OK
 inifiles = Ini file(s)
 
-recurse = recursively (all Folders)
+recurse = whole project
 
 [dic.de]
 head = Dateien
@@ -34,7 +34,7 @@ addfile = Andere Datei
 create  = Erstellen
 inifiles = Ini-Datei(en)
 
-recurse = rekursiv (alle Ordner)
+recurse = gesamtes Projekt
 
 # ***********************************************************
 [main]
@@ -64,9 +64,10 @@ recurse = rekursiv (alle Ordner)
 	</td>
 
 	<td nowrap width=175><a href="?vmode=pedit&pic.file=<!VAR:file!>"><!VAR:file!></a></td>
-	<td align="right"><grey><!VAR:sfmt!></grey></td>
+	<td nowrap align="right"><grey><!VAR:sfmt!></grey></td>
 	<td class="nopad">&nbsp;</td>
 	<td><grey><!VAR:date!></grey></td>
+	<td><hint><!VAR:md5!></hint></td>
 </tr>
 
 # ***********************************************************

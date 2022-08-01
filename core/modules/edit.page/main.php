@@ -1,17 +1,13 @@
 <?php
 
 if (! IS_LOCAL) if (! FS_ADMIN) {
-	$cfg = new ini("config/mods.ini");
-
 	$mod = "stop";
-	if ($cfg->get("online.pedit")) $mod = "login";
+	$edt = CFG::getVar("mods", "deco.pedit", false);
+	if ($edt) $mod = "login";
 
 	incMod("body/$mod.php");
 	return;
 }
-
-incCls("menus/qikScript.php");
-incCls("editor/ediTools.php");
 
 // ***********************************************************
 // show title
@@ -25,16 +21,18 @@ HTM::cap($tit, "h3");
 // ***********************************************************
 // show file selector
 // ***********************************************************
+incCls("menus/dropbox.php");
+
 $box = new dbox();
 $fil = $box->anyfiles($loc, "pic.file", $fil);
 
 // ***********************************************************
 // find relevant editors
 // ***********************************************************
+incCls("editor/ediTools.php");
+
 $edi = new ediTools();
-$xxx = $edi->extEdit($fil);
 $sec = $edi->getType($fil);
-$dir = $edi->getPath();
 $eds = $edi->getEditors($sec);
 
 if ($eds)

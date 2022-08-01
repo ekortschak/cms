@@ -29,7 +29,7 @@ class ENV {
 // merge environment variables
 // ***********************************************************
 public static function init() {
-	KONST::set("APP_IDX", self::getIndex());
+	CFG::set("APP_IDX", self::getIndex());
 
 	self::chkReset();
 #	self::clrTimeOut();
@@ -88,8 +88,9 @@ public static function oidGet($oid, $key, $default = false) {
 	return VEC::get($arr, $key, $default);
 }
 public static function oidSet($oid, $key, $value) {
-	$key = self::norm($key); if (! $key) return;
+	$key = self::norm($key); if (! $key) return false;
 	$_SESSION[APP_IDX]["oid"][$oid][$key] = $value;
+	return $value;
 }
 
 public static function forget($oid = NV) {
@@ -224,8 +225,8 @@ public static function seal() {
 		case "prn": $dst = "prn"; break; // printing and pdf
 		default:    $dst = "screen";
 	}
-	KONST::set("EDITING",  $mod);
-	KONST::set("CUR_DEST", $dst);
+	CFG::set("EDITING",  $mod);
+	CFG::set("CUR_DEST", $dst);
 }
 
 // ***********************************************************

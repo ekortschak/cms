@@ -17,7 +17,6 @@ qid = dropbox
 parm = ref
 type = button
 width = 125
-icon = core/icons/other/book.gif
 current = ???
 
 tspace = 0
@@ -31,7 +30,7 @@ bspace = 3
 # ***********************************************************
 [content]
 <div class="dropdown-content">
-	<!VAR:links!>
+<!VAR:links!>
 </div>
 
 [link]
@@ -121,14 +120,42 @@ bspace = 3
 
 [menu.box]
 &nbsp; <!VAR:uniq!>:
-<div class="dropdown">
-	<span class="dd-text"><!VAR:current!>&nbsp; ▾</span>
+<div class="dropdown"><!VAR:current!>&nbsp; ▾
 <!SEC:content!>
 </div>
 
 [menu.one]
-&nbsp; <!VAR:uniq!>:
-<span class="dd-text"><!VAR:current!></span>
+&nbsp; <!VAR:uniq!>: <!VAR:current!>
+
+# ***********************************************************
+[submenu] # multiple options with title
+# ***********************************************************
+<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+	<div class="submenu">
+<!VAR:items!>
+	</div>
+</div>
+
+[submenu.box]
+<!SEC:menu.box!>
+
+[submenu.one]
+<!SEC:menu.one!>
+
+# ***********************************************************
+[seemless] # multiple options with title
+# ***********************************************************
+<div class="seemless">
+<!VAR:items!>
+</div>
+
+[seemless.box]
+&nbsp;<!VAR:uniq!>: <div class="dropdown"><!VAR:current!>&nbsp; ▾
+<!SEC:content!>
+</div>
+
+[seemless.one]
+&nbsp;<!VAR:uniq!>: <!VAR:current!>
 
 # ***********************************************************
 [beam] # single option without title
@@ -140,13 +167,12 @@ bspace = 3
 </div>
 
 [beam.box]
-<div class="dropdown">
-	<span class="dd-text"><!DIC:range!>&nbsp; ▾</span>
+<div class="dropdown"><!VAR:current!>&nbsp; ▾
 <!SEC:content!>
 </div>
 
 [beam.one]
-<span class="dd-text"><!DIC:range!></span>
+<!VAR:current!>
 
 # ***********************************************************
 [icon]
@@ -155,9 +181,7 @@ bspace = 3
 
 [icon.box]
 <div class="dropdown">
-	<button class="dropdown-button">
-		<img src="<!VAR:icon!>" /> &nbsp; ▾
-	</button>
+	<button class="dropdown-button"><img src="<!VAR:icon!>" /> &nbsp; ▾</button>
 <!SEC:content!>
 </div>
 
@@ -197,13 +221,12 @@ bspace = 3
 <span style="padding: 5px 0px 0px 7px;"><!DIC:topic!></span>
 
 # ***********************************************************
-[js.button]
+[button]
 # ***********************************************************
 <!VAR:items!>
 
 [js.button.box]
-<div class="dropdown">
-	<span class="dd-text"><!VAR:current!>&nbsp; ▾</span>
+<div class="dropdown"><!VAR:current!>&nbsp; ▾
 <!SEC:content!>
 </div>
 

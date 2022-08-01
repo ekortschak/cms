@@ -14,6 +14,8 @@ $obj = new mnuEdit();
 
 incCls("editor/iniWriter.php");
 incCls("server/upload.php");
+incCls("other/uids.php");
+
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -30,8 +32,9 @@ public function exec() {
 
 	$dir = ENV::get("loc"); if (! is_dir($dir))
 	$dir = APP::dir($dir);	if (! $dir) return;
+	$act = ENV::get("btn.menu");
 
-	switch (ENV::get("btn.menu")) {
+	switch ($act) {
 		case "D": if ($this->nodeOpts($dir)) return;
 		case "F": if ($this->fileOpts($dir)) return;
 		case "P": if ($this->pageOpts($dir)) return;
@@ -45,7 +48,7 @@ public function exec() {
 // node Opts
 // ***********************************************************
 private function nodeOpts($dir) {
-	$cmd = VEC::get($_POST, "node_act"); if (! $cmd) return false;
+	$cmd = ENV::getPost("node_act"); if (! $cmd) return false;
 
 	switch (STR::left($cmd)) {
 		case "ren": $this->nodeRename($dir); break; // rename directory
@@ -62,7 +65,7 @@ private function nodeOpts($dir) {
 
 // ***********************************************************
 private function nodeRename($dir) { // rename directory
-	$dst = VEC::get($_POST, "ren_dir"); if (! $dst) return false;
+	$dst = ENV::getPost("ren_dir"); if (! $dst) return false;
 	$par = dirname($dir);
 	$dst = "$par/$dst";
 
@@ -100,18 +103,20 @@ private function nodeIn($dir) { // move in in hierarchy
 // acting on whole tree
 // ***********************************************************
 private function nodeCheck() { // add UID to page.ini recursively
-	$arr = FSO::tree(TAB_PATH); unset($arr[0]);
-	$hst = array();
+	$dir = ENV::getPost("root_dir");
+	$arr = FSO::tree($dir); unset($arr[0]);
+	$ids = new uids();
 
 	foreach ($arr as $dir => $nam) {
-		$ini = new iniWriter($dir);
+		$ini = new iniWriter("design/config/page.ini");
+		$ini->read($dir);
+
 		$uid = $ini->getUID();
-		$uid = STR::before($uid, ":"); // eliminate trailing numbers
+		$chk = $ids->getUID($uid); if ($uid == $chk) continue;
 
-		$idx = VEC::get($hst, $uid, 0) + 1;
-		$hst[$uid] = $idx; if ($idx < 2) continue;
+		MSG::add("$uid => $dir");
 
-		$ini->set("props.uid", "$uid:$idx");
+		$ini->set("props.uid", $chk);
 		$ini->save();
 	}
 	MSG::add("Check UIDs - OK");
@@ -122,7 +127,7 @@ private function nodeCheck() { // add UID to page.ini recursively
 // acting on subnodes
 // ***********************************************************
 private function nodeAdd($dir) {
-	$dst = VEC::get($_POST, "sub_dir"); if (! $dst) return false;
+	$dst = ENV::getPost("sub_dir"); if (! $dst) return false;
 	$dst = STR::toArray($dst);
 
 	foreach ($dst as $itm) {
@@ -137,8 +142,8 @@ private function nodeAdd($dir) {
 // sorting entries
 // ***********************************************************
 private function sortOpts($dir) { // sort a node
-	$cmd = VEC::get($_POST, "sort_act"); if (! $cmd) return false;
-	$lst = VEC::get($_POST, "slist");    $cnt = 10; // start at #
+	$cmd = ENV::getPost("sort_act"); if (! $cmd) return false;
+	$lst = ENV::getPost("slist");    $cnt = 10; // start at #
 	$lst = VEC::explode($lst, ";");  $inc = 1;
 
 	foreach ($lst as $itm) {
@@ -158,7 +163,7 @@ private function sortOpts($dir) { // sort a node
 // file Opts
 // ***********************************************************
 private function fileOpts($dir) {
-	$cmd = VEC::get($_POST, "file_act"); if (! $cmd)
+	$cmd = ENV::getPost("file_act"); if (! $cmd)
 	$cmd = VEC::get($_GET, "file_act"); if (! $cmd) return false;
 
 	switch(STR::left($cmd)) {
@@ -174,13 +179,13 @@ private function fileOpts($dir) {
 
 // ***********************************************************
 private function fileAddIni($dir) { // add page.ini (recursively)
-	$all = VEC::get($_POST, "ini_rec", false);
+	$all = ENV::getPost("ini_rec", false);
 	$ovr = ENV::get("opt.overwrite");
-	$tab = ENV::get("loc");
+	$tab = ENV::getTopDir();
 
 	switch ($all) {
 		case true: $arr = FSO::tree($tab); unset($arr[0]); break;
-		default:   $arr = array($dir => $dir);
+		default:   $arr = FSO::tree($dir);
 	}
 	foreach ($arr as $dir => $nam) {
 		$this->saveStdIni($dir, $ovr);
@@ -188,9 +193,9 @@ private function fileAddIni($dir) { // add page.ini (recursively)
 }
 
 private function fileAddSys($dir) { // add empty language file, e.g. de.htm
-	$nam = VEC::get($_POST, "sys_name");
-	$lng = VEC::get($_POST, "sys_lang");
-	$ext = VEC::get($_POST, "sys_ext");
+	$nam = ENV::getPost("sys_name");
+	$lng = ENV::getPost("sys_lang");
+	$ext = ENV::getPost("sys_ext");
 	$ovr = ENV::get("opt.overwrite");
 
 	$fil = FSO::join($dir, "$nam.$lng.$ext");
@@ -201,7 +206,7 @@ private function fileAddSys($dir) { // add empty language file, e.g. de.htm
 }
 
 private function fileAddAny($dir) { // create any file
-	$nam = VEC::get($_POST, "any_name");
+	$nam = ENV::getPost("any_name");
 	$ovr = ENV::get("opt.overwrite");
 	$fil = FSO::join($dir, $nam);
 	$erg = APP::writeTell($fil, "", $ovr);
@@ -225,16 +230,12 @@ private function fileDelete($dir) { // delete a files
 private function pageOpts($dir) {
 	$lng = CUR_LANG;
 
-	if ($cmd = VEC::get($_POST, "val_default")) {
+	if (ENV::getPost("val_default")) {
 		$this->pageDefault($dir); // set startup page
 		return true;
 	}
-	if ($cmd = VEC::get($_POST, "val_props")) {
+	if (ENV::getPost("val_props")) {
 		$this->pageProps($dir); // save page props
-		return true;
-	}
-	if (VEC::get($_POST, "pic_act")) {
-		$this->picProps($dir); // edit UID and title simultaneously
 		return true;
 	}
 	return false;
@@ -257,40 +258,17 @@ private function pageProps($dir) { // change uid, display type
 }
 
 private function pageDefault($dir) { // mark node as default
-	$act = VEC::get($_POST, "val_default"); if (! $act) return false;
+	$act = ENV::getPost("val_default"); if (! $act) return false;
 
 	$ini = new iniWriter($dir); // update page.ini - if necessary
-	$uid = $ini->getUID();
-	$ini->set("props.uid", $uid);
 	$ini->save();
 
 	$tpc = ENV::getTopDir();
 	$fil = FSO::join($tpc, "tab.ini");
 
-	$ini = new iniWriter("design/config/tabsets.ini");
+	$ini = new iniWriter("design/config/tab.ini");
 	$ini->read($fil);
 	$ini->set("props.std", $uid);
-	$ini->save();
-}
-
-// ***********************************************************
-// pic Opts
-// ***********************************************************
-private function picProps($dir) { // modify UID and title
-	$act = VEC::get($_POST, "pic_act"); if (! $act) return;
-	$tit = VEC::get($_POST, "uid_tit"); if (! $tit) return;
-	$arr = LNG::get();
-
-	$uid = strtolower($tit);
-	$uid = str_replace(" ", "_", $uid);
-	$xxx = ENV::setPage($uid);
-
-	$ini = new iniWriter($dir);
-	$ini->set("props.uid", $uid);
-
-	foreach ($arr as $lng) {
-		$ini->set("$lng.title", $tit);
-	}
 	$ini->save();
 }
 
@@ -298,7 +276,7 @@ private function picProps($dir) { // modify UID and title
 // user Opts
 // ***********************************************************
 private function userOpts($dir) {
-	$chk = VEC::get($_POST, "perms_act"); if (! $chk) return false;
+	$chk = ENV::getPost("perms_act"); if (! $chk) return false;
 	$ful = FSO::join($dir, "perms.ini");
 
 	$arr = $_POST; unset($arr["perms_act"]);
@@ -322,7 +300,8 @@ private function userOpts($dir) {
 private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
 	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
 
-	$ini = new iniWriter($dir);
+	$ini = new iniWriter("design/config/page.ini");
+	$ini->read($fil);
 	$ini->save($fil);
 }
 
@@ -330,7 +309,7 @@ private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
 // clipboard Opts
 // ***********************************************************
 private function clipOpts($dir) {
-	$chk = VEC::get($_POST, "clip_act"); if (! $chk) return false;
+	$chk = ENV::getPost("clip_act"); if (! $chk) return false;
 
 	if ($chk == "cut") {
 		ENV::setPage(dirname($dir));

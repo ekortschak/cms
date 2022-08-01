@@ -37,6 +37,10 @@ function dbgSVars() {
 	DBG::vector($_SESSION[APP_IDX]);
 }
 
+function logx($msg = "hier", $info = "dbg") {
+	DBG::text($msg, $info);
+}
+
 function dump($obj) {
 	var_dump($obj);
 }
@@ -55,14 +59,14 @@ public static function text($msg, $info) {
 		$msg = array_slice($msg, 0, 15);
 		return self::vector($msg, $info);
 	}
-	if (self::$dest == "cl") {
+	if (self::$dest == "cl") { // command line
 		echo "$info: $msg\n";
 		return;
 	}
-	echo "<li>$info: $msg</li>";
+	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code
-	if (is_array($msg)) $msg = implode("\n", $msg);
+	$msg = VEC::implode($msg, "\n");
 	self::text(htmlspecialchars($msg), $info);
 }
 public static function path($msg, $info = "path") { // show path info
@@ -122,7 +126,7 @@ private static function obj($obj, $pfx = "obj") {
 private static function arr($arr, $pfx = "var") {
 	$num = count($arr); if (self::$max > 0)
 	$arr = array_slice($arr, 0, self::$max);
-	$msg = VEC::toString($arr);
+	$msg = VEC::xform($arr);
 
 	self::tooltip($msg, "$pfx = $num recs");
 }

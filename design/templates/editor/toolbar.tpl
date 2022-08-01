@@ -106,6 +106,16 @@ askWidth = Bildbreite festlegen
 <!SEC:switch.htm!>
 <!SEC:close!>
 
+[text.edit]
+<!SEC:open!>
+<!SEC:edit!>
+<!SEC:characters!>&nbsp;
+<!SEC:formatting!>
+<!SEC:addImg!>
+<!SEC:addLFs!>&nbsp;
+<!SEC:addLink!>
+<!SEC:close!>
+
 [code.edit]
 <!SEC:open!>
 <!SEC:extern!>
@@ -230,22 +240,22 @@ No options
 		<button class="icon" onclick="addTag('b');"><b>B</b></button>
 		<button class="icon" onclick="addTag('i');"><i>I</i></button>
 		<button class="icon" onclick="addTag('u');"><u>U</u></button>
+		<button class="icon" onclick="addTag('kap');"><kap>Caps</kap></button>
 		<button class="icon" onclick="addTag('sup');">x<sup>2</sup></button>
 		<button class="icon" onclick="addTag('sub');">x<sub>2</sub></button>
 		<br>
 		<button class="icon" onclick="addTag('red');"><red><b>X</b></red></button>
 		<button class="icon" onclick="addTag('maroon');"><maroon><b>X</b></maroon></button>
 		<button class="icon" onclick="addTag('blue');"><blue><b>X</b></blue></button>
-		<button class="icon" onclick="addTag('green');"><green><b>X</b></green></button> <br>
+		<button class="icon" onclick="addTag('green');"><green><b>X</b></green></button>
 		<button class="icon" onclick="addTag('white');"><white><b>X</b></white></button>
 		<button class="icon" onclick="addTag('grey');"><grey><b>X</b></grey></button>
 		<button class="icon" onclick="addTag('dark');"><dark><b>X</b></dark></button>
 		<button class="icon" onclick="addTag('black');"><black><b>X</b></black></button>
 		<hr>
-		<div><a href="javascript:addTag('kbd');">   <kbd><!DIC:key!></kbd>      </a></div>
-		<hr>
-		<div><a href="javascript:addTag('dfn');">   <dfn><!DIC:dfn!></dfn>      </a></div>
 		<div><a href="javascript:addTag('mark');">  <mark><!DIC:hilite!></mark> </a></div>
+		<div><a href="javascript:addTag('kbd');">   <kbd><!DIC:key!></kbd>      </a></div>
+		<div><a href="javascript:addTag('dfn');">   <dfn><!DIC:dfn!></dfn>      </a></div>
 		<div><a href="javascript:addTag('hint');">  <hint><!DIC:hint!></hint>   </a></div>
 		<div><a href="javascript:addTag('small');"> <small><!DIC:small!></small></a></div>
 	</div>

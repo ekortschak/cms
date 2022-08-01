@@ -12,7 +12,7 @@ source = Quelle
 [main]
 
 [img.org]
-<img src="<!VAR:file!>">
+<img src="<!VAR:file!>" />
 
 [img.std]
 <div style="margin: 0px 0px 7px;">

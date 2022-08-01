@@ -22,8 +22,9 @@ if (! $edt) return;
 // ***********************************************************
 if (is_file("x.edit.php")) {
 	if (! $cfg->get("$qid.pedit")) $tpl->setSec("pedit");
+	if (! $cfg->get("$qid.xedit")) $tpl->setSec("xedit");
 	if (! $cfg->get("$qid.medit")) $tpl->setSec("medit");
-	if (! $cfg->get("$qid.xform")) $tpl->setSec("xform"); // localhost only
+	if (! $cfg->get("$qid.xfer") ) $tpl->setSec("xfer" ); // localhost only
 	if (! $cfg->get("$qid.debug")) $tpl->setSec("debug"); // localhost only
 	$tpl->show("edit");
 }

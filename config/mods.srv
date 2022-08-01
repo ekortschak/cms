@@ -1,0 +1,21 @@
+[tabs]
+show = 1
+tedit = 1
+search = 1
+
+[deco]
+search = 1
+print = 1
+csv = 1
+manual = 0
+
+tedit = 0
+pedit = 0
+medit = 0
+xfer  = 0
+debug = 0
+check = 0
+
+[setup]
+show = 0
+edit = 0

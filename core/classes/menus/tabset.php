@@ -29,41 +29,17 @@ function __construct() {
 }
 
 // ***********************************************************
-// methods concerning sets
-// ***********************************************************
-public function validSets() {
-	$lst = APP::files(APP_DIR, "php");
-	$out = array();
-
-	foreach ($lst as $val => $nam) {
-		if (  STR::begins($nam, "x."))     continue;
-		if (! STR::contains($nam, ".php")) continue;
-		$out[$val] = $nam;
-	}
-	return $out;
-}
-
-public function getDefault($fil = APP_IDX) {
-	$set = $this->find($fil); // see also KONST::fixStdTab()
-	$lst = $this->getValues($set);
-	$arr = array_flip($lst);
-
-	$tab = $arr["default"]; if ($tab) return $tab;
-	return current($arr);
-}
-
-// ***********************************************************
 // methods concerning tabs
 // ***********************************************************
 public function getProps($set = NV) {
 	return $this->getValues($set);
 }
 
-public function getTabs($set = APP_IDX, $all = false) {
-	$set = $this->find($set);
+public function getTabs($set = APP_CALL, $all = false) {
 	$arr = $this->getProps($set); $out = array();
 
 	foreach ($arr as $tab => $usage) {
+		if (STR::contains($usage, "local")) $usage = IS_LOCAL;
 		if (! $all) if (! (bool) $usage) continue;
 
 		$itm = new iniTab($tab);
@@ -73,29 +49,13 @@ public function getTabs($set = APP_IDX, $all = false) {
 	return $out;
 }
 
-public function visTabs($set = NV) {
+public function visTabs($set = APP_CALL) {
 	$arr = $this->getProps($set); $out = array();
 
 	foreach ($arr as $key => $val) {
 		if ($val) $out[$key] = $val;
 	}
 	return $out;
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private function norm($set) {
-	if ($set == NV) $set = APP_IDX;
-	return basename($set);
-}
-
-private function find($set) {
-	if (! $set) $set = APP_IDX; $set = basename($set);
-	if (STR::begins($set, "x.")) $set = "index.php";
-
-	if ($this->isSec($set)) return $set;
-	return "index.php";
 }
 
 // ***********************************************************

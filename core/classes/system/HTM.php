@@ -119,7 +119,7 @@ public static function img($file) {
 }
 
 private static function doImage($sec, $link = "") {
-	$mds = ENV::get("dmode"); if ($mds == "xsite") return self::thumbR($link);
+	$mds = ENV::get("vmode"); if ($mds == "xsite") return self::thumbR($link);
 	$pge = ENV::getPage();
 	$lnk = self::getLink($link, "./", "$pge/");
 

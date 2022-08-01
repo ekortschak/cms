@@ -33,8 +33,13 @@ dfn {
 	color: purple;
 }
 
+caps {
+	font-variant: small-caps;
+}
+
 kbd {
 	display: inline-block;
+	background: #EEE;
 	border: 1px solid black;
 	text-align: center;
 	border-radius: 7px;

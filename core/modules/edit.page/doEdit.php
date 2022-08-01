@@ -1,5 +1,7 @@
 <?php
 
+incCls("menus/qikScript.php");
+
 // ***********************************************************
 // show toolbar - if needed
 // ***********************************************************
@@ -24,7 +26,7 @@ if ($bar) {
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/viewEdit.tpl");
+$tpl->read("design/templates/editor/genEdit.tpl");
 $tpl->set("file", FSO::clearRoot($fil));
 
 switch ($sec) {
@@ -70,6 +72,7 @@ switch ($sec) {
 		$uid = $ini->getUID();
 		$tpl->set("title", $uid);
 
+		if (DB_MODE == "none") break;
 		incCls("dbase/recEdit.php");
 
 		$md5 = md5($fil);

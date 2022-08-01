@@ -21,10 +21,8 @@ $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);
 $xxx = $box->show("menu");
 
-$ini = new ini("config/tabsets.ini");
-$arr = $ini->getValues("index.php");
-$arr = array_keys($arr);
-$arr = array_combine($arr, $arr);
+$arr = CFG::getCfg("tabsets", "index.php");
+$arr = VEC::keys($arr);
 
 $tab = $box->getKey("apply.to", $arr);
 $xxx = $box->show("table");

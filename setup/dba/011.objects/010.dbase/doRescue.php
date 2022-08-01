@@ -21,7 +21,7 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // create standard objects
 // ***********************************************************
-$dir = __DIR__;
+$dir = FSO::mySep(__DIR__);
 
 include_once("$dir/exObjs.php");
 include_once("$dir/exPrivs.php");

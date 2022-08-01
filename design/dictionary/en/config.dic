@@ -5,7 +5,9 @@ act.login = Login
 apply.to = Apply to
 css.add = Create static CSS File
 css.del = Drop static CSS file
-css.info = Static stylesheets may speed up page rendering on some systems.
+css.info = Static Stylesheets may boost the performance on some systems. _
+They are located at <dfn>design/site.css</dfn>.
+
 css.static = Static CSS File
 ftp.check = Connectivity
 ftp.empty = No transfers required
@@ -13,7 +15,7 @@ ftp.experimental = This function is still <b>experimental</b>.
 ftp.job = Data transfer
 ftp.mkdir = Error creating directory xxx
 ftp.mode = Transfer
-ftp.report = FTP report
+ftp.report = Transfer report
 page.edit = Edit page
 unq.data = Data
 unq.dest = Destination

@@ -9,10 +9,11 @@ handling string tasks
 // ***********************************************************
 incCls("system/STR.php");
 
-$var = STR::begins($haystack, $needle);
+$var = self::begins($haystack, $needle);
 
 */
 
+if (function_exists("incCls"))
 incCls("search/searchstring.php");
 
 // ***********************************************************
@@ -61,14 +62,24 @@ public static function last($haystack, $needle) {
 	return end($arr);
 }
 
+public static function conv2utf8($string) {
+	$arr = ['UTF-8', 'ASCII', 'ISO-8859-1'];
+
+	foreach ($arr as $chs) {
+		$chk = mb_detect_encoding($string, $arr);
+		if ($chk == "UTF-8") return $string;
+	}
+	return mb_string_encoding($string, "UTF-8");
+}
+
 // ***********************************************************
 // finding multiple sub strings
 // ***********************************************************
 public static function find($haystack, $sep1, $sep2) {
 	$out = array(); // searches for distinct substrings between $sep1 and $sep2
 	if (is_array($haystack)) return $haystack;
-	if (! STR::contains($haystack, $sep1)) return $out;
-	if (! STR::contains($haystack, $sep2)) return $out;
+	if (! self::contains($haystack, $sep1)) return $out;
+	if (! self::contains($haystack, $sep2)) return $out;
 
 	$arr = explode($sep1, $haystack); unset($arr[0]);
 	if (! $arr) return $out;
@@ -141,6 +152,16 @@ public static function startingat($haystack, $needle) {
 	return $needle.$out;
 }
 
+public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
+	$lst = str_split($lst);
+	return self::contains($text, $lst);
+}
+
+public static function beforeEOL($text, $lst = ".,;:!?") {
+	$lst = str_split($lst);
+	return self::before($text, $lst);
+}
+
 // ***********************************************************
 // removing from string
 // ***********************************************************
@@ -172,27 +193,27 @@ public static function dropComments($code) {
 
 // ***********************************************************
 public static function dropSpaces($code) {
-	$out = STR::clear($code, "\r");
+	$out = self::clear($code, "\r");
 
 	$out = preg_replace("~ (\s*?)~", " ", $out);   // multiple blanks
-	$out = STR::replace($out, "\n ", "\n");        // leading blank
-	$out = STR::replace($out, " \n", "\n");        // trailing blank
-	$out = STR::replace($out, "_\n", "");          // join lines
+	$out = self::replace($out, "\n ", "\n");        // leading blank
+	$out = self::replace($out, " \n", "\n");        // trailing blank
+	$out = self::replace($out, "_\n", "");          // join lines
 	$out = preg_replace("~\n(\n*?)~", "\n", $out); // multiple line feeds
 
-	if (STR::ends($out, "_")) return trim($out, "_");
+	if (self::ends($out, "_")) return trim($out, "_");
 	return "$out\n";
 }
 
 // ***********************************************************
 public static function pathify($out) {
-	$out = STR::replace($out, "Ä", "Ae");
-	$out = STR::replace($out, "ä", "ae");
-	$out = STR::replace($out, "Ö", "Oe");
-	$out = STR::replace($out, "ö", "oe");
-	$out = STR::replace($out, "Ü", "Ue");
-	$out = STR::replace($out, "ü", "ue");
-	$out = STR::replace($out, "ß", "ss");
+	$out = self::replace($out, "Ä", "Ae");
+	$out = self::replace($out, "ä", "ae");
+	$out = self::replace($out, "Ö", "Oe");
+	$out = self::replace($out, "ö", "oe");
+	$out = self::replace($out, "Ü", "Ue");
+	$out = self::replace($out, "ü", "ue");
+	$out = self::replace($out, "ß", "ss");
 	return $out;
 }
 
@@ -251,7 +272,7 @@ private static function markit($haystack, $find, $idx) {
 
 	if ($lst > 2) $rep = "$1<mark>$2</mark>$3"; else
 	if ($lst > 1) {
-		if (STR::ends($find, "^")) $rep = "<mark>$1</mark>$2";
+		if (self::ends($find, "^")) $rep = "<mark>$1</mark>$2";
 		else $rep = "$1<mark>$2</mark>";
 	}
 	$fnd = preg_quote($find);
@@ -273,11 +294,11 @@ private static function markit($haystack, $find, $idx) {
 public static function split($haystack, $sep1, $sep2 = "") {
 	$del = "@|@";
 	$txt = str_replace($sep1, $del.$sep1, $haystack);
-	$arr = explode($del, $txt); if (! $sep2) return $arr;
+	$arr = explode($del, $txt); unset($arr[0]); if (! $sep2) return $arr;
 	$out = array();
 
 	foreach ($arr as $val) {
-		if (STR::contains($val, $sep2))
+		if (self::contains($val, $sep2))
 		$val = self::before($val, $sep2).$sep2;
 		$out[] = $val;
 	}
@@ -304,13 +325,13 @@ public static function toArray($what, $seps = "std") {
 }
 
 public static function toAssoc($what, $seps = "ref") {
-	$arr = STR::toArray($what, $seps);
-	if ( ! STR::contains($what, ":=")) return array_combine($arr, $arr);
+	$arr = self::toArray($what, $seps);
+	if ( ! self::contains($what, ":=")) return array_combine($arr, $arr);
 	$out = array();
 
 	foreach ($arr as $val) {
-		$key = STR::before($val, ":="); if (! $key) continue;
-		$val = STR::after($val, ":=");
+		$key = self::before($val, ":="); if (! $key) continue;
+		$val = self::after($val, ":=");
 		$out[$key] = $val;
 	}
 	return $out;
@@ -327,7 +348,7 @@ public static function toNumber($val, $fmt = "de") {
 		case "de": $sep = "."; $com = ","; break;
 		default:   $sep = ","; $com = ".";
 	}
-	$out = STR::clear($val, $sep);
+	$out = self::clear($val, $sep);
 	$out = str_replace($com, ".", $out);
 	if (! is_numeric($out)) return 0;
 	return $out;

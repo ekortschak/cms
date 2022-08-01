@@ -68,24 +68,35 @@ title = PRJ_TITLE
 # ***********************************************************
 [toc] <!-- toc -->
 <div class="container conToc" id="maindow">
+<!MOD:toc.banner!>
 <!MOD:toc.topics!>
 <!MOD:toc!>
+<!MOD:toc.footer!>
 </div>
+
+<div class="container">
+<!MOD:toc.blocks!>
+</div>
+
+<br/>
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
 <div style="padding: 15px 40px; font-size: 4pt;">
 	<a class="std" href="config.php">&nbsp;</a>
 </div>
-&nbsp;<br>
+
+<br/>
 
 # ***********************************************************
 [body] <!-- body -->
-<div id="scView" class="container">
+<div class="container" id="scView">
 <!MOD:msgs!>
 <!MOD:body.feedback!>
 <!MOD:body!>
 </div>
+
+<br/>
 
 # ***********************************************************
 [deco] <!-- deco -->
@@ -93,3 +104,5 @@ title = PRJ_TITLE
 <!MOD:deco!><br>
 <!MOD:msgs.log!>
 </div>
+
+<br/>

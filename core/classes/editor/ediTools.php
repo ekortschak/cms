@@ -84,7 +84,7 @@ public function getType($file) {
 public function getToolbar($typ) {
 	if ($typ == "code") return "code";
 	if ($typ == "html") return "html";
-	if ($typ == "text") return "html";
+	if ($typ == "text") return "text";
 	if ($typ == "xdic") return "xdic";
 	return false;
 }

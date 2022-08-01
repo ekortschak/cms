@@ -36,7 +36,7 @@ function __construct($tplfile = NV) {
 // ***********************************************************
 public function save($ful = NV) {
 	if ($ful == NV) $ful = $this->file; $out = "";
-	$this->checkUID();
+	$this->chkUID();
 
 	foreach ($this->sec as $sec => $txt) {
 		$arr = $this->getValues($sec); if (! $arr) continue;
@@ -45,17 +45,12 @@ public function save($ful = NV) {
 		foreach ($arr as $key => $val) {
 			$key = STR::clear($key, "$sec.");
 			$val = $this->secure($val);
+			$val = $this->chkValue($val, $sec);
 			$out.= "$key = $val\n";
 		}
 		$out.= "\n";
 	}
-$dbg = 0;
-	if ($dbg) return dbght($out); // return without saving
 	return APP::write($ful, $out);
-}
-
-public function debug() {
-	dbg($this->vls);
 }
 
 // ***********************************************************
@@ -86,6 +81,14 @@ public function setVals($arr, $sec = "props") {
 	}
 }
 
+public function clearSec($sec) {
+	$vls = $this->getValues($sec);
+
+	foreach ($vls as $key => $val) {
+		unset ($this->vls[$key]);
+	}
+}
+
 // ***********************************************************
 // adding properties
 // ***********************************************************
@@ -103,10 +106,18 @@ public function replace($sec, $arr) {
 // ***********************************************************
 // securing and restoring values
 // ***********************************************************
-private function secure($val) {
+protected function secure($val) {
 	$val = STR::replace($val, "\#", "#");
 	$val = STR::replace($val, "#", "\#");
 	return $val;
+}
+
+// ***********************************************************
+// debugging
+// ***********************************************************
+public function dump() {
+	DBG::vector($this->vls);
+	die();
 }
 
 // ***********************************************************

@@ -41,6 +41,10 @@ public static function getOID($oid = NV) {
 	return md5("$pge.$oid");
 }
 
+public static function bkpDir($dir = "", $root = SRV_ROOT) {
+	if (! $dir) $dir = "bkp.".date("Y.m.d");
+	return FSO::join($root, "cms.backup", APP_NAME, $dir);
+}
 public static function tempDir($dir = "", $sub = "") {
 	return FSO::join(SRV_ROOT, "temp", APP_NAME, $dir, $sub);
 }
@@ -50,6 +54,12 @@ public static function genDir($dir = "", $sub = "") {
 
 public static function getFBK() {
 	return self::$fbk;
+}
+
+public static function fbkDir($dir) {
+	$dir = STR::afterX($dir, APP_NAME);
+	$dir = trim($dir, DIR_SEP);
+	return APP_FBK.$dir;
 }
 
 // ***********************************************************
@@ -210,50 +220,52 @@ public static function read($file) { // read any text
 	return trim($out);
 }
 
-public static function writeTell($file, $content, $overwrite = true) {
-	if (! $overwrite)
-	if (is_file($file)) return ERR::assist("file", "exists", $file);
-
-	$erg = self::write($file, $content); if ($erg !== false) return true;
-	return ERR::assist("file", "no.write", $file);
+public static function append($file, $data) {
+	$mod = is_file($file);
+	return self::write($file, $data, true, $mod);
 }
 
-public static function write($file, $content, $overwrite = true) {
+public static function write($file, $data, $overwrite = true, $append = false) {
 	if (is_dir($file)) return false;
 	if (is_file($file)) if (! $overwrite) return false;
 
-#	$fil = STR::pathify($file);
-	$fil = $file;
-
-	$xxx = FSO::backup($fil);
-	$dir = FSO::force(dirname($fil));
-	$txt = VEC::toString($content);
-	$txt = self::chkString($fil, $txt);
-
-	$erg = file_put_contents($fil, $txt);
-	$xxx = chmod($fil, 0775);
-	return $erg;
-}
-
-private static function chkString($fil, $txt) {
-	if ($txt) return $txt;
-
-	switch (FSO::ext($fil)) {
-#		case "htm": return "<p>[ TODO ]</p>\n";
-#		case "php": return "<?php\n\n ? >\n";
-	}
-}
-
-public static function append($file, $data) {
+	$xxx = FSO::backup($file);
 	$dir = FSO::force(dirname($file));
-    $erg = file_put_contents($file, "$data\n", FILE_APPEND);
-	$xxx = chmod($file, 0775);
-	return $erg;
+	$txt = VEC::xform($data);
+
+	if ($append) {
+		$txt = "\n".trim($txt);
+		$erg = file_put_contents($file, $txt, FILE_APPEND);
+	}
+	else {
+		$erg = file_put_contents($file, $txt);
+	}
+	FSO::permit($file);
+	return ($erg !== false);
+}
+
+public static function writeTell($file, $content, $overwrite = true) {
+	if (! $overwrite)
+#	if (is_file($file)) return ERR::assist("file", "exists", $file);
+
+	$erg = self::write($file, $content); if ($erg !== false) return true;
+#	return ERR::assist("file", "no.write", $file);
 }
 
 // ***********************************************************
 // other
 // ***********************************************************
+public static function lookup($txt) {
+	$act = ENV::get("lookup", false); if (! $act) return $txt;
+	$cls = CFG::getVar("classes", "route.explain", "explain"); if (! $cls) return $txt;
+
+	incCls("search/$cls.php");
+
+	$lup = new $cls();
+	$txt = $lup->insert($txt);
+	return $txt;
+}
+
 public static function isView() {
 	if (! STR::contains(APP_FILE, "index.php")) return false;
 	if (  EDITING == "view") return true;

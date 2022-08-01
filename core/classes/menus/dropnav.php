@@ -35,15 +35,15 @@ function __construct() {
 // overruled methods
 // ***********************************************************
 public function getKey($qid, $data, $selected = false) {
-	$lst = $idx = array();
-	$cnt = 1;
+	$sel = parent::getKey($qid, $data);
+	$cnt = $cur = 0;
 
 	foreach ($data as $key => $val) {
-		$idx[$cnt] = $val;
-		$lst[$cnt] = $key;
-		$cnt++;
+		$cnt++; if ($key != $sel) continue;
+		$cur = $cnt;
 	}
-	$cur = parent::getKey($qid, $idx);
+	if (! $cur) return false;
+
 	$this->set("prev", CHK::min($cur - 1, 1));
 	$this->set("next", CHK::max($cur + 1, $cnt - 1));
 	$this->lst = $data;
@@ -51,7 +51,7 @@ public function getKey($qid, $data, $selected = false) {
 	if ($cur < 2) $this->substitute("nav.left", "nav.null");
 	if ($cur > $cnt - 2) $this->substitute("nav.right", "nav.null");
 
-	return VEC::get($lst, $cur);
+	return $sel;
 }
 
 // ***********************************************************

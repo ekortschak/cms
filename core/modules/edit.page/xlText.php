@@ -29,7 +29,7 @@ if (STR::contains($dst, $chk)) {
 // show output
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/viewEdit.tpl");
+$tpl->read("design/templates/editor/genEdit.tpl");
 $tpl->set("file", FSO::clearRoot($fil));
 
 if (is_file($ful)) {

@@ -24,4 +24,5 @@ head = Dateien
 	<td><!VAR:ext3!></td>
 	<td align="right"><!VAR:size!></td>
 	<td><!VAR:date!></td>
+#	<td><!VAR:md5!></td>
 </tr>

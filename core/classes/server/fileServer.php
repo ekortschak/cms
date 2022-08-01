@@ -46,12 +46,13 @@ public function act() {
 	}
 
 	switch($act) {
+		case "dir": return is_dir($fso);
 		case "get": return $this->getTree($fso, $mod);
-		case "ren": return $this->rename ($fso, $mod);
-		case "mkd": return $this->makeDir($fso, $mod);
-		case "rmd": return $this->dropDir($fso, $mod);
+		case "ren": return $this->do_ren ($fso, $mod);
+		case "mkd": return $this->do_mkDir($fso, $mod);
+		case "rmd": return $this->do_rmDir($fso, $mod);
 		case "cpf": return; // no bulk copying ...
-		case "dpf": return $this->dropFile($fso, $mod);
+		case "dpf": return $this->do_kill($fso, $mod);
 
 #		case "mod": // modify mdate
 #			$tim = VEC::get($lst, "t");
@@ -72,7 +73,7 @@ private function getTree($dir, $mode = "std") {
 	if ($dir == ".") $dir = APP_DIR;
 
 	if (! is_dir($dir)) {
-		echo "Error: Missing folder '$dir'";
+#		echo "Error: Missing folder '$dir'";
 		return;
 	}
 	$arr = FSO::fdtree($dir); $out = array("root" => $dir);
@@ -85,12 +86,10 @@ private function getTree($dir, $mode = "std") {
 	}
 	if ($mode == "local") return $out;
 	if ($mode == "std") {
-		echo implode("\n", $out);
-		return;
+		$srv = new download();
+		$srv->provide($out); // will end execution
 	}
-	echo "<hr>"; // provide debug info
-	echo implode("<br>\n", $out);
-	echo "<hr># of files: ".count($out);
+	$this->dump($out); // provide debug info
 }
 
 private function getEntry($fso) {
@@ -109,25 +108,25 @@ private function getEntry($fso) {
 // ***********************************************************
 // execute fs commands
 // ***********************************************************
-private function makeDir($dir, $mod)  { return $this->exec("force", $dir, $mod); }
-private function dropDir($dir, $mod)  { return $this->exec("rmDir", $dir, $mod); }
-private function dropFile($fil, $mod) {	return $this->exec("kill",  $fil, $mod); }
+private function do_mkDir($dir, $mod)  { return $this->exec("force", $dir, $mod); }
+private function do_rmDir($dir, $mod)  { return $this->exec("rmDir", $dir, $mod); }
+private function do_kill ($fil, $mod)  { return $this->exec("kill",  $fil, $mod); }
 
 private function exec($fnc, $fso, $mod = "std") {
 	$arr = explode(";", $fso); $cnt = 0;
 
 	foreach ($arr as $fso) {
-		$fso = $this->chkPath($fso);
+		$fso = $this->chkPath($fso); if (! $fso) continue;
 
 		switch ($mod) {
-			case "debug": echo "<li>exec $fnc( $fso );"; break;
+			case "debug": echo "<li>cmd: $fnc( $fso );"; break;
 			default: $cnt+= (bool) FSO::$fnc($fso);
 		}
 	}
 	return $cnt;
 }
 
-private function rename($fso, $mod) { // rename dirs or files
+private function do_ren($fso, $mod) { // rename dirs or files
 	$arr = explode(";", $fso); $cnt = 0;
 	$chk = array(); // already moved dirs
 
@@ -167,6 +166,12 @@ private function chkPath($fso) {
 	$fso = FSO::clearRoot($fso); if (! $fso) return false;
 	$fso = STR::replace($fso, "./", APP_DIR);
 	return $fso;
+}
+
+private function dump($out) {
+	echo "<hr># of files: ".count($out);
+	echo "<hr>"; // provide debug info
+	echo implode("<br>\n", $out);
 }
 
 // ***********************************************************

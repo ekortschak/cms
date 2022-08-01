@@ -5,9 +5,10 @@
 	color: FC_TOC;
 	background: BC_TOC;
 
-	overflow: hidden;
+	overflow: auto;
     line-height: 18px;
 	vertical-align: middle;
+	padding-bottom: 12px;
 
 	font-size: F_MENU;
 	white-space: nowrap;
@@ -42,7 +43,7 @@
 	border-radius: 7px;
 }
 .lev2 {
-	font-size: 1.05em;
+	font-size: 1em;
 }
 
 .lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {

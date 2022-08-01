@@ -3,19 +3,12 @@
 incCls("menus/tabset.php");
 incCls("menus/dropbox.php");
 
+$set = APP_CALL;
+
 // ***********************************************************
 // collect info
 // ***********************************************************
 $tbs = new tabset();
-$arr = $tbs->validSets();
-
-// ***********************************************************
-// show file selector
-// ***********************************************************
-$box = new dbox();
-$set = $box->getKey("TabSet", $arr, APP_CALL);
-$xxx = $box->show("menu");
-
 $lst = $tbs->getTabs($set, true);
 
 // ***********************************************************
@@ -24,7 +17,6 @@ $lst = $tbs->getTabs($set, true);
 $tpl = new tpl();
 $tpl->read("design/templates/editor/sorter.tpl");
 
-$sec = "main"; if (count($arr) < 2) $sec = "nodata";
 $its = "";
 $ccc = 1;
 
@@ -35,8 +27,9 @@ foreach ($lst as $key => $val) {
 
 	$its.= $tpl->getSection("item")."\n";
 }
+
 $tpl->set("sparm", $set);
 $tpl->set("items", $its);
-$tpl->show($sec);
+$tpl->show();
 
 ?>

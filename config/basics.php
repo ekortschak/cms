@@ -2,26 +2,26 @@
 
 error_reporting(E_ALL);
 
+$top = $_SERVER["DOCUMENT_ROOT"];
 $dir = strtr(dirname(__DIR__), DIRECTORY_SEPARATOR, "/");
-$fbk = $top = $dir;
 
-define("APP_DIR", $dir."/");
+define("SRV_ROOT", "$top/");
+define("APP_DIR",  "$dir/");
+
+$fbk = $par = $dir;
 
 // ***********************************************************
 // find fallback directory
 // ***********************************************************
-while ($top = dirname($top)) {
-	$chk = "$top/cms"; if (! is_dir($chk)) continue;
+while ($par = dirname($par)) {
+	$chk = "$par/cms"; if (! is_dir($chk)) continue;
 	$fbk = $chk; break;
 }
 define("APP_FBK", "$fbk/");
-define("SRV_ROOT", "$top/");
 
 // ***********************************************************
 // set include path
 // ***********************************************************
-#$pfd = get_include_path();
-#set_include_path($dir.PATH_SEPARATOR.$fbk.PATH_SEPARATOR.$pfd);
 set_include_path($dir.PATH_SEPARATOR.$fbk);
 
 ?>

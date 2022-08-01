@@ -42,18 +42,16 @@ public static function clearRoot($fso) { // default: $mode = inc
 public static function join() {
 	$arr = func_get_args();
 	$out = implode(DIR_SEP, $arr);
-	return self::norm($out, false);
+	return self::norm($out);
 }
 
-public static function norm($fso, $trail = true) { // $fso => dir or file
+public static function norm($fso) { // $fso => dir or file
     $sep = DIR_SEP; if (self::isUrl($fso)) return $fso;
 
 	$fso = rtrim($fso, $sep);
 	$fso = str_replace("..", ".", $fso);
 	$fso = str_replace("$sep.", $sep, $fso);
 	$fso = preg_replace("~($sep+)~", $sep, $fso);
-
-	if (is_dir($fso) && $trail) $fso.= $sep;
 	return $fso;
 }
 
@@ -69,12 +67,9 @@ public static function isUrl($fso) {
 }
 
 // ***********************************************************
-public static function force($dir, $mod = 0755) {
-	$dir = self::norm($dir, false);
-#	$dir = STR::pathify($dir);
-
-	if (is_dir($dir)) return $dir;
-	if (strlen($dir) < 5) return false;
+public static function force($dir, $mod = FILE_XS) {
+	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
+	$chk = trim($dir, "/"); if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
 	$xxx = self::permit($dir, $mod);
@@ -82,13 +77,16 @@ public static function force($dir, $mod = 0755) {
 	return ($erg) ? $dir : false;
 }
 
+// ***********************************************************
+// file permissions
+// ***********************************************************
 public static function hasXs($fso, $tell = true) {
-	$out = is_writable($fso); if ($out) return $out;
+	$out = is_writable($fso); if ($out) return true;
 	if ($tell) MSG::now("file.denied", $fso);
 	return false;
 }
 
-protected static function permit($fso, $mod = 0775) {
+public static function permit($fso, $mod = FILE_XS) {
 	if (! IS_LOCAL) return;
 
 	chown($fso, WWW_USER);
@@ -174,6 +172,8 @@ public static function getPrev($dir) {
 // dirs and files
 // ***********************************************************
 public static function rename($old, $new) {
+	if ($old == $new) return;
+
 	switch (is_dir($old)) {
 		case true: return (bool) self::mvDir($old, $new); break;
 		default:   return (bool) self::move($old, $new);
@@ -218,11 +218,13 @@ public static function files($pattern, $visOnly = true) {
 // ***********************************************************
 public static function backup($file) {
 	if (! is_file($file)) return;
-	$dst = APP::tempDir("backup", basename($file));
+	$dst = APP::bkpDir("edited");
+	$dst = fSO::join($dst, basename($file));
 	self::copy($file, $dst);
 }
 
 public static function copy($src, $dst) { // copy a file
+	if (! is_file($src)) MSG::add($src, "non existent");
 	$src = APP::file($src);
 	$dir = self::force(dirname($dst)); copy($src, $dst);
 	$xxx = self::permit($dst); if (is_file($dst)) return true;

@@ -38,7 +38,7 @@ public function isVisible($tab) {
 // ***********************************************************
 public function getTitle($lng = CUR_LANG) {
 	$out = $this->get("$lng.title"); if ($out) return $out;
-	$out = $this->getName();
+	$out = $this->getDirName();
 	return ucfirst($out);
 }
 

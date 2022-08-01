@@ -78,7 +78,7 @@ public function gc() {
 		$inf["perms"] = "w"; if ($typ == "key")
 		$inf["dtype"] = "int"; // prevent keys from hiding
 
-		$val = KONST::insert($val);
+		$val = CFG::insert($val);
 
 		$this->flt[$fld] = $sel->add($inf, "r", $val);
 		$cnt++;

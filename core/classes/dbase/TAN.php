@@ -142,8 +142,7 @@ private static function chkTime($val) {
 // debugging
 // ***********************************************************
 public static function dump($tan) {
-	$out = print_r($_SESSION["tans"][$tan]);
-	echo "<pre>$out</pre>";
+	DBG::vector($_SESSION["tans"][$tan]);
 }
 
 // ***********************************************************

@@ -2,7 +2,7 @@
 
 switch ($wht) {
 	case "S": $arr = ENV::getList(); break;
-	case "C": $arr = KONST::getList(); break;
+	case "C": $arr = CFG::getList(); break;
 	default:  $arr = array("?" => NV);
 }
 

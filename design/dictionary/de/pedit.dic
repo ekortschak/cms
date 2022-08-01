@@ -34,3 +34,12 @@ target (en) = source (en.htm) ? = Target (en) = source (en.htm) ?*
 
 target (en) = source (en.php) ? = Target (en) = source (en.php) ?*
 
+
+tag.josua = Josua*
+tag.deuteronomium = Deuteronomium*
+tag.richter = Richter*
+unq.editor = Editor*
+tag.gesetz = Gesetz*
+tag.genesis = Genesis*
+tag.geschichte = Geschichte*
+target (xx) = source (xx.001.htm) ? = Target (xx) = Source (xx.001.htm) ?*

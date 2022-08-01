@@ -95,3 +95,38 @@ jahr = Jahr*
 
 monat = Monat*
 
+dbase = Datenbank nicht erreichbar!
+
+version = Version*
+
+book = Book*
+
+buch = Buch*
+
+kapitel = Kapitel*
+
+unq.link = Link*
+
+overwrite = Overwrite*
+
+url = Url*
+
+focus = Focus*
+
+server = Server*
+
+page = Page*
+
+
+tag = Tag
+option = Option
+enthält = Enthält
+methode = Methode
+dir = Verzeichnis
+unq.chap = Chap*
+unq.bblver = Bblver*
+bible.ver = Bible.ver*
+bible.lang = Bible.lang*
+unq.any_info = Any_info*
+
+unq.any = Any*

@@ -10,7 +10,7 @@ Handles top navigation
 incCls("menus/menu.php");
 
 $nav = new menu();
-$nav->setData($arr); // $arr as from pfs->mnuInfo();
+$nav->setData($arr); // $arr as from PFS::mnuInfo();
 $nav->show();
 */
 
@@ -29,7 +29,7 @@ function __construct($typ = "menu") {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function setData($arr, $ofs = 0) { // directly from pfs->mnuInfo() !!
+public function setData($arr, $ofs = 0) { // $arr as from PFS::mnuInfo();
 	$top = "default";
 
 	foreach ($arr as $key => $inf) {

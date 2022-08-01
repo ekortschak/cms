@@ -1,5 +1,4 @@
 <?php
-
 /* ***********************************************************
 // INFO
 // ***********************************************************
@@ -32,10 +31,12 @@ class dbBasics extends sqlStmt {
 
 function __construct($dbase, $table) {
 	$ini = new ini("config/dbase.ini");
-	$usr = $ini->get("dbase.user"); $dbs = $dbase;
-	$pwd = $ini->get("dbase.pass");	if ($dbs == NV)
-	$dbs = $ini->get("dbase.file");
+	$usr = $this->usr = $ini->get("dbase.user");
+	$pwd = $this->pwd = $ini->get("dbase.pass");
 	$typ = DB_MODE;
+
+	$dbs = $dbase; if ($dbs == NV)
+	$dbs = $ini->get("dbase.file");
 
 	$sql = APP::file("core/classes/dbase/$typ.php"); if (! $sql) return;
 

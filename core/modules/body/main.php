@@ -14,6 +14,14 @@ $prm = PFS::hasXs(); // force login ?
 if (! $prm) return incMod("body/login.php");
 
 // ***********************************************************
+// write general banner
+// ***********************************************************
+$loc = PFS::getLoc();
+
+$fil = APP::find($loc, "banner");
+echo APP::gc($fil);
+
+// ***********************************************************
 // retrieving page info
 // ***********************************************************
 $ini = new ini();
@@ -25,7 +33,6 @@ $inc = $ini->getIncFile();
 // ***********************************************************
 HTM::cap($tit, "h3");
 
-$loc = PFS::getLoc();
 $fil = FSO::join("core/modules/body", $inc);
 $ful = APP::file($fil);
 
@@ -38,5 +45,11 @@ $frm->setVar("page",    APP::gcBody($ful));
 $frm->setVar("tail",    APP::gc($loc, "tail"));
 $frm->setVar("trailer", APP::gcRec($loc, "trailer", true));
 $frm->show();
+
+// ***********************************************************
+// write general trailer
+// ***********************************************************
+$fil = APP::find($loc, "trailer");
+echo APP::gc($fil);
 
 ?>

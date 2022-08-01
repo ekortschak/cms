@@ -1,5 +1,5 @@
 [dic.de]
-new.tab  = Neuen Tab erstellen
+new.tab  = Tab hinzufügen
 new.png  = Neue Tab-Bilder erstellen
 del.png  = Tab-Bilder entfernen
 node.new = z.B: pages/home
@@ -29,9 +29,7 @@ cur.file = File name
 # ***********************************************************
 [add.tab]
 <h4><!DIC:new.tab!></h4>
-<form action="?" method="post"> <!VAR:tabset!>
-	<input type="hidden" name="tabset" value="<!VAR:tabset!>" />
-
+<form action="?" method="post">
 <table>
 	<tr>
 		<td width=230><input name="tab.dir" type="text" placeholder="<!DIC:node.new!>" /></td>

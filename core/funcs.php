@@ -31,6 +31,8 @@ function shutDown() {
 	echo "in $file on <b>$line</b><br>";
 	echo "<pre>$message</pre>";
 
+	if (! IS_LOCAL) return;
+
 	echo "<h1>What can I do?</h1>";
 	echo "<li>Enter <a href='?vmode=pedit'>edit mode</a>!</li>";
 }

@@ -85,7 +85,7 @@ public static function append($arr, $lang) {
 public static function set($key, $value, $lang = CUR_LANG) {
 	$lng = self::getLang($lang);
 	$key = self::norm($key);
-	$val = KONST::insert($value);
+	$val = CFG::insert($value);
 
 	self::$dat[$lng][$key] = $value;
 }

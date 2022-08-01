@@ -53,12 +53,13 @@ protected function getPreview($fil, $fnd) {
 	return VEC::implode($out);
 }
 
-protected function getMatches($txt, $what, $dbg = 0) {
-	$arr = array($txt); if ($this->sep != "*")
-	$arr = STR::split($txt, $this->sep); $out = array();
+protected function getMatches($txt, $find, $dbg = 0) {
+	$arr = STR::split($txt, $this->sep); if (! $arr)
+	$arr = array($txt);
+	$out = array();
 
 	foreach ($arr as $pgf) {
-		$chk = strip_tags($pgf); if (! STR::matches($chk, $what)) continue;
+		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
 		$out[] = $pgf;
 	}
 	return $out;

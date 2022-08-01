@@ -72,7 +72,7 @@ private function getCss() {
 	$css = $this->cleanUrls($css, "url(",  ")");
 
  // replace css constants
-	return KONST::insert($css);
+	return CFG::insert($css);
 }
 
 private function getStatic() {
@@ -131,7 +131,7 @@ private function cleanUrls($str, $sep1, $sep2) {
 	$arr = STR::find($str, $sep1, $sep2);
 
 	foreach ($arr as $fil) {
-		$ful = STR::clear($fil, SRV_ROOT);
+		$ful = STR::clear($fil, APP_DIR);
 		$str = str_replace($fil, $ful, $str);
 	}
 	return $str;
