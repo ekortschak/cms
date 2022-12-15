@@ -9,6 +9,7 @@ incCls("tables/sel_table.php");
 // ***********************************************************
 $box = new localMenu();
 $ret = $box->showDBObjs("BT");  extract($ret);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $grp = $box->getKey("ugroup",   $dbi->usrGroups());

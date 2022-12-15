@@ -3,14 +3,14 @@ design/dictionary/CUR_LANG/login.dic
 design/templates/msgs/no.access.tpl
 
 [dic]
-admin = This feature requres admin privileges!
+admin = This feature requres DB-admin privileges!
 user = Account
 pwd = Password
 login = Login
 cancel = Cancel
 
 [dic.de]
-admin = Dieser Bereich erfordert Administrator-Rechte!
+admin = Dieser Bereich erfordert DB-Administrator-Rechte!
 user = Benutzer
 pwd = Passwort
 login = Anmelden

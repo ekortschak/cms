@@ -5,6 +5,7 @@ incCls("menus/dropbox.php");
 
 $box = new dbox();
 $erg = $box->showDBObjs("B"); extract($erg);
+$xxx = $box->show("menu");
 
 // ***********************************************************
 HTM::tag("usr.create");

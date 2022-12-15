@@ -8,6 +8,7 @@ incCls("dbase/dbQuery.php");
 // ***********************************************************
 $box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
+$xxx = $box->show("menu");
 
 // ***********************************************************
 // show options

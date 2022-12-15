@@ -9,6 +9,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $skip = $fld);

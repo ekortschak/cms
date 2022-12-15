@@ -11,6 +11,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new dbox();
 $ret = $box->showDBObjs("BTF", false); extract($ret);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $tps = $dbi->fldTypes();

@@ -69,8 +69,10 @@ public static function exec() {
 	if (! DB_LOGIN) return false; $arr = OID::getLast();
 	if (! $arr) return false;
 
-	if (! self::chkTime()) return ERR::assist("dbase", "tan.outdated", self::$tan);
+	if (! isset($arr["tan"])) return false;
+
 	if (! self::chkTan($arr["tan"])) return false;
+	if (! self::chkTime()) return ERR::assist("dbase", "tan.outdated", self::$tan);
 
 	$dbs = self::get("prop.dbase"); if (! $dbs) return false;
 	$tbl = self::get("prop.table"); if (! $tbl) return false;

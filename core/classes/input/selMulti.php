@@ -40,10 +40,12 @@ public function setChoice($options) {
 
 // ***********************************************************
 public function getValue($default = NV) { // get session value
-	$vls = OID::getLast($this->oid); if (! $vls) return $this->sels;
-	$key = $this->get("fname");
+	$out = $this->vals;
 
-	return $vls[$key];
+	foreach ($this->sels as $key => $val) {
+		if (! $val) unset($out[$key]);
+	}
+	return $out;
 }
 
 // ***********************************************************
@@ -51,12 +53,11 @@ public function getValue($default = NV) { // get session value
 // ***********************************************************
 public function getTool() {
 	$key = $this->get("fname");
-	$vls = $this->getValue();
 	$typ = $this->getType();
 	$opt = "";
 
     foreach ($this->vals as $key => $val) {
-		$sel = VEC::get($vls, $key);
+		$sel = VEC::get($this->sels, $key);
         $sel = ($sel) ? "CHECKED": "";
 
         $this->set("key", $key);

@@ -12,6 +12,7 @@ incCls("input/selector.php");
 // ***********************************************************
 $box = new dbox();
 $erg = $box->showDBObjs("B"); extract($erg);
+$xxx = $box->show("menu");
 
 $sel = new selector();
 $new = $sel->input("act.rename", $dbs."_old");

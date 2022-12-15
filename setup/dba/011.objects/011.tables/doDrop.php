@@ -13,6 +13,8 @@ $fnc = array(
 
 $box = new qikSelect();
 $erg = $box->showDBObjs("BT"); extract($erg);
+$xxx = $box->show("menu");
+
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();
 

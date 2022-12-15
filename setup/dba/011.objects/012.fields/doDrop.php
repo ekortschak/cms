@@ -8,6 +8,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new dbox();
 $ret = $box->showDBObjs("BTF"); extract($ret);
+$xxx = $box->show("menu");
 
 // ***********************************************************
 // ask for confirmation

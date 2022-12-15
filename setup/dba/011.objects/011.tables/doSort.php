@@ -13,6 +13,8 @@ $mod = array(
 
 $box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
+$xxx = $box->show("menu");
+
 $mod = $box->getKey("sort.by", $mod);
 $xxx = $box->show();
 

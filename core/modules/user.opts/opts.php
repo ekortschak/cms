@@ -7,7 +7,7 @@ HTM::tag("options");
 // ***********************************************************
 $few = false;
 
-if ($cfg->get("uopts.fback")) {
+if (VEC::get($cfg, "uopts.fback")) {
 	$few = APP::isView(); if ($few) // feedback
 	$few = STR::contains(DB_MODE, "sql");
 }

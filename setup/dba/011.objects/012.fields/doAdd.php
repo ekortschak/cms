@@ -10,6 +10,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new dbox();
 $ret = $box->showDBObjs("BTC"); extract($ret);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $tps = $dbi->fldTypes();

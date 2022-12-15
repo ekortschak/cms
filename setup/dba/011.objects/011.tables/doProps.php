@@ -9,6 +9,7 @@ incCls("dbase/dbInfo.php");
 // ***********************************************************
 $box = new dbox();
 $erg = $box->showDBObjs("BT"); extract($erg);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->tblProps($tbl);
@@ -55,7 +56,6 @@ foreach (LNG::get() as $lng) {
 	$tit = VEC::get($inf, "head", $tbl);
 	$tit = VEC::get($inf, "head.$lng", $tit);
 
-	$sel->setLang($lng);
 	$sel->input("head[$lng]", $tit);
 	$sel->setProp("title", "<img src='core/icons/flags/$lng.gif' class='flag' />");
 }

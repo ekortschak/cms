@@ -9,7 +9,7 @@ Intended to handle system messages ...
 // ***********************************************************
 incCls("system/MSG.php");
 
-MSG::add($msg, "xxx"); // xxx will be appended to $msg after translation
+MSG::add($msg, $val); // $val will be appended to $msg after translation
 MSG::err($msg)
 MSG::show();
 */
@@ -103,7 +103,7 @@ private static function collect($div, $sec) {
 	$tpl->read("design/templates/msgs/msgs.tpl");
 
 	foreach ($arr as $msg => $txt) {
-		$txt = htmlspecialchars($txt);
+#		$txt = htmlspecialchars($txt);
 		$xxx = $tpl->set("item", $txt);
 		$out.= $tpl->gc("item");
 	}

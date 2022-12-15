@@ -80,9 +80,7 @@ function spawn() {
 			}
 			$txt = implode("\n", $out);
 			$sav = FSO::join(APP_FBK, "design/dictionary", $itm, $nam);
-dbg($sav);
-dbg($txt);
-#			$xxx = APP::write($sav, "$txt\n");
+			$xxx = APP::write($sav, "$txt\n");
 		}
 	}
 }

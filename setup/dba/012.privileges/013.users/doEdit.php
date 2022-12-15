@@ -5,6 +5,7 @@ incCls("dbase/tblMgr.php");
 
 $box = new dbox();
 $erg = $box->showDBObjs("B"); extract($erg);
+$xxx = $box->show("menu");
 
 // ***********************************************************
 // show corresponding records

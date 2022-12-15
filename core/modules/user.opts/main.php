@@ -1,10 +1,9 @@
 <?php
 
+$cfg = CFG::recall("mods");
 $dir = FSO::mySep(__DIR__);
 
 // ***********************************************************
-$cfg = new ini("config/mods.ini");
-
 $tpl = new tpl();
 $tpl->read("$dir/main.tpl");
 

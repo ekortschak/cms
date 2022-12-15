@@ -173,6 +173,10 @@ public static function getData($sec = "user") {
 	return $out;
 }
 
+public static function recall($sec) {
+	return self::$cfg[$sec];
+}
+
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************

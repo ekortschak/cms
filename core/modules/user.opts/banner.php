@@ -22,11 +22,11 @@ if (  DB_LOGIN) $tpl->clearSec("dblogin");
 // ***********************************************************
 // show basic nav
 // ***********************************************************
-if (! $cfg->get("uopts.print")) $tpl->clearSec("print");
-if (! $cfg->get("uopts.csv"))   $tpl->clearSec("csv");
-if (! $cfg->get("uopts.man"))   $tpl->clearSec("manual");
+if (! VEC::get($cfg, "uopts.print")) $tpl->clearSec("print");
+if (! VEC::get($cfg, "uopts.csv"))   $tpl->clearSec("csv");
+if (! VEC::get($cfg, "uopts.man"))   $tpl->clearSec("manual");
 
-if (  $cfg->get("uopts.login")) {
+if (  VEC::get($cfg, "uopts.login")) {
 	if (DB_LOGIN) $tpl->substitute("user", "logout");
 	else          $tpl->substitute("user", "login");
 }

@@ -8,6 +8,7 @@ incCls("dbase/tblMgr.php");
 // ***********************************************************
 $box = new dbox();
 $ret = $box->showDBObjs("BTF"); extract($ret);
+$xxx = $box->show("menu");
 
 // ***********************************************************
 // show data

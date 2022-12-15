@@ -11,6 +11,8 @@ $dbi = new dbInfo();
 // ***********************************************************
 $box = new localMenu();
 $ret = $box->showDBObjs("BT"); extract($ret);
+$xxx = $box->show("menu");
+
 $xxx = $dbi->selectDb($dbs);
 
 $grp = $box->getKey("group",   $dbi->usrGroups());

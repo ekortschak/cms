@@ -12,7 +12,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new localMenu();
 $erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show();
+$xxx = $box->show("menu");
 
 $sel = new selector();
 $dst = $sel->input("destination", "$dbs.sql");

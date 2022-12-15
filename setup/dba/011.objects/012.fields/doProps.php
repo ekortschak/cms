@@ -9,6 +9,7 @@ incCls("dbase/dbInfo.php");
 // ***********************************************************
 $box = new dbox();
 $ret = $box->showDBObjs("BTF", false); extract($ret);
+$xxx = $box->show("menu");
 
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->fldProps($tbl, $fld);

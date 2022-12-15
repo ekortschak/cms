@@ -9,7 +9,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new localMenu();
 $erg = $box->showDBObjs("X"); extract($erg);
-$xxx = $box->show();
+$xxx = $box->show("menu");
 
 $sel = new selector();
 $neu = $sel->input("dbs.new", "new_database");

@@ -38,7 +38,7 @@ public static function sql($msg, $sql) {
 	$chk = STR::after($msg, "to use near");
 	if ($chk) {
 		$chk = STR::left($chk, 7);
-		$msg = "SQL error near: $chk\nxxx";
+		$msg = "SQL error near: $chk\n";
 	}
 	MSG::sql($msg, $sql);
 }

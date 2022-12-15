@@ -8,7 +8,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new qikSelect();
 $erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show();
+$xxx = $box->show("menu");
 
 // ***********************************************************
 // ask for confirmation

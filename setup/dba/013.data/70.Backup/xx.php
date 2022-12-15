@@ -1,7 +1,9 @@
 <?php
 
 incCls("menus/localMenu.php");
+incCls("dbase/dbInfo.php");
 incCls("dbase/dbQuery.php");
+incCls("input/selector.php");
 
 // ***********************************************************
 // show menu
@@ -12,30 +14,39 @@ $arr = array(
 );
 
 $box = new localMenu();
-$fnc = $box->getKey("Method", $arr);
 $ret = $box->showDBObjs("B"); extract($ret);
+$fnc = $box->getKey("Method", $arr);
+$xxx = $box->show("menu");
 
-/*
 // ***********************************************************
-// show options
+// show tables
 // ***********************************************************
+$dbi = new dbInfo();
+$tbs = $dbi->tables();
+
+HTM::tag("tbs.select");
+
+$sel = new selector();
+$dat = $sel->multi("bkp.tables", $tbs);
+$act = $sel->show();
+
+if (! $act) return;
+
+// ***********************************************************
+// process tables
+// ***********************************************************
+$dir = APP::bkpDir("", SRV_ROOT, "db.$dbs");
+
 $dbq = new dbQuery($dbs, $tbl);
-$vls = $dbq->getDVs($fld);
 
-$val = $box->getKey("change.from", $vls); unset($vls[$val]);
-$new = $box->getKey("change.to", $vls);
-$xxx = $box->show();
+foreach ($dat as $tbl => $cap) {
+	$fil = FSO::join($dir, "$tbl.sql");
 
-// ***********************************************************
-// ask for confirmation
-// ***********************************************************
-HTM::tag("data.clean");
+	$dbq->set("file", $fil);
+	$dbq->set("tab", $tbl);
 
-$vls = array($fld => $new);
-$flt = "$fld='$val'";
-
-$dbq->update($vls, $flt);
-*/
+	$dbq->getRecs("bkp.bkp");
+}
 
 ?>
 

@@ -159,7 +159,6 @@ protected function sortFiles($arr) {
 // show db tables and fields
 // ***********************************************************
 public function showDbObjs($what = "BTF", $key = true) { // dbs will be assumed anyway
-	$dbs = "";
 	$val = DIC::get("dbs.new"); if (STR::contains($what, "B")) $val = DBS::dbases();
 	$dbs = $this->getKey("pic.dbase", $val);
 
@@ -173,7 +172,7 @@ public function showDbObjs($what = "BTF", $key = true) { // dbs will be assumed 
 	if (STR::contains($what, "C")) $val = DIC::get("fld.new");
 	if ($val) $fld = $this->getKey("db.field", $val);
 
-	$this->show("menu");
+#	$this->show("menu");
 	return array("dbs" => $dbs, "tbl" => $tbl, "fld" => $fld);
 }
 

@@ -17,7 +17,7 @@ SECRET = anyString
 TIMEZONE = Europe/Vienna
 WWW_USER = www-data
 CSS_URL = x.css.php
-CMS_URL =
+CMS_URL = https://cms.glaubeistmehr.at
 X_TOOLS = /xtools
 
 [debugging]

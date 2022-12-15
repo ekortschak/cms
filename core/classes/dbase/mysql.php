@@ -100,7 +100,7 @@ private function run($sql) {
 	$sql = CFG::insert($sql);
 	$res = $this->con->query($sql); if ($res) return $res;
 
-	return ERR::sql($this->con->error."\nxxx", $sql);
+	return ERR::sql($this->con->error."\n", $sql);
 }
 
 // ***********************************************************

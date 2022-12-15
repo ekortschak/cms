@@ -9,6 +9,7 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 $box = new dbox();
 $erg = $box->showDBObjs("BT"); extract($erg);
+$xxx = $box->show("menu");
 
 $sel = new selector();
 $new = $sel->input("act.rename", $tbl."_old");

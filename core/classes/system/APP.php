@@ -44,8 +44,8 @@ public static function relPath($fso) {
 // ***********************************************************
 // fs object lists
 // ***********************************************************
-public static function bkpDir($dir = "", $root = SRV_ROOT) {
-	if (! $dir) $dir = "bkp.".date("Y.m.d");
+public static function bkpDir($dir = "", $root = SRV_ROOT, $pfx = "bkp") {
+	if (! $dir) $dir = "$pfx.".date("Y.m.d");
 	return FSO::join($root, "cms.backup", APP_NAME, $dir);
 }
 public static function tempDir($dir = "", $sub = "") {
