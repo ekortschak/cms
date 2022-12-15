@@ -20,6 +20,8 @@ class selCheck extends selInput {
 
 function __construct($pid) {
 	parent::__construct($pid);
+
+	$this->setChoice("YES / NO");
 }
 
 // ***********************************************************
@@ -27,24 +29,21 @@ function __construct($pid) {
 // ***********************************************************
 public function setValue($value = false) {
 	$val = (bool) $value;
-	$val = $this->getCurrent($value);
+	$val = $this->getValue($value);
 	$chk = ($val) ? "CHECKED" : "";
 
-	$this->set("checked", $chk);
-	$this->setChoice("YES / NO");
-
+	parent::set("checked", $chk);
 	parent::set("curVal", $val);
 }
 
 public function setChoice($info = "YES / NO") {
-	$this->set("choice", $info);
+	parent::set("choice", $info);
 }
 
 // ***********************************************************
-public function getValue() {
-	$out = $this->get("curVal"); if (CUR_DEST == "screen")
-	return $out;
-	return ($out) ? "&check;" : "&cross;";
+public function getValue($default = NV) {
+	$out = parent::getValue($default); if (CUR_DEST == "screen") return $out;
+	return ($out) ? BOOL_YES : BOOL_NO;
 }
 
 // ***********************************************************

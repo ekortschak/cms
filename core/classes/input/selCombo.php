@@ -34,29 +34,11 @@ public function setChoice($options) {
 
 protected function setValue($value = NV) {
 	$val = $this->findKey($value);
-	$val = $this->getCurrent($val);
+	$val = $this->getValue($val);
 	$xxx = $this->set("curVal", $val);
 }
 private function findKey($key) {
 	return VEC::find($this->vals, $key, $key);
-}
-
-protected function chkArray($vls) { // ensure assoc array
-	if (! is_array($vls)) return array($vls => $vls);
-	if ($vls != array_values($vls)) return $vls;
-
-	$out = array();
-	foreach ($vls as $key => $val) {
-		$key = $val; if (is_numeric($key)) $key = " $val ";
-		$out[$key] = $val; // maintain numeric keys
-	}
-	return $out;
-}
-
-private function valUnknown($val) {
-	if ($val === false) return "FALSE";
-	if (! $val) return "NOT SET";
-	return "[ $val ]";
 }
 
 // ***********************************************************
@@ -67,11 +49,11 @@ public function getKey() {
 	return $this->findKey($val);
 }
 
-protected function getType() {
-	if (CUR_DEST == "csv") return "csv";
+public function getType() {
+	if (CUR_DEST != "screen") return "txt";
 
 	$arr = $this->vals;
-	if (count($arr) < 1) return "ron";
+	if (count($arr) < 1) return "txt";
 	if (count($arr) < 2) return "ron"; // lok ?
 
 	$rgt = $this->get("perms", "x");
@@ -83,7 +65,7 @@ protected function getType() {
 // ***********************************************************
 // output
 // ***********************************************************
-public function td() {
+public function getTool() {
 	$typ = $this->getType();
 
 	if ($typ == "cmb") return $this->getCombo();
@@ -93,36 +75,42 @@ public function td() {
 		$this->set("key", key($this->vals));
 		$this->set("curVal", current($this->vals));
 	}
-	return $this->gc("input.$typ");
+	return $this->getSection("input.$typ");
 }
 
+// ***********************************************************
 private function getCombo() {
-	$nam = $this->get("fname"); $sel = $this->get("curVal");
+	$cur = $this->get("curVal"); $out = $itm = "";
 
-	$cmb = new combo($nam);
-	$cmb->merge($this->vls);
-	$cmb->setData($this->vals, $sel);
-	return $cmb->gc();
+	foreach ($this->vals as $key => $val) {
+        $sel = ""; if ($key == $cur) $sel = "selected";
+
+		$this->set("key", $key);
+		$this->set("selected", $sel);
+        $this->set("option", $val);
+
+		$itm.= $this->getSection("item");
+	}
+	$this->set("options", $itm);
+	return $this->getSection();
 }
 
+// ***********************************************************
 private function getRadio() {
-	$nam = $this->get("fname"); $out = "";
-	$sel = $this->get("curVal");
+	$cur = $this->get("curVal"); $out = "";
 
 	foreach ($this->vals as $key => $val) {
 		$this->set("key", $key);
 		$this->set("caption", $val);
-		$this->set("checked", ($key == $sel) ? "CHECKED" : "");
+		$this->set("checked", ($key == $cur) ? "CHECKED" : "");
 
-		$out.= $this->gc("input.opt");
+		$out.= $this->getSection("input.opt");
 	}
 	return $out;
 }
 
+// ***********************************************************
 private function getRange() {
-	$nam = $this->get("fname");
-	$sel = $this->get("curVal");
-
 	$min = $this->set("min", current($this->vals));
 	$max = $this->set("max", end($this->vals));
 	return $this->gc("input.rng");

@@ -30,7 +30,7 @@ class ERR {
 
 public static function init() {}
 
-public static function msg($msg, $val = false) {
+public static function msg($msg, $val = NV) {
 	return MSG::err($msg, $val);
 }
 
@@ -40,10 +40,7 @@ public static function sql($msg, $sql) {
 		$chk = STR::left($chk, 7);
 		$msg = "SQL error near: $chk\nxxx";
 	}
-	$cnf = new confirm();
-	$sql = $cnf->doSQL($sql);
-
-	MSG::raw($msg, $sql);
+	MSG::sql($msg, $sql);
 }
 
 // ***********************************************************
@@ -119,7 +116,7 @@ private static function getInfo($sec = "short") {
 private static function getList($fst = 0, $cnt = NV) {
 	if ($cnt == NV) $cnt = self::$depth;
 
-	$ign = ".shutDown.errHandler.trace.__construct.";
+	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";
 	$ign.= ".doInc.incCls.incMod.incFnc.";
 	$arr = debug_backtrace();
@@ -130,7 +127,7 @@ private static function getList($fst = 0, $cnt = NV) {
 
 		$fil = VEC::get($itm, "file", false);  if (! $fil) continue;
 		$cls = VEC::get($itm, "class", "app"); if ($cls == "ERR") continue;
-		$fnc = VEC::get($itm, "function");     if (STR::contains($ign, $fnc)) continue;
+		$fnc = VEC::get($itm, "function");     #if (STR::contains($ign, $fnc)) continue;
 		$arg = VEC::get($itm, "args", array());
 
 		if ($fnc == "getBlock") break;
@@ -140,6 +137,7 @@ private static function getList($fst = 0, $cnt = NV) {
 
 		$out[] = $itm;
 	}
+	return $out;
 	return array_slice($out, $fst, $cnt);
 }
 
@@ -160,12 +158,12 @@ private static function fmtMsg($msg) {
 }
 
 private static function fmtFName($file) {
-	$ful = FSO::clearRoot($file); // reduce path
+	$ful = APP::relPath($file); // reduce path
 	$fil = basename($file);
 	return str_replace($fil, "<b>$fil</b>", $ful);
 }
 
-private static function fmtArgs($arg, $max = 25) {
+private static function fmtArgs($arg, $max = 250) {
 	if (! is_array($arg)) return $arg; $lst = array();
 
 	foreach ($arg as $itm) {
@@ -211,7 +209,6 @@ public static function assist($cat, $key, $parm = "") {
 	$tpl->merge(self::$err);
 	$tpl->substitute("howto", $key);
 	$tpl->show();
-	return false;
 }
 
 

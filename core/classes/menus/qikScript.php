@@ -30,11 +30,11 @@ function __construct() {
 // ***********************************************************
 // overruled methods
 // ***********************************************************
-private function collect($type) {
+protected function collect($type) {
     $out = $tmp = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
-		$this->set("uniq", DIC::check("unq", $unq));
+		$this->set("uniq", DIC::getPfx("unq", $unq));
 		extract ($vls);
 
 		foreach ($dat as $key => $val) { // links
@@ -47,7 +47,7 @@ private function collect($type) {
 		}
 		$this->set("links", $tmp);
 
-		$out.= $this->getSection("combo");
+		$out.= $this->getSection();
     }
    	$this->reset();
     return $out;

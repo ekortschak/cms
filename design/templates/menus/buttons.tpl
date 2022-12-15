@@ -12,7 +12,7 @@ target = _self
 
 [main]
 <div class="btnbar" style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-<!VAR:items!></td>
+<!VAR:items!>
 </div>
 
 # ***********************************************************

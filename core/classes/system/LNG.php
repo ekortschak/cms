@@ -32,6 +32,11 @@ public static function getAll() {
 	return $out;
 }
 
+public static function getOthers() {
+	$arr = self::get(); unset($arr[CUR_LANG]);
+	return $arr;
+}
+
 public static function getRel($snip = true) {
 	$out = array(
 		CUR_LANG => CUR_LANG, "xx" => "xx",

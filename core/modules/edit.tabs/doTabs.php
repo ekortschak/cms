@@ -21,11 +21,13 @@ $tpl->read("design/templates/editor/tabsets.tpl");
 $dat = "";
 
 foreach ($lst as $tab => $tit) {
+	$chk = VEC::get($vis, $tab);
+
 	$tpl->set("tab", $tab);
 	$tpl->set("title", $tit);
-	$tpl->set("default", (STR::contains($vis[$tab], "default")) ? "CHECKED" : "");
-	$tpl->set("visible", ($vis[$tab]) ? "CHECKED" : "");
-	$tpl->set("local", (STR::contains($vis[$tab], "local")) ? "CHECKED" : "");
+	$tpl->set("local",   (STR::contains($chk, "local"))   ? "CHECKED" : "");
+	$tpl->set("default", (STR::contains($chk, "default")) ? "CHECKED" : "");
+	$tpl->set("visible", ($chk) ? "CHECKED" : "");
 
 	$dat.= $tpl->getSection("row");
 }

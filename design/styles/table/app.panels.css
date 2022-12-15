@@ -31,7 +31,7 @@ body.print {
 .modtabs {
 	overflow: hidden;
     color: FC_TABS;
-    background: BC_TABS url("img/tabs/pborder.png") repeat-y right;
+    background: BC_TABS url("CMS_URL/img/tabs/pborder.png") repeat-y right;
     min-width: W_TABS;
     max-width: W_TABS;
     padding: 7px 0px 20px;
@@ -48,7 +48,7 @@ body.print {
 
 .modmbar {
 	overflow: hidden;
-    background: url("img/mbar/spirals.png") repeat-y;
+    background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
     min-width: W_MBAR;
     max-width: W_MBAR;
 }
@@ -61,10 +61,10 @@ body.print {
 	max-width: W_BODY;
 	padding: 15px 15px 35px;
 }
-.moddeco {
+.modopts {
 	overflow: auto;
-	color: FC_DECO;
-    background: BC_DECO url("img/deco/pborder.png") repeat-y;
+	color: FC_OPTS;
+    background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 
     width: 100%;
 	padding: 0px 25px 15px 35px;

@@ -1,16 +1,5 @@
 [dic.en]
-file.exceeds max = File exceeds size restriction
-files.moved = Files moved
-files.select = Select files
-mime.fil = Mime type
-no.tabroot = Startup page is not defined (config/tabset.ini)
-siehe = See
-tag.feedback = Feedback
+bible.ver = Bible version
+
 tag.options = Options
-tag.sample ini files = Sample ini files
-tip.csv = CSV
-tip.reset = Reset
-unq.coll = Collection
-unq.doc = Doc
-unq.kap = Chapter
-unq.tpc = Topic
+unq.tpc = Topics

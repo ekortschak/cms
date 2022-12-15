@@ -19,11 +19,13 @@ $obj->show($inifile);
 class iniTpl extends ini {
 	protected $lst = array();
 
-function __construct($tpl) {
-	parent::__construct($tpl);
+function __construct($tplfile) {
+	parent::__construct($tplfile);
 
 	$this->chkLang();
 	$this->lst = $this->vls;
+
+	$this->setSealed(is_file($tplfile));
 }
 
 // ***********************************************************
@@ -37,7 +39,7 @@ public function addSec($sec) {
 // handling items
 // ***********************************************************
 public function setChoice($key, $values, $selected = NV) {
-	$vls = array(); if ($selected != NV) $vls[$selected] = NV;
+	$vls = array(); if ($selected !== NV) $vls[$selected] = NV;
 
 	foreach ($values as $item => $val) {
 		$vls[$item] = $val;
@@ -45,7 +47,7 @@ public function setChoice($key, $values, $selected = NV) {
 	$this->lst[$key] = $vls;
 }
 
-public function getChoice($key, $sec) {
+public function getChoice($key) {
 	$val = VEC::get($this->lst, $key);
 	if ($val == "NODE_TYPES") return $this->validTypes();
 	return $val;

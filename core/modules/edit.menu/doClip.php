@@ -1,7 +1,7 @@
 <?php
 
 if (PFS::isStatic()) {
-	return MSG::now("menu.static");
+	return MSG::now("mnu.static");
 }
 
 $loc = PFS::getLoc();
@@ -19,8 +19,7 @@ incCls("input/combo.php");
 
 $cmb = new combo("clip");
 $cmb->setData($arr);
-$obj = $cmb->gc(); if (! $obj)
-$obj = "[ empty ]";
+$obj = $cmb->gc();
 
 $tpl = new tpl();
 $tpl->read("design/templates/editor/mnuClip.tpl");

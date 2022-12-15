@@ -6,8 +6,6 @@ if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 // ***********************************************************
 // start the session
 // ***********************************************************
-session_start();
-
 require_once("funcs.php");
 
 incCls("system/LOG.php"); // logging tools
@@ -29,19 +27,11 @@ incCls("system/FSO.php"); // basic dir functions
 incCls("server/SSL.php"); // string encryption
 
 // ***********************************************************
-// read config file(s)
+// set environment
 // ***********************************************************
 incCls("system/CFG.php"); // prepare constants
-
-$arr = FSO::files("config/*.ini");
-
-foreach ($arr as $fil => $nam) {
-	CFG::read($fil);
-}
-
-// ***********************************************************
-// create environment
-// ***********************************************************
+incCls("system/SSV.php"); // session vars
 incCls("system/ENV.php"); // session & env vars
+incCls("system/OID.php"); // object IDs
 
 ?>

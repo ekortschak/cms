@@ -80,7 +80,7 @@ private function tabAdd() {
 	$dir = FSO::join(APP_DIR, $dir);
 	$dir = FSO::force($dir);
 	$fil = FSO::join($dir, "tab.ini");
-	$dir = FSO::clearRoot($dir);
+	$dir = APP::relPath($dir);
 
 	$ini = new iniWriter("design/config/tabsets.ini");
 	$ini->read($fil);
@@ -121,19 +121,27 @@ private function tabSort() {
 // methods for design/tabsets
 // ***********************************************************
 private function setProps() {
-	$chk = ENV::getPost("val_props"); if (! $chk) return false;
-	$tab = ENV::get("tab");
+	$arr = ENV::getPost("props"); if (! $arr) return false;
+	$tab = ENV::get("tedit.tab");
 	$fil = FSO::join($tab, "tab.ini");
 
-	$std = $chk["std"];
-	$std = STR::afterX($std, $tab);
-	$chk["std"] = trim($std, "/");
+	$std = $arr["std"];
+	$stp = STR::afterX($std, $tab);
+	$arr["std"] = trim($stp, "/");
 
 	$ini = new iniWriter("design/config/tab.ini");
 	$ini->read($fil);
-	$ini->getPost();
-	$ini->setVals($chk);
+	$ini->setVals($arr);
 	$ini->save($fil);
+
+	if ($arr["typ"] == "select") {
+		ENV::set("tab", $tab);
+		ENV::set("tpc", $std);
+	}
+	else {
+		ENV::set("tab", $tab);
+		ENV::set("tpc", "");
+	}
 	return true;
 }
 

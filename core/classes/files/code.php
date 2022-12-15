@@ -151,7 +151,7 @@ protected function sections($txt) {
 	$arr = STR::find("\n".$txt, "\n[", "]");
 
 	foreach ($arr as $sec) {
-		$key = strtolower(STR::norm($sec));
+		$key = STR::norm($sec, true);
 		$val = STR::between($txt, "[$sec]", "\n[");
 		$this->sec[$key] = $val;
 	}
@@ -207,7 +207,7 @@ protected function checkFile($fil) {
 		$ful = APP::file($fil);
 	}
 	if (isset($this->hst[$ful])) return false;
-	$this->hst[$ful] = FSO::clearRoot($ful);
+	$this->hst[$ful] = APP::relPath($ful);
 	return $ful;
 }
 

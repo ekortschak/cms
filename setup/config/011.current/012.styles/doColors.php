@@ -5,11 +5,11 @@ $dir = "design/colors";
 // ***********************************************************
 // select a color set
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 
-$box = new dbox();
+$box = new localMenu();
 $ful = $box->files($dir, "color.set", COLORS.".ini");
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 // write data

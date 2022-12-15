@@ -26,7 +26,7 @@ function __construct($text) {
 // handling search string
 // ***********************************************************
 public function match($what) { // returns yes or no
-	$arr = self::split($what);
+	if (! $what) return false; $arr = self::split($what);
 
 	foreach($arr as $itm) {
 		if (STR::begins($itm, "-")) {

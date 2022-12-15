@@ -1,20 +1,23 @@
 [tabs]
 show = 1
-tedit = 1
-search = 1
-
-[deco]
-search = 1
-print = 1
-csv = 1
-manual = 0
-
 tedit = 0
+search = 0
+
+[uopts]
+print = 1
+csv = 0
+man = 0
+login = 0
+uinfo = 0
+fback = 0
+
+[eopts]
 pedit = 0
+xedit = 0
 medit = 0
 xfer  = 0
 debug = 0
-check = 0
+seo = 0
 
 [setup]
 show = 0

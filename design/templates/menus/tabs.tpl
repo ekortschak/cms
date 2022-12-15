@@ -16,41 +16,41 @@ dir = vertical
 
 [item]
 <a href="?<!VAR:parm!>=<!VAR:link!>&vmode=<!VAR:mode!>">
-	<vtab class="<!VAR:class!>">
+	<div class="vtab <!VAR:class!>">
 		<div class="<!VAR:dir!><!VAR:os!>"><!VAR:text!></div>
-	</vtab>
+	</div>
 </a>
 
 [item.img]
 <a href="?<!VAR:parm!>=<!VAR:link!>&vmode=<!VAR:mode!>">
-	<vtab class="<!VAR:class!>">
+	<div class="vtab <!VAR:class!>">
 		<img src="<!VAR:img!>" alt="<!VAR:text!>" />
-	</vtab>
+	</div>
 </a>
 
 # ***********************************************************
 [bmenu]
 # ***********************************************************
-<vtab class="micon" onclick="showMenu();">
+<div class="vtab micon" onclick="showMenu();">
 	<div class="ibar"></div>
 	<div class="ibar"></div>
 	<div class="ibar"></div>
-</vtab>
+</div>
 
 # ***********************************************************
 [search]
 # ***********************************************************
 <a href="?vmode=search">
-	<vtab>
+	<div class="vtab">
         <img src="core/icons/buttons/search.gif" alt="Search" />
-	</vtab>
+	</div>
 </a>
 
 [return]
 <a href="?vmode=view">
-	<vtab>
+	<div class="vtab">
         <img src="core/icons/buttons/search.stop.gif" alt="Back" />
-	</vtab>
+	</div>
 </a>
 
 # ***********************************************************

@@ -1,49 +1,64 @@
 [dic.de]
-act.add = Act.add*
-act.drop = Act.drop*
+act.add = Erstellen
+act.drop = Entfernen
 act.login = Anmelden
-apply.to = Apply.to*
-caption.de = Caption.de*
+apply.to = Anwenden auf
+ask.confirm = Bestätigung erforderlich
+ck4.update = Ck4.css aktualisieren
+cms = CMS
 css.add = Statische CSS Datei erstellen
 css.del = Statische CSS Datei entfernen
-css.info = Statische Stylesheets können auf manchen Systemen den Seitenaufbau beschleunigen. _
-Sie befinden sich in <dfn>design/site.css</dfn>.
+css.info = Statische Stylesheets können auf manchen Systemen den Seitenaufbau beschleunigen.
 css.static = Statische CSS Datei
-de.en = De.en*
+db.con = DB Verbindung
+file.new = Neue Datei
+files.copy = Dateien kopieren
+files.kill = Dateien löschen
+find.dic = Suche nach
+froot = Stammverzeichnis
 ftp.check = Verbindungstest
 ftp.empty = Keine Übertragungen erforderlich
 ftp.experimental = Diese Funktion ist noch im <b>Versuchsstadium</b>.
 ftp.job = Datenübertragung
-ftp.mkdir = Error creating directory xxx
+ftp.mkdir = Error creating directory
 ftp.mode = Übertrage
 ftp.report = Transfer-Protokoll
-page.edit = Page.edit*
-tip.xmedit = Tip.xmedit*
+grp.bad = Gruppenname entspricht nicht den Anforderungen
+grp.count = Anzahl der Mitglieder
+head = Head*
+mail.con = Mail Verbindung
+mailmaster = POSTMASTER
+mailtester = TESTMASTER
+msg = Msg*
+no.deletable = Keine entbehrlichen Dateien ...
+no.grps = Keine Gruppen
+no.grps.edit = Keine Gruppen zum Bearbeiten
+no.grps.kill = Keine Gruppen zum Löschen
+no.missing = Keine fehlenden Dateien ...
+page.edit = Seite bearbeiten
+prj.new = Neues Projekt
+prj.tpl = Vorlage
+pwd = Passwort
+pwd.bad = Passwort entspricht nicht den Anforderungen
+std = Vorgabewert
+sys.ext = Erweiterung
+sys.file = Systemdatei
+sys.lang = Sprache
+tab.props = Tab-Eigenschaften
+tag.settings = Einstellungen
+tarea = Tarea*
+timeout = TIMEOUT
+title = Titel
+unq.css = CSS
 unq.data = Daten
-unq.dest = Dest*
+unq.dest = Ziel
 unq.file = Datei
 unq.language = Sprache
 unq.layout = Layout
-unq.method = Method*
-unq.section = Section*
-unq.subset = Subset*
+unq.method = Methode
+unq.section = Sektion
+unq.subset = SubSet
+unq.user = Benutzer
 unq.view = View
-x.css.php = X.css.php*prop.[app] = [app]*timeout = Timeout*
-std = Std*
-title = Title*
-pwd = Pwd*
-cms = Cms*
-
-prj.new = Neues Projekt
-
-froot = Stammverzeichnis
-
-
-no.grps = No.grps*
-no.grps.kill = No.grps.kill*
-
-css.part = Css.part*
-glass = Glass*
-
-config/dbase.ini = Config/dbase.ini*
-tag.settings = Einstellungen
+usr.bad = Benutzername entspricht nicht den Anforderungen
+usr.pwd2 = Passwort wiederholen

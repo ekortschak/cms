@@ -2,6 +2,8 @@
 head = <!DIC:confirm!>
 title = Sync
 
+what = BOOL_NO
+
 [dic]
 confirm = Confirmation required
 
@@ -27,7 +29,11 @@ sync.execute = Ausführen
 	<div class="confirm">
 		<div><!DIC:source!>: <!VAR:source!></div>
 		<div><!SEC:dest!></div>
+
+		<hr>
+		<div><!SEC:hidden.files!></div>
 	</div>
+
 	<div class="rf" align="right">
 		<a href="?sync.act=1"><button><!DIC:sync.analize!></button></a>
 		<a href="?sync.act=2"><button><!DIC:sync.execute!></button></a>
@@ -94,5 +100,11 @@ Dadurch kann es zu Problemen kommen.</p>
 
 <p><red>Sichern Sie vor dem Update ihr aktuelles System!</red></p>
 
+# ***********************************************************
+# How to handle hidden files
+# ***********************************************************
+[hidden.files]
+<!VAR:what!> Copy hidden files
 
-
+[hidden.files.de]
+<!VAR:what!> Versteckte Dateien kopieren

@@ -20,14 +20,22 @@ incCls("search/searchstring.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class STR {
-	private static $sep = "@@@";
+	private static $sep = "¬¬¬";
+
+// ***********************************************************
+// concat
+// ***********************************************************
+public static function join() {
+	$arr = func_get_args();
+	return implode(".", $arr);
+}
 
 // ***********************************************************
 // checking string content
 // ***********************************************************
-public static function beginning($haystack, $needle) {
-	$del = self::before($haystack, $needle);
-	return self::afterX($haystack, $del);
+public static function from($haystack, $needle) {
+	$out = self::before($haystack, $needle);
+	return $needle.$out;
 }
 
 public static function begins($haystack, $needle, $start = 0) {
@@ -37,7 +45,7 @@ public static function begins($haystack, $needle, $start = 0) {
 }
 
 public static function matches($haystack, $needle) {
-	$obj = new searchstring($haystack); if (! $needle) return false;
+	$obj = new searchstring($haystack);
 	return $obj->match($needle);
 }
 
@@ -231,8 +239,9 @@ public static function repFirst($haystack, $find, $rep) {
 	return ($rgt) ? $lft.$rep.$rgt : $lft;
 }
 
-public static function norm($key) {
+public static function norm($key, $lowercase = false) {
 	if (is_array($key)) $key = implode("//", $key);
+	if ($lowercase) $key = strtolower($key);
 	return trim($key);
 }
 
@@ -294,7 +303,7 @@ private static function markit($haystack, $find, $idx) {
 public static function split($haystack, $sep1, $sep2 = "") {
 	$del = "@|@";
 	$txt = str_replace($sep1, $del.$sep1, $haystack);
-	$arr = explode($del, $txt); unset($arr[0]); if (! $sep2) return $arr;
+	$arr = explode($del, $txt); if (! $sep2) return $arr;
 	$out = array();
 
 	foreach ($arr as $val) {
@@ -311,7 +320,7 @@ public static function toArray($what, $seps = "std") {
 		case "std": $seps = ".,; \n"; break;
 		case "ref": $seps = ";|\n"; break;
 	}
-	$del = "@|@";
+	$del = self::$sep;
 	$sep = str_split($seps);
 	$txt = str_replace($sep, $del, $what);
 	$arr = explode($del, $txt);
@@ -359,20 +368,6 @@ public static function dec($val) {
 }
 public static function int($val) {
 	return intval($val);
-}
-
-// ***********************************************************
-// db related tasks
-// ***********************************************************
-public static function secure($str) {
-	$str = str_replace("'", "<sqot>", $str);
-	$str = str_replace(";", "<scol>", $str);
-	return $str;
-}
-public static function restore($str) {
-	$str = str_replace("<sqot>", "'", $str);
-	$str = str_replace("<scol>", ";", $str);
-	return $str;
 }
 
 public static function maskPwd($pwd) {

@@ -29,12 +29,10 @@ public static function init() {
 		case "tedit": return self::execute("tabEdit");
 		case "medit": return self::execute("mnuEdit");
 		case "pedit": return self::execute("genEdit");
+		case "seo":   return self::execute("seoEdit");
 	}
-	if (ENV::getPost("val_dbo") == "dboEdit") {
+	if (ENV::getPost("dbo") == "dboEdit") {
 		return self::execute("dboEdit");
-	}
-	if (ENV::getPost("val_user") == "usrEdit") {
-		return self::execute("usrEdit");
 	}
 	if ($_FILES) {
 		return self::fileUpload(); // upload any files
@@ -54,7 +52,7 @@ private static function execute($fnc) {
 private static function fileUpload() { // upload any file to $dir
 	$act = ENV::getPost("opt_act"); if ($act != "upload") return;
 	$ovr = ENV::getPost("opt_overwrite");
-	$dir = ENV::getPost("val_dest");
+	$dir = ENV::getPost("dest");
 
 	incCls("server/upload.php");
 

@@ -28,6 +28,10 @@ class ftp extends objects {
 	protected $lst = array();
 	protected $prt = array(); // protected config files
 
+	protected $timeout = 5;
+	protected $errCnt = 0;
+	protected $errMax = 5;
+
 function __construct() {
 	$this->read("config/ftp.ini");
 }
@@ -59,9 +63,9 @@ public function connect() {
 
 	$con = ftp_connect($srv);           if (! $con) return false;
 	$erg = ftp_login($con, $usr, $pwd); if (! $erg) return false;
-	$xxx = ftp_raw($con, 'OPTS UTF8 ON');
-	$xxx = ftp_pasv($con, true);
-	$xxx = ftp_set_option($con, FTP_TIMEOUT_SEC, 5);
+
+	ftp_raw($con, 'OPTS UTF8 ON');
+	ftp_pasv($con, true);
 
 	$this->con = $con;
 	return $con;
@@ -123,8 +127,11 @@ public function remote_del($file) {
 	return (bool) $erg;
 }
 public function remote_put($src, $dst) {
+	if ($this->errCnt > $this->errMax) return false;
 	if (! $dst) return false;
+
 	$erg = ftp_put($this->con, $dst, $src, FTP_BINARY);
+	$xxx = ftp_set_option($this->con, FTP_TIMEOUT_SEC, $this->timeout);
 
 	if ($erg) { // preserve timestamp
 		$tim = date("YmdGis", filemtime($src));
@@ -132,8 +139,7 @@ public function remote_put($src, $dst) {
 		ftp_site($this->con, "CHMOD 0755 $dst");
 		return true;
 	}
-#	$src = FSO::clearRoot($src);
-#	MSG::now("ftp.xfer error", $src);
+	$this->errCnt++;
 	return false;
 }
 

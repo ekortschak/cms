@@ -14,7 +14,7 @@ create = Neuen Tab anlegen
 				<input type="text" name="val.new" value="new tab" size="35" />
 			</td>
             <td rowspan="100%" style="vertical-align: middle;">
-                &nbsp; &nbsp; <input type="submit" name="act" value="OK" />
+                &emsp; <input type="submit" name="act" value="OK" />
             </td>
 		</tr>
 	</table>

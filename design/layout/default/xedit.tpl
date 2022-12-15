@@ -1,10 +1,10 @@
-7[include]
+[include]
 design/layout/LAYOUT/main.tpl
 
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
-<div id="scView" class="container">
+<div class="container" id="scView">
 <!MOD:msgs!>
 <!MOD:edit.xxx!>
 </div>

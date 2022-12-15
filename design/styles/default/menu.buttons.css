@@ -18,6 +18,10 @@
 /* ******************************************************** */
 /* menu icon */
 /* ******************************************************** */
+.micon {
+	display: none;
+}
+
 .ibar {
   width: 15px;
   height: 3px;
@@ -25,17 +29,13 @@
   margin: 2px 0px 1px;
 }
 
-.micon {
-	display: none;
-}
-
 /* ******************************************************** */
 /* buttons */
 /* ******************************************************** */
 button.icon {
+	min-height: 25px;
 	min-width: 30px;
 	padding: 0px 7px;
-	vertical-align: baseline;
 }
 button.rose, .rose {
 	background: linear-gradient(#FCC, snow);
@@ -52,10 +52,7 @@ dmbtn {
 	background: linear-gradient(snow, lightgrey);
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
-	font-size: 0.8em;
 	text-align: center;
-	vertical-align: middle;
-	padding: 0px;
 	min-width: 30px;
-	height: 19px;
+	line-height: 24px;
 }

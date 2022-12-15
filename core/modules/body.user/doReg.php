@@ -20,8 +20,8 @@ if ($sec == "main") {
 // check for action
 // ***********************************************************
 if (ENV::getPost("rec.act")) {
-	$usr = ENV::getPost("val.uname");
-	$pwd = ENV::getPost("val.pwd"); notify($usr, $pwd);
+	$usr = ENV::getPost("uname");
+	$pwd = ENV::getPost("pwd"); notify($usr, $pwd);
 	return;
 }
 

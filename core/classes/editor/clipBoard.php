@@ -54,13 +54,13 @@ private function move($src) {
 }
 
 private function paste($dst) {
-	$src = ENV::getPost("val.clip");
+	$src = ENV::getPost("clip");
 	$dst = FSO::join($dst, basename($src));
 	return FSO::mvDir($src, $dst);
 }
 
 private function drop() {
-	$src = ENV::getPost("val.clip");
+	$src = ENV::getPost("clip");
 	return FSO::rmDir($src);
 }
 

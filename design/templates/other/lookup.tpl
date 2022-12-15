@@ -3,7 +3,7 @@ caption = Test
 info = Any description ...
 color = FC_BODY
 
-[lookup.abbr]
+[abbr]
 <abbr title="<!VAR:info!>"><!VAR:caption!></abbr><nolf>
 
 [lookup]

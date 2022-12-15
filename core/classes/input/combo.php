@@ -7,7 +7,7 @@ Used to create combo boxes in selectors.
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("forms/combo.php");
+incCls("input/combo.php");
 
 $cmb = new combo($name);
 $cmb->setData($values, $selected)
@@ -23,9 +23,9 @@ class combo extends tpl {
 
 function __construct($name) {
 	parent::__construct();
-	$this->setOID();
-    $this->read("design/templates/input/combo.tpl");
-	$this->set("name", $name);
+    $this->read("design/templates/input/selCombo.tpl");
+	$this->set("fname", $name);
+	$this->register();
 }
 
 // ***********************************************************
@@ -41,7 +41,7 @@ public function setData($dat, $selected = NV) {
 // output
 // ***********************************************************
 public function gc($dummy = false) {
-    $opt = "";
+	$opt = "";
 
     foreach ($this->dat as $key => $val) {
         $sel = ""; if ($key == $this->sel) $sel = "selected";
@@ -52,6 +52,8 @@ public function gc($dummy = false) {
 
         $opt.= $this->getSection("input.cmbitem");
     }
+	if (! $opt) return $this->getSection("empty");
+
 	$xxx = $this->set("items", $opt);
     return $this->getSection("input.cmb");
 }

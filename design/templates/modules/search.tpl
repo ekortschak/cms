@@ -2,7 +2,7 @@
 search = Search
 result = Search results
 sinfo  = Search text
-short  = Search text is too short <br> &rarr; min. 2 characters
+short  = Search text<br>&ensp; &rarr; min. 2 characters
 stop   = Stop search
 show   = Show
 
@@ -10,7 +10,7 @@ show   = Show
 search = Suche
 result = Suchergebnisse
 sinfo  = Suchtext
-short  = Suchtext ist zu kurz <br> &rarr; min. 2 Buchstaben
+short  = Suchtext<br>&ensp; &rarr; min. 2 Buchstaben
 stop   = Suche beenden
 show   = Zeige
 
@@ -22,11 +22,13 @@ result =
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="float: right;">
+<div style="float: right;>
 	<a href="?vmode=view"><button class="icon"><img src="core/icons/buttons/view.png" align="right" /></button></a>
 </div>
 
-<h3><!DIC:search!></h3>
+<div style="margin: -15px 0px 12px;">
+	<h3><!DIC:search!></h3>
+</div>
 
 <form method="post" action="?">
 <!VAR:range!>
@@ -34,7 +36,7 @@ result =
 	<input type="text" name="search" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
 
 	<div align="right">
-		<input type="submit" name="act" value="OK" />
+		<input type="submit" name="search,act" value="OK" />
 	</div>
 </form>
 
@@ -46,8 +48,11 @@ result =
 # ***********************************************************
 <!VAR:items!>
 
+[topic]
+<div style="white-space: nowrap;"><h5><!VAR:topic!></h5></div>
+
 [item]
-<div style="white-space: nowrap;"><a href="?prv=<!VAR:link!>"><!VAR:title!></a></div>
+<div style="white-space: nowrap;"><a href="?tpc=<!VAR:tab!>&prv=<!VAR:link!>"><!VAR:title!></a></div>
 
 [nav.opts]
 <!DIC:show!> <red><!VAR:ref!></red>? - <!DIC:nav.back!>
@@ -57,7 +62,7 @@ result =
 	<a href="?vmode=view">
 		<img src="core/icons/nav/back.gif" /> &nbsp;
 	</a>
-	<a href="?vmode=view&pge=<!VAR:url!>">
+	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:url!>">
 		<button class="icon"><img src="core/icons/buttons/view.png" alt="View"></button>
 	</a>
 </div>
@@ -113,6 +118,6 @@ result =
 	<tr class="rw"><td align="center">-|</td><td class="pre">-str1|str2</td>   <td></td><td>ohne die angegebenen Zeichenketten (keine Leerzeichen!)</td></tr>
 	<tr class="rw"><td align="center">^</td> <td class="pre">^str bzw. Str</td><td></td><td>in denen Wörter mit str beginnen</td></tr>
 	<tr class="rw"><td align="center">^</td> <td class="pre"> str^</td>        <td></td><td>in denen Wörter mit str enden</td></tr>
-	<tr class="rw"><td align="center">^</td> <td class="pre">^str^ bzw. Str^</td><td></td><td>in denen das angegebe Wort vorkommt</td></tr>
-	<tr class="rw"><td align="center">""</td><td class="pre">"str1 str2"</td>  <td></td><td>in denen die angegebe Wortfolge vorkommt</td></tr>
+	<tr class="rw"><td align="center">^</td> <td class="pre">^str^ bzw. Str^</td><td></td><td>in denen das angegebene Wort vorkommt</td></tr>
+	<tr class="rw"><td align="center">""</td><td class="pre">"str1 str2"</td>  <td></td><td>in denen die angegebene Wortfolge vorkommt</td></tr>
 </table>

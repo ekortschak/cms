@@ -5,7 +5,7 @@
 /* ******************************************************** */
 html {
 	height: 100%;
-	background: BC_DECO;
+	background: BC_OPTS;
 }
 
 body {
@@ -39,6 +39,8 @@ body.print {
 	background: BC_PAGE;
 	white-space: nowrap;
 	padding: 0px;
+
+	vertical-align: center;
 }
 
 .modtabs {
@@ -82,7 +84,7 @@ body.print {
 	padding: 0px 25px 0px 15px;
 }
 
-.moddeco {
+.modopts {
 	position: fixed;
 	top:    0px;
 	left:   calc(W_TABS + W_BODY);
@@ -91,6 +93,6 @@ body.print {
     height: 100%;
 
 	overflow: auto;
-    background: BC_DECO url("CMS_URL/img/deco/pborder.png") repeat-y;
+    background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 	padding: 0px 25px 0px 35px;
 }

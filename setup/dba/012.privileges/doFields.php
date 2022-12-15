@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("dbase/dbInfo.php");
 incCls("tables/sel_table.php");
 
@@ -9,13 +9,13 @@ $dbi = new dbInfo();
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $ret = $box->showDBObjs("BT"); extract($ret);
 $xxx = $dbi->selectDb($dbs);
 
 $grp = $box->getKey("group",   $dbi->usrGroups());
 $rgt = $box->getKey("db.fperm", $dbi->fldPerms());
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 $hed = DIC::get("fld.perms");

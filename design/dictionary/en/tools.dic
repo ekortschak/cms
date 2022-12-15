@@ -1,5 +1,10 @@
 [dic.en]
 color.chroma = Saturation
+color.fixed = Fixed Item
 color.names = Named color
 color.set = Color palette
-color.unknown = Unknown color: xxx
+color.step = Step
+net.ip error = Missing IP address
+net.mac error = MAC addresse invalid
+text = Text
+tools.fnc = Function

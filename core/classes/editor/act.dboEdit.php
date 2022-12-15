@@ -27,8 +27,8 @@ function __construct() {}
 // methods
 // ***********************************************************
 public function exec() {
-	$act = ENV::getPost("val_chk");
-	$dbs = ENV::getPost("val_dbs");  if (! $dbs) return;
+	$dbs = ENV::getPost("dbs");  if (! $dbs) return;
+	$act = ENV::getPost("chk");
 
 	if (! STR::contains(".tcProps.tlProps.fcProps.flProps.", ".$act.")) return;
 	self::$act($dbs);
@@ -36,8 +36,8 @@ public function exec() {
 
 // ***********************************************************
 private function tcProps($dbs) { // common table props
-	$tbl = ENV::getPost("val_tbl");  if (! $tbl) return;
-	$arr = ENV::getPost("val_prop"); if (! $arr) return;
+	$tbl = ENV::getPost("tbl");  if (! $tbl) return;
+	$arr = ENV::getPost("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		if (! $prop) continue;
@@ -46,8 +46,8 @@ private function tcProps($dbs) { // common table props
 	}
 }
 private function tlProps($dbs) { // lang specific table props
-	$tbl = ENV::getPost("val_tbl");  if (! $tbl) return;
-	$arr = ENV::getPost("val_head"); if (! $arr) return;
+	$tbl = ENV::getPost("tbl");  if (! $tbl) return;
+	$arr = ENV::getPost("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		if (! $val) continue; $prop = "head.$lang";
@@ -58,8 +58,8 @@ private function tlProps($dbs) { // lang specific table props
 
 // ***********************************************************
 private function fcProps($dbs) { // common field props
-	$fld = ENV::getPost("val_fld");  if (! $fld) return;
-	$arr = ENV::getPost("val_prop"); if (! $arr) return;
+	$fld = ENV::getPost("fld");  if (! $fld) return;
+	$arr = ENV::getPost("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		if (! $prop) continue;
@@ -68,8 +68,8 @@ private function fcProps($dbs) { // common field props
 	}
 }
 private function flProps($dbs) { // lang specific field props
-	$fld = ENV::getPost("val_fld");  if (! $fld) return;
-	$arr = ENV::getPost("val_head"); if (! $arr) return;
+	$fld = ENV::getPost("fld");  if (! $fld) return;
+	$arr = ENV::getPost("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		if (! $val) continue; $prop = "head.$lang";
@@ -81,7 +81,7 @@ private function flProps($dbs) { // lang specific field props
 // ***********************************************************
 private function dboEx($dbs, $vls, $flt) {
 	foreach ($vls as $key => $val) {
-		$vls[$key] = STR::secure($val);
+		$vls[$key] = DBS::secure($val);
 	}
 	$dbq = new dbQuery($dbs, "dbobjs");
 	$dbq->askMe(false);

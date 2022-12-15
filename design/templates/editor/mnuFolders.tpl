@@ -72,7 +72,7 @@ check     = Prüfen
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
 		<td style="vertical-align: middle;"><!DIC:node.drop!></td>
-		<td><button name="node_act" value="drop" onclick="return confirm('<!DIC:ask.sure!>');"><maroon>&cross;</maroon></button></td>
+		<td><button name="node_act" value="drop" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
@@ -108,7 +108,7 @@ check     = Prüfen
 
 [chknodes]
 <h4><!DIC:dir.all!></h4>
-<input name="root.dir" type="hidden" value="TOP_PATH">
+<input name="root.dir" type="hidden" value="TAB_HOME">
 
 <table>
 	<tr>

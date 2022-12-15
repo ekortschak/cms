@@ -32,7 +32,9 @@ function __construct() {
 }
 
 public function upgrade($version = NV) {
-	$this->set("head", "Upgrade CMS");
+	if (! $this->ftp->test()) return;
+
+	$this->setTitle("sync.cms");
 	$this->showInfo();
 	$this->run();
 }

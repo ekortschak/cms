@@ -8,6 +8,7 @@ $dir = $ini->get("props.path", $loc);
 
 $arr = FSO::files("$dir/*");
 $arr = FSO::filter($arr, $ext);
+krsort($arr);
 
 // ***********************************************************
 incCls("menus/dropnav.php");
@@ -16,7 +17,7 @@ $box = new dropnav();
 $fil = $box->getKey("file", $arr);
 $xxx = $box->show();
 
-$fil = FSO::clearRoot($fil);
+$fil = APP::relPath($fil);
 
 // ***********************************************************
 // show file

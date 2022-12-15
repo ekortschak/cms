@@ -26,6 +26,7 @@ class tblFilter extends dbBasics {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
+	$this->register("$dbase.$table");
 }
 
 // ***********************************************************
@@ -65,10 +66,10 @@ public function show() {
 
 public function gc() {
 	$fds = $this->fds; $cnt = 0;
-	$oid = $this->get("oid"); $vls = ENV::oidValues($oid);
+	$vls = OID::getLast($this->oid);
 
 	$sel = new fldFilter();
-	$sel->setOID($oid);
+	$sel->set("oid", $this->oid);
 
 	foreach ($fds as $fld => $inf) {
 		$typ = VEC::get($inf, "dtype"); if (! $typ) continue;

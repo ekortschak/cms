@@ -1,0 +1,6 @@
+[dic.en]
+act.show = Show
+tpc.desc = Abstract
+tpc.list = Topics
+tpc.nodesc = No abstract available ...
+tpc.select = Select a topic ...

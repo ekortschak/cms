@@ -8,7 +8,7 @@ pic = img/wappen.gif
 
 [main]
 
-<script language="javascript">
+<script>
 	FaderFramework.init({
 		id: "teaser",
 		images: [<!VAR:pix!>]

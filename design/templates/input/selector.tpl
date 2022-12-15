@@ -10,8 +10,9 @@ hint = Hinweis
 
 
 [vars]
-wid1 = 125
-wid2 = *
+cols = 69
+wid = 150
+
 
 # ***********************************************************
 [main]
@@ -22,13 +23,13 @@ wid2 = *
 
 [open]
 <form method="post" action="?" enctype="multipart/form-data">
-	<!SEC:hidden!>
+	<input type="hidden" name="oid" value="<!VAR:oid!>" />
 
 	<table>
 		<tr height=0>
-			<td width="<!VAR:wid1!>"></td>
-			<td width="<!VAR:wid2!>"></td>
-			<td rowspan="100%" style="vertical-align: bottom;">
+			<td width="<!VAR:wid!>"></td>
+			<td width="*"></td>
+			<td width=75 rowspan="100%" style="vertical-align: bottom;" align="right">
 				<!SEC:btn.ok!>
 			</td>
 		</tr>
@@ -38,27 +39,6 @@ wid2 = *
 </form>
 
 # ***********************************************************
-[Hidden]
-# ***********************************************************
-	<input type="hidden" name="oid" value="<!VAR:oid!>" />
-	<input type="hidden" name="tan" value="<!VAR:tan!>" />
-	<!VAR:hidden!>
-
-[input.skip]
-# show nothing
-
-[input.hid]
-<input type="hidden" name="val.<!VAR:fname!>" value="<!VAR:value!>" />
-
-# ***********************************************************
-[SubSection]
-# ***********************************************************
-<tr class="selSection"><td colspan="100%"><!VAR:title!></td></tr>
-
-[spacer]
-<tr height=12><td colspan="100%"></td></tr>
-
-# ***********************************************************
 [rows]
 # ***********************************************************
 <tr>
@@ -66,12 +46,21 @@ wid2 = *
 	<td class="selData"><!VAR:data!></td>
 </tr>
 
-# ***********************************************************
-[rows.ronly]
+[line]
 # ***********************************************************
 <tr>
-	<td nowrap><!VAR:head!> &nbsp; </td>
-	<td nowrap><!VAR:data!></td>
+	<td colspan="100%" class="selSection">
+		<!VAR:head!>
+	</td>
+</tr>
+
+# ***********************************************************
+[span]
+# ***********************************************************
+<tr>
+	<td colspan="100%" style="padding: 0px 7px;">
+		<!VAR:head!>
+	</td>
 </tr>
 
 # ***********************************************************
@@ -83,7 +72,7 @@ wid2 = *
 # ***********************************************************
 [btn.ok]
 # ***********************************************************
-<input type="submit" name="<!VAR:oid!>.act" value="OK" />
+<input type="submit" name="act" value="OK" />
 
 [btn.reset]
-#<input type="reset" value="Reset" /> &nbsp; &nbsp;
+#<input type="reset" value="Reset" /> &emsp;

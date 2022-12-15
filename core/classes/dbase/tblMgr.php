@@ -42,12 +42,12 @@ class tblMgr extends dbBasics {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
-
-	$oid = $this->setOID();
-	$rec = $this->getOidVar("rec", "list");
+	$this->register("$dbase.$table");
 
 	$this->dbs = $dbase;
 	$this->tbl = $table;
+
+	$rec = OID::get($this->oid, "rec", "list");
 
 	$this->set("rec", $rec);
 	$this->prp = new items();
@@ -115,16 +115,17 @@ private function tblView() {
 	incCls("dbase/tblFilter.php");
 	incCls("dbase/tblView.php");
 
-	$dbs = $this->dbs; $oid = $this->get("oid");
-	$tbl = $this->tbl; $prp = $this->prp->getItems();
+	$dbs = $this->dbs;
+	$tbl = $this->tbl;
+	$prp = $this->prp->getItems();
 
 	$sel = new tblFilter($dbs, $tbl); // filter
-	$sel->setOID($oid);
+	$sel->set("oid", $this->oid);
 	$sel->addFilter($this->flt);
 	$sel->show();
 
 	$dbt = new tblView(); // data
-	$dbt->setOID($oid);
+	$dbt->set("oid", $this->oid);
 	$dbt->setTable($dbs, $tbl, $sel->getFilter());
 	$dbt->mergeProps($prp);
 	$dbt->merge($this->vls);
@@ -139,14 +140,13 @@ private function recEdit($recID) {
 	incCls("dbase/recEdit.php");
 
 	$prp = $this->prp->getItems();
-	$oid = $this->get("oid");
 
 	$dbe = new recEdit($this->dbs, $this->tbl);
 	$dbe->enable("t");
-	$dbe->setOID($oid);
-	$dbe->findRec($recID);
+	$dbe->set("oid", $this->oid);
 	$dbe->mergeProps($prp);
 	$dbe->merge($this->vls);
+	$dbe->findRec($recID);
 	$dbe->permit($this->getPerms($recID));
 	$dbe->show();
 

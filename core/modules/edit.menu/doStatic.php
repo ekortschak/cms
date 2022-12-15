@@ -1,8 +1,5 @@
 <?php
 
-include_once("core/inc.css.php");
-
-// ***********************************************************
 if (ENV::getPost("mnu_stat")) {
 	PFS::toggle();
 }
@@ -14,10 +11,9 @@ $sts = PFS::isStatic();
 $sec = "act.freeze"; if ($sts)
 $sec = "act.thaw";
 
-
 $tpl = new tpl();
 $tpl->read("design/templates/editor/mnuStat.tpl");
-$tpl->copy($sec, "act");
+$tpl->substitute("act", $sec);
 $tpl->show();
 
 ?>

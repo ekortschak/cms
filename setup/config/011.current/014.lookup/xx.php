@@ -1,5 +1,7 @@
 <?php
 
+ENV::set("lookup", false);
+
 incCls("menus/buttons.php");
 
 $dir = APP::dir(__DIR__);

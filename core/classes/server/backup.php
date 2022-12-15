@@ -36,14 +36,14 @@ public function setDevice($dev = SRV_ROOT) {
 // run jobs (backup mode)
 // ***********************************************************
 public function backup() {
-	$this->set("title", "Backup");
+	$this->setTitle("Backup");
 
 	$this->setDest(APP::bkpDir("", $this->dev));
 	$this->showInfo();
 	$this->run();
 }
 public function restore($version = NV) {
-	$this->set("title", "Restore");
+	$this->setTitle("Restore");
 
 	$vrs = $this->getBackups();
 	if (! $vrs) return MSG::now("restore.none");
@@ -62,14 +62,14 @@ public function restore($version = NV) {
 // run jobs (sync mode)
 // ***********************************************************
 public function sync() {
-	$this->set("title", "Sync (Mirror)");
+	$this->setTitle("sync.mirror");
 	$this->showInfo();
 	$this->run();
 }
 public function syncBack($version = NV) {
-	if (! is_dir($this->dst)) return MSG::now("sync.none");
+	if (! is_dir($this->dst)) return MSG::now("sync.none", $this->dst);
 
-	$this->set("title", "SyncBack");
+	$this->setTitle("sync.back");
 	$this->revertFlow();
 	$this->showInfo();
 	$this->run();

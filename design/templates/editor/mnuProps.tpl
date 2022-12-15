@@ -19,8 +19,8 @@ useme = Ja/Nein
 # ***********************************************************
 <table>
 	<tr>
-		<td width=150 style="vertical-align: middle;"><!DIC:start!></td>
-		<td width=355><input type="checkbox" name="overwrite" value="1" <!VAR:value!> />&nbsp; <!DIC:useme!></td>
+		<td class="selHead"><!DIC:start!></td>
+		<td class="selData" width=355><input type="checkbox" name="overwrite" value="1" <!VAR:value!> />&nbsp; <!DIC:useme!></td>
 		<td><button name="page_act" value="std">OK</button></td>
 	</tr>
 </table>

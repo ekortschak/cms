@@ -34,6 +34,9 @@ public function exec() {
 	$dir = APP::dir($dir);	if (! $dir) return;
 	$act = ENV::get("btn.menu");
 
+	if (STR::contains("DPRC", $act)) {
+		ENV::set("pfs.reload", 1);
+	}
 	switch ($act) {
 		case "D": if ($this->nodeOpts($dir)) return;
 		case "F": if ($this->fileOpts($dir)) return;
@@ -65,7 +68,7 @@ private function nodeOpts($dir) {
 
 // ***********************************************************
 private function nodeRename($dir) { // rename directory
-	$dst = ENV::getPost("ren_dir"); if (! $dst) return false;
+	$dst = ENV::getPost("ren_dir"); if (! $dst) return;
 	$par = dirname($dir);
 	$dst = "$par/$dst";
 
@@ -144,13 +147,13 @@ private function nodeAdd($dir) {
 private function sortOpts($dir) { // sort a node
 	$cmd = ENV::getPost("sort_act"); if (! $cmd) return false;
 	$lst = ENV::getPost("slist");    $cnt = 10; // start at #
-	$lst = VEC::explode($lst, ";");  $inc = 1;
+	$lst = VEC::explode($lst, ";");  $inc =  1;
 
 	foreach ($lst as $itm) {
 		$itm = basename($itm); if (! $itm) continue;
 
 		$num = sprintf("%03d", $cnt); $cnt+= $inc; // increment
-		$new = "$num.".trim($itm, "/0..9.");
+		$new = $num.".".ltrim($itm, "/0..9.");
 		$new = FSO::join($dir, $new);
 		$old = FSO::join($dir, $itm); if ($old == $new) continue;
 
@@ -164,7 +167,7 @@ private function sortOpts($dir) { // sort a node
 // ***********************************************************
 private function fileOpts($dir) {
 	$cmd = ENV::getPost("file_act"); if (! $cmd)
-	$cmd = VEC::get($_GET, "file_act"); if (! $cmd) return false;
+	$cmd = ENV::getParm("file_act"); if (! $cmd) return false;
 
 	switch(STR::left($cmd)) {
 		case "ini": $this->fileAddIni($dir); break; // add page.ini
@@ -193,16 +196,16 @@ private function fileAddIni($dir) { // add page.ini (recursively)
 }
 
 private function fileAddSys($dir) { // add empty language file, e.g. de.htm
-	$nam = ENV::getPost("sys_name");
-	$lng = ENV::getPost("sys_lang");
-	$ext = ENV::getPost("sys_ext");
+	$nam = ENV::get("sys.file");
+	$lng = ENV::get("sys.lang");
+	$ext = ENV::get("sys.ext");
 	$ovr = ENV::get("opt.overwrite");
 
 	$fil = FSO::join($dir, "$nam.$lng.$ext");
-	$fil = str_replace("content.", "", $fil);
+	$fil = STR::replace($fil, "content.", "");
 	$txt = ""; if ($ext == "php") $txt = "<?php\n?>";
 
-	$erg = APP::writeTell($fil, $txt, $ovr);
+	APP::writeTell($fil, $txt, $ovr);
 }
 
 private function fileAddAny($dir) { // create any file
@@ -213,12 +216,12 @@ private function fileAddAny($dir) { // create any file
 }
 
 private function fileToggle($dir) { // toggle hidden files
-	$fil = VEC::get($_GET, "fil"); if (! $fil) return;
+	$fil = ENV::getParm("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
 	$xxx = FSO::toggleVis($fil);
 }
 private function fileDelete($dir) { // delete a files
-	$fil = VEC::get($_GET, "fil"); if (! $fil) return;
+	$fil = ENV::getParm("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
 	$erg = FSO::kill($fil);
 	return true;
@@ -228,48 +231,44 @@ private function fileDelete($dir) { // delete a files
 // ini Opts
 // ***********************************************************
 private function pageOpts($dir) {
-	$lng = CUR_LANG;
-
-	if (ENV::getPost("val_default")) {
-		$this->pageDefault($dir); // set startup page
-		return true;
-	}
-	if (ENV::getPost("val_props")) {
-		$this->pageProps($dir); // save page props
-		return true;
-	}
+	if ($this->pageDefault($dir)) return true; // set startup page
+	if ($this->pageProps($dir))   return true; // save page props
 	return false;
 }
 
 // ***********************************************************
 private function pageProps($dir) { // change uid, display type
-	$typ = HTM::pgeProp($dir, "props.typ", "inc");
-	$typ = STR::left($typ);
+	$cmd = ENV::getPost("props"); if (! $cmd) return false;
+	$typ = STR::left($cmd["typ"]);
 
 	$tpl = "design/config/page.ini"; if ($typ != "inc")
 	$tpl = "design/config/page.$typ.ini";
 
 	$ini = new iniWriter($tpl);
 	$ini->read($dir);
-	$ini->getPost();
+	$ini->setPost();
 	$ini->save();
 
-	ENV::setPage($ini->get("props.uid"));
+	ENV::setPage($ini->get($cmd["uid"]));
+	return true;
 }
 
 private function pageDefault($dir) { // mark node as default
-	$act = ENV::getPost("val_default"); if (! $act) return false;
+	$cmd = ENV::getPost("default"); if (! $cmd) return false;
 
 	$ini = new iniWriter($dir); // update page.ini - if necessary
+	$uid = $ini->getUID();
 	$ini->save();
 
 	$tpc = ENV::getTopDir();
 	$fil = FSO::join($tpc, "tab.ini");
 
-	$ini = new iniWriter("design/config/tab.ini");
+	$ini = new iniWriter("design/config/tab.ini"); // update tab.ini
 	$ini->read($fil);
 	$ini->set("props.std", $uid);
 	$ini->save();
+
+	return true;
 }
 
 // ***********************************************************

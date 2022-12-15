@@ -1,105 +1,15 @@
 [dic.de]
-check uids - ok = Überprüfung der UIDs - ok
-files.upload = Dateien hochladen
-msg.start = Start-Info
-page.props = Seiten-Eigenschaften
-tab.props = Tab-Eigenschaften
-menu.static = Menü ist eingefroren ...
-
-destination = Destination
-filetypes = Erweiterungen
-maxcnt = Max. Anzahl
-maxsize = Max. Größe
-
-files = Dateien
-typ = Typ*
-
-noprint = Noprint*
-
+Check UIDs - OK = Check UIDs - OK*
+file.exists = Datei existiert bereits
 meta = Meta*
-
-pbreak = Pbreak*
-
-head = Head*
-
-path = Path*
-
-dir.state = Dir.state*
-
-pages/buch/03.thepio/05.sis/01.sis: sis => sis§2 = Pages/buch/03.ThePio/05.Sis/01.Sis: Sis => Sis§2*
-
-check uids - 0 modified = Check UIDs - 0 modified*
-
-pages/kbase/20.science/012.ecology: §2 => = Pages/kbase/20.science/012.ecology: §2 => *
-
-pages/kbase/20.science/013.geology: §3 => §2 = Pages/kbase/20.science/013.geology: §3 => §2*
-
-pages/kbase/20.science/014.gravity: §4 => §3 = Pages/kbase/20.science/014.gravity: §4 => §3*
-
-pages/kbase/20.science/015.cosmology: §5 => §4 = Pages/kbase/20.science/015.cosmology: §5 => §4*
-
-pages/kbase/20.science/016.mulitverses: §6 => §5 = Pages/kbase/20.science/016.mulitverses: §6 => §5*
-
-pages/kbase/20.science/018.religion: §8 => §7 = Pages/kbase/20.science/018.religion: §8 => §7*
-
-pages/kbase/30.evolution/013.dna: §5 => §4 = Pages/kbase/30.evolution/013.dna: §5 => §4*
-
-pages/kbase/30.evolution/014.cells: §6 => §5 = Pages/kbase/30.evolution/014.cells: §6 => §5*
-
-pages/kbase/30.evolution/015.evotrees: §7 => §6 = Pages/kbase/30.evolution/015.evoTrees: §7 => §6*
-
-pages/kbase/30.evolution/013.dna: §4 => §3 = Pages/kbase/30.evolution/013.dna: §4 => §3*
-
-pages/kbase/30.evolution/014.cells: §5 => §4 = Pages/kbase/30.evolution/014.cells: §5 => §4*
-
-pages/kbase/30.evolution/015.evotrees: §6 => §5 = Pages/kbase/30.evolution/015.evoTrees: §6 => §5*
-
-pages/kbase/30.evolution/013.dna: §3 => §2 = Pages/kbase/30.evolution/013.dna: §3 => §2*
-
-pages/kbase/30.evolution/014.cells: §4 => §3 = Pages/kbase/30.evolution/014.cells: §4 => §3*
-
-pages/kbase/30.evolution/015.evotrees: §5 => §4 = Pages/kbase/30.evolution/015.evoTrees: §5 => §4*
-
-pages/kbase/30.evolution/013.dna: §2 => = Pages/kbase/30.evolution/013.dna: §2 => *
-
-pages/kbase/30.evolution/014.cells: §3 => §2 = Pages/kbase/30.evolution/014.cells: §3 => §2*
-
-pages/kbase/30.evolution/015.evotrees: §4 => §3 = Pages/kbase/30.evolution/015.evoTrees: §4 => §3*
-
-pages/kbase/30.evolution/014.cells: §2 => = Pages/kbase/30.evolution/014.cells: §2 => *
-
-pages/kbase/30.evolution/015.evotrees: §3 => §2 = Pages/kbase/30.evolution/015.evoTrees: §3 => §2*
-
-pages/kbase/30.evolution/015.evotrees: §2 => = Pages/kbase/30.evolution/015.evoTrees: §2 => *
-
-pages/kbase/30.evolution/016.missinglinks: §2 => = Pages/kbase/30.evolution/016.missingLinks: §2 => *
-
-pages/kbase/10.homonesciens/20.perception: §2 => = Pages/kbase/10.homoNesciens/20.perception: §2 => *
-
-pages/kbase/10.homonesciens/00.summary: summary => = Pages/kbase/10.homoNesciens/00.summary: Summary => *
-
-pages/kbase/10.homonesciens/50.myreality: §6 => = Pages/kbase/10.homoNesciens/50.myReality: §6 => *
-
-summary => pages/kbase/10.homonesciens/00.summary = Summary => pages/kbase/10.homoNesciens/00.summary*
-
-reality? => pages/kbase/10.homonesciens/10.reality = Reality? => pages/kbase/10.homoNesciens/10.reality*
-
-§6 => pages/kbase/10.homonesciens/50.myreality = §6 => pages/kbase/10.homoNesciens/50.myReality*
-
-
-alnglu => pages/buch/11.wal/01.alnglu/01.alnglu = AlnGlu => pages/buch/11.Wal/01.AlnGlu/01.AlnGlu*
-pulpin => pages/buch/11.wal/02.pulpin/01.pulpin = PulPin => pages/buch/11.Wal/02.PulPin/01.PulPin*
-eripin => pages/buch/11.wal/03.eripin/01.eripin = EriPin => pages/buch/11.Wal/03.EriPin/01.EriPin*
-vacpic => pages/buch/11.wal/04.vacpic/01.vacpic = VacPic => pages/buch/11.Wal/04.VacPic/01.VacPic*
-lemmin => pages/buch/01.was/01.lemmin/01.lemmin = LemMin => pages/buch/01.Was/01.LemMin/01.LemMin*
-zosmar => pages/buch/01.was/03.zosmar/01.zosmar = ZosMar => pages/buch/01.Was/03.ZosMar/01.ZosMar*
-rupmar => pages/buch/01.was/04.rupmar/01.rupmar = RupMar => pages/buch/01.Was/04.RupMar/01.RupMar*
-potpec => pages/buch/01.was/05.potpec/01.potpec = PotPec => pages/buch/01.Was/05.PotPec/01.PotPec*
-lituni => pages/buch/01.was/07.lituni/01.lituni = LitUni => pages/buch/01.Was/07.LitUni/01.LitUni*
-sis => pages/buch/03.iiithepio/05.sis/01.sis = Sis => pages/buch/03.IiiThePio/05.Sis/01.Sis*
-lemmin§2 => pages/buch/01.was/01.lemmin/01.lemmin = LemMin§2 => pages/buch/01.Was/01.LemMin/01.LemMin*
-zosmar§2 => pages/buch/01.was/03.zosmar/01.zosmar = ZosMar§2 => pages/buch/01.Was/03.ZosMar/01.ZosMar*
-rupmar§2 => pages/buch/01.was/04.rupmar/01.rupmar = RupMar§2 => pages/buch/01.Was/04.RupMar/01.RupMar*
-potpec§2 => pages/buch/01.was/05.potpec/01.potpec = PotPec§2 => pages/buch/01.Was/05.PotPec/01.PotPec*
-lituni§2 => pages/buch/01.was/07.lituni/01.lituni = LitUni§2 => pages/buch/01.Was/07.LitUni/01.LitUni*
-trg = Trg*
+mnu.static = Menü ist eingefroren ...
+page.props = Seiten-Eigenschaften
+sys.exts = Erweiterungen
+sys.files = Dateien
+sys.langs = Sprachen
+upl.count = Max. Anzahl
+upl.dest = Ziel
+upl.files = Dateien
+upl.size = Max. Größe
+upl.types = Erweiterungen
+upl.upload = Dateien hochladen

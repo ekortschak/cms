@@ -43,7 +43,7 @@ protected function checkNull($vls) {
 		$nul = VEC::get($inf, "fnull"); if ($nul) continue;
 
 		if (! $val)
-		return ERR::msg("fld.empty", $this->tbl.": $fld");
+		return ERR::msg("fld.empty", $this->tbl.".$fld");
 	}
 	return $vls;
 }

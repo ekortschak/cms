@@ -37,5 +37,5 @@ design/layout/LAYOUT/main.tpl
 </div>
 
 # ***********************************************************
-[deco] <!-- deco -->
+[opts] <!-- opts -->
 &nbsp;

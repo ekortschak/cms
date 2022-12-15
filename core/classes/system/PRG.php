@@ -56,7 +56,7 @@ public static function replaceWords($text, $search, $mask, $mod = "") {
 }
 
 public static function clrComments($text) {
-	$out = preg_replace("~\/\*(.*?)\*\/~", "", $text); // blocks
+	$out = preg_replace("~\/\*(.*?)\*\/~", "", $text); // multiline comments
 	$out = preg_replace("~\/\/(.*?)\n~", "", $out); // lines starting at //
 	$out = preg_replace("~#(.*?)\n~", "", $out); // lines starting at #
 	return $out;

@@ -36,12 +36,23 @@ b {
     font-weight: bold;
 }
 
+div.flex {
+	display: flex;
+	justify-content: space-between;
+}
+
 /* ******************************************************** */
 /* separators */
 /* ******************************************************** */
 hr.pbr {
 	background-color: transparent;
 	border-top: 1px dashed red;
+}
+
+hr.search {
+	background-color: transparent;
+	border-top: 2px solid red;
+#	border-bottom: 2px solid maroon;
 }
 
 /* ******************************************************** */
@@ -113,7 +124,7 @@ hr {
 	background: OUTLINE;
 }
 hr.low {
-	margin: 0px 0px 5px;
+	margin: 2px 0px 3px;
 }
 
 abbr {

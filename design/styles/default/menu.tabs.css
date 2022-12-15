@@ -2,7 +2,7 @@
 /* ******************************************************** */
 /* tabs */
 /* ******************************************************** */
-vtab {
+.vtab {
 	display: block;
 	color: FC_DROP;
 	background: BC_TABS;
@@ -19,8 +19,8 @@ vtab {
 
 	font-weight: normal;
 }
-vtab.active {
-	color: FC_TOC;
+.vtab_selected {
+#	color: FC_TOC;
 	background: BC_TOC;
 #	border: 1px solid navy;
 	text-align: right;

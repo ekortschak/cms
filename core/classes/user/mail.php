@@ -32,7 +32,7 @@ function __construct($subject = "Info") {
 
 	$this->set("version", phpversion());
 	$this->set("subject", $subject);
-	$this->set("from", POSTMASTER);
+	$this->set("from", MAILMASTER);
 	$this->set("replyto", NOREPLY);
 
 	$this->read("design/templates/user/mail.std.tpl");
@@ -53,8 +53,8 @@ public function setFrom($adr, $replyto = NV) {
 }
 
 private function decode($adr) {
-	if ($adr == "TESTMASTER") return TESTMASTER;
-	if ($adr == "POSTMASTER") return POSTMASTER;
+	if ($adr == "MAILTESTER") return MAILTESTER;
+	if ($adr == "MAILMASTER") return MAILMASTER;
 	return $adr;
 }
 
@@ -123,7 +123,7 @@ public function test($rec = "nobody@home.at") {
 	$hed = $this->getSection("header");
 	$this->addSep("Recipient(s): <green>$rec</green>");
 	$this->addSep("Headers: $hed");
-	return $this->mail(TESTMASTER);
+	return $this->mail(MAILTESTER);
 }
 
 // ***********************************************************

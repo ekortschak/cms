@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
@@ -8,14 +8,14 @@ incCls("dbase/dbAlter.php");
 // show menu
 // ***********************************************************
 $dbi = new dbInfo();
-$arr = $dbi->usrGroups(false);
+$gps = $dbi->usrGroups(false); if (! $gps) $gps = "?";
 
-$box = new dbox();
+$box = new localMenu();
 $dbs = $box->getKey("pic.dbase", $dbi->dbases());
-$grp = $box->getKey("ugroup", $arr);
-$xxx = $box->show("menu");
+$grp = $box->getKey("ugroup", $gps);
+$xxx = $box->show();
 
-if (! $grp) {
+if ($grp == "?") {
 	$tpl = new tpl();
 	$tpl->read("design/templates/msgs/dba.tpl");
 	$tpl->show("no.groups");

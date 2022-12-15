@@ -1,8 +1,8 @@
 <?php
 
-if (! IS_LOCAL) if (! FS_ADMIN) {
+if (! FS_ADMIN) {
 	$mod = "stop";
-	$edt = CFG::getVar("mods", "deco.pedit", false);
+	$edt = CFG::getVar("mods", "eopts.pedit", false);
 	if ($edt) $mod = "login";
 
 	incMod("body/$mod.php");
@@ -14,17 +14,20 @@ if (! IS_LOCAL) if (! FS_ADMIN) {
 // ***********************************************************
 $loc = PFS::getLoc();
 $tit = HTM::pgeTitle($loc);
-$fil = ENV::getParm("pic.file");
+$fil = APP::find($loc);
 
 HTM::cap($tit, "h3");
 
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 
-$box = new dbox();
-$fil = $box->anyfiles($loc, "pic.file", $fil);
+$cur = basename(ENV::get("pic.file"));
+
+$box = new localMenu();
+$fil = $box->anyfiles($loc, "pic.file");
+$fil = $box->focus("pic.file", $cur, $fil);
 
 // ***********************************************************
 // find relevant editors
@@ -35,9 +38,11 @@ $edi = new ediTools();
 $sec = $edi->getType($fil);
 $eds = $edi->getEditors($sec);
 
+$sel = EDITOR; if ($sel == "default") $sel = $sec;
+
 if ($eds)
-$sec = $box->getKey("pic.editor", $eds, EDITOR);
-$xxx = $box->show("menu");
+$sec = $box->getKey("pic.editor", $eds, $sel);
+$xxx = $box->show();
 
 $bar = $edi->getToolbar($sec);
 
@@ -45,9 +50,9 @@ $bar = $edi->getToolbar($sec);
 // show module
 // ***********************************************************
 switch ($sec) {
-	case "ini":  $inc = "doIni.php";   break;
-	case "xdic": $inc = "doXLate.php"; break;
-	default:     $inc = "doEdit.php";
+	case "ini": $inc = "doIni.php"; break;
+	case "pic": $inc = "doPic.php"; break;
+	default:    $inc = "doEdit.php";
 }
 
 $dir = FSO::mySep(__DIR__);

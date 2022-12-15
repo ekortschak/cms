@@ -5,7 +5,7 @@ if (TAB_TYPE != "select") return;
 // ***********************************************************
 // show topics - if any
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/topics.php");
 incCls("menus/tabs.php");
 
 $tab = new tabs();
@@ -15,8 +15,8 @@ foreach ($arr as $key => $val) {
 	if (STR::contains($key, "~")) $arr[$key] = "# $val";
 }
 
-$box = new dbox();
+$box = new topics();
 $box->getKey("tpc", $arr);
-$box->show("topic");
+$box->show();
 
 ?>

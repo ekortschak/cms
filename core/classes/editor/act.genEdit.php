@@ -35,9 +35,7 @@ public function exec() {
 }
 
 private function saveFile() {
-	$act = ENV::getPost("file_act"); if ($act != "save")
-	$act = ENV::getParm("file_act"); if ($act != "save") return false;
-
+	$act = ENV::getPost("file_act");    if ($act != "save") return false;
 	$old = ENV::getPost("orgName", "");	if (! $old) return false;
 	$fil = ENV::getPost("filName", "");	if (! $fil) return false;
 	$txt = ENV::getPost("content");
@@ -47,15 +45,16 @@ private function saveFile() {
 		$txt = PRG::replace($txt, "(\s*?)<br>", "<br>");
 		$txt = PRG::replace($txt, "(\s*?)</p>", "</p>");
 		$txt = PRG::replace($txt, "<br></p>", "</p>");
+		$txt = PRG::replace($txt, "<br></h([1-9]?)>", "</h$1>");
 		$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
 		$txt = PRG::replace($txt, "<p>(\s*?)</p>", "");
 		$txt = PRG::replace($txt, "<php>", "<?php ");
 		$txt = PRG::replace($txt, "</php>", " ?>");
 		$txt = PRG::replace($txt, "\n(\s*?)", "\n");
 
-		$erg = APP::write($old, $txt);
+		$erg = APP::write($fil, $txt);
 	}
-	if ($old != $fil) FSO::move($old, $fil);
+#	if ($old != $fil) FSO::move($old, $fil);
 	return true;
 }
 

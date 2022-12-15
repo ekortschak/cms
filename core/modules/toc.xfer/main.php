@@ -3,7 +3,9 @@
 $btn = ENV::get("btn.xfer");
 
 switch ($btn) {
-	case "I": case "X":
+	case "I": // merge into single file
+		incMod("toc.topics/main.php");
+		incMod("toc.current/main.php");
 		incMod("toc/main.php");
 		return;
 }

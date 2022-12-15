@@ -19,17 +19,30 @@ class USR extends objects {
 public static function init() {
 	CFG::set("STD_LANG", current(STR::toArray(LANGUAGES)));
 	CFG::set("CUR_LANG", ENV::get("lang", STD_LANG));
-	CFG::set("CUR_USER", ENV::get("crdu", "www"));
-	CFG::set("CUR_PASS", ENV::get("crdp", "www"));
+
+	$usr = ENV::get("crdu", "www");
+	$pwd = ENV::get("crdp", "www");	$mod = ENV::get("vmode", "view");
 
 	self::read();
+	if (! self::isUser($usr, $pwd)) $mod = "logout";
+
+	if (($mod == "logout")) {
+		$usr = "www"; $pwd = "www";
+	}
+	CFG::set("CUR_USER", $usr);
+	CFG::set("CUR_PASS", $pwd);
 
 	CFG::set("FS_LOGIN", self::isUser());
 	CFG::set("FS_ADMIN", self::isAdmin());
+
+	ENV::set("crdu", $usr);
+	ENV::set("crdp", $pwd);
+
+	if (STR::begins($mod, "log")) ENV::set("vmode", "view");
 }
 
 // ***********************************************************
-// login to FS
+// check permissions
 // ***********************************************************
 public static function isAdmin($usr = CUR_USER, $pwd = CUR_PASS) {
 	if (IS_LOCAL) return true;
@@ -38,7 +51,8 @@ public static function isAdmin($usr = CUR_USER, $pwd = CUR_PASS) {
 public static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	if ($usr == "www") return true;
 
-	return self::chkUser("user", $usr, $pwd);
+	$out = self::chkUser("user",  $usr, $pwd); if ($out) return true;
+	return self::chkUser("admin", $usr, $pwd);
 }
 
 private static function chkUser($grp, $usr, $pwd) {

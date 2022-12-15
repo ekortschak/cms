@@ -19,7 +19,6 @@ APP::init();
 class APP {
 	private static $fbk = array();
 	private static $rvs = array();
-	private static $oidCnt = 100;
 
 public static function init() {
 	$pfd = get_include_path();
@@ -31,16 +30,20 @@ public static function init() {
 }
 
 // ***********************************************************
-// fs object lists
+// reducing paths to "local" paths
 // ***********************************************************
-public static function getOID($oid = NV) {
-	if ($oid != NV) return $oid;
+public static function relPath($fso) {
+	$arr = APP::getFBK();
 
-	$oid = self::$oidCnt++;
-	$pge = ENV::get("loc", "none");
-	return md5("$pge.$oid");
+	foreach ($arr as $dir) {
+		$out = STR::after($fso, $dir); if ($out !== false) return $out;
+	}
+	return $fso;
 }
 
+// ***********************************************************
+// fs object lists
+// ***********************************************************
 public static function bkpDir($dir = "", $root = SRV_ROOT) {
 	if (! $dir) $dir = "bkp.".date("Y.m.d");
 	return FSO::join($root, "cms.backup", APP_NAME, $dir);
@@ -66,7 +69,7 @@ public static function fbkDir($dir) {
 // fs object lists
 // ***********************************************************
 public static function folders($dir) {
-	$dir = FSO::clearRoot($dir); $out = array();
+	$dir = self::relPath($dir); $out = array();
 
 	foreach (self::$rvs as $loc) { // add dirs from app and fbk folders
 		$ful = FSO::join($loc, $dir);
@@ -76,11 +79,12 @@ public static function folders($dir) {
 			$out[$nam] = $vrz; // only last concordance will be returned
 		}
 	}
-	return array_flip($out);
+	$out = array_flip($out);
+	return $out;
 }
 
 public static function files($pattern, $ext = false, $visOnly = true) {
-	$ptn = FSO::clearRoot($pattern); if (! STR::contains($ptn, "*"))
+	$ptn = self::relPath($pattern); if (! STR::contains($ptn, "*"))
 	$ptn = FSO::join($ptn, "*.*");
 	$ext = STR::toArray($ext); $out = array();
 
@@ -96,7 +100,8 @@ public static function files($pattern, $ext = false, $visOnly = true) {
 			$out[$nam] = $fil; // only last concordance will be returned
 		}
 	}
-	return array_flip($out);
+	$out = array_flip($out);
+	return $out;
 }
 
 // ***********************************************************
@@ -106,7 +111,7 @@ public static function dir($dir) { // find dir in extended fs
 	if (strlen($dir) < 3) return false;
 	if (is_dir($dir)) return $dir;
 
-	$dir = FSO::clearRoot($dir); if (! $dir) return false;
+	$dir = self::relPath($dir); if (! $dir) return false;
 
 	foreach (self::$fbk as $loc) {
 		$ful = FSO::join($loc, $dir);
@@ -120,7 +125,7 @@ public static function file($fso) { // find file in extended fs
 	if (is_file($fso)) return $fso;
 	if (is_dir($fso)) return false;
 
-	$fso = FSO::clearRoot($fso);
+	$fso = self::relPath($fso);
 
 	foreach (self::$fbk as $loc) {
 		$ful = FSO::join($loc, $fso);
@@ -194,7 +199,7 @@ public static function gcFil($ful) { // get content
 
 public static function gcBody($ful) {
 	$blk = ENV::get("blockme"); if ($blk) return "";
-	$out = self::gc($ful); if ($out != NV) return $out;
+	$out = self::gc($ful); if ($out !== NV) return $out;
 	$fil = APP::file("core/modules/sitemap.php");
 	return self::getBlock($fil);
 }
@@ -232,6 +237,7 @@ public static function write($file, $data, $overwrite = true, $append = false) {
 	$xxx = FSO::backup($file);
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
+	$txt = trim($txt)."\n";
 
 	if ($append) {
 		$txt = "\n".trim($txt);
@@ -245,19 +251,24 @@ public static function write($file, $data, $overwrite = true, $append = false) {
 }
 
 public static function writeTell($file, $content, $overwrite = true) {
+	$fil = APP::relPath($file);
+
 	if (! $overwrite)
-#	if (is_file($file)) return ERR::assist("file", "exists", $file);
+	if (is_file($file)) return MSG::add("file.exists", $fil);
 
 	$erg = self::write($file, $content); if ($erg !== false) return true;
-#	return ERR::assist("file", "no.write", $file);
+	return ERR::msg("no.write", $fil);
 }
 
 // ***********************************************************
 // other
 // ***********************************************************
 public static function lookup($txt) {
-	$act = ENV::get("lookup", false); if (! $act) return $txt;
-	$cls = CFG::getVar("classes", "route.explain", "explain"); if (! $cls) return $txt;
+	if (APP_CALL != "index.php") return $txt;
+	if (EDITING  != "view")      return $txt;
+	if (! ENV::get("lookup"))    return $txt;
+
+	$cls = CFG::getVar("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");
 
@@ -267,8 +278,7 @@ public static function lookup($txt) {
 }
 
 public static function isView() {
-	if (! STR::contains(APP_FILE, "index.php")) return false;
-	if (  EDITING == "view") return true;
+	if (  EDITING == "view")  return true;
 	return false;
 }
 

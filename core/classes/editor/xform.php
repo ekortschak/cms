@@ -20,7 +20,7 @@ class xform {
 	private $cnt = 0;  // files processed
 
 function __construct($cnt = 3) {
-	$this->tab = FSO::join(basename(APP_DIR), basename(TOP_PATH));
+	$this->tab = FSO::join(basename(APP_DIR), basename(TAB_HOME));
 	$this->dir = APP::tempDir("static pages", STR::afterX($this->tab, APP_NAME));
 	$this->dbg = $cnt; // number of items handled in debug mode
 
@@ -59,7 +59,7 @@ public function isPage() {
 }
 
 public function report() {
-	HTM::cap("Report");
+	HTM::tag("report");
 	HTM::cap("Files written to: $this->dir", "p");
 	HTM::cap("# of files: $this->cnt/$this->num", "p");
 }
@@ -119,7 +119,7 @@ private function deRefSrc($txt, $sep1, $sep2) {
 	foreach ($arr as $lnk) {
 		$dst = STR::clear($lnk, $rut);
 		$dst = FSO::join($this->dir, "res", $dst);
-		$url = STR::beginning($dst, $res);
+		$url = STR::from($dst, $res);
 		$url = ltrim($url, DIR_SEP);
 		$txt = STR::replace($txt, $lnk, $url);
 

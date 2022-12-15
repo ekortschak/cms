@@ -15,7 +15,7 @@ dbg, err, msg, code, php, .confirm {
 	margin: 0px;
 	padding: 2px 7px 3px;
 }
-php, code, dbg, err {
+php, code, dbg {
 	font-family: monospace;
 	font-size: 0.85em;
 	white-space: pre-wrap;

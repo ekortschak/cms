@@ -1,11 +1,9 @@
 <?php
 
-$use = (defined("DB_MODE")); if ($use)
-$use = (DB_MODE != "none");  if ($use)
-$use = (DB_MODE != false );
+$use = CFG::get("DB_MODE", "none");
 
 // ***********************************************************
-if (! $use) {
+if ($use == "none") {
 	CFG::set("DB_MODE", "none");
 	CFG::set("DB_CON",  "none");
 	return;

@@ -10,6 +10,8 @@ Intended to simplify handling of data editing using selectors
 incCls("input/recEdit.php");
 
 $dbe = new recEdit($dbase, $table);
+$dbe->setDefault($field, $value);
+$dbe->setProp($field, $prop, $value);
 $dbe->findRec($filter);
 $dbe->permit("w | ae, ad, ed, a, e, d | r | x"); // set table perms
 $dbe->show();
@@ -21,76 +23,88 @@ incCls("dbase/fldFilter.php");
 incCls("dbase/dbBasics.php");
 incCls("dbase/dbInfo.php");
 
+incCls("other/items.php");
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class recEdit extends dbBasics {
-	protected $fds = array(); // arry of fields in $tbl
-	protected $rec = array(); // current record
+	protected $fds = array(); // array of fields in $tbl; class = items
+	protected $std = array(); // current default values
 
 	protected $txs = "x"; // permissions (table and fields)
+	protected $qid = -1;
 	protected $neu = true;
-	protected $sel;
 	protected $btn = "";
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
 
-	$this->setOID();
 	$this->fds = new items();
-
 	$inf = $this->tblProps($table);
+
+	$this->register("$dbase.$table");
 	$this->permit($inf["perms"]);
+	$this->forget();
+	$this->findDefaults();
 }
 
 // ***********************************************************
 // setting field info
 // ***********************************************************
 public function findRec($recID = -1) {
-	$this->rec = $this->findDefaults($recID); $qid = $this->rec["ID"];
-	$this->neu = (! $qid);
+	$flt = $recID; if (is_numeric($recID)) $flt = "ID='$recID'";
+	$arr = $this->query($flt);
 
-	$tan = TAN::open($this->dbs, $this->tbl, $qid);
-	$this->set("tan", $tan);
+	$this->qid = -1;
+	$this->fds = $this->std; if (! $arr) return;
 
-	$vls = $this->getOIDs(); // provide last value entered
-
-    foreach ($this->rec as $fld => $val) {
-		$inf = $this->fldProps($this->tbl, $fld);
-
-		$inf["value"] = $val; if (! $qid) // provide default values
-		$inf["value"] = VEC::get($vls, $fld, $val);
-
-		$this->fds->addItem($fld, $inf);
-    }
+	foreach ($arr as $fld => $val) {
+		$this->fds->addItem($fld); if ($val)
+		$this->fds->setProp($fld, "value", $val);
+	}
+	$this->qid = $this->fds->getProp("ID", "value", -1);
+	$this->neu = ($this->qid < 1);
 }
 
 // ***********************************************************
-// retrieve data or default values
+// retrieve default values
 // ***********************************************************
-public function findDefaults($recID) {
-	$flt = $recID; if (is_numeric($recID)) $flt = "ID='$recID'";
-	$arr = $this->query($flt); if ($arr) return $arr;
-	$out = array("ID" => -1); // no data
+public function findDefaults() {
+	$this->std = new items();
+	$this->qid = -1;
 
-	$dbi = new dbInfo($this->dbn, $this->tbl);
+	$dbi = new dbInfo(NV, $this->tbl);
 	$fds = $dbi->fields($this->tbl); if (!$fds) return $out;
 
-	foreach ($fds as $fld => $val) {
+	foreach ($fds as $fld => $hed) {
 		$inf = $this->fldProps($this->tbl, $fld);
-		$out[$fld] = VEC::get($inf, "fstd", "");
+		$this->std->addItem($fld);
+
+		foreach ($inf as $prp => $val) {
+			$val = CFG::insert($val); if ($prp == "value")
+			$val = OID::get($this->oid, $fld, $val);
+
+			$this->std->setProp($fld, $prp, $val); if ($prp == "fstd")
+			$this->std->setProp($fld, "value", $val);
+		}
+		$this->std->setProp($fld, "head", $hed);
 	}
-	return $out;
 }
 
 // ***********************************************************
 // retrieving current values
 // ***********************************************************
 public function getRec() {
-	return $this->rec;
+	$out = array();
+	foreach ($this->fds as $fld => $inf) {
+		$out[$fld] = VEC::get($inf, "value");
+	}
+	return $out;
 }
-public function getCurVal($colIndex, $default = NV) {
-	return VEC::get($this->rec, $colIndex, $default);
+public function getCurVal($field, $default = NV) {
+	$rec = $this->getRec();
+	return VEC::get($rec, $field, $default);
 }
 
 private function chkVal($inf, $prm) {
@@ -109,11 +123,17 @@ public function mergeProps($arr) { // $arr set by items->getitems();
 		}
 	}
 }
+
+public function setDefault($field, $val) {
+	$this->setProp($field, "fstd", $val);
+}
+
 public function setProp($field, $prop, $val) {
-	$this->fds->setProp($field, $prop, $val);
+	$this->std->setProp($field, $prop, $val); if ($prop == "fstd")
+	$this->std->setProp($field, "value", $val); ;
 }
 public function setType($field, $type) {
-	$this->fds->setProp($field, "dtype", $type);
+	$this->std->setProp($field, "dtype", $type);
 }
 
 // ***********************************************************
@@ -147,24 +167,25 @@ public function gc() {
 	$txs = $this->getTPerms(); $cnt = 0;
 	$fds = $this->fds->getItems();
 
+	$tan = TAN::register($this->dbs, $this->tbl, $this->qid);
+	$xxx = OID::set($this->oid, "tan", $tan);
+
 	$sel = new fldEdit();
-	$sel->set("oid", $this->get("oid"));
-	$sel->set("tan", $this->get("tan"));
+
+	if (! STR::contains($this->btn, "t")) $sel->clearSec("buttons");
+
+	$sel->set("oid", $this->oid);
+	$sel->set("tan", $tan);
+	$sel->set("perms", $txs);
 
 	foreach ($fds as $fld => $inf) {
-		$fxs = $this->getFPerms($inf); if ($fxs == "x") continue;
-		$val = $this->chkVal($inf, $txs);
-		$cnt++;
-
-		$sel->add($inf, $fxs, $val);
+		$val = $this->chkVal($inf, $txs); $cnt++;
+		$sel->add($inf, $val);
 	}
-	if ($cnt < 1) {
-		return $sel->getSection("no.perms");
-	}
-	$sel->set("perms", $txs);
-	if (! STR::contains($this->btn, "t")) $sel->setSec("tblLink", "");
+	$sec = "main"; if ($cnt < 1)
+	$sec = "no.perms";
 
-	return $sel->gc();
+	return $sel->gc($sec);
 }
 
 public function act() {
@@ -175,12 +196,14 @@ public function act() {
 // handling permissions
 // ***********************************************************
 public function permit($perms = "r") { // table perms only
-	$this->txs = $perms; // $key => table.field
+	if (! DB_LOGIN) $perms = "r";
+	$this->txs = $perms;
 }
 
 // ***********************************************************
 protected function getTPerms() {
 	$txs = $this->txs;
+
 	if ($txs == "x") return "x";
 	if ($txs == "r") return "r"; if ($this->neu) return "a";
 	return $txs;
@@ -191,13 +214,6 @@ protected function getFPerms($inf) {
 	if ($txs == "r") return "r";
 
 	return $inf["perms"];
-}
-
-// ***********************************************************
-// debugging
-// ***********************************************************
-public function dump() {
-	$this->fds->dump();
 }
 
 // ***********************************************************

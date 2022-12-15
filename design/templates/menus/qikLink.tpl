@@ -1,11 +1,8 @@
-[include]
-#/design/templates/menus/dropbox.tpl
-
 
 # ***********************************************************
-[check]
+[main]
 # ***********************************************************
-<div><a href="?<!VAR:key!>=0" class="norm"><green>&check;</green> <!VAR:caption!></a></div>
+<div><a href="?<!VAR:key!>=0" class="norm">BOOL_YES <!VAR:caption!></a></div>
 
-[check.no]
-<div><a href="?<!VAR:key!>=1" class="norm"><maroon>&cross;</maroon> <!VAR:caption!></a></div>
+[main.no]
+<div><a href="?<!VAR:key!>=1" class="norm">BOOL_NO <!VAR:caption!></a></div>

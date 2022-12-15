@@ -1,0 +1,44 @@
+<?php
+
+incCls("input/selector.php");
+incCls("menus/qikSelect.php");
+
+$arr = array(
+	"href" => "Linked Files",
+	"src" => "Ressources",
+);
+
+$end = array(
+	"href" => "</a>",
+	"src" => ">",
+);
+
+$sel = new selector();
+$url = $sel->input("url", "https://bibleserver.com/EU/Gen 1");
+$flt = $sel->input("Filter", "");
+$act = $sel->show();
+
+$box = new qikSelect();
+$fcs = $box->getKey("Focus", $arr);
+$xxx = $box->show();
+
+
+$txt = file_get_contents($url);
+$end = $end[$fcs];
+$arr = STR::find($txt, "$fcs=", $end);
+
+echo "<hr>";
+echo "<ul>";
+
+foreach ($arr as $itm) {
+	$lnk = STR::between($itm, '"',  '"');
+	$lnk = urldecode($lnk);
+
+	if ($flt) if (! STR::contains($lnk, $flt)) continue;
+
+	echo "<li>$lnk";
+}
+
+echo "</ul>";
+
+?>

@@ -50,12 +50,10 @@ page = Seite
 		<td nowrap align="<!VAR:align!>"><!VAR:value!></td>
 
 [TFoot]
-<table width="100%">
-    <tr class="rf">
-        <td><!SEC:stats!>&nbsp;</td>
-        <td align="right" nowrap><!SEC:nav!></td>
-	</tr>
-</table>
+<div class="flex rf">
+	<div><!SEC:stats!></div>
+    <div><!SEC:nav!></div>
+</div>
 
 # ***********************************************************
 [Nav]

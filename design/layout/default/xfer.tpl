@@ -5,7 +5,7 @@ design/layout/LAYOUT/main.tpl
 replicator = Site replicator
 
 [dic.de]
-replicator = Seiten kopieren
+replicator = Seiten übertragen
 
 
 # ***********************************************************
@@ -13,7 +13,6 @@ replicator = Seiten kopieren
 # ***********************************************************
 <div class="container">
 <h3><!DIC:replicator!></h3>
-<!MOD:toc.topics!>
 <!MOD:toc.xfer!>
 </div>
 

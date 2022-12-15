@@ -1,16 +1,7 @@
-[register]
-core/scripts/inline.js
-
 [include]
 design/templates/menus/buttons.tpl
 
 [dic]
-file = File
-sure = Sure?
-ed.cpy = Provide a copy
-ed.upd = Update now
-overwrite = Overwrite existing files
-
 paragraph = Paragraph
 head1 = Heading 1
 head2 = Heading 2
@@ -50,12 +41,6 @@ imgright = Thumb right
 askWidth = Set thumb width
 
 [dic.de]
-file = Datei
-sure = Sicher?
-ed.cpy = Exportieren
-ed.upd = Aktualisieren
-overwrite = Überschreibe bestehende Datei(en)
-
 paragraph = Absatz
 head1 = Überschrift 1
 head2 = Überschrift 2
@@ -95,88 +80,9 @@ imgright = Vorschaubild rechts
 askWidth = Bildbreite festlegen
 
 
-[html.edit]
-<!SEC:open!>
-<!SEC:edit!>
-<!SEC:characters!>&nbsp;
-<!SEC:formatting!>
-<!SEC:addImg!>
-<!SEC:addLFs!>&nbsp;
-<!SEC:addLink!>
-<!SEC:switch.htm!>
-<!SEC:close!>
-
-[text.edit]
-<!SEC:open!>
-<!SEC:edit!>
-<!SEC:characters!>&nbsp;
-<!SEC:formatting!>
-<!SEC:addImg!>
-<!SEC:addLFs!>&nbsp;
-<!SEC:addLink!>
-<!SEC:close!>
-
-[code.edit]
-<!SEC:open!>
-<!SEC:extern!>
-<!SEC:close!>
-
-[xdic.edit]
-
-[text.edit]
-<!SEC:open!>
-No options
-<!SEC:close!>
-
-[none.edit]
-<!SEC:open!>
-No options
-<!SEC:close!>
-
-[pics.edit]
-<!SEC:open!>
-No options
-<!SEC:close!>
-
-
-[open]
-<!-- ********************************************************** -->
-<div class="toolbar">
-
-<table class="navi" width="100%">
-	<tr>
-		<td>
-
-[close]
-		</td>
-		<td align="right">
-<!SEC:item.view!>
-		</td>
-	</tr>
-</table>
-</div>
-
-#<script language="javascript">init1();</script>
-
-#<hr class=="low">
-
-
-[empty]
-<td align="center">&nbsp;</td>
-
-
 [edit]
 <button class="icon" onclick="doUndo();"><img src="core/icons/edit/undo.png" /></button>
 &nbsp;
-
-[xdic]
-# Not in use !
-
-[extern]
-<a href="?edit=provide&fil=<!VAR:file!>"><button><!DIC:ed.cpy!></button></a>
-<a href="?edit=update&fil=<!VAR:file!>"><button><!DIC:ed.upd!></button></a>
-&nbsp; <small>dir = <dfn><!VAR:path!></dfn></small>
-
 
 # *****************************************************************
 # formatting tasks

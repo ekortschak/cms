@@ -39,7 +39,7 @@ function __construct($host, $dbase) {
 // ***********************************************************
 public function connect($user, $pass) {
 	if (! function_exists("mysqli_connect"))
-	return ERR::msg("dbase", "db.module", "mysqli");
+	return ERR::msg("db.module", "mysqli");
 
 	$this->con = new mysqli($this->host, $user, $pass);
 	$this->selectDb($this->dbs);
@@ -77,7 +77,7 @@ public function fetch($sql, $mds = "a") {
 	$mds = $this->getMode($mds); $out = array();
 
     while ($arr = $res->fetch_array($mds)) {
-		$out[] = STR::restore($arr);
+		$out[] = DBS::restore($arr);
     }
     if (! $out) return false;
 	return $out;
@@ -236,6 +236,13 @@ private function getMode($mds) {
 	if ($mds == "a") return MYSQLI_ASSOC;
 	if ($mds == "b") return MYSQLI_BOTH;
 	return MYSQLI_NUM;
+}
+
+// ***********************************************************
+// backup & restore
+// ***********************************************************
+public function dbdump() {
+#dmp = mysqldump --opt -h $this->host -u $this->usr -p $this->pwd $this->dbas | gzip > $file
 }
 
 // ***********************************************************

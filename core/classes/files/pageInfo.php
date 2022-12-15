@@ -37,12 +37,12 @@ public function setContent($text) { $this->txt = $text; }
 public function append($text)     {	$this->txt.= $text; }
 public function reset()           {	$this->txt = "";    }
 
-public function getLink($after = "") {
+public function getLink($after = "", $mode = "view") {
 	$url = $this->get("path");
 	$cap = $this->get("full"); if ($after) $cap = STR::afterX($cap, $after);
 	$lst = ($after) ? "~" : "";
 
-	return "<a href=\"index.php?pge=$url&vmode=view\">$lst$cap</a>";
+	return "<a href=\"index.php?pge=$url&vmode=$mode\">$lst$cap</a>";
 }
 
 public function save() {

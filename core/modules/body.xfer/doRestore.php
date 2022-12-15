@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("server/backup.php");
 
 // ***********************************************************
@@ -18,10 +18,10 @@ $act = array(
 // ***********************************************************
 // choose action
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 if (! FSO::hasXs($dev)) return;
 
@@ -29,6 +29,7 @@ if (! FSO::hasXs($dev)) return;
 // transfer files
 // ***********************************************************
 $snc = new backup();
+$snc->setVisOnly(false);
 $snc->setDevice($dev);
 $snc->$fnc();
 

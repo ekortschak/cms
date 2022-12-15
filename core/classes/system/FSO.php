@@ -25,18 +25,6 @@ public static function init() {
 }
 
 // ***********************************************************
-// reducing paths to "local" paths
-// ***********************************************************
-public static function clearRoot($fso) { // default: $mode = inc
-	$arr = APP::getFBK();
-
-	foreach ($arr as $dir) {
-		$out = STR::after($fso, $dir); if ($out !== false) return $out;
-	}
-	return $fso;
-}
-
-// ***********************************************************
 // path commands
 // ***********************************************************
 public static function join() {
@@ -56,7 +44,7 @@ public static function norm($fso) { // $fso => dir or file
 }
 
 public static function mySep($fso) {
-	return strtr($fso, DIRECTORY_SEPARATOR, "/");
+	return strtr($fso, DIRECTORY_SEPARATOR, DIR_SEP);
 }
 
 public static function isUrl($fso) {
@@ -67,9 +55,9 @@ public static function isUrl($fso) {
 }
 
 // ***********************************************************
-public static function force($dir, $mod = FILE_XS) {
+public static function force($dir, $mod = FS_PERMS) {
 	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
-	$chk = trim($dir, "/"); if (strlen($chk) < 1) return false;
+	$chk = trim($dir, "/");  if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
 	$xxx = self::permit($dir, $mod);
@@ -86,7 +74,7 @@ public static function hasXs($fso, $tell = true) {
 	return false;
 }
 
-public static function permit($fso, $mod = FILE_XS) {
+public static function permit($fso, $mod = FS_PERMS) {
 	if (! IS_LOCAL) return;
 
 	chown($fso, WWW_USER);
@@ -113,16 +101,16 @@ public static function copyDir($src, $dst) {
 
 // ***********************************************************
 public static function mvDir($src, $dst) {
-	$arr = self::fTree($src); if (! $arr) return;
+	$arr = self::fTree($src); if (! $arr) return false;
 	krsort($arr);
 
 	foreach ($arr as $fso => $nam) {
 		$new = STR::after($fso, $src.DIR_SEP);
 		$new = self::join($dst, $new);
 		$xxx = self::force(dirname($new));
-		$erg = self::move($fso, $new); if (! $erg) return;
+		$erg = self::move($fso, $new); if (! $erg) return false;
 	}
-	self::rmdir($src);
+	return self::rmdir($src);
 }
 
 // ***********************************************************
@@ -133,23 +121,23 @@ public static function rmDir($src) {
 		if (is_file($obj)) self::kill($obj);
 		if (is_dir($obj))  rmdir($obj);
 	}
-	rmdir($src);
-	return 1;
+	return rmdir($src);
 }
 
 // ***********************************************************
 // methods for menus
 // ***********************************************************
-public static function parents($dir = "CURDIR", $min = APP_DIR) {
+public static function parents($dir = "CURDIR") {
 	if ($dir == "CURDIR") $dir = PFS::getLoc();
 	if (  is_file($dir))  $dir = dirname($dir);
 	if (! is_dir($dir))   $dir = APP::dir($dir);
 	if (! is_dir($dir))	  return array();
 
+	$dir = APP::relPath($dir);
 	$out[] = $dir;
 
 	while ($dir = dirname($dir)) {
-		if ($dir < $min) break; // no access outside app path
+		if ($dir == ".") break; // no access outside app path
 		$out[] = $dir;
 	}
 	sort($out);
@@ -174,10 +162,9 @@ public static function getPrev($dir) {
 public static function rename($old, $new) {
 	if ($old == $new) return;
 
-	switch (is_dir($old)) {
-		case true: return (bool) self::mvDir($old, $new); break;
-		default:   return (bool) self::move($old, $new);
-	}
+	if (is_dir($old))
+	return (bool) self::mvDir($old, $new);
+	return (bool) self::move ($old, $new);
 }
 
 // ***********************************************************
@@ -190,12 +177,12 @@ public static function fdTree($dir, $ptn = "*") {
 public static function fTree($dir, $ptn = "*", $filesOnly = true) {
  // default: list all files in $dir recursively
 	$drs = self::tree($dir, false); // including hidden fso
-	$out = self::files("$dir/$ptn", false);
+	$out = self::files("$dir/$ptn*", false);
 
 	foreach ($drs as $dir => $nam) {
 		if (is_link($dir)) continue;
 		if (! $filesOnly) $out[$dir] = $nam;
-		$out += self::files("$dir/$ptn", false);
+		$out += self::files("$dir/$ptn*", false);
 	}
 	ksort($out);
 	return $out;
@@ -208,8 +195,9 @@ public static function files($pattern, $visOnly = true) {
 
 	foreach ($arr as $itm) {
 		if (is_dir($itm)) continue;
+		if ($visOnly)
+		if (self::isHidden($itm)) continue;
 
-		$chk = self::isHidden($itm); if ($chk) if ($visOnly) continue;
 		$out[$itm] = basename($itm);
 	}
 	return $out;
@@ -219,7 +207,7 @@ public static function files($pattern, $visOnly = true) {
 public static function backup($file) {
 	if (! is_file($file)) return;
 	$dst = APP::bkpDir("edited");
-	$dst = fSO::join($dst, basename($file));
+	$dst = self::join($dst, basename($file));
 	self::copy($file, $dst);
 }
 

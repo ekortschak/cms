@@ -1,10 +1,6 @@
 <?php
 
-switch ($wht) {
-	case "S": $arr = ENV::getList(); break;
-	case "C": $arr = CFG::getList(); break;
-	default:  $arr = array("?" => NV);
-}
+$arr = CFG::getData();
 
 // ***********************************************************
 incCls("tables/htm_table.php");

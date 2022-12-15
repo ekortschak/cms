@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -11,10 +11,10 @@ $mod = array(
 	"DESC" => "Descending"
 );
 
-$box = new dbox();
+$box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
 $mod = $box->getKey("sort.by", $mod);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

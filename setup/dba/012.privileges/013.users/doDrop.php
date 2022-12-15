@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/tblFilter.php");
 incCls("dbase/dbQuery.php");
 
@@ -24,9 +24,9 @@ if (! $lst) {
 // ***********************************************************
 HTM::tag("usr.drop");
 
-$box = new dbox();
+$box = new qikSelect();
 $usr = $box->getKey("user", $lst);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 $dbq->delete("uname='$usr'");
 

@@ -41,7 +41,7 @@ public function show($dir = NV) {
 		return $this->show("dir.empty");
 	}
 	$max = count($arr);
-	$cur = $this->getCurrent($max);;
+	$cur = $this->getCurrent($max);
 	$sec = $this->setCR($arr[$cur]);
 
 	$this->set("prev",   $cur - 1);
@@ -65,7 +65,7 @@ private function setCR($pic) {
 	$md5 = md5_file($pic);
 
 	$dbe = new recEdit(NV, "copyright");
-	$dbe->setProp("md5", "fstd", $md5);
+	$dbe->setDefault("md5", $md5);
 	$dbe->findRec("md5='$md5'");
 
 	$rec = $dbe->getRec(); extract($rec);

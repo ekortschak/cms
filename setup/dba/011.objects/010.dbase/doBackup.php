@@ -3,16 +3,20 @@ in Vorbereitung ...
 <?php
 return;
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
+incCls("input/selector.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $erg = $box->showDBObjs("B"); extract($erg);
-$dst = $box->getInput("destination", "$dbs.sql");
-$xxx = $box->show("table");
+$xxx = $box->show();
+
+$sel = new selector();
+$dst = $sel->input("destination", "$dbs.sql");
+$act = $sel->show();
 
 // ***********************************************************
 // ask for confirmation

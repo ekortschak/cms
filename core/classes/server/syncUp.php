@@ -55,7 +55,7 @@ protected function getDest() {
 public function publish() {
 	if (! $this->ftp->test()) return;
 
-	$this->set("title", "Sync to server");
+	$this->setTitle("sync.up");
 	$this->showInfo();
 	$this->run();
 }
@@ -126,15 +126,9 @@ public function debug($dst) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function srcName($fso, $act = false) {
-	return FSO::join($this->src, $fso);
-}
-
 protected function destName($fso, $act = false) {
-	$chk = STR::contains(".cpf.mkd.", ".$act.");
-	if (! $chk) return $fso;
-
-	$pfx = $this->ftp->get("ftp.froot");
+	$chk = STR::contains(".cpf.mkd.", ".$act."); if (! $chk) return $fso;
+	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
 	return FSO::join($pfx, $fso);
 }
 
@@ -146,6 +140,7 @@ protected function do_mkDir($dst) { // single dir op
 }
 
 protected function do_copy($src, $dst) { // single file op
+	if ($this->ftp->isProtected($dst)) return false;
 	return $this->ftp->remote_put($src, $dst);
 }
 

@@ -32,7 +32,7 @@ class dirView extends tpl {
 // ***********************************************************
 function __construct() {
 	parent::__construct();
-	$this->setOID();
+
     $this->set("title", "No title");
     $this->set("visOnly", true);
 }
@@ -74,7 +74,7 @@ private function getFolders() {
     $out = array(); if (! $this->vrz) return "";
 
     foreach ($this->vrz as $dir => $nam) {
-        $txt = STR::clear($dir, $this->dir); if (! $txt) continue;;
+        $txt = STR::clear($dir, $this->dir); if (! $txt) continue;
 
         $this->set("path", $dir);
         $this->set("text", $txt);
@@ -107,13 +107,6 @@ private function getFiles($what = "file") {
 
 private function getFirst() {
 	return VEC::getFirst($this->fls);
-}
-
-// ***********************************************************
-// visibility
-// ***********************************************************
-public function setVisOnly($value = true) {
-	$this->set("visOnly", (bool) $value);
 }
 
 // ***********************************************************

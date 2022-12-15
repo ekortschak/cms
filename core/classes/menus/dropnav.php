@@ -24,43 +24,28 @@ incCls("menus/dropbox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class dropnav extends dbox {
-	private $lst = array();
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/dropnav.tpl");
+    $this->read("design/templates/menus/dropNav.tpl");
 }
 
 // ***********************************************************
 // overruled methods
 // ***********************************************************
 public function getKey($qid, $data, $selected = false) {
-	$sel = parent::getKey($qid, $data);
-	$cnt = $cur = 0;
-
-	foreach ($data as $key => $val) {
-		$cnt++; if ($key != $sel) continue;
-		$cur = $cnt;
-	}
-	if (! $cur) return false;
-
-	$this->set("prev", CHK::min($cur - 1, 1));
-	$this->set("next", CHK::max($cur + 1, $cnt - 1));
-	$this->lst = $data;
-
-	if ($cur < 2) $this->substitute("nav.left", "nav.null");
-	if ($cur > $cnt - 2) $this->substitute("nav.right", "nav.null");
-
+	$sel = parent::getKey($qid, $data, $selected);
+	$cur = $this->setNav($data, $sel); if (! $cur) return false;
 	return $sel;
 }
 
-// ***********************************************************
-public function decode($qid, $find, $default = false) {
-	foreach ($this->lst as $key => $val) {
-		if ($key == $find) return $val;
-		if ($val == $find) return $key;
+protected function getSel($qid, $data, $sel) {
+	if (is_numeric($sel)) {
+		$arr = array_keys($data);
+		$sel = $arr[$sel - 1];
+		return ENV::set($qid, $sel);
 	}
-	return $default;
+	return parent::getSel($qid, $data, $sel);
 }
 
 // ***********************************************************
@@ -70,19 +55,34 @@ public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
+	if (! $this->data) return "";
+
 	$this->set("items", $this->collect($sec));
     return $this->getSection($sec);
 }
 
+protected function setNav($data, $sel) {
+	$cur = VEC::indexOf($data, $sel) + 1; if (! $cur) return false;
+	$max = count($data);
+
+	$this->set("prev", CHK::min($cur - 1, 1));
+	$this->set("next", CHK::max($cur + 1, $max));
+
+	if ($cur >= $max) $this->substitute("nav.right", "nav.null");
+	if ($cur <= 1)    $this->substitute("nav.left",  "nav.null");
+
+	return $cur;
+}
+
 // ***********************************************************
-private function collect($type) {
+protected function collect($type) {
     $out = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
 		extract ($vls);
 
 		$this->set("parm", $unq); $tmp = ""; $cnt = 0;
-		$this->set("uniq", DIC::check("unq", $unq));
+		$this->set("uniq", DIC::getPfx("unq", $unq));
 		$this->set("current", $cur);
 
 		foreach ($dat as $key => $val) { // links
@@ -97,11 +97,8 @@ private function collect($type) {
 			$sec = "$type.one";
 		}
 		else {
-			$sec = "table.text";
+			continue;
 		}
-		$nav = intval($sel);
-		$this->set("prev", $nav - 1);
-		$this->set("next", $nav + 1);
 		$this->set("links", $tmp);
 
 		$out.= $this->getSection($sec);

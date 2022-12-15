@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -11,10 +11,10 @@ $fnc = array(
 	"t_drop" => "DROP (remove table completely)"
 );
 
-$box = new dbox();
+$box = new qikSelect();
 $erg = $box->showDBObjs("BT"); extract($erg);
 $fnc = $box->getKey("method", $fnc);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

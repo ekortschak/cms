@@ -9,8 +9,7 @@ $tpl = basename($fil);
 incCls("editor/iniMgr.php");
 
 $ini = new iniMgr("design/config/$tpl");
-$ini->read($fil);
-$ini->save($fil);
+$ini->update($fil);
 $ini->show();
 
 ?>

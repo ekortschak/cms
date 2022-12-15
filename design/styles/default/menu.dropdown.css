@@ -5,7 +5,7 @@
 .dropdown {
 	display: inline-block;
 	margin: 0px;
-	padding: 0px 7px;
+	padding: 0px;
 }
 .dropdown:hover .dropdown-content {
 	z-index: 90;

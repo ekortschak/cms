@@ -2,8 +2,6 @@
 design/templates/modules/fview.gallery.tpl
 
 [dic]
-start = Default page
-
 inis = Create ini file(s)
 uids = Check UIDs
 
@@ -13,8 +11,6 @@ sibling = Add a sibling
 addfile = Create a new file
 
 [dic.de]
-start = Startseite
-
 inis = Ini-Datei(en) erstellen
 uids = UIDs überprüfen
 

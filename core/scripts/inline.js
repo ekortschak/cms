@@ -1,7 +1,8 @@
-var mark = "¶\n";
+var mark = "¶x\n";
 var hist = [];
 var cols = 2;
 var pwid = 200;
+
 
 function getView() {
 	chk = document.getElementById("divEdit"); if (chk == null) return false;
@@ -25,7 +26,7 @@ function show() {
 	alert(htm);
 }
 function addTag(tag) { // bracket selection by tag
-	wlf = "h1.h2.h3.h4.h5.h6.";
+	wlf = "p.h1.h2.h3.h4.h5.h6.";
 	htm = selString(); if (! htm) htm = mark;
 	htm = cleanSel(htm);
 	htm = "<" + tag + ">" + htm + "</" + tag + ">";
@@ -152,13 +153,13 @@ function repString(html) {
 
 function selHtml() {
     if (typeof window.getSelection != "undefined") {
-        var sel = window.getSelection();
+        sel = window.getSelection();
         if (sel.rangeCount) {
-            var container = document.createElement("div");
-            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                container.appendChild(sel.getRangeAt(i).cloneContents());
+            out = document.createElement("div");
+            for (i = 0, len = sel.rangeCount; i < len; ++i) {
+                out.appendChild(sel.getRangeAt(i).cloneContents());
             }
-            return container.innerHTML;
+            return out.innerHTML;
         }
     } else if (typeof document.selection != "undefined") {
         if (document.selection.type == "Text") {
@@ -189,11 +190,10 @@ function cut() {
 	obj.setAttribute("value", selString());
 	repString("");
 }
-function einf() {
+function paste() {
 	htm = document.getElementById("copiedText").value;
 	repString(htm);
 }
-
 
 // **********************************************************
 // storing and undoing edits

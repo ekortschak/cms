@@ -53,11 +53,11 @@ public function read($ini = false) {
 // ***********************************************************
 public function setSource($dir = ".") {
 	$this->src = FSO::norm($dir);
-	$this->setOidVar("sync.src", $this->src);
+	ENV::set("sync.src", $this->src);
 }
 public function setDest($dir = APP_DIR) {
 	$this->dst = FSO::norm($dir);
-	$this->setOidVar("sync.dst", $this->dst);
+	$xxx = ENV::set("sync.dst", $this->dst);
 }
 
 //// ***********************************************************
@@ -66,7 +66,7 @@ public function setDest($dir = APP_DIR) {
 public function upgrade() {
 	if (! $this->ftp->test()) return;
 
-	$this->set("title", "Sync from server");
+	$this->setTitle("sync.down");
 	$this->showInfo();
 	$this->run();
 }
@@ -122,8 +122,8 @@ protected function exec() { // prepare for webexec()
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function srcName($fso) {
-	$pfx = $this->ftp->get("ftp.froot");
+protected function srcName($fso, $act = false) {
+	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
 	return FSO::join($pfx, $fso);
 }
 
@@ -133,23 +133,6 @@ protected function srcName($fso) {
 protected function do_copy($src, $dst) { // single file op
 	if ($this->ftp->isProtected($dst)) return false;
 	return $this->ftp->save($src, $dst);
-}
-
-// ***********************************************************
-protected function do_ren($fso) {
-	$prp = explode("|", $fso); if (count($prp) < 3) return false;
-	return (bool) FSO::rename($src, $dst);
-}
-
-protected function do_mkDir($dst) {
-	return (bool) FSO::force($dst);
-}
-protected function do_rmDir($dst) {
-	if ($dst == APP_DIR) return false;
-	return (bool) FSO::rmDir($dst);
-}
-protected function do_kill($dst)  {
-	return (bool) FSO::kill($dst);
 }
 
 // ***********************************************************

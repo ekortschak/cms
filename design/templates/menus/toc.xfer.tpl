@@ -6,10 +6,8 @@ project = Transfer whole project
 select = Select branch to transfer!
 
 [dic.de]
-project = Gesamtes Projekt
+project = Betrifft gesamtes Projekt
 select = Wähle den Menü-Zweig, der übertragen werden soll.
-topic = Applies to whole topic
-topic = Betrifft aktuelles Thema
 
 # ***********************************************************
 # xfer all docs

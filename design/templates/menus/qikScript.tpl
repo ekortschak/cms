@@ -1,5 +1,3 @@
-[include]
-#/design/templates/menus/dropbox.tpl
 
 # ***********************************************************
 # common parts
@@ -13,7 +11,7 @@
 <div><a href="javascript:exIns('<!VAR:value!>');"><!VAR:caption!></a></div>
 
 # ***********************************************************
-[combo]
+[main]
 # ***********************************************************
 <div class="dropdown">
 	<button class="dropdown-button">Snips &nbsp; ▾</button>

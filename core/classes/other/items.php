@@ -25,6 +25,7 @@ incCls("other/item.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class items extends objects {
+	protected $lst = array(); // stored items
 	protected $itm = array(); // collection of items
 	protected $col = array(); // links item names to item indices
 	protected $cnt = 0;       // item count
@@ -40,8 +41,10 @@ public function addItems($arr) {
     }
 }
 public function addItem($item, $props = array()) {
+	if (isset($this->lst[$item])) return;
 	$idx = $this->cnt++;
 
+	$this->lst[$item] = $idx;
     $this->itm[$idx] = new item($item);
     $this->col[$idx] = $item;
 

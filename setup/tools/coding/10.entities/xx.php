@@ -16,6 +16,6 @@
    &copy; &trade; &bull; &num;</p>
 <p>&dtri; &utri; &ltri; &rtri; &dtrif; &utrif; &ltrif; &rtrif;</p>
 <p>&cross; &check;</p>
-<p>&plusmn; &ne; &sime;</p>
+<p>&plusmn; &ne; &sime; &empty;</p>
 
 </div>

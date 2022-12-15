@@ -48,7 +48,7 @@ public function getInfo($ful) {
 
 // ***********************************************************
 private function setName($inf, $ful) {
-	$url = FSO::clearRoot($ful);
+	$url = APP::relPath($ful);
 
 	$this->set("full", $ful);
     $this->set("path", $inf["dirname"]);

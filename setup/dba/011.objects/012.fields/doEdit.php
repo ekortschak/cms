@@ -2,7 +2,7 @@
 
 incCls("dbase/dbQuery.php");
 incCls("dbase/dbInfo.php");
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("input/selector.php");
 incCls("dbase/dbAlter.php");
 
@@ -19,7 +19,7 @@ $inf = $dbi->fldProps($tbl, $fld);
 $cat = $inf["dcat"];
 $lng = $inf["flen"]; $len = "";
 
-$box = new dbox("$tbl.$fld");
+$box = new qikSelect();
 $typ = $box->getKey("change.to", $tps, $cat);
 
 $nls = $dbi->fldNull($typ);
@@ -29,7 +29,7 @@ $lng = $dbi->fldLenFind($typ, $lng);
 if ($lng)
 $len = $box->getKey("fld.length", $lns, $lng);
 $nul = $box->getKey("fld.null",   $nls, $inf["fnull"]);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 echo "<hr>";
 
@@ -38,7 +38,7 @@ $fnc = "input"; $std = "";
 
 switch ($typ) {
 	case "dat": $typ = $len; break;
-	case "num": $typ = $len; $fnc = "combo"; $std = 0; break;
+	case "num": $typ = $len; $fnc = "number"; $std = 0; break;
 }
 
 $sel = new selector();

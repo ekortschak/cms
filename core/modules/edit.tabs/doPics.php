@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("input/selector.php");
 
 $set = APP_CALL;
@@ -13,9 +13,9 @@ $fnt = APP::files("design/fonts/*.ttf");
 // ***********************************************************
 // show file selector
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $fnt = $box->getKey("Font", $fnt);
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 ENV::set("Font", $fnt);
 
@@ -34,7 +34,7 @@ $tpl->show("del.png");
 $fil = APP::find(TAB_ROOT, "tab", "png");
 $sec = "show.png"; if (! $fil) $sec.= ".none";
 
-$tpl->set("file", $fil);
+$tpl->set("file", APP::relPath($fil));
 $tpl->show($sec);
 
 ?>

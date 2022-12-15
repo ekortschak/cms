@@ -37,7 +37,7 @@ function __construct($fso = "CURDIR") {
 }
 
 // ***********************************************************
-// handling sections
+// handling vars
 // ***********************************************************
 public function getVars() {
 	return $this->vrs;
@@ -49,6 +49,9 @@ public function getValues($sec = "*") {
 	return parent::getValues($sec);
 }
 
+// ***********************************************************
+// handling sections
+// ***********************************************************
 public function getSecs($filter = true) {
 	$arr = $this->sec; $out = array();
 	$ign = STR::toArray("dic,include,register");
@@ -60,9 +63,18 @@ public function getSecs($filter = true) {
 	return $out;
 }
 
+public function dropSec($sec) {
+	unset($this->sec[$sec]);
+}
+
+// ***********************************************************
+public function setSec($sec, $data) {
+	$this->sec[$sec] = $data;
+}
+
 public function getSec($sec) {
 	$sec = $this->findSec($sec); if (! $sec) return "";
-	return $this->sec[$sec]	;
+	return $this->sec[$sec];
 }
 
 // ***********************************************************
@@ -159,7 +171,6 @@ public function getIncFile($typ = "inc") {
 	if ($typ == "cam") return "livecam.php";  // camera
 
 	if ($typ == "dbt") return "dbtable.php";  // database table
-    if ($typ == "sur") return "survey.php";   // survey
     if ($typ == "tut") return "tutorial.php"; // tutorial
 	return false;
 }

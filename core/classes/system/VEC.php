@@ -76,7 +76,8 @@ public static function get($arr, $key, $default = false) {
 }
 
 public static function indexOf($data, $sel, $default = false) {
-	$out = array_search($sel, $data); if ($out !== false) return $out;
+	$arr = array_keys($data);
+	$out = array_search($sel, $arr); if ($out !== false) return $out;
 	return $default;
 }
 
@@ -85,7 +86,7 @@ public static function find($data, $sel, $default = false) {
 	if (self::get($data, $sel)) return $sel;
 
 	foreach ($data as $key => $val) {
-		if ($val === $sel) return $key;
+#		if ($val === $sel) return $key;
 		if ($sel === $val) return $key;
 	}
 	return self::getFirst($data);
@@ -124,10 +125,9 @@ public static function match($data, $pfx = "") {
 // ***********************************************************
 // enlarging arrays
 // ***********************************************************
-public static function append($arr, $key, $value, $initVal = "", $glue = "") {
-	$val = self::get($arr, $key, $initVal);
-	$val.= ($val == $initVal) ? $value : ($glue.$value);
-	$arr[$key] = $val;
+public static function append($arr, $key, $value, $glue = "") {
+	$val = self::get($arr, $key, ""); if ($val == "") $glue = "";
+	$arr[$key] = $val.$glue.$value;
 	return $arr;
 }
 
@@ -169,6 +169,10 @@ public static function implode($arr, $sep = "\n") {
 // ***********************************************************
 // diverse operations
 // ***********************************************************
+public static function isKey($arr, $key) {
+	return isset($arr[$key]);
+}
+
 public static function count(&$arr, $key) {
 	$old = self::get($arr, $key, 0);
 	return $arr[$key] = $old + 1;

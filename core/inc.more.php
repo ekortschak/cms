@@ -5,7 +5,7 @@ ob_start();
 // ***********************************************************
 // load general classes
 // ***********************************************************
-incCls("user/USR.php");	   // user info
+incCls("user/USR.php");	   // user info, login
 
 incCls("system/REG.php");  // register js & css files
 incCls("system/DIC.php");  // language support
@@ -32,6 +32,8 @@ include("core/inc.dbs.php");
 // execute pending fs modifications
 // ***********************************************************
 incCls("editor/ACT.php");  // modifications to project
+
+CFG::update();
 
 // ***********************************************************
 // load local classes (if any)

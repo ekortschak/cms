@@ -30,21 +30,20 @@ class sel_table extends tblView {
 
 function __construct() {
 	parent::__construct();
-
 	$this->read("design/templates/tables/recSel.tpl");
-	$this->setOID();
+	$this->register();
 }
 
 // ***********************************************************
 // executing selections
 // ***********************************************************
 protected function exec($dbase, $tbl, $flt) { // recSel templates
-	$act = ENV::getPost("rec.act", false);  if (! $act) return;
-	$rec = $this->getOidVar("sel", "list"); if (! $rec) return;
+	$act = ENV::getPost("rec.act", false);      if (! $act) return;
+	$rec = OID::get($this->oid, "sel", "list"); if (! $rec) return;
 
 	$fld = STR::before($act, "=>");
 	$new = STR::after($act, "=>");
-	$new = strtolower($new);
+#	$new = strtolower($new);
 	$vls = array($fld => $new);
 
 	$dbq = new dbQuery($dbase, $tbl);

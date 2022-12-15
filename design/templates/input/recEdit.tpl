@@ -7,7 +7,7 @@ ins = Als neuen Datensatz anlegen
 del = Datensatz löschen
 rom = Nur Leserechte
 nxs = Zusätzliche Rechte erforderlich!
-ron = Keine Schreibrechte!
+ron = <a href="?vmode=login">Anmelden</a>
 
 field = Feld
 value = Wert
@@ -22,7 +22,7 @@ ins = Insert as new record
 del = Delete this record
 rom = Read Only
 nxs = Additional permissions required!
-ron = Read only permissions!
+ron = <a href="?vmode=login">Login</a>
 
 field = Field
 value = Value
@@ -32,37 +32,38 @@ to.table = Switch to table view
 
 
 [vars]
-wid1 = 125
+wid1 = 200
 wid2 = 10
-wid3 = 150
+
+perms = r
 
 # ***********************************************************
 [main]
 # ***********************************************************
+<!SEC:open!>
+<!VAR:items!>
+<!SEC:close!>
+
+[open]
 <form method="post" action="?">
 	<!SEC:hidden!>
 
-	<table>
+	<table width="100%">
 		<tr class="rh">
 			<th width=<!VAR:wid1!>><!DIC:field!></th>
 			<th width=<!VAR:wid2!>><!SEC:mandatory!></th>
-			<th width=<!VAR:wid3!>><!DIC:value!></th>
+			<th width="100%"><!DIC:value!></th>
 		</tr>
-		<tr>
-			<td colspan=3></th>
-			<td rowspan="100%"><!SEC:tblLink!></th>
-		</tr>
-<!VAR:items!>
-		<tr><td></td></tr>
-		<tr class="rf">
-			<td width="<!VAR:wid1!>">&nbsp;</td>
-			<td></td>
-			<td width="<!VAR:wid3!>" class="selData" align="right">
-<!SEC:action.<!VAR:perms!>!>
-			</td>
-		</tr>
+
+[close]
 	</table>
+
+	<div class="flex rf" style="padding: 0px 5px;">
+		<div><!SEC:buttons!></div>
+		<div><!SEC:action.<!VAR:perms!>!></div>
+	</div>
 </form>
+
 
 [mandatory]
 <div class="dropdown">?
@@ -73,7 +74,7 @@ wid3 = 150
 [rows]
 # ***********************************************************
 <tr class="rw">
-	<td class="selHead"><!VAR:head!> &nbsp; </td>
+	<td class="selHead"><!VAR:head!> </td>
 	<td><!VAR:fnull!></td>
 	<td class="selData"><!VAR:data!></td>
 </tr>
@@ -81,22 +82,19 @@ wid3 = 150
 # ***********************************************************
 # return to table view
 # ***********************************************************
-[tblLink]
-<div style="padding: 2px 0px 0px 15px;">
+[buttons]
 	<div class="dropdown">
 		<a href="?oid=<!VAR:oid!>&rec=list">
-			<dmbtn><img class="button" src="core/icons/db/table.gif" /></dmbtn>
+			<img class="button" src="core/icons/db/table.gif" />
 		</a>
 		<div class="dropdown-content"><!DIC:to.table!></div>
 	</div>
-</div>
 
 # ***********************************************************
 [hidden]
 # ***********************************************************
 	<input type="hidden" name="oid" value="<!VAR:oid!>" />
 	<input type="hidden" name="tan" value="<!VAR:tan!>" />
-	<!VAR:hidden!>
 
 # ***********************************************************
 # Buttons
@@ -136,15 +134,15 @@ wid3 = 150
 
 # ***********************************************************
 [action.a]
-<input name="rec.act" type="hidden" value="a">
+<input type="hidden" name="rec.act" value="a">
 <input type="submit" value="<!DIC:ins!>" />
 
 [action.e]
-<input name="rec.act" type="hidden" value="e">
+<input type="hidden" name="rec.act" value="e">
 <input type="submit" value="<!DIC:upd!>" />
 
 [action.d]
-<input name="rec.act" type="hidden" value="d">
+<input type="hidden" name="rec.act" value="d">
 <input type="submit" value="<!DIC:del!>" />
 
 # ***********************************************************

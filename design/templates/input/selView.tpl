@@ -1,28 +1,33 @@
 [include]
 design/templates/input/selector.tpl
 
-[open]
-<h5><!DIC:apply.to!></h5>
+# ***********************************************************
+[main]
+# ***********************************************************
+<!SEC:open!>
+<!VAR:items!>
+<!SEC:close!>
 
-<table width=550>
+<!SEC:back!>
+
+
+[open]
+<table>
+	<tr height=0>
+		<td width=<!VAR:wid1!>></td>
+		<td width=<!VAR:wid2!>></td>
+	</tr>
 
 [close]
-	<tr>
-		<td colspan="100%" align="right">
-			<a href="?">OK</a>
-		</td>
-	</tr>
 </table>
 
 # ***********************************************************
 [rows]
 # ***********************************************************
 <tr>
-	<td width=100><!VAR:head!> &nbsp; </td>
-	<td width="*"><!VAR:data!></td>
+	<td><!VAR:head!> &nbsp; </td>
+	<td><!VAR:data!></td>
 </tr>
 
-# ***********************************************************
-[input.ron] # read only information
-# ***********************************************************
-<!VAR:curVal!>
+[back]
+<div class="flex">&nbsp; <a href="?">OK</a></div>

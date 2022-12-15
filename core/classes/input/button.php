@@ -35,7 +35,6 @@ public function show($btn = "view") {
 }
 
 public function gc($btn = "view") {
-	$vis = $this->getVis(); if ($vis < 1) return "";
 	$ref = $this->get("tip");
 	$pic = $this->get("pic");
 
@@ -67,14 +66,6 @@ public function read($btn = "view") {
 	$this->set("tip",     $cod->getInfo());
 	$this->set("pic",     $cod->getProp("pic"));
 	$this->set("class",  "icon");
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private function getVis() {
-	$prp = $this->get("props.if"); if (! $prp) return true;
-	return CFG::getVar("mods", $prp, true);
 }
 
 // ***********************************************************

@@ -3,8 +3,8 @@
 // ***********************************************************
 // login on remote system
 // ***********************************************************
-if (! IS_LOCAL) if (! FS_ADMIN) {
-	$edt = CFG::getVar("mods", "deco.medit", false);
+if (! FS_ADMIN) {
+	$edt = CFG::getVar("mods", "eopts.medit", false);
 	if ($edt) $mod = "login";
 
 	incMod("body/$mod.php");

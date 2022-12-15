@@ -1,43 +1,45 @@
+[include]
+design/templates/input/selROnly.tpl
+
 [vars]
 auto =
-sep = &nbsp; &nbsp;
+sep = &emsp;
 sep =
 
 [head]
 <!VAR:title!>
 
+# ***********************************************************
 [main]
-
 # ***********************************************************
-[input.cmb]
-# ***********************************************************
-<select name="val.<!VAR:fname!>">
+<select name="<!VAR:fname!>">
 <!VAR:options!>
 </select>
 <small><!VAR:info!></small>
 
-[input.cmbitem]
-<option value="<!VAR:key!>" <!VAR:selected!>><!VAR:value!></option>
+[item]
+<option value="<!VAR:key!>" <!VAR:selected!>><!VAR:option!></option>
 
-[input.auto]
-<select name="val.<!VAR:name!>" onchange="this.form.<!VAR:auto!>()">
-<!VAR:options!>
-</select>
+# ***********************************************************
+[input.one]
+# ***********************************************************
+<input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>" class="cb" />
+<div class="ronly"><!VAR:option!></div>
+
 
 # ***********************************************************
 [input.opt]
 # ***********************************************************
-<input type="radio" id="opt.<!VAR:key!>" name="val.<!VAR:fname!>" value="<!VAR:key!>" <!VAR:checked!> class="cb" />
+<input type="radio" id="opt.<!VAR:key!>" name="<!VAR:fname!>" value="<!VAR:key!>" <!VAR:checked!> class="cb" />
 <label for="opt.<!VAR:key!>" class="text"><!VAR:caption!></label>
 <!VAR:sep!>
 
+
+# ***********************************************************
 [input.rng]
-<input type="range" name="val.<!VAR:fname!>" value="<!VAR:curVal!>" min="<!VAR:min!>" max="<!VAR:max!>" class="cb" />
+# ***********************************************************
+<input type="range" name="<!VAR:fname!>" value="<!VAR:curVal!>" min="<!VAR:min!>" max="<!VAR:max!>" class="cb" />
 <small><!VAR:min!> - <!VAR:max!></small>
 
-# ***********************************************************
-[input.ron] # read only information
-# ***********************************************************
-<div class="ronly"><!VAR:curVal!></div>
-<input type="hidden" name="val.<!VAR:fname!>" value="<!VAR:key!>" />
-
+[empty]
+<div class="ronly">No data ...</div>

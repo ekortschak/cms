@@ -1,7 +1,9 @@
 [dic.de]
 pic.editor = 📝
 pic.file = 📄
+pic.folder = 🗃
 pic.medium = 💿
 pic.mode = Methode
-pic.dbase = <img src="core/icons/buttons/dbase.png" />
-pic.table = <img src="core/icons/buttons/table.png" />
+pic.dbase = <img src="core/icons/buttons/db.png" alt="databases">
+pic.table = <img src="core/icons/buttons/table.png" alt="tables">
+pic.group = <img src="core/icons/buttons/user.gif" alt="usergroups">

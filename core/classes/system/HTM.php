@@ -84,14 +84,19 @@ public static function csv($file, $sep = ";") {
 public static function cap($text, $tag = "h4") {
 	echo "<$tag>$text</$tag>";
 }
-public static function tag($text, $tag = "h4", $dic = true) {
-	$out = $text; if ($dic) $out = DIC::check("tag", $text); if (! $out) return "";
+public static function tag($text, $tag = "h4") {
+	$out = DIC::getPfx("tag", $text); if (! $out) return "";
 	$arr = explode(".", $tag);
 
 	foreach ($arr as $tag) {
 		$out = "<$tag>$out</$tag>";
 	}
 	echo "$out\n";
+}
+
+public static function vspace($size) {
+	$siz = intval($size);
+	echo "<div style='margin-top: ".$siz."px;'></div>";
 }
 
 public static function def($key, $val) {

@@ -1,0 +1,45 @@
+<?php
+
+incCls("input/selector.php");
+incCls("menus/dropbox.php");
+
+$arr = array(
+	"href" => "Linked Files",
+	"src" => "Ressources",
+);
+
+$end = array(
+	"href" => "</a>",
+	"src" => ">",
+);
+
+$sel = new selector();
+$dir = $sel->input("url", TAB_HOME);
+$flt = $sel->input("Filter", "xx.htm");
+$act = $sel->show();
+
+$arr = FSO::ftree($dir, $flt);
+
+echo "<hr>";
+echo "<ul>";
+
+foreach ($arr as $fil => $nam) {
+	$txt = APP::read($fil);	if (STR::misses($txt, "href")) continue;
+	$lst = STR::find($txt, "href", ">");
+
+	foreach ($lst as $itm) {
+		$lnk = STR::between($itm, '"',  '"');
+
+		if (strlen($lnk) < 5) continue;
+		if ($lnk < "A") continue;
+
+		$lnk = urldecode($lnk);
+
+		echo "<li>$lnk";
+	}
+}
+
+echo "</ul>";
+
+
+?>

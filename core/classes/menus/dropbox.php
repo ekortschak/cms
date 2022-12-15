@@ -22,14 +22,10 @@ $box->show();
 class dbox extends tpl {
 	protected $data = array();
 	protected $type = "button";
-	protected $ctx = false;
 
-function __construct($context = false) {
+function __construct() {
 	parent::__construct();
-
-	$this->setOID();
-    $this->read("design/templates/menus/dropbox.tpl");
-    $this->ctx = $context;
+    $this->read("design/templates/menus/dropBox.tpl");
 }
 
 public function reset() {
@@ -70,16 +66,10 @@ public function getKey($qid, $data, $selected = false) {
 	if (! $data) $data = array();
 	if (! is_array($data)) $data = array($data => $data);
 
-	$sel = $selected;
-	$new = $this->isNew($qid, $sel);
+	$sel = $this->getSel($qid, $data, $selected);
 
-	switch ($new) { // first call?
-		case true: $sel = ENV::set($qid, $sel); break;
-		default:   $sel = ENV::setIf($qid, $sel);
-	}
-
-	$sel = $this->getSel($qid, $data, $sel);
-	$cur = VEC::get($data, $sel);
+	$cur = VEC::get($data, $sel); if (! $cur)
+	$cur = current($data);
 
 	$this->data[$qid]["dat"] = $data;
 	$this->data[$qid]["sel"] = $sel;
@@ -94,35 +84,34 @@ public function setType($qid, $type) {
 	$this->data[$qid]["typ"] = $type;
 }
 
-private function getSel($qid, $data, $sel) {
-	$ctx = $this->getOidVar("context");
-	$sel = $this->chkContext($ctx, $qid, $sel);
-	$sel = ENV::setIf($qid, $sel);
-	$fil = APP::file($sel); if ($fil) $sel = basename($fil);
-	return VEC::find($data, $sel, $sel);
+public function focus($qid, $value, $default) {
+	$chk = ENV::getParm($qid); if ($chk) return $default;
+
+	$key = VEC::find($this->data[$qid]["dat"], $value); if (! $key) return $default;
+	$val = VEC::get($this->data[$qid]["dat"], $key);
+
+	$this->data[$qid]["sel"] = $key;
+	$this->data[$qid]["cur"] = $val;
+	return ENV::set($qid, $key);
 }
 
-private function isNew($qid, $sel) {
-	$chk = $sel;
-	if ($chk != NV) $chk = ENV::get("$qid.sel", NV);
-	if ($chk != NV) return ($chk != $sel);
-
-	$chk = ENV::set("$qid.sel", $sel);
-	return true;
-}
-
-private function chkContext($ctx, $qid, $sel) {
-	if ($ctx == $this->ctx) return ENV::set($qid, $sel);
+// ***********************************************************
+protected function getSel($qid, $data, $sel) {
 	$sel = ENV::get($qid, $sel);
-	$out = ENV::set($qid, $sel);
-	return $out;
+	$chk = VEC::isKey($data, $sel);
+
+	if (! $chk) $sel = false;
+	if (! $sel)
+	return ENV::set($qid, array_key_first($data));
+	return ENV::setIf($qid, $sel);
 }
 
+// ***********************************************************
 public function getInput($qid, $value) {
 	$sel = ENV::get($qid, $value);
 
-	$this->data[$qid]["cap"] = DIC::check("box", $qid);
-	$this->data[$qid]["dat"] = array($sel => $sel);;
+	$this->data[$qid]["cap"] = DIC::getPfx("unq", $qid);
+	$this->data[$qid]["dat"] = array($sel => $sel);
 	$this->data[$qid]["sel"] = $sel;
 	$this->data[$qid]["cur"] = $sel;
 	$this->data[$qid]["typ"] = "txt";
@@ -132,23 +121,28 @@ public function getInput($qid, $value) {
 // ***********************************************************
 // show dirs and files
 // ***********************************************************
-public function folders($dir, $parm = "dir", $selected = false) {
-	$arr = APP::folders($dir); if (! $arr) return;
-	return $this->getKey($parm, $arr, $selected);
+public function folders($dir, $parm = "pic.folder", $selected = false) {
+	$arr = APP::folders($dir); if (! $arr) return false;
+	$sel = array_search($selected, $arr);
+	return $this->getKey($parm, $arr, $sel);
 }
 public function files($dir, $parm = "pic.file", $selected = false) {
-	$arr = APP::files($dir); if (! $arr) return;
+	$arr = APP::files($dir); if (! $arr) return false;
 	$arr = $this->sortFiles($arr);
-	return $this->getKey($parm, $arr, $selected);
+	$sel = array_search($selected, $arr);
+	return $this->getKey($parm, $arr, $sel);
 }
 
 public function anyfiles($dir, $parm = "pic.file", $selected = false) {
-	$arr = APP::files($dir, false, false); if (! $arr) return;
+	$arr = APP::files($dir, false, false); if (! $arr) return false;
 	$arr = $this->sortFiles($arr);
-	return $this->getKey($parm, $arr, $selected);
+	$sel = VEC::find($arr, $selected);
+
+	return $this->getKey($parm, $arr, $sel);
 }
 
-private function sortFiles($arr) {
+// ***********************************************************
+protected function sortFiles($arr) {
 	$pri = $els = array();
 
 	foreach ($arr as $fil => $nam) { // put htm files first
@@ -186,26 +180,26 @@ public function showDbObjs($what = "BTF", $key = true) { // dbs will be assumed 
 // ***********************************************************
 // display boxes
 // ***********************************************************
-public function show($sec = "combo") {
+public function show($sec = "main") {
 	echo $this->gc($sec);
 }
-public function gc($sec = "combo") {
+public function gc($sec = "main") {
+	if (! $this->isSec($sec)) $sec = "main";
 	if (! $this->data) return "";
 
-	$this->setOidVar("context", $this->ctx);
 	$this->set("items", $this->collect($sec));
     return $this->getSection($sec);
 }
 
 // ***********************************************************
-private function collect($type) {
+protected function collect($type) {
     $out = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
 		extract ($vls);
 
 		$this->set("parm", $unq); $tmp = ""; $cnt = 0;
-		$this->set("uniq", DIC::check("unq", $unq));
+		$this->set("uniq", DIC::getPfx("unq", $unq));
 		$this->set("current", $cur);
 
 		foreach ($dat as $key => $val) { // links
@@ -220,7 +214,7 @@ private function collect($type) {
 			$sec = "$type.one";
 		}
 		else {
-			$sec = "table.text";
+			continue;
 		}
 		$this->set("links", $tmp);
 

@@ -12,7 +12,7 @@ no.topic = Wähle ein Thema ...
 
 
 [vars]
-topic = TOP_PATH
+topic = TAB_HOME
 hid =
 grey =
 

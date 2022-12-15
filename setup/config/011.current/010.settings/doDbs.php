@@ -1,25 +1,15 @@
 <?php
 
-incCls("editor/iniMgr.php");
+$inc = FSO::join(__DIR__, "common.php");
+$fcs = "dbase";
+
+include($inc);
 
 // ***********************************************************
-// read and write data
-// ***********************************************************
-$fil = "config/dbase.ini";
-
-HTM::cap($fil);
-
-$ini = new iniMgr("design/config/dbase.ini");
-$ini->read($fil);
-$ini->save($fil);
-$ini->show();
-
-// ***********************************************************
-// visual feedback
-// ***********************************************************
-$con = ""; if (DB_CON) $con = "OK";
-
 HTM::tag("dbo.check objects");
+// ***********************************************************
+$con = "-"; if (DB_CON) $con = "OK";
+
 MSG::now("db.con", $con);
 
 ?>

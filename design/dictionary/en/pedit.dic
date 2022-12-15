@@ -1,18 +1,11 @@
 [dic.en]
 lang.target = Target language
-unq.snip = Extrastarget (de) == source (de) ? = Target (de) == source (de) ?*
 
-target (de) == source (de.htm) ? = Target (de) == source (de.htm) ?*
-
-target (de) = source (de.htm) ? = Target (de) = source (de.htm) ?*
-
-xlref.none = Xlref.none*
-
-xlref.saved = Xlref.saved*
-
-xlref.failed = Xlref.failed*
-
-target (de) = source (de.php) ? = Target (de) = source (de.php) ?*
-
-www = Www*
-
+unq.snip = Snip*
+Node type = Node type*
+Skip printing = Skip printing*
+Title in menu = Title in menu*
+Title on page = Title on page*
+Keywords = Keywords*
+Description = Description*
+Page break = Page break*

@@ -1,47 +1,39 @@
+[include]
+dropBox.tpl
+
 [dic]
-info = Select a topic
-nofile = No description available ...
+topic = Topic
 
 [dic.de]
-info = Wähle ein Thema ...
-nofile = Keine Beschreibung vorhanden ...
+topic = Thema
 
 
+# ***********************************************************
 [main]
-<h3><!VAR:title!></h3>
-<!SEC:hint!>
-
-<!VAR:topics!>
-
-[hint]
-<p><!DIC:info!></p>
-
-[topic]
-<topic>
-	<a href='?tpc=<!VAR:tab!>'>
-		<topichead><!VAR:caption!></topichead>
-		<topicdesc>
-			<!VAR:info!>
-		</topicdesc>
-	</a>
-</topic>
-
-[topic.notext]
-<topic>
-	<a href='?tpc=<!VAR:tab!>'>
-		<topichead><!VAR:caption!></topichead>
-	</a>
-</topic>
-
-[items]
-<!VAR:items!>
-
-[item]
-<div>
-	<a href=?tpc=<!VAR:tab!>><!VAR:title!></a>
+# ***********************************************************
+<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+<table class="navi" width="100%">
+	<tr>
+		<td class="nopad" width="*">
+			<div class="localmenu">
+				<!VAR:items!>
+			</div>
+		</td>
+		<td class="nopad" width=5></td>
+		<td class="nopad" width=26 align="center">
+			<div class="localmenu">
+				<a style="color: white; vertical-align: top; font-family: monospace;" href="?vmode=abstract">?</a>
+			</div>
+		</td>
+	</tr>
+</table>
 </div>
 
-[nofile]
-<p><!DIC:nofile!></p>
+[main.box]
+<div class="dropdown">
+	<!DIC:tpc.list!>&nbsp; ▾
+<!SEC:content!>
+</div>
 
-
+[main.one]
+<!DIC:topic!>

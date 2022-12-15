@@ -1,17 +1,17 @@
 [dic.en]
-check uids - ok = UID check - ok
-files.upload = Upload files
-msg.start = Start-Info
+mnu.static = Menu is frozen ...
 page.props = Page proprties
-tab.props = Tab propertiesmenu.static = Menu.static*
+sys.exts = Extensions
+sys.files = Files
+sys.langs = Languages
+upl.count = Max. number
+upl.dest = Destination
+upl.files = Files
+upl.size = Max. size
+upl.types = Extensions
+upl.upload = Upload files
 
-destination = Destination*
-
-filetypes = Filetypes*
-
-maxcnt = Maxcnt*
-
-maxsize = Maxsize*
-
-files = Files*
-
+sys.file = Sys.file*
+sys.lang = Sys.lang*
+sys.ext = Sys.ext*
+tab.props = Tab.props*

@@ -1,7 +1,7 @@
 <?php
 
 if (PFS::isStatic()) {
-	return MSG::now("menu.static");
+	return MSG::now("mnu.static");
 }
 
 // ***********************************************************
@@ -22,7 +22,7 @@ $tpl->set("curdir", basename($loc));
 $tpl->set("status", $sts);
 
 if ($lev < 2) {
-	$tpl->copy("nodes.top", "nodes.move");
+	$tpl->substitute("nodes.move", "nodes.top");
 }
 
 $tpl->show();

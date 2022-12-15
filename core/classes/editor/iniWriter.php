@@ -32,53 +32,10 @@ function __construct($tplfile = NV) {
 }
 
 // ***********************************************************
-// rewriting content
+// handling sections
 // ***********************************************************
-public function save($ful = NV) {
-	if ($ful == NV) $ful = $this->file; $out = "";
-	$this->chkUID();
-
-	foreach ($this->sec as $sec => $txt) {
-		$arr = $this->getValues($sec); if (! $arr) continue;
-		$out.= "[$sec]\n";
-
-		foreach ($arr as $key => $val) {
-			$key = STR::clear($key, "$sec.");
-			$val = $this->secure($val);
-			$val = $this->chkValue($val, $sec);
-			$out.= "$key = $val\n";
-		}
-		$out.= "\n";
-	}
-	return APP::write($ful, $out);
-}
-
-// ***********************************************************
-// modifying properties
-// ***********************************************************
-public function getPost($pfx = "val_") {
-	foreach ($_POST as $sec => $vls) {
-		if (! STR::begins($sec, $pfx)) continue;
-		$sec = STR::afterX($sec, $pfx);
-
-		foreach ($vls as $key => $val) {
-			$this->set("$sec.$key", $val);
-		}
-	}
-}
-
-public function setProps($arr) {
-	foreach ($arr as $sec => $vls) {
-		foreach ($vls as $key => $val) {
-			$this->set("$sec.$key", $val);
-		}
-	}
-}
-
-public function setVals($arr, $sec = "props") {
-	foreach ($arr as $key => $val) {
-		$this->set("$sec.$key", $val);
-	}
+public function addSec($sec) {
+	$this->sec[$sec] = "# created by iniWriter";
 }
 
 public function clearSec($sec) {
@@ -86,6 +43,30 @@ public function clearSec($sec) {
 
 	foreach ($vls as $key => $val) {
 		unset ($this->vls[$key]);
+	}
+}
+
+// ***********************************************************
+// modifying properties
+// ***********************************************************
+public function setPost() {
+	$this->setProps(OID::getLast());
+}
+
+public function setProps($arr) {
+	foreach ($arr as $sec => $vls) {
+		if (! is_array($vls)) continue;
+		self::setVals($vls, $sec);
+	}
+}
+
+public function setVals($arr, $sec = "props") {
+	if (STR::ends($sec, "*")) { // memo section
+		$this->setSec($sec, $arr["tarea"]);
+		return;
+	}
+	foreach ($arr as $key => $val) {
+		$this->set("$sec.$key", $val);
 	}
 }
 
@@ -113,11 +94,31 @@ protected function secure($val) {
 }
 
 // ***********************************************************
-// debugging
+// rewriting content
 // ***********************************************************
-public function dump() {
-	DBG::vector($this->vls);
-	die();
+public function save($ful = NV) {
+	if ($ful == NV) $ful = $this->file; $out = "";
+	$this->chkUID();
+
+	foreach ($this->sec as $sec => $txt) {
+		$out.= "[$sec]\n";
+
+		if (STR::ends($sec, "*")) { // memo sections
+			$out.= "$txt\n";
+		}
+		else { // key = val sections
+			$arr = $this->getValues($sec); if (! $arr) continue;
+
+			foreach ($arr as $key => $val) {
+				$key = STR::clear($key, "$sec.");
+				$val = $this->secure($val);
+				$val = $this->chkValue($val, $sec);
+				$out.= "$key = $val\n";
+			}
+		}
+		$out.= "\n";
+	}
+	return APP::write($ful, $out);
 }
 
 // ***********************************************************

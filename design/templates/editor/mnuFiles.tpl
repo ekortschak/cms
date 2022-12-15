@@ -59,15 +59,15 @@ recurse = gesamtes Projekt
 [file]
 <tr>
 	<td nowrap>
-		<a href="?file_act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');"><maroon>&cross;</maroon></a>
+		<a href="?file_act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</a>
 		<a href="?file_act=hide&fil=<!VAR:file!>"><img src="core/icons/menu/bulb_<!VAR:vis!>.gif" /></a>
 	</td>
 
 	<td nowrap width=175><a href="?vmode=pedit&pic.file=<!VAR:file!>"><!VAR:file!></a></td>
-	<td nowrap align="right"><grey><!VAR:sfmt!></grey></td>
+	<td nowrap align="right"><hint><!VAR:sfmt!></hint></td>
 	<td class="nopad">&nbsp;</td>
-	<td><grey><!VAR:date!></grey></td>
-	<td><hint><!VAR:md5!></hint></td>
+	<td><hint><!VAR:date!></hint></td>
+#	<td><hint><!VAR:md5!></hint></td>
 </tr>
 
 # ***********************************************************
@@ -97,25 +97,7 @@ recurse = gesamtes Projekt
 <tr><td colspan="100%" height=5></td></tr>
 <tr>
 	<td style="vertical-align: middle;" ><!DIC:cont!></td>
-	<td>
-		<select name="sys.name" style="min-width:25px;">
-			<option value="banner">Banner</option>
-			<option value="head">Head</option>
-			<option value="content" selected>Content</option>
-			<option value="help">Help</option>
-			<option value="tail">Tail</option>
-			<option value="trailer">Trailer</option>
-		</select>
-
-		<select name="sys.lang" style="min-width:25px;">
-			<option value=CUR_LANG selected>CUR_LANG</option>
-			<option value="xx">xx</option>
-		</select>
-
-		<select name="sys.ext" style="min-width:25px;">
-			<option value="htm">htm</option>
-			<option value="php">php</option>
-		</select>
+	<td><!VAR:choice!>
 	</td>
 	<td><button name="file_act" value="sys"><!DIC:create!></button></td>
 </tr>

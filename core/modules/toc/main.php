@@ -25,4 +25,6 @@ incCls("menus/toc.php");
 $toc = new toc();
 $toc->show($sec);
 
+LOG::lapse("toc done");
+
 ?>

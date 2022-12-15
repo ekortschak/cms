@@ -10,16 +10,10 @@ if (! TAB_ROOT) {
 // ***********************************************************
 // check access permissions
 // ***********************************************************
-$prm = PFS::hasXs(); // force login ?
-if (! $prm) return incMod("body/login.php");
-
-// ***********************************************************
-// write general banner
-// ***********************************************************
 $loc = PFS::getLoc();
+$prm = PFS::hasXs(); // force login ?
 
-$fil = APP::find($loc, "banner");
-echo APP::gc($fil);
+if (! $prm) return incMod("body/login.php");
 
 // ***********************************************************
 // retrieving page info
@@ -51,5 +45,7 @@ $frm->show();
 // ***********************************************************
 $fil = APP::find($loc, "trailer");
 echo APP::gc($fil);
+
+LOG::lapse("body done");
 
 ?>

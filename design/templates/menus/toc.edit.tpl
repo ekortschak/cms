@@ -3,10 +3,11 @@ design/templates/menus/toc.view.tpl
 
 [dic]
 topic = Applies to whole topic
+abstract = Abstract ...
 
 [dic.de]
-topic = Betrifft aktuelles Thema
-
+topic = Betrifft gesamtes Thema
+abstract = Abstract ...
 
 # ***********************************************************
 # menu folders
@@ -35,4 +36,3 @@ topic = Betrifft aktuelles Thema
 # ***********************************************************
 [topic]
 <p><msg><!DIC:topic!></msg></p>
-

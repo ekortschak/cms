@@ -1,40 +1,19 @@
-[include]
-design/templates/input/selector.tpl
+# ***********************************************************
+[input.noxs]
+# ***********************************************************
+<!DIC:no.xs!>
 
 # ***********************************************************
-[main]
+[input.ron] # read only information
 # ***********************************************************
-&nbsp;
-
-[open]
-<table>
-	<tr height=0>
-		<td width=<!VAR:wid1!>></td>
-		<td width=<!VAR:wid2!>></td>
-	</tr>
-
-[close]
-</table>
+<div class="ronly"><!VAR:curVal!></div>
+<!SEC:info!>
 
 # ***********************************************************
-[SubSection]
+[input.txt] # output for viewing
 # ***********************************************************
-<tr>
-	<td colspan="100%" class="selSection">
-		<!VAR:title!>
-		<hr class=="low">
-	</td>
-</tr>
+<!VAR:curVal!> <!SEC:info!>
 
 # ***********************************************************
-[rows]
+[input.skip] # hidden data
 # ***********************************************************
-<tr>
-	<td nowrap><!VAR:head!> &nbsp; </td>
-	<td nowrap><!VAR:data!></td>
-</tr>
-
-# ***********************************************************
-[NoData]
-# ***********************************************************
-&nbsp;

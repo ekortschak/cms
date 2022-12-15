@@ -37,6 +37,7 @@
 
 body {
 	background: rgb(238,238,238);
+	font: 12pt normal normal Arial, DejaVu Sans;
 }
 h3, h4 {
 	color: navy;
@@ -57,7 +58,7 @@ p {
 
 <table>
 	<tr>
-		<td style="vertcal-align: middle;"><img src="img/baustelle.png" width=85 /></td>
+		<td style="vertcal-align: middle;"><img src="CMS_URL/img/baustelle.png" width=85 /></td>
 		<td width=25>&nbsp;</td>
 		<td style="vertcal-align: middle;"><!SEC:msg!></td>
 	</tr>

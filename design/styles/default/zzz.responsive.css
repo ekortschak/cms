@@ -22,7 +22,7 @@
 	.modtoc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
 	.modmbar { display: none; }
 	.modbody { left: W_TABS; }
-	.moddeco { left: calc(W_TABS + W_BODY); }
+	.modopts { left: calc(W_TABS + W_BODY); }
 }
 
 /*

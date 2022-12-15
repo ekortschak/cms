@@ -23,7 +23,7 @@
 	.modbody {
 		left: calc(W_TABS + 250px + W_MBAR);
 	}
-	.moddeco {
+	.modopts {
 		left: calc(W_TABS + 250px + W_MBAR + W_BODY);
 		width: calc(100% - W_TABS - 250px - W_MBAR - W_BODY);
 	}

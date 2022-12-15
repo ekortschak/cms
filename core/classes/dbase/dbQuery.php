@@ -99,22 +99,6 @@ private function setValidator($dbs, $tbl) {
 }
 
 // ***********************************************************
-// data manipulation
-// ***********************************************************
-public function askMe($value = true) {
-	$this->ask = (bool) $value;
-}
-
-protected function confirm($qry) {
-	if (! $this->ask) return true;
-
-	$cnf = new confirm();
-	$cnf->addSql($qry);
-	$cnf->show();
-	return $cnf->act();
-}
-
-// ***********************************************************
 } // END OF CLASS
 // ***********************************************************
 ?>

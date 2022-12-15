@@ -23,36 +23,33 @@ $data = $itm->td();
 // BEGIN OF CLASS
 // ***********************************************************
 class selInput extends tpl {
+	protected $dic = false;
 	protected $pid = -1;	// parent oid
+	protected $uid = -1;	// identifier
 
 function __construct($pid) {
 	parent::__construct();
-	$this->read("design/templates/input/selCSV.tpl"); if (CUR_DEST == "screen")
-    $this->read("design/templates/input/selInput.tpl");
+	$this->read("design/templates/input/selInput.tpl");
 
-	$this->set("oid", $pid);
-
- // TODO: implement the following
-	$this->set("lf", true);		// append a "lf"
-	$this->set("mask", false);	// transform values
+	$this->register($pid);
 	$this->set("perms", "w");	// table permissions
 
-	$this->set("dhead", "x");	// dbf head
-	$this->set("dtype", "x");	// dbf type
+#   TODO: implement the following
+#	$this->set("mask", false);	// transform values
 }
 
-public function init($type, $qid, $value, $lang) {
-	$cap = STR::between($qid, "[", "]"); if (! $cap) $cap = $qid;
-	if ($this->xlate) $cap = DIC::get($cap, $lang);
+public function init($type, $qid, $default) {
+	$this->uid = $qid;
 
-	$this->setTitle($cap);
+	$this->setTitle($qid);
 	$this->setFname($qid);
-	$this->setValue($value);
-	$this->set("sec", STR::left($type)); // refers to template section
+	$this->setValue($default);
+	$this->setType($type); // refers to template section
 }
 
-public function setXlate($value) {
-	$this->xlate = (bool) $value;
+public function setProps($props, $dic = true) {
+	$this->merge($props);
+	$this->dic = (bool) $dic;
 }
 
 // ***********************************************************
@@ -63,6 +60,7 @@ public function set($prop, $value) {
 		case "fname": $this->setFName($value); return;
 		case "title": $this->setTitle($value); return;
 		case "value": $this->setValue($value); return;
+		case "fnull": $this->setNull($value);  return;
 		case "info":  $this->setInfo($value);  return;
 	}
 	parent::set($prop, $value);
@@ -75,55 +73,64 @@ protected function setFName($fname) {
 
 protected function setTitle($caption) {
  // user prompt to clarify required input
-	parent::set("title", $caption);
+	$cap = STR::between($caption, "[", "]"); if (! $cap) $cap = $caption;
+	$cap = $this->xlate($cap);
+
+	parent::set("title", $cap);
 }
 
 protected function setValue($value = NV) {
  // will receive "initial" value, actual value from session
-	if (is_array($value)) $value = "Array";
-	$val = str_replace('"', "'", $value);
-	$val = $this->getCurrent($val);
+	$val = $this->getValue($value);
 	parent::set("curVal", $val);
+}
+
+protected function setNull($value = NV) {
+ // force input ?
+	$val = $value ? "" : "*";
+	parent::set("fnull", $val);
 }
 
 protected function setInfo($info = "") {
  // additional information for better understanding
-	$inf = DIC::get($info);
-	parent::set("info", $info);
-}
-
-// ***********************************************************
-public function getValue() {
-	return $this->get("curVal");
-}
-public function getKey() {
-	return $this->get("curVal");
+	$inf = $this->xlate($info);
+	parent::set("info", $inf);
 }
 
 // ***********************************************************
 // output
 // ***********************************************************
-public function th() {
-	if (CUR_DEST != "screen") return $this->get("title");
-	return $this->gc("head");
+public function getFormat() {
+	return "rows";
 }
-public function td() {
+
+public function getTitle() {
+	return $this->getSection("head");
+}
+public function getTool() {
 	$typ = $this->getType();
-	return $this->gc("input.$typ");
+	return $this->getSection("input.$typ");
 }
 
 // ***********************************************************
-protected function getCurrent($default) { // get session value
-	$oid = $this->get("oid");
+public function setSec($sec, $value = "") {
+	parent::setSec($sec, $value);
+}
+
+// ***********************************************************
+public function getValue($default = NV) { // get session value
+	$chk = $this->get("curVal", NV); if ($chk !== NV) return $chk;
 	$key = $this->get("fname");
+	$val = OID::get($this->oid, $key, $default);
+	return self::secure($val);
+}
 
-	$xxx = ENV::setIf("sel.$key", $default);
-	$old = ENV::get("sel.$key"); // getDefaultValue
-
-	if ($old != $default) {
-		return ENV::set("sel.$key", $default);
-	}
-	return $this->getOidVar("val_$key", $default);
+// ***********************************************************
+// translations
+// ***********************************************************
+private function xlate($cap, $lang = CUR_LANG) {
+	if (! $this->dic) return $cap;
+	return DIC::get($cap, $lang);
 }
 
 // ***********************************************************
@@ -132,17 +139,22 @@ protected function getCurrent($default) { // get session value
 public function setType($value) {
 	$this->set("sec", $value);
 }
-protected function getType() {
+public function getType() {
 	$rgt = $this->get("perms");
 
 	if (CUR_DEST != "screen") {
 		if ($rgt == "h") return "skip";
-		return "csv";
+		return "txt";
 	}
 	if ($rgt == "h") return "hid";
 	if ($rgt == "r") return "ron";
 	if ($rgt == "w") return $this->get("sec");
 	return "noxs";
+}
+
+private function secure($val) {
+	$val = str_replace('"', "'", $val);
+	return $val;
 }
 
 // ***********************************************************

@@ -1,29 +1,17 @@
 <?php
 
-incCls("editor/iniMgr.php");
+$inc = FSO::join(__DIR__, "common.php");
+$fcs = "mail";
 
-// ***********************************************************
-// read and write data
-// ***********************************************************
-$fil = "config/mail.ini";
+include($inc);
 
-HTM::cap($fil);
-
-$ini = new iniMgr("design/config/mail.ini");
-$ini->read($fil);
-$ini->save($fil);
-$ini->show();
-
-// ***********************************************************
-// visual feedback
 // ***********************************************************
 HTM::tag("mail.check");
-
+// ***********************************************************
 if (MAILMODE == "none") {
 	return MSG::now("mail.off");
 }
 
-incCls("user/mail.php");
 $mel = new mail();
 $chk = $mel->test();
 $chk = intval($chk);

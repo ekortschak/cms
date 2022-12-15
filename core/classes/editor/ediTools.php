@@ -41,25 +41,23 @@ public function getEditors($typ) {
 	if ($typ == "ini") {
 		return array(
 			"ini"  => "Ini Editor",
-			"text" => "Plain Text",
+			"text" => "Text",
 		);
 	}
 	if ($typ == "code") {
 		return array(
-			"html" => "Internal Editor",
-			"code" => "External Editor",
-			"text" => "Plain Text",
-			"xdic" => "Translator",
+			"html" => "Intern",
+			"code" => "Extern",
+			"text" => "Text",
 		);
 	}
 	if ($typ ==	"html") {
 		return array(
-			"html" => "Internal Editor",
-			"code" => "External Editor",
-			"text" => "Plain Text",
+			"html" => "Intern",
+			"code" => "Extern",
+			"text" => "Text",
 			"ck4"  => "CK-Editor 4.x",
 			"ck5"  => "CK-Editor 5.x",
-			"xdic" => "Translator",
 		);
 	}
 	return array();
@@ -74,8 +72,8 @@ public function getType($file) {
 	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
 
 	if (STR::contains(".htm.", $ext)) {
-		$htm = APP::read($file);
-		if (STR::contains($htm, "<?php")) return "code";
+#		$htm = APP::read($file);
+#		if (STR::contains($htm, "<?php")) return "code";
 		return "html";
 	}
 	return "mime";
@@ -85,7 +83,6 @@ public function getToolbar($typ) {
 	if ($typ == "code") return "code";
 	if ($typ == "html") return "html";
 	if ($typ == "text") return "text";
-	if ($typ == "xdic") return "xdic";
 	return false;
 }
 

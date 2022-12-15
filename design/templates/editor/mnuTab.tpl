@@ -7,9 +7,10 @@ create   = Erstellen
 overwrite = Überschreibe bestehende Bilder
 allsets  = Überprüfe alle TabSets
 options  = Optionen
-view     = Aktuelles Bild
+cur.pic  = Aktuelles Bild
 no.file  = Kein Bild vorhanden
 cur.file = Dateiname
+preview  = Vorschau
 
 [dic]
 new.tab  = Add a new tab
@@ -20,9 +21,10 @@ create   = Add
 overwrite = Overwrite existing pics
 allsets  = Check all TabSets
 options  = Options
-view     = Current Image
+cur.pic  = Current Image
 no.file  = No pic available
-cur.file = File name
+cur.file = Location
+preview  = Preview
 
 # ***********************************************************
 # create a new tab
@@ -49,13 +51,7 @@ cur.file = File name
 	<input type="hidden"   name="tab.rep" value=0 />
 	<input type="checkbox" name="tab.rep" value=1 <!VAR:checked!> class="cb" />
 	<!DIC:overwrite!>
-
-	&nbsp; &nbsp;
-
-#	<input type="hidden"   name="tab.all" value=0 />
-#	<input type="checkbox" name="tab.all" value=1 <!VAR:checked!> class="cb" />
-#	<!DIC:allsets!><br/>
-
+	&emsp;
 	<input type="submit" name="tab.act" value="<!DIC:create!>" />
 </form>
 
@@ -67,20 +63,23 @@ cur.file = File name
 		<td width=175 style="vertical-align: middle;"><!DIC:del.png!></td>
 		<td>
 			<a href="?tab.drop=<!VAR:tab!>" onclick="return confirm('<!DIC:ask.sure!>');">
-				<dmbtn><maroon>&cross;</maroon></dmbtn>
+				<dmbtn>BOOL_NO</dmbtn>
 			</a>
 		</td>
 	</tr>
 </table>
 
 [show.png]
-<h4><!DIC:view!></h4>
-<div><!DIC:cur.file!>: &nbsp; &nbsp; &nbsp;
-	<img src="<!VAR:file!>/tab.png" />
-</div>
+<h4><!DIC:cur.pic!></h4>
+<table>
+	<tr>
+		<td><img src="<!VAR:file!>" /></td>
+		<td style="vertical-align: middle;"><!DIC:cur.file!>:<br>&emsp; <!VAR:file!></td>
+	</tr>
+</table>
 
 [show.png.none]
-<h4><!DIC:view!></h4>
+<h4><!DIC:preview!></h4>
 <p><!DIC:no.file!></p>
 
 # ***********************************************************

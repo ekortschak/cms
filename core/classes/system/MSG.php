@@ -9,7 +9,7 @@ Intended to handle system messages ...
 // ***********************************************************
 incCls("system/MSG.php");
 
-MSG::add($msg xxx, "xxx"); // xxx will be replaced by "xxx"
+MSG::add($msg, "xxx"); // xxx will be appended to $msg after translation
 MSG::err($msg)
 MSG::show();
 */
@@ -34,35 +34,38 @@ public static function reset() {
 // ***********************************************************
 // store messages
 // ***********************************************************
-public static function check($silent, $msg, $prm = "") {
-	if ($silent) return;
-	self::add("msg", $msg, $prm);
+public static function add($msg, $prm = NV) {
+	self::store("msg", $msg, $prm);
 }
-public static function add($msg, $prm = "") {
-	self::storeXl("msg", $msg, $prm);
+public static function err($msg, $prm = NV) {
+	self::store("err", $msg, $prm);
 }
-public static function err($msg, $prm = "") {
-	self::storeXl("err", $msg, $prm);
-}
-public static function raw($sql, $prm = "") { // no translation
-	self::store("err", $sql, $prm);
+public static function sql($msg, $sql) { // no translation
+	$txt = "$msg<br>\n$sql";
+	self::$msg["err"][$msg] = $txt;
 }
 
-public static function now($msg, $prm = "") {
-	self::storeXl("msg", $msg, $prm);
+public static function now($msg, $prm = NV) {
+	self::add($msg, $prm);
 	self::show();
 }
 
 // ***********************************************************
-private static function storeXl($tag, $msg, $prm = "") {
-	$msg = DIC::get($msg);
-	self::store($tag, $msg, $prm);
-}
-
-private static function store($tag, $msg, $prm = "") {
+private static function store($div, $msg, $prm) {
 	$msg = trim($msg); if (! $msg) return;
 	if (isset(self::$msg[$msg])) return;
-	self::$msg[$tag][$msg] = $prm;
+
+	$prm = self::chkParm($msg, $prm);
+	$txt = DIC::get($msg).$prm;
+
+	self::$msg[$div][$msg] = $txt;
+}
+
+private static function chkParm($msg, $prm) {
+	if ($prm === NV) return "";
+	if (strlen(trim($prm)) < 1) return ": '$prm'";
+	if (strlen($msg.$prm) > 75) return ":<br>$prm";
+	return ": $prm";
 }
 
 // ***********************************************************
@@ -92,28 +95,20 @@ public static function startup() {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private static function collect($tag, $sec) {
-	$arr = VEC::get(self::$msg, $tag); if (! $arr) return "";
+private static function collect($div, $sec) {
+	$arr = VEC::get(self::$msg, $div); if (! $arr) return "";
 	$out = "";
 
 	$tpl = new tpl();
 	$tpl->read("design/templates/msgs/msgs.tpl");
 
-	foreach ($arr as $msg => $prm) {
-		$msg = self::prepare($msg, $prm);
-		$xxx = $tpl->set("item", $msg);
+	foreach ($arr as $msg => $txt) {
+		$txt = htmlspecialchars($txt);
+		$xxx = $tpl->set("item", $txt);
 		$out.= $tpl->gc("item");
 	}
 	$xxx = $tpl->set("items", $out);
-	return $tpl->gc("msgs.show");
-}
-
-private static function prepare($msg, $prm) {
-	if (strlen($prm) > 30) $prm = "<br/>\n$prm";
-
-	$out = htmlspecialchars($msg);
-	$out = str_ireplace("xxx", $prm, $out);
-	return $out;
+	return $tpl->gc("$sec.show");
 }
 
 // ***********************************************************

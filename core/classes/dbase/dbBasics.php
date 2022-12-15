@@ -26,17 +26,18 @@ incCls("input/confirm.php");
 class dbBasics extends sqlStmt {
 	protected $dbo = false;
 	protected $con = false;
-	protected $dbn = NV;
+	protected $dbs = NV;
 	protected $tbl = "dummy";
 
 function __construct($dbase, $table) {
 	$ini = new ini("config/dbase.ini");
-	$usr = $this->usr = $ini->get("dbase.user");
-	$pwd = $this->pwd = $ini->get("dbase.pass");
+	$this->dbs = $ini->get("dbase.file");
+	$this->usr = $ini->get("dbase.user");
+	$this->pwd = $ini->get("dbase.pass");
+	$this->tbl = $table;
 	$typ = DB_MODE;
 
-	$dbs = $dbase; if ($dbs == NV)
-	$dbs = $ini->get("dbase.file");
+	if ($dbase !== NV) $this->dbs = $dbase;
 
 	$sql = APP::file("core/classes/dbase/$typ.php"); if (! $sql) return;
 
@@ -46,10 +47,8 @@ function __construct($dbase, $table) {
 
 	incCls("dbase/$typ.php");
 
-	$this->dbo = new $typ("localhost", $dbs);
-	$this->con = $this->dbo->connect($usr, $pwd);
-	$this->dbs = $dbase;
-	$this->tbl = $table;
+	$this->dbo = new $typ("localhost", $this->dbs);
+	$this->con = $this->dbo->connect($this->usr, $this->pwd);
 }
 
 public function isDbase($dbs) {
@@ -209,6 +208,24 @@ protected function xact($wht) {
 	if ( ! $this->con) return false;
     $qry = $this->fetch("hold.$wht");
     return $this->exec($qry);
+}
+
+// ***********************************************************
+// data manipulation
+// ***********************************************************
+public function askMe($value = true) {
+	$this->ask = (bool) $value;
+}
+
+protected function confirm($qry) {
+	if (! $this->ask) return true;
+
+	$qry = $this->beautify($qry);
+
+	$cnf = new confirm();
+	$cnf->add($qry);
+	$cnf->show();
+	return $cnf->act();
 }
 
 // ***********************************************************

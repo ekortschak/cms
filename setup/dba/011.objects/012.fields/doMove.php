@@ -1,20 +1,20 @@
 <?php
 
 incCls("dbase/dbInfo.php");
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
 // show menu and options
 // ***********************************************************
-$box = new dbox();
+$box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
 
 $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $skip = $fld);
 
 $aft = $box->getKey("fld.move after", $arr);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

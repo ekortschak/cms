@@ -20,6 +20,7 @@ $var = $obj->get($key, $default);
 // BEGIN OF CLASS
 // ***********************************************************
 class objects {
+	protected $oid = false;
 	protected $vls = array(); // array of string values
 
 function __construct() {}
@@ -72,12 +73,18 @@ public function setIf($key, $default) { // preserve existing values
 public function get($key, $default = "") {
     $key = STR::norm($key);
 	$out = VEC::get($this->vls, $key, NV);
-	if ($out === NV)    return $default;
-	if ($out !== false) return $out;
-	return $default;
+
+	if ($out === NV) return $default;
+	return $out;
 }
 
 // ***********************************************************
+public function getKeys($pfx = "") {
+	$arr = $this->getValues($pfx);
+	$arr = array_keys($arr);
+	return array_combine($arr, $arr);
+}
+
 public function getValues($pfx = "") {
 	$out = array();
 
@@ -100,7 +107,19 @@ public function setValues($sec, $arr) {
 // ***********************************************************
 public function isKey($key) {
 	$out = VEC::get($this->vls, $key, NV);
-	return ($out != NV);
+	return ($out !== NV);
+}
+
+// ***********************************************************
+// OID shortcuts
+// ***********************************************************
+public function register($oid = NV, $sfx = "*") {
+	$this->oid = OID::register($oid, $sfx);
+	$this->set("oid", $this->oid);
+}
+
+public function forget() {
+	OID::forget($this->oid);
 }
 
 // ***********************************************************
@@ -116,30 +135,7 @@ public function insVars($out) {
     }
     return $out;
 }
-// ***********************************************************
-// handling object IDs
-// ***********************************************************
-protected function setOID($oid = NV) {
-	$oid = APP::getOID($oid); $this->set("oid", $oid);
-	return $oid;
-}
 
-protected function setOidVar($key, $val) {
-	$oid = $this->get("oid"); if (! $oid) return false;
-	$val = ENV::oidSet($oid, $key, $val);
-	return $val;
-}
-protected function getOidVar($key, $default = false) {
-	$oid = $this->get("oid"); if (! $oid) return $default;
-	return ENV::oidGet($oid, $key, $default);
-}
-
-protected function getOIDs($key = NV, $default = false) {
-	$oid = $this->get("oid");
-	$out = ENV::oidValues($oid); if ($key == NV) return $out;
-	$key = ENV::norm($key);
-	return VEC::get($out, $key, $default);
-}
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

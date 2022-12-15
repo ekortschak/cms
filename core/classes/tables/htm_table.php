@@ -14,7 +14,6 @@ http://gim.glaubeistmehr.at/?tab=cms
 */
 
 incCls("tables/columns.php");
-incCls("input/combo.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -111,8 +110,8 @@ public function gc($sec = "main") {
 	$fut = $this->getRow("rf", $this->cls->getInfo("foot"));
 
 	if ($rcs < $this->lns) {
-		$this->setSec("stats", "");
-		$this->setSec("nav", "");
+		$this->clearSec("stats");
+		$this->clearSec("nav");
 	}
 	$out = $this->getTable($hed.$dat.$fut);
 	return "$out\n";
@@ -239,7 +238,7 @@ private function getTable($body) {
     $pge = $this->get("page", 0);
 
 	$this->set("body", $body);
-    $this->set("qid",  $this->get("oid"));
+    $this->set("qid",  $this->oid);
     $this->set("cur",  $pge);
     $this->set("1st",  $pge + 1);
     $this->set("cnt",  $lst + 1);

@@ -10,8 +10,7 @@ simple ini editor
 incCls("editor/iniMgr.php");
 
 $obj = new iniMgr($tplfile);
-$ini->read($fil);
-$ini->save($fil);
+$ini->update($inifile);
 $ini->show();
 */
 
@@ -23,11 +22,9 @@ incCls("editor/iniEdit.php");
 // ***********************************************************
 class iniMgr extends iniTpl {
 
-
 function __construct($tplfile) {
 	parent::__construct($tplfile);
-
-	$this->setSealed(is_file($tplfile));
+	$this->register(NV, $tplfile);
 }
 
 // ***********************************************************
@@ -35,21 +32,31 @@ function __construct($tplfile) {
 // ***********************************************************
 public function show() {
 	$sel = new iniEdit(); $lgs = LANGUAGES;
+	$sel->register($this->oid);
+	$sel->forget();
 
 	foreach ($this->sec as $sec => $txt) {
 		if (STR::begins($sec, "dic")) continue;
-		if (STR::contains(".$lgs.", ".$sec."))
-		$sel->section("<img src='core/icons/flags/$sec.gif' class='flag' />"); else
-		$sel->section("[$sec]");
 
-		foreach ($this->vls as $key => $val) {
-			if (! STR::begins($key, "$sec.")) continue;
+		$inf = "[$sec]"; if (STR::contains(".$lgs.", ".$sec."))
+		$inf = "<img src='core/icons/flags/$sec.gif' class='flag' />";
 
-			$qid = STR::replace($key, "$sec.", $sec."[")."]";
-			$vls = $this->getChoice($key, $sec);
-			$val = $this->chkValue($val, $sec);
+		$sel->section($inf);
 
-			$sel->addInput($qid, $vls, $val);
+		if (STR::ends($sec, "*")) { // memo sections
+			$val = $this->getSec($sec);
+			$sel->addInput($sec."[tarea]", $val, 15);
+		}
+		else { // key = value sections
+			$arr = $this->getValues($sec);
+
+			foreach ($arr as $key => $val) {
+				$qid = $sec."[$key]";
+				$vls = $this->getChoice("$sec.$key");
+				$val = $this->chkValue($val, $sec);
+
+				$sel->addInput($qid, $vls, $val);
+			}
 		}
 	}
 	$sel->show();
@@ -58,13 +65,18 @@ public function show() {
 // ***********************************************************
 // rewriting content
 // ***********************************************************
-public function save($ful = NV) {
-	if ($ful == NV) $ful = $this->file; $out = "";
+public function update($ful) {
+	$this->save($ful);
+	$this->read($ful);
+}
 
-	$arr = ENV::getPostGrps("val_"); if (! $arr) return;
+private function save($ful = NV) {
+	$arr = OID::getLast(); if (! $arr) return;
+
+	if ($ful == NV) $ful = $this->file;
 
 	$ini = new iniWriter($ful);
-	$ini->getPost();
+	$ini->setPost($arr);
 	$ini->save();
 }
 

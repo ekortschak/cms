@@ -14,6 +14,8 @@ $css = new css();
 $css->get();
 */
 
+include_once("core/inc.css.php");
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
@@ -52,6 +54,16 @@ public function save($overwrite = 1) {
 public function drop() {
 	if (! is_file($this->fil)) return;
 	unlink($this->fil);
+}
+
+// ***********************************************************
+// handling ck4 files
+// ***********************************************************
+public function export($file) {
+	$fil = "design/$file.css";
+	$css = "/* STATIC FILE for CK4 only: $fil /*\n\n";
+	$css.= $this->getCss();
+	return APP::write($fil, $css, true);
 }
 
 // ***********************************************************

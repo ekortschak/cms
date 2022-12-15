@@ -1,12 +1,12 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbQuery.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
 
 // ***********************************************************
@@ -17,7 +17,7 @@ $vls = $dbq->getDVs($fld);
 
 $val = $box->getKey("change.from", $vls); unset($vls[$val]);
 $new = $box->getKey("change.to", $vls);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

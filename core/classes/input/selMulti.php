@@ -27,28 +27,33 @@ function __construct($pid) {
 // ***********************************************************
 // overruled methodds
 // ***********************************************************
-public function setMChoice($options, $selected) {
+public function setChoice($options) {
+	$sel = $this->get("value");
+	$sel = parent::get("curVal", $sel);
+	$sel = OID::get($this->oid, $this->uid, $sel);
+
+	if (! is_array($sel)) $sel = array($sel);
+
 	$this->vals = $options;
-	$this->sels = $selected;
+	$this->sels = $sel;
 }
 
-public function init($type, $qid, $vls, $lang) {
-	$cap = STR::between($qid, "[", "]"); if (! $cap) $cap = $qid;
-	$cap = DIC::get($cap, $lang);
+// ***********************************************************
+public function getValue($default = NV) { // get session value
+	$vls = OID::getLast($this->oid); if (! $vls) return $this->sels;
+	$key = $this->get("fname");
 
-	$this->setTitle($cap);
-	$this->setFname($qid);
-	$this->set("sec", STR::left($type)); // refers to template section
+	return $vls[$key];
 }
 
 // ***********************************************************
 // output
 // ***********************************************************
-public function th() {
-	return $this->get("title");
-}
-public function gc($dummy = false) {
-	$vls = $this->sels; $opt = "";
+public function getTool() {
+	$key = $this->get("fname");
+	$vls = $this->getValue();
+	$typ = $this->getType();
+	$opt = "";
 
     foreach ($this->vals as $key => $val) {
 		$sel = VEC::get($vls, $key);
@@ -58,7 +63,7 @@ public function gc($dummy = false) {
         $this->set("checked", $sel);
         $this->set("curVal", $val);
 
-        $opt.= $this->getSection("input.mul");
+        $opt.= $this->getSection("input.$typ");
     }
 	$xxx = $this->set("items", $opt);
     return $this->getSection();

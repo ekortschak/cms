@@ -24,8 +24,8 @@ switch (EDITING) {
 	case "tedit":  $nav->substitute("tedit",  "tview");  break;
 }
 
-if (! $sch) $nav->setSec("search", "");
-if (! $edt) $nav->setSec("tedit", "");
+if (! $sch) $nav->clearSec("search");
+if (! $edt) $nav->clearSec("tedit");
 
 $nav->show();
 

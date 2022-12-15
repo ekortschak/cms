@@ -1,5 +1,5 @@
 [vars]
-from = POSTMASTER
+from = MAILMASTER
 replyto = NOREPLY
 subject = <!DIC:subject!>
 [dic]

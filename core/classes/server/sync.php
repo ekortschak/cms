@@ -32,12 +32,15 @@ class sync extends objects {
 	protected $ren = array();   // fso's without numbers
 	protected $drp = array();   // dirs to drop
 
+	protected $visOnly = true;  // exclude hidden files from sync
+
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
+	$this->register();
+
 	$this->set("head", "Sync");
 	$this->set("info", false);
 
-	$this->setOID();
 	$this->setSource();
 	$this->setDest();
 }
@@ -47,12 +50,21 @@ function __construct() {
 // ***********************************************************
 public function setSource($dir = APP_DIR) {
 	$this->src = FSO::norm($dir);
-	$this->setOidVar("sync.src", $this->src);
+	ENV::set("sync.src", $this->src);
 }
 public function setDest($dir = NV) {
 	if ($dir == NV) $dir = APP::bkpDir("sync", $this->dev);
 	$this->dst = FSO::norm($dir);
-	$this->setOidVar("sync.dst", $this->dst);
+	ENV::set("sync.dst", $this->dst);
+}
+
+public function setVisOnly($value) {
+	$this->visOnly = (bool) $value;
+}
+
+protected function setTitle($title) {
+	$tit = DIC::get($title);
+	$this->set("title", $tit);
 }
 
 // ***********************************************************
@@ -62,17 +74,17 @@ public function setDest($dir = NV) {
 
 protected function run() {
 	$act = ENV::getParm("sync.act");
-	$arr = $this->getOidVar("sync.jbs");
+	$arr = ENV::get("sync.jbs");
 
 	if ($act == 1) return $this->analize();
 	if ($act == 2) return $this->exec();
 
-	$this->setOidVar("sync.jbs", false);
+	ENV::set("sync.jbs", false);
 }
 
 // **********************************************************
 protected function exec() {
-	$arr = $this->getOidVar("sync.jbs"); if (! $arr) return false;
+	$arr = ENV::get("sync.jbs"); if (! $arr) return false;
 	$arr = $this->aggregate($arr);
 
 	foreach ($arr as $act => $lst) {
@@ -85,7 +97,7 @@ protected function exec() {
 		}
 		if ($act != "cpf") unset($arr[$act]);
 	}
-	$this->setOidVar("sync.jbs", $arr);
+	ENV::set("sync.jbs", $arr);
 
 	$this->report();
 	$this->preview();
@@ -114,6 +126,9 @@ protected function showInfo($head = false) {
 	$tpl = new tpl();
 	$tpl->read("design/templates/editor/mnuSync.tpl");
 
+	if (! $this->visOnly)
+	$tpl->set("what", BOOL_YES);
+
 	if ($head)
 	$tpl->set("head", $head);
 	$tpl->set("title", $this->get("title"));
@@ -128,22 +143,23 @@ protected function showInfo($head = false) {
 // ***********************************************************
 protected function analize() {
 	$lst = $this->getTree($this->src, $this->dst);
-	$xxx = $this->setOidVar("sync.jbs", $lst);
-	$xxx = $this->preView(true);
+	ENV::set("sync.jbs", $lst);
+	$this->preView(true);
 }
 
 protected function preView($tellMe = false) {
-	$arr = $this->getOidVar("sync.jbs");
+	$arr = ENV::get("sync.jbs");
+
 	if (! $arr) {
 		if ($tellMe) return MSG::now("do.nothing");
 		return;
 	}
-	$this->showStat($arr, "man", "protected");
-	$this->showStat($arr, "ren", "Rename");
-	$this->showStat($arr, "mkd", "MkDir");
-	$this->showStat($arr, "cpf", "Copy");
-	$this->showStat($arr, "rmd", "RmDir");
-	$this->showStat($arr, "dpf", "Kill");
+	$this->showStat($arr, "man", "sync.protected");
+	$this->showStat($arr, "ren", "sync.rename");
+	$this->showStat($arr, "mkd", "sync.mkdir");
+	$this->showStat($arr, "cpf", "sync.copy");
+	$this->showStat($arr, "rmd", "sync.rmdir");
+	$this->showStat($arr, "dpf", "sync.kill");
 }
 
 protected function showStat($arr, $act, $cap) {
@@ -160,7 +176,7 @@ protected function report() {
 	$out = "<table>\n";
 
 	foreach ($this->rep as $key => $val) {
-		$inf = DIC::check("arr", $key);
+		$inf = DIC::getPfx("arr", $key);
 		$cat = "file(s)";  if (STR::contains($blk, $key))
 		$cat = "block(s)"; if ($key == "mkd")
 		$cat = "dir(s)";
@@ -188,7 +204,7 @@ protected function getTree($dir, $dst) {
 protected function FSlocal($dir) {
 	incCls("server/fileServer.php");
 
-	$srv = new srvX();
+	$srv = new srvX($this->visOnly);
 	$out = $srv->getFiles($dir); if (! $out) return array();
 	$fst = current($out);
 
@@ -239,7 +255,6 @@ protected function getNewer($src, $dst) {
 		$md5d = VEC::get($prp, "md5d", 0);
 		$datd = VEC::get($prp, "datd", 0);
 
-#		if ($typs == "f") // check if files are identical
 		if ($md5s === $md5d) continue;
 
 		$act = $this->getAction($typs.$typd, $dats, $datd);
@@ -273,13 +288,17 @@ protected function getAlpha($fso) {
 // ***********************************************************
 protected function do_ren($fso) {
 	$prp = explode("|", $fso); if (count($prp) < 3) return false;
-	return (bool) FSO::rename($prp[1], $prp[2]);
+	$old = $this->destName($prp[2]);
+	$new = $this->destName($prp[1]);
+
+	return (bool) FSO::rename($old, $new);
 }
 
 protected function do_mkDir($dst) {
 	return (bool) FSO::force($dst);
 }
 protected function do_rmDir($dst) {
+	if ($dst == APP_DIR) return false;
 	return (bool) FSO::rmDir($dst);
 }
 protected function do_kill($dst)  {
@@ -295,16 +314,16 @@ protected function do_copy($src, $dst) {
 protected function chkRename($arr) {
 	foreach ($this->ren as $itm) {
 		if (count($itm) < 3) continue; extract($itm);
+		if ($typ != "d")     continue;
 		if ($src == $dst)    continue;
 
-		if ($typ == "d") {
-			$arr["mkd"] = VEC::purge($arr["mkd"], $src);
-			$arr["rmd"] = VEC::purge($arr["rmd"], $dst);
-		}
-		else {
-			$arr["cpf"] = VEC::drop($arr["cpf"], $src);
-			$arr["dpf"] = VEC::drop($arr["dpf"], $dst);
-		}
+		$chk = $this->destName($src); if (is_dir($chk)) continue;
+
+		if (isset($arr["mkd"])) $arr["mkd"] = VEC::purge($arr["mkd"], $src); // src = new name
+		if (isset($arr["rmd"])) $arr["rmd"] = VEC::purge($arr["rmd"], $dst); // dst = old name
+		if (isset($arr["cpf"])) $arr["cpf"] = VEC::purge($arr["cpf"], $src);
+		if (isset($arr["dpf"])) $arr["dpf"] = VEC::purge($arr["dpf"], $dst);
+
 		$arr["ren"][] = "$typ|$src|$dst";
 	}
 	return $arr;
@@ -350,8 +369,14 @@ protected function split($itm) {
 // ***********************************************************
 // dummies for derived classes
 // ***********************************************************
-protected function srcName($fso, $act = false)  { return $fso; }
-protected function destName($fso, $act = false) { return $fso; }
+protected function srcName($fso, $act = false)  {
+	if (STR::begins($fso, $this->src)) return $fso;
+	return FSO::join($this->src, $fso);
+}
+protected function destName($fso, $act = false) {
+	if (STR::begins($fso, $this->dst)) return $fso;
+	return FSO::join($this->dst, $fso);
+}
 
 protected function aggregate($arr) { return $arr; }
 

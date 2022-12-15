@@ -18,13 +18,7 @@ grant = Erlaube
 
 <table width=350 border=0>
     <!VAR:body!>
-
-	<tr>
-        <td class="nopad" colspan="100%">
-            <!SEC:TFoot!>
-        </td>
-	</tr>
-    <!SEC:buttons!>
+    <!SEC:TFoot!>
 </table>
 
 </form>
@@ -45,9 +39,7 @@ grant = Erlaube
 		<!VAR:data!>
 	</tr>
 
-# ***********************************************************
-[Buttons]
-# ***********************************************************
+[TFoot]
 	<tr class="rf">
         <td colspan="100%" align="right"><!DIC:grant!>:
         	<input name="rec.act" type="submit" value="<!VAR:action!>" />

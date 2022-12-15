@@ -28,7 +28,7 @@ done = Ihr Benutzerkonto wurde gelöscht!
 
 	<table>
 		<tr>
-			<td style="vertical-align: middle"><!DIC:pwd!> &nbsp; &nbsp;</td>
+			<td style="vertical-align: middle"><!DIC:pwd!> &emsp;</td>
 			<td><input type="password" name="md5" autofocus></td>
 		</tr>
 

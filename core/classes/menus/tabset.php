@@ -29,7 +29,7 @@ function __construct() {
 }
 
 // ***********************************************************
-// methods concerning tabs
+// methods
 // ***********************************************************
 public function getProps($set = NV) {
 	return $this->getValues($set);
@@ -56,6 +56,13 @@ public function visTabs($set = APP_CALL) {
 		if ($val) $out[$key] = $val;
 	}
 	return $out;
+}
+
+public function verify($set, $tab) {
+	$arr = $this->visTabs($set);
+	$cap = VEC::get($arr, $tab, NV); if ($cap === NV)
+	$tab = array_key_first($arr);
+	return $tab;
 }
 
 // ***********************************************************

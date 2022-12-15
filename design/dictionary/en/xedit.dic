@@ -1,0 +1,12 @@
+[dic.en]
+file.pattern = File type
+files.search = Search in files
+xedit = Extended Editing
+
+xlRef.none = Document does not contains external references
+xlRef.xlate = Translate external references
+xlRef.saved = External references have been updated
+
+
+text.xlate = Text.xlate*
+opt.preview = Opt.preview*

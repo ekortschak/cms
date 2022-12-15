@@ -1,14 +1,12 @@
 <?php
 
-define("LAYOUT", "edit");
+if (! defined("LAYOUT")) define("LAYOUT", "default");
 
 include_once("config/basics.php");
 include_once("core/inc.min.php");
 include_once("core/inc.more.php");
 
-if (! FS_ADMIN) {
-	$_GET["dmode"] = "login";
-}
+requireAdmin();
 
 incFnc("pagemaker.php");
 

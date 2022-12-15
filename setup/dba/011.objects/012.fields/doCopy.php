@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
@@ -12,7 +12,7 @@ $fnc = array(
 	"f_merge" => "merge"
 );
 
-$box = new dbox();
+$box = new qikSelect();
 $ret = $box->showDBObjs("BTF"); extract($ret);
 
 $dbi = new dbInfo($dbs, $tbl);
@@ -20,7 +20,7 @@ $arr = $dbi->fields($tbl, "%", $fld); unset($arr["ID"]);
 
 $dst = $box->getKey("copy.to", $arr);
 $fnc = $box->getKey("method", $fnc);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

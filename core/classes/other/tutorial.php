@@ -25,7 +25,7 @@ function __construct() {}
 // tutorial samples
 // ***********************************************************
 public function snip($file, $head = "") {
-	$this->gc($file, $head);
+	$this->gc($file, "main", $head);
 }
 public function sample($file, $head = "") {
 	$this->gc($file, "code", $head);

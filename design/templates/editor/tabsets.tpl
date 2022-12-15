@@ -5,7 +5,7 @@ local = Local only
 std.always = Default-Tab will always be visible!
 
 [dic.de]
-default = Standard
+default = Vorauswahl
 visible = Anzeigen
 local = Nur lokal
 std.always = Standard-Tab kann nicht ausgeblendet werden!

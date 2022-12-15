@@ -9,7 +9,7 @@ used for uploading files to server via fileSever
 // ***********************************************************
 incCls("server/fileServer.php");
 
-$srv = new srvX();
+$srv = new srvX($visOnly);
 $srv->act()
 
 */
@@ -21,8 +21,11 @@ incCls("server/download.php");
 // ***********************************************************
 class srvX {
 	private $media = "file"; // file or screen
+	private $visOnly = true;
 
-function __construct() {}
+function __construct($visOnly = true) {
+	$this->visOnly = $visOnly;
+}
 
 // ***********************************************************
 // bulk execution methods
@@ -93,6 +96,7 @@ private function getTree($dir, $mode = "std") {
 }
 
 private function getEntry($fso) {
+	if ($this->visOnly)
 	if (STR::contains($fso, HIDE)) return "";
 
 	if (  is_dir($fso))  return "d;1;$fso;1";
@@ -128,21 +132,14 @@ private function exec($fnc, $fso, $mod = "std") {
 
 private function do_ren($fso, $mod) { // rename dirs or files
 	$arr = explode(";", $fso); $cnt = 0;
-	$chk = array(); // already moved dirs
 
 	foreach ($arr as $itm) {
-		$prp = explode("|", $itm); if (count($prp) < 3) continue;
+		$prp = explode("|", $itm);      if (count($prp) < 3) continue;
+		$typ = $prp[0];                 if ($typ != "d") continue;
 
-		$typ = $prp[0];
 		$new = $this->chkPath($prp[1]); if (! $new) continue;
 		$old = $this->chkPath($prp[2]); if (! $old) continue;
 
-		if ($typ == "d") {
-			$chk[$old] = $new;
-		}
-		else {
-			if ($this->chkRename($chk, $old)) continue;
-		}
 		if ($mod == "debug") {
 			echo "<li>rename $typ: $old => $new";
 			continue;
@@ -152,18 +149,11 @@ private function do_ren($fso, $mod) { // rename dirs or files
 	return $cnt;
 }
 
-private function chkRename($arr, $value) {
-	foreach ($arr as $key => $val) {
-		if (STR::begins($value, $key)) return true;
-	}
-	return false;
-}
-
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
 private function chkPath($fso) {
-	$fso = FSO::clearRoot($fso); if (! $fso) return false;
+	$fso = APP::relPath($fso); if (! $fso) return false;
 	$fso = STR::replace($fso, "./", APP_DIR);
 	return $fso;
 }

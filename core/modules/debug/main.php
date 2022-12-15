@@ -1,7 +1,5 @@
 <?php
 
-incCls("menus/dropbox.php");
-
 $arr = array(
 	"C" => "Constants",
 	"V" => "Server Vars",
@@ -13,17 +11,21 @@ $arr = array(
 	"L" => "Log Files",
 	"X" => "Stylesheet",
 );
+$div = STR::toArray(".env.pfs.oid.tan.");
 
 $ptn = FSO::join(LOG::dir(), "*");
 $fls = FSO::files($ptn);
 
 // ***********************************************************
-HTM::tag("opt.dbg", "h3");
+HTM::tag("dbg.opts", "h3");
 // ***********************************************************
-$box = new dbox();
-$wht = $box->getKey("Show", $arr, "S"); if ($wht == "L")
-$ful = $box->getKey("file", $fls, "parms.log");
-$box->show("menu");
+incCls("menus/localMenu.php");
+
+$box = new localMenu();
+$wht = $box->getKey("pic.show", $arr, "S"); if ($wht == "L")
+$ful = $box->getKey("pic.file", $fls, "parms.log"); if ($wht == "S")
+$div = $box->getKey("div",  $div, "env");
+$box->show();
 
 switch ($wht) {
 	case "C": include("doConst.php");  break;

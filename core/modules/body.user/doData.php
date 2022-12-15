@@ -28,10 +28,10 @@ $tpl->show("main");
 // offer data for editing
 // ***********************************************************
 $dbe = new recEdit(NV, "dbusr");
-$dbe->findRec("uname='CUR_USER'");
-$dbe->permit("e");
 $dbe->lock("uname");
 $dbe->skip("pwd");
+$dbe->findRec("uname='CUR_USER'");
+$dbe->permit("e");
 $dbe->show();
 
 ?>

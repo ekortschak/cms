@@ -11,57 +11,52 @@ incCls("input/selector.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class fldEdit extends selector {
-	protected $xlate = false;
 
 function __construct() {
 	parent::__construct();
+	parent::read("design/templates/input/recEdit.tpl");
 
-	if (CUR_DEST == "screen")
-	$this->read("design/templates/input/recEdit.tpl");
-	$this->read("dbase/ref/gim.ini");
-}
-
-// ***********************************************************
-// overruled methods
-// ***********************************************************
-protected function setVal($key, $vls, $sel) {
-	$sel = $this->findVal($vls, $sel);
-	$xxx = $this->set($key, $sel); // for external use
-	return $sel;
+	DIC::read("dbase/ref");
 }
 
 // ***********************************************************
 // adding input fields
 // ***********************************************************
-public function add($inf, $fxs, $val) {
-	$tit = VEC::get($inf, "head", "?");
+public function add($inf, $val) {
+	$tit = VEC::get($inf, "head",  "?");
 	$fnm = VEC::get($inf, "fname", "?");
 	$typ = VEC::get($inf, "dtype");
-	$nul = VEC::get($inf, "fnull"); if ($nul) $nul = "*";
+	$nul = VEC::get($inf, "fnull");
 	$ref = VEC::get($inf, "input");
+	$fxs = VEC::get($inf, "perms");
 
 	$typ = $this->getType($typ, $ref);
 	$typ = $this->chkType($typ, $fxs); if (! $typ) return;
-	$out = false;
-
 	$ref = $this->chkRef($ref);
+	$out = false;
 
 	$this->set("fnull", $nul);
 
 	switch ($typ) {
-		case "hid": TAN::store($fnm, $val); break;
+		case "hid": TAN::set($fnm, $val); return false;
 
-		case "img": $out = $this->image($tit, $val, "rating.png"); break;
-#		case "img": $out = $this->image($tit, $val, "rating.png"); break;
+		case "ron":
+			$val = $this->chkROnly($ref, $val);
+			$out = $this->ronly($tit, $val); break;
 
-		case "ron": $out = $this->ronly($tit, $val); break;
-		case "com": $out = $this->combo($tit, $ref, $val); break;
-		case "chk": $out = $this->check($tit, $val); break;
-		case "mem": $out = $this->tarea($tit, $val); break;
-		case "pwd": $out = $this->pwd  ($tit); break;
-		default:	$out = $this->input($tit, $val);
+		case "mem": $out = $this->tarea($fnm, $val); break;
+		case "pwd": $out = $this->pwd  ($fnm); break;
+
+		case "cmb":	$out = $this->combo($fnm, $ref, $val); break;
+		case "rat": $out = $this->image($fnm, $val, "rating.png"); break;
+		case "chk": $out = $this->check($fnm, $val); break;
+		case "yon": $out = $this->boole($fnm, $val); break;
+
+		default:	$out = $this->input($fnm, $val);
 	}
-	if ($typ != "hid") $this->setProp("fname", $fnm);
+	$this->setProp("title", $tit);
+	$this->setProp("fnull", $nul);
+
 	return $out;
 }
 
@@ -70,21 +65,22 @@ protected function getType($typ, $ref) {
 	if (! $ref) return $typ;
 
 	switch(STR::left($ref)) {
-		case "rat": return "img";
-		case "che": return "chk";
-		case "boo": return "chk";
+		case "rat": return "rat"; // rating
+		case "che": return "chk"; // checkbox
+		case "boo": return "chk"; // bool
 	}
-	return "combo";
+	return "cmb";
 }
 
 // ***********************************************************
 protected function chkType($typ, $fxs) {
-	$typ = STR::left($typ);
-	if ($fxs == "h")   return "hid"; // no write access
-	if ($fxs != "w")   return "ron"; // no write access
-	if ($typ == "key") return false; // primary keys
-	if ($typ == "cur") return false; // timestamps
-	if ($typ == "ski") return false; // skip field
+	if (STR::contains(".key.cur.ski.", $typ)) return false; // primary keys, time stamps, fields to skip ...
+
+	if ($fxs == "h") return "hid"; // no write access
+	if ($fxs != "w") {
+		if ($typ == "chk") return "yon";
+		return "ron"; // no write access
+	}
 	return $typ;
 }
 
@@ -96,14 +92,22 @@ protected function chkRef($ref) {
 	$ref = STR::after($ref, ":");
 
 	switch(STR::left($fnc)) {
-		case "ref": return STR::toAssoc(DIC::get("ref.$ref"));
 		case "fol": return APP::folders($ref);
 		case "fil": return APP::files($ref);
 		case "tab": return DBS::tables();
 		case "fie": return DBS::fields($ref);
+
+		case "dic": $ref = DIC::get("ref.$ref"); break;
 	}
 	$out = STR::toAssoc($ref);
 	return $out;
+}
+
+// ***********************************************************
+protected function chkROnly($ref, $key) {
+	if (! is_array($ref)) return $key;
+	if (! array_key_exists($key, $ref)) return $key;
+	return $ref[$key];
 }
 
 // ***********************************************************

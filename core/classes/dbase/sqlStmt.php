@@ -136,7 +136,7 @@ protected function chkSql($sql) {
 	if (STR::contains($sql, "dbobjs")) return $sql;
 
 	$out = $sql;
-	$out = STR::replace($out, "CURRENT_TIMESTAMP", date("Y-m-d H.nn"));
+	$out = STR::replace($out, "CURRENT_TIMESTAMP", date("Y-m-d H:i"));
 	$out = STR::replace($out, "CURRENT_USER", CUR_USER);
 	return $out;
 }
@@ -195,16 +195,62 @@ private function quoteVls($lst, $sep = ",") {
 	$sep = $this->get("props.vsep", ",");
 
 	if (! is_array($lst)) {
-		$lst = STR::secure(trim($lst));
+		$lst = DBS::secure(trim($lst));
 		return $qot.$lst.$qot;
 	}
 
     foreach ($lst as $itm) {
-		$str = STR::secure(trim($itm));
+		$str = DBS::secure(trim($itm));
 		$out[] = $qot.$str.$qot;
     }
-    return implode($sep, $out);;
+    return implode($sep, $out);
 }
+
+// ***********************************************************
+// improve readability of sql statement
+// ***********************************************************
+public function beautify($msg) {
+	$msg = "@@@ $msg ";
+	$msg = $this->doLFs($msg, "SELECT.FROM.WHERE.GROUP BY.HAVING.ORDER BY.LIMIT");
+	$msg = $this->doLFs($msg, "INSERT.INTO.DELETE.UPDATE.TRUNCATE.SET");
+	$msg = $this->doLFs($msg, "CREATE.ALTER.DROP.RENAME.ADD.CHANGE.MODIFY");
+	$msg = $this->doLFs($msg, " ) ");
+	$msg = $this->doKeys($msg);
+	$msg = str_replace("  ", "\n  ", $msg);
+
+	$msg = STR::clear($msg, "@@@ <br>");
+	$msg = STR::clear($msg, "@@@");
+	$msg = str_replace(",", ", ", $msg);
+	return "$msg";
+}
+
+private function doLFs($msg, $set) {
+	$set = explode(".", $set);
+	foreach ($set as $key) {
+		if (! $key) continue;
+		$msg = str_replace($key, "<br><b>$key</b>", $msg);
+	}
+	return $msg;
+}
+
+private function doKeys($msg) { // reserved words
+	$rwd = explode(".", "TABLE.EXISTS.PRIMARY.KEY"
+		. "DISTINCT.ASC.DESC.UNION.JOIN.INNER.OUTER.ON."
+		. "NOT.LIKE.IN.BETWEEN.AND.OR.XOR.TRUE.FALSE.NULL."
+		. "LEFT.MID.RIGHT.SUBSTRING.TRIM.LOWER.UPPER.FORMAT.REVERSE.LOCATE.INSTR.LENGTH.REPEAT.CONCAT_WS.CONCAT."
+		. "YEAR.QUARTER.MONTH.WEEK.WEEKDAY.DAY.HOUR.DATE.NOW.SYSDATE.CURDATE.CURTIME.DATE_ADD.DATE_SUB."
+		. "POW.SQRT.ROUND.CEILING.FLOOR.RAND.LN.LOG.CHAR.ORD."
+		. "ALL.AS.IS.IF.TO.AFTER"
+		. "SUM.COUNT.AVG.STD.MAX.MIN.FIRST.LAST."
+		. "CRC32.MD5.SHA1.SHA2");
+
+	foreach ($rwd as $key) {
+		if (! $key) continue;
+		$msg = str_replace(" $key ", " <blue>$key</blue> ", $msg);
+	}
+	return $msg;
+}
+//	$ops = explode(" ", " <> != <= >= && || < > ! = ^ & | ( ) , . ; + - * /");
 
 // ***********************************************************
 } // END OF CLASS

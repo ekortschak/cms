@@ -2,7 +2,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-Designed to handle input items without predefined list of choices
+Designed to handle graphical user input
 
 // ***********************************************************
 // HOW TO USE
@@ -30,8 +30,8 @@ function __construct($pid) {
     $this->read("design/templates/input/selImage.tpl");
 }
 
-public function init($type, $qid, $value, $lang) {
-	parent::init($type, $qid, $value, $lang);
+public function init($type, $qid, $value) {
+	parent::init($type, $qid, $value);
 	$this->set("pos", $value * -20);
 }
 

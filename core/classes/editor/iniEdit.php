@@ -23,25 +23,7 @@ class iniEdit extends selector {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/editor/iniEdit.tpl");
-	$this->forget();
-}
-
-// ***********************************************************
-// props section
-// ***********************************************************
-public function uniq($val = false) {
-	if (! $val) $val = uniqid();
-	return $this->input("Unique ID", $val);
-}
-
-// ***********************************************************
-public function tabtype($caption = "Type", $sel = "root") {
-	$arr = array(
-		"root"   => "single topic",
-		"select" => "multiple topics"
-	);
-	return $this->combo($caption, $arr, $sel);
+	$this->forget($this->oid);
 }
 
 // ***********************************************************
@@ -51,6 +33,10 @@ public function addInput($fname, $vals, $val) {
 	if ($fname == "props[uid]") {
 		if (PFS::isStatic())
 		return $this->addObj("ronly", $fname, $vals, $val);
+	}
+
+	if (STR::contains($fname, "[tarea]")) {
+		return $this->addObj("memo", $fname, $vals, $val);
 	}
 
 	if (is_array($vals)) {
@@ -64,6 +50,15 @@ public function addInput($fname, $vals, $val) {
 		$val = intval($val);
 		return $this->addObj("image", $fname, $val, "rating.png");
 	}
+	if ($vals == "colors") {
+		return $this->addObj("color", $fname, $val);
+	}
+	if (STR::begins($vals, "range:")) {
+		$val = intval($val);
+		$min = STR::between($vals, ":", "-");
+		$max = STR::after($vals, "-");
+		return $this->addObj("range", $fname, $val, $min, $max);
+	}
 	if (STR::begins($vals, "folders:")) {
 		$arr = $this->getFolders($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
@@ -72,18 +67,24 @@ public function addInput($fname, $vals, $val) {
 		$arr = $this->getFiles($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
+
 	if ($vals == "0|1") {
 		return $this->addObj("check", $fname, $val);
 	}
+	if ($vals == "1|0") {
+		return $this->addObj("check", $fname, $val);
+	}
+
 	if (STR::contains($vals, "|")) { // standard combos
 		$arr = STR::toAssoc($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
+
 	return $this->addObj("input", $fname, $val);
 }
 
 // ***********************************************************
-private function addObj($typ, $qid, $prm1, $prm2 = "") {
+private function addObj($typ, $qid, $prm1, $prm2 = "", $prm3 = "") {
 	$cap = $qid;
 	if (STR::contains($qid, "@")) $cap = STR::afterX($qid, "@");
 	if (STR::contains($qid, "[")) $cap = STR::between($qid, "[", "]");
@@ -91,6 +92,8 @@ private function addObj($typ, $qid, $prm1, $prm2 = "") {
 	$cap = DIC::get($cap);
 
 	switch ($typ) {
+		case "memo":  $obj = $this->$typ($qid, $prm1, $prm2); return;
+		case "range": $obj = $this->$typ($qid, $prm1, $prm2, $prm3); break;
 		case "ronly": $obj = $this->$typ($qid, $prm2, $prm2); break;
 		default:      $obj = $this->$typ($qid, $prm1, $prm2);
 	}
@@ -99,23 +102,24 @@ private function addObj($typ, $qid, $prm1, $prm2 = "") {
 }
 
 // ***********************************************************
+// additional input
+// ***********************************************************
+public function memo($caption, $value = "", $rows = 4) { // text area colspan 100%
+	$out = $this->itm->inpMemo("tar", $caption, $value);
+	$xxx = $this->itm->set("rows", $rows);
+	return $out;
+}
+
+// ***********************************************************
 // handling arrays
 // ***********************************************************
 private function getFolders($dir) {
-	$dir = STR::afterX($dir, ":");
-	$arr = APP::folders($dir);
-	$arr = array_values($arr);
-	return array_combine($arr, $arr);
+	$dir = STR::after($dir, ":"); if (! $dir) return array();
+	return APP::folders($dir);
 }
 private function getFiles($dir) {
-	$dir = STR::after($dir, ":");
-	$arr = APP::files($dir); $lst = array();
-
-	foreach ($arr as $itm) {
-		$itm = STR::before($itm, ".");
-		$lst[$itm] = $itm;
-	}
-	return $lst;
+	$dir = STR::after($dir, ":"); if (! $dir) return array();
+	return APP::files($dir); $lst = array();
 }
 
 // ***********************************************************

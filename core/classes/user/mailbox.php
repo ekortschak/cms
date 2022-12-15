@@ -45,7 +45,7 @@ print_r($headers);
 
 $message_count = imap_num_msg($Mail);
 
-echo "Anzahl Mails: ".$message_count."<BR>\n";
+echo "Anzahl Mails: ".$message_count."<br>\n";
 
 //Verbindung zu Mailbox
 $m_mail = imap_open($Host,$User,$Pass) or die("ERROR: " . imap_last_error());
@@ -93,7 +93,7 @@ else {
 		$mail_text = imap_fetchbody($Mail,$what_ever,1);
 
 		//Then spit it out below.........if you dont swallow
-		echo "<div align=center><br /><font face=Arial size=2 color=#800000>Message ID# " . $what_ever . "</font>
+		echo "<div align=center><br><font face=Arial size=2 color=#800000>Message ID# " . $what_ever . "</font>
 
 		<table bgcolor=#D3D3D3 width=900 border=1 bordercolor=#000000 cellpadding=0 cellspacing=0>
 		<tr>

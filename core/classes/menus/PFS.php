@@ -15,7 +15,6 @@ PFS::readTree();
 $arr = PFS::getMenu();
 $dat = PFS::getData($index);
 $tit = PFS::getTitle();
-$val = PFS::getCur("props.xxx", $default);
 $inf = PFS::mnuInfo($index);
 */
 
@@ -32,51 +31,21 @@ class PFS extends objects {
 	static private $cnt = 1;
 
 
-public static function init($dir = TOP_PATH) {
+public static function init($dir = TAB_HOME) {
 	self::$dat = self::$uid = self::$idx = array();
 
 	self::$dir = $dir;
 	self::$fil = FSO::join($dir, "pfs.stat");
 	self::$cnt = 1;
 
-	self::readTree($dir);
+	if (! self::getLast()) {
+		self::readTree($dir);
+
+		SSV::set("data", self::getData(), "pfs");
+		SSV::set("topic", TAB_PATH, "pfs");
+		SSV::set("reload", 0, "pfs");
+	}
 	self::setLoc();
-}
-
-// ***********************************************************
-// using static fs image
-// ***********************************************************
-public static function toggle() {
-	if (is_file(self::$fil)) return FSO::kill(self::$fil);
-	self::export();
-}
-
-public static function isStatic() {
-	return is_file(self::$fil);
-}
-
-protected static function isCollection($typ) {
-	if (EDITING != "view") return false;
-	return (STR::contains(".col.sur.", $typ)); // collections & surveys
-}
-
-// ***********************************************************
-// static menues
-// ***********************************************************
-private static function export() {
-	$dat = var_export(self::$dat, true);
-	$uid = var_export(self::$uid, true);
-	$idx = var_export(self::$idx, true);
-
-	APP::write(self::$fil, "<?php\nself::\$dat = $dat;\nself::\$uid = $uid;\nself::\$idx = $idx;\n?>");
-}
-
-private static function import() {
-	if (  EDITING != "view")   return false;
-	if (! is_file(self::$fil)) return false;
-	include_once(self::$fil);
-
-	return count(self::$dat);
 }
 
 // ***********************************************************
@@ -99,13 +68,24 @@ public static function readTree($dir = NV) {
 // ***********************************************************
 // retrieving data
 // ***********************************************************
+private static function getLast() {
+	$chk = ENV::getParm("reset");              if (! $chk) return false;
+	$chk = SSV::get("reload", false, "pfs");   if (  $chk) return false;
+	$tpc = SSV::get("topic", TAB_PATH, "pfs"); if ($tpc != TAB_PATH) return false;
+	$arr = SSV::get("data", array(), "pfs");   if (! $arr) return false;
+
+	self::$dat = $arr["dat"];
+	self::$uid = $arr["uid"];
+	self::$idx = $arr["idx"];
+	return true;
+}
+
+// ***********************************************************
 public static function getData($index = false) {
 	if ($index == "dat") return self::$dat;
+	if ($index == "uid") return self::$uid;
+	if ($index == "idx") return self::$idx; if ($index) return array();
 
-	if ($index !== false) {
-		$idx = self::getIndex($index); if (! $idx) return array();
-		return self::$dat[$idx];
-	}
 	return array(
 		"dat" => self::$dat,
 		"uid" => self::$uid,
@@ -113,40 +93,23 @@ public static function getData($index = false) {
 	);
 }
 
-public static function getTree($index) {
-	$dir = self::getPath($index);
-	$arr = self::$dat; $out = array();
-
-	foreach ($arr as $key => $inf) {
-		$chk = $inf["fpath"]; if (! STR::begins($chk, $dir)) continue;
-		$out[$key] = $inf;
-	}
-	return $out;
-}
-
 // ***********************************************************
-public static function setLang($lang) {
-	$lang = LNG::find($lang);
-
-	foreach (self::$dat as $uid => $prp) {
-		$prp["title"] = $prp["$lang.title"];
-		self::$dat[$uid] = $prp;
-	}
-}
-
+// handling location
 // ***********************************************************
-private static function setLoc($index = NV) {
-	$loc = self::getIndex($index);
-	$loc = self::chkLoc($loc);
-	ENV::set("loc", $loc);
-	ENV::set("pge.".TOP_PATH, $loc);
-}
 public static function getLoc($pge = NV) {
 	if ($pge == NV) return ENV::get("loc");
 
 	$loc = self::getIndex($pge);
 	return $loc;
 }
+
+private static function setLoc($index = NV) {
+	$loc = self::getIndex($index);
+	$loc = self::chkLoc($loc);
+	ENV::set("loc", $loc);
+	ENV::set("pge.".TAB_HOME, $loc);
+}
+
 private static function chkLoc($dir) {
 	if (APP::dir($dir)) return $dir;
 	$dir = ENV::get("loc");
@@ -155,9 +118,11 @@ private static function chkLoc($dir) {
 		if ($dir < TAB_PATH) break; // no access outside tab path
 		if (is_dir($dir)) return trim($dir, DIR_SEP);
 	}
-	return TOP_PATH;
+	return TAB_HOME;
 }
 
+// ***********************************************************
+// retrieving info
 // ***********************************************************
 public static function getRoot() {
 	return self::getPath(self::$dir);
@@ -168,6 +133,11 @@ public static function getPath($index = NV) {
 public static function getLink($index = NV) {
 	$out = self::getProp($index, "props.uid"); if ($out) return $out;
 	return self::getPath($index);
+}
+
+private static function isCollection($typ) {
+	if (EDITING != "view") return false;
+	return (STR::contains(".col.", $typ)); // collections
 }
 
 // ***********************************************************
@@ -185,13 +155,10 @@ public static function getLevel($idx) {
 	$out = substr_count($idx, DIR_SEP) + 1;
 	return $out;
 }
-private static function getStatic() {
-	return sprintf("p%05d.htm", self::$cnt++);
-}
 
 // ***********************************************************
 public static function getIndex($key) { // dir, uid or num index expected !
-	if ($key == NV) $key = ENV::getPage();
+	if ($key === NV) $key = ENV::getPage();
 	if ($key === false) return false;
 
 	$out = VEC::get(self::$idx, $key); if ($out) return $out;
@@ -200,14 +167,8 @@ public static function getIndex($key) { // dir, uid or num index expected !
 	return false;
 }
 
-private static function norm($dir) {
-	$out = FSO::clearRoot($dir);
-	$out = trim($out, DIR_SEP);
-	return $out;
-}
-
 // ***********************************************************
-// handling properties
+// reading & handling properties
 // ***********************************************************
 private static function readProps($dir) { // single page info
 	$dir = APP::dir($dir); if (! is_dir($dir)) return false;
@@ -229,7 +190,7 @@ private static function readProps($dir) { // single page info
 	self::setPropVal($idx, "level", $lev);
 	self::setPropVal($idx, "mtype", $nxt);
 	self::setPropVal($idx, "fpath", $idx);
-	self::setPropVal($idx, "sname", self::getStatic()); // for static output
+	self::setPropVal($idx, "sname", self::getStatID()); // for static output
 
 	foreach ($inf as $key => $val) {
 		self::setPropVal($idx, $key, $val);
@@ -263,9 +224,6 @@ private static function setPropVal($idx, $key, $value) {
 }
 
 // ***********************************************************
-public static function getCur($key, $default = false) {
-	return self::getProp(NV, $key, $default);
-}
 private static function getProp($index, $key, $default = false) {
 	$idx = self::getIndex($index);     if (! $idx) return $default;
 	$arr = VEC::get(self::$dat, $idx); if (! $arr) return $default;
@@ -277,10 +235,10 @@ public static function count() {
 	return count(self::$dat);
 }
 
-private static function refType($idx) {
-	if (EDITING  !=  "view") return "active";
-	if (FSO::isHidden($idx)) return "inactive";
-	return "active";
+private static function norm($dir) {
+	$out = APP::relPath($dir);
+	$out = trim($out, DIR_SEP);
+	return $out;
 }
 
 // ***********************************************************
@@ -297,11 +255,7 @@ public static function getMenu() {
 
 // ***********************************************************
 public static function mnuInfo($index) {
-	if (! is_numeric($index)) {
-		$chk = array_flip(self::$idx);
-		$index = $chk[$index];
-	}
-	$idx = VEC::get(self::$idx, $index); if (! $idx) return array();
+	$idx = self::getIndex($index); if (! $idx) return array();
 	$lev = self::getLevel($idx);
 	$typ = self::getType($idx);
 
@@ -328,9 +282,49 @@ private static function mnuType($idx, $lev, $typ) {
 	return self::getProp($idx, "mtype", false);
 }
 
+private static function refType($idx) {
+	if (EDITING  !=  "view") return "active";
+	if (FSO::isHidden($idx)) return "inactive";
+	return "active";
+}
 
 // ***********************************************************
-// check user permissions
+// static menues
+// ***********************************************************
+public static function isStatic() {
+	return is_file(self::$fil);
+}
+
+// ***********************************************************
+public static function toggle() {
+	if (self::isStatic()) return FSO::kill(self::$fil);
+	self::export();
+}
+
+// ***********************************************************
+private static function export() {
+	$dat = var_export(self::$dat, true);
+	$uid = var_export(self::$uid, true);
+	$idx = var_export(self::$idx, true);
+
+	APP::write(self::$fil, "<?php\nself::\$dat = $dat;\nself::\$uid = $uid;\nself::\$idx = $idx;\n?>");
+}
+
+private static function import() {
+	if (  EDITING != "view") return false;
+	if (! self::isStatic())  return false;
+	include_once(self::$fil);
+
+	return count(self::$dat);
+}
+
+// ***********************************************************
+private static function getStatID() {
+	return sprintf("p%05d.htm", self::$cnt++);
+}
+
+// ***********************************************************
+// user permissions
 // ***********************************************************
 public static function hasXs($index = NV) {
 	if (! FS_LOGIN) return "r"; $dir = self::getPath($index);

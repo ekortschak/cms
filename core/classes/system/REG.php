@@ -31,7 +31,6 @@ public static function init() {}
 // ***********************************************************
 public static function add($key, $file) {
  // make sure file is only added once
-#	$fil = APP::file($file); if (! $fil) return;
 	self::$dat[$key][$file] = $file;
 }
 public static function get($key) {

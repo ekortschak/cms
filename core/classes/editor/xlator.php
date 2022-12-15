@@ -3,9 +3,9 @@
 // INFO
 // ***********************************************************
 This class is designed to replace strings by their translated values.
-* Translation is not automatic since it requires a paid service.
+* Translation is not automatic since it would require a paid service.
 * Instead a string will be provided that is to be pasted into an online translator.
-* The translation will then be pasted in a form
+* The translation will then be pasted into the same form
 * from which the replacements will be effected.
 
 // ***********************************************************
@@ -13,10 +13,10 @@ This class is designed to replace strings by their translated values.
 // ***********************************************************
 incCls("input/xlator.php");
 
-$xlator = new xlator();
-$htm = $dic->getTags($fil);
-$htm = $dic->getRepText($rep);
-$xxx = $dic->save($fil, $htm, $lang);
+$xlt = new xlator();
+$htm = $xlt->getTags($fil);
+$htm = $xlt->getRepText($rep);
+$xxx = $xlt->save($fil, $htm, $lang);
 */
 
 // ***********************************************************
@@ -36,46 +36,39 @@ function __construct() {
 }
 
 // ***********************************************************
-// methods
+// analize structure
 // ***********************************************************
 public function getTags($txt) { // passing file or text
 	if (is_file($txt)) $txt = APP::read($txt);
 	$this->dir = $this->php = array(); $out = "";
 
 	$txt = $this->secure($txt);
-	$txt = $this->cutBreaks($txt);
-	$xxx = $this->recurse($txt);
-	$rep = $txt;
+	$txt = $this->clearBreaks($txt);
+	$rep = $this->analize($txt);
+	$this->rep = $rep;
 
 	foreach ($this->dic as $key => $itm) {
 		$rep = STR::replace($rep, $itm, "[$key]");
 		$out.= "[$key] = $itm\n";
 	}
 	$out = $this->restore($out);
-	$this->rep = $rep;
-
 	return $out;
-}
-
-public function save($file, $text, $lang) {
-	if (strlen($text) < 5) {
-		return MSG::now("no.data");
-	}
-	return APP::write($file, $text);
 }
 
 // ***********************************************************
 // replace text by translations - preserving php snips
 // ***********************************************************
-public function getRepText($txt) {
-	$arr = STR::split($txt, "["); $lst = array();
+public function getRepText($text) {
+	$arr = STR::find($text, "[", "] ="); $lst = array();
 
-	foreach ($arr as $key => $val) {
-		$key = STR::between($val, "[", "]");
-		$val = STR::after($val, "=");
+	foreach ($arr as $key) {
+		$val = STR::after($text, "[$key] =");
+		$val = STR::before($val, "\n[");
+
 		$lst[$key] = $this->cleanTags($val);
 	}
-	$out = $this->repKeys($this->rep, $lst);
+	$out = $this->rep;
+	$out = $this->repKeys($out, $lst);
 	$out = $this->repKeys($out, $this->php);
 	$out = $this->restore($out);
 	return $out;
@@ -87,6 +80,35 @@ private function repKeys($out, $arr) {
 		$out = STR::replace($out, "[$key]", $val);
 	}
 	return $out;
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function analize($txt) {
+	foreach($this->tgs as $tag) {
+		$arr = STR::find($txt, "<$tag>", "</$tag>"); if (! $arr) continue;
+
+		foreach ($arr as $val) {
+			$key = md5($val); if (! $val) continue;
+
+			if ($tag == "php")
+			$this->php[$key] = $val; else
+			$this->dic[$key] = $val;
+
+			$txt = STR::replace($txt, "<$tag>$val</$tag>", "<$tag>[$key]</$tag>");
+		}
+	}
+	return $txt;
+}
+
+// ***********************************************************
+private function clearBreaks($txt) {
+	$brk = '<hr class="pbr">';
+	$txt = STR::clear($txt, "$brk\n\n");
+	$txt = STR::clear($txt, "$brk\n");
+	$txt = STR::clear($txt,  $brk);
+	return $txt;
 }
 
 private function cleanTags($txt) {
@@ -103,32 +125,6 @@ private function cleanTag($txt, $tag) {
 }
 
 // ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private function recurse($txt) {
-	foreach($this->tgs as $tag) {
-		$arr = STR::find($txt, "<$tag>", "</$tag>"); if (! $arr) continue;
-
-		foreach ($arr as $val) {
-			$md5 = md5($val); if (! $val) continue;
-
-			if ($tag == "php")
-			$this->php[$md5] = $val; else
-			$this->dic[$md5] = $val;
-
-			$txt = STR::replace($txt, "<$tag>$val</$tag>", "<$tag>[$md5]</$tag>");
-		}
-	}
-}
-
-private function cutBreaks($txt) {
-	$brk = '<hr class="pbr">';
-	$txt = STR::clear($txt, "$brk\n\n");
-	$txt = STR::clear($txt, "$brk\n");
-	$txt = STR::clear($txt,  $brk);
-	return $txt;
-}
-
 private function secure($txt) {
 	$txt = STR::replace($txt, "\n", "§lf§");
 	$txt = STR::replace($txt, "<?php ", "<php>");

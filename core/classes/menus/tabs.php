@@ -49,7 +49,7 @@ public function getTopics($dir = TAB_ROOT) {
 
 	foreach ($arr as $dir => $nam) {
 		$cap = HTM::pgeTitle($dir);
-		$lnk = FSO::clearRoot($dir);
+		$lnk = APP::relPath($dir);
 		$out[$lnk] = $cap;
 	}
 	return $out;
@@ -60,6 +60,15 @@ public function getTypes() {
 		"root"   => "single topic",
 		"select" => "multiple topics"
 	);
+}
+
+public function verify($tab, $std) {
+	$arr = $this->getTopics($tab);
+
+	$std = FSO::join($tab, $std);
+	$chk = VEC::get($arr, $std, NV); if ($chk === NV)
+	$std = array_key_first($arr);
+	return $std;
 }
 
 // ***********************************************************
@@ -74,7 +83,7 @@ public function gc($sec = "main") {
 		$itm = "item";
 		$img = APP::find($tab, "tab", "png"); if ($img) $itm = "item.img";
 
-		$this->set("link",  FSO::clearRoot($tab));
+		$this->set("link",  APP::relPath($tab));
 		$this->set("mode",  $this->getMode());
 		$this->set("text",  $cap);
 		$this->set("class", $this->getClass($tab));
@@ -98,7 +107,7 @@ private function getMode() {
 }
 
 private function getClass($dir) {
-	if (STR::begins(TOP_PATH, $dir)) return "active";
+	if (STR::begins(TAB_HOME, $dir)) return "vtab_selected";
 	return "std";
 }
 

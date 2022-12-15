@@ -12,7 +12,7 @@ $erg = $box->showDBObjs("B"); extract($erg);
 // ask for confirmation
 // ***********************************************************
 $cnf = new confirm();
-$cnf->add("dba.sanitize");
+$cnf->dic("dba.sanitize");
 $cnf->add("&rarr; $dbs");
 $cnf->show();
 

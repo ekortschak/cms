@@ -1,8 +1,25 @@
 [dic.de]
+Filter = Filter*
+Focus = Focus*
 color.chroma = Sättigung
+color.fixed = Fixed Item
 color.names = Benannte Farbe
 color.set = Farbpalette
-color.unknown = Unbekannte Farbe: xxxfixed item = Fixed item*
-step = Step*
-function = Function*
-text = Text*
+color.step = Schritt
+grp.addx = Neue Gruppe erstellen
+grp.drop = Gruppe löschen
+grp.first = Benutzer
+grp.name = Neue Gruppe
+net.ip = IP-Adresse
+net.ip error = Es wurde keine IP Addresse angegeben.
+net.mac = MAC-Adresse
+net.mac error = MAC Adresse ungültig
+tag.result = Ergebnis
+text = Text
+tools.fnc = Funktion
+url = Url*
+user = Benutzer
+usr.add = Neuen Benutzer erstellen
+usr.change pwd = Passwort ändern für
+usr.drop = Benutzer-Konto löschen
+val.start = Anfangswert

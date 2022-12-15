@@ -1,5 +1,9 @@
 form {
-	margin: 2px 0px 15px;
+	margin: 2px 0px 7px;
+}
+
+form table {
+	margin: 0px;
 }
 
 /* ******************************************************** */
@@ -14,6 +18,13 @@ input {
 	border-radius: 5px;
 	font-size: 14px;
 	overflow: auto;
+}
+
+input[type='color'] {
+	background: transparent;
+	padding: 0px;
+	border: 0px;
+	max-height: 24px;
 }
 
 input[type='text'] {
@@ -78,7 +89,7 @@ select {
 #	outline: none;
 
 	margin: 0px;
-	padding: 0px 15px 0px 1px;
+	padding: 0px 15px 0px 5px;
 	min-width: 105px;
 	height: 24px;
 
@@ -122,10 +133,12 @@ textarea {
 	border: 1px solid cadetblue;
 	border-radius: 5px;
 	padding: 0px 5px;
+
 	min-width: 150px;
+	min-height: 22px;
 	line-height: 22px;
-	font-size: 0.9em;
+
 	display: inline-block;
-	padding: 0px 5px;
 	vertical-align: middle;
+	font-size: 0.9em;
 }

@@ -22,11 +22,11 @@ public static function init() {
 	if ($typ != "select") {
 		$tab = $tpc;
 	}
-	CFG::set("TOP_PATH", $tpc);
+	CFG::set("TAB_HOME", $tpc);
 	CFG::set("TAB_ROOT", APP::dir($tab.DIR_SEP));
 	CFG::set("TAB_PATH", APP::dir($tpc.DIR_SEP));
-	CFG::set("CUR_TAB",  FSO::clearRoot($tpc));
 	CFG::set("TAB_TYPE", $typ);
+	CFG::set("CUR_TAB",  APP::relPath($tpc));
 
 	ENV::set("tab.$idx", $tab);
 	ENV::set("tpc.$tab", $tpc);
@@ -73,8 +73,8 @@ private static function getTopic($tab, $typ) {
 
 // ***********************************************************
 private static function getPage($tab) {
-	$pge = VEC::get($_GET, "pge"); if ($pge) return $pge;
-	$pge = ENV::get("pge.$tab");   if ($pge) return $pge;
+	$pge = ENV::getParm("pge");  if ($pge) return $pge;
+	$pge = ENV::get("pge.$tab"); if ($pge) return $pge;
 
 	$ini = new ini("$tab/tab.ini");
 	$pge = $ini->get("props.std");

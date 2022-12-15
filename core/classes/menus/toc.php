@@ -26,7 +26,6 @@ function __construct() {
 	$this->read("design/templates/menus/toc.edit.tpl");
 
 	$this->dir = ENV::getPage();
-	$this->set("oid", md5($this->dir));
 }
 
 // ***********************************************************
@@ -47,6 +46,8 @@ public function gc($sec = "main") {
 	for ($i = 0; $i < $lst; $i++) {
 		$inf = PFS::mnuInfo($i); if (! $inf) continue;
 		$this->merge($inf); extract($inf);
+
+		if ($level < 2) continue;
 
 		$this->set("index",	$cnt++."");
 		$this->set("vis", $this->isVisible($trg, $fpath, $level, $max)); // expandable

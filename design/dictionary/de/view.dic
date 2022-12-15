@@ -1,132 +1,16 @@
 [dic.de]
-a cosmic principle = A cosmic principle*
-a person = A person*
-a spiritual entity = A spiritual entity*
-a universal energy = A universal energy*
-don't know = Don't know*
-dont'know = Dont'know*
-ein höheres wesen geistiger natur = Ein höheres wesen geistiger natur*
-ein kosmisches prinzip = Ein kosmisches prinzip*
-eine person = Eine person*
-eine universelle energie = Eine universelle energie*
-file.exceeds max = Datei ist zu groß
-file.written = Dateien geschrieben
-files.moved = Dateien verschoben
-files.select = Files.select*
-im himmel = Im himmel*
-in der hölle = In der hölle*
-in heaven = In heaven*
-in hell = In hell*
-mime.fil = Mime.fil*
-nein = Nein*
-no.connection = No.connection*
-no.tabroot = Startverzeichnis ist nicht spezifiziert (config/tabset.ini)
-principle = Principle*
-sec.unknown = Sec.unknown xxx
-siehe = Siehe
-tag.basic methods = Basic methods*
+Anmerkung = Anmerkung*
+Bewertung = Bewertung*
+bible.ver = Bibelversion
+loc = Loc*
+memo = Memo*
+no.tabroot = TAB_ROOT nicht definiert
+rating = Rating*
+ref = Ref*
+settings = Settings*
 tag.feedback = Feedback
 tag.options = Optionen
-tag.sample ini files = Sample ini files*
-tag.srv = Server
-tip.csv = CSV
-tip.reset = Zurücksetzen
-unq.coll = Sammlung
-unq.constants = Constants*
-unq.doc = Doc*
-unq.globals = Globals*
-unq.kap = Kapitel
-unq.tpc = Topic
-weiß nicht = Weiß nicht*
-yes = Yes*
-ftp.xfer error = Ftp.xfer error*
-himmel oder hölle? = Himmel oder hölle?*
-bist du gut? = Bist du gut?*
-wer ist gott? = Wer ist gott?*
-user = Benutzer
-plz = Postleitzahl
-age = Alter
-pers-id = Pers-ID
-bgr = Hintergrund
-
-umfrage-id = Umfrage-ID
-
-ewigkeit = Ewigkeit*
-
-gebote im nt = Gebote im nt*
-
-gebote im at = Gebote im at*
-
-welches dieser gebote im nt hast du gebrochen? = Welches dieser gebote im nt hast du gebrochen?*
-
-welches dieser gebote im at hast du gebrochen? = Welches dieser gebote im at hast du gebrochen?*
-
-no.subfolders = No.subfolders*
-
-gebote at = Gebote at*
-
-bist du ein guter mensch? = Bist du ein guter mensch?*
-
-wo wirst du die ewigkeit verbringen? = Wo wirst du die ewigkeit verbringen?*
-
-welches dieser gebote des nt hast du gebrochen? = Welches dieser gebote des nt hast du gebrochen?*
-
-welches dieser gebote des at hast du gebrochen? = Welches dieser gebote des at hast du gebrochen?*
-
-name = Name*
-
-zig = Zig*
-
-qid = Qid*
-
-tag.neuen benutzer anlegen = Neuen benutzer anlegen*
-
-user.add = User.add*
-
-user.edit = User.edit*
-
-user.drop = User.drop*
-
-anzahl = Anzahl*
-
-tag.robert weber = Robert weber*
-
-jahr = Jahr*
-
-monat = Monat*
-
-dbase = Datenbank nicht erreichbar!
-
-version = Version*
-
-book = Book*
-
-buch = Buch*
-
-kapitel = Kapitel*
-
+topics = Topics*
+unq.coll = Coll*
 unq.link = Link*
-
-overwrite = Overwrite*
-
-url = Url*
-
-focus = Focus*
-
-server = Server*
-
-page = Page*
-
-
-tag = Tag
-option = Option
-enthält = Enthält
-methode = Methode
-dir = Verzeichnis
-unq.chap = Chap*
-unq.bblver = Bblver*
-bible.ver = Bible.ver*
-bible.lang = Bible.lang*
-unq.any_info = Any_info*
-
-unq.any = Any*
+unq.tpc = Themen

@@ -38,15 +38,15 @@ public function getVal($key, $value = 0) {
 // ***********************************************************
 // display check boxes
 // ***********************************************************
-public function show($sec = "check") {
+public function show($sec = "main") {
 	echo $this->gc($sec);
 }
-public function gc($sec = "check") {
+public function gc($sec = "main") {
 	$out = "";
 
 	foreach ($this->lst as $key => $val) {
 		$this->set("key", $key);
-		$this->set("caption", DIC::check("qik", $key));
+		$this->set("caption", DIC::getPfx("unq", $key));
 
 		$shw = $sec; if (! $val) $shw = "$sec.no";
 		$out.= $this->getSection($shw);

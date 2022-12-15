@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("input/selector.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
@@ -10,10 +10,9 @@ $dbi = new dbInfo();
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $dbs = $box->getKey("pic.dbase", $dbi->dbases());
-$grp = $box->getKey("group", "new");
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 $sel = new selector();
 $grp = $sel->input("usr.group", "new_group");

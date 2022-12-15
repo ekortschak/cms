@@ -1,20 +1,22 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
+
+HTM::tag("files.search");
 
 // ***********************************************************
 // Choose action
 // ***********************************************************
 $act = array(
 	"search"  => "Search",
-	"replace" => "Replace"
+	"replace" => "Search & Replace"
 );
 
-$box = new dbox();
+$box = new localMenu();
 $fnc = $box->getKey("Method", $act);
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 // get parameters
@@ -24,6 +26,7 @@ $lng = CUR_LANG;
 $dbg = 1;
 
 $sel = new selector();
+$oid = $sel->register("search.xxx");
 $dir = $sel->ronly("dir", $loc);
 $ptn = $sel->input("file.pattern", "$lng.htm");
 $fnd = $sel->input("find", "xy");
@@ -56,12 +59,12 @@ foreach ($arr as $ful => $nam) {
 	$txt = file_get_contents($ful); if (strlen($txt) < 1) continue;
 
 	$erg = PRG::find($txt, $fnd); if (! $erg) continue;
-	$fds+= $anz = count($erg[0]);
+	$fds+= $anz = count($erg);
 	$cnt++;
 
 	if ($dbg) {
 		$xxx = $pge->read($ful);
-		$lnk = $pge->getLink($dir);
+		$lnk = $pge->getLink($dir, "pedit");
 
 		echo "<tr><td>$lnk</td><td align='right'>$anz</td></tr>";
 	}

@@ -13,12 +13,17 @@ $ret = $box->showDBObjs("BTF", false); extract($ret);
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->fldProps($tbl, $fld);
 
+$inf["default"] = $inf["fstd"];
+
 // ***********************************************************
 // read field props
 // ***********************************************************
 $ini = new ini("design/config/db.fields.ini");
 $arr = $ini->getSecs();
 $lng = CUR_LANG;
+
+$typ = $inf["dtype"];
+$inp = "";
 
 // ***********************************************************
 HTM::Tag("props");
@@ -31,12 +36,21 @@ $sel->hidden("chk", "fcProps");
 
 foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
+	$typ = $inf["dtype"];
+
 	$cap = VEC::get($dat, "head", $prp); $cap = VEC::get($dat, "head.$lng", $cap);
-	$val = VEC::get($dat, "default");    $val = VEC::get($inf, $prp, $val);
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
 
-	$sel->addInput("prop[$prp]", $vls, $val);
+	if ($prp == "input") {
+		$sel->ronly("fld.type", $typ);
+
+		if (STR::contains(".mem.cur.", $typ)) continue;
+	}
+	if ($prp == "mask") {
+		if (STR::contains(".mem.", $typ)) continue;
+	}
+	$sel->addInput("prop[$prp]", $vls, "");
 	$sel->setProp("title", $cap);
 	$sel->setProp("hint", $hnt);
 }
@@ -62,3 +76,31 @@ foreach (LNG::get() as $lng) {
 $sel->show();
 
 ?>
+
+<br>
+
+
+<h4>Sinnvolle Werte (Entwurf - nicht implementiert)</h4>
+
+<table>
+	<tr>
+		<th width=50>Typ</th>
+		<th>Eingabehilfen</th>
+		<th>Anzeigemasken</th>
+	</tr>
+	<tr>
+		<td>int</td>
+		<td><ul><li>number <li>range: min - max <li>rating <li>checkbox <li>bool</ul></td>
+		<td><ul><li>%d <li>%03d <li>%d pcs</ul></td>
+	</tr>
+	<tr>
+		<td>num</td>
+		<td><ul><li>number</ul></td>
+		<td><ul><li>%01.2f</ul></td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td><ul><li>text <li>folders: dir <li>files: dir <li>tables <li>fields: tbl <li>dic: ref <li>groups <li>users </ul></td>
+		<td><ul><li>&lt;a href="xy">%s&lt;/a> </ul></td>
+	</tr>
+</table>

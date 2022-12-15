@@ -22,7 +22,7 @@ caption = Ja, ich lebe wirklich
 
 	<table>
 		<tr>
-			<td style="vertical-align: middle"><!DIC:code!> &nbsp; &nbsp;</td>
+			<td style="vertical-align: middle"><!DIC:code!> &emsp;</td>
 			<td><input type="text" name="md5" value="<!VAR:md5!>" size="32" maxlength="32" autofocus /></td>
 		</tr>
 

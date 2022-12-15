@@ -9,7 +9,7 @@ incCls("input/selector.php");
 $cur = ENV::get("next", 128000);
 
 $sel = new selector();
-$fst = $sel->number("Start", $cur);
+$fst = $sel->number("val.start", $cur);
 $sel->show();
 
 $rng = 100;

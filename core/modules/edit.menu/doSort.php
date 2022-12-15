@@ -1,12 +1,12 @@
 <?php
 
 if (PFS::isStatic()) {
-	return MSG::now("menu.static");
+	return MSG::now("mnu.static");
 }
 
 // ***********************************************************
 $loc = PFS::getLoc();
-$arr = FSO::folders($loc); if (! $arr)
+$arr = FSO::folders($loc, false); if (! $arr)
 $arr = array();
 
 $sec = "main"; if (count($arr) < 2)

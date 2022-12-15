@@ -9,8 +9,8 @@ design/templates/tables/recEdit.tpl
 
 <table>
 	<tr>
-        <td width="110">&nbsp;</td>
-        <td class="nopad" width=5><hint>*</hint></td>
+        <td width=110>&nbsp;</td>
+        <td width=5 class="nopad" ><hint>*</hint></td>
         <td width="*"><hint><!DIC:mandatory!></hint></td>
 	</tr>
     <!VAR:body!>

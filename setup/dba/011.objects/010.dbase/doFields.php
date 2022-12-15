@@ -15,7 +15,7 @@ $erg = $box->showDBObjs("B"); extract($erg);
 // ask for confirmation
 // ***********************************************************
 $cnf = new confirm();
-$cnf->add("dbo.analize");
+$cnf->dic("dbo.analize");
 $cnf->show();
 
 if (! $cnf->act()) return;

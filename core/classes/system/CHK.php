@@ -42,6 +42,39 @@ public static function len($str, $min, $max) {
 }
 
 // ***********************************************************
+// user
+// ***********************************************************
+public static function user($usr) {
+	if (STR::contains($usr, " ")) return false;
+	return (strlen($usr) > 2);
+}
+
+public static function pwd($pwd, $agn = NV) {
+	if ($agn !== NV)                        if ($pwd != $agn) return false;
+	$chk = PRG::replace($pwd, "\d",    ""); if ($pwd == $chk) return false;
+	$chk = PRG::replace($pwd, "[A-z]", ""); if ($pwd == $chk) return false;
+
+	return (strlen($pwd) > 5);
+}
+
+// ***********************************************************
+// urls
+// ***********************************************************
+public static function isUrl($url) {
+    $chk = curl_init();
+    curl_setopt($chk, CURLOPT_URL, $url);
+    curl_setopt($chk, CURLOPT_HEADER, 1);
+    curl_setopt($chk, CURLOPT_RETURNTRANSFER, 1);
+
+    $dat = curl_exec($chk);
+    $arr = curl_getinfo($chk);
+    curl_close($chk);
+
+	$out = $arr['http_code'];
+	return ($out < 400);
+}
+
+// ***********************************************************
 } // END OF CLASS
 // ***********************************************************
 ?>

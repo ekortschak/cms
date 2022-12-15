@@ -2,8 +2,9 @@
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
 .localmenu, .localicon, .submenu {
-	z-index: 85;
+	z-index: 150;
 	display: block;
+
 	color: FC_INFO;
 	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
 	border: 1px solid navy;
@@ -11,12 +12,12 @@
 	border-radius: 7px;
 
 	font-weight: bold;
-	padding: 7px 0px 0px;
+	padding: 3px 7px 1px;
 	margin: 0px 0px 4px;
 }
 
 .localicon {
-	padding: 4px 0px 3px;
+	padding: 2px 0px;
 }
 
 .submenu {
@@ -36,7 +37,11 @@
 .topmenu {
 	z-index: 99;
 	position: relative;
-	display: inline-block;
+
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
 	background: BC_MENU;
 	background: linear-gradient(-2deg, BC_INFO, BC_MENU 50%, BC_MENU, #4D7FB2);
 	width: 100%;

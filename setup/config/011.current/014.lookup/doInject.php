@@ -13,19 +13,21 @@ $sec = array(
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
+incCls("menus/qikSelect.php");
 
-$box = new dbox();
-$ful = $box->files("lookup", "file");
+$box = new localMenu();
+$ful = $box->files("lookup");
 $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 $arr = CFG::getCfg("tabsets", "index.php");
 $arr = VEC::keys($arr);
 
+$box = new qikSelect();
 $tab = $box->getKey("apply.to", $arr);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

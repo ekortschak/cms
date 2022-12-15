@@ -5,19 +5,19 @@ $dir = "design/styles";
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 
-$box = new dbox();
-$dir = $box->folders($dir, "Layout");
+$box = new localMenu();
+$dir = $box->folders($dir);
 $ful = $box->files($dir);
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 // show editor
 // ***********************************************************
-incCls("editor/cfgEditor.php");
+incCls("editor/cfgEdit.php");
 
-$cfg = new cfgEditor();
+$cfg = new cfgEdit();
 $cfg->show($ful);
 
 ?>

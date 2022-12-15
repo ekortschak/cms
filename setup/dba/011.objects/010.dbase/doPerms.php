@@ -1,19 +1,19 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 incCls("dbase/dbInfo.php");
 incCls("tables/sel_table.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new localMenu();
 $erg = $box->showDbObjs("BT");   extract($erg);
 
 $dbi = new dbInfo($dbs, $tbl);
 $grp = $box->getKey("ugroup",    $dbi->usrGroups());
 $rgt = $box->getKey("db.fperm",  $dbi->fldPerms());
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 HTM::tag("tbl.perms");

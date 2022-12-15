@@ -24,3 +24,7 @@ design/layout/default/main.tpl
 
 <!SEC:layout!>
 </html>
+
+[styles]
+<link rel="StyleSheet" href="CSS_URL?layout=default&reset=1" type="text/css" />
+<!MOD:zzz.styles!>

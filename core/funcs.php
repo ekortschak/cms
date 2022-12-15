@@ -17,7 +17,21 @@ function doInc($file) {
 		die("File not found: $file");
 	}
 	require_once $fil;
-	LOG::module($fil);
+}
+
+// ***********************************************************
+// goodies
+// ***********************************************************
+function checkStop() { // force execution to stop
+	$fil = APP_DIR."x.stop";
+	if (is_file($fil)) die("Execution halted!");
+}
+
+function requireAdmin() { // force login of admin
+	if (! FS_ADMIN) $_GET["dmode"] = "login";
+}
+function requireLogin() { // force login of any user
+	if (CUR_USER == "www") $_GET["dmode"] = "login";
 }
 
 // ***********************************************************
@@ -28,7 +42,7 @@ function shutDown() {
 	extract($inf);
 
 	echo "<hr>Error #$type<hr>";
-	echo "in $file on <b>$line</b><br>";
+	echo "in $file on <b>$line</b><br />";
 	echo "<pre>$message</pre>";
 
 	if (! IS_LOCAL) return;
@@ -42,7 +56,6 @@ function errHandler($num, $msg, $file, $line) {
 		ERR::handler($num, $msg, $file, $line);
 		return;
 	}
-
 	shutdown();
 }
 

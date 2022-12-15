@@ -1,14 +1,14 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
+$box = new qikSelect();
 $erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("table");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

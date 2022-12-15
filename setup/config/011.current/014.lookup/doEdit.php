@@ -3,18 +3,19 @@
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 
-$box = new dbox();
-$ful = $box->files("lookup", "file");
-$xxx = $box->show("menu");
+$box = new localMenu();
+$ful = $box->files("lookup");
+$xxx = $box->show();
 
 // ***********************************************************
 // show editor
 // ***********************************************************
-incCls("editor/cfgEditor.php");
+incCls("editor/iniMgr.php");
 
-$cfg = new cfgEditor();
-$cfg->show($ful);
+$ini = new iniMgr("design/config/lookup.ini");
+$ini->update($ful);
+$ini->show();
 
 ?>

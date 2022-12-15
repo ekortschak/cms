@@ -16,13 +16,12 @@ incCls("menus/dropnav.php");
 // ***********************************************************
 $box = new dropnav();
 $fil = $box->getKey("snip", $lst);
-$nam = $box->decode("snip", $fil);
 $xxx = $box->show();
 
 // ***********************************************************
 incCls("other/tutorial.php");
 // ***********************************************************
 $cod = new tutorial();
-$cod->snip($fil, $nam);
+$cod->snip($fil);
 
 ?>

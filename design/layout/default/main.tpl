@@ -19,6 +19,7 @@ title = PRJ_TITLE
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="expires" content="0" />
 
+#	<meta name="robots" content="noindex">
 	<meta name="scView" content="width=device-width, initial-scale=1" />
 #	<meta name="keywords" content="PRJ_TITLE" />
 #	<meta name="description" content="<!VAR:desc!>" />
@@ -31,6 +32,17 @@ title = PRJ_TITLE
 </html>
 
 # ***********************************************************
+# last to execute
+# ***********************************************************
+[styles]
+<link rel="StyleSheet" href="CSS_URL?layout=LAYOUT" type="text/css" />
+<!MOD:zzz.styles!>
+
+[scripts]
+<!MOD:zzz.scripts!>
+
+
+# ***********************************************************
 [layout]
 # ***********************************************************
 <body>
@@ -38,15 +50,8 @@ title = PRJ_TITLE
 	<div class="modtoc" id="modToc"> <!SEC:toc!> </div>
 	<div class="modmbar"><!SEC:mbar!></div>
 	<div class="modbody"><!SEC:body!></div>
-	<div class="moddeco"><!SEC:deco!></div>
+	<div class="modopts"><!SEC:opts!></div>
 </body>
-
-[styles]
-<link rel="StyleSheet" href="CSS_URL?layout=LAYOUT" type="text/css" />
-<!MOD:zzz.styles!>
-
-[scripts]
-<!MOD:zzz.scripts!>
 
 # ***********************************************************
 # horizontal panels
@@ -70,6 +75,7 @@ title = PRJ_TITLE
 <div class="container conToc" id="maindow">
 <!MOD:toc.banner!>
 <!MOD:toc.topics!>
+<!MOD:toc.current!>
 <!MOD:toc!>
 <!MOD:toc.footer!>
 </div>
@@ -78,7 +84,7 @@ title = PRJ_TITLE
 <!MOD:toc.blocks!>
 </div>
 
-<br/>
+<br>
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
@@ -86,7 +92,7 @@ title = PRJ_TITLE
 	<a class="std" href="config.php">&nbsp;</a>
 </div>
 
-<br/>
+<br>
 
 # ***********************************************************
 [body] <!-- body -->
@@ -96,13 +102,13 @@ title = PRJ_TITLE
 <!MOD:body!>
 </div>
 
-<br/>
+<br>
 
 # ***********************************************************
-[deco] <!-- deco -->
-<div class="container conDeco">
-<!MOD:deco!><br>
+[opts] <!-- opts -->
+<div class="container conOpts">
+<!MOD:user.opts!><br>
 <!MOD:msgs.log!>
 </div>
 
-<br/>
+<br>

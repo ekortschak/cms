@@ -29,10 +29,12 @@ public static function init() {
 	define("CUR_DATE", date("Y/m/d"));
 	define("CUR_YEAR", date("Y"));
 
-	define("FILE_XS", 0775);
+	define("FS_PERMS", 0775);
 
 	self::fixForced(); // constants set before config.ini
 	self::fixServer();
+
+	self::update();
 }
 
 // ***********************************************************
@@ -48,6 +50,7 @@ private static function fixForced() {
 }
 
 private static function fixServer() {
+	self::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
 	self::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	self::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
 	self::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
@@ -55,13 +58,22 @@ private static function fixServer() {
 
 	self::set("APP_NAME", basename(APP_DIR));
 	self::set("APP_CALL", self::getCaller(APP_FILE));
+	self::set("APP_IDX",  self::getIndex());
 
-	self::set("IS_LOCAL", SRV_NAME == "localhost");
+	self::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
 }
 
 // ***********************************************************
 // reading config files
 // ***********************************************************
+public static function update() {
+	$arr = FSO::files("config/*.ini");
+
+	foreach ($arr as $fil => $nam) {
+		self::read($fil);
+	}
+}
+
 public static function read($file) {
 	$fil = self::insert($file); // resolve constants in file names
 	$fil = APP::file($fil);
@@ -80,6 +92,7 @@ public static function read($file) {
 
 private static function readCfg($fil) {
 	if (! is_file($fil)) return;
+
 	$arr = file($fil); $sec = "";
 	$idx = STR::before(basename($fil), ".");
 	$vls = array();
@@ -106,18 +119,14 @@ private static function readCfg($fil) {
 // setting and retrieving values
 // ***********************************************************
 public static function set($key, $value) {
-	$key = trim($key); if (defined($key)) return; if ($key < "A") return;
+	$key = strtoupper(trim($key)); if (defined($key)) return;
 	$val = trim($value); self::$dat[$key] = $val;
 	define($key, $val);
 }
-public static function get($key, $default = "") {
-	$key = trim($key); if (! defined($key)) return $default;
-	return constant($key);
-}
 
-public static function check($key) {
-	$val = VEC::get($_GET, $key); if (! $val) return;
-	$key = strtoupper($key);
+public static function setIf($key) {
+	$key = strtoupper(trim($key)); if (defined($key)) return;
+	$val = VEC::get($_GET, $key);  if (! $val) return;
 	self::set($key, $val);
 }
 
@@ -147,28 +156,26 @@ public static function insert($out) {
 // ***********************************************************
 // retrieving constants
 // ***********************************************************
-public static function getList($sec = "user") {
+public static function get($key, $default = "") {
+	$key = strtoupper(trim($key)); if (! defined($key)) return $default;
+	return constant($key);
+}
+
+public static function getData($sec = "user") {
 	$out = get_defined_constants(true); if ($sec)
 	$out = $out[$sec]; ksort($out);
 
-	$out["DB_FILE"]  = "*****"; // hide passwords
+	$out["DB_FILE"]  = "*****"; // hide critical info
 	$out["DB_PASS"]  = "*****";
 	$out["CUR_PASS"] = "*****";
 	$out["SECRET"]   = "*****";
 
-	if (! DB_CON) { // remove db constants
-		unset($out["DB_ADMIN"]);
-		unset($out["DB_LOGIN"]);
-	}
-	if (MAILMODE == "none") { // remove mail constants
-		unset($out["MAILMODE"]);
-		unset($out["POSTMASTER"]);
-		unset($out["TESTMASTER"]);
-		unset($out["NOREPLY"]);
-	}
 	return $out;
 }
 
+// ***********************************************************
+// retrieving config vars
+// ***********************************************************
 public static function getCfg($idx, $filter = false) {
 	$out = VEC::get(self::$cfg, $idx); if ($filter)
 	$out = VEC::match($out, $filter);
@@ -181,18 +188,27 @@ public static function getVar($idx, $key, $default = "") {
 	return VEC::get($out, $key, $default);
 }
 
-protected static function getCaller($file) {
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private static function getCaller($file) {
 	$fil = basename($file);
 	if (STR::begins($fil, "x.")) return "index.php";
 	return $fil;
 }
 
+private static function getIndex() {
+	if (! STR::contains(APP_FILE, "x.edit")) return APP_FILE;
+	return STR::replace(APP_FILE, "x.edit", "index");
+}
+
 // ***********************************************************
-// retrieving constants
+// debugging
 // ***********************************************************
 public static function dump($idx = false) {
-	$arr = self::$cfg; if ($idx)
-	$arr = self::$cfg[$idx];
+#	$arr = self::$cfg; if ($idx)
+#	$arr = self::$cfg[$idx];
+	$arr = self::getData("user");
 
 	DBG::vector($arr);
 }

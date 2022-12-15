@@ -202,15 +202,6 @@ public function tellMe($value = true) {
 	$this->tell = (bool) $value;
 }
 
-protected function confirm($qry) {
-	if (! $this->ask) return true;
-
-	$cnf = new confirm();
-	$cnf->addSql($qry);
-	$cnf->show();
-	return $cnf->act();
-}
-
 protected function doMsg($msg, $prm = "") {
 	if ($this->tell) MSG::now($msg, $prm);
 }

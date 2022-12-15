@@ -12,12 +12,12 @@ function load(ref) {
 
 function toggleDiv(qid) {
 	rec = "q[" + qid + "]";
+	qid = qid * 1;
 
     obj = document.getElementsByClassName('mnu');
     cur = document.getElementById(rec);
     vgl = cur.getAttribute('data-par');
 
-	fst = (qid * 1 + 1);
     pos = cur.style.backgroundPositionY;
     vis = "hidden";
 
@@ -29,19 +29,20 @@ function toggleDiv(qid) {
         vis = "visible";
     }
 
-    for (i = fst; i < obj.length; i++) {
-        lev = obj[i].getAttribute('data-par'); if (lev <= vgl) break;
+    for (i = qid + 2; i < obj.length; i++) {
+		cur = obj[i];
+        lev = cur.getAttribute("data-par"); if (lev <= vgl) break;
 
      // whether closed or opened: subfolders will always be shown as closed
-		obj[i].style = "background-position-y: top;";
+		cur.style = "background-position-y: top;";
 
         if ((lev == (vgl * 1 + 1)) && (vis == "visible")) {
 		 // first grade sub level will be shown
-			obj[i].style.display = "block";
+			cur.style.display = "block";
         }
         else {
 		 // deeper levels will be closed
-			obj[i].style.display = "none";
+			cur.style.display = "none";
         }
     }
 }

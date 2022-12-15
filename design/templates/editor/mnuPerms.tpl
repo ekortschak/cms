@@ -92,5 +92,5 @@ from accessing that folder or any subfoder therof.</p>
 
 <h4>Info</h4>
 <p>Benutzer werden in <dfn>config/users.ini</dfn> definiert.
-<p>Sobald in einem Ordner einige Benutzer "Zugang" erhalten, sind alle anderen von diesem Ordner und
+<p>Sobald in einem Ordner einzelne Benutzer "Zugang" erhalten, sind alle anderen von diesem Ordner und
 allen seinen Unterordnern automatisch ausgeschlossen.</p>

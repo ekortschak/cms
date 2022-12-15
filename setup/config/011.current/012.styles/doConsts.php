@@ -5,11 +5,11 @@ $dir = "design/layout";
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropbox.php");
+incCls("menus/localMenu.php");
 
-$box = new dbox();
+$box = new localMenu();
 $fil = $box->files($dir, "Layout", "default.ini");
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 // ***********************************************************
 // read and write data
@@ -17,8 +17,7 @@ $xxx = $box->show("menu");
 incCls("editor/iniMgr.php");
 
 $ini = new iniMgr("design/config/css.dims.ini");
-$ini->read($fil);
-$ini->save($fil);
+$ini->update($fil);
 $ini->show();
 
 ?>

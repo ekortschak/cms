@@ -12,6 +12,8 @@ incCls("dbase/DBS.php");
 
 */
 
+incCls("dbase/dbInfo.php");
+
 DBS::init();
 
 // ***********************************************************
@@ -104,6 +106,21 @@ public static function getGroups($usr = CUR_USER)  {
 	return implode(",", $out);
 }
 
+// ***********************************************************
+// string functions
+// ***********************************************************
+public static function secure($str) {
+	$str = str_replace('"', "<dqot>", $str);
+	$str = str_replace("'", "<sqot>", $str);
+	$str = str_replace(";", "<scol>", $str);
+	return $str;
+}
+public static function restore($str) {
+	$str = str_replace("<dqot>", '"', $str);
+	$str = str_replace("<sqot>", "'", $str);
+	$str = str_replace("<scol>", ";", $str);
+	return $str;
+}
 
 // ***********************************************************
 } // END OF CLASS

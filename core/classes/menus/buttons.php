@@ -34,8 +34,8 @@ class buttons extends tpl {
 	private $dat = array();
 	private $fls = array();
 	private $dir = "";
-	private $own = "";
-	private $std = "";
+	private $own = ""; // selected button
+	private $std = ""; // default button
 
 function __construct($owner, $std, $dir) {
 	$this->own = "btn.$owner";
@@ -44,6 +44,7 @@ function __construct($owner, $std, $dir) {
 
 	$this->read("design/templates/menus/buttons.tpl");
 
+	OID::set($this->oid, "sfx", $owner);
 	ENV::setIf($this->own, $std);
 }
 
@@ -76,6 +77,13 @@ public function add($qid, $file, $ini = "") {
 	$this->fls[$qid] = $inc;
 }
 
+public function addSpace($num = 5) {
+	$qid = uniqid();
+	$this->dat[$qid] = str_repeat("&nbsp ", $num);
+#	$this->dat[$qid] = "</div><div>";
+	$this->fls[$qid] = false;
+}
+
 // ***********************************************************
 // display buttons
 // ***********************************************************
@@ -85,22 +93,25 @@ public function show($sec = "main") {
 	echo parent::gc($sec);
 }
 
+public function act() {
+	return ENV::get($this->own, $this->std);
+}
+
 // ***********************************************************
 // show file
 // ***********************************************************
 public function showContent() {
 	$sel = ENV::get($this->own, $this->std);
-	$fil = VEC::get($this->fls, $sel);
+	$inc = VEC::get($this->fls, $sel);
 
-	if (! $fil) return $this->show("wrong.btn");
-	include_once($fil);
+	if (! $inc) return $this->show("wrong.btn");
+	include_once($inc);
 }
 
 public function getFile() {
 	$sel = ENV::get($this->own, $this->std);
 	$out = VEC::get($this->fls, $sel);
-	$out = FSO::clearRoot($out);
-	$out = APP::file($out);;
+	$out = APP::file($out);
 	return $out;
 }
 
@@ -108,21 +119,24 @@ public function getFile() {
 // create missing files
 // ***********************************************************
 private function chkPhp($qid, $php) {
-	if (is_file($php)) return $php; $dir = $this->dir;
+	$dir = APP::relPath($this->dir);
 
-	$fil = "$dir/$php.php"; if (is_file($fil)) return $fil;
-	$fil = "$dir/$php.htm"; if (is_file($fil)) return $fil;
+	if (is_file($php)) return $php; $fil = FSO::join($dir, "$php.php");
+	if (is_file($fil)) return $fil; $fil = APP::file($fil);
+	if (is_file($fil)) return $fil; $fil = FSO::join($dir, "$php.htm");
+	if (is_file($fil)) return $fil; $fil = APP::file($fil);
+	if (is_file($fil)) return $fil;
 
 	APP::write($fil, "$qid\n\n<?php echo NV; ?>");
 }
 
 private function chkIni($qid, $ini) {
-	if (is_file($ini)) return $ini; $fil = FSO::join($this->dir, "$ini.ini");
+	$dir = APP::relPath($this->dir);
+
+	if (is_file($ini)) return $ini; $fil = FSO::join($dir, "$ini.ini");
+	if (is_file($fil)) return $fil; $fil = APP::file($fil);
 	if (is_file($fil)) return $fil; $glb = APP::file("design/buttons/$ini.ini");
 	if (is_file($glb)) return $glb;
-
-	$dir = $this->dir;
-	$fil = "$dir/$ini.ini"; if (is_file($fil)) return $fil;
 
 	FSO::copy("design/config/button.ini", $fil);
 }

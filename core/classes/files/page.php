@@ -22,7 +22,7 @@ incCls("files/iniTab.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class page extends tpl {
-	private $blk = array();	// array of blocks defined by modules/*/main.php
+	private $mod = array();	// array of modules called by layout and defined by modules/*/main.php
 	private $dir = "core/modules";
 
 function __construct() {
@@ -41,19 +41,18 @@ public function read($tpl = "design/layout/LAYOUT/view.tpl") {
 // handling page modules
 // ***********************************************************
 public function setModules() {
-	$arr = $this->getModules();
+	$arr = $this->getModules(); asort($arr);
 
 	foreach ($arr as $mod => $sidx) {
 		$ful = FSO::join($this->dir, $mod, "main.php");
 		$ful = APP::file($ful);
-		$this->blk[$mod] = $ful;
+		$this->mod[$mod] = $ful;
 	}
 }
 
 private function getModules() {
 	$tpl = parent::gc();
 	$out = STR::find($tpl, "<!MOD:", "!>");
-	asort($out);
 	return $out;
 }
 
@@ -75,13 +74,13 @@ public function gc($sec = "main") {
     $htm = $this->getSection($sec); if (! $htm) return "";
 	$xxx = $this->set("pginfo", $this->getHist());
 
-#LOG::lapse("begin modules");
+# LOG::lapse("begin modules");
 
-	foreach ($this->blk as $key => $fil) { // fill in blocks
+	foreach ($this->mod as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
 		$val = APP::getBlock($fil);
 
-#LOG::lapse("mod $key");
+# LOG::lapse("mod $key");
 
 		$htm = str_ireplace($mod, "$val\n", $htm);
 	}
@@ -90,7 +89,7 @@ public function gc($sec = "main") {
 	$htm = $this->solveLinks($htm, 'href="');
 	$htm = $this->solveLinks($htm, "href='");
 
-LOG::total();
+# LOG::total();
 
 	$htm = $this->cleanChars($htm);
 	return STR::dropSpaces($htm);
@@ -112,6 +111,8 @@ private function solveLinks($htm, $sep) {
 
 private function cleanChars($code) {
 	if (CUR_LANG != "de") return $code;
+
+	$code = STR::replace($code, "(CR)", "&copy;");
 
 	$fnd = array(
 		"ä" => "&auml;", "Ä" => "&Auml;", "ß" => "&szlig;",

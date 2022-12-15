@@ -4,6 +4,7 @@ incCls("input/selector.php");
 
 $sel = new selector();
 $dir = $sel->input("prj.new", "project1");
+$xxx = $sel->info("prj.tpl", APP_NAME);
 $act = $sel->show();
 
 if (! $act) return;

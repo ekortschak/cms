@@ -20,11 +20,12 @@ function __construct() {
 // ***********************************************************
 // adding filters
 // ***********************************************************
-public function add($inf, $fxs, $val) {
+public function add($inf, $val) {
 	$tit = VEC::get($inf, "head", "?");
 	$typ = VEC::get($inf, "dtype");
 	$fnm = VEC::get($inf, "fname", "?");
-	$ref = VEC::get($inf, "vals"); if ($ref) $typ = "combo";
+	$ref = VEC::get($inf, "vals"); if ($ref) $typ = "cmb";
+	$fxs = VEC::get($inf, "perms");
 	$out = false;
 
 	$typ = $this->getType($typ, $fxs); if (! $typ) return;

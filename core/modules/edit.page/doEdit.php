@@ -2,45 +2,31 @@
 
 incCls("menus/qikScript.php");
 
-// ***********************************************************
-// show toolbar - if needed
-// ***********************************************************
-if ($bar) {
-	$snp = new ini("config/snips.ini");
-	$arr = $snp->getValues("html");
-	$arr = array_flip($arr);
+$snp = new ini("config/snips.ini");
+$arr = $snp->getValues("html");
+$arr = array_flip($arr);
 
-	$box = new qikScript();
-	$xxx = $box->getCode("snip", $arr);
-	$snp = $box->gc("combo");
-
-	$tpl = new tpl();
-	$tpl->read("design/templates/editor/toolbar.tpl");
-	$tpl->set("snips", $snp);
-	$tpl->set("file", $fil);
-	$tpl->set("path", APP::tempDir("curedit"));
-	$tpl->show("$bar.edit");
-}
+$htm = "";
 
 // ***********************************************************
-// show editor
+// toolbar code snips - if needed
 // ***********************************************************
-$tpl = new tpl();
-$tpl->read("design/templates/editor/genEdit.tpl");
-$tpl->set("file", FSO::clearRoot($fil));
+$box = new qikScript();
+$xxx = $box->getCode("snip", $arr);
+$snp = $box->gc();
 
+// ***********************************************************
+// editable content
+// ***********************************************************
 switch ($sec) {
 	case "code":
-		$tpl->set("content", APP::gc($fil)); break;
+		$htm = APP::gc($fil); break;
 
 	case "ck4": case "ck5":
 	case "text":
 		$htm = APP::read($fil);
-		$tpl->set("content", $htm); break;
 
-// ***********************************************************
-	case "html": // prepare for editor
-// ***********************************************************
+	case "html": // clean up code
 		$htm = APP::read($fil);
 		$htm = PRG::replace($htm, "<\?php(\s*?)(\S+)", "<php>$2");
 		$htm = PRG::replace($htm, "(\s*?)\?>", "</php>");
@@ -55,41 +41,30 @@ switch ($sec) {
 		$htm = "¶".$htm."¶";
 
 		$htm = PRG::replace($htm, "<br></p>", "</p>");
+		$htm = PRG::replace($htm, "<br></h([1-9]?)>", "</h$1>");
 		$htm = PRG::replace($htm, "<p>(\s*?)</p>", "");
 		$htm = PRG::replace($htm, "¶(\s*)¶", "¶");
 		$htm = PRG::replace($htm, "¶(\s*)¶", "¶");
 
-		$rws = substr_count($htm, "\n") + 5;
-		$rws = CHK::range($rws, 35, 7);
-
-		$tpl->set("rows", $rws);
-		$tpl->set("content", $htm); break;
-
-// ***********************************************************
-	case "pic":
-// ***********************************************************
-		$ini = new ini(dirname($fil));
-		$uid = $ini->getUID();
-		$tpl->set("title", $uid);
-
-		if (DB_MODE == "none") break;
-		incCls("dbase/recEdit.php");
-
-		$md5 = md5($fil);
-
-		$dbe = new recEdit(NV, "copyright");
-		$dbe->findRec("md5='$md5'");
-		$dbe->setProp("md5", "fstd", $md5);
-		$dbe->setProp("owner", "fstd", CUR_USER);
-		$dbe->setProp("holder", "fstd", "Glaube ist mehr");
-		$dbe->setProp("source", "fstd", "glaubeistmehr.at");
-		$dbe->setProp("perms", "fstd", "free");
-		$dbe->setProp("verified", "fstd", 1);
-		$dbe->show();
-		break;
+		if (! STR::ends($htm, "¶")) $htm.= "¶";
 }
+
 // ***********************************************************
-$tpl->show($sec);
+// required size
 // ***********************************************************
+$rws = substr_count($htm, "\n") + 5;
+$rws = CHK::range($rws, 35, 7);
+
+// ***********************************************************
+// show editor
+// ***********************************************************
+$tpl = new tpl();
+$tpl->read("design/templates/editor/genEdit.$sec.tpl");
+$tpl->set("file", APP::relPath($fil));
+$tpl->set("path", APP::tempDir("curedit"));
+$tpl->set("snips", $snp);
+$tpl->set("rows", $rws);
+$tpl->set("content", $htm);
+$tpl->show();
 
 ?>

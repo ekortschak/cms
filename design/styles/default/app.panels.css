@@ -36,7 +36,7 @@ body.print {
 #	overflow: visible;
 }
 .conToc  { padding: 15px 15px 7px; }
-.conDeco { padding:  0px 35px 7px; }
+.conOpts { padding:  0px 35px 7px; }
 
 /* ******************************************************** */
 /* panels */
@@ -84,7 +84,7 @@ body.print {
 	color: FC_BODY;
     background: BC_BODY;
 }
-.moddeco {
+.modopts {
 	z-index: 1;
 	overflow: auto;
 	position: fixed;
@@ -93,6 +93,6 @@ body.print {
     width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
     min-width: 300px;
 
-	color: FC_DECO;
-    background: BC_DECO url("CMS_URL/img/deco/pborder.png") repeat-y;
+	color: FC_OPTS;
+    background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 }

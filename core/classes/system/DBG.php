@@ -30,13 +30,6 @@ function dbght($msg, $info = "htm") { // show html code
 function dbgpi($msg, $info = "path") { // show path info
 	DBG::path($msg, $info);
 }
-function dbgOID($oid = NV) { // values passed from current form
-	DBG::oidVals($oid);
-}
-function dbgSVars() {
-	DBG::vector($_SESSION[APP_IDX]);
-}
-
 function logx($msg = "hier", $info = "dbg") {
 	DBG::text($msg, $info);
 }
@@ -95,11 +88,6 @@ public static function list($arr, $info) {
 		echo "[$key] = $val\n";
 	}
 	echo "</div>";
-}
-
-
-public static function oidVals() {
-	self::vector(ENV::oidVals());
 }
 
 // ***********************************************************

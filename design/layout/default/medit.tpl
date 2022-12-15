@@ -4,7 +4,7 @@ design/layout/LAYOUT/main.tpl
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
-<div id="viewport" class="container">
+<div class="container" id="viewport">
 <!MOD:msgs!>
 <!MOD:edit.menu!>
 </div>

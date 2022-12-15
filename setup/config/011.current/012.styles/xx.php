@@ -9,7 +9,7 @@ $nav->add("P", "doPreview");
 $nav->add("K", "doConsts");
 $nav->add("C", "doColors");
 $nav->add("F", "doFiles");
-$nav->add("S", "doCSS");
+$nav->add("S", "doStatic");
 $nav->show();
 
 $nav->showContent();

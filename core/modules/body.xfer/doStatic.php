@@ -8,11 +8,13 @@ $dir = $xfm->getDir();
 $idx = $xfm->isPage();
 
 if ($idx) {
-	$url = FSO::clearRoot($idx);
-	echo "<hr><a href='$url' target='static'>Show existing static file(s)</a><hr>";
+	$url = APP::relPath($idx);
+	$msg = DIC::get("static.show");
+	echo "<hr><a href='$url' target='static'>$msg</a><hr>";
 }
 else {
-	echo "<hr>No static files existing yet<hr>";
+	$msg = DIC::get("static.none");
+	echo "<hr>$msg<hr>";
 }
 
 // ***********************************************************
@@ -30,15 +32,16 @@ $qik = new qikLink();
 $dbg = $qik->getVal("opt.debug", 1);
 $prv = $qik->gc();
 
-$frm = DIC::get("from");
 $dst = $xfm->getDir();
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
+$msg = DIC::get("static.create");
+
 $cnf = new confirm();
-$cnf->head("Create static files");
-$cnf->add("$frm $dir");
+$cnf->head($msg);
+$cnf->dic("from", $dir);
 $cnf->add("&rarr; $dst");
 $cnf->add("<hr>");
 $cnf->add($prv);

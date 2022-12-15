@@ -22,9 +22,9 @@ $stp = array("0.05" => "  5%", "0.075" => "  7%", "0.1" => "10%", "0.15" => "15%
 
 $sel = new selector();
 $col = $sel->combo("color.names", $col);
-$mds = $sel->combo("Fixed Item", $mds);
+$mds = $sel->combo("color.fixed", $mds);
 $sat = $sel->range("color.chroma", 5, 0, 10) / 10;
-$stp = $sel->combo("Step", $stp, "0.15");
+$stp = $sel->combo("color.step", $stp, "0.15");
 $sel->show();
 
 // ***********************************************************

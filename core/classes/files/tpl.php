@@ -46,14 +46,18 @@ public function read($file) {
 // ***********************************************************
 // handling sections
 // ***********************************************************
+public function clearSec($sec) { // wipe section content
+	$this->setSec($sec);
+}
 public function setSec($sec, $text = "") { // set section content
 	$sec = $this->norm($sec);
 	$this->sec[$sec] = trim($text);
 }
 
 public function copy($sec, $dest) { // copy sections
-	if (! $this->isSec($sec)) return;
-	$this->setSec($dest, $this->sec[$sec]);
+	$sec = $this->norm($sec); if (! $this->isSec($sec)) return;
+	$txt = $this->getSec($sec);
+	$this->setSec($dest, $txt);
 }
 public function substitute($sec, $src) { // replace sections
 	$this->copy($src, $sec);
@@ -61,11 +65,13 @@ public function substitute($sec, $src) { // replace sections
 
 // ***********************************************************
 public function getSecs($pfx = "") {
+	$pfx = $this->norm($pfx);
+
 	if (! $pfx) {
 		$out = array_keys($this->sec);
 		return array_combine($out, $out);
 	}
-	$arr = $this->sec; $out = array();
+	$out = array();
 
 	foreach ($this->sec as $sec => $txt) {
 		if (STR::begins($sec, $pfx)) $out[$sec] = $sec;
@@ -75,16 +81,16 @@ public function getSecs($pfx = "") {
 
 // ***********************************************************
 public function isSec($sec) {
-	$sec = $this->norm($sec); if (! $sec) return false;
-	return (isset($this->sec[$sec]));
+	$sec = $this->norm($sec);
+	return VEC::isKey($this->sec, $sec);
 }
 
 // ***********************************************************
 public function getSection($sec = "main") {
     $out = $this->getSec($sec); if (! $out) return "";
     $out = $this->insVars($out, false);
-    $out = DIC::xlate($out);
     $out = $this->insSecs($out, $sec);
+    $out = DIC::xlate($out);
 	return $out;
 }
 
@@ -93,15 +99,15 @@ protected function getSec($sec) {
 	$out = $this->getLangSec($sec); if (! $out) return "";
 
 	$out = STR::before($out, "<nolf>");
-	$out = str_replace("<dolf>", "\n", $out);
+	$out = STR::replace($out, "<dolf>", "\n");
 	return $out;
 }
 
-protected function getLangSec($sec) {
+private function getLangSec($sec) {
 	$out = VEC::get($this->sec, $sec.".".CUR_LANG); if ($out) return $out;
 	$out = VEC::get($this->sec, $sec.".".GEN_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec.".xx"); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec); if ($out) return $out;
+	$out = VEC::get($this->sec, $sec.".xx");        if ($out) return $out;
+	$out = VEC::get($this->sec, $sec);              if ($out) return $out;
 	return false;
 }
 
@@ -110,9 +116,9 @@ private function insSecs($out, $sec) {
 	$arr = STR::find($out, "<!SEC:", "!>");
 
 	foreach ($arr as $key) {
-        if ($key == $sec) continue; // prevent endless loops
-
+		$key = $this->norm($key); if ($key == $sec) continue; // prevent endless loops
         $val = $this->getSection($key);
+
 		$out = str_ireplace("<!SEC:$key!>.lang", "$val.de", $out);
 		$out = str_ireplace("<!SEC:$key!>", $val, $out);
 	}
@@ -122,7 +128,7 @@ private function insSecs($out, $sec) {
 // handling variables
 // ***********************************************************
 public function setVar($var, $val) { // suppress section if no content
-	$val = trim($val); if (! $val) $this->setSec($var, "");
+	$val = trim($val); if (! $val) $this->clearSec($var);
 	else $this->set($var, $val);
 }
 
@@ -136,23 +142,26 @@ private function insDics($txt) {
 // ***********************************************************
 // output
 // ***********************************************************
-public function showCond($sec, $text) {
-	if (! $text) return; $this->set($sec, $text);
-	$this->show($sec);
-}
-
 public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
 	$fil = end($this->hst);
 
-	$out = "<!-- $fil -->\n";;
+	$out = "<!-- $fil -->\n";
 #	$out.= $this->getHist(); // debug mode only
 	$out.= $this->getSection($sec);
 
 	if ($this->isSec($sec)) return $out;
 	MSG::add("sec.unknown", "$fil &rarr; $sec");
+#	ERR::trace();
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function norm($sec) {
+	return STR::norm($sec, true);
 }
 
 // ***********************************************************
@@ -170,13 +179,6 @@ public function getHist() {
 	$this->set("qid", uniqid());
 	$this->set("items", $out);
 	return $this->getSection("history");
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-protected function norm($sec) {
-	return strtolower(STR::norm($sec));
 }
 
 // ***********************************************************

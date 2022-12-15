@@ -1,10 +1,15 @@
-7[include]
+[include]
 design/layout/LAYOUT/main.tpl
+
+[register]
+core/scripts/inline.js
+core/scripts/keyEvents.js
+
 
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
-<div id="scView" class="container">
+<div class="container" id="scView">
 <!MOD:msgs!>
 <!MOD:edit.page!>
 </div>

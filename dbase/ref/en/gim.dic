@@ -1,0 +1,6 @@
+# to avoid conflicts with other dictionary entries
+# all entries must start with "ref."
+
+[dic.en]
+ref.continents = EU:=Europe; AF:=Africa; AM:=America; AS:=Asia; AU:=Australia
+ref.cr_grant = ?:=unconfirmed; free:=free to use for everyone; priv:=free for non commercial use; grant:=granted with courtesy;deny:=deny usage

@@ -1,4 +1,6 @@
-wähle ein thema ... = Wähle ein thema ...*
-
-no abstract available ... = No abstract available ...*
-
+[dic.de]
+act.show = Anzeigen
+tpc.desc = Abstrakt
+tpc.list = Themen
+tpc.nodesc = No abstract available ...
+tpc.select = Wähle ein thema ...

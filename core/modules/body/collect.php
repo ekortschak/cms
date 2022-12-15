@@ -4,6 +4,7 @@
 
 $loc = PFS::getLoc();
 $arr = APP::folders($loc);
+$sel = ENV::getParm("coll");
 $lst = array();
 
 if (count($arr) < 1) {
@@ -25,13 +26,13 @@ incCls("menus/dropnav.php");
 // ***********************************************************
 $box = new dropnav();
 $box->setSpaces(0, 0);
-$dir = $box->getKey("coll", $lst);
+$dir = $box->getKey("coll", $lst, $sel);
 $tit = $box->decode("coll", $dir);
 $xxx = $box->show();
 
 $pic = APP::files($dir, "png,jpg,gif");
 $pic = basename(key($pic));
-$dir = FSO::clearRoot($dir);
+$dir = APP::relPath($dir);
 $pic = FSO::join($dir, $pic);
 
 // ***********************************************************
@@ -41,7 +42,7 @@ $tpl = new tpl();
 $tpl->read("design/templates/modules/collect.tpl");
 
 if (! is_file($pic)) {
-	$tpl->setSec("pic", "");
+	$tpl->clearSec("pic");
 }
 $tpl->set("head", $tit);
 $tpl->set("pic", $pic);

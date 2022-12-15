@@ -8,28 +8,29 @@ err = Hinweis
 
 
 [main]
-<div>
-<err class="dropdown">E<!VAR:errNum!> _
-<div class="dropdown-content err">
-	<div class="err"><!VAR:errMsg!></div>
-	<div class="err1"><b><!VAR:line!></b> <!VAR:file!></div>
-	<div><!VAR:items!></div>
-</div>
-</err>
+<div><err class="dropdown">E<!VAR:errNum!> _
+<div class="dropdown-content err"> _
+	<div class="err"><!VAR:errMsg!></div> _
+	<div class="err1"><b><!VAR:line!></b> <!VAR:file!></div> _
+	<div><!VAR:items!></div> _
+</div> _
+</err> _
 </div>
 
 # ***********************************************************
 [trace]
 # ***********************************************************
-<div class="err1">
+<div class="err1" style="overflow: auto;">
 <!VAR:items!>
 </div>
 
 [short]
-<b><!VAR:line!></b> <!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)<br>
+<div style="white-space: nowrap;"> _
+<b><!VAR:line!></b> <!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>) _
+</div> _
 
 [item]
-<div>
+<div style="white-space: nowrap;">
 <b><!VAR:line!></b> <!VAR:file!><br>
 &nbsp;<!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)
 </div>
