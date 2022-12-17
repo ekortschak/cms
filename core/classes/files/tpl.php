@@ -33,13 +33,14 @@ function __construct() {
 // handling the template
 // ***********************************************************
 public function read($file) {
-	$this->set("file", $file);
+	$fil = APP::file($file);
 
 	$cod = new code();
-	$cod->read($file);
+	$cod->read($fil);
 
 	$this->hst = array_merge($this->sec, $cod->getHist());
 	$this->sec = array_merge($this->sec, $cod->getSecs());
+	$this->set("file", $fil);
 	$this->merge($cod->getVars());
 }
 

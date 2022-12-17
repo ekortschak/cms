@@ -19,12 +19,11 @@ $snp = $box->gc();
 // editable content
 // ***********************************************************
 switch ($sec) {
-	case "code":
-		$htm = APP::gc($fil); break;
+	case "xedit":
+		$htm = htmlspecialchars(APP::read($fil)); break;
 
-	case "ck4": case "ck5":
-	case "text":
-		$htm = APP::read($fil);
+	case "code": case "xhtml":
+		$htm = APP::read($fil); break;
 
 	case "html": // clean up code
 		$htm = APP::read($fil);
@@ -47,12 +46,17 @@ switch ($sec) {
 		$htm = PRG::replace($htm, "¶(\s*)¶", "¶");
 
 		if (! STR::ends($htm, "¶")) $htm.= "¶";
+		break;
+
+	case "ck4": case "ck5":
+	case "text":
+		$htm = APP::read($fil);
 }
 
 // ***********************************************************
 // required size
 // ***********************************************************
-$rws = substr_count($htm, "\n") + 5;
+$rws = substr_count($htm, "\n") + 3;
 $rws = CHK::range($rws, 35, 7);
 
 // ***********************************************************

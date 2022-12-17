@@ -16,16 +16,6 @@ apply = Speichern
 
 
 # ***********************************************************
-[main]
-# ***********************************************************
-<div class="toolbar flex">
-	<div><!SEC:toolbar!></div>
-	<div><!SEC:item.view!></div>
-</div>
-
-<!SEC:edit!>
-
-# ***********************************************************
 [submit]
 # ***********************************************************
 	<div style="text-align: right; margin: 5px 0px;">
@@ -40,4 +30,3 @@ apply = Speichern
 			<img src="core/icons/buttons/save.png" />
 		</button>
 	</div>
-

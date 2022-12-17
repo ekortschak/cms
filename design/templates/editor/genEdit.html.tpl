@@ -35,7 +35,7 @@ rows = 40
 		<!VAR:content!>
 	</div>
 
-	<div id="curEdit" class="inedit"> _
+	<div id="curEdit" class="hidden"> _
 		<textarea id="txtEdit" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false" onkeydown="doStore();"></textarea>
 	</div>
 

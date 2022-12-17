@@ -22,7 +22,6 @@ rows = 40
 		<!SEC:item.view!>
 	</div>
 </div>
-</div>
 
 # ***********************************************************
 [main]
@@ -30,8 +29,9 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-	<textarea id="txtEdit" tabindex=0 name="content" class="tarea" rows="<!VAR:rows!>" _
-		spellcheck="false"><!VAR:content!></textarea>
+<textarea id="txtEdit" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false" onkeydown="doStore();">_
+<!VAR:content!>_
+</textarea>
 <!SEC:submit!>
 </form>
 

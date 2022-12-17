@@ -25,7 +25,7 @@ if (is_file("x.edit.php")) {
 	if (! VEC::get($cfg, "eopts.debug")) $tpl->clearSec("debug");
 
 	if (! IS_LOCAL) {
-#		$tpl->clearSec("xfer");
+		$tpl->clearSec("xfer");
 		$tpl->clearSec("debug");
 	}
 	$tpl->show("edit");
