@@ -101,6 +101,8 @@ protected function setInfo($info = "") {
 // output
 // ***********************************************************
 public function getFormat() {
+	$typ = $this->getType();
+	if ($typ == "hid") return "hidden";
 	return "rows";
 }
 
@@ -137,10 +139,11 @@ private function xlate($cap, $lang = CUR_LANG) {
 // auxilliary methods
 // ***********************************************************
 public function setType($value) {
-	$this->set("sec", $value);
+	$this->set("typ", $value);
 }
 public function getType() {
-	$rgt = $this->get("perms");
+	$typ = $this->get("typ");
+	$rgt = $this->get("perms"); if ($typ == "hid") $rgt = "h";
 
 	if (CUR_DEST != "screen") {
 		if ($rgt == "h") return "skip";
@@ -148,7 +151,7 @@ public function getType() {
 	}
 	if ($rgt == "h") return "hid";
 	if ($rgt == "r") return "ron";
-	if ($rgt == "w") return $this->get("sec");
+	if ($rgt == "w") return $typ;
 	return "noxs";
 }
 

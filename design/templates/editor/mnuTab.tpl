@@ -1,6 +1,6 @@
 [dic.de]
 new.tab  = Tab hinzufügen
-new.png  = Neue Tab-Bilder erstellen
+new.png  = Neue Tab-Bilder
 del.png  = Tab-Bilder entfernen
 node.new = z.B: pages/home
 create   = Erstellen
@@ -8,13 +8,13 @@ overwrite = Überschreibe bestehende Bilder
 allsets  = Überprüfe alle TabSets
 options  = Optionen
 cur.pic  = Aktuelles Bild
-no.file  = Kein Bild vorhanden
+no.file  = Keine Bilder vorhanden
 cur.file = Dateiname
 preview  = Vorschau
 
 [dic]
 new.tab  = Add a new tab
-new.png  = Create vTab-pics
+new.png  = vTab-pics
 del.png  = Delete vTab-pics
 node.new = e.g. pages/home
 create   = Add
@@ -44,33 +44,18 @@ preview  = Preview
 # tab to png
 # ***********************************************************
 [add.png]
-<h4><!DIC:new.png!></h4>
+<div><!DIC:no.file!></div>
 
-<form action="?" method="post">
-	<input type="hidden"   name="tab.name" value=<!VAR:tab!> />
-	<input type="hidden"   name="tab.rep" value=0 />
-	<input type="checkbox" name="tab.rep" value=1 <!VAR:checked!> class="cb" />
-	<!DIC:overwrite!>
-	&emsp;
-	<input type="submit" name="tab.act" value="<!DIC:create!>" />
-</form>
+<hr>
+
+<div align="right">
+	<!DIC:new.png!>
+	<a href="?tab.add=<!VAR:tab!>">
+		<button><!DIC:create!></button>
+	</a>
+</div>
 
 [del.png]
-<h4><!DIC:options!></h4>
-
-<table>
-	<tr>
-		<td width=175 style="vertical-align: middle;"><!DIC:del.png!></td>
-		<td>
-			<a href="?tab.drop=<!VAR:tab!>" onclick="return confirm('<!DIC:ask.sure!>');">
-				<dmbtn>BOOL_NO</dmbtn>
-			</a>
-		</td>
-	</tr>
-</table>
-
-[show.png]
-<h4><!DIC:cur.pic!></h4>
 <table>
 	<tr>
 		<td><img src="<!VAR:file!>" /></td>
@@ -78,9 +63,14 @@ preview  = Preview
 	</tr>
 </table>
 
-[show.png.none]
-<h4><!DIC:preview!></h4>
-<p><!DIC:no.file!></p>
+<hr>
+
+<div align="right">
+	<!DIC:del.png!>
+	<a href="?tab.drop=<!VAR:tab!>" onclick="return confirm('<!DIC:ask.sure!>');">
+		<dmbtn>BOOL_NO</dmbtn>
+	</a>
+</div>
 
 # ***********************************************************
 # further info

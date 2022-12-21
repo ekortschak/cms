@@ -11,12 +11,12 @@ incCls("menus/dropIcon.php");
 
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class dropIcon extends dbox {
+class dropIcon extends dropBox {
 
 function __construct() {
 	parent::__construct();

@@ -2,6 +2,10 @@
 design/templates/editor/genEdit.tpl
 design/templates/editor/toolbar.tpl
 
+[register]
+core/scripts/keyEvents.js
+core/scripts/inline.js
+
 [vars]
 rows = 40
 
@@ -30,7 +34,8 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false" onfocus="this.className='hot';" _
+	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false" _
+		onfocus="this.className='hot';" _
 		onblur="this.className='cold';" onkeydown="doStore();">
 		<!VAR:content!>
 	</div>

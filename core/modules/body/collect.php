@@ -22,9 +22,9 @@ foreach ($arr as $dir => $itm) {
 }
 
 // ***********************************************************
-incCls("menus/dropnav.php");
+incCls("menus/dropNav.php");
 // ***********************************************************
-$box = new dropnav();
+$box = new dropNav();
 $box->setSpaces(0, 0);
 $dir = $box->getKey("coll", $lst, $sel);
 $tit = $box->decode("coll", $dir);

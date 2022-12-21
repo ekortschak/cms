@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("input/confirm.php");
 incCls("editor/iniWriter.php");
 
@@ -29,7 +29,7 @@ if (! $gps) {
 // ***********************************************************
 // show choices
 // ***********************************************************
-$box = new dbox();
+$box = new dropBox();
 $grp = $box->getKey("group", $gps); $acs = $ini->getKeys($grp);
 $arr = $ini->getValues($grp);
 $cnt = count($arr);

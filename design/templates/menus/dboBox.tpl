@@ -1,21 +1,21 @@
-[include]
-dropBox.tpl
-
 [vars]
-class = localmenu
+sep =
 
 
 # ***********************************************************
 [main] # multiple options with title
 # ***********************************************************
 <div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-	<div class="<!VAR:class!>">
+	<div class="localmenu">
 <!VAR:items!>
 	</div>
 </div>
 
 [main.box]
-<!SEC:menu.box!>
+<!VAR:uniq!><!VAR:sep!>
+<div class="dropdown"><!VAR:current!>&nbsp; ▾
+<!SEC:content!>
+</div> &emsp;
 
 [main.one]
-<!SEC:menu.one!>
+<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &emsp;

@@ -29,6 +29,10 @@ function __construct($pid) {
 // handling items
 // ***********************************************************
 public function setChoice($options) {
+	switch (count($options)) {
+		case 0: $this->setType("txt"); break;
+		case 1: $this->setType("ron"); break;
+	}
 	$this->vals = $options;
 }
 
@@ -47,19 +51,6 @@ private function findKey($key) {
 public function getKey() {
 	$val = $this->get("curVal");
 	return $this->findKey($val);
-}
-
-public function getType() {
-	if (CUR_DEST != "screen") return "txt";
-
-	$arr = $this->vals;
-	if (count($arr) < 1) return "txt";
-	if (count($arr) < 2) return "ron"; // lok ?
-
-	$rgt = $this->get("perms", "x");
-	if ($rgt == "w") return $this->get("sec");
-	if ($rgt == "r") return "ron";
-	return "noxs";
 }
 
 // ***********************************************************

@@ -61,11 +61,11 @@ select = Datei(en) wählen
 <!SEC:info!>
 
 [input.col]
-<input class="std" type="color" name="<!VAR:fname!>" value="<!VAR:curVal!>" />
+<input type="color" name="<!VAR:fname!>" value="<!VAR:curVal!>" />
 <!SEC:info!>
 
 [input.hid]
-# show nothing
+<input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>" />
 
 # ***********************************************************
 [input.tar]

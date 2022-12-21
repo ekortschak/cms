@@ -9,11 +9,11 @@ field = Feld
 range = Bereich
 
 [vars]
-qid = dropbox
 parm = ref
 type = button
 width = 125
 current = ???
+sep = :
 
 tspace = 0
 bspace = 3
@@ -67,10 +67,10 @@ bspace = 3
 </div>
 
 [menu.box]
-<!VAR:uniq!>:
+<!VAR:uniq!><!VAR:sep!>
 <div class="dropdown"><!VAR:current!>&nbsp; ▾
 <!SEC:content!>
 </div> &emsp;
 
 [menu.one]
-<!VAR:uniq!>: <!VAR:current!> &emsp;
+<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &emsp;

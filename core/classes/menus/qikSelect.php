@@ -11,12 +11,12 @@ incCls("menus/qikSelect.php");
 
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class qikSelect extends dbox {
+class qikSelect extends dropBox {
 
 function __construct() {
 	parent::__construct();

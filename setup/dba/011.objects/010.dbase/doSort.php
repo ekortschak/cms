@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/qikSelect.php");
+incCls("menus/dboBox.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -11,9 +11,11 @@ $mod = array(
 	"DESC" => "Descending"
 );
 
-$box = new qikSelect();
-$ret = $box->showDBObjs("BTF"); extract($ret);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$fld = $box->getField($dbs, $tbl);
+$xxx = $box->show();
 
 $mod = $box->getKey("sort.by", $mod);
 $xxx = $box->show();

@@ -11,6 +11,7 @@ $dbi = new dbInfo();
 $gps = $dbi->usrGroups(false); if (! $gps) $gps = "?";
 
 $box = new localMenu();
+$xxx = $box->set("sep", "");
 $dbs = $box->getKey("pic.dbase", $dbi->dbases());
 $grp = $box->getKey("ugroup", $gps);
 $xxx = $box->show();

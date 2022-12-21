@@ -29,7 +29,7 @@ class dbBasics extends sqlStmt {
 	protected $dbs = NV;
 	protected $tbl = "dummy";
 
-function __construct($dbase, $table) {
+function __construct($dbase, $table = "dummy") {
 	$ini = new ini("config/dbase.ini");
 	$this->dbs = $ini->get("dbase.file");
 	$this->usr = $ini->get("dbase.user");
@@ -101,11 +101,22 @@ public function query($filter = 1, $order = false) {
 
 
 // ***********************************************************
+public function getData($flt = 1) {
+	$xxx = $this->setFilter($flt); $out = array();
+	$dat = $this->getRecs(); if (! $dat) return "";
+
+	foreach ($dat as $num => $rec) {
+		$out[] = '"' . implode('";"', $rec) . '"' ;
+	}
+	return implode("\n", $out);
+}
+
 public function getRecs($stmt = "sel.sel", $mds = "a") {
 	if (! $this->con) return false;
 
 	$xxx = $this->setLimit(99);
 	$sql = $this->fetch($stmt);
+
 	return $this->dbo->fetch($sql, $mds);
 }
 public function get1st($stmt = "sel.sel", $mds = "a") {

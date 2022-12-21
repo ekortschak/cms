@@ -12,7 +12,7 @@ $snc->setDest($dest);
 $bkp->backup();
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("server/sync.php");
 
 // ***********************************************************
@@ -48,7 +48,7 @@ public function restore($version = NV) {
 	$vrs = $this->getBackups();
 	if (! $vrs) return MSG::now("restore.none");
 
-	$box = new dbox();
+	$box = new dropBox();
 	$dst = $box->getKey("as of", $vrs);
 	$vrs = $box->gc("seemless");
 

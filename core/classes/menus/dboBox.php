@@ -7,12 +7,13 @@ Used to create combo boxes containing links for immeadiate action
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("menus/qikScript.php");
+incCls("menus/dropBox.php");
 
-$cmb = new qikScript();
-$cmb->getKey($qid, $values, $selected);
-$cmb->getVal($qid, $values, $selected);
-$cmb->show();
+$box = new dropBox();
+$box->setSpaces($before, $after);
+$box->getKey($qid, $values, $selected);
+$box->getVal($qid, $values, $selected);
+$box->show();
 */
 
 incCls("menus/dropBox.php");
@@ -20,37 +21,29 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class qikScript extends dropBox {
+class dboBox extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/qikScript.tpl");
+    $this->read("design/templates/menus/dboBox.tpl");
 }
 
 // ***********************************************************
-// overruled methods
+// show db tables and fields
 // ***********************************************************
-protected function collect($type) {
-    $out = $tmp = "";
-
-    foreach ($this->data as $unq => $vls) { // boxes
-		$this->set("uniq", DIC::getPfx("unq", $unq));
-		extract ($vls);
-
-		foreach ($dat as $key => $val) { // links
-			$key = STR::replace($key, "\"", "'");
-
-			$this->set("value",   $key);
-			$this->set("caption", $val);
-
-			$tmp.= $this->getSection("link");
-		}
-		$this->set("links", $tmp);
-
-		$out.= $this->getSection();
-    }
-   	$this->reset();
-    return $out;
+public function getDbase() {
+	$arr = DBS::dbases();
+	return $this->getKey("pic.dbase", $arr);
+}
+public function getTable($dbs) {
+	$arr = DBS::tables($dbs);
+	return $this->getKey("pic.table", $arr);
+}
+public function getField($dbs, $tbl) {
+	$arr = DBS::fields($dbs, $tbl);
+	return $this->getKey("db.field", $arr);
+}
+public function getPriv() {
 }
 
 // ***********************************************************

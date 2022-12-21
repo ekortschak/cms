@@ -14,7 +14,7 @@ multi = Mehrfach-Auswahl möglich
 # ***********************************************************
 [main]
 # ***********************************************************
-<small><blue>Info: <!DIC:multi!></blue></small>
+#<small><blue><!DIC:multi!></blue></small>
 <div>
 <!VAR:items!>
 </div>

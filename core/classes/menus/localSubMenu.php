@@ -11,12 +11,12 @@ incCls("menus/localSubMenu.php");
 
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class localSubMenu extends dbox {
+class localSubMenu extends dropBox {
 
 function __construct() {
 	parent::__construct();

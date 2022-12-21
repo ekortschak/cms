@@ -244,7 +244,10 @@ protected function getNewer($src, $dst) {
 		$lst[$fso]["md5d"] = $md5;
 
 		$alf = $this->getAlpha($fso);
-		$this->ren[$alf]["dst"] = $fso;
+		$chk = VEC::get($this->ren, $alf); if (! $chk) continue;
+
+		if ($chk["src"] == $fso) unset($this->ren[$alf]);
+		else $this->ren[$alf]["dst"] = $fso;
 	}
 	foreach ($lst as $fso => $prp) { // check dates
 		$typs = VEC::get($prp, "typs", "x"); if ($typs == "h") continue;
@@ -317,11 +320,11 @@ protected function chkRename($arr) {
 		if ($typ != "d")     continue;
 		if ($src == $dst)    continue;
 
-		$chk = $this->destName($src); if (is_dir($chk)) continue;
+#		$chk = $this->destName($src); if (is_dir($chk)) continue;
 
 		if (isset($arr["mkd"])) $arr["mkd"] = VEC::purge($arr["mkd"], $src); // src = new name
-		if (isset($arr["rmd"])) $arr["rmd"] = VEC::purge($arr["rmd"], $dst); // dst = old name
 		if (isset($arr["cpf"])) $arr["cpf"] = VEC::purge($arr["cpf"], $src);
+		if (isset($arr["rmd"])) $arr["rmd"] = VEC::purge($arr["rmd"], $dst); // dst = old name
 		if (isset($arr["dpf"])) $arr["dpf"] = VEC::purge($arr["dpf"], $dst);
 
 		$arr["ren"][] = "$typ|$src|$dst";

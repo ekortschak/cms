@@ -11,9 +11,9 @@ $arr = FSO::filter($arr, $ext);
 krsort($arr);
 
 // ***********************************************************
-incCls("menus/dropnav.php");
+incCls("menus/dropNav.php");
 // ***********************************************************
-$box = new dropnav();
+$box = new dropNav();
 $fil = $box->getKey("file", $arr);
 $xxx = $box->show();
 

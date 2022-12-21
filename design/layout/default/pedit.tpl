@@ -1,10 +1,6 @@
 [include]
 design/layout/LAYOUT/main.tpl
 
-[register]
-core/scripts/inline.js
-core/scripts/keyEvents.js
-
 
 # ***********************************************************
 [body] <!-- body -->

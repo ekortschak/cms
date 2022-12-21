@@ -1,15 +1,16 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 incCls("editor/iniEdit.php");
 incCls("dbase/dbInfo.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$erg = $box->showDBObjs("BT"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->tblProps($tbl);

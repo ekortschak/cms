@@ -140,7 +140,7 @@ public function fldNull($typ) {
 
 // ***********************************************************
 public function fldPerms() {
-	return array("w" => "write", "r" => "read", "x" => "none");
+	return array("w" => "write", "r" => "read only", "x" => "none");
 }
 
 // ***********************************************************

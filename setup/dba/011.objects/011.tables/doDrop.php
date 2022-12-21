@@ -1,5 +1,6 @@
 <?php
 
+incCls("menus/dboBox.php");
 incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
@@ -11,10 +12,15 @@ $fnc = array(
 	"t_drop" => "DROP (remove table completely)"
 );
 
-$box = new qikSelect();
-$erg = $box->showDBObjs("BT"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$xxx = $box->show();
 
+// ***********************************************************
+HTM::tag("tbl.drop");
+// ***********************************************************
+$box = new qikSelect();
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();
 

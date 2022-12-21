@@ -7,8 +7,7 @@ design/templates/editor/genEdit.tpl
 # ***********************************************************
 <form id="inlineEdit" method="post" action="?">
 	<textarea id="txtEdit" name="content" id="editor"><!VAR:content!></textarea>
-	<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
-	<script src="core/scripts/ck5/ckeditor.js"></script>
+	<script src="CK5_URL/ckeditor.js"></script>
 
 <style>
 .ck-editor__editable_inline {

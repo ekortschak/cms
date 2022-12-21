@@ -100,6 +100,13 @@ public function addCombo($type, $uid, $vls, $sel = NV) {
 	return $this->inpDBox("selCombo", $type, $uid, $vls, $sel);
 }
 public function addMulti($type, $uid, $vls, $sel = NV) {
+	if ($sel == true) {
+		$sel = array();
+
+		foreach ($vls as $key => $val) {
+			$sel[$key] = true;
+		}
+	}
 	return $this->inpDBox("selMulti", $type, $uid, $vls, $sel);
 }
 

@@ -94,6 +94,10 @@ public static function tag($text, $tag = "h4") {
 	echo "$out\n";
 }
 
+public static function href($lnk, $cap) {
+	echo "<a href='$lnk'>$cap</a>";
+}
+
 public static function vspace($size) {
 	$siz = intval($size);
 	echo "<div style='margin-top: ".$siz."px;'></div>";

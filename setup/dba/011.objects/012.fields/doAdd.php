@@ -1,6 +1,7 @@
 <?php
 
 incCls("menus/qikSelect.php");
+incCls("menus/dboBox.php");
 incCls("input/selector.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
@@ -8,15 +9,19 @@ incCls("dbase/dbAlter.php");
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$ret = $box->showDBObjs("BTC"); extract($ret);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $tps = $dbi->fldTypes();
 
+// ***********************************************************
+HTM::tag("fld.create");
+// ***********************************************************
 $box = new qikSelect();
-$typ = $box->getKey("change.to", $tps);
+$typ = $box->getKey("fld.type", $tps);
 
 $nls = $dbi->fldNull($typ);
 $lns = $dbi->fldLen($typ);
@@ -44,8 +49,6 @@ $act = $sel->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-HTM::tag("fld.create");
-
 $ddl = new dbAlter($dbs, $tbl);
 $ddl->f_add($tbl, $fld, $typ, $len, $std, $nul);
 

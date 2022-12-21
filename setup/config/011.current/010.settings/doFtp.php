@@ -8,7 +8,7 @@ incCls("editor/iniMgr.php");
 $fil = "config/ftp.ini";
 incCls("server/ftp.php");
 
-HTM::cap($fil);
+HTM::cap("file = $fil", "small");
 
 $ini = new iniMgr("design/config/ftp.ini");
 $ini->update($fil);

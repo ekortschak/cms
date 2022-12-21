@@ -11,6 +11,7 @@ $dbi = new dbInfo();
 // show menu
 // ***********************************************************
 $box = new localMenu();
+$xxx = $box->set("sep", "");
 $dbs = $box->getKey("pic.dbase", $dbi->dbases());
 $xxx = $box->show();
 

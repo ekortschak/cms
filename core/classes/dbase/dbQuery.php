@@ -40,7 +40,7 @@ class dbQuery extends dbBasics {
 	private $vld; // data validator
 	protected $ask = true; // ask for confirmation
 
-function __construct($dbase, $table) {
+function __construct($dbase, $table = "dummy") {
 	parent::__construct($dbase, $table);
 
 	$this->setValidator($dbase, $table);

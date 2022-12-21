@@ -41,9 +41,10 @@ protected function exec($dbase, $tbl, $flt) { // recSel templates
 	$act = ENV::getPost("rec.act", false);      if (! $act) return;
 	$rec = OID::get($this->oid, "sel", "list"); if (! $rec) return;
 
+	$act = strtolower($act);
+
 	$fld = STR::before($act, "=>");
 	$new = STR::after($act, "=>");
-#	$new = strtolower($new);
 	$vls = array($fld => $new);
 
 	$dbq = new dbQuery($dbase, $tbl);

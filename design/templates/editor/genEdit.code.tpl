@@ -2,6 +2,11 @@
 design/templates/editor/genEdit.tpl
 design/templates/editor/toolbar.tpl
 
+[register]
+core/scripts/keyEvents.js
+core/scripts/inline.js
+
+
 # ***********************************************************
 [main]
 # ***********************************************************

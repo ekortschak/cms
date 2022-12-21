@@ -1,6 +1,5 @@
 [register]
-core/scripts/inline.js
-core/scripts/keys.js
+core/scripts/keyEvents.js
 
 [dic]
 conv = Save as

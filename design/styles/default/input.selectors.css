@@ -19,11 +19,11 @@
 .selHead {
 	white-space: nowrap;
 	padding: 2px 15px 3px 7px;
-	vertical-align: middle;
+#	vertical-align: middle;
 }
 .selData {
 	padding: 2px 0px 0px;
-	vertical-align: middle;
+#	vertical-align: middle;
 }
 
 /* ******************************************************** */

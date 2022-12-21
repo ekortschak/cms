@@ -34,7 +34,7 @@ public static function init() {
 
 // ***********************************************************
 private static function loadDbs() {
-	self::$dbs = new dbBasics(NV, "dummy");
+	self::$dbs = new dbBasics(NV);
 	self::$con = self::$dbs->getState();
 	return self::$con;
 }

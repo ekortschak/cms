@@ -3,16 +3,16 @@ in Vorbereitung ...
 <?php
 return;
 
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 incCls("dbase/dbAlter.php");
 incCls("input/selector.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$xxx = $box->show();
 
 $sel = new selector();
 $new = $sel->input("act.rename", $dbs."_old");

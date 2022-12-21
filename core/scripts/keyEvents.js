@@ -1,4 +1,6 @@
 function doTextKeys(e) {
+alert("text");
+return;
 	if (! e.ctrlKey) return;
 
 	switch (e.key) {
@@ -19,6 +21,8 @@ function doTextKeys(e) {
 
 
 function doHtmlKeys(e) {
+alert("html");
+return;
 	if (! e.ctrlKey) return;
 
 	switch (e.key) {
@@ -35,4 +39,8 @@ function doHtmlKeys(e) {
 
 	exSubmit();
 	return e;
+}
+
+
+function chkKey(e) {
 }

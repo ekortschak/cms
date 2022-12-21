@@ -1,15 +1,17 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 incCls("editor/iniEdit.php");
 incCls("dbase/dbInfo.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$ret = $box->showDBObjs("BTF", false); extract($ret);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$fld = $box->getField($dbs, $tbl);
+$xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->fldProps($tbl, $fld);
@@ -39,7 +41,8 @@ foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
 	$typ = $inf["dtype"];
 
-	$cap = VEC::get($dat, "head", $prp); $cap = VEC::get($dat, "head.$lng", $cap);
+	$cap = VEC::get($dat, "head", $prp);
+	$cap = VEC::get($dat, "head.$lng", $cap);
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
 
@@ -70,7 +73,6 @@ foreach (LNG::get() as $lng) {
 	$tit = VEC::get($inf, "head", $fld);
 	$tit = VEC::get($inf, "head.$lng", $tit);
 
-	$sel->setLang($lng);
 	$sel->input("head[$lng]", $tit);
 	$sel->setProp("title", "<img src='core/icons/flags/$lng.gif' class='flag' />");
 }

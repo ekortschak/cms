@@ -25,7 +25,7 @@ class dbAlter extends dbBasics {
 	protected $ask = true; // ask for confirmation
 	protected $tell = true;
 
-function __construct($dbase, $table) {
+function __construct($dbase, $table = "dummy") {
 	parent::__construct($dbase, $table);
 }
 
@@ -67,6 +67,12 @@ private function exDbs($stmt, $dbs) { // key => section.key
 // ***********************************************************
 // handling tables
 // ***********************************************************
+public function t_ddl($ddl) {
+	if (! $this->dbo->exec($ddl)) return false;
+	return true;
+}
+
+// ***********************************************************
 public function t_add($table) {
 	if (! $this->con) return $this->doMsg("no.connection");
 	if ($this->dbo->isTable($table)) return $this->doMsg("tbl.known",  $table);
@@ -76,7 +82,7 @@ public function t_add($table) {
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
 	return $this->dbo->exec($qry);
 }
-public function t_drop($table)  {
+public function t_drop($table) {
 	return $this->exTable("table.drop", $table);
 }
 public function t_trunc($table) {
@@ -173,7 +179,8 @@ private function exField($stmt, $tbl, $fld) {
 public function getDDL($table) {
 	$this->setTable($table);
 	$arr = $this->get1st("inf.ddl", "n"); if (! $arr) return false;
-	$ddl = strtok($ddl, "ENGINE=");
+	$ddl = $arr[1];
+	$ddl = STR::before($ddl, "ENGINE=");
 	return "$ddl;\n\n";
 }
 

@@ -148,7 +148,7 @@ private function setProps() {
 // ***********************************************************
 // graphic tabs
 // ***********************************************************
-private function pngDel() {
+private function pngDel() { // remove tab pics
 	$tab = ENV::getParm("tab.drop"); if (! $tab) return false;
 	$fil = FSO::join($tab, "tab.png");
 	$xxx = FSO::kill($fil);
@@ -160,14 +160,11 @@ private function pngDel() {
 	return true;
 }
 
-private function pngTab() {
-	$cmd = ENV::getPost("tab.act");	if (! $cmd) return false;
-	$tab = ENV::getPost("tab.name");
-	$rep = ENV::getPost("tab.rep");
-	$all = ENV::getPost("tab.all");
+private function pngTab() { // create tab pics
+	$tab = ENV::getParm("tab.add");	if (! $tab) return false;
 
 	foreach (LNG::get() as $lng) {
-		$this->pngMake($tab, $lng, $rep);
+		$this->pngMake($tab, $lng, true);
 	}
 	return true;
 }

@@ -61,18 +61,19 @@ public function input($uid, $value = "") {
 public function number($uid, $value = "") {
 	return $this->itm->addInput("num", $uid, $value);
 }
-public function hidden($key, $value) { // hidden values
-	return $this->itm->addInput("hid", $key, $value);
-}
 public function upload($uid) {
 	return $this->itm->addInput("upl", $uid);
 }
-
 public function email($uid, $value = "") {
 	return $this->itm->addInput("eml", $uid, $value);
 }
 public function pwd($uid) { // password - no value !
 	return $this->itm->addInput("pwd", $uid);
+}
+
+// ***********************************************************
+public function hidden($uid, $value) { // hidden values
+	return $this->itm->addInput("hid", $uid, $value);
 }
 
 // ***********************************************************

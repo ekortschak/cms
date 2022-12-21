@@ -14,9 +14,9 @@ foreach ($arr as $dir => $nam) {
 }
 
 // ***********************************************************
-incCls("menus/dropnav.php");
+incCls("menus/dropNav.php");
 // ***********************************************************
-$box = new dropnav();
+$box = new dropNav();
 $dir = $box->getKey("chap", $arr);
 $xxx = $box->show();
 

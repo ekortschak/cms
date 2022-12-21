@@ -122,7 +122,7 @@ public static function dir($dir) { // find dir in extended fs
 
 public static function file($fso) { // find file in extended fs
 	if (FSO::isUrl($fso)) return $fso; if (! $fso) return "";
-#	if (is_file($fso)) return $fso;
+	if (is_file($fso)) return $fso;
 	if (is_dir($fso)) return false;
 
 	$fso = self::relPath($fso);

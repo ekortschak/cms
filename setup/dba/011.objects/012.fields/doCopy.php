@@ -1,5 +1,6 @@
 <?php
 
+incCls("menus/dboBox.php");
 incCls("menus/qikSelect.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
@@ -12,13 +13,19 @@ $fnc = array(
 	"f_merge" => "merge"
 );
 
-$box = new qikSelect();
-$ret = $box->showDBObjs("BTF"); extract($ret);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$fld = $box->getField($dbs, $tbl);
+$xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $fld); unset($arr["ID"]);
 
+// ***********************************************************
+HTM::tag("fld.copy");
+// ***********************************************************
+$box = new qikSelect();
 $dst = $box->getKey("copy.to", $arr);
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();
@@ -26,7 +33,6 @@ $xxx = $box->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-HTM::tag("fld.copy");
 
 $ddl = new dbAlter($dbs, $tbl);
 $ddl->$fnc($tbl, $fld, $dst);

@@ -29,6 +29,7 @@ function __construct() {
 	$lng = CUR_LANG;
 	$this->dir = APP::tempDir("edit");
 	$this->ext = FSO::join($this->dir, "curEdit.$lng.php");
+	$this->exec();
 }
 
 // ***********************************************************
@@ -97,28 +98,41 @@ private function getHtml() {
 // ***********************************************************
 // providing and updating externally edited files
 // ***********************************************************
-public function extEdit($file) {
+public function exec() {
 	$act = ENV::getParm("edit"); if (! $act) return;
+	$fil = ENV::getParm("file");
 
-	if ($act == "provide") return $this->provide($file);
-	if ($act == "update")  return $this->update($file);
+	if ($act == "provide") return $this->provide($fil);
+	if ($act == "update")  return $this->update($fil);
+	if ($act == "clear")   return $this->clear();
 }
 
 private function provide($file) {
-	$ini = new iniWriter($this->dir);
-	$old = $ini->get("props.path"); if ($old == $file) return;
-	$xxx = $ini->set("props.path", $file);
-	$xxx = $ini->save();
+	if (! is_file($file)) return;
+	$cfg = FSO::join($this->dir, "extEdit.ini");
+
+	$ini = new iniWriter("design/config/xedit.ini");
+	$ini->read($cfg);
+	$ini->set("props.file", $file);
+	$ini->set("props.time", time());
+	$ini->save($cfg);
 
 	FSO::copy($file, $this->ext);
 }
 
 private function update($file) {
-	$ini = new iniWriter($this->dir);
-	$chk = $ini->get("props.path");
+	if (! is_file($file)) return;
+	$cfg = FSO::join($this->dir, "extEdit.ini");
+
+	$ini = new ini($cfg);
+	$chk = $ini->get("props.file");
 
 	if ($chk == $file) FSO::copy($this->ext, $file);
 	else MSG::add("path.wrong");
+}
+
+private function clear() {
+	FSO::rmDir($this->dir);
 }
 
 // ***********************************************************

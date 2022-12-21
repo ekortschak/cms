@@ -17,21 +17,22 @@ nodata = Keine sortierbaren Einträge ...
 # ***********************************************************
 <h4><!DIC:sort!></h4>
 
-<p><b>Info</b>: <!DIC:howto!></p>
+<small><b>Info</b>: <!DIC:howto!></small>
 
 <form method="post" action="?">
 	<input type="hidden" name="slist" id="slist" />
 	<input type="hidden" name="sparm" value="<!VAR:sparm!>" />
 
-	<div style="display: inline-block;">
-	<ul>
-		<!VAR:items!>
-	</ul>
+	<div class="flexleft">
+		<div>
+			<ul>
+				<!VAR:items!>
+			</ul>
+		</div>
+		<div style="padding: 12px 30px;">
+			<input type="submit" name="sort.act" value="OK" style="padding:0px 20px;" />
+		</div>
 	</div>
-
-	<p align="right">
-		<input type="submit" name="sort.act" value="OK" style="padding:0px 20px;" />
-	</p>
 </form>
 
 

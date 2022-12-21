@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
 

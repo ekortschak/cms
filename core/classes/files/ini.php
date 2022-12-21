@@ -137,7 +137,7 @@ private function scrTitle($txt) {
 
 // ***********************************************************
 public function getHead($lng = CUR_LANG) {
-	$out = $this->langProp("head");
+	$out = $this->get("$lng.head");
 	if ($out == "GET_HEAD") $out = "";
 	if ($out) return $out;
 	return $this->getTitle($lng);

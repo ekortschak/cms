@@ -1,14 +1,16 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 incCls("dbase/tblMgr.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$ret = $box->showDBObjs("BTF"); extract($ret);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$tbl = $box->getTable($dbs);
+$fld = $box->getField($dbs, $tbl);
+$xxx = $box->show();
 
 // ***********************************************************
 // show data

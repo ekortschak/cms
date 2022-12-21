@@ -1,12 +1,13 @@
 <?php
 
+incCls("menus/dboBox.php");
 incCls("menus/qikSelect.php");
 incCls("dbase/tblFilter.php");
 incCls("dbase/dbQuery.php");
 
-$box = new dbox();
-$erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$xxx = $box->show();
 
 // ***********************************************************
 // show filter

@@ -214,6 +214,7 @@ public function beautify($msg) {
 	$msg = $this->doLFs($msg, "SELECT.FROM.WHERE.GROUP BY.HAVING.ORDER BY.LIMIT");
 	$msg = $this->doLFs($msg, "INSERT.INTO.DELETE.UPDATE.TRUNCATE.SET");
 	$msg = $this->doLFs($msg, "CREATE.ALTER.DROP.RENAME.ADD.CHANGE.MODIFY");
+	$msg = $this->doLFs($msg, "TO DISK");
 	$msg = $this->doLFs($msg, " ) ");
 	$msg = $this->doKeys($msg);
 	$msg = str_replace("  ", "\n  ", $msg);

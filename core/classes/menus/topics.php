@@ -16,12 +16,12 @@ $box->getVal($qid, $values, $selected);
 $box->show();
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class topics extends dbox {
+class topics extends dropBox {
 	protected $data = array();
 	protected $type = "button";
 

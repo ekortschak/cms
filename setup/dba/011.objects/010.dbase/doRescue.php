@@ -1,19 +1,26 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
+incCls("input/confirm.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$xxx = $box->show();
+
+// ***********************************************************
+// info
+// ***********************************************************
+HTM::cap("Check CMS requirements");
+HTM::cap("This will recreate missing tables and fields.", "p");
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
 $cnf = new confirm();
-$cnf->dic("dba.sanitize");
+$cnf->dic("dbo.sanitize");
 $cnf->add("&rarr; $dbs");
 $cnf->show();
 

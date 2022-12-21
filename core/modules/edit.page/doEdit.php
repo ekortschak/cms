@@ -6,8 +6,6 @@ $snp = new ini("config/snips.ini");
 $arr = $snp->getValues("html");
 $arr = array_flip($arr);
 
-$htm = "";
-
 // ***********************************************************
 // toolbar code snips - if needed
 // ***********************************************************
@@ -18,17 +16,24 @@ $snp = $box->gc();
 // ***********************************************************
 // editable content
 // ***********************************************************
+$htm = APP::read($fil);
+
 switch ($sec) {
-	case "xedit":
-		$htm = htmlspecialchars(APP::read($fil)); break;
+	case "code": case "xhtml": break;
 
-	case "code": case "xhtml":
-		$htm = APP::read($fil); break;
+	case "ck4": case "ck5":
+		if (STR::contains($htm, "<?php")) $sec = "ckError"; break;
 
-	case "html": // clean up code
-		$htm = APP::read($fil);
+	default:
 		$htm = PRG::replace($htm, "<\?php(\s*?)(\S+)", "<php>$2");
 		$htm = PRG::replace($htm, "(\s*?)\?>", "</php>");
+}
+
+switch ($sec) {
+	case "xedit":
+		$htm = htmlspecialchars($htm); break;
+
+	case "html": // clean up code
 		$htm = STR::replace($htm, "<table>", "¶<table border=1>");
 
 		$htm = STR::replace($htm, "<h", "¶<h");
@@ -47,10 +52,6 @@ switch ($sec) {
 
 		if (! STR::ends($htm, "¶")) $htm.= "¶";
 		break;
-
-	case "ck4": case "ck5":
-	case "text":
-		$htm = APP::read($fil);
 }
 
 // ***********************************************************

@@ -7,9 +7,15 @@ $btn->set("link", "?act=rewrite");
 $btn->set("caption", "ReWrite");
 $btn->show();
 
+echo "Sort entries within current language";
+echo "<br>";
+
 $btn->set("link", "?act=spawn");
 $btn->set("caption", "Spawn ".strtoupper(CUR_LANG));
 $btn->show();
+
+echo "Transfer entries to other languages";
+echo "<br>";
 
 $act = ENV::getParm("act");
 

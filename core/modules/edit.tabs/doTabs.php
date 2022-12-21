@@ -1,7 +1,7 @@
 <?php
 
 incCls("menus/tabset.php");
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
 $set = APP_CALL;

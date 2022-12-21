@@ -32,9 +32,9 @@ $ext = array(
 	"php"     => "php",
 );
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
-$box = new dbox();
+$box = new dropBox();
 $box->getKey("sys.file", $fls, "content");
 $box->getKey("sys.lang", $lgs, "xx");
 $box->getKey("sys.ext",  $ext);

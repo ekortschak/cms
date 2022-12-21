@@ -3,20 +3,27 @@
 
 incCls("input/confirm.php");
 incCls("dbase/dbQuery.php");
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dbox();
-$erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$xxx = $box->show();
+
+// ***********************************************************
+// info
+// ***********************************************************
+HTM::cap("Check dbo Info integrity");
+HTM::cap("This will update stored dbo Info according to db reality.", "p");
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
 $cnf = new confirm();
 $cnf->dic("dbo.analize");
+$cnf->add("&rarr; $dbs");
 $cnf->show();
 
 if (! $cnf->act()) return;

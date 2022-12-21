@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("editor/iniMgr.php");
 
 // ***********************************************************
@@ -11,7 +11,7 @@ $arr = array(
 	"srv" => "Server"
 );
 
-$nav = new dbox();
+$nav = new dropBox();
 $ext = $nav->getKey("scope", $arr);
 $nav->show("menu");
 
@@ -24,7 +24,7 @@ $fil = "config/$fcs.$ext";
 if (! is_file($fil))
 MSG::now("file.missing");
 
-HTM::cap($fil);
+HTM::cap("file = $fil", "small");
 
 $ini = new iniMgr($tpl);
 $ini->update($fil);

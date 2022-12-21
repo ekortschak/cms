@@ -33,6 +33,7 @@ public static function init() {
 
 	self::fixForced(); // constants set before config.ini
 	self::fixServer();
+	self::fixPaths();
 
 	self::update();
 }
@@ -40,7 +41,7 @@ public static function init() {
 // ***********************************************************
 // appropriating server environment
 // ***********************************************************
-private static function fixForced() {
+private static function fixForced() { // constants set by startup script
 	$arr = get_defined_constants(true);
 	$arr = $arr["user"];
 
@@ -62,6 +63,19 @@ private static function fixServer() {
 
 	self::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
 }
+
+private static function fixPaths() {
+	if (! IS_LOCAL) return;
+
+	$rut = SRV_ROOT;
+
+	$dir = "xtools/ck4"; if (is_dir("$rut/$dir")) self::set("CK4_URL", "/$dir");
+	$dir = "xtools/ck5"; if (is_dir("$rut/$dir")) self::set("CK5_URL", "/$dir");
+}
+
+private static function getRoot() {
+}
+
 
 // ***********************************************************
 // reading config files

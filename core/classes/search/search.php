@@ -13,7 +13,7 @@ $obj = new search();
 
 */
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -41,7 +41,7 @@ public function getOpts() {
 		"h" => "Sections",
 		"p" => "Paragraphs",
 	);
-	$box = new dbox();
+	$box = new dropBox();
 	$this->dir = $box->getKey("search.dir", $drs, TAB_PATH);
 	$this->mod = $box->getKey("search.mod", $arr, "h");
 

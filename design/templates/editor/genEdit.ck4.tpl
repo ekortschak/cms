@@ -5,9 +5,7 @@ design/templates/editor/genEdit.tpl
 # ***********************************************************
 [main]
 # ***********************************************************
-#<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-<script src="core/scripts/ck4/ckeditor.js"></script>
-<script src="core/scripts/ck4/config.js"></script>
+<script src="CK4_URL/ckeditor.js"></script>
 
 <form id="inlineEdit" method="post" action="?">
 	<textarea id="txtEdit" name="content" tabindex=0 class="tarea" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
@@ -16,7 +14,7 @@ design/templates/editor/genEdit.tpl
 
 <script>
 	CKEDITOR.replace("content", {
-		customConfig: '/cms/core/scripts/ck4.config.js'
+		customConfig: 'CK4_URL/config.js'
 	});
 </script>
 

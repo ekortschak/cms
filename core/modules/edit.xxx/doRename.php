@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
 HTM::tag("files.rename");
@@ -41,8 +41,7 @@ foreach ($arr as $ful => $nam) {
 	$dst = FSO::join($dir, $dst);
 	$cnt++;
 
-#	rename($ful, $dst);
-	dbg("rename to: $dst - deactivated");
+	rename($ful, $dst);
 }
 
 echo "</table></small>\n";

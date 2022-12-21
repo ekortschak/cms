@@ -1,7 +1,7 @@
 <?php
 
 incCls("menus/tabs.php");
-incCls("menus/dropbox.php");
+incCls("menus/dropBox.php");
 incCls("editor/iniMgr.php");
 incCls("files/iniTab.php");
 
@@ -28,7 +28,7 @@ $arr = $tbs->getTopics($tab);
 $std = $tbs->verify($tab, $std);
 
 // ***********************************************************
-// show ini
+HTM::cap("Tab = $tit");
 // ***********************************************************
 $ful = FSO::join($tab, "tab.ini");
 

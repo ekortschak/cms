@@ -1,11 +1,11 @@
 <?php
 
 incCls("dbase/recEdit.php");
-incCls("menus/dropbox.php");
+incCls("menus/dboBox.php");
 
-$box = new dbox();
-$erg = $box->showDBObjs("B"); extract($erg);
-$xxx = $box->show("menu");
+$box = new dboBox();
+$dbs = $box->getDbase();
+$xxx = $box->show();
 
 // ***********************************************************
 HTM::tag("usr.create");
