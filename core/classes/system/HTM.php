@@ -68,13 +68,13 @@ public static function noFile() {
 }
 
 public static function csv($file, $sep = ";") {
-	incCls("files/csv.php");
+	incCls("tables/csv_table.php");
 
 	$pge = ENV::getPage();
 	$fil = STR::replace($file, "./", "$pge/");
 
-	$csv = new csv($sep);
-	$csv->read($fil);
+	$csv = new csv_table();
+	$csv->load($fil, $sep);
 	$csv->show();
 }
 

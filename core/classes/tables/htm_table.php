@@ -13,7 +13,7 @@ For a full description see
 http://gim.glaubeistmehr.at/?tab=cms
 */
 
-incCls("tables/columns.php");
+incCls("tables/tblCols.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -22,8 +22,8 @@ class htm_table extends tpl {
     protected $cls;             // column info object
 	protected $dat = array();   // table data rows
 
-	private $lns = 25;          // max lines per page
-	private $max = 250;			// max lines per screen
+	protected $lns = 35;          // max lines per page
+	protected $max = 250;			// max lines per screen
 
 function __construct() {
 	parent::__construct();
@@ -124,7 +124,7 @@ public function rowCount() {
 	return count($this->dat);
 }
 
-private function getRows() {
+protected function getRows() {
 	$pge = $this->getPage(); $out = "";
 
     $fst = $this->getFirst($pge);
@@ -141,7 +141,7 @@ private function getRows() {
 }
 
 // ***********************************************************
-private function getRow($style, $arr) {
+protected function getRow($style, $arr) {
     if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
 
     foreach ($arr as $val) {
@@ -161,7 +161,7 @@ private function getRow($style, $arr) {
 }
 
 // ***********************************************************
-private function getLine($data, $style, $qid) {
+protected function getLine($data, $style, $qid) {
 	switch ($style) {
 		case "rf": $sec = "TSums"; break;
 		case "rh": $sec = "TCols"; break;
@@ -175,7 +175,7 @@ private function getLine($data, $style, $qid) {
 }
 
 // ***********************************************************
-private function getCell($sec, $inf) {
+protected function getCell($sec, $inf) {
 	$xxx = $this->merge($inf);
     return $this->getSection($sec);
 }
@@ -191,14 +191,14 @@ public function getCurVal($colIndex, $default = NV) {
 	return VEC::get($rec, $colIndex, $default);
 }
 
-private function getRecID($arr) {
+protected function getRecID($arr) {
 	return VEC::get($arr, "ID", 0);
 }
 
 // ***********************************************************
 // handling navigation
 // ***********************************************************
-private function getPage() {
+protected function getPage() {
     $pge = $this->get("page", 0);
     $lst = count($this->dat);
 
@@ -214,7 +214,7 @@ private function getPage() {
     return $pge;
 }
 
-private function getPageNum($idx) {
+protected function getPageNum($idx) {
 //  with 3 lines per page:
 //	0, 1, 2 => 1
 //	3, 4, 5 => 2
@@ -222,7 +222,7 @@ private function getPageNum($idx) {
     return intval(($idx - 1) / $this->lns);
 }
 
-private function getFirst($pge) {
+protected function getFirst($pge) {
 	$fst = $pge * $this->lns;
 	$lst = count($this->dat) - 1; #$this->lns;
 	return CHK::range($fst, $lst);
@@ -231,7 +231,7 @@ private function getFirst($pge) {
 // ***********************************************************
 // filling templates
 // ***********************************************************
-private function getTable($body) {
+protected function getTable($body) {
     if (! $body) return "";
 
     $lst = count($this->dat); $lst = $this->getPageNum($lst);
@@ -246,7 +246,7 @@ private function getTable($body) {
     return $this->getSection("main");
 }
 
-private function getQid() {
+protected function getQid() {
 	return VEC::get($this->dat[0], "ID", -1);
 }
 

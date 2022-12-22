@@ -200,14 +200,7 @@ askWidth = Bildbreite festlegen
 [switch.htm]
 # *****************************************************************
 <td align="center">
-	<button class="icon" onclick="toggleHtm();">
-		<img src="core/icons/buttons/edit.toggle.png" alt="Toggle Editor" />
-	</button>
-</td>
-
-[switch.php]
-<td align="center">
-	<button class="icon" onclick="toggleCode();">
+	<button class="icon" onclick="toggleView();">
 		<img src="core/icons/buttons/edit.toggle.png" alt="Toggle Editor" />
 	</button>
 </td>

@@ -1,5 +1,5 @@
 [vars]
-lines = 25
+lines = 35
 sql = Select * from ?
 
 [dic]
@@ -50,7 +50,7 @@ page = Seite
 		<td nowrap align="<!VAR:align!>"><!VAR:value!></td>
 
 [TFoot]
-<div class="flex rf">
+<div class="flex rf" style="padding: 0px 5px;">
 	<div><!SEC:stats!></div>
     <div><!SEC:nav!></div>
 </div>

@@ -36,23 +36,21 @@ rows = 40
 <form id="inlineEdit" method="post" action="?file_act=save">
 	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false" _
 		onfocus="this.className='hot';" _
-		onblur="this.className='cold';" onkeydown="doStore();">
+		onblur="this.className='cold';">
 		<!VAR:content!>
 	</div>
 
 	<div id="curEdit" class="hidden"> _
-		<textarea id="txtEdit" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false" onkeydown="doStore();"></textarea>
+		<textarea id="content" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
 	</div>
 
 <!SEC:submit!>
 </form>
 
 <script type="text/javascript" language="JavaScript1.2">
-	doStore();
-
 	obj = document.getElementById("divEdit");
-	obj.addEventListener("keydown", function(e) { e = doHtmlKeys(e); });
+	obj.addEventListener("keydown", function(e) { e = exKey(e); });
 
-	obj = document.getElementById("txtEdit");
-	obj.addEventListener("keydown", function(e) { e = doHtmlKeys(e); });
+	obj = document.getElementById("content");
+	obj.addEventListener("keydown", function(e) { e = exKey(e); });
 </script>

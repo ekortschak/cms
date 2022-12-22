@@ -11,7 +11,7 @@ function getView() {
 }
 
 function clip() { // copy to clipboard
-	obj = document.getElementById("txtEdit");
+	obj = document.getElementById("content");
 	obj.select();
 	obj.setSelectionRange(0, 99999); /* For mobile devices */
 	document.execCommand("copy");
@@ -132,23 +132,13 @@ function addList(tag) {
 	}
 	repString(htm);
 }
+
 // **********************************************************
-// retrieving and setting htm code
+// retrieving selected text
 // **********************************************************
 function selString() {
 	if (getView()) return selHtml();
 	return selText();
-}
-
-function repString(html) {
-	doStore();
-
-	if (getView()) {
-		updDivEdit(html);
-		return;
-	}
-	obj = document.getElementById("txtEdit");
-	updTxtEdit(obj, html);
 }
 
 function selHtml() {
@@ -170,7 +160,7 @@ function selHtml() {
 }
 
 function selText() {
-    obj = document.getElementById("txtEdit");
+    obj = document.getElementById("content");
     ein = obj.selectionStart;
     aus = obj.selectionEnd;
     htm = obj.value;
@@ -178,72 +168,19 @@ function selText() {
 }
 
 // **********************************************************
-// editing functions
+// replacing selected text
 // **********************************************************
-function copy() {
-	obj = document.getElementById("copiedText");
-	obj.setAttribute("value", selString());
-	document.execCommand("copy");
-}
-function cut() {
-	obj = document.getElementById("copiedText");
-	obj.setAttribute("value", selString());
-	repString("");
-}
-function paste() {
-	htm = document.getElementById("copiedText").value;
-	repString(htm);
-}
+function repString(html) {
+	doStore();
 
-// **********************************************************
-// storing and undoing edits
-// **********************************************************
-function doStore() {
-	htm = getCurrent();
-	hist.unshift(htm);
-}
-
-function doUndo() {
-	if (! hist.length) return;
-	if (hist.length > 1) htm = hist.shift();
-	else htm = hist[0];
-
-	if (getView())
-	document.getElementById("divEdit").innerHTML = htm; else
-	document.getElementById("txtEdit").value = htm;
-}
-
-function getCurrent() {
-	if (getView())
-	return document.getElementById("divEdit").innerHTML;
-	return document.getElementById("txtEdit").value;
-}
-
-function hide() {
-	lst = document.getElementsByClassName("tollbox-content");
-	for (i = 0; i < lst.length; i++) {
-		lst[i].display("none");
+	if (getView()) {
+		updDivEdit(html);
+		return;
 	}
+	obj = document.getElementById("content");
+	updTxtEdit(obj, html);
 }
 
-// **********************************************************
-// saving data
-// **********************************************************
-function exSubmit() {
-	mod = getView();
-
-	if (mod) {
-		obj = document.getElementById("txtEdit");
-		htm = document.getElementById("divEdit").innerHTML;
-		htm = beautify(htm);
-		obj.value = htm;
-	}
-	document.getElementById("inlineEdit").submit();
-}
-
-// **********************************************************
-// handling text objects
-// **********************************************************
 function updTxtEdit (input, html) {
 	if (document.execCommand("insertText", false, html)) return;
 
@@ -277,11 +214,81 @@ function updDivEdit(html) {
     }
 }
 
+// **********************************************************
+// editing functions
+// **********************************************************
+function copy() {
+	obj = document.getElementById("copiedText");
+	obj.setAttribute("value", selString());
+	document.execCommand("copy");
+}
+function cut() {
+	obj = document.getElementById("copiedText");
+	obj.setAttribute("value", selString());
+	repString("");
+}
+function paste() {
+	htm = document.getElementById("copiedText").value;
+	repString(htm);
+}
+
+function exIns(htm) {
+	sel = selString();
+	htm = htm.replace(/SEL.TEXT/g, sel);
+	htm = htm.replace(/@DQ@/g, '"');
+	repString(htm);
+}
+
+// **********************************************************
+// storing and undoing edits
+// **********************************************************
+function doStore() {
+	htm = getCurrent();
+	hist.unshift(htm);
+}
+
+function doUndo() {
+	if (! hist.length) return;
+	if (hist.length > 1) htm = hist.shift();
+	else htm = hist[0];
+
+	if (getView())
+	document.getElementById("divEdit").innerHTML = htm; else
+	document.getElementById("content").value = htm;
+}
+
+function getCurrent() {
+	if (getView())
+	return document.getElementById("divEdit").innerHTML;
+	return document.getElementById("content").value;
+}
+
+function hide() {
+	lst = document.getElementsByClassName("tollbox-content");
+	for (i = 0; i < lst.length; i++) {
+		lst[i].display("none");
+	}
+}
+
+// **********************************************************
+// saving data
+// **********************************************************
+function exSubmit() {
+	mod = getView();
+
+	if (mod) {
+		obj = document.getElementById("content");
+		htm = document.getElementById("divEdit").innerHTML;
+		htm = beautify(htm);
+		obj.value = htm;
+	}
+	document.getElementById("inlineEdit").submit();
+}
 
 // **********************************************************
 // switching view from inline edit to source code edit
 // **********************************************************
-function toggleHtm() {
+function toggleView() {
 	doStore();
 
 	if (getView()) toTxtEdit();
@@ -292,28 +299,20 @@ function toTxtEdit() {
 	      document.getElementById("divEdit").style.display = "none";
 	htm = document.getElementById("divEdit").innerHTML;
 	htm = beautify(htm);
-	      document.getElementById("txtEdit").value = htm;
+	      document.getElementById("content").value = htm;
 	      document.getElementById("curEdit").style.display = "block";
 }
 function toDivEdit() {
 	      document.getElementById("curEdit").style.display = "none";
-	htm = document.getElementById("txtEdit").value;
+	htm = document.getElementById("content").value;
 	htm = insertMarks(htm);
 	      document.getElementById("divEdit").innerHTML = htm;
 	      document.getElementById("divEdit").style.display = "block";
 }
 
-function toggleCode() {
-	if (getView) {
-		document.getElementById("divEdit").style.display = "none";
-		document.getElementById("curEdit").style.display = "block";
-	}
-	else {
-		document.getElementById("curEdit").style.display = "none";
-		document.getElementById("divEdit").style.display = "block";
-	}
-}
-
+// **********************************************************
+// code tidying
+// **********************************************************
 function beautify(htm) {
 	htm = htm.replace(/(¶+)/gi, "");
 	htm = htm.trim();
@@ -364,14 +363,4 @@ function cleanSel(txt, tag) {
 
 //	console.log(txt);
 	return txt;
-}
-
-// **********************************************************
-// qikScript
-// **********************************************************
-function exIns(htm) {
-	sel = selString();
-	htm = htm.replace(/SEL.TEXT/g, sel);
-	htm = htm.replace(/@DQ@/g, '"');
-	repString(htm);
 }

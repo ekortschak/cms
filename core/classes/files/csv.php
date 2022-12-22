@@ -56,17 +56,6 @@ public function setTemplate($file) {
 }
 
 // ***********************************************************
-public function show() { // display as table
-	incCls("tables/htm_table.php");
-
-    $tab = new htm_table();
-    if ($this->tpl) $tab->read($this->tpl);
-    $tab->addCols($this->heds);
-    $tab->addRows($this->data);
-    $tab->show();
-}
-
-// ***********************************************************
 public function write($file = NV) {
 	if ($file == NV) $file = $this->file;
 
@@ -102,9 +91,14 @@ public function setData($arr) {
     $this->rows = count($out);
 	$this->rIdx = 0;
 }
+
+public function getHeads() {
+	return $this->heds;
+}
 public function getData() {
 	return $this->data;
 }
+
 public function getRecs($arr = "*") {
 	$out = array();
 	foreach ($this->data as $row) {

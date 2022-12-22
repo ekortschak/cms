@@ -6,7 +6,7 @@ design/templates/editor/genEdit.tpl
 [main]
 # ***********************************************************
 <form id="inlineEdit" method="post" action="?">
-	<textarea id="txtEdit" name="content" id="editor"><!VAR:content!></textarea>
+	<textarea id="content" name="content" id="editor"><!VAR:content!></textarea>
 	<script src="CK5_URL/ckeditor.js"></script>
 
 <style>
@@ -17,7 +17,7 @@ design/templates/editor/genEdit.tpl
 
     <script>
         ClassicEditor
-            .create( document.querySelector( '\#txtEdit' ), {
+            .create( document.querySelector( '\#content' ), {
 //				toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
  				heading: {
 					options: [

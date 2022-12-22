@@ -1,46 +1,17 @@
-function doTextKeys(e) {
-alert("text");
-return;
-	if (! e.ctrlKey) return;
+
+function exKey(e) {
+	if (! e.ctrlKey) return e;
+
+	f = e;
+	f.preventDefault();
+	f.stopPropagation();
+	f.returnValue = false;
 
 	switch (e.key) {
-		case "b": case "f": addTag("b"); break;
-		case "i": case "k": addTag("i"); break;
-		case "u":           addTag("u"); break;
-
-		case "s": break;
-		default: return e;
+		case "b": case "f": addTag("b"); return f;
+		case "i": case "k": addTag("i"); return f;
+		case "u":           addTag("u"); return f;
+		case "s":           exSubmit();
 	}
-	e.preventDefault();
-	e.stopPropagation();
-	e.returnValue = false;
-
-	document.getElementById("inlineEdit").submit();
 	return e;
-}
-
-
-function doHtmlKeys(e) {
-alert("html");
-return;
-	if (! e.ctrlKey) return;
-
-	switch (e.key) {
-		case "b": case "f": addTag("b"); break;
-		case "i": case "k": addTag("i"); break;
-		case "u":           addTag("u"); break;
-
-		case "s": exSubmit();
-		default: return e;
-	}
-	e.preventDefault();
-	e.stopPropagation();
-	e.returnValue = false;
-
-	exSubmit();
-	return e;
-}
-
-
-function chkKey(e) {
 }

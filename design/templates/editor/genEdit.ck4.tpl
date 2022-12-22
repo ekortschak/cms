@@ -8,7 +8,7 @@ design/templates/editor/genEdit.tpl
 <script src="CK4_URL/ckeditor.js"></script>
 
 <form id="inlineEdit" method="post" action="?">
-	<textarea id="txtEdit" name="content" tabindex=0 class="tarea" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
+	<textarea id="content" name="content" tabindex=0 class="tarea" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
 <!SEC:submit!>
 </form>
 

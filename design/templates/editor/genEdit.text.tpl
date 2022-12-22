@@ -33,15 +33,13 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-<textarea id="txtEdit" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false" onkeydown="doStore();">_
+<textarea id="content" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false">_
 <!VAR:content!>_
 </textarea>
 <!SEC:submit!>
 </form>
 
 <script type="text/javascript" language="JavaScript1.2">
-	doStore();
-
-	obj = document.getElementById("txtEdit");
-	obj.addEventListener("keydown", function(e) { e = doTextKeys(e); });
+	obj = document.getElementById("content");
+	obj.addEventListener("keydown", function(e) { e = exKey(e); });
 </script>
