@@ -29,7 +29,7 @@ function toggleDiv(qid) {
         vis = "visible";
     }
 
-    for (i = qid + 2; i < obj.length; i++) {
+    for (i = qid + 1; i < obj.length; i++) {
 		cur = obj[i];
         lev = cur.getAttribute("data-par"); if (lev <= vgl) break;
 

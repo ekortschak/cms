@@ -16,7 +16,7 @@ if (! $edt) return;
 // ***********************************************************
 // prevent non sensical icons
 // ***********************************************************
-if (is_file("config.php")) {
+if (! is_file("config.php")) {
 	$tpl->clearSec("admin");
 }
 if (! is_file("x.edit.php")) {
