@@ -20,7 +20,7 @@ class dropIcon extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/dropIcon.tpl");
+    $this->load("menus/dropIcon.tpl");
 }
 
 // ***********************************************************

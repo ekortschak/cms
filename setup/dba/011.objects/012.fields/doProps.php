@@ -21,7 +21,7 @@ $inf["default"] = $inf["fstd"];
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("design/config/db.fields.ini");
+$ini = new ini("LOC_CFG/db.fields.ini");
 $arr = $ini->getSecs();
 $lng = CUR_LANG;
 

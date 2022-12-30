@@ -1,5 +1,5 @@
 [include]
-design/templates/tables/std.tpl
+LOC_TPL/tables/std.tpl
 
 # ***********************************************************
 [TRows]

@@ -21,7 +21,7 @@ class teaser extends tpl {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/modules/teaser.tpl");
+	$this->load("modules/teaser.tpl");
 }
 
 // ***********************************************************

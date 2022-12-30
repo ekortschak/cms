@@ -25,13 +25,17 @@ class tpl extends objects {
 	private   $hst = array();   // list of included files
 
 function __construct() {
-	$this->read("design/templates/msgs/no.tpl.tpl");
-	$this->read("design/templates/msgs/msgs.tpl");
+	$this->load("msgs/no.tpl.tpl");
+	$this->load("msgs/msgs.tpl");
 }
 
 // ***********************************************************
 // handling the template
 // ***********************************************************
+public function load($file) {
+	$this->read("LOC_TPL/$file");
+}
+
 public function read($file) {
 	$fil = APP::file($file);
 
@@ -154,7 +158,7 @@ public function gc($sec = "main") {
 	$out.= $this->getSection($sec);
 
 	if ($this->isSec($sec)) return $out;
-	MSG::add("sec.unknown", $sec);
+	MSG::add("sec.unknown", "$fil &rarr; $sec");
 }
 
 // ***********************************************************

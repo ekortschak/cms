@@ -21,7 +21,7 @@ class slides extends tpl {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/modules/slide.tpl");
+	$this->load("modules/slide.tpl");
 
 	$this->set("perm",   "r");
 	$this->set("qid",    -1);

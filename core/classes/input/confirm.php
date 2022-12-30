@@ -29,7 +29,7 @@ class confirm extends tpl {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/input/confirm.tpl");
+	$this->load("input/confirm.tpl");
 	$this->set("oid", OID::register());
 }
 

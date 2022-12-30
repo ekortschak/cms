@@ -1,5 +1,5 @@
 [include]
-design/templates/editor/genEdit.tpl
+LOC_TPL/editor/genEdit.tpl
 
 [vars]
 hgt = 100%

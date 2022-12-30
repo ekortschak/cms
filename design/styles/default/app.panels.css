@@ -35,8 +35,9 @@ body.print {
 	padding: 0px 20px 35px;
 #	overflow: visible;
 }
-.conToc  { padding: 15px 15px 35px; }
-.conOpts { padding:  0px 35px 35px; }
+
+.conToc  { padding: 15px 15px 35px }
+.conOpts { padding: 0px 35px 35px; }
 
 /* ******************************************************** */
 /* vertical panels */

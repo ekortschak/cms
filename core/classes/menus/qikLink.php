@@ -22,7 +22,7 @@ class qikLink extends tpl {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/qikLink.tpl");
+    $this->load("menus/qikLink.tpl");
 }
 
 // ***********************************************************

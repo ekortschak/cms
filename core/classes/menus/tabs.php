@@ -27,7 +27,7 @@ class tabs extends tpl {
 function __construct($typ = "tabs") {
 	parent::__construct();
 
-	$this->read("design/templates/menus/$typ.tpl");
+	$this->load("menus/$typ.tpl");
 	$this->cos = $this->getOS();
 }
 

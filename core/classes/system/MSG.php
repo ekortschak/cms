@@ -80,7 +80,7 @@ public static function show() {
 
 public static function long($msg) {
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/tales.tpl");
+	$tpl->load("msgs/tales.tpl");
 	$tpl->show($msg);
 }
 
@@ -100,7 +100,7 @@ private static function collect($div, $sec) {
 	$out = "";
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/msgs.tpl");
+	$tpl->load("msgs/msgs.tpl");
 
 	foreach ($arr as $msg => $txt) {
 #		$txt = htmlspecialchars($txt);

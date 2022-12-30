@@ -21,9 +21,9 @@ HTM::init();
 class HTM  {
 	private static $tpl;
 
-public static function init($tpl = "design/templates/other/stdObjs.tpl") {
+public static function init() {
 	self::$tpl = new tpl();
-	self::$tpl->read($tpl);
+	self::$tpl->load("other/stdObjs.tpl");
 }
 
 // ***********************************************************

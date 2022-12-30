@@ -21,8 +21,6 @@ define("CUR_YEAR", date("Y"));
 
 define("FS_PERMS", 0775);
 
-define("ICONS",   "core/icons");
-
 CFG::init();
 
 // ***********************************************************

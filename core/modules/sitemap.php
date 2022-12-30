@@ -10,7 +10,7 @@ $out = "";
 // show default sitemap message
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/msgs/sitemap.tpl");
+$tpl->load("msgs/sitemap.tpl");
 
 if (! $arr) {
 	$fil = APP::find($dir);

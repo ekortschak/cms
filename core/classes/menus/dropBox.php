@@ -25,7 +25,7 @@ class dropBox extends tpl {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/dropBox.tpl");
+    $this->load("menus/dropBox.tpl");
 }
 
 public function reset() {

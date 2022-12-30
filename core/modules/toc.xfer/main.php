@@ -14,7 +14,7 @@ switch ($btn) {
 // show module
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/menus/toc.xfer.tpl");
+$tpl->load("menus/toc.xfer.tpl");
 $tpl->show("all");
 
 ?>

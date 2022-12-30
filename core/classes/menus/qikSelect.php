@@ -20,7 +20,7 @@ class qikSelect extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/qikSelect.tpl");
+    $this->load("menus/qikSelect.tpl");
 }
 
 // ***********************************************************

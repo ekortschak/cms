@@ -17,7 +17,7 @@ class tblView extends htm_table {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/tables/recView.tpl");
+	$this->load("tables/recView.tpl");
 }
 
 // ***********************************************************

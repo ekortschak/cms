@@ -1,6 +1,6 @@
 [include]
-design/templates/msgs/no.access.tpl
-design/templates/msgs/error.tpl
+LOC_TPL/msgs/no.access.tpl
+LOC_TPL/msgs/error.tpl
 
 [dic]
 text    = Upon sending this request you will receive an email containing a link. <br>_

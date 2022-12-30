@@ -1,5 +1,5 @@
 [include]
-design/dictionary/CUR_LANG/login.dic
+LOC_DIC/CUR_LANG/login.dic
 
 [vars]
 user  = CUR_USER

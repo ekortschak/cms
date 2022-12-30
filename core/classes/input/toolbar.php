@@ -22,7 +22,7 @@ class toolbar extends tpl {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/menues/toolbar.tpl");
+	$this->load("menues/toolbar.tpl");
 }
 
 // ***********************************************************

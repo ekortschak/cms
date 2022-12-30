@@ -1,5 +1,5 @@
 [include]
-design/config/css.colors.ini
+LOC_CFG/css.colors.ini
 
 [dic]
 on = on

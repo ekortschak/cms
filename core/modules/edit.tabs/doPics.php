@@ -29,7 +29,7 @@ $fil = APP::find(TAB_ROOT, "tab", "png");
 $sec = "add.png"; if ($fil) $sec = "del.png";
 
 $tpl = new tpl();
-$tpl->read("design/templates/editor/mnuTab.tpl");
+$tpl->load("editor/mnuTab.tpl");
 $tpl->set("tab", TAB_ROOT);
 $tpl->set("file", APP::relPath($fil));
 $tpl->show($sec);

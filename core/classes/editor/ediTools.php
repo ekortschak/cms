@@ -111,7 +111,7 @@ private function provide($file) {
 	if (! is_file($file)) return;
 	$cfg = FSO::join($this->dir, "extEdit.ini");
 
-	$ini = new iniWriter("design/config/xedit.ini");
+	$ini = new iniWriter("LOC_CFG/xedit.ini");
 	$ini->read($cfg);
 	$ini->set("props.file", $file);
 	$ini->set("props.time", time());

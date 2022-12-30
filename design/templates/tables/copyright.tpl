@@ -1,5 +1,5 @@
 [include]
-design/templates/tables/recEdit.tpl
+LOC_TPL/tables/recEdit.tpl
 
 # ***********************************************************
 [main]

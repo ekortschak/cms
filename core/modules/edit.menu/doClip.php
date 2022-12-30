@@ -22,7 +22,7 @@ $cmb->setData($arr);
 $obj = $cmb->gc();
 
 $tpl = new tpl();
-$tpl->read("design/templates/editor/mnuClip.tpl");
+$tpl->load("editor/mnuClip.tpl");
 $tpl->set("curloc", $loc);
 $tpl->set("box", $obj);
 $tpl->show();

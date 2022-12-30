@@ -50,7 +50,7 @@ private function toggle() {
 	$lcs = ENV::getPost("tabl");
 	$std = ENV::getPost("tab.default");
 
-	$ini = new iniWriter("design/config/tabsets.ini");
+	$ini = new iniWriter("LOC_CFG/tabsets.ini");
 	$ini->read("config/tabsets.ini");
 
 	$set = basename($set);
@@ -82,7 +82,7 @@ private function tabAdd() {
 	$fil = FSO::join($dir, "tab.ini");
 	$dir = APP::relPath($dir);
 
-	$ini = new iniWriter("design/config/tabsets.ini");
+	$ini = new iniWriter("LOC_CFG/tabsets.ini");
 	$ini->read($fil);
 	$ini->save($fil);
 
@@ -102,7 +102,7 @@ private function tabSort() {
 	$set = ENV::getPost("sparm");
 	$lst = VEC::explode($lst, ";");
 
-	$ini = new iniWriter("design/config/tabsets.ini");
+	$ini = new iniWriter("LOC_CFG/tabsets.ini");
 	$ini->read("config/tabsets.ini");
 	$vls = $ini->getValues($set);
 	$out = array();
@@ -129,7 +129,7 @@ private function setProps() {
 	$stp = STR::afterX($std, $tab);
 	$arr["std"] = trim($stp, "/");
 
-	$ini = new iniWriter("design/config/tab.ini");
+	$ini = new iniWriter("LOC_CFG/tab.ini");
 	$ini->read($fil);
 	$ini->setVals($arr);
 	$ini->save($fil);

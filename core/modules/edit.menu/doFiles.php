@@ -47,7 +47,7 @@ $drp = $box->gc("inline");
 incCls("files/dirView.php");
 
 $tpl = new dirView();
-$tpl->read("design/templates/editor/mnuFiles.tpl");
+$tpl->load("editor/mnuFiles.tpl");
 $tpl->set("choice", $drp);
 $tpl->set("curloc", $loc);
 $tpl->set("visOnly", false);

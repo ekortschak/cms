@@ -31,7 +31,7 @@ if (DB_MODE != "none") {
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/genEdit.pic.tpl");
+$tpl->load("editor/genEdit.pic.tpl");
 $tpl->set("title", $uid);
 $tpl->set("file", APP::relPath($fil));
 $tpl->set("path", APP::tempDir("curedit"));

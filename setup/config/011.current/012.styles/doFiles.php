@@ -1,14 +1,9 @@
 <?php
 
-$dir = "design/styles";
-
-// ***********************************************************
-// show file selector
-// ***********************************************************
 incCls("menus/localMenu.php");
 
 $box = new localMenu();
-$dir = $box->folders($dir);
+$dir = $box->folders(LOC_CSS);
 $ful = $box->files($dir);
 $xxx = $box->show();
 

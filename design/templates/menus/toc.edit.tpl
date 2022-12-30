@@ -1,5 +1,5 @@
 [include]
-design/templates/menus/toc.view.tpl
+LOC_TPL/menus/toc.view.tpl
 
 [dic]
 topic = Applies to whole topic

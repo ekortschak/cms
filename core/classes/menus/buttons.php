@@ -42,7 +42,7 @@ function __construct($owner, $std, $dir) {
 	$this->std = $std;
 	$this->dir = $dir;
 
-	$this->read("design/templates/menus/buttons.tpl");
+	$this->load("menus/buttons.tpl");
 
 	OID::set($this->oid, "sfx", $owner);
 	ENV::setIf($this->own, $std);
@@ -135,10 +135,10 @@ private function chkIni($qid, $ini) {
 
 	if (is_file($ini)) return $ini; $fil = FSO::join($dir, "$ini.ini");
 	if (is_file($fil)) return $fil; $fil = APP::file($fil);
-	if (is_file($fil)) return $fil; $glb = APP::file("design/buttons/$ini.ini");
+	if (is_file($fil)) return $fil; $glb = APP::file("LOC_BTN/$ini.ini");
 	if (is_file($glb)) return $glb;
 
-	FSO::copy("design/config/button.ini", $fil);
+	FSO::copy("LOC_CFG/button.ini", $fil);
 }
 
 // ***********************************************************

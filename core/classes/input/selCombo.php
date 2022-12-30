@@ -22,7 +22,7 @@ class selCombo extends selInput {
 
 function __construct($pid) {
 	parent::__construct($pid);
-    $this->read("design/templates/input/selCombo.tpl");
+    $this->load("input/selCombo.tpl");
 }
 
 // ***********************************************************

@@ -164,7 +164,7 @@ private function compact($uid) {
 
 // ***********************************************************
 public function toROnly() {
-	$this->read("design/templates/input/selView.tpl"); // display form data as plain text
+	$this->load("input/selView.tpl"); // display form data as plain text
 
 	foreach ($this->itm as $itm) {
 		foreach ($itm as $uid => $inp) {

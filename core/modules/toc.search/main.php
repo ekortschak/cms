@@ -14,7 +14,7 @@ $lst = $obj->getResults($fnd);
 $res = "";
 
 $tpl = new tpl();
-$tpl->read("design/templates/modules/search.tpl");
+$tpl->load("modules/search.tpl");
 
 if (! is_array($lst)) {
 	$res = DIC::xlate($lst);
@@ -45,7 +45,5 @@ $tpl->set("search", $fnd);
 $tpl->set("items", $res);
 $tpl->set("result", "<!SEC:$sec!>");
 $tpl->show();
-
-LOG::lapse("toc.search done");
 
 ?>

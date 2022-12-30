@@ -1,5 +1,5 @@
 [include]
-design/layout/LAYOUT/main.tpl
+LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
 [toc] <!-- toc -->

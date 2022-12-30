@@ -28,9 +28,9 @@ class htm_table extends tpl {
 function __construct() {
 	parent::__construct();
 
-	$tpl = "design/templates/tables/std.tpl"; if (CUR_DEST == "csv")
-	$tpl = "design/templates/tables/csv.tpl";
-	$this->read($tpl);
+	$tpl = "tables/std.tpl"; if (CUR_DEST == "csv")
+	$tpl = "tables/csv.tpl";
+	$this->load($tpl);
 
     $this->cls = new tblCols();
     $this->register();
@@ -107,7 +107,7 @@ public function gc($sec = "main") {
     $rcs = count($this->dat);
 
     if ($rcs < 1) {
-		$this->read("design/templates/tables/empty.tpl");
+		$this->load("tables/empty.tpl");
 		$out = $this->getSection("main");
 		return "$out\n";
 	}

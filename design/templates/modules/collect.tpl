@@ -1,5 +1,5 @@
 [include]
-design/templates/msgs/sitemap.tpl
+LOC_TPL/msgs/sitemap.tpl
 
 [vars]
 head = Description

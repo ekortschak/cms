@@ -2,7 +2,7 @@
 core/scripts/selRec.js
 
 [include]
-design/templates/tables/std.tpl
+LOC_TPL/tables/std.tpl
 
 [dic]
 grant = Grant

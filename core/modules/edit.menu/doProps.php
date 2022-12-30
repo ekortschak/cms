@@ -28,8 +28,8 @@ $ini = new ini($ful);
 $typ = $ini->get("props.typ", "inc");
 $typ = STR::left($typ);
 
-$tpl = "design/config/page.$typ.ini"; if (! is_file($tpl))
-$tpl = "design/config/page.ini";
+$tpl = "LOC_CFG/page.$typ.ini"; if (! is_file($tpl))
+$tpl = "LOC_CFG/page.ini";
 
 // ***********************************************************
 HTM::Tag("page.props");

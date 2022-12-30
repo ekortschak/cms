@@ -18,7 +18,7 @@ if (ENV::getPost("login.act", 0) == 7) {
 // show form
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/user/user.drop.tpl");
+$tpl->load("user/user.drop.tpl");
 $tpl->set("user", CUR_USER);
 $tpl->show($sec);
 

@@ -1,6 +1,6 @@
 [include]
-design/dictionary/CUR_LANG/login.dic
-design/templates/msgs/no.access.tpl
+LOC_DIC/CUR_LANG/login.dic
+LOC_TPL/msgs/no.access.tpl
 
 [dic]
 admin = This feature requres DB-admin privileges!

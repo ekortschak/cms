@@ -279,7 +279,7 @@ function show() {
 	$hsl = implode(",", $hsl);
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/other/colors.tpl");
+	$tpl->load("other/colors.tpl");
 	$tpl->set("hex", $this->hex);
 	$tpl->set("rgb", $rgb);
 	$tpl->set("hsl", $hsl);

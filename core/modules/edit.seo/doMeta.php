@@ -7,7 +7,7 @@ OID::set($oid, "loc", $loc);
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/seo.meta.tpl");
+$tpl->load("editor/seo.meta.tpl");
 $tpl->copy("hint.$wht", "hint");
 $tpl->set("oid",  $oid);
 $tpl->set("what", $wht);

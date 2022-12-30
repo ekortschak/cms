@@ -1,5 +1,5 @@
 [include]
-design/templates/menus/toc.view.tpl
+LOC_TPL/menus/toc.view.tpl
 
 [dic]
 project = Transfer whole project

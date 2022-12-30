@@ -1,5 +1,5 @@
 [include]
-design/templates/user/mail.std.tpl
+LOC_TPL/user/mail.std.tpl
 
 [dic]
 subject = Confirm your account!

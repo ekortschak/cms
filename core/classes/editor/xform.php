@@ -72,7 +72,7 @@ private function doPage($dir, $inf) {
 	set_time_limit(10);
 
 	$htm = new page();
-	$htm->read("design/layout/LAYOUT/static.tpl");
+	$htm->read("LOC_LAY/LAYOUT/static.tpl");
 	$htm->set("title", PRJ_TITLE);
 	$htm->setModules();
 

@@ -22,7 +22,7 @@ class tooltip extends tpl {
 
 function __construct($typ = "button") {
 	parent::__construct();
-	$this->read("design/templates/msgs/tooltip.tpl");
+	$this->load("msgs/tooltip.tpl");
 }
 
 public function setData($key, $tip) {

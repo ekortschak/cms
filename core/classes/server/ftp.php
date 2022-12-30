@@ -88,7 +88,7 @@ public function test() {
 		$sts = ($con) ? "OK" : "0";
 	}
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/ftp.tpl");
+	$tpl->load("msgs/ftp.tpl");
 	$tpl->set("inifile", $this->get("inifile"));
 	$tpl->set("status", $sts);
 	$tpl->show("test.rep");

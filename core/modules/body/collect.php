@@ -39,7 +39,7 @@ $pic = FSO::join($dir, $pic);
 // show collected pages
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/modules/collect.tpl");
+$tpl->load("modules/collect.tpl");
 
 if (! is_file($pic)) {
 	$tpl->clearSec("pic");

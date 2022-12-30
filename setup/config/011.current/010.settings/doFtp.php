@@ -10,7 +10,7 @@ incCls("server/ftp.php");
 
 HTM::cap("file = $fil", "small");
 
-$ini = new iniMgr("design/config/ftp.ini");
+$ini = new iniMgr("LOC_CFG/ftp.ini");
 $ini->update($fil);
 $ini->show();
 

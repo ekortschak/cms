@@ -23,7 +23,7 @@ $fil = APP::relPath($fil);
 // show file
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/modules/fview.mimetype.tpl");
+$tpl->load("modules/fview.mimetype.tpl");
 $tpl->set("url", $fil);
 $tpl->show();
 

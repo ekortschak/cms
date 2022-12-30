@@ -18,7 +18,7 @@ $inf = $dbi->tblProps($tbl);
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("design/config/db.tables.ini");
+$ini = new ini("LOC_CFG/db.tables.ini");
 $arr = $ini->getSecs();
 $lng = CUR_LANG;
 

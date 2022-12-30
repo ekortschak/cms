@@ -21,7 +21,7 @@ class chip extends tpl {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/user/chip.tpl");
+	$this->load("user/chip.tpl");
 }
 
 // ***********************************************************

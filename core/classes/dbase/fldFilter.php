@@ -14,7 +14,7 @@ class fldFilter extends fldEdit {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/input/recFilter.tpl");
+	$this->load("input/recFilter.tpl");
 }
 
 // ***********************************************************

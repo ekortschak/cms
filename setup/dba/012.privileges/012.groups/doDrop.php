@@ -18,7 +18,7 @@ $xxx = $box->show();
 
 if ($grp == "?") {
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/dba.tpl");
+	$tpl->load("msgs/dba.tpl");
 	$tpl->show("no.groups");
 	return;
 }

@@ -24,7 +24,7 @@ class qikScript extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/qikScript.tpl");
+    $this->load("menus/qikScript.tpl");
 }
 
 // ***********************************************************

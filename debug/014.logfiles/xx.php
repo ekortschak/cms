@@ -1,6 +1,6 @@
 <?php
 
-$ptn = FSO::join(LOG_DIR, "*");
+$ptn = FSO::join(LOC_LOG, "*");
 $drs = FSO::folders($ptn);
 
 // ***********************************************************

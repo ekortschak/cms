@@ -27,7 +27,7 @@ class DIC {
 	private static $dat = array();
 
 public static function init() {
-	self::read("design/dictionary");
+	self::read(LOC_DIC);
 }
 
 // ***********************************************************
@@ -141,7 +141,7 @@ return $key;
 	$mod = EDITING; if (STR::begins(TAB_HOME, "setup"))
 	$mod = basename(TAB_HOME);
 
- 	$fil = FSO::join(APP_FBK, "design/dictionary", $lang, "$mod.dic");
+ 	$fil = FSO::join(APP_FBK, LOC_DIC, $lang, "$mod.dic");
  	$txt = APP::read($fil);
  	$val = ucfirst($val);
  	$itm = "$key = $val*";

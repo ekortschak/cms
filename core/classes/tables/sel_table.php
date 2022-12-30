@@ -30,7 +30,7 @@ class sel_table extends tblView {
 
 function __construct() {
 	parent::__construct();
-	$this->read("design/templates/tables/recSel.tpl");
+	$this->load("tables/recSel.tpl");
 	$this->register();
 }
 

@@ -18,7 +18,7 @@ $fil = FSO::join("core/modules/body", $inc);
 $ful = APP::file($fil);
 
 $frm = new tpl();
-$frm->read("design/templates/modules/page.tpl");
+$frm->load("modules/page.tpl");
 $frm->setVar("head", APP::gc($loc, "head"));
 $frm->setVar("page", APP::gcBody($ful));
 $frm->setVar("tail", APP::gc($loc, "tail"));

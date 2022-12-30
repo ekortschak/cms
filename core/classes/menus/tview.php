@@ -81,7 +81,7 @@ private function getProp($index, $key, $default = false) {
 // ***********************************************************
 public function show() {
 	$tpl = new tpl();
-	$tpl->read("design/templates/menus/tview.tpl");
+	$tpl->load("menus/tview.tpl");
 
 	$arr = $this->getData(); $out = "";
 	$lst = $this->count();   $cnt = 0;

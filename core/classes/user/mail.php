@@ -35,7 +35,7 @@ function __construct($subject = "Info") {
 	$this->set("from", MAILMASTER);
 	$this->set("replyto", NOREPLY);
 
-	$this->read("design/templates/user/mail.std.tpl");
+	$this->load("user/mail.std.tpl");
 }
 
 // ***********************************************************

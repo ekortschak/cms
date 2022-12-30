@@ -14,7 +14,7 @@ class fldEdit extends selector {
 
 function __construct() {
 	parent::__construct();
-	parent::read("design/templates/input/recEdit.tpl");
+	parent::load("input/recEdit.tpl");
 
 	DIC::read("dbase/ref");
 }

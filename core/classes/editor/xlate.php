@@ -96,7 +96,7 @@ public function setDest($file) {
 	if ($this->ovr) return;
 
 	$tpl = new tpl(); // file exists
-	$tpl->read("design/templates/editor/xlRef.tpl");
+	$tpl->load("editor/xlRef.tpl");
 	$tpl->show("protected");
 }
 

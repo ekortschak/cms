@@ -9,7 +9,7 @@ $sec = ENV::dbState("main");
 // info
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/user/forgot.tpl");
+$tpl->load("user/forgot.tpl");
 
 if ($sec == "nouser");  else
 if ($sec != "main")     return $tpl->show($sec);
@@ -33,7 +33,7 @@ if (ENV::getPost("login.act") == 4) { // send requested
 		$adr = ENV::getPost("mail", "nobody@home.net");
 
 		$mel = new mail("Password Reset");
-		$mel->read("design/templates/user/mail.pwd.tpl");
+		$mel->load("user/mail.pwd.tpl");
 		$mel->set("uname", $inf["uname"]);
 		$mel->set("email", $inf["email"]);
 		$mel->set("pwd",   $new);

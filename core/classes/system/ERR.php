@@ -57,7 +57,7 @@ public static function handler($num, $msg, $file, $line) {
 	if (  self::$done++) return; // handle only first error
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/error.tpl");
+	$tpl->load("msgs/error.tpl");
 	$tpl->set("errID", "$num:$line");
 	$tpl->set("line",   $line);
 	$tpl->set("errNum", self::fmtNum($num, $msg));
@@ -89,7 +89,7 @@ public static function trace() {
 	$arr = self::getInfo();
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/error.tpl");
+	$tpl->load("msgs/error.tpl");
 	$tpl->set("items", trim($arr));
 	$tpl->show("trace");
 }
@@ -97,7 +97,7 @@ private static function getInfo($sec = "short") {
 	$arr = self::getList(0, self::$depth); // get list of calling functions
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/error.tpl");
+	$tpl->load("msgs/error.tpl");
 	$out = "";
 
 	foreach ($arr as $itm) {
@@ -192,7 +192,7 @@ private static function getArg($itm, $max) {
 // ***********************************************************
 public static function box() {
 	$tpl = new tpl();
-	$tpl->read("design/templates/msgs/error.tpl");
+	$tpl->load("msgs/error.tpl");
 	$tpl->merge(self::$err);
 	$tpl->show();
 }

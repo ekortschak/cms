@@ -16,7 +16,7 @@ $sec = "nodata";
 // show elements to sort
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/sorter.tpl");
+$tpl->load("editor/sorter.tpl");
 $its = ""; $ccc = 1;
 
 foreach ($arr as $dir => $nam) {

@@ -1,14 +1,9 @@
 <?php
 
-$dir = "design/buttons";
-
-// ***********************************************************
-// show file selector
-// ***********************************************************
 incCls("menus/localMenu.php");
 
 $box = new localMenu();
-$ful = $box->files($dir);
+$ful = $box->files(LOC_BTN);
 $xxx = $box->show();
 
 // ***********************************************************

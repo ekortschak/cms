@@ -8,7 +8,7 @@ $tpl = basename($fil);
 // ***********************************************************
 incCls("editor/iniMgr.php");
 
-$ini = new iniMgr("design/config/$tpl");
+$ini = new iniMgr("LOC_CFG/$tpl");
 $ini->update($fil);
 $ini->show();
 

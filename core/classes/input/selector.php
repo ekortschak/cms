@@ -23,13 +23,13 @@ incCls("input/selItems.php");
 // ***********************************************************
 class selector extends tpl {
 	protected $itm = false; // list of input instances
-	protected $tpl = "design/templates/input/selView.tpl";
+	protected $tpl = "input/selView.tpl";
 
 function __construct() {
 	parent::__construct();
-	$this->setTpl("design/templates/input/selector.tpl");
+	$this->setTpl("input/selector.tpl");
 
-	$this->read($this->tpl);
+	$this->load($this->tpl);
 	$this->register();
 }
 

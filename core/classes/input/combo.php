@@ -23,7 +23,7 @@ class combo extends tpl {
 
 function __construct($name) {
 	parent::__construct();
-    $this->read("design/templates/input/selCombo.tpl");
+    $this->load("input/selCombo.tpl");
 	$this->set("fname", $name);
 	$this->register();
 }

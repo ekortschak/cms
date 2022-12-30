@@ -1,5 +1,5 @@
 [include]
-design/templates/menus/buttons.tpl
+LOC_TPL/menus/buttons.tpl
 
 [dic]
 paragraph = Paragraph

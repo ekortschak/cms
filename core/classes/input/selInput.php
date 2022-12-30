@@ -29,7 +29,7 @@ class selInput extends tpl {
 
 function __construct($pid) {
 	parent::__construct();
-	$this->read("design/templates/input/selInput.tpl");
+	$this->load("input/selInput.tpl");
 
 	$this->register($pid);
 	$this->set("perms", "w");	// table permissions

@@ -35,7 +35,7 @@ public function gc($fil, $sec = "main", $head = "") {
 	$cod = $this->getContent($fil);
 
 	$htm = new tpl();
-	$htm->read("design/templates/other/codeSnip.tpl");
+	$htm->load("other/codeSnip.tpl");
 	$htm->merge($this->vls); if ($head)
 	$htm->set("headc", $head);
 	$htm->set("code", $cod);
@@ -48,14 +48,14 @@ public function text($file, $head = "") {
 	$cod = $this->getContent($fil);
 
 	$htm = new tpl();
-	$htm->read("design/templates/other/codeSnip.tpl");
+	$htm->load("other/codeSnip.tpl");
 	$htm->set("code", $cod); if ($head)
 	$htm->set("headc", $head);
 	$htm->show("code");
 }
 public function pic($file) {
 	$htm = new tpl();
-	$htm->read("design/templates/other/codeSnip.tpl");
+	$htm->load("other/codeSnip.tpl");
 	$htm->set("file", $file);
 	$htm->show("pic");
 }

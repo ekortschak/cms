@@ -7,6 +7,12 @@
 if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
+define("ICONS",   "core/icons");
+define("LOC_CFG", "design/config");
+define("LOC_LAY", "design/layout");
+define("LOC_CSS", "design/styles");
+define("LOC_CLR", "design/colors");
+
 // ***********************************************************
 // load basic classes (mostly static)
 // ***********************************************************
@@ -25,9 +31,9 @@ include_once("core/classes/system/CFG.php"); // prepare constants
 CFG::setIf("layout");
 
 CFG::read("config/config.ini");
-CFG::read("design/config/defaults.ini");
-CFG::read("design/colors/COLORS.ini");
-CFG::read("design/layout/LAYOUT.ini");
+CFG::read("LOC_CFG/defaults.ini");
+CFG::read("LOC_CLR/COLORS.ini");
+CFG::read("LOC_LAY/LAYOUT.ini");
 
 // ***********************************************************
 include_once("core/classes/system/SSV.php"); // session vars

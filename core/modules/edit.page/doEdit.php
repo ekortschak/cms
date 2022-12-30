@@ -64,7 +64,7 @@ $rws = CHK::range($rws, 35, 7);
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/genEdit.$sec.tpl");
+$tpl->load("editor/genEdit.$sec.tpl");
 $tpl->set("file", APP::relPath($fil));
 $tpl->set("path", APP::tempDir("curedit"));
 $tpl->set("snips", $snp);

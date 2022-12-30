@@ -1,5 +1,5 @@
 [include]
-design/layout/default/offline.tpl
+LOC_LAY/default/offline.tpl
 
 # ***********************************************************
 [layout]

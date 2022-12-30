@@ -23,7 +23,7 @@ $obj = new swrap();
 $txt = $obj->getSnips($fil, $fnd);
 
 $tpl = new tpl();
-$tpl->read("design/templates/modules/search.tpl");
+$tpl->load("modules/search.tpl");
 
 if (! $txt) {
 	$tpl->show("none");

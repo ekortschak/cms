@@ -5,7 +5,7 @@ if (EDITING == "medit") {
 
 	if ($btn == "S") {
 		$tpl = new tpl();
-		$tpl->read("design/templates/menus/toc.edit.tpl");
+		$tpl->load("menus/toc.edit.tpl");
 		$tpl->show("topic");
 		return;
 	}
@@ -24,7 +24,5 @@ incCls("menus/toc.php");
 
 $toc = new toc();
 $toc->show($sec);
-
-LOG::lapse("toc done");
 
 ?>

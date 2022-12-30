@@ -8,7 +8,7 @@ $sec = ENV::dbState("main");
 // info
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/user/user.edit.tpl");
+$tpl->load("user/user.edit.tpl");
 $tpl->set("user", CUR_USER);
 
 if ($sec != "main") {

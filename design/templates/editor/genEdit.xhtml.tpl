@@ -1,5 +1,5 @@
 [include]
-design/templates/editor/genEdit.xedit.tpl
+LOC_TPL/editor/genEdit.xedit.tpl
 
 
 # ***********************************************************

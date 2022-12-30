@@ -1,14 +1,9 @@
 <?php
 
-$dir = "design/templates";
-
-// ***********************************************************
-// show file selector
-// ***********************************************************
 incCls("menus/localMenu.php");
 
 $box = new localMenu();
-$dir = $box->folders($dir);
+$dir = $box->folders(LOC_TPL);
 $ful = $box->files($dir);
 $xxx = $box->show();
 

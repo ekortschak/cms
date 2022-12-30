@@ -25,7 +25,7 @@ class dboBox extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/dboBox.tpl");
+    $this->load("menus/dboBox.tpl");
 }
 
 // ***********************************************************

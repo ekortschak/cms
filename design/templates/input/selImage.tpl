@@ -1,5 +1,5 @@
 [include]
-design/templates/input/selROnly.tpl
+LOC_TPL/input/selROnly.tpl
 
 [register]
 core/scripts/imageMap.js

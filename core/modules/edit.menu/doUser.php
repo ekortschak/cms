@@ -16,8 +16,8 @@ $prm = $ini->getValues("perms");
 // show permissions
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/input/selCombo.tpl");
-$tpl->read("design/templates/editor/mnuPerms.tpl");
+$tpl->load("input/selCombo.tpl");
+$tpl->load("editor/mnuPerms.tpl");
 $out = "";
 
 foreach ($arr as $usr => $md5) {

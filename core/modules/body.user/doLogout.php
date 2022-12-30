@@ -1,7 +1,7 @@
 <?php
 
 $tpl = new tpl();
-$tpl->read("design/templates/user/logout.tpl");
+$tpl->load("user/logout.tpl");
 $act = ENV::getPost("login.act", 0);
 $sec = "main";
 

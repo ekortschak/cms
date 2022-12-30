@@ -10,7 +10,7 @@ $lng = $sel->combo("unq.language", LNG::get(), CUR_LANG);
 $fnd = $sel->input("find.dic", "*");
 $act = $sel->show();
 
-$dir = "design/dictionary/$lng";
+$dir = FSO::join(LOC_DIC, $lng);
 $arr = FSO::ftree($dir);
 
 // ***********************************************************

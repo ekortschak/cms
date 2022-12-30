@@ -1,5 +1,5 @@
 [include]
-design/templates/editor/explorer.tpl
+LOC_TPL/editor/explorer.tpl
 
 
 [main]

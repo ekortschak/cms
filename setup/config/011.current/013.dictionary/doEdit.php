@@ -6,7 +6,7 @@
 incCls("menus/localMenu.php");
 
 $box = new localMenu();
-$dir = $box->folders("design/dictionary");
+$dir = $box->folders(LOC_DIC);
 $ful = $box->files($dir);
 $xxx = $box->show();
 

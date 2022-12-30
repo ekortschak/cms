@@ -203,7 +203,7 @@ public function merge($arr, $pfx = false) {
 // editing info
 // ***********************************************************
 public function validTypes() {
-	$ini = new ini("design/config/ptypes.ini");
+	$ini = new ini("LOC_CFG/ptypes.ini");
 	$par = $this->parentType(); if (! $par) $par = "default";
 	$par = $this->findSec($par, "default");
 	return $ini->getValues($par);

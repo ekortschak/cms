@@ -39,7 +39,7 @@ public function gc($btn = "view") {
 	$pic = $this->get("pic");
 
 	$tpl = new tpl();
-	$tpl->read("design/templates/menus/buttons.tpl");
+	$tpl->load("menus/buttons.tpl");
 	$tpl->merge($this->vls);
 
 	if ($pic) {
@@ -54,7 +54,7 @@ public function gc($btn = "view") {
 // ***********************************************************
 public function read($btn = "view") {
 	$fil = APP::file($btn); if (! is_file($fil))
-	$fil = FSO::join("design/buttons", "$btn.ini");
+	$fil = FSO::join(LOC_BTN, "$btn.ini");
 
 	$cod = new code();
 	$cod->read($fil);

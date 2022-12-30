@@ -14,7 +14,7 @@ $xxx = $box->show();
 // ***********************************************************
 incCls("editor/iniMgr.php");
 
-$ini = new iniMgr("design/config/lookup.ini");
+$ini = new iniMgr("LOC_CFG/lookup.ini");
 $ini->update($ful);
 $ini->show();
 

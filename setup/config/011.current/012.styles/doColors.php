@@ -37,7 +37,7 @@ $arr = $ini->getSecs();
 // show form
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/cssColors.tpl");
+$tpl->load("editor/cssColors.tpl");
 $out = "";
 
 foreach ($arr as $key => $val) {

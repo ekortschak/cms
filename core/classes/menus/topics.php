@@ -27,7 +27,7 @@ class topics extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/topics.tpl");
+    $this->load("menus/topics.tpl");
 }
 
 // ***********************************************************

@@ -111,7 +111,7 @@ private function nodeCheck() { // add UID to page.ini recursively
 	$ids = new uids();
 
 	foreach ($arr as $dir => $nam) {
-		$ini = new iniWriter("design/config/page.ini");
+		$ini = new iniWriter("LOC_CFG/page.ini");
 		$ini->read($dir);
 
 		$uid = $ini->getUID();
@@ -241,8 +241,8 @@ private function pageProps($dir) { // change uid, display type
 	$cmd = ENV::getPost("props"); if (! $cmd) return false;
 	$typ = STR::left($cmd["typ"]);
 
-	$tpl = "design/config/page.ini"; if ($typ != "inc")
-	$tpl = "design/config/page.$typ.ini";
+	$tpl = "LOC_CFG/page.ini"; if ($typ != "inc")
+	$tpl = "LOC_CFG/page.$typ.ini";
 
 	$ini = new iniWriter($tpl);
 	$ini->read($dir);
@@ -263,7 +263,7 @@ private function pageDefault($dir) { // mark node as default
 	$tpc = ENV::getTopDir();
 	$fil = FSO::join($tpc, "tab.ini");
 
-	$ini = new iniWriter("design/config/tab.ini"); // update tab.ini
+	$ini = new iniWriter("LOC_CFG/tab.ini"); // update tab.ini
 	$ini->read($fil);
 	$ini->set("props.std", $uid);
 	$ini->save();
@@ -299,7 +299,7 @@ private function userOpts($dir) {
 private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
 	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
 
-	$ini = new iniWriter("design/config/page.ini");
+	$ini = new iniWriter("LOC_CFG/page.ini");
 	$ini->read($fil);
 	$ini->save($fil);
 }

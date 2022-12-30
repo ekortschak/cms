@@ -22,8 +22,8 @@ class toc extends tpl {
 
 function __construct() {
 	parent::__construct();
- 	$this->read("design/templates/menus/toc.view.tpl"); if (EDITING != "view")
-	$this->read("design/templates/menus/toc.edit.tpl");
+ 	$this->load("menus/toc.view.tpl"); if (EDITING != "view")
+	$this->load("menus/toc.edit.tpl");
 
 	$this->dir = ENV::getPage();
 }

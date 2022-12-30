@@ -20,7 +20,7 @@ class selMemo extends selInput {
 
 function __construct($pid) {
 	parent::__construct($pid);
-    $this->read("design/templates/input/selMemo.tpl");
+    $this->load("input/selMemo.tpl");
 }
 
 // ***********************************************************

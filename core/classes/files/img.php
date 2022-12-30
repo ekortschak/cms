@@ -59,7 +59,7 @@ public function save($file) {
 
 public function preview($file) {
 	$tpl = new tpl();
-	$tpl->read("design/templates/other/img.tpl");
+	$tpl->load("other/img.tpl");
 	$tpl->set("file", $file);
 	$tpl->show("preview");
 }

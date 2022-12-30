@@ -17,7 +17,7 @@ $vis = $tbs->visTabs($set);
 HTM::tag("tabs.toggle");
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/tabsets.tpl");
+$tpl->load("editor/tabsets.tpl");
 $dat = "";
 
 foreach ($lst as $tab => $tit) {
@@ -39,7 +39,7 @@ $tpl->show();
 // add and drop tabs
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/editor/mnuTab.tpl");
+$tpl->load("editor/mnuTab.tpl");
 $tpl->set("tabset", $set);
 $tpl->show("add.tab");
 $tpl->show("help");

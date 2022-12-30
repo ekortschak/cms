@@ -23,7 +23,7 @@ class menu extends tpl {
 
 function __construct($typ = "menu") {
 	parent::__construct();
-	$this->read("design/templates/menus/$typ.tpl");
+	$this->load("menus/$typ.tpl");
 }
 
 // ***********************************************************

@@ -1,6 +1,6 @@
 [include]
-design/templates/msgs/no.access.tpl
-design/templates/user/login.tpl
+LOC_TPL/msgs/no.access.tpl
+LOC_TPL/user/login.tpl
 
 [dic]
 head  = Do you want to log out?

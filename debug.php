@@ -13,12 +13,9 @@ include_once("core/inc.more.php");
 incFnc("pagemaker.php");
 return;
 
-
-echo "<pre>";
-CFG::dump("users");
-echo "</pre>";
-
 ?>
+
+<hr>
 <hr>
 Success !
 <hr>

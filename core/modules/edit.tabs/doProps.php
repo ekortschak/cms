@@ -32,7 +32,7 @@ HTM::cap("Tab = $tit");
 // ***********************************************************
 $ful = FSO::join($tab, "tab.ini");
 
-$ini = new iniMgr("design/config/tab.ini");
+$ini = new iniMgr("LOC_CFG/tab.ini");
 $ini->forget();
 
 $ini->read($ful);

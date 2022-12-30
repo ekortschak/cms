@@ -1,6 +1,6 @@
 <?php
 
-$dir = "design/config";
+$dir = "LOC_CFG";
 
 // ***********************************************************
 // show file selector

@@ -20,7 +20,7 @@ class localSubMenu extends dropBox {
 
 function __construct() {
 	parent::__construct();
-    $this->read("design/templates/menus/localMenu.tpl");
+    $this->load("menus/localMenu.tpl");
     $this->set("class", "submenu");
 }
 

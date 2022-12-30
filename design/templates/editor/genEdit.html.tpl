@@ -1,6 +1,6 @@
 [include]
-design/templates/editor/genEdit.tpl
-design/templates/editor/toolbar.tpl
+LOC_TPL/editor/genEdit.tpl
+LOC_TPL/editor/toolbar.tpl
 
 [register]
 core/scripts/keyEvents.js

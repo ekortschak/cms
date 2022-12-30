@@ -11,7 +11,7 @@ if (! $url) {
 // show page content
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/modules/livecam.tpl");
+$tpl->load("modules/livecam.tpl");
 $tpl->set("url", $url);
 $tpl->show();
 

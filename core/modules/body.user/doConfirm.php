@@ -9,7 +9,7 @@ $sec = ENV::dbState("main");
 // info
 // ***********************************************************
 $tpl = new tpl();
-$tpl->read("design/templates/user/reg.confirm.tpl");
+$tpl->load("user/reg.confirm.tpl");
 
 if ($sec == "nouser"); else
 if ($sec != "main") return $tpl->show($sec);

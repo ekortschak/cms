@@ -18,7 +18,7 @@ $nav->show("menu");
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$tpl = "design/config/$fcs.ini";
+$tpl = "LOC_CFG/$fcs.ini";
 $fil = "config/$fcs.$ext";
 
 if (! is_file($fil))

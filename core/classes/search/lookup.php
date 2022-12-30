@@ -32,7 +32,7 @@ class lookup extends objects {
 
 function __construct() {
 	$this->tpl = new tpl();
-	$this->tpl->read("design/templates/other/lookup.tpl");
+	$this->tpl->load("other/lookup.tpl");
 
 	if (CUR_LANG == "de") $this->len = 3;
 

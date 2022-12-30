@@ -1,5 +1,5 @@
 [include]
-design/templates/modules/fview.gallery.tpl
+LOC_TPL/modules/fview.gallery.tpl
 
 [dic]
 head = Files

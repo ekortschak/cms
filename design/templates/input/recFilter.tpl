@@ -1,5 +1,5 @@
 [include]
-design/templates/input/selector.tpl
+LOC_TPL/input/selector.tpl
 
 [dic.de]
 filter = Datenfilter

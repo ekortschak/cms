@@ -1,5 +1,5 @@
 [include]
-design/templates/msgs/no.access.tpl
+LOC_TPL/msgs/no.access.tpl
 
 # ***********************************************************
 [main]

@@ -1,5 +1,5 @@
 [include]
-design/templates/user/login.tpl
+LOC_TPL/user/login.tpl
 
 [dic]
 ask = Do you want to delete your account?

@@ -1,7 +1,7 @@
 <?php
 
 $tpl = new tpl();
-$tpl->read("design/templates/user/login.tpl");
+$tpl->load("user/login.tpl");
 $sec = "current";
 
 // ***********************************************************

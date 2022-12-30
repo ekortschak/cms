@@ -21,7 +21,7 @@ class selMulti extends selCombo {
 
 function __construct($pid) {
 	parent::__construct($pid);
-    $this->read("design/templates/input/selMulti.tpl");
+    $this->load("input/selMulti.tpl");
 }
 
 // ***********************************************************

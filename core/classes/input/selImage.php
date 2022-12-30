@@ -27,7 +27,7 @@ class selImage extends selInput {
 function __construct($pid) {
 	parent::__construct($pid);
 	if (CUR_DEST == "screen")
-    $this->read("design/templates/input/selImage.tpl");
+    $this->load("input/selImage.tpl");
 }
 
 public function init($type, $qid, $value) {

@@ -31,7 +31,7 @@ return;
 // ***********************************************************
 function reWrite() {
 	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, "design/dictionary", $lng, "*.dic");
+ 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng, "*.dic");
 	$fls = FSO::files($ptn);
 	$sec = "[dic.$lng]";
 
@@ -58,7 +58,7 @@ function reWrite() {
 // ***********************************************************
 function spawn() {
 	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, "design/dictionary", $lng, "*.dic");
+ 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng, "*.dic");
 	$fls = FSO::files($ptn);
 
 	foreach ($fls as $fil => $nam) {
@@ -85,7 +85,7 @@ function spawn() {
 				$out[] = "$key = $xlt";
 			}
 			$txt = implode("\n", $out);
-			$sav = FSO::join(APP_FBK, "design/dictionary", $itm, $nam);
+			$sav = FSO::join(APP_FBK, LOC_DIC, $itm, $nam);
 			$xxx = APP::write($sav, "$txt\n");
 		}
 	}

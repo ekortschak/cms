@@ -31,7 +31,7 @@ $fil = FSO::join("core/modules/body", $inc);
 $ful = APP::file($fil);
 
 $frm = new tpl();
-$frm->read("design/templates/modules/page.tpl");
+$frm->load("modules/page.tpl");
 $frm->setVar("banner",  APP::gcRec($loc, "banner", false));
 $frm->setVar("help",    APP::gc($loc, "help"));
 $frm->setVar("head",    APP::gc($loc, "head"));
@@ -45,7 +45,5 @@ $frm->show();
 // ***********************************************************
 $fil = APP::find($loc, "trailer");
 echo APP::gc($fil);
-
-LOG::lapse("body done");
 
 ?>

@@ -124,16 +124,16 @@ public static function dir($dir) { // find dir in extended fs
 }
 
 public static function file($fso) { // find file in extended fs
-	if (FSO::isUrl($fso)) return $fso; if (! $fso) return "";
+	if (! $fso) return ""; $fso = CFG::insert($fso);
+
+	if (FSO::isUrl($fso)) return $fso;
 	if (is_file($fso)) return $fso;
-	if (is_dir($fso)) return false;
 
 	$fso = self::relPath($fso);
 
 	foreach (self::$fbk as $loc) {
 		$ful = FSO::join($loc, $fso);
 		if (is_file($ful)) return $ful;
-		if (is_dir($ful))  return false;
 	}
 	return false;
 }
