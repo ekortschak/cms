@@ -10,10 +10,9 @@
 incCls("system/LOG.php");
 
 */
+define("LOG_DIR",  SRV_ROOT."cms.log");
 
 incCls("system/timer.php");
-
-define("LOG_DIR",  SRV_ROOT."cms.log");
 
 LOG::init();
 
@@ -105,14 +104,14 @@ public static function show($msg = false) {
 // timer methods
 // ***********************************************************
 public static function lapse($msg = "timer") {
-	$inf = self::$tim->lapse();
-	$inf = sprintf("%1.3fs", $inf);
-	self::write("timer.log", "L $msg $inf");
+#	$inf = self::$tim->lapse();
+#	$inf = sprintf("%1.3fs", $inf);
+#	self::write("timer.log", "L $msg $inf");
 }
 public static function total($msg = "total") {
-	$inf = self::$tim->total();
-	$inf = sprintf("%1.3fs", $inf);
-	self::write("timer.log", "T $msg $inf");
+#	$inf = self::$tim->total();
+#	$inf = sprintf("%1.3fs", $inf);
+#	self::write("timer.log", "T $msg $inf");
 }
 
 // ***********************************************************
