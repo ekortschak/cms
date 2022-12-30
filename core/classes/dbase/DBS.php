@@ -42,13 +42,6 @@ private static function loadDbs() {
 // ***********************************************************
 // querying db state
 // ***********************************************************
-public static function getState($sec = "main") { // tpl section
-	if (DB_MODE == "none") return "nodb";
-	if (! DB_CON)   return "nocon";
-	if (! DB_LOGIN) return "nouser";
-	return $sec;
-}
-
 public static function dbases() {
 	$dbi = new dbInfo();
 	return $dbi->dbases();

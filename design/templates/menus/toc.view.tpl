@@ -29,41 +29,41 @@ grey =
 # level 1 entries
 # ***********************************************************
 [link.root]
-	<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
-		class="mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
-		<!SEC:link!> _
-    </div>
+<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+class="mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
+style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
+<!SEC:link!> _
+</div>
 
 # ***********************************************************
 # menu folders
 # ***********************************************************
 [link.both]
-	<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
-		class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
-		<!SEC:link!> _
-    </div>
+<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
+style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
+<!SEC:link!> _
+</div>
 
 [link.menu]
-	<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
-		class="dir mnu lev<!VAR:level!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>">
+<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+class="dir mnu lev<!VAR:level!> <!VAR:hid!>" _
+style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>">
 
-		<a href="javascript:toggleDiv('<!VAR:index!>');"> _
-			 <!VAR:title!> _
-		</a> _
-    </div>
+<a href="javascript:toggleDiv('<!VAR:index!>');"> _
+	 <!VAR:title!> _
+</a> _
+</div>
 
 # ***********************************************************
 # content links
 # ***********************************************************
 [link.file]
-	<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
-		class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>;"> _
-		<!SEC:link!> _
-    </div>
+<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
+style="display:<!VAR:vis!>;"> _
+<!SEC:link!> _
+</div>
 
 # ***********************************************************
 # static files

@@ -2,7 +2,10 @@
 search = Search
 result = Search results
 sinfo  = Search text
-short  = Search text<br>&ensp; &rarr; min. 2 characters
+short  = Search text<br><small>&ensp; &rarr; min. 2 characters</small>
+empty  = Search returned no results
+nosel  = Select an entry from the result list
+prevw  = Preview
 stop   = Stop search
 show   = Show
 
@@ -10,7 +13,10 @@ show   = Show
 search = Suche
 result = Suchergebnisse
 sinfo  = Suchtext
-short  = Suchtext<br>&ensp; &rarr; min. 2 Buchstaben
+short  = Suchtext<br><small>&ensp; &rarr; min. 2 Buchstaben</small>
+empty  = Suche ergab keine Treffer
+nosel  = Wähle einen Eintrag aus der Ergebnisliste
+prevw  = Vorschau
 stop   = Suche beenden
 show   = Zeige
 
@@ -22,9 +28,7 @@ result =
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="float: right;>
-	<a href="?vmode=view"><button class="icon"><img src="core/icons/buttons/view.png" align="right" /></button></a>
-</div>
+<!SEC:nav.toc!>
 
 <div style="margin: -15px 0px 12px;">
 	<h3><!DIC:search!></h3>
@@ -52,20 +56,40 @@ result =
 <div style="white-space: nowrap;"><h5><!VAR:topic!></h5></div>
 
 [item]
-<div style="white-space: nowrap;"><a href="?tpc=<!VAR:tab!>&prv=<!VAR:link!>"><!VAR:title!></a></div>
+<div style="white-space: nowrap;"><a href="?dir=<!VAR:tab!>&prv=<!VAR:key!>"><!VAR:title!></a></div>
 
-[nav.opts]
-<!DIC:show!> <red><!VAR:ref!></red>? - <!DIC:nav.back!>
-
-[preview]
+[nav.toc]
 <div style="float: right;">
-	<a href="?vmode=view">
-		<img src="core/icons/nav/back.gif" /> &nbsp;
-	</a>
-	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:url!>">
+	<a href="?vmode=view"><button class="icon"><img src="core/icons/buttons/view.png" align="right" /></button></a>
+</div>
+
+[nav.preview]
+<div style="float: right;">
+	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
 		<button class="icon"><img src="core/icons/buttons/view.png" alt="View"></button>
 	</a>
 </div>
+
+<!SEC:nav.info!>
+
+# ***********************************************************
+[preview]
+# ***********************************************************
+<h3><!DIC:prevw!></h3>
+
+
+[nav.info]
+<!SEC:preview!>
+<div class="localmenu"><!VAR:title!></div>
+#<hint>dir = <!VAR:dir!></hint></p>
+
+[err.empty]
+<!SEC:preview!>
+<div><!DIC:empty!></div>
+
+[err.nosel]
+<!SEC:preview!>
+<div><!DIC:nosel!></div>
 
 [err.short]
 <div><!DIC:short!></div>
@@ -95,12 +119,6 @@ result =
 </table>
 
 [none.de]
-<div style="float: right;">
-	<a href="?vmode=view">
-		<img src="core/icons/nav/back.gif" /> &nbsp;
-	</a>
-</div>
-
 <h3>Info</h3>
 <ul>
 	<li>Gib einen Suchbegriff in das Textfeld ein.</li>

@@ -3,7 +3,7 @@
 incCls("dbase/dbQuery.php");
 incCls("user/mail.php");
 
-$sec = DBS::getState("main");
+$sec = ENV::dbState("main");
 
 // ***********************************************************
 // info

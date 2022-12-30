@@ -14,6 +14,6 @@
 [main]
 # ***********************************************************
 <div class="dropdown">
-	<button class="dropdown-button">Snips &nbsp; ▾</button>
+	<button class="dropdown-button">Snips&ensp;▾</button>
 <!SEC:content!>
 </div>

@@ -48,10 +48,6 @@ private function get($key) {
 	return "$key$sep$cnt";
 }
 
-public function dump(){
-	DBG::vector($this->dat);
-}
-
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

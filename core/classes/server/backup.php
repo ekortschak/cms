@@ -50,7 +50,7 @@ public function restore($version = NV) {
 
 	$box = new dropBox();
 	$dst = $box->getKey("as of", $vrs);
-	$vrs = $box->gc("seemless");
+	$vrs = $box->gc("inline");
 
 	$this->setDest(APP::bkpDir(basename($dst), $this->dev));
 	$this->revertFlow();

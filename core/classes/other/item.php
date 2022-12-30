@@ -23,8 +23,8 @@ function __construct($name, $value = "") {
 	$nam = trim($name);
 	$val = trim($value);
 
-	$this->set("name", $nam);
-	$this->set("head", $nam);
+	$this->set("index", $nam);
+	$this->set("head",  $nam);
 	$this->set("value", $val);
 }
 

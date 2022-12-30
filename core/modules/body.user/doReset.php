@@ -2,7 +2,7 @@
 
 incCls("dbase/dbQuery.php");
 
-$sec = DBS::getState("main");
+$sec = ENV::dbState("main");
 
 // ***********************************************************
 // info

@@ -54,7 +54,7 @@ public function setTable($dbase, $table, $flt = "") {
 	}
 }
 
-private function getPage() {
+protected function getPage() {
     $pge = $this->get("cur", 0);
     $rep = $this->get("lines", $this->lns);
     $lst = $this->get("last", 0) - 1;

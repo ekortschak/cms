@@ -22,8 +22,8 @@ class htm_table extends tpl {
     protected $cls;             // column info object
 	protected $dat = array();   // table data rows
 
-	protected $lns = 35;          // max lines per page
-	protected $max = 250;			// max lines per screen
+	protected $lns = 35;        // max lines per page
+	protected $max = 250;       // max lines per screen
 
 function __construct() {
 	parent::__construct();
@@ -33,6 +33,7 @@ function __construct() {
 	$this->read($tpl);
 
     $this->cls = new tblCols();
+    $this->register();
 }
 
 // ***********************************************************
@@ -85,12 +86,17 @@ public function addRow($data) { // single record
 	$this->dat[] = array_values($data);
 }
 
-public function addArray($data) {
+public function addArray($data, $pfx = "") {
 	$this->cls->addItem("Key");
 	$this->cls->addItem("Value");
 
 	foreach ($data as $key => $val) {
-		$this->dat[] = array($key, $val);
+		$this->dat[] = array($pfx.$key, $val);
+
+		if (is_array($val)) {
+			if (count($val) < 1) $val = "-"; else
+			$this->addArray($val, "$pfx&nbsp;&nbsp;");
+		}
 	}
 }
 
@@ -199,8 +205,8 @@ protected function getRecID($arr) {
 // handling navigation
 // ***********************************************************
 protected function getPage() {
-    $pge = $this->get("page", 0);
     $lst = count($this->dat);
+    $pge = OID::get($this->oid, "cur", 0);
 
     switch (ENV::getParm("act", "x")) {
         case "f": $pge = 0;        break;
@@ -208,13 +214,13 @@ protected function getPage() {
         case "n": $pge = $pge + 1; break;
         case "l": $pge = 9999;
     }
-    $max = $this->getPageNum($lst);
+    $max = $this->getMax($lst);
     $pge = CHK::range($pge, $max);
-    $xxx = $this->set("page", $pge);
+    $xxx = OID::set($this->oid, "cur", $pge);
     return $pge;
 }
 
-protected function getPageNum($idx) {
+protected function getMax($idx) {
 //  with 3 lines per page:
 //	0, 1, 2 => 1
 //	3, 4, 5 => 2
@@ -234,12 +240,11 @@ protected function getFirst($pge) {
 protected function getTable($body) {
     if (! $body) return "";
 
-    $lst = count($this->dat); $lst = $this->getPageNum($lst);
-    $pge = $this->get("page", 0);
+    $lst = count($this->dat); $lst = $this->getMax($lst);
+    $pge = OID::get($this->oid, "cur", 0);
 
 	$this->set("body", $body);
     $this->set("qid",  $this->oid);
-    $this->set("cur",  $pge);
     $this->set("1st",  $pge + 1);
     $this->set("cnt",  $lst + 1);
 

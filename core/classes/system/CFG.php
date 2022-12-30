@@ -73,10 +73,6 @@ private static function fixPaths() {
 	$dir = "xtools/ck5"; if (is_dir("$rut/$dir")) self::set("CK5_URL", "/$dir");
 }
 
-private static function getRoot() {
-}
-
-
 // ***********************************************************
 // reading config files
 // ***********************************************************
@@ -175,9 +171,17 @@ public static function get($key, $default = "") {
 	return constant($key);
 }
 
+public static function getCats() {
+	$cst = get_defined_constants(true);
+	$cst = array_keys($cst); sort($cst);
+	$cst = array_combine($cst, $cst); unset($cst["user"]);
+	$out = array("user" => "USER", "" => "<hr>");
+	return $out + $cst;
+}
+
 public static function getData($sec = "user") {
 	$out = get_defined_constants(true); if ($sec)
-	$out = $out[$sec]; ksort($out);
+	$out = $out[$sec]; ksort($out); if ($sec != "user") return $out;
 
 	$out["DB_FILE"]  = "*****"; // hide critical info
 	$out["DB_PASS"]  = "*****";
@@ -218,17 +222,6 @@ private static function getCaller($file) {
 private static function getIndex() {
 	if (! STR::contains(APP_FILE, "x.edit")) return APP_FILE;
 	return STR::replace(APP_FILE, "x.edit", "index");
-}
-
-// ***********************************************************
-// debugging
-// ***********************************************************
-public static function dump($idx = false) {
-#	$arr = self::$cfg; if ($idx)
-#	$arr = self::$cfg[$idx];
-	$arr = self::getData("user");
-
-	DBG::vector($arr);
 }
 
 // ***********************************************************

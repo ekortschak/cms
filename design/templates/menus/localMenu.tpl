@@ -19,3 +19,19 @@ class = localmenu
 
 [main.one]
 <!SEC:menu.one!>
+
+
+# ***********************************************************
+[compact] # multiple options with title
+# ***********************************************************
+<div class="localmenu">
+<!VAR:items!>
+</div>
+
+[compact.box]
+<div class="dropdown"><!VAR:current!>&ensp;▾
+<!SEC:content!>
+</div> &ensp;
+
+[compact.one]
+<!VAR:current!> &ensp;

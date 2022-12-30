@@ -102,7 +102,7 @@ public static function setParm($key, $value) {
 // ***********************************************************
 // finalizing constants
 // ***********************************************************
-public static function seal() {
+public static function seal() { // TODO: xfer to CFG
 	$mod = self::get("vmode", "view");
 
 	switch ($mod) {
@@ -112,6 +112,13 @@ public static function seal() {
 	}
 	CFG::set("EDITING",  $mod);
 	CFG::set("CUR_DEST", $dst);
+}
+
+public static function dbState($sec = "main") { // tpl section
+	if (DB_MODE == "none") return "nodb";
+	if (! DB_CON)   return "nocon";
+	if (! DB_LOGIN) return "nouser";
+	return $sec;
 }
 
 // ***********************************************************

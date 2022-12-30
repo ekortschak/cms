@@ -10,7 +10,7 @@ dropBox.tpl
 </div> &emsp;
 
 [main.box]
-	<button class="dropdown-button"><!SEC:label!> &nbsp; ▾</button>
+	<button class="dropdown-button"><!SEC:label!>&ensp;▾</button>
 <!SEC:content!>
 
 [main.one]

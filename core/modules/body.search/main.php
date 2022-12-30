@@ -2,38 +2,44 @@
 
 $fnd = ENV::get("search");
 $fil = ENV::get("prv");
-$tpc = ENV::get("tab");
+$tpc = ENV::get("dir");
+
+$arr = ENV::get("last.search");
+$dat = VEC::get($arr, $tpc);
+$tit = VEC::get($dat, $fil);
+
+$dir = dirname($fil);
+$uid = HTM::pgeProp($dir, "props.uid", $fil);
+
+$rut = dirname($tpc);
+$dir = STR::after($dir, "$rut/");
 
 // ***********************************************************
-// show search details in body pane
+// preview searched item
 // ***********************************************************
 incCls("search/swrap.php");
 
 $obj = new swrap();
-$ref = $obj->getInfo($fil);
-$tit = $obj->getTitle($fil);
 $txt = $obj->getSnips($fil, $fnd);
-
-$sec = "preview"; if (! $txt) $sec = "none";
 
 $tpl = new tpl();
 $tpl->read("design/templates/modules/search.tpl");
+
+if (! $txt) {
+	$tpl->show("none");
+	return;
+}
+
 $tpl->set("topic", $tpc);
-$tpl->merge($ref);
-$tpl->show($sec);
-
-LOG::lapse("body.search ready");
-
-if (! $txt) return;
+$tpl->set("title", $tit);
+$tpl->set("dir", $dir);
+$tpl->set("page", $uid);
+$tpl->show("nav.preview");
 
 // ***********************************************************
-// show content
+// text
 // ***********************************************************
-HTM::cap($tit, "h3");
-
 $txt = STR::mark($txt, $fnd);
 echo $txt;
-
-LOG::lapse("body.search done");
 
 ?>

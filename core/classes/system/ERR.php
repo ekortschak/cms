@@ -48,7 +48,6 @@ public static function sql($msg, $sql) {
 // ***********************************************************
 public static function last() {
 	$err = error_get_last(); if (! $err) return false;
-	DBG::vector($err);
 	return true;
 }
 

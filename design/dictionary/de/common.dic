@@ -29,3 +29,8 @@ opt.overwrite = Bestehende Datei(en) überschreiben
 opt.save = Speichern
 opt.tooltip = Tool-Tips
 sec.unknown = Vorlagenabschnitt nicht definiert
+
+Paragraphs = Absätze
+Sections = Abschnitte
+Verses = Bibelverse
+Local = Lokal

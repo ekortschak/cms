@@ -48,11 +48,14 @@ public static function bkpDir($dir = "", $root = SRV_ROOT, $pfx = "bkp") {
 	if (! $dir) $dir = "$pfx.".date("Y.m.d");
 	return FSO::join($root, "cms.backup", APP_NAME, $dir);
 }
+public static function logDir($dir = "") {
+	return FSO::join(SRV_ROOT, "cms.log", APP_NAME, $dir);
+}
 public static function tempDir($dir = "", $sub = "") {
-	return FSO::join(SRV_ROOT, "temp", APP_NAME, $dir, $sub);
+	return FSO::join(SRV_ROOT, "cms.temp", APP_NAME, $dir, $sub);
 }
 public static function genDir($dir = "", $sub = "") {
-	return FSO::join(SRV_ROOT, "temp", $dir, $sub);
+	return FSO::join(SRV_ROOT, "cms.temp", $dir, $sub);
 }
 
 public static function getFBK() {

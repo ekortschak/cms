@@ -64,7 +64,7 @@ no.info	= Keine weitere Info vorhanden
 
 [cr.known]
 <div class="dropdown">
-<!SEC:cr.short!> &nbsp;▾
+<!SEC:cr.short!>&ensp;▾
 <!SEC:cinfo!>
 </div>
 
@@ -72,12 +72,12 @@ no.info	= Keine weitere Info vorhanden
 &copy; <a href="<!VAR:source!>"><!VAR:holder!></a>
 
 [cr.user]
-<div class="dropdown"><!DIC:claim!> &nbsp;▾
+<div class="dropdown"><!DIC:claim!>&ensp;▾
 <!SEC:cinfo!>
 </div>
 
 [cr.unknown]
-<div class="dropdown">&copy; <!DIC:unknown!> &nbsp;▾
+<div class="dropdown">&copy; <!DIC:unknown!>&ensp;▾
 	<div class="dropdown-content">
 		<!SEC:login!>
 		<!SEC:email!>

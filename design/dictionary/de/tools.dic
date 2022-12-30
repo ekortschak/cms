@@ -1,6 +1,6 @@
 [dic.de]
-Filter = Filter*
-Focus = Focus*
+Filter = Filter
+Focus = Focus
 color.chroma = Sättigung
 color.fixed = Fixed Item
 color.names = Benannte Farbe

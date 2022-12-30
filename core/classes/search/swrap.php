@@ -2,16 +2,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-wrapper for search.php
-* meant to facilitate different implementations of the search
-* module according to app requirements
-
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("search/swrap.php");
-
-$bbl = new swrap();
+app specific wrapper for search.php
 */
 
 incCls("search/search.php");

@@ -58,10 +58,10 @@ page = Seite
 # ***********************************************************
 [Nav]
 # ***********************************************************
-<a href="?oid=<!VAR:oid!>&cur=<!VAR:cur!>&act=f"><img src="core/icons/move/First.gif" /></a>
-<a href="?oid=<!VAR:oid!>&cur=<!VAR:cur!>&act=p"><img src="core/icons/move/Left.gif"  /></a>
-<a href="?oid=<!VAR:oid!>&cur=<!VAR:cur!>&act=n"><img src="core/icons/move/Right.gif" /></a>
-<a href="?oid=<!VAR:oid!>&cur=<!VAR:cur!>&act=l"><img src="core/icons/move/Last.gif"  /></a>
+<a href="?act=f"><img src="core/icons/move/First.gif" alt="goto first"></a>
+<a href="?act=p"><img src="core/icons/move/Left.gif"  alt="goto previous"></a>
+<a href="?act=n"><img src="core/icons/move/Right.gif" alt="goto next"></a>
+<a href="?act=l"><img src="core/icons/move/Last.gif"  alt="goto last"></a>
 
 [stats]
 <!DIC:page!> <!VAR:1st!> / <!VAR:cnt!>

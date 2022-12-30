@@ -39,12 +39,12 @@ bspace = 3
 
 [main.box]
 <div class="dropdown">
-	<button class="dropdown-button"><!VAR:current!>&emsp;▾</button>
+	<button class="dropdown-button"><!VAR:current!>&ensp;▾</button>
 <!SEC:content!>
-</div> &emsp;
+</div> &ensp;
 
 [main.one]
-<button><!VAR:current!></button> &emsp;
+<button><!VAR:current!></button> &ensp;
 
 # ***********************************************************
 [inline]
@@ -52,10 +52,13 @@ bspace = 3
 <!VAR:items!>
 
 [inline.box]
-<!SEC:main.box!>
+<div class="dropdown">
+<!VAR:current!>&ensp;▾
+<!SEC:content!>
+</div> &ensp;
 
 [inline.one]
-<!SEC:main.one!>
+<!VAR:current!> &ensp;
 
 # ***********************************************************
 [menu] # multiple options with title
@@ -68,9 +71,9 @@ bspace = 3
 
 [menu.box]
 <!VAR:uniq!><!VAR:sep!>
-<div class="dropdown"><!VAR:current!>&nbsp; ▾
+<div class="dropdown"><!VAR:current!>&ensp;▾
 <!SEC:content!>
-</div> &emsp;
+</div> &ensp;
 
 [menu.one]
-<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &emsp;
+<!VAR:uniq!><!VAR:sep!> <!VAR:current!>&ensp;

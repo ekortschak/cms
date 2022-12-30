@@ -28,6 +28,7 @@ class SSV {
 	private static $min = 15;
 	private static $max = 180;
 
+
 public static function init() {
 	self::$ses = &$_SESSION; if (! isset(self::$ses[APP_IDX])) self::$ses[APP_IDX] = array();
 	self::$vrs = &$_SESSION[APP_IDX];
@@ -35,12 +36,17 @@ public static function init() {
 	self::chkReset();
 	self::chkTimeOut();
 	self::setTimeOut();
+
+	self::set("files", $_FILES, "prm");
+	self::set("post",  $_POST,  "prm");
+	self::set("get",   $_GET,   "prm");
 }
 
 public static function reset() {
 	self::$vrs = array(
 		"env" => array(), "oid" => array(),
-		"pfs" => array(), "tan" => array()
+		"pfs" => array(), "tan" => array(),
+		"prm" => array(), "dbg" => array()
 	);
 }
 public static function clear($div) {
@@ -63,6 +69,11 @@ public static function get($key, $default = false, $div = "env") {
 }
 
 // ***********************************************************
+public static function myFiles() {
+	$out = array_keys($_SESSION);
+	return array_combine($out, $out);
+}
+
 public static function getData($div = "env") {
 	return VEC::get(self::$vrs, $div);
 }
@@ -116,13 +127,6 @@ private static function getTimeOut() {
 	if ($max < self::$max) $max = self::$max;
 
 	return time() + ($max * 60);
-}
-
-// ***********************************************************
-// debugging
-// ***********************************************************
-public static function dump($div = "env") {
-	DBG::vector(self::$vrs[$div]);
 }
 
 // ***********************************************************

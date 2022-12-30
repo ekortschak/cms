@@ -28,8 +28,9 @@ function __construct($dbase = NV, $table = "dummy") {
 // handling databases
 // ***********************************************************
 public function dbases() {
-	$arr = $this->getRecs("inf.dbs", "n"); $out = array();
+	$arr = $this->getRecs("inf.dbs", "n"); if (! $arr) return;
 	$ign = ".phpmyadmin.sys.mysql.";
+	$out = array();
 
 	foreach ($arr as $dbs) {
 		if (! $dbs) continue;
@@ -167,7 +168,8 @@ public function usrPerms() {
 // ***********************************************************
 private function dropSysObjs($arr, $lst) {
  // drop reserved or delicate items from output array
-	$lst = explode(".", $lst); if (! $lst) return $arr;
+	if (! $arr) return $arr; $lst = explode(".", $lst);
+	if (! $lst) return $arr;
 
 	foreach ($lst as $itm) {
 		unset($arr[$itm]);

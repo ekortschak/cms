@@ -342,23 +342,6 @@ public static function hasXs($index = NV) {
 }
 
 // ***********************************************************
-// debugging
-// ***********************************************************
-public static function dump() { // collects all defined props from all ini files
-	$out = array();
-
-	foreach (self::$dat as $arr) {
-		foreach ($arr as $key => $val) {
-			if (! $key) continue;
-			if (STR::contains($key, "dic.")) continue;
-			$out[$key] = $val;
-		}
-	}
-	ksort($out);
-	DBG::vector($out);
-}
-
-// ***********************************************************
 } // END OF CLASS
 // ***********************************************************
 ?>

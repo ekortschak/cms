@@ -3,7 +3,7 @@
 if (DB_ADMIN) return;
 
 // ***********************************************************
-$sec = DBS::getState();
+$sec = ENV::dbState();
 if ($sec == "nouser") $sec = "admin";
 
 $tpl = new tpl();

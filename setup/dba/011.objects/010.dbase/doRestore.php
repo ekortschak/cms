@@ -18,7 +18,7 @@ foreach ($vrs as $key => $val) {
 	$vrs[$key] = STR::after($val, "db.$dbs.");
 }
 $ver = $box->getKey("as of", $vrs);
-$xxx = $box->show("menu");
+$xxx = $box->show();
 
 HTM::cap("dir = $bkp", "small");
 

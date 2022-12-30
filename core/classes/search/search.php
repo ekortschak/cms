@@ -9,11 +9,17 @@ search web files for content
 // ***********************************************************
 incCls("search/search.php");
 
-$obj = new search();
+$obj = new swrap();
+$opt = $obj->getScope();
+$lst = $obj->getResults($fnd);
+
+$tit = $obj->getTitle($fil);
+$ref = $obj->getInfo($fil);
+$txt = $obj->getSnips($fil, $fnd);
 
 */
 
-incCls("menus/dropBox.php");
+incCls("menus/localMenu.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -30,26 +36,18 @@ function __construct($dir = TAB_PATH) {
 }
 
 // ***********************************************************
-// show search options
+// methods called by toc
 // ***********************************************************
-public function getOpts() {
-	$drs = array(
-		TAB_ROOT => "All Topics",
-		TAB_PATH => "Current Topic"
-	);
-	$arr = array(
-		"h" => "Sections",
-		"p" => "Paragraphs",
-	);
-	$box = new dropBox();
-	$this->dir = $box->getKey("search.dir", $drs, TAB_PATH);
-	$this->mod = $box->getKey("search.mod", $arr, "h");
+public function getScope() {
+	$drs = $this->getPaths();
+	$mds = $this->getMods();
 
-	return $box->gc();
+	$box = new localMenu();
+	if (count($drs) > 1) $this->dir = $box->getKey("search.dir", $drs, TAB_PATH);
+	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, "h");
+	return $box->gc("compact");
 }
 
-// ***********************************************************
-// search file system for $what
 // ***********************************************************
 public function getResults($what) {
 	$out = $this->isSame($what); if (  $out) return $out;
@@ -68,6 +66,122 @@ public function getResults($what) {
 }
 
 // ***********************************************************
+protected function search($what) { // $what expected as string
+	if (strlen($what) < 2) return false;
+
+	$arr = FSO::tree($this->dir);
+	$loc = PFS::getLoc();
+	$out = array();
+
+	foreach ($arr as $dir => $nam) {
+		$fls = FSO::files("$dir/*.*"); if (! $fls) continue;
+
+		foreach ($fls as $fil => $nam) {
+			if (! LNG::isCurLang($fil)) continue;
+
+			$src = $this->getSource($fil);
+			$txt = $this->prepare($src);      if (! $txt) continue;
+			$psg = $this->match($txt, $what); if (! $psg) continue;
+
+			foreach ($psg as $key => $val) {
+				$idx = $this->getIndex($fil, $key);
+				$key = $this->getKey($fil, $key);
+				$val = $this->getEntry($val);
+
+				if (! isset($out[$idx])) $out[$idx] = array();
+				$out[$idx][$key] = $val;
+			}
+		}
+	}
+	return $this->sort($out);
+}
+
+// ***********************************************************
+ // dummies for derived classes
+// ***********************************************************
+protected function getIndex($fil, $key) { return $fil; }
+protected function getKey  ($fil, $key) { return $key; }
+protected function getEntry($val)       { return $val; }
+protected function sort($arr)           { return $arr; }
+
+// ***********************************************************
+// methods called by preview
+// ***********************************************************
+public function getTitle($file) {
+	$ini = new ini(dirname($file));
+	return $ini->getHead();
+}
+
+// ***********************************************************
+public function getInfo($file) {
+	$ful = APP::relPath($file);
+	$fil = basename($file);
+	$dir = dirname($ful);
+	$tab = STR::between($dir, TAB_ROOT, DIR_SEP);
+
+	$out = array(
+		"tab" => TAB_ROOT.$tab, "file" => $fil,
+		"url" => $dir
+	);
+	return $out;
+}
+
+// ***********************************************************
+public function getSnips($file, $what) { // called by preview
+	$txt = $this->prepare($file);
+	$arr = $this->match($txt, $what);
+
+	$out = implode("<hr class=\"search\">\n", $arr);
+	$out = STR::clear($out, $this->sep);
+	return $out;
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+protected function getContent($file) {
+	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
+	$out = APP::read($file);
+	$out = PRG::clrTag($out, "refbox");
+	return $out;
+}
+
+// ***********************************************************
+protected function match($txt, $find) {
+	$arr = STR::split($txt, $this->sep); $out = array();
+
+	foreach ($arr as $pgf) {
+		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
+		$out[] = $pgf;
+	}
+	return $out;
+}
+
+// ***********************************************************
+protected function getPaths() {
+	$dir = dirname(TAB_PATH);
+	$fil = FSO::join($dir, "tab.ini");
+
+	$ini = new ini($fil);
+	$typ = $ini->get("props.typ");
+
+	if ($typ != "select") $dir = TAB_PATH;
+
+	return array(
+		TAB_PATH => DIC::get("Local"),
+		$dir => DIC::get("Global"),
+	);
+}
+protected function getMods() {
+	return array(
+		"h" => DIC::get("Sections"),
+		"p" => DIC::get("Paragraphs"),
+	);
+}
+
+// ***********************************************************
+// verify if search context has changed
+// ***********************************************************
 protected function isSame($what) {
 	$chk = $this->getParms($what);
 	$lst = ENV::get("last.parms");
@@ -84,48 +198,15 @@ protected function getParms($what) {
 }
 
 // ***********************************************************
-protected function search($what) { // $what expected as string
-	if (strlen($what) < 2) return false;
-
-	$arr = FSO::tree($this->dir);
-	$loc = PFS::getLoc();
-	$out = array();
-
-	foreach ($arr as $dir => $nam) {
-		$fls = FSO::files("$dir/*.*"); if (! $fls) continue;
-		$xxx = ENV::set("loc", $dir);
-
-		foreach ($fls as $fil => $nam) {
-			if (! LNG::isCurLang($fil)) continue;
-
-			$src = $this->getSource($fil);
-			$txt = $this->getContent($src); if (! $txt) continue;
-			$txt = $this->prepare($txt);
-			$psg = $this->getMatches($txt, $what); if (! $psg) continue;
-			$out[$fil] = $psg;
-		}
-	}
-	ENV::set("loc", $loc);
-	return $out;
-}
-
-// ***********************************************************
-protected function getMatches($txt, $find) {
-	$arr = STR::split($txt, $this->sep); $out = array();
-
-	foreach ($arr as $pgf) {
-		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
-		$out[] = $pgf;
-	}
-	return $out;
-}
-
-// ***********************************************************
 // split text
 // ***********************************************************
-protected function prepare($txt) {
-	$txt = $this->prepare_h($txt); if ($this->mod == "h") return $txt;
-	$txt = $this->prepare_p($txt);
+protected function prepare($src) {
+	$txt = $this->getContent($src); if (! $txt) return "";
+
+	switch ($this->mod) {
+		case "h": return $this->prepare_h($txt);
+		case "p": return $this->prepare_p($txt);
+	}
 	return $txt;
 }
 
@@ -137,49 +218,10 @@ protected function prepare_h($txt) {
 }
 
 protected function prepare_p($txt) {
+	$txt = $this->prepare_h($txt);
 	$txt = STR::replace($txt, "<p>", $this->sep."<p>");
-#	$txt = STR::replace($txt, "<p ", $this->sep."<p ");
+	$txt = STR::replace($txt, "<p ", $this->sep."<p ");
 	return $txt;
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-public function getInfo($file) {
-	$ful = APP::relPath($file);
-	$fil = basename($file);
-	$dir = dirname($ful);
-	$tab = STR::between($dir, TAB_ROOT, DIR_SEP);
-
-	$out = array(
-		"tab" => TAB_ROOT.$tab, "file" => $fil,
-		"url" => $dir
-	);
-	return $out;
-}
-
-public function getTitle($file) {
-	$ini = new ini(dirname($file));
-	return $ini->getHead();
-}
-
-// ***********************************************************
-public function getContent($file) {
-	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
-	$out = APP::gcFil($file);
-	$out = PRG::clrTag($out, "refbox");
-	return $out;
-}
-
-// ***********************************************************
-public function getSnips($file, $what) {
-	$txt = $this->getContent($file);
-	$txt = $this->prepare($txt);
-	$arr = $this->getMatches($txt, $what);
-
-	$out = implode("<hr class=\"search\">\n", $arr);
-	$out = STR::clear($out, $this->sep);
-	return $out;
 }
 
 // ***********************************************************

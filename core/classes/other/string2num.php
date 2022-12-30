@@ -50,12 +50,9 @@ public function conv($text) {
 	$txt = $this->clrWords($txt);
 	$txt = $this->rep11($txt);
 	$txt = $this->doUniq($txt);
-#DBG::text($txt);
 	$txt = $this->rep100($txt);
-#DBG::text($txt);
 	$txt = $this->rep1000($txt);
 	$txt = $this->repOrd($txt);
-#DBG::text($txt);
 
 	return $txt;
 }
@@ -204,11 +201,6 @@ public function testMisc() {
 
 	$this->dump("siebzig mal sieben mal");
 	$this->dump("siebzigmal");
-}
-
-// ***********************************************************
-private function dump($txt) {
-	DBG::text($this->conv($txt));
 }
 
 // ***********************************************************

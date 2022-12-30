@@ -223,6 +223,9 @@ protected function getNewer($src, $dst) {
 	$roots = $this->getRoot($src);
 	$rootd = $this->getRoot($dst);
 
+#LOG::write("source.log", print_r($src, true), false);
+#LOG::write("dest.log", print_r($dst, true), false);
+
 	foreach ($src as $itm) { // source - e.g. local files
 		$tmp = $this->split($itm); if (! $tmp) continue; extract($tmp);
 		$fso = STR::after($fso, $roots); if (! $fso) continue;
@@ -249,6 +252,9 @@ protected function getNewer($src, $dst) {
 		if ($chk["src"] == $fso) unset($this->ren[$alf]);
 		else $this->ren[$alf]["dst"] = $fso;
 	}
+
+#LOG::write("list.log", print_r($lst, true), false);
+
 	foreach ($lst as $fso => $prp) { // check dates
 		$typs = VEC::get($prp, "typs", "x"); if ($typs == "h") continue;
 		$md5s = VEC::get($prp, "md5s", 0);
@@ -267,6 +273,8 @@ protected function getNewer($src, $dst) {
 
 		$out[$act][] = $fso;
 	}
+#LOG::write("diff.log", print_r($out, true), false);
+
 	return $out;
 }
 

@@ -2,7 +2,7 @@
 
 incCls("dbase/recEdit.php");
 
-$sec = DBS::getState("main");
+$sec = ENV::dbState("main");
 
 // ***********************************************************
 // info

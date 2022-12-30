@@ -13,9 +13,9 @@ sep =
 
 [main.box]
 <!VAR:uniq!><!VAR:sep!>
-<div class="dropdown"><!VAR:current!>&nbsp; ▾
+<div class="dropdown"><!VAR:current!>&ensp;▾
 <!SEC:content!>
 </div> &emsp;
 
 [main.one]
-<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &emsp;
+<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &ensp;

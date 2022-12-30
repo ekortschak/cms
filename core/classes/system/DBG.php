@@ -30,9 +30,6 @@ function dbght($msg, $info = "htm") { // show html code
 function dbgpi($msg, $info = "path") { // show path info
 	DBG::path($msg, $info);
 }
-function logx($msg = "hier", $info = "dbg") {
-	DBG::text($msg, $info);
-}
 
 function dump($obj) {
 	var_dump($obj);
@@ -41,7 +38,7 @@ function dump($obj) {
 // BEGIN OF CLASS
 // ***********************************************************
 class DBG {
-	public static $dest = "web";	// or coammand line
+	public static $dest = "web";	// or cl = coammand line
 	private static $max = 7;
 
 // ***********************************************************
@@ -49,14 +46,19 @@ class DBG {
 // ***********************************************************
 public static function text($msg, $info) {
 	if (is_array($msg)) {
-		$msg = array_slice($msg, 0, 15);
+		if (count($msg) > 15) {
+			$msg = array_slice($msg, 0, 15);
+			$msg["+"] = "...";
+		}
 		return self::vector($msg, $info);
 	}
 	if (self::$dest == "cl") { // command line
 		echo "$info: $msg\n";
 		return;
 	}
-	echo "\n<li><blue>$info</blue>: $msg</li>";
+SSV::set($info, $msg, "dbg");
+
+#	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code
 	$msg = VEC::implode($msg, "\n");
@@ -77,7 +79,8 @@ public static function vector($arr, $info = "arr") {
 		echo "$info = $out";
 		return;
 	}
-	echo "<div class='pre'>$info = $out</div>";
+SSV::set($info, $out, "dbg");
+#	echo "<div class='pre'>$info = $out</div>";
 }
 
 public static function list($arr, $info) {

@@ -154,8 +154,7 @@ public function gc($sec = "main") {
 	$out.= $this->getSection($sec);
 
 	if ($this->isSec($sec)) return $out;
-	MSG::add("sec.unknown", "$fil &rarr; $sec");
-#	ERR::trace();
+	MSG::add("sec.unknown", $sec);
 }
 
 // ***********************************************************

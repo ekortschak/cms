@@ -22,7 +22,7 @@ dropBox.tpl
 </div>
 
 [main.box]
-<div class="dropdown"><!VAR:current!>&nbsp; ▾
+<div class="dropdown"><!VAR:current!>&ensp;▾
 <!SEC:content!>
 </div>
 
