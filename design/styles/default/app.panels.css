@@ -4,7 +4,7 @@
 /* css default */
 /* ******************************************************** */
 html {
- 	background: BC_BODY;
+ 	background: BC_OPTS;
 	height: 100%;
 }
 
@@ -32,14 +32,14 @@ body.print {
 /* ******************************************************** */
 .container {
 	background: transparent;
-	padding: 0px 20px 0px;
+	padding: 0px 20px 35px;
 #	overflow: visible;
 }
-.conToc  { padding: 15px 15px 7px; }
-.conOpts { padding:  0px 35px 7px; }
+.conToc  { padding: 15px 15px 35px; }
+.conOpts { padding:  0px 35px 35px; }
 
 /* ******************************************************** */
-/* panels */
+/* vertical panels */
 /* ******************************************************** */
 .modtabs {
 	overflow: visible;

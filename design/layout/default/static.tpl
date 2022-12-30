@@ -30,11 +30,15 @@ design/layout/LAYOUT/main.tpl
 <!MOD:toc!>
 </div>
 
+<br>
+
 # ***********************************************************
 [body] <!-- body -->
 <div class="container">
 <!MOD:body!>
 </div>
+
+<br>
 
 # ***********************************************************
 [opts] <!-- opts -->

@@ -11,6 +11,8 @@ design/layout/default/main.tpl
 <!MOD:toc.search!>
 </div>
 
+<br>
+
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
@@ -18,3 +20,5 @@ design/layout/default/main.tpl
 <!MOD:msgs!>
 <!MOD:body.search!>
 </div>
+
+<br>

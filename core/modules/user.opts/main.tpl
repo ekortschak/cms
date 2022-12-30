@@ -96,7 +96,7 @@ settings = Einstellungen
 
 [debug]
 <!BTN:debug!>
-#<!BTN:check!>
+<!BTN:check!>
 
 # ***********************************************************
 [admin]

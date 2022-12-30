@@ -8,3 +8,5 @@ design/layout/LAYOUT/main.tpl
 <!MOD:msgs!>
 <!MOD:edit.menu!>
 </div>
+
+<br>

@@ -24,3 +24,5 @@ design/layout/LAYOUT/main.tpl
 <div class="container">
 <!MOD:body.abstract!>
 </div>
+
+<br>

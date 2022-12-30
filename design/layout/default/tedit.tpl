@@ -32,6 +32,8 @@ vtabs = Registerkarten (Tabs)
 </ul>
 </div>
 
+<br>
+
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
@@ -40,3 +42,5 @@ vtabs = Registerkarten (Tabs)
 <!MOD:msgs!>
 <!MOD:edit.tabs!>
 </div>
+
+<br>

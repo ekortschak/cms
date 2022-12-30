@@ -9,3 +9,5 @@ design/layout/LAYOUT/main.tpl
 <!MOD:msgs!>
 <!MOD:edit.page!>
 </div>
+
+<br>

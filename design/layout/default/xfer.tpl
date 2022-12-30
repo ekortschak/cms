@@ -16,6 +16,8 @@ replicator = Seiten übertragen
 <!MOD:toc.xfer!>
 </div>
 
+<br>
+
 # ***********************************************************
 [body] <!-- body -->
 # ***********************************************************
@@ -23,3 +25,5 @@ replicator = Seiten übertragen
 <!MOD:msgs!>
 <!MOD:body.xfer!>
 </div>
+
+<br>
