@@ -56,8 +56,8 @@ body.print {
 	overflow: auto;
 	position: fixed;
 	left: W_TABS;
-	height: 100%;
     width: W_TOC;
+	height: 100%;
 
 	color: FC_TOC;
 	background: BC_TOC;
@@ -67,8 +67,8 @@ body.print {
 	overflow: hidden;
 	position: fixed;
 	left: calc(W_TABS + W_TOC);
-	height: 100%;
     width: W_MBAR;
+	height: 100%;
 
     background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
 }
@@ -78,8 +78,8 @@ body.print {
 	overflow: auto;
 	position: fixed;
 	left: calc(W_TABS + W_TOC + W_MBAR);
-	height: 100%;
 	width: W_BODY;
+	height: 100%;
 
 	font-size: F_BODY;
 	color: FC_BODY;
@@ -90,9 +90,9 @@ body.print {
 	overflow: auto;
 	position: fixed;
 	left: calc(W_TABS + W_TOC + W_MBAR + W_BODY);
-	height: 100%;
     width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
     min-width: 300px;
+	height: 100%;
 
 	color: FC_OPTS;
     background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
