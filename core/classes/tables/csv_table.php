@@ -22,6 +22,8 @@ function __construct() {
 // handling data
 // ***********************************************************
 public function load($file, $sep = ";") {
+	if (! is_file($file)) return;
+
 	$csv = new csv($sep);
 	$csv->read($file);
 

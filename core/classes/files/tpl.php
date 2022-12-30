@@ -25,15 +25,15 @@ class tpl extends objects {
 	private   $hst = array();   // list of included files
 
 function __construct() {
-	$this->load("msgs/no.tpl.tpl");
-	$this->load("msgs/msgs.tpl");
+	self::load("msgs/no.tpl.tpl");
+	self::load("msgs/msgs.tpl");
 }
 
 // ***********************************************************
 // handling the template
 // ***********************************************************
 public function load($file) {
-	$this->read("LOC_TPL/$file");
+	self::read("LOC_TPL/$file");
 }
 
 public function read($file) {

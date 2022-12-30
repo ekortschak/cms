@@ -56,9 +56,8 @@ public static function text($msg, $info) {
 		echo "$info: $msg\n";
 		return;
 	}
-SSV::set($info, $msg, "dbg");
-
-#	echo "\n<li><blue>$info</blue>: $msg</li>";
+	SSV::set($info, $msg, "dbg");
+	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code
 	$msg = VEC::implode($msg, "\n");
@@ -79,8 +78,8 @@ public static function vector($arr, $info = "arr") {
 		echo "$info = $out";
 		return;
 	}
-SSV::set($info, $out, "dbg");
-#	echo "<div class='pre'>$info = $out</div>";
+	SSV::set($info, $out, "dbg");
+	echo "<div class='pre'>$info = $out</div>";
 }
 
 public static function list($arr, $info) {

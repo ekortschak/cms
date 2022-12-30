@@ -30,7 +30,7 @@ function __construct() {
 
 	$tpl = "tables/std.tpl"; if (CUR_DEST == "csv")
 	$tpl = "tables/csv.tpl";
-	$this->load($tpl);
+	parent::load($tpl);
 
     $this->cls = new tblCols();
     $this->register();
