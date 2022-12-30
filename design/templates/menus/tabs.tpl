@@ -42,14 +42,14 @@ dir = vertical
 # ***********************************************************
 <a href="?vmode=search">
 	<div class="vtab">
-        <img src="core/icons/buttons/search.gif" alt="Search" />
+        <img src="ICONS/buttons/search.gif" alt="Search" />
 	</div>
 </a>
 
 [return]
 <a href="?vmode=view">
 	<div class="vtab">
-        <img src="core/icons/buttons/search.stop.gif" alt="Back" />
+        <img src="ICONS/buttons/search.stop.gif" alt="Back" />
 	</div>
 </a>
 
@@ -58,13 +58,13 @@ dir = vertical
 # ***********************************************************
 <div align="center" style="margin-bottom: 7px;">
 <a href="?vmode=tedit">
-	<img src="core/icons/buttons/edit.tab.png" alt="TabEdit" />
+	<img src="ICONS/buttons/edit.tab.png" alt="TabEdit" />
 </a>
 </div>
 
 [tview]
 <div align="center" style="margin-bottom: 7px;">
 <a href="?vmode=view">
-	<img src="core/icons/buttons/view.png" alt="View" />
+	<img src="ICONS/buttons/view.png" alt="View" />
 </a>
 </div>

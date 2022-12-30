@@ -10,7 +10,7 @@ head = Description
 
 [pic]
 <div class="collection" style="background-image: url('<!VAR:pic!>');">
-<img src="core/icons/1x1.gif" width="100%" />
+<img src="ICONS/1x1.gif" width="100%" />
 </div>
 
 <p><small>&copy; Unknown</small></p>

@@ -1,6 +1,6 @@
 [dic.en]
 pic.editor = 📝
-pic.folder = <img src="core/icons/files/folder.gif" alt="folder">
+pic.folder = <img src="ICONS/files/folder.gif" alt="folder">
 pic.file = 📄
 pic.medium = 💿
 pic.mode = Method

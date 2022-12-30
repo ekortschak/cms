@@ -4,7 +4,7 @@ pic.file = 📄
 pic.folder = 🗃
 pic.medium = 💿
 pic.mode = Methode
-pic.dbase = <img src="core/icons/buttons/db.png" alt="databases">
-pic.table = <img src="core/icons/buttons/table.png" alt="tables">
-pic.group = <img src="core/icons/buttons/user.gif" alt="usergroups">
-pic.privs = <img src="core/icons/buttons/key.png" alt="privileges">
+pic.dbase = <img src="ICONS/buttons/db.png" alt="databases">
+pic.table = <img src="ICONS/buttons/table.png" alt="tables">
+pic.group = <img src="ICONS/buttons/user.gif" alt="usergroups">
+pic.privs = <img src="ICONS/buttons/key.png" alt="privileges">

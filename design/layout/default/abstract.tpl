@@ -11,7 +11,7 @@ design/layout/LAYOUT/main.tpl
 <!MOD:toc.footer!>
 
 <div align="right">
-<a href="?vmode=view"><img src="core/icons/buttons/view.png" /></a>
+<a href="?vmode=view"><img src="ICONS/buttons/view.png" /></a>
 </div>
 
 </div>

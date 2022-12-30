@@ -85,7 +85,7 @@ perms = r
 [buttons]
 	<div class="dropdown">
 		<a href="?oid=<!VAR:oid!>&rec=list">
-			<img class="button" src="core/icons/db/table.gif" />
+			<img class="button" src="ICONS/db/table.gif" />
 		</a>
 		<div class="dropdown-content"><!DIC:to.table!></div>
 	</div>

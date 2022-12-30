@@ -1,7 +1,6 @@
 <?php
 
 $dir = FSO::mySep(__DIR__);
-$ico = "core/icons/buttons";
 
 // ***********************************************************
 incCls("menus/buttons.php");

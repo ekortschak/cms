@@ -35,12 +35,12 @@ sure     = Sind Sie sicher?
 <table>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.cut!></td>
-		<td><button name="clip_act" value="cut"><img src="core/icons/edit/cut.png" /></button></td>
+		<td><button name="clip_act" value="cut"><img src="ICONS/edit/cut.png" /></button></td>
 	</tr>
 	<tr><td colspan="100%" height=2></td></tr>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.cpy!></td>
-		<td><button name="clip_act" value="copy"><img src="core/icons/edit/copy.png" /></button></td>
+		<td><button name="clip_act" value="copy"><img src="ICONS/edit/copy.png" /></button></td>
 	</tr>
 </table>
 
@@ -50,7 +50,7 @@ sure     = Sind Sie sicher?
 <table>
 	<tr>
 		<td width=250><!VAR:box!></td>
-		<td><button name="clip_act" value="paste"><img src="core/icons/edit/paste.png" /></button></td>
+		<td><button name="clip_act" value="paste"><img src="ICONS/edit/paste.png" /></button></td>
 	</tr>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.del!></td>

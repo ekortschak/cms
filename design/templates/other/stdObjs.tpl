@@ -39,7 +39,7 @@ source = Quelle
 [yt.link]
 # ***********************************************************
 <p>
-	<img src="core/icons/nav/youtube.png" style="margin-right: 5px;" />
+	<img src="ICONS/nav/youtube.png" style="margin-right: 5px;" />
 	<a href="https://www.youtube.com/watch?v=<!VAR:ytid!>" target="_blank"><!VAR:title!></a>
 	<hint><!VAR:len!> (ID = <!VAR:ytid!>)</hint>
 </p>
@@ -54,7 +54,7 @@ source = Quelle
 # ***********************************************************
 [mp4]
 # ***********************************************************
-<a href="<!VAR:link!>"><!VAR:text!> </a> <!VAR:hint!>&nbsp; 🎥<img src="core/icons/files/movie.png" />
+<a href="<!VAR:link!>"><!VAR:text!> </a> <!VAR:hint!>&nbsp; 🎥<img src="ICONS/files/movie.png" />
 
 
 # ***********************************************************

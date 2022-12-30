@@ -81,7 +81,7 @@ askWidth = Bildbreite festlegen
 
 
 [edit]
-<button class="icon" onclick="doUndo();"><img src="core/icons/edit/undo.png" /></button>
+<button class="icon" onclick="doUndo();"><img src="ICONS/edit/undo.png" /></button>
 &nbsp;
 
 # *****************************************************************
@@ -106,7 +106,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 # listings & tables
 # *****************************************************************
-<div class="dropdown"><button class="icon rose"><img src="core/icons/buttons/listing.png" />&ensp;▾</button>
+<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/listing.png" />&ensp;▾</button>
 	<div id="edList" class="dropdown-content">
 		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
 		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
@@ -114,7 +114,7 @@ askWidth = Bildbreite festlegen
 		<div><a href="javascript:addList('dl');"><!DIC:listdef!></a></div>
 	</div>
 </div>
-<div class="dropdown"><button class="icon rose"><img src="core/icons/buttons/table.png" />&ensp;▾</button>
+<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/table.png" />&ensp;▾</button>
 	<div id="tables" class="dropdown-content">
 		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
 		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
@@ -125,7 +125,7 @@ askWidth = Bildbreite festlegen
 
 [addImg]
 <div class="dropdown">
-	<button class="icon rose"><img src="core/icons/buttons/img.png" />&ensp;▾</button>
+	<button class="icon rose"><img src="ICONS/buttons/img.png" />&ensp;▾</button>
 
 	<div id="edImg" class="dropdown-content">
 		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
@@ -167,7 +167,7 @@ askWidth = Bildbreite festlegen
 	</div>
 </div>
 
-<button class="icon" onclick="clrTags();"><img src="core/icons/edit/clear.png" /></button>
+<button class="icon" onclick="clrTags();"><img src="ICONS/edit/clear.png" /></button>
 
 [addLFs]
 <div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;&ensp;▾</button>
@@ -201,6 +201,6 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 <td align="center">
 	<button class="icon" onclick="toggleView();">
-		<img src="core/icons/buttons/edit.toggle.png" alt="Toggle Editor" />
+		<img src="ICONS/buttons/edit.toggle.png" alt="Toggle Editor" />
 	</button>
 </td>

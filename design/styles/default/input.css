@@ -75,7 +75,7 @@ input[type='button'], button, button.icon {
 /* combo boxes */
 /* ******************************************************** */
 select {
-	background: BC_DROP url("CMS_URL/core/icons/input/combodown.png") no-repeat right;
+	background: BC_DROP url("CMS_URL/ICONS/input/combodown.png") no-repeat right;
 
 	vertical-align: middle;
 	font-weight: normal;

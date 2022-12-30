@@ -26,6 +26,6 @@ apply = Speichern
 		<input type="text" name="filName" value="<!VAR:file!>" class="filename" />
 
 		<button name="file_act" value="save" class="icon" onclick="exSubmit();">
-			<img src="core/icons/buttons/save.png" />
+			<img src="ICONS/buttons/save.png" />
 		</button>
 	</div>

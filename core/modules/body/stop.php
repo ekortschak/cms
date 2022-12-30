@@ -1,1 +1,1 @@
-<img src="core/icons/nav/stop.png" />
+<img src="ICONS/nav/stop.png" />

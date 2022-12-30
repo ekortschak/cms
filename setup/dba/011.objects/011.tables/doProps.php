@@ -58,7 +58,7 @@ foreach (LNG::get() as $lng) {
 	$tit = VEC::get($inf, "head.$lng", $tit);
 
 	$sel->input("head[$lng]", $tit);
-	$sel->setProp("title", "<img src='core/icons/flags/$lng.gif' class='flag' />");
+	$sel->setProp("title", "<img src='ICONS/flags/$lng.gif' class='flag' />");
 }
 $sel->show();
 

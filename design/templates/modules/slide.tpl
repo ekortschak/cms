@@ -29,7 +29,7 @@ no.info	= Keine weitere Info vorhanden
 	<tr>
 		<td colspan="100%" class="nopad">
 			<div style="background-image: url('<!VAR:pfile!>'); background-size: cover;">
-				<img src="core/icons/copyprot.gif" width=100% />
+				<img src="ICONS/copyprot.gif" width=100% />
 			</div>
 		</td>
 	</tr>

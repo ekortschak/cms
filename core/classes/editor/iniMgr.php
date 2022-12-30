@@ -39,7 +39,7 @@ public function show() {
 		if (STR::begins($sec, "dic")) continue;
 
 		$inf = "[$sec]"; if (STR::contains(".$lgs.", ".$sec."))
-		$inf = "<img src='core/icons/flags/$sec.gif' class='flag' />";
+		$inf = "<img src='ICONS/flags/$sec.gif' class='flag' />";
 
 		$sel->section($inf);
 

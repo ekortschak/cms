@@ -60,7 +60,7 @@ recurse = gesamtes Projekt
 <tr>
 	<td nowrap>
 		<a href="?file_act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</a>
-		<a href="?file_act=hide&fil=<!VAR:file!>"><img src="core/icons/menu/bulb_<!VAR:vis!>.gif" /></a>
+		<a href="?file_act=hide&fil=<!VAR:file!>"><img src="ICONS/menu/bulb_<!VAR:vis!>.gif" /></a>
 	</td>
 
 	<td nowrap width=175><a href="?vmode=pedit&pic.file=<!VAR:file!>"><!VAR:file!></a></td>

@@ -17,7 +17,7 @@ mytpl = Beteiligte Vorlagen
 <!SEC:notpl!>
 
 [notpl]
-<div class="dropdown"><img src="core/icons/buttons/file.missing.png" />
+<div class="dropdown"><img src="ICONS/buttons/file.missing.png" />
 	<div class="dropdown-content">
 		<!DIC:tpl.missing!>: <!VAR:file!>
 	</div>

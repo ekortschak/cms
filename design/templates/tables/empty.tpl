@@ -26,7 +26,7 @@ recNew = Neuen Datensatz anlegen
 	</tr>
 	<tr>
 		<td align="center">
-			<img src="core/icons/db/empty.gif" />
+			<img src="ICONS/db/empty.gif" />
 		</td>
 	</tr>
 	<tr class="rf">
@@ -38,7 +38,7 @@ recNew = Neuen Datensatz anlegen
 <div style="padding: 0px 15px;">
 	<div class="dropdown">
 		<a href="?oid=<!VAR:oid!>&rec=-1">
-			<button class="icon"><img src="core/icons/buttons/file.png" /></button>
+			<button class="icon"><img src="ICONS/buttons/file.png" /></button>
 		</a>
 		<div class="dropdown-content"><!DIC:recNew!></div>
 	</div>

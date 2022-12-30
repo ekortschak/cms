@@ -7,7 +7,7 @@ design/templates/tables/std.tpl
 	<tr class="<!VAR:class!>">
 		<td nowrap align="center">
 			<a href="?oid=<!VAR:oid!>&rec=<!VAR:recid!>">
-				<img src="core/icons/db/edit.gif" />
+				<img src="ICONS/db/edit.gif" />
 			</a>
 		</td>
 		<!VAR:data!>
@@ -17,7 +17,7 @@ design/templates/tables/std.tpl
 	<tr class="<!VAR:class!>">
 		<th nowrap align="center">
 			<a href="?oid=<!VAR:oid!>&rec=-1">
-				<img src="core/icons/db/new.gif" />
+				<img src="ICONS/db/new.gif" />
 			</a>
 		</th>
 		<!VAR:data!>

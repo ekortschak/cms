@@ -935,7 +935,7 @@ input[type='button'], button, button.icon {
 /* combo boxes */
 /* ******************************************************** */
 select {
-	background: rgb(238,238,238) url("/cms/core/icons/input/combodown.png") no-repeat right;
+	background: rgb(238,238,238) url("/cms/ICONS/input/combodown.png") no-repeat right;
 
 	vertical-align: middle;
 	font-weight: normal;
@@ -1034,7 +1034,7 @@ textarea {
 	border: 1px solid #AAA;
 	border-radius: 5px;
 
-    background: url("/cms/core/icons/input/rating.png") no-repeat top;
+    background: url("/cms/ICONS/input/rating.png") no-repeat top;
 }
 .ratImg {
 	margin: 2px 0px;

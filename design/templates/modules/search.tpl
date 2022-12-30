@@ -60,13 +60,13 @@ result =
 
 [nav.toc]
 <div style="float: right;">
-	<a href="?vmode=view"><button class="icon"><img src="core/icons/buttons/view.png" align="right" /></button></a>
+	<a href="?vmode=view"><button class="icon"><img src="ICONS/buttons/view.png" align="right" /></button></a>
 </div>
 
 [nav.preview]
 <div style="float: right;">
 	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
-		<button class="icon"><img src="core/icons/buttons/view.png" alt="View"></button>
+		<button class="icon"><img src="ICONS/buttons/view.png" alt="View"></button>
 	</a>
 </div>
 

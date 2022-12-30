@@ -26,7 +26,7 @@ design/templates/msgs/sitemap.tpl
 
 [help.box]
 <div class="helpbox">
-	<img class="helpbox-button" src="core/icons/help.png" />
+	<img class="helpbox-button" src="ICONS/help.png" />
 	<div class="helpbox-content"><!VAR:help!></div>
 </div>
 

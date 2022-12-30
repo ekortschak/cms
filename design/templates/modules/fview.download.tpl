@@ -27,7 +27,7 @@ free = Kostenlose Downloads
 
 [file]
 <tr>
-	<td><img src="core/icons/files/file.gif" /></td>
+	<td><img src="ICONS/files/file.gif" /></td>
 	<td nowrap><a href="<!VAR:url!>" target="_blank"><!VAR:caption!></a></td>
 	<td>&nbsp;</td>
 	<td><!VAR:ext3!></td>

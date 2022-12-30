@@ -12,6 +12,17 @@ incCls("system/CFG.php");
 
 */
 
+define("DIR_SEP", "/");
+define("NV", "N/A");
+define("HIDE", "~");
+
+define("CUR_DATE", date("Y/m/d"));
+define("CUR_YEAR", date("Y"));
+
+define("FS_PERMS", 0775);
+
+define("ICONS",   "core/icons");
+
 CFG::init();
 
 // ***********************************************************
@@ -23,14 +34,6 @@ class CFG {
 	private static $vls = array();
 
 public static function init() {
-	define("DIR_SEP", "/");
-	define("NV", "N/A");
-	define("HIDE", "~");
-	define("CUR_DATE", date("Y/m/d"));
-	define("CUR_YEAR", date("Y"));
-
-	define("FS_PERMS", 0775);
-
 	self::fixForced(); // constants set before config.ini
 	self::fixServer();
 	self::fixPaths();

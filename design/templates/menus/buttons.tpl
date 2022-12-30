@@ -36,7 +36,7 @@ target = _self
 # ***********************************************************
 [item.view]
 <a href="APP_CALL?vmode=view">
-	<button class="icon"><img src="core/icons/buttons/view.png" alt="View" /></button>
+	<button class="icon"><img src="ICONS/buttons/view.png" alt="View" /></button>
 </a>
 
 [wrong.btn]
