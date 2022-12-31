@@ -10,28 +10,36 @@ function load(ref) {
     });
 }
 
-function toggleDiv(qid) {
-	rec = "q[" + qid + "]";
+function toggleDiv(pfx, qid) {
+	rec = pfx + "[" + qid + "]";
 	qid = qid * 1;
 
-    obj = document.getElementsByClassName('mnu');
     cur = document.getElementById(rec);
-    vgl = cur.getAttribute('data-par');
-
+    cls = cur.className;
     pos = cur.style.backgroundPositionY;
+
+	vgl = getLevel(cls);
     vis = "hidden";
 
     if (pos == "bottom") { // change to top = collapse
         cur.style = "background-position-y: top; ";
     }
-    else { // change to bottom = visible
+    else { // change to bottom = expand
         cur.style = "background-position-y: bottom; ";
         vis = "visible";
     }
 
-    for (i = qid + 1; i < obj.length; i++) {
-		cur = obj[i];
-        lev = cur.getAttribute("data-par"); if (lev <= vgl) break;
+    do { qid++;
+		nam = pfx + '_' + qid;
+		cur = document.getElementsByName(nam);
+		cur = cur[0];
+
+		if (typeof cur !== "object") break;
+
+		cls = cur.className;
+		lev = getLevel(cls);
+
+		if (lev <= vgl) break;
 
      // whether closed or opened: subfolders will always be shown as closed
 		cur.style = "background-position-y: top;";
@@ -44,5 +52,11 @@ function toggleDiv(qid) {
 		 // deeper levels will be closed
 			cur.style.display = "none";
         }
-    }
+    } while (1);
+}
+
+function getLevel(cls) {
+	lev = cls.split("lev"); lev = lev[1];
+	lev = lev.split(" ");   lev = lev[0];
+	return lev;
 }

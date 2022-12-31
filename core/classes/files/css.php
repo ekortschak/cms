@@ -14,7 +14,7 @@ $css = new css();
 $css->get();
 */
 
-include_once("core/inc.css.php");
+# include_once("core/inc.css.php");
 
 // ***********************************************************
 // BEGIN OF CLASS

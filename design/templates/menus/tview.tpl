@@ -1,5 +1,5 @@
 [register]
-core/scripts/tview.js
+core/scripts/toc.view.js
 
 [dic]
 dat.empty = No data ...
@@ -7,28 +7,42 @@ dat.empty = No data ...
 [dic.de]
 dat.empty = Keine Daten ...
 
+[vars]
+pfx = tv
+
+
 [main]
 <div class="toc">
-	<!VAR:items!>
+<!VAR:items!>
 </div>
+
+# ***********************************************************
+# helper sections
+# ***********************************************************
+[qid]
+id="<!VAR:pfx!>[<!VAR:index!>]" name="<!VAR:pfx!>_<!VAR:index!>"
+
+[cls]
+lev<!VAR:level!>
+
+[stl]
+display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>
 
 # ***********************************************************
 # folders (arrays)
 # ***********************************************************
 [folder]
-<div id="tv[<!VAR:index!>]" data-par="<!VAR:level!>" _
-class="dir tv lev<!VAR:level!>" _
-style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
-<a href="javascript:toggleTv('<!VAR:index!>');"><!VAR:title!></a> _
+<div <!SEC:qid!> class="dir  <!SEC:cls!>" style="<!SEC:stl!>"> _
+<a href="javascript:toggleDiv('<!VAR:pfx!>', '<!VAR:index!>');"> _
+<!VAR:title!> _
+</a> _
 </div>
 
 # ***********************************************************
 # data
 # ***********************************************************
 [value]
-<div id="tv[<!VAR:index!>]" data-par="<!VAR:level!>" _
-class="file tv lev<!VAR:level!> <!VAR:sel!>" _
-style="display:<!VAR:vis!>;"> _
+<div <!SEC:qid!> class="file <!SEC:cls!>" style="display:<!VAR:vis!>;"> _
 <!VAR:title!> = <!VAR:value!> _
 </div>
 

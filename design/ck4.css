@@ -6,7 +6,7 @@
 /* css default */
 /* ******************************************************** */
 html {
- 	background: white;
+ 	background: BC_OPTS;
 	height: 100%;
 }
 
@@ -16,9 +16,9 @@ body {
 	height: 100%;
 
 	hyphens: auto;
-	font: 12pt normal normal Arial, DejaVu Sans;
-	color: black;
-	background: white no-repeat right top;
+	font: F_SIZE normal normal Arial, DejaVu Sans;
+	color: FC_BODY;
+	background: BC_BODY no-repeat right top;
 
 	margin: 0px;
 	padding: 0px;
@@ -34,42 +34,43 @@ body.print {
 /* ******************************************************** */
 .container {
 	background: transparent;
-	padding: 0px 20px 0px;
+	padding: 0px 20px 35px;
 #	overflow: visible;
 }
-.conToc  { padding: 15px 15px 7px; }
-.conOpts { padding:  0px 35px 7px; }
+
+.conToc  { padding: 15px 15px 35px }
+.conOpts { padding: 0px 35px 35px; }
 
 /* ******************************************************** */
-/* panels */
+/* vertical panels */
 /* ******************************************************** */
 .modtabs {
 	overflow: visible;
 	position: fixed;
 	height: 100%;
-    width: 45px;
+    width: W_TABS;
 
-    color: navy;
-    background: rgb(238,238,238) url("/cms/img/tabs/pborder.png") repeat-y right;
+    color: FC_TABS;
+    background: BC_DROP url("/cms/img/tabs/pborder.png") repeat-y right;
 }
 
 .modtoc {
 	overflow: auto;
 	position: fixed;
-	left: 45px;
+	left: W_TABS;
+    width: W_TOC;
 	height: 100%;
-    width: 300px;
 
-	color: navy;
-	background: whitesmoke;
+	color: FC_TOC;
+	background: BC_TOC;
 }
 
 .modmbar {
 	overflow: hidden;
 	position: fixed;
-	left: calc(45px + 300px);
+	left: calc(W_TABS + W_TOC);
+    width: W_MBAR;
 	height: 100%;
-    width: 70px;
 
     background: url("/cms/img/mbar/spirals.png") repeat-y;
 }
@@ -78,32 +79,32 @@ body.print {
 	z-index: 5;
 	overflow: auto;
 	position: fixed;
-	left: calc(45px + 300px + 70px);
+	left: calc(W_TABS + W_TOC + W_MBAR);
+	width: W_BODY;
 	height: 100%;
-	width: 690px;
 
-	font-size: 12pt;
-	color: black;
-    background: white;
+	font-size: F_BODY;
+	color: FC_BODY;
+    background: BC_BODY;
 }
 .modopts {
 	z-index: 1;
 	overflow: auto;
 	position: fixed;
-	left: calc(45px + 300px + 70px + 690px);
-	height: 100%;
-    width: calc(100% - 45px - 300px - 70px - 690px);
+	left: calc(W_TABS + W_TOC + W_MBAR + W_BODY);
+    width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
     min-width: 300px;
+	height: 100%;
 
-	color: black;
-    background: gainsboro url("/cms/img/opts/pborder.png") repeat-y;
+	color: FC_OPTS;
+    background: BC_OPTS url("/cms/img/opts/pborder.png") repeat-y;
 }
 /* ******************************************************** */
 /* standard tags */
 /* ******************************************************** */
 h1, h2, h3, h4, h5, h6 {
 	margin: 15px 0px 7px;
-	color: navy;
+	color: FC_HEAD;
 }
 h4, hx {
 	border-bottom: 1px solid;
@@ -120,7 +121,7 @@ h5, h6, hy {
 hx, hy {
 	display: block;
 	font-size: 1em;
-	color: black;
+	color: FC_BODY;
 	margin-bottom: 5px;
 }
 
@@ -134,6 +135,17 @@ p {
 }
 b {
     font-weight: bold;
+}
+
+div.flex {
+	display: flex;
+	justify-content: space-between;
+}
+
+div.flexleft {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
 }
 
 /* ******************************************************** */
@@ -159,7 +171,7 @@ img {
 	vertical-align: middle;
 }
 img.flag {
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 }
 img.rgt {
@@ -185,7 +197,7 @@ img.lft {
 /* anchors */
 /* ******************************************************** */
 a {
-	color: forestgreen;
+	color: FC_LINK;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -194,13 +206,13 @@ a:visited {
 }
 
 a.inactive {
-	color: grey;
-	background: ;
+	color: FC_DEAD;
+	background: BC_DEAD;
 	font-weight: normal;
 }
 
 a.norm {
-	color: black;
+	color: FC_BODY;
 	text-decoration: none;
 	font-weight: normal;
 }
@@ -216,17 +228,17 @@ hr {
 	border: 0px;
 	padding: 0px;
 	height: 1px;
-	background: #AAA;
+	background: OUTLINE;
 }
 hr.low {
-	margin: 0px 0px 5px;
+	margin: 2px 0px 3px;
 }
 
 abbr {
 	margin: 0px;
 	padding: 0px;
-	color: black;
-	background: whitesmoke;
+	color: FC_HINT;
+	background: BC_HINT;
 }
 
 /* ******************************************************** */
@@ -240,7 +252,7 @@ details-content {
 	display: inline-block;
 	margin: 0px 18px;
 	padding: 3px 10px 5px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 }
 /* ******************************************************** */
@@ -250,13 +262,10 @@ details-content {
 	outline: 0px solid transparent;
 }
 
-.inedit {
-	display: none;
-}
 .tarea {
 	display: block;
 	position: relative;
-	width: 100%;
+	width: calc(100% - 10px);
 }
 .filename {
 	text-align: right;
@@ -274,7 +283,7 @@ details-content {
 /* ******************************************************** */
 .cold {
 	overflow: auto;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 15px;
 	padding: 7px 15px 25px;
 	min-height: 25px;
@@ -287,6 +296,11 @@ details-content {
 	padding: 7px 15px 25px;
 	min-height: 25px;
 	max-height: 500px;
+}
+
+.edit {
+	overflow: none;
+	border: 0px;
 }
 
 .frmPreview {
@@ -304,7 +318,7 @@ img {
 	vertical-align: middle;
 }
 img.flag {
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 }
 img.rgt {
@@ -327,7 +341,7 @@ img.lft {
 label {
 	padding: 2px 10px 2px 7px;
 	background: linear-gradient(snow, lightgrey);
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 }
 
@@ -344,24 +358,24 @@ label.tr {
 
 label.red {
 	background: #FFC0CB none;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	cursor: pointer;
 }
 label.blue {
 	background: #D2EDEF none;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	cursor: pointer;
 }
 label.mauve {
 	background: #EBD2EB none;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	cursor: pointer;
 }
 label.upload {
 	display: inline-block;
 	color: #fff;
 	background: #5cb85c none;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 
 	margin: -1px 0px 0px;
 	padding: 2px 12px;
@@ -387,7 +401,7 @@ ol {
 	background: linear-gradient(snow, lightgrey);
 	margin: 2px 0px;
 	padding: 3px 15px 3px 7px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	list-style: none;
 	user-select: none;
@@ -396,7 +410,7 @@ ol {
 /* ******************************************************** */
 dl {
 	display: block;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 10px;
 
 	margin: 7px 0px 12px;
@@ -404,7 +418,7 @@ dl {
 }
 dt {
     font-style: italic;
-	color: navy;
+	color: FC_HEAD;
 }
 dd {
     margin: 0px 15px 5px;
@@ -421,7 +435,7 @@ table {
 
 .fullwidth {
 	background: BC_TBACK;
-	max-width: 690px;
+	max-width: W_BODY;
 	overflow: auto;
 }
 
@@ -438,20 +452,20 @@ tr {
 }
 
 .rh {
-	color: snow;
-	background: #05819C;
+	color: FC_THEAD;
+	background: BC_THEAD;
 	vertical-align: middle;
 	font-weight: bold;
 	padding: 3px 5px 1px;
 }
 
-.rw                 { color: ; background: snow; }
-.rw:nth-child(odd)  { color: ;  background: #F0F0F0;  }
-.rw:hover           { color: ; background: #E6F0FF; }
+.rw                 { color: FC_TEVEN; background: BC_TEVEN; }
+.rw:nth-child(odd)  { color: FC_TODD;  background: BC_TODD;  }
+.rw:hover           { color: FC_TMARK; background: BC_TMARK; }
 
 .rf {
-	color: ;
-	background: #E9E5E5;
+	color: FC_TFOOT;
+	background: BC_TFOOT;
 	vertical-align: middle;
 }
 
@@ -459,9 +473,8 @@ tr {
 /* cells */
 /* ******************************************************** */
 th {
-	color: snow;
-	background: #05819C;
-    text-align: left;
+	color: FC_THEAD;
+	background: BC_THEAD;
 	padding: 3px 5px 1px;
 }
 
@@ -494,7 +507,7 @@ maroon	{ color: maroon; }
 
 tpl {
 	display: inline-block;
-	color: #AAA;
+	color: OUTLINE;
 	cursor: pointer;
 }
 
@@ -504,7 +517,7 @@ small {
 
 blockquote {
 	margin: 3px 0px 12px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	padding: 5px 10px;
 }
@@ -534,7 +547,7 @@ fnote {
 }
 
 mark, mark1, mark2, mark3, mark4, mark5 {
-#	background: gold;
+#	background: BC_MARK;
 	border: 1px solid orange;
 	border-radius: 7px;
 	padding: 0px 5px;
@@ -558,35 +571,12 @@ mark5 { background: #F7D8F7; }
 	max-height: 150px;
 }
 /* ******************************************************** */
-/* info cards */
-/* ******************************************************** */
-.chip {
-    display: inline-block;
-    margin: 7px;
-    padding: 0px;
-    width: 500px;
-    border-radius: 35px;
-    background: whitesmoke;
-}
-
-.chip img {
-    float: left;
-    margin: 0px 35px 0px 0px;
-    height: 75px;
-    width: 75px;
-    border-radius: 50%;
-}
-
-.chip p {
-	padding: 10px;
-}
-/* ******************************************************** */
 /* lookup info */
 /* ******************************************************** */
 refbox {
 	position: relative;
 	display: inline-block;
-	color: navy;
+	color: FC_HEAD;
 	text-decoration: underline dotted;
 }
 refbox:hover refbox-content {
@@ -603,12 +593,12 @@ refbox-content {
 
 	width: 275px;
 
-	color: black;
-	background: whitesmoke;
+	color: FC_HINT;
+	background: BC_HINT;
 	font-weight: normal;
 	font-style: normal;
 	padding: 5px 10px 7px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 12px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 }
@@ -644,10 +634,10 @@ refbox-content p {
 	position: fixed;
 	right: 20px;
 	display: none;
-	color: black;
-	background: whitesmoke;
+	color: FC_HINT;
+	background: BC_HINT;
 	padding: 10px 10px 3px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	margin-top: 20px;
@@ -666,9 +656,9 @@ refbox-content p {
 }
 .readme-button {
 	display: inline-block;
-	color: black;
-	background: white;
-	border: 1px solid #AAA;
+	color: FC_BODY;
+	background: BC_BODY;
+	border: 1px solid OUTLINE;
 	width: 25px;
 	text-align: center;
 	font-weight: bold;
@@ -680,12 +670,12 @@ refbox-content p {
 	right: 50px;
 	display: none;
 	z-index: 30;
-	color: black;
-	background: whitesmoke;
-	border: 1px solid #AAA;
+	color: FC_HINT;
+	background: BC_HINT;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	width: calc(690px - 200px);
+	width: calc(W_BODY - 200px);
 	margin: 3px 0px 0px;
 	padding: 3px 15px 0px;
 	text-align: left;
@@ -695,28 +685,28 @@ refbox-content p {
 /* ******************************************************** */
 dbg, err, msg, code, php, .confirm {
 	z-index: 85;
-	color: navy;
-	background: whitesmoke;
+	color: FC_PAGE;
+	background: BC_PAGE;
 
     vertical-align: middle;
 	display: inline-block;
-	max-width: 690px;
+	max-width: W_BODY;
 
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 10px;
 	margin: 0px;
 	padding: 2px 7px 3px;
 }
-php, code, dbg, err {
+php, code, dbg {
 	font-family: monospace;
 	font-size: 0.85em;
 	white-space: pre-wrap;
 }
 
-dbg  { color: maroon; }
-msg  { color: black;  background: rgb(255,240,230);  }
-err  { color: maroon; background: ; }
-hint { color: grey; background: ; font-size: 0.85em; font-style: normal; }
+dbg  { color: FC_WARN; }
+msg  { color: FC_MSG;  background: BC_MSG;  }
+err  { color: FC_WARN; background: BC_WARN; }
+hint { color: FC_DEAD; background: BC_DEAD; font-size: 0.85em; font-style: normal; }
 
 code {
 	display: block;
@@ -745,7 +735,7 @@ trace {
 }
 
 .err1 {
-	background: white;
+	background: BC_BODY;
 	border: 0px;
 	margin: 5px -6px 3px;
 	padding: 5px 6px 2px;
@@ -753,7 +743,7 @@ trace {
 	border-bottom: 1px solid grey;
 	font-family: monospace;
 	font-size: 0.75em;
-	color: grey;
+	color: FC_DEAD;
 }
 
 /* ******************************************************** */
@@ -761,9 +751,9 @@ trace {
 /* ******************************************************** */
 .info {
 	display: inline-block;
-	color: navy;
-	background: white;
-	border: 1px solid #AAA;
+	color: FC_TOC;
+	background: BC_BODY;
+	border: 1px solid OUTLINE;
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
@@ -779,7 +769,7 @@ trace {
 	height: 100px;
 	margin: auto;
 	overflow: hidden;
-	background: gainsboro;
+	background: BC_OPTS;
 	border-radius: 15px;
 	text-align: center;
 }
@@ -813,7 +803,7 @@ trace {
 	max-height: 400px;
 	background-position: center;
 	background-size: cover;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 }
 .tooltip {
@@ -841,12 +831,12 @@ trace {
 	white-space: pre;
 	font-family: Monospace;
 
-	color: black;
-	background: rgb(238,238,238);
+	color: FC_DROP;
+	background: BC_DROP;
 	text-align: left;
 
 	padding: 7px 15px 12px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 10px;
 	left: 10px;
 	top: 105%;
@@ -860,17 +850,21 @@ trace {
 .tuthed {
 	color: white;
 	background-color: cadetblue;
-	padding: 5px 15px;
+	padding: 5px 7px 3px;
 
 	margin-bottom: 3px;
 	font-weight: bold;
 	border-radius: 7px;
 }
 .tutinf {
-	margin-bottom: 12px;
+	margin-bottom: 5px;
 }
 form {
-	margin: 2px 0px 15px;
+	margin: 2px 0px 7px;
+}
+
+form table {
+	margin: 0px;
 }
 
 /* ******************************************************** */
@@ -878,13 +872,20 @@ form {
 /* ******************************************************** */
 input {
 	line-height: 22px;
-	color: ;
-	background: #FFFFE5;
+	color: FC_INPUT;
+	background: BC_INPUT;
 	padding: 0px 5px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	font-size: 14px;
 	overflow: auto;
+}
+
+input[type='color'] {
+	background: transparent;
+	padding: 0px;
+	border: 0px;
+	max-height: 24px;
 }
 
 input[type='text'] {
@@ -922,7 +923,7 @@ input[type='submit'] {
 
 input[type='button'], button, button.icon {
 	background: linear-gradient(snow, lightgrey);
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 3px 9px;
 #	vertical-align: middle;
@@ -935,7 +936,7 @@ input[type='button'], button, button.icon {
 /* combo boxes */
 /* ******************************************************** */
 select {
-	background: rgb(238,238,238) url("/cms/ICONS/input/combodown.png") no-repeat right;
+	background: BC_DROP url("/cms/core/icons/input/combodown.png") no-repeat right;
 
 	vertical-align: middle;
 	font-weight: normal;
@@ -944,12 +945,12 @@ select {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 #	outline: none;
 
 	margin: 0px;
-	padding: 0px 15px 0px 1px;
+	padding: 0px 15px 0px 5px;
 	min-width: 105px;
 	height: 24px;
 
@@ -969,9 +970,9 @@ option {
 /* textareas  */
 /* ******************************************************** */
 textarea {
-	background: white;
-	max-width: calc(690px - 10px);
-	border: 1px solid #AAA;
+	background: BC_BODY;
+	max-width: calc(W_BODY - 10px);
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 5px 2px 5px 7px;
 
@@ -993,21 +994,24 @@ textarea {
 	border: 1px solid cadetblue;
 	border-radius: 5px;
 	padding: 0px 5px;
+
 	min-width: 150px;
+	min-height: 22px;
 	line-height: 22px;
-	font-size: 0.9em;
+
 	display: inline-block;
-	padding: 0px 5px;
 	vertical-align: middle;
+	font-size: 0.9em;
 }
 /* ******************************************************** */
 /* sections */
 /* ******************************************************** */
 .selSection {
-	color: navy;
+	color: FC_HEAD;
 	font-style: italic;
 	vertical-align: bottom;
-	border-radius: 7px;
+
+	padding-top: 12px;
 }
 .spacer {
 	border: 0px;
@@ -1018,12 +1022,12 @@ textarea {
 /* ******************************************************** */
 .selHead {
 	white-space: nowrap;
-	padding: 5px 7px 0px;
-	vertical-align: middle;
+	padding: 2px 15px 3px 7px;
+#	vertical-align: middle;
 }
 .selData {
 	padding: 2px 0px 0px;
-	vertical-align: middle;
+#	vertical-align: middle;
 }
 
 /* ******************************************************** */
@@ -1031,25 +1035,24 @@ textarea {
 /* ******************************************************** */
 .rating {
 	width: 105px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 
-    background: url("/cms/ICONS/input/rating.png") no-repeat top;
+    background: url("/cms/core/icons/input/rating.png") no-repeat top;
 }
 .ratImg {
 	margin: 2px 0px;
 	opacity: 100%;
 }
-
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
 .localmenu, .localicon, .submenu {
-	z-index: 85;
+	z-index: 150;
 	display: block;
 
-	color: snow;
-	background: linear-gradient(-3deg, #80BFFF, navy 45%);
+	color: FC_INFO;
+	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
 	border: 1px solid navy;
 	border-width: 1px 0px;
 	border-radius: 7px;
@@ -1060,13 +1063,13 @@ textarea {
 }
 
 .localicon {
-	padding: 4px 0px 3px;
+	padding: 2px 0px;
 }
 
 .submenu {
-	color: black;
-	background: linear-gradient(-3deg, white, gold 45%);
-	border: 1px solid #AAA;
+	color: FC_MARK;
+	background: linear-gradient(-3deg, white, BC_MARK 45%);
+	border: 1px solid OUTLINE;
 	font-weight: normal;
 	font-size: 0.85em;
 }
@@ -1080,9 +1083,13 @@ textarea {
 .topmenu {
 	z-index: 99;
 	position: relative;
-	display: inline-block;
-	background: #80BFFF;
-	background: linear-gradient(-2deg, navy, #80BFFF 50%, #80BFFF, #4D7FB2);
+
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
+	background: BC_MENU;
+	background: linear-gradient(-2deg, BC_INFO, BC_MENU 50%, BC_MENU, #4D7FB2);
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
@@ -1091,11 +1098,11 @@ textarea {
 }
 
 .topmenu a {
-	color: snow;
+	color: FC_MENU;
 }
 .topmenu .active {
-	color: snow;
-	background: navy;
+	color: FC_INFO;
+	background: BC_INFO;
 }
 
 /* ******************************************************** */
@@ -1111,14 +1118,14 @@ textarea {
 	display: inline-block;
 	border: 0px;
 	padding: 7px 20px;
-	height: 19px;
+	height: H_MENU;
     text-shadow: 1px 1px 2px grey;
 #   border-radius: 10px 10px 0px 0px;
     margin-right: 5px;
 }
 .topmenu-button:hover{
-	color: snow;
-	background: navy;
+	color: FC_INFO;
+	background: BC_INFO;
 }
 
 /* ******************************************************** */
@@ -1126,10 +1133,10 @@ textarea {
 	z-index: 99;
 	position: fixed;
 	display: none;
-	color: black;
-	background: rgb(238,238,238);
+	color: FC_DROP;
+	background: BC_DROP;
 	font-weight: normal;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 0px 15px 15px 15px;
   	padding: 3px 10px 10px;
   	max-height: 400px;
@@ -1139,14 +1146,14 @@ textarea {
 .topmenu-content a {
 	display: block;
 	padding: 3px 10px;
-	color: black;
+	color: FC_BODY;
 	font-size: 1.15em;
 	font-weight: normal;
 }
 
 .topmenu-content a:hover {
-	color: black;
-	background: gold;
+	color: FC_MARK;
+	background: BC_MARK;
 }
 /* ******************************************************** */
 /* tool bars */
@@ -1168,24 +1175,24 @@ textarea {
 /* ******************************************************** */
 /* menu icon */
 /* ******************************************************** */
+.micon {
+	display: none;
+}
+
 .ibar {
   width: 15px;
   height: 3px;
-  background-color: navy;
+  background-color: FC_TOC;
   margin: 2px 0px 1px;
-}
-
-.micon {
-	display: none;
 }
 
 /* ******************************************************** */
 /* buttons */
 /* ******************************************************** */
 button.icon {
+	min-height: 25px;
 	min-width: 30px;
 	padding: 0px 7px;
-	vertical-align: baseline;
 }
 button.rose, .rose {
 	background: linear-gradient(#FCC, snow);
@@ -1198,16 +1205,13 @@ button.selected {
 
 dmbtn {
 	display: inline-block;
-	color: black;
+	color: FC_BODY;
 	background: linear-gradient(snow, lightgrey);
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
-	font-size: 0.8em;
 	text-align: center;
-	vertical-align: middle;
-	padding: 0px;
 	min-width: 30px;
-	height: 19px;
+	line-height: 24px;
 }
 /* ******************************************************** */
 /* dropdown menus and other dropdown objects */
@@ -1227,13 +1231,13 @@ dmbtn {
 /* ******************************************************** */
 .dropdown-button {
 	display: inline-block;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	margin: 0px 7px 0px 0px;
 	padding: 0px 7px 0px 10px;
 }
 
 .dropdown-icon {
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 4px 7px 1px;
 }
@@ -1249,9 +1253,9 @@ dmbtn {
 	display: block;
 	height: 35px;
 	width: 100%;
-	color: navy;
+	color: FC_HEAD;
 	background: lightgrey linear-gradient(white, light-grey);
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	padding: 4px 7px 3px 10px;
 	font-size: 1.25em;
@@ -1275,9 +1279,9 @@ dmbtn {
 	overscroll-behavior: none;
 
 	display: none;
-	color: black;
-	background: rgb(238,238,238);
-	border: 1px solid #AAA;
+	color: FC_DROP;
+	background: BC_DROP;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	min-width: 160px;
@@ -1287,13 +1291,13 @@ dmbtn {
 }
 .dropdown-content a {
 	display: block;
-	color: black;
+	color: FC_DROP;
 	padding: 0px 5px;
 	font-weight: normal;
 }
 .dropdown-content a:hover {
-	color: black;
-	background: gold;
+	color: FC_MARK;
+	background: BC_MARK;
 }
 
 .dropdown-content h4 {
@@ -1311,32 +1315,32 @@ dmbtn {
 	vertical-align: middle;
 }
 .regtabs a {
-	color: black;
-	background: rgb(238,238,238);
+	color: FC_DROP;
+	background: BC_DROP;
 	border-radius: 0px;
 #	padding: 7px 20px;
     text-shadow: 1px 1px 2px grey;
 }
 .regtabs a:hover {
-	color: black;
-	background: gold;
+	color: FC_MARK;
+	background: BC_MARK;
 	font-weight: normal;
 	text-decoration: none;
 }
 .regtabs a.active {
-	color: black;
-	background: gold;
+	color: FC_MARK;
+	background: BC_MARK;
 }
 /* ******************************************************** */
 /* tabs */
 /* ******************************************************** */
 .vtab {
 	display: block;
-	color: black;
-	background: gainsboro;
+	color: FC_DROP;
+	background: BC_TABS;
 
 	border-radius: 10px 0px 0px 10px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-right: 0px;
 
 	width: 17px;
@@ -1348,8 +1352,9 @@ dmbtn {
 	font-weight: normal;
 }
 .vtab_selected {
-	color: navy;
-	background: whitesmoke;
+#	color: FC_TOC;
+	background: BC_TOC;
+#	border: 1px solid navy;
 	text-align: right;
 	padding-right: 4px;
 }
@@ -1373,8 +1378,8 @@ dmbtn {
 /* table of content */
 /* ******************************************************** */
 .toc {
-	color: navy;
-	background: whitesmoke;
+	color: FC_TOC;
+	background: BC_TOC;
 
 	overflow: auto;
     line-height: 18px;
@@ -1385,13 +1390,13 @@ dmbtn {
 	white-space: nowrap;
 }
 .toc a {
-	color: navy;
+	color: FC_TOC;
     text-decoration: none;
     font-weight: normal;
 }
 .toc a.inactive {
-	color: grey;
-	background: ;
+	color: FC_DEAD;
+	background: BC_DEAD;
 }
 
 /* ******************************************************** */
@@ -1400,17 +1405,16 @@ dmbtn {
 	border-top: 1px solid;
 	border-bottom: 1px solid;
 }
-.mnu {} /* neded for javascript */
 
 /* ******************************************************** */
 /* toc hierarchy */
 /* ******************************************************** */
 .lev1 {
 	font-size: 1.2em;
-	background: rgb(238,238,238);
+	background: BC_DROP;
 	margin: 0px 0px 10px;
 	padding: 7px 7px 3px;
-	border: 1px solid #AAA;
+	border: 1px solid OUTLINE;
 	border-radius: 7px;
 }
 .lev2 {
@@ -1450,30 +1454,30 @@ dmbtn {
     background-repeat: no-repeat;
 }
 .file a {
-	color: black;
+	color: FC_BODY;
 }
 .file a:hover {
     text-decoration: underline;
 }
 
 .sel {
-	color: black;
-    background: gold;
+	color: FC_MARK;
+    background: BC_MARK;
     border-radius: 5px;
 }
 
 .hidden > a {
-	color: grey;
-	background: ;
+	color: FC_DEAD;
+	background: BC_DEAD;
 }
 /* ******************************************************** */
 /* table of content */
 /* ******************************************************** */
 topic {
 	display: block;
-	color: snow;
-	background: navy;
-	border: 1px solid #AAA;
+	color: FC_INFO;
+	background: BC_INFO;
+	border: 1px solid OUTLINE;
 	border-radius: 13px;
 	margin: 0px 0px 7px;
 }
@@ -1481,7 +1485,7 @@ topic {
 topichead {
 	display: block;
 	cursor: hand;
-	color: snow;
+	color: FC_INFO;
 	padding: 7px 10px 5px 15px;
 }
 topichead::after {
@@ -1492,8 +1496,8 @@ topichead::after {
 
 topicdesc {
 	display: none;
-	color: black;
-	background: white;
+	color: FC_BODY;
+	background: BC_BODY;
 	font-weight: normal;
 	border: none;
 	border-radius: 0px 0px 10px 10px;
@@ -1503,6 +1507,29 @@ topicdesc {
 
 topic:hover topicdesc {
 	display: block;
+}
+/* ******************************************************** */
+/* info cards */
+/* ******************************************************** */
+.chip {
+    display: inline-block;
+    margin: 7px;
+    padding: 0px;
+    width: 500px;
+    border-radius: 35px;
+    background: BC_PAGE;
+}
+
+.chip img {
+    float: left;
+    margin: 0px 35px 0px 0px;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+}
+
+.chip p {
+	padding: 10px;
 }
 /* ******************************************************** */
 @media print {
@@ -1564,6 +1591,7 @@ tr, .br {
 }
 /* ******************************************************** */
 @media only screen and (max-width: 1300px) {
+
 	html {
 		transform: scale(0.95);
 		transform-origin: top left;
@@ -1583,10 +1611,10 @@ tr, .br {
 	html { transform: scale(0.70); height: calc(100% / 0.70); }
 	html { transform: scale(1); height: 100%; }
 	.micon { display: block; }
-	.modtoc { width: calc(690px - 200px); max-width: 75%; border-right: 1px solid #AAA; }
+	.modtoc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
 	.modmbar { display: none; }
-	.modbody { left: 45px; }
-	.modopts { left: calc(45px + 690px); }
+	.modbody { left: W_TABS; }
+	.modopts { left: calc(W_TABS + W_BODY); }
 }
 
 /*
