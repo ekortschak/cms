@@ -4,7 +4,7 @@
 // ***********************************************************
 Used to create combo boxes containing links for immeadiate action
 
-dropnav will return a numeric index
+dropNav will return a numeric index
 * not the key of the passed items array
 
 // ***********************************************************

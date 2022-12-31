@@ -1,13 +1,12 @@
 <?php
 
 if (! FS_ADMIN) {
-	$mod = "stop";
-	$edt = CFG::getVar("mods", "eopts.pedit", false);
-	if ($edt) $mod = "login";
-
-	incMod("body/$mod.php");
+	incMod("stop.php");
 	return;
 }
+
+incCls("menus/localMenu.php");
+incCls("editor/ediTools.php");
 
 // ***********************************************************
 // show title
@@ -21,8 +20,6 @@ HTW::tag($tit, "h3");
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/localMenu.php");
-
 $cur = basename(ENV::get("pic.file"));
 
 $box = new localMenu();
@@ -32,8 +29,6 @@ $fil = $box->focus("pic.file", $cur, $fil);
 // ***********************************************************
 // find relevant editors
 // ***********************************************************
-incCls("editor/ediTools.php");
-
 $edi = new ediTools();
 $sec = $edi->getType($fil);
 $eds = $edi->getEditors($sec);
@@ -62,4 +57,3 @@ $inc = APP::file($inc);
 return include($inc);
 
 ?>
-

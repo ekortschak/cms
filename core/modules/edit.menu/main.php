@@ -1,13 +1,7 @@
 <?php
 
-// ***********************************************************
-// login on remote system
-// ***********************************************************
 if (! FS_ADMIN) {
-	$edt = CFG::getVar("mods", "eopts.medit", false);
-	if ($edt) $mod = "login";
-
-	incMod("body/$mod.php");
+	incMod("stop.php");
 	return;
 }
 
@@ -16,16 +10,17 @@ incCls("menus/buttons.php");
 // ***********************************************************
 // show title
 // ***********************************************************
-$dir = FSO::mySep(__DIR__);
 $loc = PFS::getLoc();
+$tit = HTM::pgeTitle($loc);
+$dir = FSO::mySep(__DIR__);
 
-$ini = new ini($loc);
-$tit = $ini->getHead();
+HTW::tag($tit, "h3");
 
 // ***********************************************************
-HTW::tag($tit, "h3");
+// show options
 // ***********************************************************
 $nav = new buttons("menu", "F", $dir);
+
 $nav->add("D", "doFolders");
 $nav->add("F", "doFiles");
 $nav->add("A", "doUpload");
