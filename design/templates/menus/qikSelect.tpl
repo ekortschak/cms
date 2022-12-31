@@ -6,7 +6,7 @@ dropBox.tpl
 [main]
 # ***********************************************************
 <div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-<table class="navi">
+<table class="nomargin">
 <!VAR:items!>
 </table>
 </div>

@@ -1,5 +1,4 @@
 [register]
-core/scripts/jquery.min.js
 core/scripts/toc.view.js
 
 [dic]

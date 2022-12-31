@@ -7,46 +7,33 @@ label {
 	background: linear-gradient(snow, lightgrey);
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 label.text {
 	background: transparent none;
 	border: 0px;
 }
-label.tr {
-	padding: 2px 3px;
-	background: transparent none;
-	border: 0px;
-	vertical-align: top;
-}
 
 label.red {
 	background: #FFC0CB none;
-	border: 1px solid OUTLINE;
-	cursor: pointer;
 }
 label.blue {
 	background: #D2EDEF none;
-	border: 1px solid OUTLINE;
-	cursor: pointer;
 }
 label.mauve {
 	background: #EBD2EB none;
-	border: 1px solid OUTLINE;
-	cursor: pointer;
 }
 label.upload {
 	display: inline-block;
-	color: #fff;
-	background: #5cb85c none;
-	border: 1px solid OUTLINE;
-
-	margin: -1px 0px 0px;
-	padding: 2px 12px;
 	white-space: nowrap;
-	vertical-align: middle;
-	cursor: pointer;
-	border-radius: 5px;
 	width: 300px;
+}
+
+/* ******************************************************** */
+/* hidden labels for radio buttons */
+/* ******************************************************** */
+label.hidden {
+	background: transparent none;
 }
 

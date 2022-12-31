@@ -55,9 +55,8 @@ public function setTable($dbase, $table, $flt = "") {
 }
 
 protected function getPage() {
-    $pge = $this->get("cur", 0);
-    $rep = $this->get("lines", $this->lns);
-    $lst = $this->get("last", 0) - 1;
+    $lst = count($this->dat);
+    $pge = OID::get($this->oid, "cur", 0);
 
     switch (ENV::getPost("act", "x")) {
         case "p": $pge = $pge - 1; break;
@@ -65,9 +64,9 @@ protected function getPage() {
         case "l": $pge = $lst;     break;
         default:  $pge = 0;
     }
-    $max = $this->getPageNum($lst);
+    $max = $this->getMax($lst);
     $pge = CHK::range($pge, $max);
-    $xxx = $this->set("page", $pge);
+    $xxx = OID::set($this->oid, "cur", $pge);
     return $pge;
 }
 

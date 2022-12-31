@@ -10,45 +10,47 @@ form table {
 /* input fields */
 /* ******************************************************** */
 input {
-	line-height: 22px;
-	color: FC_INPUT;
-	background: BC_INPUT;
-	padding: 0px 5px;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
-	font-size: 14px;
+	padding: 0px 5px;
 	overflow: auto;
-}
 
-input[type='color'] {
-	background: transparent;
-	padding: 0px;
-	border: 0px;
-	max-height: 24px;
+	line-height: 22px;
+
+	color: FC_INPUT;
+	background: BC_INPUT;
+	font-size: 14px;
 }
 
 input[type='text'] {
 	height: 24px;
 }
 
+input[type='datetime-local'] { /* date input */
+	padding: 1px;
+}
+
 input[type='file'] {}
+
+input[type='color'] { /* color input */
+	margin: 1px 0px 3px;
+	background: transparent;
+	padding: 0px;
+	border: 0px;
+	max-height: 24px;
+}
+
+/* ******************************************************** */
+/* check and radio */
+/* ******************************************************** */
+input[type='radio'] {
+	margin: 0px;
+}
 
 input[type='checkbox'] {
 	display: inline-block;
 	margin: 0px 3px 0px 0px;
 	vertical-align: middle;
-}
-.cb { /* needed for js (toggling) */
-	vertical-align: middle;
-	padding: 0px 10px 1px 5px;
-}
-
-input[type='datetime-local'] { /* date input */
-	padding: 1px;
-}
-
-input[type='color'] { /* color input */
-	margin: 1px 0px 3px;
 }
 
 /* ******************************************************** */
@@ -60,15 +62,14 @@ input[type='submit'] {
 	cursor: pointer;
 }
 
-input[type='button'], button, button.icon {
+input[type='button'], button {
 	background: linear-gradient(snow, lightgrey);
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 3px 9px;
-#	vertical-align: middle;
 	height: 24px;
-	cursor: pointer;
 	min-width: 40px;
+	cursor: pointer;
 }
 
 /* ******************************************************** */
@@ -77,27 +78,26 @@ input[type='button'], button, button.icon {
 select {
 	background: BC_DROP url("CMS_URL/ICONS/input/combodown.png") no-repeat right;
 
-	vertical-align: middle;
+	margin: 0px;
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+	padding: 0px 15px 0px 5px;
+
+	min-width: 105px;
+	height: 24px;
+
 	font-weight: normal;
+	vertical-align: middle;
 
 	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-#	outline: none;
-
-	margin: 0px;
-	padding: 0px 15px 0px 5px;
-	min-width: 105px;
-	height: 24px;
-
     cursor: pointer;
 }
+
 select::after {
 	content: "▾";
-#	padding: 3px 7px 0px 0px;
 }
 
 option {
@@ -116,6 +116,12 @@ textarea {
 	padding: 5px 2px 5px 7px;
 
 	overflow: auto;
+}
+
+textarea.max {
+	display: block;
+	position: relative;
+	width: calc(100% - 10px);
 }
 
 /* ******************************************************** */

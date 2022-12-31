@@ -3,9 +3,6 @@ caption = Test
 info = Any description ...
 color = FC_BODY
 
-[abbr]
-<abbr title="<!VAR:info!>"><!VAR:caption!></abbr><nolf>
-
 [lookup]
 <refbox style="color: <!VAR:color!>;">
 <!VAR:caption!>_

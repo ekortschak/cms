@@ -34,7 +34,7 @@ deny = verweigern
 
 		<tr class="rf">
 			<td colspan="100%" align="right">
-				<input type="submit" name="perms.act" value="OK" style="padding:0px 20px;" />
+				<input type="submit" name="perms.act" value="OK" style="padding:0px 20px;">
 			</td>
 		</tr>
 	</table>
@@ -44,14 +44,14 @@ deny = verweigern
 <tr class="rw">
 	<td><!VAR:user!></td>
 	<td align="center">
-		<input type="radio" id="<!VAR:user!>.r" name="<!VAR:user!>" value="r" <!VAR:r!> class="cb" />
-		<label for="<!VAR:user!>.r" class="tr"></label>
+		<input type="radio" id="<!VAR:user!>.r" name="<!VAR:user!>" value="r" <!VAR:r!>>
+		<label for="<!VAR:user!>.r" class="hidden"></label>
 	</td><td align="center">
-		<input type="radio" id="<!VAR:user!>.i" name="<!VAR:user!>" value="i" <!VAR:i!> class="cb" />
-		<label for="<!VAR:user!>.i" class="tr"></label>
+		<input type="radio" id="<!VAR:user!>.i" name="<!VAR:user!>" value="i" <!VAR:i!>>
+		<label for="<!VAR:user!>.i" class="hidden"></label>
 	</td><td align="center">
-		<input type="radio" id="<!VAR:user!>.d" name="<!VAR:user!>" value="d" <!VAR:d!> class="cb" />
-		<label for="<!VAR:user!>.d" class="tr"></label>
+		<input type="radio" id="<!VAR:user!>.d" name="<!VAR:user!>" value="d" <!VAR:d!>>
+		<label for="<!VAR:user!>.d" class="hidden"></label>
 	</td>
 </tr>
 

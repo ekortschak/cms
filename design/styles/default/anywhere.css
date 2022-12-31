@@ -1,0 +1,46 @@
+/* ******************************************************** */
+/* classes for common use */
+/* ******************************************************** */
+.nomargin {
+	margin: 0px;
+}
+
+.nopad {
+	padding: 0px;
+}
+
+.pre {
+	overflow: auto;
+	font-family: monospace;
+	font-size: 0.75em;
+	white-space: pre;
+	max-height: 150px;
+}
+
+/* ******************************************************** */
+/* backgrounds */
+/* ******************************************************** */
+.bg {
+	background: BC_TBACK;
+	width: 100%;
+	overflow: auto;
+}
+
+.rh {
+	color: FC_THEAD;
+	background: BC_THEAD;
+	vertical-align: middle;
+	font-weight: bold;
+	padding: 3px 5px 1px;
+}
+
+.rw                 { color: FC_TEVEN; background: BC_TEVEN; }
+.rw:nth-child(odd)  { color: FC_TODD;  background: BC_TODD;  }
+.rw:hover           { color: FC_TMARK; background: BC_TMARK; }
+
+.rf {
+	color: FC_TFOOT;
+	background: BC_TFOOT;
+	vertical-align: middle;
+}
+

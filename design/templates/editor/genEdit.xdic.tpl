@@ -46,8 +46,7 @@ edit = Übersetzung <a href="?pic.editor=html">nachbearbeiten</a>
 		</tr><tr>
 			<td class="selHead">&nbsp;</td>
 			<td class="selData">
-				<textarea id="content" name="content" class="tarea" rows="7" _
-					spellcheck="false"><!VAR:content!></textarea>
+				<textarea id="content" name="content" class="max" rows="7" spellcheck="false"><!VAR:content!></textarea>
 			</td>
 		</tr><tr>
 			<td class="selHead"><!DIC:step!> 4:</td>

@@ -9,6 +9,6 @@ core/scripts/imageMap.js
 # ***********************************************************
 <div class="rating" id="div.<!VAR:fname!>" style="background-position-Y: <!VAR:pos!>px;">
 	<input type="hidden" id="<!VAR:fname!>" name="<!VAR:fname!>" value="<!VAR:curVal!>" />
-	<img id="img.<!VAR:fname!>" class="ratImg" src="ICONS/1x1.gif"
+	<img id="img.<!VAR:fname!>" src="ICONS/1x1.gif"
 		width=100 height=15 onload="createMap('<!VAR:fname!>', 20, 20);" />
 </div>

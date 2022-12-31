@@ -24,27 +24,16 @@ hx, hy {
 	margin-bottom: 5px;
 }
 
-.modtoc > h3 {
-	margin-top: 0px;
-}
-
 p {
 	margin: 3px 0px 7px;
 	text-align: justify;
 }
-b {
-    font-weight: bold;
-}
 
-div.flex {
-	display: flex;
-	justify-content: space-between;
-}
-
-div.flexleft {
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-end;
+blockquote {
+	margin: 3px 0px 12px;
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
+	padding: 5px 10px;
 }
 
 /* ******************************************************** */
@@ -59,37 +48,6 @@ hr.search {
 	background-color: transparent;
 	border-top: 2px solid red;
 #	border-bottom: 2px solid maroon;
-}
-
-/* ******************************************************** */
-/* images */
-/* ******************************************************** */
-img {
-	margin: 0px;
-	border: 0px;
-	vertical-align: middle;
-}
-img.flag {
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-}
-img.rgt {
-	text-align: right;
-	padding-left: 25px;
-}
-img.lft {
-	text-align: left;
-	padding-right: 15px;
-}
-
-.view {
-	width: 100%;
-}
-
-.thumb {
-	display: inline-block;
-	margin: 0px 5px 3px;
-	width: 110px;
 }
 
 /* ******************************************************** */
@@ -131,13 +89,6 @@ hr {
 }
 hr.low {
 	margin: 2px 0px 3px;
-}
-
-abbr {
-	margin: 0px;
-	padding: 0px;
-	color: FC_HINT;
-	background: BC_HINT;
 }
 
 /* ******************************************************** */

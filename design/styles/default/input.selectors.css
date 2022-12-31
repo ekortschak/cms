@@ -9,6 +9,7 @@
 
 	padding-top: 12px;
 }
+
 .spacer {
 	border: 0px;
 }
@@ -36,7 +37,8 @@
 
     background: url("CMS_URL/ICONS/input/rating.png") no-repeat top;
 }
-.ratImg {
+
+rating img {
 	margin: 2px 0px;
 	opacity: 100%;
 }

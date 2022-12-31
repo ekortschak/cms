@@ -41,7 +41,7 @@ rows = 40
 	</div>
 
 	<div id="curEdit" class="hidden"> _
-		<textarea id="content" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
+		<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
 	</div>
 
 <!SEC:submit!>

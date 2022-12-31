@@ -24,16 +24,11 @@ LOC_TPL/msgs/sitemap.tpl
 <!VAR:head!>
 </div>
 
-[help.box]
+[help]
 <div class="helpbox">
-	<img class="helpbox-button" src="ICONS/help.png" />
+	<img src="ICONS/help.png" />
 	<div class="helpbox-content"><!VAR:help!></div>
 </div>
-
-[help]
-<p><msg>
-<!VAR:help!>
-</msg></p>
 
 [page]
 <div>

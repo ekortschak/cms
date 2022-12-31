@@ -5,33 +5,45 @@ refbox {
 	position: relative;
 	display: inline-block;
 	color: FC_HEAD;
+
 	text-decoration: underline dotted;
+	text-align: left;
 }
+
+refbox.help {
+	margin: -45px -7px 0px 0px;
+	float: right;
+	right: 0px;
+}
+
+/* ******************************************************** */
+/* hover action */
+/* ******************************************************** */
 refbox:hover refbox-content {
 	display: block;
 }
 
+/* ******************************************************** */
+/* lookup content */
+/* ******************************************************** */
 refbox-content {
 	z-index: 99;
 	position: absolute;
 	display: none;
-	white-space: pre-wrap;
-	text-align: left;
-	overflow: auto;
-
 	width: 275px;
+	overflow: auto;
 
 	color: FC_HINT;
 	background: BC_HINT;
-	font-weight: normal;
-	font-style: normal;
-	padding: 5px 10px 7px;
+
 	border: 1px solid OUTLINE;
 	border-radius: 12px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-}
+	padding: 5px 10px 7px;
 
-refbox-content p {
+	font-weight: normal;
+	font-style: normal;
+	white-space: pre-wrap;
 	text-align: left;
 }
 
@@ -41,7 +53,7 @@ refbox-content p {
 .helpbox {
 	display: inline-block;
 	position: relative;
-	margin: -45px -7px 0px 0px;
+	margin: -30px -7px 0px 0px;
 	float: right;
 	right: 0px;
 }
@@ -49,62 +61,20 @@ refbox-content p {
 	display: block;
 }
 
-.helpbox-button {
-	position: absolute;
-	display: inline-block;
-	white-space: pre-wrap;
-	float: right;
-	right: 0px;
-	border: 0px;
-}
 .helpbox-content {
 	z-index: 30;
-	position: fixed;
-	right: 20px;
 	display: none;
-	color: FC_HINT;
-	background: BC_HINT;
-	padding: 10px 10px 3px;
-	border: 1px solid OUTLINE;
-	border-radius: 7px;
-	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	margin-top: 20px;
-	min-width: 575px;
-	padding: 25px;
-}
+	position: fixed;
+	right: calc(100% - W_BODY - W_TOC - W_TABS - W_MBAR + 20px);
+	width: calc(W_BODY - 75px);
+	max-height: 450px;
+	overflow: auto;
 
-/* ******************************************************** */
-/* help symbol */
-/* ******************************************************** */
-.readme {
-	display: inline-block;
-}
-.readme:hover .readme-content {
-	display: block;
-}
-.readme-button {
-	display: inline-block;
-	color: FC_BODY;
-	background: BC_BODY;
-	border: 1px solid OUTLINE;
-	width: 25px;
-	text-align: center;
-	font-weight: bold;
-	line-height: 24px;
-	border-radius: 50%;
-}
-.readme-content {
-	position: fixed;
-	right: 50px;
-	display: none;
-	z-index: 30;
 	color: FC_HINT;
 	background: BC_HINT;
+
 	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	width: calc(W_BODY - 200px);
-	margin: 3px 0px 0px;
-	padding: 3px 15px 0px;
-	text-align: left;
+	padding: 0px 25px 15px;
 }

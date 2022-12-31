@@ -12,23 +12,9 @@ blue	{ color: navy;	 }
 mauve	{ color: purple; }
 maroon	{ color: maroon; }
 
-tpl {
-	display: inline-block;
-	color: OUTLINE;
-	cursor: pointer;
-}
-
-small {
-	font-size: 0.75em;
-}
-
-blockquote {
-	margin: 3px 0px 12px;
-	border: 1px solid OUTLINE;
-	border-radius: 7px;
-	padding: 5px 10px;
-}
-
+/* ******************************************************** */
+/* simple color tags */
+/* ******************************************************** */
 dfn {
 	color: purple;
 }
@@ -37,20 +23,35 @@ caps {
 	font-variant: small-caps;
 }
 
+small {
+	font-size: 0.75em;
+}
+
 kbd {
 	display: inline-block;
 	background: #EEE;
 	border: 1px solid black;
-	text-align: center;
 	border-radius: 7px;
 	padding: 1px 5px;
 	min-width: 12px;
+
 	font-size: 0.75em;
-}
-fnote {
-	color: green;
-	display: inline-block;
 	text-align: center;
+}
+
+fnote {
+	display: inline-block;
+	color: green;
+	text-align: center;
+}
+
+/* ******************************************************** */
+/* highlighting (marker)*/
+/* ******************************************************** */
+markp {
+	background: yellow;
+	border: 0px;
+	padding: 0px 5px;
 }
 
 mark, mark1, mark2, mark3, mark4, mark5 {
@@ -59,22 +60,9 @@ mark, mark1, mark2, mark3, mark4, mark5 {
 	border-radius: 7px;
 	padding: 0px 5px;
 }
-markp {
-	background: yellow;
-	border: 0px;
-	padding: 0px 5px;
-}
+
 mark1 { background: yellow;  }
 mark2 { background: #FFE100; }
 mark3 { background: #E3FF00; }
 mark4 { background: #D5F7F7; }
 mark5 { background: #F7D8F7; }
-
-.pre {
-	overflow: auto;
-	font-family: Monospace;
-	font-size: 0.75em;
-	white-space: pre;
-	max-height: 150px;
-}
-

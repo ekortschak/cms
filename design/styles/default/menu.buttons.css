@@ -3,9 +3,7 @@
 /* ******************************************************** */
 .toolbar {
 	z-index: 35;
-	position: relative;
-	margin: 0px 0px 3px;
-	vertical-align: middle;
+	background: #e7e7e7;
 }
 
 .btnbar {
@@ -30,7 +28,7 @@
 }
 
 /* ******************************************************** */
-/* buttons */
+/* buttons in toolbars*/
 /* ******************************************************** */
 button.icon {
 	min-height: 25px;
@@ -44,15 +42,4 @@ button.rose, .rose {
 button.selected {
 	background: linear-gradient(white, snow);
 	font-weight: bold;
-}
-
-dmbtn {
-	display: inline-block;
-	color: FC_BODY;
-	background: linear-gradient(snow, lightgrey);
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-	text-align: center;
-	min-width: 30px;
-	line-height: 24px;
 }

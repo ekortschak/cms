@@ -50,7 +50,6 @@ hr.pbr {
 	display: none;
 }
 
-
 tr, .br {
 	page-break-inside: avoid;
 }

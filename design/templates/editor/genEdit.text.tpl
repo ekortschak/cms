@@ -33,7 +33,7 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-<textarea id="content" name="content" class="tarea" rows="<!VAR:rows!>" spellcheck="false">_
+<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false">_
 <!VAR:content!>_
 </textarea>
 <!SEC:submit!>

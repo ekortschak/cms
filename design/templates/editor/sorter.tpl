@@ -25,11 +25,9 @@ nodata = Keine sortierbaren Einträge ...
 
 	<div class="flexleft">
 		<div>
-			<ul>
-				<!VAR:items!>
-			</ul>
+			<!VAR:items!>
 		</div>
-		<div style="padding: 12px 30px;">
+		<div style="padding: 2px 30px;">
 			<input type="submit" name="sort.act" value="OK" style="padding:0px 20px;" />
 		</div>
 	</div>
@@ -37,10 +35,10 @@ nodata = Keine sortierbaren Einträge ...
 
 
 [item]
-		<li class="drag" draggable="true" data-x="<!VAR:cnt!>" data-fso="<!VAR:fso!>" _
-			ondragstart="start(event)" ondragover="hover(event)" ondrop="dropped(event)">_
-				<!VAR:text!>_
-		</li>
+<button class="drag block" draggable="true" data-x="<!VAR:cnt!>" data-fso="<!VAR:fso!>" _
+	ondragstart="start(event)" ondragover="hover(event)" ondrop="dropped(event)">_
+		<!VAR:text!>_
+</button>
 
 [nodata]
 <p><!DIC:nodata!></p>

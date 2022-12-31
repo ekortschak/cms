@@ -12,7 +12,7 @@ topic = Thema
 [main]
 # ***********************************************************
 <div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-<table class="navi" width="100%">
+<table class="nomargin" width="100%">
 	<tr>
 		<td class="nopad" width="*">
 			<div class="localmenu">

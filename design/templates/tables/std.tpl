@@ -13,8 +13,8 @@ page = Seite
 # ***********************************************************
 [main]
 # ***********************************************************
-<div class="fullwidth">
-	<table class="navi">
+<div class="bg">
+	<table class="nomargin">
 <!VAR:body!>
 	</table>
 <!SEC:TFoot!>

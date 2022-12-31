@@ -68,7 +68,7 @@ preview  = Preview
 <div align="right">
 	<!DIC:del.png!>
 	<a href="?tab.drop=<!VAR:tab!>" onclick="return confirm('<!DIC:ask.sure!>');">
-		<dmbtn>BOOL_NO</dmbtn>
+		<button>BOOL_NO</button>
 	</a>
 </div>
 

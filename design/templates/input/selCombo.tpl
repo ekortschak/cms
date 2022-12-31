@@ -23,14 +23,14 @@ sep =
 # ***********************************************************
 [input.one]
 # ***********************************************************
-<input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>" class="cb" />
+<input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>">
 <div class="ronly"><!VAR:option!></div>
 
 
 # ***********************************************************
 [input.opt]
 # ***********************************************************
-<input type="radio" id="opt.<!VAR:key!>" name="<!VAR:fname!>" value="<!VAR:key!>" <!VAR:checked!> class="cb" />
+<input type="radio" id="opt.<!VAR:key!>" name="<!VAR:fname!>" value="<!VAR:key!>" <!VAR:checked!>>
 <label for="opt.<!VAR:key!>" class="text"><!VAR:caption!></label>
 <!VAR:sep!>
 
@@ -38,7 +38,7 @@ sep =
 # ***********************************************************
 [input.rng]
 # ***********************************************************
-<input type="range" name="<!VAR:fname!>" value="<!VAR:curVal!>" min="<!VAR:min!>" max="<!VAR:max!>" class="cb" />
+<input type="range" name="<!VAR:fname!>" value="<!VAR:curVal!>" min="<!VAR:min!>" max="<!VAR:max!>">
 <small><!VAR:min!> - <!VAR:max!></small>
 
 [empty]

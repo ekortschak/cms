@@ -1,30 +1,26 @@
-
 /* ******************************************************** */
-/* tabs */
+/* vertical tabs */
 /* ******************************************************** */
 .vtab {
 	display: block;
-	color: FC_DROP;
-	background: BC_TABS;
-
+	margin: 0px 0px 5px 14px;
 	border-radius: 10px 0px 0px 10px;
 	border: 1px solid OUTLINE;
 	border-right: 0px;
-
-	width: 17px;
-	margin: 0px 0px 5px 14px;
 	padding: 15px 0px 15px 9px;
+	width: 17px;
 
-	text-align: middle;
+	color: FC_DROP;
+	background: BC_TABS;
 
 	font-weight: normal;
+	text-align: middle;
 }
 .vtab_selected {
-#	color: FC_TOC;
-	background: BC_TOC;
-#	border: 1px solid navy;
-	text-align: right;
 	padding-right: 4px;
+	color: FC_TOC;
+	background: BC_TOC;
+	text-align: right;
 }
 
 .vertical {
@@ -43,3 +39,32 @@
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
+/* ******************************************************** */
+/* horizontal tabs - single line */
+/* ******************************************************** */
+.regtabs {
+	display: inline-block;
+	overflow: hidden;
+	margin: 0px;
+	padding: 5px 0px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.regtabs a {
+	color: FC_DROP;
+	background: BC_DROP;
+	border-radius: 0px;
+#	padding: 7px 20px;
+    text-shadow: 1px 1px 2px grey;
+}
+.regtabs a:hover {
+	color: FC_MARK;
+	background: BC_MARK;
+	font-weight: normal;
+	text-decoration: none;
+}
+.regtabs a.active {
+	color: FC_MARK;
+	background: BC_MARK;
+}

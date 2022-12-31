@@ -93,11 +93,10 @@ select = Datei(en) wählen
 # ***********************************************************
 [input.chk]
 # ***********************************************************
-<label class="cb">
-	<input type="hidden"   name="<!VAR:fname!>" value=0 />
-	<input type="checkbox" name="<!VAR:fname!>" value=1 <!VAR:checked!> />
-	<small><!VAR:choice!></small>
-</label><!VAR:sep!>
+<input type="hidden"   name="<!VAR:fname!>" value=0 />
+<input type="checkbox" name="<!VAR:fname!>" value=1 <!VAR:checked!> />
+<small><!VAR:choice!></small>
+<!VAR:sep!>
 
 # ***********************************************************
 [input.upl]
