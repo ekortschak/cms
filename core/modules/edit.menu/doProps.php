@@ -5,7 +5,7 @@ incCls("editor/iniMgr.php");
 $loc = PFS::getLoc();
 
 // ***********************************************************
-HTM::Tag("tab.props");
+HTW::xtag("tab.props");
 // ***********************************************************
 $tab = new iniTab(TAB_PATH);
 $fst = $tab->get("props.std");
@@ -32,7 +32,7 @@ $tpl = "LOC_CFG/page.$typ.ini"; if (! is_file($tpl))
 $tpl = "LOC_CFG/page.ini";
 
 // ***********************************************************
-HTM::Tag("page.props");
+HTW::xtag("page.props");
 // ***********************************************************
 $ini = new iniMgr($tpl);
 $ini->read($ful);

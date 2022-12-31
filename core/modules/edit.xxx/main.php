@@ -4,7 +4,7 @@ incCls("menus/buttons.php");
 $dir = FSO::mySep(__DIR__);
 
 // ***********************************************************
-HTM::tag("xedit", "h3");
+HTW::xtag("xedit", "h3");
 // ***********************************************************
 $nav = new buttons("xedit", "S", $dir);
 

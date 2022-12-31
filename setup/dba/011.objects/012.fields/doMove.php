@@ -18,7 +18,7 @@ $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $skip = $fld);
 
 // ***********************************************************
-HTM::tag("fld.move");
+HTW::xtag("fld.move");
 // ***********************************************************
 $box = new qikSelect();
 $aft = $box->getKey("fld.move after", $arr);

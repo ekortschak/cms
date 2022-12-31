@@ -15,8 +15,8 @@ $xxx = $box->show();
 // ***********************************************************
 // info
 // ***********************************************************
-HTM::cap("Check dbo Info integrity");
-HTM::cap("This will update stored dbo Info according to db reality.", "p");
+HTW::tag("Check dbo Info integrity");
+HTW::tag("This will update stored dbo Info according to db reality.", "p");
 
 // ***********************************************************
 // ask for confirmation

@@ -12,7 +12,7 @@ $dbs = $box->getDbase();
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.create");
+HTW::xtag("tbl.create");
 // ***********************************************************
 $sel = new selector();
 $neu = $sel->input("tbl.new", "new_table");

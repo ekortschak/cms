@@ -12,7 +12,7 @@ $dbs = $box->getDbase();
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("dbs.create");
+HTW::xtag("dbs.create");
 // ***********************************************************
 $sel = new selector();
 $neu = $sel->input("dbs.new", "new_database");

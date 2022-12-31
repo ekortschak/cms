@@ -13,7 +13,7 @@ $tbl = $box->getTable($dbs);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.copy");
+HTW::xtag("tbl.copy");
 // ***********************************************************
 $sel = new selector();
 $neu = $sel->input("tbl.new", "new_table");

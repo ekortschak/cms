@@ -3,7 +3,7 @@
 incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
-HTM::tag("nums.conv");
+HTW::xtag("nums.conv");
 
 // ***********************************************************
 // get parameters
@@ -30,7 +30,7 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</small>\n";
-echo "<hr>\n";
+HTM::lf();
 
 ?>
 

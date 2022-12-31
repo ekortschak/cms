@@ -20,7 +20,7 @@ foreach ($vrs as $key => $val) {
 $ver = $box->getKey("as of", $vrs);
 $xxx = $box->show();
 
-HTM::cap("dir = $bkp", "small");
+HTW::tag("dir = $bkp", "small");
 
 // ***********************************************************
 // show tables
@@ -32,8 +32,9 @@ foreach ($arr as $fil => $tab) {
 	$tbs[$tab] = $tab;
 }
 
-HTM::tag("tbs.select");
-
+// ***********************************************************
+HTW::xtag("tbs.select");
+// ***********************************************************
 $sel = new selector();
 $exc = $sel->multi("tbs.restore", $tbs);
 $act = $sel->show();

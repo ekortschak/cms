@@ -26,7 +26,7 @@ if (ENV::getPost("rec.act")) {
 }
 
 // ***********************************************************
-HTM::tag("usr.register");
+HTW::xtag("usr.register");
 // ***********************************************************
 $dbe = new recEdit(NV, "dbusr");
 $dbe->findRec();

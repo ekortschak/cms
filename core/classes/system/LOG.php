@@ -94,7 +94,7 @@ public static function show($msg = false) {
 
 	if (! $msg) return;
 	$msg = trim("$hed<br>\n$msg");
-	echo "<msg>$msg</msg>";
+	HTW::tag($msg, "msg");
 
 	self::clear();
 }

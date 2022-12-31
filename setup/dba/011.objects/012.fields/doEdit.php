@@ -24,7 +24,7 @@ $cat = $inf["dcat"];
 $lng = $inf["flen"]; $len = "";
 
 // ***********************************************************
-HTM::tag("fld.modify");
+HTW::xtag("fld.modify");
 // ***********************************************************
 $box = new qikSelect();
 $typ = $box->getKey("fld.type", $tps, $cat);
@@ -38,7 +38,7 @@ $len = $box->getKey("fld.length", $lns, $lng);
 $nul = $box->getKey("fld.null",   $nls, $inf["fnull"]);
 $xxx = $box->show();
 
-echo "<hr>";
+HTM::lf();
 
 // ***********************************************************
 $fnc = "input"; $std = "";

@@ -6,7 +6,7 @@ $fcs = "dbase";
 include($inc);
 
 // ***********************************************************
-HTM::tag("dbo.check objects");
+HTW::xtag("dbo.check objects");
 // ***********************************************************
 $con = "-"; if (DB_CON) $con = "OK";
 

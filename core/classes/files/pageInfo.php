@@ -41,8 +41,7 @@ public function getLink($after = "", $mode = "view") {
 	$url = $this->get("path");
 	$cap = $this->get("full"); if ($after) $cap = STR::afterX($cap, $after);
 	$lst = ($after) ? "~" : "";
-
-	return "<a href=\"index.php?pge=$url&vmode=$mode\">$lst$cap</a>";
+	return HTM::href("?pge=$url&vmode=$mode", $lst.$cap);
 }
 
 public function save() {

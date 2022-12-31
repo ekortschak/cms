@@ -17,7 +17,7 @@ $rgt = $box->getKey("pic.privs", $dbi->usrPerms());
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("grp.perms");
+HTW::xtag("grp.perms");
 // ***********************************************************
 $few = new sel_table();
 $few->setTable($dbs, "dbxs", "cat='usr'");

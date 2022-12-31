@@ -10,7 +10,9 @@ $idx = $xfm->isPage();
 if ($idx) {
 	$url = APP::relPath($idx);
 	$msg = DIC::get("static.show");
-	echo "<hr><a href='$url' target='static'>$msg</a><hr>";
+
+	$lnk = HTM::href($url, $msg, "static");
+	echo "<hr>$lnk<hr>";
 }
 else {
 	$msg = DIC::get("static.none");

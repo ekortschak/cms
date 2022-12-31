@@ -11,10 +11,8 @@ $dbs = $box->getDbase();
 $xxx = $box->show();
 
 // ***********************************************************
-// ask for confirmation
+HTW::xtag("dbs.drop"); // ask for confirmation
 // ***********************************************************
-HTM::tag("dbs.drop");
-
 $ddl = new dbAlter($dbs);
 $ddl->db_drop($dbs);
 

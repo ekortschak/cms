@@ -1,7 +1,8 @@
 <?php
 
-HTM::tag("files.kill");
-
+// ***********************************************************
+HTW::xtag("files.kill");
+// ***********************************************************
 $dpf = ENV::getParm("dpf");
 $dpf = APP::relPath($dpf);
 
@@ -17,7 +18,8 @@ foreach ($app as $fil => $nam) {
 	if (STR::contains($nam, "index.php"))  continue;
 	if (STR::contains($nam, "x.css.php"))  continue;
 
-	echo "<div style='margin-bottom: 3px;'><a href='?dpf=$fil'><button>$nam</button></a></div>";
+	$lnk = HTM::button("?dpf=$fil'>", $nam);
+	echo "<div style='margin-bottom: 3px;'>$lnk</div>";
 	$cnt++;
 }
 

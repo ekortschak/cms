@@ -69,7 +69,7 @@ public function gc() {
 		}
 		$out.= "\n";
 	}
-    return "<pre>$out</pre>";
+    return HTM::tag($out, "pre");
 }
 
 // ***********************************************************

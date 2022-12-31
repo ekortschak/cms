@@ -172,7 +172,7 @@ protected function showStat($arr, $act, $cap) {
 // show results
 // ***********************************************************
 protected function report() {
-	HTM::tag("ftp.report"); $blk = "ren.rmd.dpf";
+	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf";
 	$out = "<table>\n";
 
 	foreach ($this->rep as $key => $val) {
@@ -184,7 +184,7 @@ protected function report() {
 		$out.= "<tr><td width=200>$inf</td><td align='right'>$val</td><td><hint>$cat</hint></td><tr>\n";
 	}
 	$out.= "</table>\n";
-	HTM::cap($out, "p");
+	HTW::tag($out, "p");
 }
 
 // ***********************************************************

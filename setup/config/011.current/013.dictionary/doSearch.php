@@ -3,7 +3,7 @@
 incCls("input/selector.php");
 
 // ***********************************************************
-HTM::tag("dic.search");
+HTW::xtag("dic.search");
 // ***********************************************************
 $sel = new selector();
 $lng = $sel->combo("unq.language", LNG::get(), CUR_LANG);
@@ -14,7 +14,7 @@ $dir = FSO::join(LOC_DIC, $lng);
 $arr = FSO::ftree($dir);
 
 // ***********************************************************
-HTM::tag("dic.result");
+HTW::xtag("dic.result");
 // ***********************************************************
 if (! $arr) {
 	MSG::now("no local files ...");
@@ -24,14 +24,15 @@ if (! $arr) {
 // ***********************************************************
 foreach ($arr as $fil => $nam) {
 	$txt = APP::read($fil); if (! STR::contains($txt, $fnd)) continue;
+	$lnk = HTM::href("?btn.dic=E&pic.folder=$dir&pic.file=$dir/$nam'", "$nam");
+	$xxx = HTW::tag($lnk, "div");
 
-	echo "<div><a href='?btn.dic=E&pic.folder=$dir&pic.file=$dir/$nam'>$nam</a></div>";
 	echo "<ul>";
 	$lns = explode("\n", $txt);
 
 	foreach ($lns as $lin) {
 		if (! STR::contains($lin, $fnd)) continue;
-		echo "<li>$lin\n";
+		HTW::tag($lin, "li");
 	}
 	echo "</ul>";
 }

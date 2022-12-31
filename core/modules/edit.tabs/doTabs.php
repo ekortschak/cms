@@ -14,7 +14,7 @@ $lst = $tbs->getTabs($set, true);
 $vis = $tbs->visTabs($set);
 
 // ***********************************************************
-HTM::tag("tabs.toggle");
+HTW::xtag("tabs.toggle");
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/tabsets.tpl");

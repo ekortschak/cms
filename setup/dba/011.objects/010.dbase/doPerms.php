@@ -18,7 +18,7 @@ $rgt = $box->getKey("db.fperm",  $dbi->fldPerms());
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.perms");
+HTW::xtag("tbl.perms");
 // ***********************************************************
 $few = new sel_table();
 $few->setTable($dbs, "dbxs", "spec LIKE '$tbl.%'");

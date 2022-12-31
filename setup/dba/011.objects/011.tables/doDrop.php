@@ -18,7 +18,7 @@ $tbl = $box->getTable($dbs);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.drop");
+HTW::xtag("tbl.drop");
 // ***********************************************************
 $box = new qikSelect();
 $fnc = $box->getKey("method", $fnc);
@@ -30,11 +30,11 @@ $xxx = $box->show();
 $ddl = new dbAlter($dbs, $tbl);
 
 if ($fnc == "t_trunc") {
-	HTM::tag("tbl.trunc");
+	HTW::xtag("tbl.trunc");
 	$ddl->t_trunc($tbl);
 }
 else {
-	HTM::tag("tbl.drop");
+	HTW::xtag("tbl.drop");
 	$ddl->t_drop($tbl);
 }
 

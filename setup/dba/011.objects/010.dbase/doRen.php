@@ -19,10 +19,8 @@ $new = $sel->input("act.rename", $dbs."_old");
 $act = $sel->show();
 
 // ***********************************************************
-// ask for confirmation
+HTW::xtag("dbs.rename"); // ask for confirmation
 // ***********************************************************
-HTM::tag("dbs.rename");
-
 $ddl = new dbAlter($dbs, $tbl);
 $ddl->db_rename($dbs, $new);
 

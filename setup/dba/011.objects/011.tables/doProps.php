@@ -23,7 +23,7 @@ $arr = $ini->getSecs();
 $lng = CUR_LANG;
 
 // ***********************************************************
-HTM::Tag("props");
+HTW::xtag("props");
 // ***********************************************************
 $sel = new iniEdit();
 $sel->hidden("dbo", "dboEdit");
@@ -45,7 +45,7 @@ foreach ($arr as $prp) {
 $sel->show();
 
 // ***********************************************************
-HTM::Tag("lang.props");
+HTW::xtag("lang.props");
 // ***********************************************************
 $sel = new iniEdit();
 $sel->hidden("dbo", "dboEdit");
@@ -56,9 +56,10 @@ $sel->hidden("chk", "tlProps");
 foreach (LNG::get() as $lng) {
 	$tit = VEC::get($inf, "head", $tbl);
 	$tit = VEC::get($inf, "head.$lng", $tit);
+	$flg = HTM::flag($lng);
 
 	$sel->input("head[$lng]", $tit);
-	$sel->setProp("title", "<img src='ICONS/flags/$lng.gif' class='flag' />");
+	$sel->setProp("title", $flg);
 }
 $sel->show();
 

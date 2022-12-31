@@ -2,29 +2,21 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-contains public static functions for standard htm tasks
+contains functions for standard htm tasks
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
 incCls("system/HTM.php");
 
-HTM::ytLink($ytid, "title", $len");
+HTW::ytube($ytid, "title", $len");
 */
-
-incCls("files/tpl.php");
-HTM::init();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class HTM  {
 	private static $tpl;
-
-public static function init() {
-	self::$tpl = new tpl();
-	self::$tpl->load("other/stdObjs.tpl");
-}
 
 // ***********************************************************
 // common
@@ -81,12 +73,16 @@ public static function csv($file, $sep = ";") {
 // ***********************************************************
 // handling standard objects
 // ***********************************************************
-public static function cap($text, $tag = "h4") {
-	echo "<$tag>$text</$tag>";
+public static function wtag($text, $tag = "h4") {
+	echo self::tag($text, $tag);
 }
 public static function tag($text, $tag = "h4") {
+	return "<$tag>$text</$tag>\n";
+}
+
+public static function xtag($text, $tag = "h4") {
 	$out = DIC::getPfx("tag", $text); if (! $out) return "";
-	$arr = explode(".", $tag);
+	$arr = STR::toArray($tag);
 
 	foreach ($arr as $tag) {
 		$out = "<$tag>$out</$tag>";
@@ -94,91 +90,39 @@ public static function tag($text, $tag = "h4") {
 	echo "$out\n";
 }
 
-public static function href($lnk, $cap) {
-	echo "<a href='$lnk'>$cap</a>";
+public static function lf($tag = "hr") {
+	if ($tag == "pbr") $tag = "\n\n<hr class='pbr'>\n";
+	echo "<$tag>\n";
 }
+
+// ***********************************************************
+// standard tags
+// ***********************************************************
+public static function button($lnk, $cap, $trg = "_self") {
+	$btn = self::cap($cap, "button");
+	return self::href($lnk, $btn, $trg);
+}
+
+public static function href($lnk, $cap, $trg = "") {
+	if (! $trg) return "<a href='$lnk'>$cap</a>";
+	return "<a href='$lnk' target='trg'>$cap</a>";
+}
+
+public static function flag($lng) {
+	$img = "ICONS/flags/$lng.gif";
+	return "<img src='$img' class='flag' alt='$lng'>";
+}
+
 
 public static function vspace($size) {
 	$siz = intval($size);
-	echo "<div style='margin-top: ".$siz."px;'></div>";
+	return "<div style='margin-top: ".$siz."px;'></div>";
 }
 
 public static function def($key, $val) {
-	echo "<dt>$key</dt>\n<dd>$val</dd>\n\n";
-}
-public static function fnc($key, $val) {
-	echo "<li>$key = $val</li>\n";
-}
-
-public static function wSrc($link, $text) {
-	self::$tpl->set("link", $link);
-	self::$tpl->set("text", $text);
-	self::$tpl->show("img.src");
-}
-
-public static function wPic($dir, $fil) {
-	$fil = FSO::join($dir, $fil);
-	self::img($fil);
-}
-public static function image($file) {
-	self::doImage("img.org", $file);
-}
-public static function img($file) {
-	self::doImage("img.std", $file);
-}
-
-private static function doImage($sec, $link = "") {
-	$mds = ENV::get("vmode"); if ($mds == "xsite") return self::thumbR($link);
-	$pge = ENV::getPage();
-	$lnk = self::getLink($link, "./", "$pge/");
-
-	self::$tpl->set("file", $lnk);
-	self::$tpl->show($sec);
-}
-
-// ***********************************************************
-public static function thumbR($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumbR", $link, $wid);
-}
-public static function thumbL($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumbL", $link, $wid);
-}
-public static function thumb($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumb", $link, $wid);
-}
-
-private static function doThumb($sec, $link = "", $wid = 200, $hgt = NV) {
-	$pge = ENV::getPage();
-	$lnk = self::getLink($link, "./", "$pge/");
-
-	self::$tpl->set("link", $lnk);
-	self::$tpl->set("wid", $wid);
-	self::$tpl->set("hgt", $hgt);
-	self::$tpl->show($sec);
-}
-
-// ***********************************************************
-public static function mp4($fil, $txt, $hint = "") {
-	self::$tpl->set("link", $fil);
-	self::$tpl->set("text", $txt);
-	self::$tpl->set("hint", $hint);
-	self::$tpl->show("mp4");
-}
-
-public static function ytLink($ytid, $tit, $len = "", $typ = "link") {
-	if (! $ytid) return;
-	self::$tpl->set("ytid", $ytid);
-	self::$tpl->set("title", $tit);
-	self::$tpl->set("len", $len);
-	self::$tpl->show("yt.$typ");
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private static function getLink($link) {
-	$pge = ENV::getPage();
-	return STR::replace($link, "./", "$pge/");
+	$out = self::cap($key, "dt");
+	$out.= self::cap($val, "dd");
+	return $out;
 }
 
 // ***********************************************************

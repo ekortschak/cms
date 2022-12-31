@@ -3,7 +3,7 @@
 incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
-HTM::tag("files.rename");
+HTW::xtag("files.rename");
 
 // ***********************************************************
 // get parameters
@@ -27,7 +27,7 @@ $arr = FSO::ftree($dir, $fnd);
 $ttl = count($arr);
 $cnt = 0;
 
-echo "<hr>\n";
+HTM::lf();
 echo "<small><table>\n";
 
 // ***********************************************************
@@ -45,9 +45,9 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</table></small>\n";
-echo "<hr>\n";
+HTM::lf();
 echo "&nbsp; Renamed: $cnt/$ttl files\n";
-echo "<hr>\n";
+HTM::lf();
 
 ?>
 

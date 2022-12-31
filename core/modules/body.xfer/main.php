@@ -4,7 +4,7 @@ incCls("menus/buttons.php");
 $dir = FSO::mySep(__DIR__);
 
 // ***********************************************************
-HTM::tag("replicator", "h3");
+HTW::xtag("replicator", "h3");
 // ***********************************************************
 $nav = new buttons("xfer", "B", $dir);
 

@@ -18,7 +18,7 @@ $dbi = new dbInfo($dbs, $tbl);
 $tps = $dbi->fldTypes();
 
 // ***********************************************************
-HTM::tag("fld.create");
+HTW::xtag("fld.create");
 // ***********************************************************
 $box = new qikSelect();
 $typ = $box->getKey("fld.type", $tps);
@@ -31,7 +31,7 @@ $len = $box->getKey("fld.length", $lns);
 $nul = $box->getKey("fld.null",   $nls);
 $xxx = $box->show();
 
-echo "<hr>";
+HTM::lf();
 
 // ***********************************************************
 $fnc = "input"; $std = "";

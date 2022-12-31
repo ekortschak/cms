@@ -5,7 +5,7 @@ if (! ENV::get("opt.feedback")) return;
 $loc = PFS::getLoc();
 
 // ***********************************************************
-HTM::tag("Feedback", "h3");
+HTW::xtag("Feedback", "h3");
 // ***********************************************************
 $ini = new ini();
 $tit = $ini->getHead();

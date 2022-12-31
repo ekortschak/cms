@@ -43,7 +43,7 @@ public function read($pfs) {
 		set_time_limit(10);
 
 		if ($prn) { // noprint
-			echo "<li>skipping: $dir</li>";
+			HTW::tag("skipping: $dir", "li");
 			$skp = $dir; continue;
 		}
 		if ($skp) { // skip subfolders as well
@@ -75,8 +75,9 @@ protected function getPage($inf, $pbr, $dir) {
 public function save($fil) {
 	$out = $this->get();
 	$lnk = STR::startingat($fil, "temp/");
+	$inf = HTM::href("/$lnk", $fil);
 
-	MSG::now("file.saved", "<a href='/$lnk'>$fil</a>");
+	MSG::now("file.saved", $inf);
 	APP::write($fil, $out);
 }
 public function show() {
@@ -87,7 +88,7 @@ public function show() {
 // handling components
 // ***********************************************************
 protected function toc() {
-	$out = "<h1>Inhaltsverzeichnis</h1>\n";
+	$out = HTM::tag("Inhaltsverzeichnis", "h1");
 	$out.= implode("<br>\n", $this->toc);
 	return $out;
 }
@@ -95,8 +96,8 @@ protected function toc() {
 protected function endnotes() {
 	if (! $this->nts) return "";
 
-	$out = "\n\n<hr class='pbr'>\n\n";
-	$out.= "<h1>Endnoten</h1>\n";
+	$out = HTM::lf("pbr");
+	$out.= HTM::tag("Endnoten", "h1");
 	$out.= implode("<br>\n", $this->nts);
 	return $out;
 }
@@ -112,7 +113,7 @@ protected function get() {
 // auxilliary methods
 // ***********************************************************
 protected function getLF($inf, $pbr) {
-	$npg = "\n\n<hr class='pbr'>";
+	$npg = HTM::lf("pbr");
 	$lev = ($inf["level"] < 2);
 
 	if ($lev) return $npg;

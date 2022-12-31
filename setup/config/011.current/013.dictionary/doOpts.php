@@ -8,14 +8,14 @@ $btn->set("caption", "ReWrite");
 $btn->show();
 
 echo "Sort entries within current language";
-echo "<br>";
+HTM::lf("br");
 
 $btn->set("link", "?act=spawn");
 $btn->set("caption", "Spawn ".strtoupper(CUR_LANG));
 $btn->show();
 
 echo "Transfer entries to other languages";
-echo "<br>";
+HTM::lf("br");
 
 $act = ENV::getParm("act");
 

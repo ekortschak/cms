@@ -79,7 +79,7 @@ private function showTag($htm, $tag) {
 		$txt = htmlspecialchars($itm);
 		$txt = STR::replace($txt, "{", "{\n");
 		$txt = STR::replace($txt, "}", "\n}\n");
-		echo "<code>$txt</code>\n";
+		HTW::tag($txt, "code");
 	}
 }
 
@@ -96,7 +96,7 @@ private function showLink($cap) {
 	$lnk = $cap; if (STR::begins($cap, "/"))
 	$lnk = $this->srv."/".trim($cap, "/");
 
-	echo "<a href='$lnk' target='analizer'>$cap</a><br>\n";
+	HTW::href($lnk, $cap, "analizer");
 }
 
 // ***********************************************************

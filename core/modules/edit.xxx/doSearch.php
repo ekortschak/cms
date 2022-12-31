@@ -4,7 +4,7 @@ incCls("menus/localMenu.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
 
-HTM::tag("files.search");
+HTW::xtag("files.search");
 
 // ***********************************************************
 // Choose action
@@ -49,7 +49,7 @@ $cnt = $fds = 0;
 
 $pge = new pageInfo();
 
-echo "<hr>\n";
+HTM::lf();
 echo "<small><table>\n";
 
 // ***********************************************************
@@ -75,9 +75,9 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</table></small>\n";
-echo "<hr>\n";
+HTM::lf();
 echo "&nbsp; Finds: $cnt/$ttl files => $fds occurrencies\n";
-echo "<hr>\n";
+HTM::lf();
 
 ?>
 

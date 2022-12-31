@@ -69,10 +69,10 @@ function askWid() {
 
 function insImg(typ) { // images
 	switch (typ) {
-		case "ico": htm = "HTM::image('./pic.png');";  break;
-		case "ir":  htm = "HTM::thumbR('./pic.png');"; break;
-		case "il":  htm = "HTM::thumbL('./pic.png');"; break;
-		default:    htm = "HTM::img('./pic.png');";
+		case "ico": htm = "HTW::image('./pic.png');";  break;
+		case "ir":  htm = "HTW::thumbR('./pic.png');"; break;
+		case "il":  htm = "HTW::thumbL('./pic.png');"; break;
+		default:    htm = "HTW::img('./pic.png');";
 	}
 	htm = "<php>" + htm + "</php>";
 	repString(htm);

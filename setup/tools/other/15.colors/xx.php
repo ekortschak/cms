@@ -1,4 +1,3 @@
-
 <hr>
 <a href="https://www.w3schools.com/colors/colors_picker.asp" target="blank">
 	Color Picker @ w3schools.com

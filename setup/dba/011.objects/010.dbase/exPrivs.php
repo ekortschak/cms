@@ -3,7 +3,7 @@
 incCls("dbase/dbQuery.php");
 
 // ***********************************************************
-HTM::tag("dbo.check privs", "h5");
+HTW::xtag("dbo.check privs", "h5");
 // ***********************************************************
 $tbs = DBS::tables($dbs); if (! $tbs) return;
 $lst = VEC::implode($tbs, "','");

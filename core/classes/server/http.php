@@ -39,8 +39,9 @@ protected function getUrl($act, $fso) {
 	$url = $this->url."?p=$prm";
 
 	if ($this->dbg) {
-#		echo "<p>$prm &c:=$md5</p>";
-		echo "<p><a href='$url&d=1' target='dbg'>Debug Server Response for $act</a></p>";
+#		HTW::tag("$prm &c:=$md5", "p");
+		$lnk = HTM::href("$url&d=1", "Debug Server Response for $act", "dbg");
+		$xxx = HTW::tag($lnk, "p");
 	}
 	return $url;
 }

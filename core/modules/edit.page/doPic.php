@@ -8,7 +8,7 @@ $uid = $ini->getUID();
 // ***********************************************************
 // show copy right properties
 // ***********************************************************
-HTM::cap("&copy;-Information", "b");
+HTW::tag("&copy;-Information", "b");
 
 if (DB_MODE != "none") {
 	$md5 = md5($fil);

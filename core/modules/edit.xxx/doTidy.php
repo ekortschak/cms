@@ -3,7 +3,7 @@
 incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
-HTM::tag("code.tidy");
+HTW::xtag("code.tidy");
 
 // ***********************************************************
 // get parameters
@@ -30,6 +30,6 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</small>\n";
-echo "<hr>\n";
+HTM::lf();
 
 ?>

@@ -23,7 +23,7 @@ $xxx = $box->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-HTM::tag("tbl.sort");
+HTW::xtag("tbl.sort");
 
 $ddl = new dbAlter($dbs, $tbl);
 $ddl->t_sort($tbl, $fld, $mod);

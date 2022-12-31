@@ -13,7 +13,7 @@ $tbl = $box->getTable($dbs);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.rename");
+HTW::xtag("tbl.rename");
 // ***********************************************************
 $sel = new selector();
 $new = $sel->input("act.rename", $tbl."_old");

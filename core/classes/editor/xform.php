@@ -59,9 +59,9 @@ public function isPage() {
 }
 
 public function report() {
-	HTM::tag("report");
-	HTM::cap("Files written to: $this->dir", "p");
-	HTM::cap("# of files: $this->cnt/$this->num", "p");
+	HTW::xtag("report");
+	HTW::tag("Files written to: $this->dir", "p");
+	HTW::tag("# of files: $this->cnt/$this->num", "p");
 }
 
 // ***********************************************************

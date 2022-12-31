@@ -65,7 +65,7 @@ private function conv2html() {
 	$ext = FSO::ext($fil);
 
 	if (STR::contains($txt, "Uncaught Error:")) {
-		echo "<pre>$txt</pre>";
+		HTW::tag($txt, "pre");
 		return;
 	}
 	$new = str_replace(".$ext", ".$cnv", $fil);

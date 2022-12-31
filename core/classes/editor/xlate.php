@@ -53,7 +53,7 @@ public function getLang() {
 // show options
 // ***********************************************************
 public function setHead($text) {
-	HTM::tag($text);
+	HTW::xtag($text);
 }
 
 public function setLang() {

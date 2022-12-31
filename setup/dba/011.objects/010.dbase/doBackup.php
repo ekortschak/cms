@@ -13,16 +13,17 @@ $dbs = $box->getDbase();
 $xxx = $box->show();
 
 $dir = APP::bkpDir("", SRV_ROOT, "db.$dbs");
-HTM::cap("dir = $dir", "small");
+HTW::tag("dir = $dir", "small");
 
 // ***********************************************************
-// show tables
+// table info
 // ***********************************************************
 $dbi = new dbInfo($dbs);
 $tbs = $dbi->tables();
 
-HTM::tag("tbs.select");
-
+// ***********************************************************
+HTW::xtag("tbs.select");
+// ***********************************************************
 $sel = new selector();
 $exc = $sel->multi("tbs.backup", $tbs, true);
 $act = $sel->show();

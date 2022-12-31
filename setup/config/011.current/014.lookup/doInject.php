@@ -53,7 +53,7 @@ $bng = new arten();
 $bng->read("lookup/arten.ini", "species");
 
 foreach ($arr as $fil => $nam) {
-	echo "<li>$fil</li>"; set_time_limit(10);
+	HTW::tag($fil, "li"); set_time_limit(10);
 
 	$txt = $old = file_get_contents($fil);
 	$txt = $bng->remove($txt); if ($met == "add")

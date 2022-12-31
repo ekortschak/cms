@@ -1,7 +1,8 @@
 <?php
 
-HTM::tag("files.copy");
-
+// ***********************************************************
+HTW::xtag("files.copy");
+// ***********************************************************
 $cpy = ENV::getParm("cpy");
 $cpy = APP::relPath($cpy);
 
@@ -20,7 +21,8 @@ foreach ($div as $fil => $nam) {
 	if (STR::contains($nam, "debug"))  continue;
 	if (STR::contains($nam, "readme")) continue;
 
-	echo "<div style='margin-bottom: 3px;'><a href='?cpy=$fil'><button>$nam</button></a></div>";
+	$lnk = HTM::button("?cpy=$fil'>", $nam);
+	echo "<div style='margin-bottom: 3px;'>$lnk</div>";
 	$cnt++;
 }
 

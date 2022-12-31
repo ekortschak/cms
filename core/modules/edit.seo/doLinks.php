@@ -4,7 +4,7 @@ incCls("menus/dropBox.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
 
-HTM::tag("links.check");
+HTW::xtag("links.check");
 
 // ***********************************************************
 // get parameters
@@ -18,7 +18,7 @@ $dir = $sel->ronly("dir", $loc);
 $ptn = $sel->ronly("files", "$lng.htm");
 $act = $sel->show();
 
-echo "<hr>\n";
+HTM::lf();
 
 // ***********************************************************
 // preview
@@ -61,9 +61,12 @@ if (! $cnt) {
 echo "<h4>Broken links</h4>";
 echo "<small>\n";
 
-foreach ($out as $lnk => $lst) {
+foreach ($out as $pge => $lst) {
 	if (! $lst) continue;
-	echo "<a href='index.php?pge=$lnk?vmode=pedit' target='chk'>$lnk</a><br>\n";
+
+	HTW::href("index.php?pge=$pge?vmode=pedit", $pge, "chk");
+	HTM::lf("br");
+
 	echo "<ul>\n";
 
 	foreach ($lst as $itm => $url) {

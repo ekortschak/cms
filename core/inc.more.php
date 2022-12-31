@@ -13,6 +13,7 @@ incCls("system/MSG.php");  // messaging
 
 incCls("system/PRG.php");  // more string functions
 incCls("system/HTM.php");  // basic html objects
+incCls("system/HTW.php");  // basic html objects
 
 incFnc("error.php");	   // error settings
 incCls("system/ERR.php");  // error handling

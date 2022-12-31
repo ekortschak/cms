@@ -43,12 +43,14 @@ function shutDown() {
 
 	echo "<hr>Error #$type<hr>";
 	echo "in $file on <b>$line</b><br />";
-	echo "<pre>$message</pre>";
+	HTW::tag($message, "pre");
 
 	if (! IS_LOCAL) return;
 
-	echo "<h1>What can I do?</h1>";
-	echo "<li>Enter <a href='?vmode=pedit'>edit mode</a>!</li>";
+	$lnk = HTM::href("?vmode=pedit", "edit mode");
+
+	HTW::tag("What can I do?", "h1");
+	HTW::tag("Enter $lnk", "li");
 }
 
 function errHandler($num, $msg, $file, $line) {

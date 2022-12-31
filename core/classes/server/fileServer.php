@@ -123,7 +123,7 @@ private function exec($fnc, $fso, $mod = "std") {
 		$fso = $this->chkPath($fso); if (! $fso) continue;
 
 		switch ($mod) {
-			case "debug": echo "<li>cmd: $fnc( $fso );"; break;
+			case "debug": HTW::tag("cmd: $fnc( $fso )", "li"); break;
 			default: $cnt+= (bool) FSO::$fnc($fso);
 		}
 	}
@@ -141,7 +141,7 @@ private function do_ren($fso, $mod) { // rename dirs or files
 		$old = $this->chkPath($prp[2]); if (! $old) continue;
 
 		if ($mod == "debug") {
-			echo "<li>rename $typ: $old => $new";
+			HTW::tag("rename $typ: $old => $new", "li");
 			continue;
 		}
 		$cnt+= (bool) FSO::rename($old, $new);
@@ -159,9 +159,8 @@ private function chkPath($fso) {
 }
 
 private function dump($out) {
-	echo "<hr># of files: ".count($out);
-	echo "<hr>"; // provide debug info
-	echo implode("<br>\n", $out);
+	HTM::lf(); echo "# of files: ".count($out);
+	HTM::lf(); echo implode("<br>\n", $out);
 }
 
 // ***********************************************************

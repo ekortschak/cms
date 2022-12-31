@@ -14,7 +14,7 @@ $fld = $box->getField($dbs, $tbl);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("data.clean");
+HTW::xtag("data.clean");
 // ***********************************************************
 $dbq = new dbQuery($dbs, $tbl);
 $vls = $dbq->getDVs($fld);

@@ -82,6 +82,7 @@ private function getProp($index, $key, $default = false) {
 public function show() {
 	$tpl = new tpl();
 	$tpl->load("menus/tview.tpl");
+	$tpl->set("pfx", uniqid());
 
 	$arr = $this->getData(); $out = "";
 	$lst = $this->count();   $cnt = 0;

@@ -20,7 +20,7 @@ ENV::set("Font", $fnt);
 $ini = new iniTab(TAB_ROOT);
 $tit = $ini->getTitle();
 
-HTM::cap("Tab = $tit");
+HTW::tag("Tab = $tit");
 
 // ***********************************************************
 // create vtab pics

@@ -15,7 +15,7 @@ $ovr = $ini->get("props.overwrite", 0);
 $dst = $ini->get("props.path", $loc);
 
 // ***********************************************************
-HTM::tag("options");
+HTW::xtag("options");
 // ***********************************************************
 $sel = new selector();
 $dst = $sel->ronly("upl.dest", $dst);
@@ -35,7 +35,7 @@ $qik->getVal("opt.overwrite", 0);
 $qik->show();
 
 // ***********************************************************
-HTM::tag("upl.upload");
+HTW::xtag("upl.upload");
 // ***********************************************************
 REG::add("js", "core/scripts/upload.js");
 

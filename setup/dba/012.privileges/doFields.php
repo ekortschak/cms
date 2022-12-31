@@ -17,7 +17,7 @@ $rgt = $box->getKey("pic.privs", $dbi->fldPerms());
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("fld.perms");
+HTW::xtag("fld.perms");
 // ***********************************************************
 $few = new sel_table();
 $few->setTable($dbs, "dbxs", "spec LIKE '$tbl.%'");

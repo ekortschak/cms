@@ -25,7 +25,7 @@ $inc = $ini->getIncFile();
 // ***********************************************************
 // build and show page
 // ***********************************************************
-HTM::cap($tit, "h3");
+HTW::tag($tit, "h3");
 
 $fil = FSO::join("core/modules/body", $inc);
 $ful = APP::file($fil);

@@ -1,6 +1,8 @@
+<hr>
 <ul>
 <li><a href="https://graphemica.com/%F0%9F%93%81" target="symbol">Graphemica</a></li>
 </ul>
+<hr>
 
 <?php
 
@@ -18,8 +20,8 @@ $nxt = $fst + $rng;
 
 ENV::set("next", $fst);
 
-echo "<a href='?next=$prv'><button>◂</button></a>";
-echo "<a href='?next=$nxt'><button>▸</button></a>";
+HTW::button("?next=$prv", "◂");
+HTW::button("?next=$nxt", "▸");
 
 ?>
 
@@ -29,7 +31,7 @@ echo "<a href='?next=$nxt'><button>▸</button></a>";
 <?php
 
 for ($i = $fst; $i < $nxt; $i++) {
-	echo "<a style='color:black;' href='?next=$i'>&#$i;</a> ";
+	HTW::href("?next=$i", "&#$i");
 }
 
 ?>

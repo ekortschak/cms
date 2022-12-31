@@ -3,7 +3,7 @@
 incCls("dbase/dbQuery.php");
 
 // ***********************************************************
-HTM::tag("dbo.check admin", "h5");
+HTW::xtag("dbo.check admin", "h5");
 // ***********************************************************
 $vls = array(
 	"uname" => "admin",

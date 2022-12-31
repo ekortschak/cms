@@ -1,9 +1,9 @@
 <?php
 
 // ***********************************************************
-HTM::tag("css.static");
+HTW::xtag("css.static");
 // ***********************************************************
-HTM::tag("css.info", "p");
+HTW::xtag("css.info", "p");
 
 if ($act = ENV::getParm("static")) {
 	incCls("files/css.php");
@@ -22,15 +22,16 @@ $cur = "add"; if (is_file("design/site.css"))
 $cur = "del";
 
 // ***********************************************************
-HTM::tag("ask.confirm");
+HTW::xtag("ask.confirm");
 // ***********************************************************
-echo "<a href='?static=$cur'><button>$arr[$cur]</button></a>";
+$cap = $arr[$cur];
+$lnk = HTM::button("?static=$cur'>", $cap);
+echo $lnk;
 
 // ***********************************************************
-HTM::cap("CK4.css");
+HTW::tag("CK4.css");
 // ***********************************************************
 $msg = DIC::get("ck4.update");
-
-echo "<a href='?static=ck4'><button>$msg</button></a>";
+HTW::button("?static=ck4", $msg);
 
 ?>

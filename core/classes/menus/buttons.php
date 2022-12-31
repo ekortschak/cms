@@ -80,7 +80,6 @@ public function add($qid, $file, $ini = "") {
 public function addSpace($num = 5) {
 	$qid = uniqid();
 	$this->dat[$qid] = str_repeat("&nbsp ", $num);
-#	$this->dat[$qid] = "</div><div>";
 	$this->fls[$qid] = false;
 }
 

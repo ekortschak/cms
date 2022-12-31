@@ -13,8 +13,8 @@ $xxx = $box->show();
 // ***********************************************************
 // info
 // ***********************************************************
-HTM::cap("Check CMS requirements");
-HTM::cap("This will recreate missing tables and fields.", "p");
+HTW::tag("Check CMS requirements");
+HTW::tag("This will recreate missing tables and fields.", "p");
 
 // ***********************************************************
 // ask for confirmation

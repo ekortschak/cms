@@ -16,7 +16,7 @@ $loc = PFS::getLoc();
 $tit = HTM::pgeTitle($loc);
 $fil = APP::find($loc);
 
-HTM::cap($tit, "h3");
+HTW::tag($tit, "h3");
 
 // ***********************************************************
 // show file selector

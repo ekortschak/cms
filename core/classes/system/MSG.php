@@ -88,7 +88,7 @@ public static function startup() {
 	$cnt = count(self::$msg["msg"]);
 	$cnt+= count(self::$msg["err"]); if (! $cnt) return;
 
-	HTM::tag("msg.start", "h3");
+	HTW::xtag("msg.start", "h3");
 	self::show();
 }
 

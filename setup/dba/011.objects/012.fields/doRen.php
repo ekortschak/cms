@@ -14,7 +14,7 @@ $fld = $box->getField($dbs, $tbl);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("fld.rename");
+HTW::xtag("fld.rename");
 // ***********************************************************
 $sel = new selector();
 $new = $sel->input("new.name", "new_name");

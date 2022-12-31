@@ -160,7 +160,7 @@ public function test() {
 }
 
 public function testH() {
-	echo "<h4>100er</h4>";
+	HTW::tag("100er");
 	$this->dump("hundert");
 	$this->dump("hunderteins");
 	$this->dump("zweihundert");
@@ -172,7 +172,7 @@ public function testH() {
 	$this->dump("elfhundertelf");
 }
 public function testT() {
-	echo "<h4>1000er</h4>";
+	HTW::tag("1000er");
 	$this->dump("zweitausend");
 	$this->dump("zweitausendzwei");
 	$this->dump("elftausendzwei");
@@ -181,7 +181,7 @@ public function testT() {
 }
 
 public function testHT() {
-	echo "<h4>100.000er</h4>";
+	HTW::tag("100.000er");
 	$this->dump("zweihunderttausend");
 	$this->dump("zweihundertundfünftausendsechshundert");
 	$this->dump("zweihundertundfünftausendsechshunderteinunddreissig");
@@ -189,7 +189,7 @@ public function testHT() {
 }
 
 public function testMisc() {
-	echo "<h4>Misc</h4>";
+	HTW::tag("Misc");
 	$this->dump("Hundertschaft");
 	$this->dump("Tausendschaften");
 	$this->dump("vieltausendmal");

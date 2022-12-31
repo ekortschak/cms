@@ -23,7 +23,7 @@ $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $fld); unset($arr["ID"]);
 
 // ***********************************************************
-HTM::tag("fld.copy");
+HTW::xtag("fld.copy");
 // ***********************************************************
 $box = new qikSelect();
 $dst = $box->getKey("copy.to", $arr);

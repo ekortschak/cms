@@ -19,7 +19,7 @@ $fld = $box->getField($dbs, $tbl);
 $xxx = $box->show();
 
 // ***********************************************************
-HTM::tag("tbl.sort");
+HTW::xtag("tbl.sort");
 // ***********************************************************
 $box = new qikSelect();
 $mod = $box->getKey("sort.by", $mod);

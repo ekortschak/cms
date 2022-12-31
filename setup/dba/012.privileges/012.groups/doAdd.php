@@ -20,10 +20,8 @@ $grp = $sel->input("usr.group", "new_group");
 $act = $sel->show();
 
 // ***********************************************************
-// ask for confirmation
+HTW::xtag("grp.create"); // ask for confirmation
 // ***********************************************************
-HTM::tag("grp.create");
-
 $ddl = new dbAlter($dbs, "dbxs");
 $ddl->f_add("dbxs", $grp, "var", 5, "x");
 

@@ -83,7 +83,7 @@ public static function vector($arr, $info = "arr") {
 }
 
 public static function list($arr, $info) {
-	echo "<h5>$info</h5>";
+	HTW::tag($info, "h5");
 	echo "<div class='pre'>";
 
 	foreach ($arr as $key => $val) {

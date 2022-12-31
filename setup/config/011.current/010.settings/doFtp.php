@@ -8,14 +8,14 @@ incCls("editor/iniMgr.php");
 $fil = "config/ftp.ini";
 incCls("server/ftp.php");
 
-HTM::cap("file = $fil", "small");
+HTW::tag("file = $fil", "small");
 
 $ini = new iniMgr("LOC_CFG/ftp.ini");
 $ini->update($fil);
 $ini->show();
 
 // ***********************************************************
-HTM::tag("ftp.check");
+HTW::xtag("ftp.check");
 // ***********************************************************
 $ftp = new ftp();
 $chk = $ftp->test();
