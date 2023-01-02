@@ -21,6 +21,15 @@ define("CUR_YEAR", date("Y"));
 
 define("FS_PERMS", 0775);
 
+define("ICONS",   "core/icons");
+define("LOC_DIC", "design/dictionary");
+define("LOC_LAY", "design/layout");
+define("LOC_CSS", "design/styles");
+define("LOC_CFG", "design/config");
+define("LOC_CLR", "design/colors");
+define("LOC_TPL", "design/templates");
+define("LOC_BTN", "design/buttons");
+
 CFG::init();
 
 // ***********************************************************
@@ -36,7 +45,7 @@ public static function init() {
 	self::fixServer();
 	self::fixPaths();
 
-	self::update();
+	self::readCfg();
 }
 
 // ***********************************************************
@@ -77,7 +86,7 @@ private static function fixPaths() {
 // ***********************************************************
 // reading config files
 // ***********************************************************
-public static function update() {
+public static function readCfg() {
 	$arr = FSO::files("config/*.ini");
 
 	foreach ($arr as $fil => $nam) {
@@ -85,6 +94,14 @@ public static function update() {
 	}
 }
 
+// ***********************************************************
+public static function readCss() {
+	self::read("LOC_CLR/default.ini");
+	self::read("LOC_CLR/COLORS.ini");
+	self::read("LOC_LAY/LAYOUT.ini");
+}
+
+// ***********************************************************
 public static function read($file) {
 	$fil = self::insert($file); // resolve constants in file names
 	$fil = APP::file($fil);
@@ -93,15 +110,16 @@ public static function read($file) {
 		if (! stripos($file, "config.ini")) return;
 		die("Config file '$file' not found!");
 	};
-	self::readCfg($fil); if (! IS_LOCAL)
-	self::readCfg(STR::replace($fil, ".ini", ".srv"));
+	self::load($fil); if (! IS_LOCAL)
+	self::load(STR::replace($fil, ".ini", ".srv"));
 
 	foreach (self::$vls as $key => $val) {
 		self::set($key, $val);
 	}
 }
 
-private static function readCfg($fil) {
+// ***********************************************************
+private static function load($fil) {
 	if (! is_file($fil)) return;
 
 	$arr = file($fil); $sec = "";

@@ -3,16 +3,6 @@
 if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
-define("ICONS",   "core/icons");
-define("LOC_DIC", "design/dictionary");
-define("LOC_LAY", "design/layout");
-define("LOC_CSS", "design/styles");
-define("LOC_CFG", "design/config");
-define("LOC_TPL", "design/templates");
-define("LOC_BTN", "design/buttons");
-
-define("LOC_LOG",  SRV_ROOT."/cms.log");
-
 // ***********************************************************
 // start the session
 // ***********************************************************

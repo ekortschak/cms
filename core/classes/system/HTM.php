@@ -99,7 +99,7 @@ public static function lf($tag = "hr") {
 // standard tags
 // ***********************************************************
 public static function button($lnk, $cap, $trg = "_self") {
-	$btn = self::cap($cap, "button");
+	$btn = self::tag($cap, "button");
 	return self::href($lnk, $btn, $trg);
 }
 
@@ -120,8 +120,8 @@ public static function vspace($size) {
 }
 
 public static function def($key, $val) {
-	$out = self::cap($key, "dt");
-	$out.= self::cap($val, "dd");
+	$out = self::tag($key, "dt");
+	$out.= self::tag($val, "dd");
 	return $out;
 }
 

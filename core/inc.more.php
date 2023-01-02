@@ -34,7 +34,7 @@ include("core/inc.dbs.php");
 // ***********************************************************
 incCls("editor/ACT.php");  // modifications to project
 
-CFG::update();
+CFG::readCfg();
 
 // ***********************************************************
 // load local classes (if any)

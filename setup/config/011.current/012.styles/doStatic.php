@@ -2,9 +2,8 @@
 
 // ***********************************************************
 HTW::xtag("css.static");
-// ***********************************************************
 HTW::xtag("css.info", "p");
-
+// ***********************************************************
 if ($act = ENV::getParm("static")) {
 	incCls("files/css.php");
 
@@ -25,7 +24,7 @@ $cur = "del";
 HTW::xtag("ask.confirm");
 // ***********************************************************
 $cap = $arr[$cur];
-$lnk = HTM::button("?static=$cur'>", $cap);
+$lnk = HTM::button("?static=$cur", $cap);
 echo $lnk;
 
 // ***********************************************************
@@ -33,5 +32,9 @@ HTW::tag("CK4.css");
 // ***********************************************************
 $msg = DIC::get("ck4.update");
 HTW::button("?static=ck4", $msg);
+
+echo "<pre>";
+echo APP::read("static/cms.css");
+echo "</pre>";
 
 ?>

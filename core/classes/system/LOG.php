@@ -13,6 +13,8 @@ incCls("system/LOG.php");
 
 incCls("system/timer.php");
 
+define("LOC_LOG",  SRV_ROOT."/cms.log");
+
 LOG::init();
 
 // ***********************************************************

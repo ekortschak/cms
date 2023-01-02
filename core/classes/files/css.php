@@ -20,17 +20,15 @@ $css->get();
 // BEGIN OF CLASS
 // ***********************************************************
 class css {
-	private $fil = "design/site.css";
+	private $cms = "static/cms.css";
 
-function __construct() {}
+function __construct() {
+	CFG::readCss();
+}
 
 // ***********************************************************
 // get style sheet
 // ***********************************************************
-public function gc() { // get code
-	return $this->getCss();
-}
-
 public function get() { // get style sheet
 	$css = $this->getCss();
 
@@ -43,31 +41,10 @@ public function get() { // get style sheet
 }
 
 // ***********************************************************
-// handling stored files
-// ***********************************************************
-public function save($overwrite = 1) {
-	$css = "/* STATIC FILE: $this->fil /*\n\n";
-	$css.= $this->getCss();
-	return APP::write($this->fil, $css, $overwrite);
+public function gc() { // get code
+	return $this->getCss();
 }
 
-public function drop() {
-	if (! is_file($this->fil)) return;
-	unlink($this->fil);
-}
-
-// ***********************************************************
-// handling ck4 files
-// ***********************************************************
-public function export($file) {
-	$fil = "design/$file.css";
-	$css = "/* STATIC FILE for CK4 only: $fil /*\n\n";
-	$css.= $this->getCss();
-	return APP::write($fil, $css, true);
-}
-
-// ***********************************************************
-// retrieving css information
 // ***********************************************************
 private function getCss() {
 	$css = $this->getStatic(); if ($css) return $css;
@@ -75,7 +52,6 @@ private function getCss() {
 	$css = "";
 
 	foreach ($arr as $file) {
-#		$css.= "/* file = $file */\n";
 		$css.= APP::read($file);
 		$css.= "\n";
 	}
@@ -87,14 +63,41 @@ private function getCss() {
 	return CFG::insert($css);
 }
 
-private function getStatic() {
-	$ful = APP::file($this->fil); if (! $ful) return false;
-	$out = file_get_contents($ful);
-	return trim($out);
+// ***********************************************************
+// handling stored files
+// ***********************************************************
+public function save($overwrite = true) {
+	FSO::kill($this->cms);
+
+	$css = "/* STATIC FILE: $this->cms /*\n\n";
+	$css.= $this->getCss();
+	return APP::write($this->cms, $css, $overwrite);
+}
+
+public function drop() {
+	if (! is_file($this->cms)) return;
+	unlink($this->cms);
+}
+
+// ***********************************************************
+// handling ck4 files
+// ***********************************************************
+public function export($file) {
+	$fil = "static/$file.css";
+	$css = "/* STATIC FILE for CK4 only: $fil /*\n\n";
+	$css.= $this->getCss();
+	return APP::write($fil, $css, true);
 }
 
 // ***********************************************************
 // read all css files from styles folder(s) into array
+// ***********************************************************
+private function getStatic() {
+	$ful = APP::file($this->cms); if (! $ful) return false;
+	$out = file_get_contents($ful);
+	return trim($out);
+}
+
 // ***********************************************************
 private function getFiles() {
 	$arr = $lst = $chk = array();

@@ -99,6 +99,8 @@ private function writePge($fil, $uid, $txt) {
 }
 
 private function writeCss() {
+	incCls("files/css.php");
+
 	$obj = new css();
 	$txt = $obj->gc();
 	$txt = $this->deRefSrc($txt, 'url("', '")');
