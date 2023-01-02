@@ -212,11 +212,10 @@ public static function backup($file) {
 }
 
 public static function copy($src, $dst) { // copy a file
-	if (! is_file($src)) MSG::add($src, "non existent");
 	$src = APP::file($src);
+	if (! is_file($src)) MSG::add($src, "non existent");
 	$dir = self::force(dirname($dst)); copy($src, $dst);
 	$xxx = self::permit($dst); if (is_file($dst)) return true;
-
 	return ERR::assist("file", "no.write", $dst);
 }
 

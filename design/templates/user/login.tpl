@@ -41,7 +41,7 @@ cancel = Abbrechen
 		<tr>
 			<td>&nbsp;</td>
 			<td align="right">
-				<a href="?vmode=view"><input type="button" name="B2" value="<!DIC:cancel!>" /></a>
+				<a href="?vmode=view"><input type="reset" name="B2" value="<!DIC:cancel!>" /></a>
 				<input type="submit" name="B1" value="<!DIC:login!>" />
 			</td>
 		</tr>

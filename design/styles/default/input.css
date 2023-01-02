@@ -9,67 +9,64 @@ form table {
 /* ******************************************************** */
 /* input fields */
 /* ******************************************************** */
-input {
+input, select, button {
+	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 0px 5px;
 	overflow: auto;
 
-	line-height: 22px;
+	height: 22px;
 
 	color: FC_INPUT;
 	background: BC_INPUT;
 	font-size: 14px;
 }
 
-input[type='text'] {
-	height: 24px;
-}
-
-input[type='datetime-local'] { /* date input */
-	padding: 1px;
-}
-
-input[type='file'] {}
-
-input[type='color'] { /* color input */
-	margin: 1px 0px 3px;
-	background: transparent;
-	padding: 0px;
-	border: 0px;
-	max-height: 24px;
-}
-
-/* ******************************************************** */
-/* check and radio */
-/* ******************************************************** */
-input[type='radio'] {
-	margin: 0px;
-}
-
-input[type='checkbox'] {
-	display: inline-block;
-	margin: 0px 3px 0px 0px;
-	vertical-align: middle;
-}
-
 /* ******************************************************** */
 /* buttons */
 /* ******************************************************** */
-input[type='submit'] {
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
+button {
 	background: linear-gradient(snow, lightgrey);
 	padding: 0px 15px;
 	cursor: pointer;
 }
 
-input[type='button'], button {
+input[type='button']
+{
 	background: linear-gradient(snow, lightgrey);
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-	padding: 3px 9px;
-	height: 24px;
-	min-width: 40px;
+	padding: 0px 15px;
 	cursor: pointer;
+}
+
+button {
+	padding: 0px 9px;
+	min-width: 40px;
+}
+
+/* ******************************************************** */
+/* common input */
+/* ******************************************************** */
+input[type='text'] {}
+input[type='datetime-local'] {}
+input[type='file'] {}
+
+input[type='color'] { /* color input */
+	background: transparent;
+	padding: 0px;
+	border: 0px;
+}
+
+/* ******************************************************** */
+/* check and radio */
+/* ******************************************************** */
+input[type='checkbox'],
+input[type='radio'] {
+	margin-right: 5px;
+#	vertical-align: middle;
 }
 
 /* ******************************************************** */
@@ -77,32 +74,20 @@ input[type='button'], button {
 /* ******************************************************** */
 select {
 	background: BC_DROP url("CMS_URL/ICONS/input/combodown.png") no-repeat right;
-
-	margin: 0px;
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-	padding: 0px 15px 0px 5px;
-
 	min-width: 105px;
-	height: 24px;
+    cursor: pointer;
 
-	font-weight: normal;
-	vertical-align: middle;
+	font-family: inherit;
 
 	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
-
-    cursor: pointer;
-}
-
-select::after {
-	content: "▾";
 }
 
 option {
 	line-height: 14px;
 	max-height: 14px;
+	padding: 0px;
 }
 
 /* ******************************************************** */

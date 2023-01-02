@@ -53,6 +53,7 @@ settings = Einstellungen
 
 <div>
 <!BTN:view!>
+<!SEC:xfer!>
 </div>
 
 <h4><!DIC:settings!></h4>

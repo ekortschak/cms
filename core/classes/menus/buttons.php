@@ -118,26 +118,29 @@ public function getFile() {
 // create missing files
 // ***********************************************************
 private function chkPhp($qid, $php) {
+	if (is_file($php)) return $php;
+
 	$dir = APP::relPath($this->dir);
+	$fil = FSO::join($dir, "$php.php"); if (APP::file($fil)) return $fil;
+	$htm = FSO::join($dir, "$php.htm"); if (APP::file($htm)) return $htm;
 
-	if (is_file($php)) return $php; $fil = FSO::join($dir, "$php.php");
-	if (is_file($fil)) return $fil; $fil = APP::file($fil);
-	if (is_file($fil)) return $fil; $fil = FSO::join($dir, "$php.htm");
-	if (is_file($fil)) return $fil; $fil = APP::file($fil);
-	if (is_file($fil)) return $fil;
+	if (APP_CALL != "index.php") return $fil;
 
-	APP::write($fil, "$qid\n\n<?php echo NV; ?>");
+	FSO::copy("LOC_CFG/button.ini", $fil);
+	return $fil;
 }
 
 private function chkIni($qid, $ini) {
-	$dir = APP::relPath($this->dir);
+	if (is_file($ini)) return $ini;
 
-	if (is_file($ini)) return $ini; $fil = FSO::join($dir, "$ini.ini");
-	if (is_file($fil)) return $fil; $fil = APP::file($fil);
-	if (is_file($fil)) return $fil; $glb = APP::file("LOC_BTN/$ini.ini");
-	if (is_file($glb)) return $glb;
+	$dir = APP::relPath($this->dir);
+	$fil = FSO::join($dir, "$ini.ini");   if (APP::file($fil)) return $fil;
+	$glb = APP::file("LOC_BTN/$ini.ini"); if (APP::file($glb)) return $glb;
+
+	if (APP_CALL != "index.php") return $fil;
 
 	FSO::copy("LOC_CFG/button.ini", $fil);
+	return $fil;
 }
 
 // ***********************************************************

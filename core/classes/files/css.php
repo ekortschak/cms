@@ -20,6 +20,7 @@ $css->get();
 // BEGIN OF CLASS
 // ***********************************************************
 class css {
+	private $dir = "static";
 	private $cms = "static/cms.css";
 
 function __construct() {
@@ -30,7 +31,7 @@ function __construct() {
 // get style sheet
 // ***********************************************************
 public function get() { // get style sheet
-	$css = $this->getCss();
+	$css = $this->gc();
 
  // send header
 	header("Content-Description: File Transfer");
@@ -42,7 +43,8 @@ public function get() { // get style sheet
 
 // ***********************************************************
 public function gc() { // get code
-	return $this->getCss();
+	$css = $this->getCss();
+	return CFG::insert($css);
 }
 
 // ***********************************************************
@@ -58,25 +60,42 @@ private function getCss() {
 #	$css = $this->compress($css);
 	$css = $this->cleanUrls($css, 'url("', '"');
 	$css = $this->cleanUrls($css, "url(",  ")");
-
- // replace css constants
-	return CFG::insert($css);
+	return $css;
 }
 
 // ***********************************************************
 // handling stored files
 // ***********************************************************
-public function save($overwrite = true) {
+public function save() {
 	FSO::kill($this->cms);
 
 	$css = "/* STATIC FILE: $this->cms /*\n\n";
-	$css.= $this->getCss();
-	return APP::write($this->cms, $css, $overwrite);
+	$css.= $this->gc();
+	$css = $this->saveRes($css);
+
+	return APP::write($this->cms, $css);
+}
+
+private function saveRes($css) {
+	$arr = STR::find($css, 'url("', '"');
+
+	foreach ($arr as $res) {
+		$src = STR::after($res, CMS_URL);
+		$dst = FSO::join($this->dir, $src);
+		$css = STR::replace($css, $res, $dst);
+
+		FSO::copy($src, $dst);
+	}
+	return $css;
 }
 
 public function drop() {
 	if (! is_file($this->cms)) return;
 	unlink($this->cms);
+}
+
+public function isStatic() {
+	return (is_file("static/cms.css"));
 }
 
 // ***********************************************************
@@ -85,8 +104,8 @@ public function drop() {
 public function export($file) {
 	$fil = "static/$file.css";
 	$css = "/* STATIC FILE for CK4 only: $fil /*\n\n";
-	$css.= $this->getCss();
-	return APP::write($fil, $css, true);
+	$css.= $this->gc();
+	return APP::write($fil, $css);
 }
 
 // ***********************************************************

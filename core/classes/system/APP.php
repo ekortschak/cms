@@ -229,26 +229,26 @@ public static function read($file) { // read any text
 }
 
 public static function append($file, $data) {
-	$mod = is_file($file);
-	return self::write($file, $data, true, $mod);
+	if (is_dir($file)) return false;
+
+	$dir = FSO::force(dirname($file));
+	$txt = VEC::xform($data);
+	$txt = "\n".trim($txt)."\n";
+
+	$erg = file_put_contents($file, $txt, FILE_APPEND);
+	FSO::permit($file);
+	return ($erg !== false);
 }
 
-public static function write($file, $data, $overwrite = true, $append = false) {
+public static function write($file, $data, $overwrite = true) {
 	if (is_dir($file)) return false;
 	if (is_file($file)) if (! $overwrite) return false;
 
-	$xxx = FSO::backup($file);
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
 	$txt = trim($txt)."\n";
 
-	if ($append) {
-		$txt = "\n".trim($txt);
-		$erg = file_put_contents($file, $txt, FILE_APPEND);
-	}
-	else {
-		$erg = file_put_contents($file, $txt);
-	}
+	$erg = file_put_contents($file, $txt, 0);
 	FSO::permit($file);
 	return ($erg !== false);
 }
