@@ -10,6 +10,7 @@ arr.ren = Umbenannt
 arr.rmd = Verzeichnisse gelöscht
 cms.update = CMS Version aktualisieren
 do.nothing = Keine Aktion erforderlich.
+no.connection = Verbindung unterbrochen?
 err.fetch = Fehler bei der Feststellung des aktuellen Daten-Standes. <br>Bitte wiederholen Sie den Vorgang.
 file.saved = Datei gespeichert als
 find = Suche

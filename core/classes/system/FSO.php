@@ -77,9 +77,9 @@ public static function hasXs($fso, $tell = true) {
 public static function permit($fso, $mod = FS_PERMS) {
 	if (! IS_LOCAL) return;
 
-	chown($fso, WWW_USER);
-	chgrp($fso, WWW_USER);
-	chmod($fso, $mod);
+	@chown($fso, WWW_USER);
+	@chgrp($fso, WWW_USER);
+	@chmod($fso, $mod);
 }
 
 // ***********************************************************

@@ -24,6 +24,8 @@ incCls("files/code.php");  // reading editable files
 incCls("files/ini.php");   // handling ini files
 incCls("files/page.php");  // xform layout to page
 
+incCls("server/NET.php");  // network tools
+
 // ***********************************************************
 // db support
 // ***********************************************************

@@ -33,6 +33,7 @@ class sync extends objects {
 	protected $drp = array();   // dirs to drop
 
 	protected $visOnly = true;  // exclude hidden files from sync
+	protected $error = false;
 
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
@@ -151,8 +152,12 @@ protected function preView($tellMe = false) {
 	$arr = ENV::get("sync.jbs");
 
 	if (! $arr) {
-		if ($tellMe) return MSG::now("do.nothing");
-		return;
+		switch ($this->error) {
+			case "nocon": return MSG::now("no.connection");
+			default:
+				if (! $tellMe) return;
+				return MSG::now("do.nothing");
+		}
 	}
 	$this->showStat($arr, "man", "sync.protected");
 	$this->showStat($arr, "ren", "sync.rename");

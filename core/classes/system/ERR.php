@@ -12,7 +12,7 @@ incCls("system/ERR.php");
 
 ERR::msg($msg, $parm);
 ERR::raise($msg);
-ERR::last();
+ERR::good();
 ERR::trace();
 
 */
@@ -26,7 +26,6 @@ class ERR {
 
     private static $depth = 7;  // call stack depth to display
 	private static $done = 0;	// only first error will be displayed
-
 
 public static function init() {}
 
@@ -46,14 +45,13 @@ public static function sql($msg, $sql) {
 // ***********************************************************
 // error handling
 // ***********************************************************
-public static function last() {
-	$err = error_get_last(); if (! $err) return false;
-	return true;
+public static function state() {
+	return (count(self::$hst) > 0);
 }
 
 public static function handler($num, $msg, $file, $line) {
 	if (! ERR_SHOW) return;
-#	if (! error_get_last()) return; // do not show suppressed errors
+	if (! self::shhht()) return; // do not show suppressed errors
 	if (  self::$done++) return; // handle only first error
 
 	$tpl = new tpl();
@@ -65,6 +63,13 @@ public static function handler($num, $msg, $file, $line) {
 	$tpl->set("file",   self::fmtFName($file));
 	$tpl->set("items",  self::getInfo("item"));
 	$tpl->show();
+}
+
+// ***********************************************************
+// goodies
+// ***********************************************************
+private static function shhht() {
+	return error_get_last();
 }
 
 private static function mailto($num, $msg) {
@@ -118,6 +123,7 @@ private static function getList($fst = 0, $cnt = NV) {
 	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";
 	$ign.= ".doInc.incCls.incMod.incFnc.";
+
 	$arr = debug_backtrace();
 	$out = array();
 
@@ -209,7 +215,6 @@ public static function assist($cat, $key, $parm = "") {
 	$tpl->substitute("howto", $key);
 	$tpl->show();
 }
-
 
 // ***********************************************************
 } // END OF CLASS

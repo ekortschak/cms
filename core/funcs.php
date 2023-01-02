@@ -31,7 +31,6 @@ function requireAdmin() { // force login of admin
 	if (! FS_ADMIN) $_GET["dmode"] = "login";
 }
 function requireLogin() { // force login of any user
-	if (IS_LOCAL) return;
 	if (CUR_USER == "www") $_GET["dmode"] = "login";
 }
 

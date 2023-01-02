@@ -78,6 +78,9 @@ protected function getTree($src, $dst) {
 // pass through methods
 // ***********************************************************
 protected function FSremote() {
+	if (! NET::isCon()) {
+		$this->error = "nocon"; return;
+	}
 	$out = $this->htp->query(".");
 	return $out;
 }
@@ -135,26 +138,25 @@ protected function destName($fso, $act = false) {
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
-protected function do_mkDir($dst) { // single dir op
-	return $this->ftp->remote_mkdir($dst);
-}
-
 protected function do_copy($src, $dst) { // single file op
 	if ($this->ftp->isProtected($dst)) return false;
 	return $this->ftp->remote_put($src, $dst);
 }
 
 // ***********************************************************
+protected function do_mkDir($dst) { // single dir op
+	return $this->ftp->remote_mkdir($dst);
+}
+#protected function do_mkDir($arr) { // bulk operation
+#	$out = $this->htp->query($arr, "mkd");
+#	return intval($out);
+#}
+
+// ***********************************************************
 protected function do_ren($arr) { // bulk operation
 	$out = $this->htp->query($arr, "ren");
 	return intval($out);
 }
-#protected function do_mkDir($arr) { // bulk operation
-#	$out = $this->htp->query($arr, "mkd");
-#	$cmd = $this->getUrl("mkd", $arr);
-#	$out = $this->webExec($cmd);
-#	return intval($out);
-#}
 protected function do_rmDir($arr) { // bulk operation
 	$out = $this->htp->query($arr, "rmd");
 	return intval($out);

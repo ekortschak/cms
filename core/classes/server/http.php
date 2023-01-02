@@ -48,13 +48,8 @@ protected function getUrl($act, $fso) {
 
 // ***********************************************************
 private function getPage($cmd) {
-	$ssl = array( // cheating on ssl
-		"ssl" => array(
-			"verify_peer" => false,
-			"verify_peer_name" => false
-		)
-	);
  // get data from server
+	$ssl = $this->sslInfo();
 	$out = file($cmd, false, stream_context_create($ssl));
 
 	foreach ($out as $key => $val) {
@@ -129,6 +124,17 @@ public function aggregate($data) { // prepare for webexec()
 	return $out;
 }
 
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function sslInfo() {
+	return array( // cheating on ssl
+		"ssl" => array(
+			"verify_peer"      => false,
+			"verify_peer_name" => false
+		)
+	);
+}
 
 // ***********************************************************
 } // END OF CLASS

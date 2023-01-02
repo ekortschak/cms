@@ -54,21 +54,31 @@ public function disconnect() {
 	if ($this->con) ftp_close($this->con);
 	$this->con = false;
 }
+
 public function connect() {
+	if (! NET::isCon()) {
+		$this->con = false;
+		return false;
+	}
 	if ($this->con) return $this->con;
 
 	$srv = $this->get("ftp.fhost"); if (! $srv) return false;
 	$usr = $this->get("ftp.fuser"); if (! $usr) return false;
 	$pwd = $this->get("ftp.fpass"); if (! $pwd) return false;
 
-	$con = ftp_connect($srv);           if (! $con) return false;
-	$erg = ftp_login($con, $usr, $pwd); if (! $erg) return false;
+	$con = @ftp_connect($srv);           if (! $con) return false;
+	$erg = @ftp_login($con, $usr, $pwd); if (! $erg) return false;
 
 	ftp_raw($con, 'OPTS UTF8 ON');
 	ftp_pasv($con, true);
 
 	$this->con = $con;
 	return $con;
+}
+
+public function fastCheck() {
+    $con = @fsockopen("www.google.com", 80); fclose($con);
+    return $con;
 }
 
 // ***********************************************************
@@ -80,13 +90,11 @@ public function isProtected($fso) {
 }
 
 public function test() {
-	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
-	$sts = ENV::get("xfer", NV);
+	$con = $this->connect(); $this->disconnect();
+	$sts = ($con) ? "OK" : "0";
 
-	if ($sts == NV) {
-		$con = $this->connect(); $this->disconnect();
-		$sts = ($con) ? "OK" : "0";
-	}
+	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
+
 	$tpl = new tpl();
 	$tpl->load("msgs/ftp.tpl");
 	$tpl->set("inifile", $this->get("inifile"));
