@@ -14,7 +14,7 @@ $var = self::begins($haystack, $needle);
 */
 
 if (function_exists("incCls"))
-incCls("search/searchstring.php");
+incCls("search/searchString.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -45,7 +45,7 @@ public static function begins($haystack, $needle, $start = 0) {
 }
 
 public static function matches($haystack, $needle) {
-	$obj = new searchstring($haystack);
+	$obj = new searchString($haystack);
 	return $obj->match($needle);
 }
 
@@ -261,7 +261,7 @@ public static function markup($haystack, $from, $to) {
 public static function mark($haystack, $find) {
 	$fnd = str_replace("|", " ", $find);
 
-	$obj = new searchstring($haystack);
+	$obj = new searchString($haystack);
 	$lst = $obj->split($fnd);
 	$lst = VEC::sortByLen($lst);
 

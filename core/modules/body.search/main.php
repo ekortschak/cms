@@ -1,45 +1,26 @@
 <?php
 
-$fnd = ENV::get("search");
-$fil = ENV::get("prv");
-$tpc = ENV::get("dir");
+incCls("search/searchView.php");
 
-$arr = ENV::get("last.search");
-$dat = VEC::get($arr, $tpc);
-$tit = VEC::get($dat, $fil);
+// ***********************************************************
+// select records
+// ***********************************************************
+$vew = new searchView();
+$tpc = $vew->showNav();
+$fls = $vew->getSnips($dir);
+$mod = $vew->getMode();
 
-$dir = dirname($fil);
-$uid = HTM::pgeProp($dir, "props.uid", $fil);
-
-$rut = dirname($tpc);
-$dir = STR::after($dir, "$rut/");
+if (! $fls) {
+	$vew->show("none");
+	return;
+}
 
 // ***********************************************************
 // preview searched item
 // ***********************************************************
-incCls("search/swrap.php");
+$inc = FSO::join(__DIR__, "do_$mod.php");
+$inc = APP::file($inc);
 
-$obj = new swrap();
-$txt = $obj->getSnips($fil, $fnd);
-
-$tpl = new tpl();
-$tpl->load("modules/search.tpl");
-
-if (! $txt) {
-	$tpl->show("none");
-	return;
-}
-
-$tpl->set("topic", $tpc);
-$tpl->set("title", $tit);
-$tpl->set("dir", $dir);
-$tpl->set("page", $uid);
-$tpl->show("nav.preview");
-
-// ***********************************************************
-// text
-// ***********************************************************
-$txt = STR::mark($txt, $fnd);
-echo $txt;
+include $inc;
 
 ?>

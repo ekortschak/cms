@@ -81,8 +81,7 @@ public function get($key, $default = "") {
 // ***********************************************************
 public function getKeys($pfx = "") {
 	$arr = $this->getValues($pfx);
-	$arr = array_keys($arr);
-	return array_combine($arr, $arr);
+	return VEC::keys($arr);
 }
 
 public function getValues($pfx = "") {

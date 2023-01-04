@@ -5,15 +5,15 @@
 	z-index: 150;
 	display: block;
 
-	color: FC_INFO;
-	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
+	margin: 0px 0px 4px;
 	border: 1px solid navy;
 	border-width: 1px 0px;
 	border-radius: 7px;
 
+	color: FC_INFO;
+	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
 	font-weight: bold;
 	padding: 3px 7px 1px;
-	margin: 0px 0px 4px;
 }
 
 .localicon {
@@ -22,10 +22,8 @@
 
 .submenu {
 	color: FC_MARK;
-	background: linear-gradient(-3deg, white, BC_MARK 45%);
+	background: linear-gradient(-3deg, cadetblue, white 65%);
 	border: 1px solid OUTLINE;
-	font-weight: normal;
-	font-size: 0.85em;
 }
 
 /* ******************************************************** */
@@ -71,9 +69,9 @@
 	border: 0px;
 	padding: 7px 20px;
 	height: H_MENU;
-    text-shadow: 1px 1px 2px grey;
+	text-shadow: 1px 1px 2px grey;
 #   border-radius: 10px 10px 0px 0px;
-    margin-right: 5px;
+	margin-right: 5px;
 }
 .topmenu-button:hover{
 	color: FC_INFO;

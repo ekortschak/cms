@@ -123,9 +123,7 @@ private function provide($file) {
 private function update($file) {
 	if (! is_file($file)) return;
 	$cfg = FSO::join($this->dir, "extEdit.ini");
-
-	$ini = new ini($cfg);
-	$chk = $ini->get("props.file");
+	$chk = PGE::prop($cfg, "props.file");
 
 	if ($chk == $file) FSO::copy($this->ext, $file);
 	else MSG::add("path.wrong");

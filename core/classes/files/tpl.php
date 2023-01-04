@@ -33,11 +33,11 @@ function __construct() {
 // handling the template
 // ***********************************************************
 public function load($file) {
-	self::read("LOC_TPL/$file");
+	return self::read("LOC_TPL/$file");
 }
 
 public function read($file) {
-	$fil = APP::file($file);
+	$fil = APP::file($file); if (! $fil) return false;
 
 	$cod = new code();
 	$cod->read($fil);
@@ -46,6 +46,7 @@ public function read($file) {
 	$this->sec = array_merge($this->sec, $cod->getSecs());
 	$this->set("file", $fil);
 	$this->merge($cod->getVars());
+	return $fil;
 }
 
 // ***********************************************************
@@ -70,12 +71,7 @@ public function substitute($sec, $src) { // replace sections
 
 // ***********************************************************
 public function getSecs($pfx = "") {
-	$pfx = $this->norm($pfx);
-
-	if (! $pfx) {
-		$out = array_keys($this->sec);
-		return array_combine($out, $out);
-	}
+	$pfx = $this->norm($pfx); if (! $pfx) return VEC::keys($this->sec);
 	$out = array();
 
 	foreach ($this->sec as $sec => $txt) {

@@ -56,7 +56,7 @@
 	background: BC_DROP;
 	border-radius: 0px;
 #	padding: 7px 20px;
-    text-shadow: 1px 1px 2px grey;
+	text-shadow: 1px 1px 2px grey;
 }
 .regtabs a:hover {
 	color: FC_MARK;

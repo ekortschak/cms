@@ -70,6 +70,8 @@ public static function path($msg, $info = "path") { // show path info
 
 // ***********************************************************
 public static function vector($arr, $info = "arr") {
+	SSV::set($info, $arr, "dbg");
+
 	$out = print_r($arr, true);
 	$out = str_replace("Array\n", "Array ", $out);
 	$out = trim($out);
@@ -78,7 +80,6 @@ public static function vector($arr, $info = "arr") {
 		echo "$info = $out";
 		return;
 	}
-	SSV::set($info, $out, "dbg");
 	echo "<div class='pre'>$info = $out</div>";
 }
 

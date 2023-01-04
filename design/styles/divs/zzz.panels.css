@@ -3,12 +3,12 @@
 /* horizontal panels */
 /* ******************************************************** */
 .banner {
-    z-index:  70;
+	z-index:  70;
 	position: fixed;
-	top:      0px;
-	left:     W_TABS;
+	top:	  0px;
+	left:	 W_TABS;
 	height:   H_BANNER;
-	width:    W_BODY;
+	width:	W_BODY;
 
 	background: BC_PAGE;
 	white-space: nowrap;
@@ -17,9 +17,9 @@
 }
 
 .modmenu {
-    z-index: 99;
+	z-index: 99;
 	position: fixed;
-	top:    H_BANNER;
+	top:	H_BANNER;
 	left:   W_TABS;
 	height: H_MENU;
 	width:  W_BODY;
@@ -34,15 +34,15 @@
 /* vertical panels */
 /* ******************************************************** */
 .modtabs {
-	top:      0px;
-	left:     0px;
+	top:	  0px;
+	left:	 0px;
 	min-height: 100%;
-    min-width: 50px;
-    max-width: 50px;
+	min-width: 50px;
+	max-width: 50px;
 }
 
 .modbody {
-	top:    calc(H_BANNER + H_MENU + 15px);
+	top:	calc(H_BANNER + H_MENU + 15px);
 	left:   W_TABS;
 	height: calc(100% - H_BANNER - H_MENU - 15px);
 	width:  W_BODY;
@@ -50,9 +50,9 @@
 
 .modopts {
 	position: fixed;
-	top:    0px;
+	top:	0px;
 	left:   calc(W_TABS + W_BODY);
 	width:  calc(100% - W_BODY - W_TABS);
 	min-width: 150px;
-    height: 100%;
+	height: 100%;
 }

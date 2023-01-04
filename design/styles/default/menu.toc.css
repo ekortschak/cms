@@ -6,7 +6,7 @@
 	background: BC_TOC;
 
 	overflow: auto;
-    line-height: 18px;
+	line-height: 18px;
 	vertical-align: middle;
 	padding-bottom: 12px;
 
@@ -15,8 +15,8 @@
 }
 .toc a {
 	color: FC_TOC;
-    text-decoration: none;
-    font-weight: normal;
+	text-decoration: none;
+	font-weight: normal;
 }
 .toc a.inactive {
 	color: FC_DEAD;
@@ -63,26 +63,26 @@
 /* folders */
 /* ******************************************************** */
 .dir {
-    background-image: url("CMS_URL/img/menus/folder.gif");
-    background-repeat: no-repeat;
+	background-image: url("CMS_URL/img/menus/folder.gif");
+	background-repeat: no-repeat;
 }
 .dir a {
-    text-decoration: none;
-    font-weight: bold;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 /* ******************************************************** */
 /* files */
 /* ******************************************************** */
 .file {
-    background-image: url("CMS_URL/img/menus/page.gif");
-    background-repeat: no-repeat;
+	background-image: url("CMS_URL/img/menus/page.gif");
+	background-repeat: no-repeat;
 }
 .file a {
 	color: FC_BODY;
 }
 .file a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* ******************************************************** */
@@ -90,8 +90,8 @@
 /* ******************************************************** */
 .sel {
 	color: FC_MARK;
-    background: BC_MARK;
-    border-radius: 5px;
+	background: BC_MARK;
+	border-radius: 5px;
 }
 
 .hidden > a {

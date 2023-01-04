@@ -75,7 +75,7 @@ input[type='radio'] {
 select {
 	background: BC_DROP url("CMS_URL/ICONS/input/combodown.png") no-repeat right;
 	min-width: 105px;
-    cursor: pointer;
+	cursor: pointer;
 
 	font-family: inherit;
 

@@ -6,7 +6,7 @@ $loc = PFS::getLoc();
 // get user list from config file
 // ***********************************************************
 $ful = FSO::join("config", "users.ini");
-$arr = HTM::pgeValues($ful, "user"); ksort($arr);
+$arr = PGE::getValues($ful, "user"); ksort($arr);
 
 $ini = new code();
 $xxx = $ini->readPath($loc);

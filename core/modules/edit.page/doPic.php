@@ -2,9 +2,6 @@
 
 incCls("dbase/recEdit.php");
 
-$ini = new ini(dirname($fil));
-$uid = $ini->getUID();
-
 // ***********************************************************
 // show copy right properties
 // ***********************************************************
@@ -30,6 +27,8 @@ if (DB_MODE != "none") {
 // ***********************************************************
 // show editor
 // ***********************************************************
+$uid = PGE::getUID($fil);
+
 $tpl = new tpl();
 $tpl->load("editor/genEdit.pic.tpl");
 $tpl->set("title", $uid);

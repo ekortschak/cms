@@ -76,6 +76,8 @@ public static function get($arr, $key, $default = false) {
 }
 
 public static function indexOf($data, $sel, $default = false) {
+	if (! is_array($data)) return $default;
+
 	$arr = array_keys($data);
 	$out = array_search($sel, $arr); if ($out !== false) return $out;
 	return $default;
@@ -97,6 +99,7 @@ public static function getFirst($data) {;
 }
 
 public static function keys($data) {
+	if (! is_array($data)) return array();
 	$out = array_keys($data);
 	return array_combine($out, $out);
 }

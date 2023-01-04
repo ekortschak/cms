@@ -59,21 +59,3 @@ bspace = 3
 
 [inline.one]
 <!VAR:current!> &ensp;
-
-# ***********************************************************
-[menu] # multiple options with title
-# ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-	<div class="localmenu">
-<!VAR:items!>
-	</div>
-</div>
-
-[menu.box]
-<!VAR:uniq!><!VAR:sep!>
-<div class="dropdown"><!VAR:current!>&ensp;▾
-<!SEC:content!>
-</div> &ensp;
-
-[menu.one]
-<!VAR:uniq!><!VAR:sep!> <!VAR:current!>&ensp;

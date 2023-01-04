@@ -60,8 +60,9 @@ public function setProp($item, $prop, $val) {
 // ***********************************************************
 // retrieving properties
 // ***********************************************************
-public function getColInfo($key, $value = NV) {
+public function getColInfo($key, $val = NV) {
 	$out = $this->getItem($key); if (! $out) return false;
+	$val = $val;
 
     $out["recid"] = $this->getProp($key, "recid", -1);
     $out["name"]  = $this->getProp($key, "name",  "C$key");
@@ -78,18 +79,20 @@ public function getColInfo($key, $value = NV) {
     $out["hide"]  = $this->getProp($key, "hide",  $out["iskey"]);
 	$out["ref"]   = $this->getProp($key, "deref", "");
     $out["mask"]  = $this->getProp($key, "mask",  "%s");
-    $out["fstd"]  = $this->getProp($key, "fstd",  $value);
-    $out["vals"]  = $this->getProp($key, "vals",  $value);
-    $out["raw"]   = $value;
+    $out["fnc"]   = $this->getProp($key, "fnc",   false);
+    $out["fstd"]  = $this->getProp($key, "fstd",  $val);
+    $out["vals"]  = $this->getProp($key, "vals",  $val);
+    $out["raw"]   = $val;
 
 	if ($out["ref"]) {
 		$out["align"] = "left";
-		$value = $this->getRef($value, $out["ref"]);
+		$val = $this->getRef($val, $out["ref"]);
 	}
-	$value = $this->getMasked($value, $out["mask"]);
+	$val = $this->getMasked($val, $out["mask"]);
+	$val = $this->transform($val, $out["fnc"]);
 
     $out["type"]  = $out["dtype"];
-    $out["value"] = $value;
+    $out["value"] = $val;
 	return $out;
 }
 
@@ -97,10 +100,17 @@ public function getColInfo($key, $value = NV) {
 // auxilliary methods
 // ***********************************************************
 private function getMasked($val, $msk) {
+	if (! $val) return $val;
 	if (is_array($val)) return $val;
 	if (! STR::contains($msk, "%")) return $val;
-	return sprintf($msk, $val, "[x]", "[x]", "[x]");
+	return sprintf($msk, $val, $val, $val);
 }
+
+private function transform($val, $fnc) {
+	if (! $fnc) return $val;
+	return $fnc($val);
+}
+
 private function getRef($val, $ref) {
 	if (! $ref) return $val;
 

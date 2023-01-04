@@ -18,8 +18,7 @@ $inf = $dbi->tblProps($tbl);
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("LOC_CFG/db.tables.ini");
-$arr = $ini->getSecs();
+$arr = PGE::getSecs("LOC_CFG/db.tables.ini");
 $lng = CUR_LANG;
 
 // ***********************************************************

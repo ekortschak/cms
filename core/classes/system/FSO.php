@@ -237,7 +237,7 @@ public static function folderTitles($dir, $visOnly = true) {
 	$arr = self::folders($dir, $visOnly); $out = array();
 
 	foreach ($arr as $dir => $nam) {
-		$out[$dir] = HTM::pgeTitle($dir);
+		$out[$dir] = PGE::getTitle($dir);
 	}
 	return $out;
 }

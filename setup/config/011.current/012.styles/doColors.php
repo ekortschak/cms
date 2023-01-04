@@ -28,17 +28,13 @@ if (ENV::getPost("colEdit")) {
 }
 
 // ***********************************************************
-// read data
-// ***********************************************************
-$ini = new ini($ful);
-$arr = $ini->getSecs();
-
-// ***********************************************************
 // show form
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/cssColors.tpl");
 $out = "";
+
+$arr = PGE::getSecs($ful);
 
 foreach ($arr as $key => $val) {
 	$xxx = $tpl->set("title", DIC::get($key));

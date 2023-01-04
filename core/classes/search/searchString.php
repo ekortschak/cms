@@ -7,14 +7,14 @@ handling string tasks with preg functions
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("search/searchstring.php");
+incCls("search/searchString.php");
 
 */
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class searchstring {
+class searchString {
 	private $txt = "";
 	private $sep = "|"; // OR operator
 

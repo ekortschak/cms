@@ -11,7 +11,7 @@ incCls("menus/buttons.php");
 // show title
 // ***********************************************************
 $loc = PFS::getLoc();
-$tit = HTM::pgeTitle($loc);
+$tit = PGE::getTitle($loc);
 $dir = APP::dir(__DIR__);
 
 HTW::tag("edit.tab", "h3");

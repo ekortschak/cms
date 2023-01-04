@@ -46,17 +46,17 @@ body.print {
 	overflow: visible;
 	position: fixed;
 	height: 100%;
-    width: W_TABS;
+	width: W_TABS;
 
-    color: FC_TABS;
-    background: BC_DROP url("CMS_URL/img/tabs/pborder.png") repeat-y right;
+	color: FC_TABS;
+	background: BC_DROP url("CMS_URL/img/tabs/pborder.png") repeat-y right;
 }
 
 .modtoc {
 	overflow: auto;
 	position: fixed;
 	left: W_TABS;
-    width: W_TOC;
+	width: W_TOC;
 	height: 100%;
 
 	color: FC_TOC;
@@ -67,10 +67,10 @@ body.print {
 	overflow: hidden;
 	position: fixed;
 	left: calc(W_TABS + W_TOC);
-    width: W_MBAR;
+	width: W_MBAR;
 	height: 100%;
 
-    background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
+	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
 }
 
 .modbody {
@@ -83,17 +83,17 @@ body.print {
 
 	font-size: F_BODY;
 	color: FC_BODY;
-    background: BC_BODY;
+	background: BC_BODY;
 }
 .modopts {
 	z-index: 1;
 	overflow: auto;
 	position: fixed;
 	left: calc(W_TABS + W_TOC + W_MBAR + W_BODY);
-    width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
-    min-width: 300px;
+	width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
+	min-width: 300px;
 	height: 100%;
 
 	color: FC_OPTS;
-    background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
+	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 }

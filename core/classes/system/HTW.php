@@ -22,6 +22,33 @@ public static function init() {
 }
 
 // ***********************************************************
+// files
+// ***********************************************************
+public static function code($file, $head = "") {
+	incCls("other/tutorial.php");
+
+	$cod = new tutorial();
+	$cod->sample($file, $head);
+}
+public static function snip($file, $head = "") {
+	incCls("other/tutorial.php");
+
+	$cod = new tutorial();
+	$cod->text($file, $head);
+}
+
+public static function csv($file, $sep = ";") {
+	incCls("tables/csv_table.php");
+
+	$pge = ENV::getPage();
+	$fil = STR::replace($file, "./", "$pge/");
+
+	$csv = new csv_table();
+	$csv->load($fil, $sep);
+	$csv->show();
+}
+
+// ***********************************************************
 // handling standard objects
 // ***********************************************************
 public static function tag($text, $tag = "h4") {

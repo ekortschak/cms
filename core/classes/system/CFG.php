@@ -164,8 +164,7 @@ public static function setIf($key) {
 // ***********************************************************
 public static function groups() {
 	$arr = get_defined_constants(true);
-	$out = array_keys($arr);
-	return array_combine($out, $out);
+	return VEC::keys($arr);
 }
 
 // ***********************************************************
@@ -192,8 +191,7 @@ public static function get($key, $default = "") {
 
 public static function getCats() {
 	$cst = get_defined_constants(true);
-	$cst = array_keys($cst); sort($cst);
-	$cst = array_combine($cst, $cst); unset($cst["user"]);
+	$cst = VEC::keys($cst); ksort($cst); unset($cst["user"]);
 	$out = array("user" => "USER", "" => "<hr>");
 	return $out + $cst;
 }

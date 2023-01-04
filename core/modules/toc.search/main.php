@@ -10,20 +10,18 @@ incCls("search/swrap.php");
 
 $obj = new swrap();
 $opt = $obj->getScope();
-$lst = $obj->getResults($fnd);
+$lst = $obj->getResults($fnd); if($lst) ksort($lst);
 $res = "";
 
 $tpl = new tpl();
 $tpl->load("modules/search.tpl");
 
-if (! is_array($lst)) {
-	$res = DIC::xlate($lst);
-}
+if (! is_array($lst)) $res = NV;
 else {
 	foreach ($lst as $tab => $inf) {
-		$tpc = HTM::pgeTitle($tab);
-		$xxx = $tpl->set("tab", $tab);
+		$tpc = PGE::getTitle($tab);
 		$xxx = $tpl->set("topic", $tpc);
+		$xxx = $tpl->set("dir", $tab);
 		$res.= $tpl->getSection("topic");
 
 		foreach ($inf as $lnk => $cap) {
@@ -35,7 +33,7 @@ else {
 }
 
 // ***********************************************************
-// show module
+// show modules
 // ***********************************************************
 $sec = "result"; if (strlen($fnd) < 2)
 $sec = "err.short";

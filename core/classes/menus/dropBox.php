@@ -198,7 +198,6 @@ protected function collect($type) {
 
 		$out.= $this->getSection($sec);
     }
-   	$this->reset();
     return $out;
 }
 

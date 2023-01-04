@@ -94,8 +94,8 @@ public function drop() {
 	unlink($this->cms);
 }
 
-public function isStatic() {
-	return (is_file("static/cms.css"));
+public function statFile() {
+	return $this->cms;
 }
 
 // ***********************************************************

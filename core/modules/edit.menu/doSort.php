@@ -20,7 +20,7 @@ $tpl->load("editor/sorter.tpl");
 $its = ""; $ccc = 1;
 
 foreach ($arr as $dir => $nam) {
-	$tit = HTM::pgeTitle($dir);
+	$tit = PGE::getTitle($dir);
 
 	$tpl->set("text", $tit);
 	$tpl->set("cnt", $ccc++);

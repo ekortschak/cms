@@ -30,33 +30,33 @@ body.print {
 /* ******************************************************** */
 .modtabs {
 	overflow: hidden;
-    color: FC_TABS;
-    background: BC_TABS url("CMS_URL/img/tabs/pborder.png") repeat-y right;
-    min-width: W_TABS;
-    max-width: W_TABS;
-    padding: 7px 0px 20px;
+	color: FC_TABS;
+	background: BC_TABS url("CMS_URL/img/tabs/pborder.png") repeat-y right;
+	min-width: W_TABS;
+	max-width: W_TABS;
+	padding: 7px 0px 20px;
 }
 
 .modtoc {
 	overflow: auto;
 	color: FC_TOC;
 	background: BC_TOC;
-    min-width: W_TOC;
-    max-width: W_TOC;
+	min-width: W_TOC;
+	max-width: W_TOC;
 	padding: 15px 15px 35px;
 }
 
 .modmbar {
 	overflow: hidden;
-    background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
-    min-width: W_MBAR;
-    max-width: W_MBAR;
+	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
+	min-width: W_MBAR;
+	max-width: W_MBAR;
 }
 
 .modbody {
 	font-size: F_BODY;
 	color: FC_BODY;
-    background: BC_BODY;
+	background: BC_BODY;
 	min-width: W_BODY;
 	max-width: W_BODY;
 	padding: 15px 15px 35px;
@@ -64,8 +64,8 @@ body.print {
 .modopts {
 	overflow: auto;
 	color: FC_OPTS;
-    background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
+	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 
-    width: 100%;
+	width: 100%;
 	padding: 0px 25px 15px 35px;
 }

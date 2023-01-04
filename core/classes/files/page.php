@@ -41,13 +41,24 @@ public function read($tpl = "LOC_LAY/LAYOUT/view.tpl") {
 // handling page modules
 // ***********************************************************
 public function setModules() {
-	$arr = $this->getModules(); asort($arr);
+	$arr = $this->getModules(); $hld = array();
 
-	foreach ($arr as $mod => $sidx) {
+	foreach ($arr as $mod => $idx) {
+		if (STR::begins($mod, "zzz.")) {
+			$hld[$mod] = $idx;
+			continue;
+		}
+		$this->addModule($mod);
+	}
+	foreach ($hld as $mod => $idx) {
+		$this->addModule($mod);
+	}
+}
+
+private function addModule($mod) {
 		$ful = FSO::join($this->dir, $mod, "main.php");
 		$ful = APP::file($ful);
 		$this->mod[$mod] = $ful;
-	}
 }
 
 private function getModules() {

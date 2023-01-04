@@ -70,8 +70,7 @@ public static function get($key, $default = false, $div = "env") {
 
 // ***********************************************************
 public static function myFiles() {
-	$out = array_keys($_SESSION);
-	return array_combine($out, $out);
+	return VEC::keys($_SESSION);
 }
 
 public static function getData($div = "env") {

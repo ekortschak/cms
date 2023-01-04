@@ -44,8 +44,7 @@ private static function getTab() {
 	$tab = ENV::get("tab.".APP_IDX); if ($tab) return $tab;
 	$set = basename(APP_IDX);
 
-	$ini = new ini("config/tabsets.ini");
-	$arr = $ini->getValues($set);
+	$arr = self::getValues("config/tabsets.ini", $set);
 	$lst = array_flip($arr);
 
 	$tab = VEC::get($lst, "default"); if ($tab) return $tab;
@@ -79,6 +78,33 @@ private static function getPage($tab) {
 	$ini = new ini("$tab/tab.ini");
 	$pge = $ini->get("props.std");
 	return $pge;
+}
+
+// ***********************************************************
+// common
+// ***********************************************************
+public static function getTitle($fso) {
+	$ini = new ini($fso);
+	return $ini->getHead();
+}
+
+public static function getUID($fso) {
+	return self::prop($fso, "props.uid", $fso);
+}
+
+public static function getSecs($fso, $sec = "") {
+	$ini = new ini($fso);
+	return $ini->getValues($sec);
+}
+
+public static function getValues($fso, $sec = "") {
+	$ini = new ini($fso);
+	return $ini->getValues($sec);
+}
+
+public static function prop($fso, $key, $default = false) {
+	$ini = new ini($fso);
+	return $ini->get($key, $default);
 }
 
 // ***********************************************************

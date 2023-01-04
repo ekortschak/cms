@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropBox.php");
+incCls("menus/localMenu.php");
 incCls("editor/iniMgr.php");
 
 // ***********************************************************
@@ -11,9 +11,9 @@ $arr = array(
 	"srv" => "Server"
 );
 
-$nav = new dropBox();
+$nav = new localMenu();
 $ext = $nav->getKey("scope", $arr);
-$nav->show("menu");
+$nav->show();
 
 // ***********************************************************
 // read and write data

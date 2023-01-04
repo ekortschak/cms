@@ -6,7 +6,7 @@ dbg, err, msg, code, php, .confirm {
 	color: FC_PAGE;
 	background: BC_PAGE;
 
-    vertical-align: middle;
+	vertical-align: middle;
 	display: inline-block;
 	max-width: W_BODY;
 

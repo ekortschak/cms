@@ -795,17 +795,8 @@ trace {
 
 
 /* ******************************************************** */
-/* collection */
+/* tooltips */
 /* ******************************************************** */
-.collection {
-	max-width: 100%;
-	min-height: 400px;
-	max-height: 400px;
-	background-position: center;
-	background-size: cover;
-	border: 1px solid OUTLINE;
-	border-radius: 7px;
-}
 .tooltip {
 	z-index: 55;
 	position: relative;

@@ -2,7 +2,7 @@
 
 $loc = PFS::getLoc();
 
-$tit = HTM::pgeTitle($loc);
+$tit = PGE::getTitle($loc);
 $fil = APP::tempDir("single page", $tit);
 $fil.= ".htm";
 

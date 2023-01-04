@@ -15,10 +15,13 @@ class = localmenu
 </div>
 
 [main.box]
-<!SEC:menu.box!>
+<div class="dropdown">
+<!VAR:current!>&ensp;▾
+<!SEC:content!>
+</div> &ensp;
 
 [main.one]
-<!SEC:menu.one!>
+<!VAR:current!> &ensp;
 
 
 # ***********************************************************

@@ -7,7 +7,7 @@ incCls("menus/tabs.php");
 // ***********************************************************
 $vis = CFG::getVar("mods", "tabs.show", 1); if (! $vis) return;
 $edt = CFG::getVar("mods", "tabs.tedit", 0);
-$sch = CFG::getVar("mods", "tabs.search", 1);
+$sek = CFG::getVar("mods", "tabs.search", 1);
 
 $stc = ENV::get("output"); if ($stc == "static") return;
 
@@ -24,7 +24,7 @@ switch (EDITING) {
 	case "tedit":  $nav->substitute("tedit",  "tview");  break;
 }
 
-if (! $sch) $nav->clearSec("search");
+if (! $sek) $nav->clearSec("search");
 if (! $edt) $nav->clearSec("tedit");
 
 $nav->show();

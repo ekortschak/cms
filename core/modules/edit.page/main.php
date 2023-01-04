@@ -12,7 +12,7 @@ incCls("editor/ediTools.php");
 // show title
 // ***********************************************************
 $loc = PFS::getLoc();
-$tit = HTM::pgeTitle($loc);
+$tit = PGE::getTitle($loc);
 $fil = APP::find($loc);
 
 HTW::tag($tit, "h3");
@@ -38,8 +38,6 @@ $sel = EDITOR; if ($sel == "default") $sel = $sec;
 if ($eds)
 $sec = $box->getKey("pic.editor", $eds, $sel);
 $xxx = $box->show();
-
-$bar = $edi->getToolbar($sec);
 
 // ***********************************************************
 // show module

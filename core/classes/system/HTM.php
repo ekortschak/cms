@@ -19,58 +19,6 @@ class HTM  {
 	private static $tpl;
 
 // ***********************************************************
-// common
-// ***********************************************************
-public static function pgeTitle($fso) {
-	$ini = new ini($fso);
-	return $ini->getHead();
-}
-
-public static function pgeValues($fso, $sec = "") {
-	$ini = new ini($fso);
-	return $ini->getValues($sec);
-}
-
-public static function pgeProp($fso, $key, $default) {
-	$ini = new ini($fso);
-	return $ini->get($key, $default);
-}
-
-// ***********************************************************
-// files
-// ***********************************************************
-public static function code($file, $head = "") {
-	incCls("other/tutorial.php");
-
-	$cod = new tutorial();
-	$cod->sample($file, $head);
-}
-public static function snip($file, $head = "") {
-	incCls("other/tutorial.php");
-
-	$cod = new tutorial();
-	$cod->text($file, $head);
-}
-
-// ***********************************************************
-// files
-// ***********************************************************
-public static function noFile() {
-	self::$tpl->show("no.lang");
-}
-
-public static function csv($file, $sep = ";") {
-	incCls("tables/csv_table.php");
-
-	$pge = ENV::getPage();
-	$fil = STR::replace($file, "./", "$pge/");
-
-	$csv = new csv_table();
-	$csv->load($fil, $sep);
-	$csv->show();
-}
-
-// ***********************************************************
 // handling standard objects
 // ***********************************************************
 public static function wtag($text, $tag = "h4") {

@@ -21,8 +21,7 @@ $inf["default"] = $inf["fstd"];
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("LOC_CFG/db.fields.ini");
-$arr = $ini->getSecs();
+$arr = PGE::getSecs("LOC_CFG/db.fields.ini");
 $lng = CUR_LANG;
 
 $typ = $inf["dtype"];

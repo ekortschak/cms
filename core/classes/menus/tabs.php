@@ -24,7 +24,7 @@ class tabs extends tpl {
 	private $dat = array();
 	private $cos = "";
 
-function __construct($typ = "tabs") {
+function __construct($typ = "tabs.left") {
 	parent::__construct();
 
 	$this->load("menus/$typ.tpl");
@@ -48,7 +48,7 @@ public function getTopics($dir = TAB_ROOT) {
 	$arr = FSO::folders($dir, $vis); $out = array();
 
 	foreach ($arr as $dir => $nam) {
-		$cap = HTM::pgeTitle($dir);
+		$cap = PGE::getTitle($dir);
 		$lnk = APP::relPath($dir);
 		$out[$lnk] = $cap;
 	}

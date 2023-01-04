@@ -11,11 +11,10 @@ incCls("search/search.php");
 
 $obj = new swrap();
 $opt = $obj->getScope();
-$lst = $obj->getResults($fnd);
+$lst = $obj->getResults($fnd); // list of dirs with matching files
 
 $tit = $obj->getTitle($fil);
-$ref = $obj->getInfo($fil);
-$txt = $obj->getSnips($fil, $fnd);
+$lst = $obj->getSnips($dir, $fnd); // list of files and matching snips
 
 */
 
@@ -31,37 +30,45 @@ class search {
 	protected $mod = "p";
 
 function __construct($dir = TAB_PATH) {
-	$this->dir = ENV::get("search.dir", $dir);
+	$this->dir = ENV::get("search.tpc", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
 }
 
 // ***********************************************************
-// methods called by toc
+// determining scope
 // ***********************************************************
 public function getScope() {
 	$drs = $this->getPaths();
 	$mds = $this->getMods();
 
 	$box = new localMenu();
-	if (count($drs) > 1) $this->dir = $box->getKey("search.dir", $drs, TAB_PATH);
-	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, "h");
+	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_PATH);
+	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
 	return $box->gc("compact");
 }
 
+protected function isScope($dir) {
+	return true;
+}
+
+// ***********************************************************
+// retrieving relevant files
 // ***********************************************************
 public function getResults($what) {
 	$out = $this->isSame($what); if (  $out) return $out;
-	$psg = $this->search($what); if (! $psg) return DIC::get("no.match");
+	$xxx = $this->saveRes("");   if (strlen($what) < 2) return;
+
+	$psg = $this->search($what); if (! $psg) return false;
+	$psg = $this->sort($psg);
 	$out = array();
 
-	foreach ($psg as $fil => $txt) {
-		$ref = $this->getInfo($fil); if (! $ref) continue;
-		$tit = $this->getTitle($fil, $ref);
-		$tab = $ref["tab"];
+	foreach ($psg as $fil) {
+		$tab = $this->getTab($fil);
+		$tit = PGE::getTitle($fil, $tab);
 
 		$out[$tab][$fil] = $tit;
 	}
-	ENV::set("last.search", $out);
+	$this->saveRes($out);
 	return $out;
 }
 
@@ -70,100 +77,65 @@ protected function search($what) { // $what expected as string
 	if (strlen($what) < 2) return false;
 
 	$arr = FSO::tree($this->dir);
-	$loc = PFS::getLoc();
 	$out = array();
 
 	foreach ($arr as $dir => $nam) {
+		if (! $this->isScope($dir)) continue;
 		$fls = FSO::files("$dir/*.*"); if (! $fls) continue;
 
 		foreach ($fls as $fil => $nam) {
 			if (! LNG::isCurLang($fil)) continue;
 
-			$src = $this->getSource($fil);
-			$txt = $this->prepare($src);      if (! $txt) continue;
+			$txt = $this->prepare($fil);      if (! $txt) continue;
 			$psg = $this->match($txt, $what); if (! $psg) continue;
 
-			foreach ($psg as $key => $val) {
-				$idx = $this->getIndex($fil, $key);
-				$key = $this->getKey($fil, $key);
-				$val = $this->getEntry($val);
-
-				if (! isset($out[$idx])) $out[$idx] = array();
-				$out[$idx][$key] = $val;
-			}
+			$out[$dir] = $dir;
 		}
 	}
 	return $this->sort($out);
 }
 
 // ***********************************************************
- // dummies for derived classes
+// retrieving relevant passages from files
 // ***********************************************************
-protected function getIndex($fil, $key) { return $fil; }
-protected function getKey  ($fil, $key) { return $key; }
-protected function getEntry($val)       { return $val; }
-protected function sort($arr)           { return $arr; }
+public function getSnips($dir, $what) { // called by preview
+	$arr = FSO::files("$dir/*"); $out = array();
 
-// ***********************************************************
-// methods called by preview
-// ***********************************************************
-public function getTitle($file) {
-	$ini = new ini(dirname($file));
-	return $ini->getHead();
-}
+	foreach ($arr as $fil => $nam) {
+		if (! LNG::isCurLang($fil)) continue;
 
-// ***********************************************************
-public function getInfo($file) {
-	$ful = APP::relPath($file);
-	$fil = basename($file);
-	$dir = dirname($ful);
-	$tab = STR::between($dir, TAB_ROOT, DIR_SEP);
-
-	$out = array(
-		"tab" => TAB_ROOT.$tab, "file" => $fil,
-		"url" => $dir
-	);
-	return $out;
-}
-
-// ***********************************************************
-public function getSnips($file, $what) { // called by preview
-	$txt = $this->prepare($file);
-	$arr = $this->match($txt, $what);
-
-	$out = implode("<hr class=\"search\">\n", $arr);
-	$out = STR::clear($out, $this->sep);
-	return $out;
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-protected function getContent($file) {
-	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
-	$out = APP::read($file);
-	$out = PRG::clrTag($out, "refbox");
-	return $out;
-}
-
-// ***********************************************************
-protected function match($txt, $find) {
-	$arr = STR::split($txt, $this->sep); $out = array();
-
-	foreach ($arr as $pgf) {
-		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
-		$out[] = $pgf;
+		$txt = $this->prepare($fil);
+		$arr = $this->match($txt, $what); if (! $arr) continue;
+		$out[$fil] = $arr;
 	}
 	return $out;
 }
 
 // ***********************************************************
+// methods to be overruled by derived classes
+// ***********************************************************
+protected function sort($arr) {
+	return $arr;
+}
+protected function getTab($dir) {
+	$out = STR::between($dir, $this->dir.DIR_SEP, DIR_SEP);
+	return FSO::join($this->dir, $out);
+}
+protected function saveRes($val) {
+	ENV::set("search.last", $val);
+}
+protected function getParms($what) {
+	return STR::join($this->dir, $this->mod, $what);
+}
+
+// ***********************************************************
+// helper methods for scope
+// ***********************************************************
 protected function getPaths() {
 	$dir = dirname(TAB_PATH);
-	$fil = FSO::join($dir, "tab.ini");
 
-	$ini = new ini($fil);
-	$typ = $ini->get("props.typ");
+	$fil = FSO::join($dir, "tab.ini");
+	$typ = PGE::prop($fil, "props.typ");
 
 	if ($typ != "select") $dir = TAB_PATH;
 
@@ -172,10 +144,11 @@ protected function getPaths() {
 		$dir => DIC::get("Global"),
 	);
 }
+
 protected function getMods() {
 	return array(
-		"h" => DIC::get("Sections"),
 		"p" => DIC::get("Paragraphs"),
+		"h" => DIC::get("Sections"),
 	);
 }
 
@@ -184,17 +157,13 @@ protected function getMods() {
 // ***********************************************************
 protected function isSame($what) {
 	$chk = $this->getParms($what);
-	$lst = ENV::get("last.parms");
+	$lst = ENV::get("search.parms");
 
 	if ($lst != $chk) {
-		ENV::set("last.parms", $chk);
+		ENV::set("search.parms", $chk);
 		return false;
 	}
-	return ENV::get("last.search");
-}
-
-protected function getParms($what) {
-	return STR::join($this->dir, $this->mod, $what);
+	return ENV::get("search.last");
 }
 
 // ***********************************************************
@@ -225,10 +194,35 @@ protected function prepare_p($txt) {
 }
 
 // ***********************************************************
-// dummy methods for derived classes
+// auxilliary methods
 // ***********************************************************
-protected function getSource($file) { // dummy method for derived classes
-	return $file;
+protected function getContent($file) {
+	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
+	$out = APP::read($file);
+	$out = STR::replace($out, "<?php ", "<php>");
+	$out = STR::replace($out, "?>", "</php>");
+	$out = PRG::clrTag($out, "refbox");
+	return $out;
+}
+
+// ***********************************************************
+protected function match1st($txt, $find) {
+	$arr = STR::split($txt, $this->sep); $out = array();
+
+	foreach ($arr as $pgf) {
+		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) return true;
+	}
+	return false;
+}
+
+protected function match($txt, $find) {
+	$arr = STR::split($txt, $this->sep); $out = array();
+
+	foreach ($arr as $pgf) {
+		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
+		$out[] = STR::clear($pgf, $this->sep);
+	}
+	return $out;
 }
 
 // ***********************************************************

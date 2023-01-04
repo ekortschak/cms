@@ -27,16 +27,17 @@
 }
 
 .rh {
+	padding: 3px 5px 1px;
 	color: FC_THEAD;
 	background: BC_THEAD;
-	vertical-align: middle;
 	font-weight: bold;
-	padding: 3px 5px 1px;
+	text-align: left;
+	vertical-align: middle;
 }
 
-.rw                 { color: FC_TEVEN; background: BC_TEVEN; }
+.rw				 { color: FC_TEVEN; background: BC_TEVEN; }
 .rw:nth-child(odd)  { color: FC_TODD;  background: BC_TODD;  }
-.rw:hover           { color: FC_TMARK; background: BC_TMARK; }
+.rw:hover		   { color: FC_TMARK; background: BC_TMARK; }
 
 .rf {
 	color: FC_TFOOT;
