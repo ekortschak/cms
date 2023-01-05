@@ -32,6 +32,8 @@ class search {
 function __construct($dir = TAB_PATH) {
 	$this->dir = ENV::get("search.tpc", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
+
+	$this->chkReset();
 }
 
 // ***********************************************************
@@ -196,6 +198,13 @@ protected function prepare_p($txt) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
+protected function chkReset() {
+	$rst = ENV::getParm("search.reset"); if (! $rst) return;
+	ENV::set("search", false);
+	ENV::set("search.parms", false);
+	ENV::set("search.last", false);
+}
+
 protected function getContent($file) {
 	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
 	$out = APP::read($file);

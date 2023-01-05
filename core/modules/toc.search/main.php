@@ -1,22 +1,26 @@
 <?php
 
+incCls("search/swrap.php");
+
+// ***********************************************************
+// get parameters
+// ***********************************************************
+$obj = new swrap();
+$opt = $obj->getScope();
+
 $fnd = ENV::get("search");
 $fnd = str_replace('"', "'", $fnd);
+
+$lst = $obj->getResults($fnd); if($lst) ksort($lst);
+$res = "";
 
 // ***********************************************************
 // get results
 // ***********************************************************
-incCls("search/swrap.php");
-
-$obj = new swrap();
-$opt = $obj->getScope();
-$lst = $obj->getResults($fnd); if($lst) ksort($lst);
-$res = "";
-
 $tpl = new tpl();
 $tpl->load("modules/search.tpl");
 
-if (! is_array($lst)) $res = NV;
+if (! is_array($lst)) $res = DIC::get("no.match");
 else {
 	foreach ($lst as $tab => $inf) {
 		$tpc = PGE::getTitle($tab);

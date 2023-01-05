@@ -26,7 +26,8 @@ class searchView extends tpl {
 	private $dat = array();
 
 function __construct() {
-	$tpl = $this->load("modules/search.tpl");
+	$this->load("modules/search.tpl");
+	$this->chkReset();
 
 	$this->dat = ENV::get("search.last");
 }
@@ -87,6 +88,11 @@ public function getMode() {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
+private function chkReset() {
+	$rst = ENV::getParm("search.reset"); if (! $rst) return;
+	ENV::set("search.last", false);
+}
+
 private function chkData($arr) {
 	foreach ($arr as $dir => $val) {
 		$arr[$dir] = PGE::getTitle($val);

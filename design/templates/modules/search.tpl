@@ -21,7 +21,6 @@ stop   = Suche beenden
 show   = Zeige
 
 [vars]
-subset = search
 search =
 result =
 
@@ -38,7 +37,7 @@ result =
 <form method="post" action="?">
 <!VAR:range!>
 
-	<input type="text" name="<!VAR:subset!>" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
+	<input type="text" name="search" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
 
 	<div align="right">
 		<input type="submit" name="search,act" value="OK" />
@@ -77,6 +76,11 @@ result =
 		<button class="icon"><img src="ICONS/buttons/view.png" alt="View"></button>
 	</a>
 </div>
+<div style="float: right; margin-right: 5px;">
+	<a href="?search.reset=1">
+		<button class="icon">BOOL_NO</button>
+	</a>
+</div>
 
 [prv.topic]
 <div class="submenu">
@@ -99,9 +103,14 @@ result =
 [err.short]
 <div><!DIC:short!></div>
 
+
 # ***********************************************************
 [none]
 # ***********************************************************
+<!SEC:info!>
+<!SEC:info.text!>
+
+[info]
 <h4>How to use</h4>
 <ul>
 	<li>Enter a search term into the text field.</li>
@@ -109,6 +118,17 @@ result =
 	<li>Select an item from the results list.</li>
 </ul>
 
+[info.de]
+<h4>Anleitung</h4>
+<ul>
+	<li>Gib einen Suchbegriff in das Textfeld ein.</li>
+	<li>Drücke OK.</li>
+	<li>Wähle einen Eintrag in der Ergebnisliste.</li>
+</ul>
+
+# ***********************************************************
+[info.text]
+# ***********************************************************
 <h4>Search patterns</h4>
 <table>
 	<tr class="rh"><th>Pattern</th>                  <th></th><th>will find any text containing ...</th></tr>
@@ -123,14 +143,7 @@ result =
 	<tr class="rw"><td class="pre">"str1 str2"</td>  <td></td><td>the exact character sequence</td></tr>
 </table>
 
-[none.de]
-<h4>Anleitung</h4>
-<ul>
-	<li>Gib einen Suchbegriff in das Textfeld ein.</li>
-	<li>Drücke OK.</li>
-	<li>Wähle einen Eintrag in der Ergebnisliste.</li>
-</ul>
-
+[info.text.de]
 <h5>Suchbegriffe</h5>
 <table>
 	<tr class="rh"><th>Muster</th>                   <th></th><th>findet Textstellen ...</th></tr>
