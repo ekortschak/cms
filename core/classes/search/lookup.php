@@ -40,6 +40,8 @@ function __construct() {
 }
 
 // ***********************************************************
+// read ini files
+// ***********************************************************
 public function readRef() {
 	$arr = APP::files("lookup/*.ini"); if (! $arr) return false;
 
@@ -65,22 +67,22 @@ public function read($fil) {
 }
 
 // ***********************************************************
-// handling template
+// handling template properties
 // ***********************************************************
+protected function setProp($key, $val) {
+	$this->tpl->set($key, $val);
+}
+
 protected function getProp($set, $prop, $default) {
 	$prp = VEC::get($this->prp, $set); if (! $prp) return $default;
 	return VEC::get($prp, $prop, $default);
-}
-
-protected function setProp($key, $val) {
-	$this->tpl->set($key, $val);
 }
 
 // ***********************************************************
 // handling lookup strings
 // ***********************************************************
 public function insert($txt) {
-	$txt = $this->prepare($txt);
+	$txt = $this->inject($txt);
 
 	foreach ($this->dat as $set => $lst) {
 		$sep = $this->getProp($set, "sep", NV);
@@ -141,7 +143,7 @@ protected function cleanTag($txt, $lup, $tag, $end) {
 // ***********************************************************
 // preparing text for quicker response times
 // ***********************************************************
-public function prepare($txt) {
+public function inject($txt) {
 	foreach ($this->prp as $set => $prp) {
 		$lup = $this->getLup($set);
 
@@ -151,8 +153,8 @@ public function prepare($txt) {
 			if (! $key) continue;
 			if (! STR::contains($txt, $key)) continue;
 
-			$fnd = PRG::quote($key);
 			$rep = $this->embrace($lup, $key);
+			$fnd = PRG::quote($key);
 			$txt = PRG::replaceWords($txt, $fnd, $rep);
 		}
 		$txt = $this->cleanTags($txt, $lup);

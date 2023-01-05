@@ -1,5 +1,12 @@
 <?php
 
+incCls("menus/localMenu.php");
+incCls("menus/qikSelect.php");
+incCls("input/confirm.php");
+
+incCls("search/lookup.php");
+
+// ***********************************************************
 $arr = array(
 	"add"  => DIC::get("act.add"),
 	"drop" => DIC::get("act.drop")
@@ -13,9 +20,6 @@ $sec = array(
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/localMenu.php");
-incCls("menus/qikSelect.php");
-
 $box = new localMenu();
 $ful = $box->files("lookup");
 $met = $box->getKey("method", $arr);
@@ -32,8 +36,6 @@ $xxx = $box->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-incCls("input/confirm.php");
-
 $cnf = new confirm();
 $cnf->add($ful);
 $cnf->add("&rarr; ".$tab);
@@ -48,16 +50,15 @@ if (! $cnf->act()) return;
 $arr = FSO::ftree($tab); if (! $arr) return;
 $arr = FSO::filter($arr, "php, htm");
 
-incCls("arten.php");
-$bng = new arten();
-$bng->read("lookup/arten.ini", "species");
+$lup = new lookup();
+$lup->read($ful);
 
 foreach ($arr as $fil => $nam) {
 	HTW::tag($fil, "li"); set_time_limit(10);
 
 	$txt = $old = file_get_contents($fil);
-	$txt = $bng->remove($txt); if ($met == "add")
-	$txt = $bng->prepare($txt, $sec);
+	$txt = $lup->remove($txt); if ($met == "add")
+	$txt = $lup->inject($txt, $sec);
 
 	if ($txt != $old) {
 		APP::write($fil, $txt);

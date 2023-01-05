@@ -39,6 +39,7 @@ public function conv($text) {
 	$txt = $this->repCard($txt);
 	$txt = $this->rep100($txt);
 	$txt = $this->rep1000($txt);
+	$txt = $this->repSpaces($txt);
 	$txt = $this->clrSymbols($txt);
 
 	return $txt;
@@ -111,19 +112,25 @@ private function rep1000($txt) {
 	return $txt;
 }
 
+private function repSpaces($txt) {
+ 	$txt = PRG::replace($txt, "(\d+) (\d+)(\d+)(\d+)(\b|$)", "$1.$2$3$4", "i");
+ 	return $txt;
+}
+
 // ***********************************************************
 // known numbers
 // ***********************************************************
 private function repCard($txt) {
 	foreach ($this->card as $val => $key) {
 		$txt = PRG::replace($txt, "\b$key(\b|$)", $val);
-#		$txt = PRG::replace($txt, "$key(\b|$)", $val);
-		$txt = PRG::replace($txt, "\b$key", $val);
+		$txt = PRG::replace($txt, "\b$key(^[\-a-z][A-z])", $val);
 	}
 	return $txt;
 }
 private function repOrd($txt) {
 	foreach ($this->ord as $val => $key) {
+		if ($val == 8)
+		$txt = PRG::replace($txt, "\b$key([rs]+)(\b|$)", $val); else
 		$txt = PRG::replace($txt, "\b$key([nrs]?)(\b|$)", $val);
 		$txt = PRG::replace($txt, "\b$key(ns)(\b|$)", $val);
 	}
