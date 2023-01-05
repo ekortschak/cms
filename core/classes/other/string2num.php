@@ -10,7 +10,9 @@ e.g. fünfhundertdrei => 503
 // ***********************************************************
 incCls("input/string2num.php");
 
-$string2num = new string2num();
+$obj = new string2num();
+$txt = $obj->conv($txt);
+
 */
 
 // ***********************************************************
@@ -86,7 +88,7 @@ private function rep100($txt) {
 	$txt = PRG::replace($txt, "(\d+)-h--t-", "$1_2_-t-", "i");
 	$txt = STR::replace($txt, "-h--t-", "100-t-");
 
-	$txt = PRG::replace($txt, "(\d+)-h-(\b|$)", "$1_2_", "i");
+	$txt = PRG::replace($txt, "(\d+)-h-(\b|)", "$1_2_", "i");
 
 	$txt = PRG::replace($txt, "-h-(\d+)(\d+)(\b|$)", "1$1$2", "i");
 	$txt = PRG::replace($txt, "-h-(\d+)(\b|$)", "10$1", "i");
@@ -105,7 +107,7 @@ private function rep1000($txt) {
 	$txt = PRG::replace($txt, "(\d+)-t-(\b|$|)", "$1.000", "i");
 	$txt = PRG::replace($txt, "(\d+)-t-", "$1.", "i");
 
-	$txt = PRG::replace($txt, "\B-t-(\B)", "1000", "i");
+	$txt = PRG::replace($txt, "\B-t-(\B)", "1.000", "i");
 	return $txt;
 }
 
@@ -115,7 +117,7 @@ private function rep1000($txt) {
 private function repCard($txt) {
 	foreach ($this->card as $val => $key) {
 		$txt = PRG::replace($txt, "\b$key(\b|$)", $val);
-		$txt = PRG::replace($txt, "$key(\b|$)", $val);
+#		$txt = PRG::replace($txt, "$key(\b|$)", $val);
 		$txt = PRG::replace($txt, "\b$key", $val);
 	}
 	return $txt;
@@ -123,6 +125,7 @@ private function repCard($txt) {
 private function repOrd($txt) {
 	foreach ($this->ord as $val => $key) {
 		$txt = PRG::replace($txt, "\b$key([nrs]?)(\b|$)", $val);
+		$txt = PRG::replace($txt, "\b$key(ns)(\b|$)", $val);
 	}
 	return $txt;
 }

@@ -10,7 +10,7 @@ view search results
 incCls("search/searchView.php");
 
 $vew = new searchView();
-$tpc = $vew->showNav();
+$xxx = $vew->showNav();
 $fls = $vew->getSnips();
 
 */
