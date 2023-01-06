@@ -39,12 +39,12 @@ bspace = 3
 
 [main.box]
 <div class="dropdown">
-	<button class="dropdown-button"><!VAR:current!>&ensp;▾</button>
+<button><!VAR:current!>&ensp;▾</button>
 <!SEC:content!>
-</div> &ensp;
+</div>
 
 [main.one]
-<button><!VAR:current!></button> &ensp;
+<button><!VAR:current!></button>
 
 # ***********************************************************
 [inline]
@@ -55,7 +55,7 @@ bspace = 3
 <div class="dropdown">
 <!VAR:current!>&ensp;▾
 <!SEC:content!>
-</div> &ensp;
+</div>
 
 [inline.one]
-<!VAR:current!> &ensp;
+<!VAR:current!>

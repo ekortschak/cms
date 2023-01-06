@@ -1,5 +1,5 @@
 [include]
-LOC_TPL/editor/genEdit.tpl
+LOC_TPL/editor/edit.tpl
 
 [dic]
 xlate = Translation

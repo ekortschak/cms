@@ -97,8 +97,7 @@ recurse = gesamtes Projekt
 <tr><td colspan="100%" height=5></td></tr>
 <tr>
 	<td style="vertical-align: middle;" ><!DIC:cont!></td>
-	<td><!VAR:choice!>
-	</td>
+	<td><!VAR:choice!></td>
 	<td><button name="file_act" value="sys"><!DIC:create!></button></td>
 </tr>
 

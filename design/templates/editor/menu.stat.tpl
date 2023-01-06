@@ -17,7 +17,7 @@ mnu.thaw = Auftauen
 [main]
 # ***********************************************************
 <!SEC:info!>
-<p><small>file = TAB_HOME/pfs.stat</small></p>
+<p><small>file = static/TAB_HOME/pfs.stat</small></p>
 
 <h4><!DIC:mnu.state!></h4>
 

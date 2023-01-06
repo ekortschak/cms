@@ -6,15 +6,16 @@ dropBox.tpl
 [main] # static info
 # ***********************************************************
 <div class="dropdown">
+<!SEC:label!>
 <!VAR:items!>
 </div> &emsp;
 
 [main.box]
-	<button class="dropdown-button"><!SEC:label!>&ensp;▾</button>
+	<button><!SEC:label!>&ensp;▾</button>
 <!SEC:content!>
 
 [main.one]
-	<button class="dropdown-button"><!SEC:label!></button>
+	<button><!SEC:label!></button>
 
 
 # ***********************************************************

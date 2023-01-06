@@ -1,12 +1,12 @@
 [include]
-LOC_TPL/editor/genEdit.tpl
+LOC_TPL/editor/edit.tpl
 
 [vars]
 hgt = 100%
 cols = 50
 
 # ***********************************************************
-[edit]
+[main]
 # ***********************************************************
 <div class="collection" style="background-image: url('<!VAR:file!>');">
 <img src="ICONS/1x1.gif" width="100%" />

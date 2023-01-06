@@ -39,7 +39,7 @@ $box->getKey("sys.file", $fls, "content");
 $box->getKey("sys.lang", $lgs, "xx");
 $box->getKey("sys.ext",  $ext);
 
-$drp = $box->gc("inline");
+$drp = $box->gc();
 
 // ***********************************************************
 // show list
@@ -47,7 +47,7 @@ $drp = $box->gc("inline");
 incCls("files/dirView.php");
 
 $tpl = new dirView();
-$tpl->load("editor/mnuFiles.tpl");
+$tpl->load("editor/menu.files.tpl");
 $tpl->set("choice", $drp);
 $tpl->set("curloc", $loc);
 $tpl->set("visOnly", false);

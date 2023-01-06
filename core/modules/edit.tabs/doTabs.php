@@ -39,7 +39,7 @@ $tpl->show();
 // add and drop tabs
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/mnuTab.tpl");
+$tpl->load("editor/menu.tab.tpl");
 $tpl->set("tabset", $set);
 $tpl->show("add.tab");
 $tpl->show("help");

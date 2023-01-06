@@ -30,7 +30,7 @@ if (DB_MODE != "none") {
 $uid = PGE::getUID($fil);
 
 $tpl = new tpl();
-$tpl->load("editor/genEdit.pic.tpl");
+$tpl->load("editor/edit.pic.tpl");
 $tpl->set("title", $uid);
 $tpl->set("file", APP::relPath($fil));
 $tpl->set("path", APP::tempDir("curedit"));

@@ -55,7 +55,7 @@ public function getEditors($typ) {
 	if ($typ ==	"html") {
 		return array(
 			"html"  => "Intern",
-			"xhtml" => "Extern",
+			"xtern" => "Extern",
 			"ck4"   => "CK-Editor 4.x",
 			"ck5"   => "CK-Editor 5.x",
 		);

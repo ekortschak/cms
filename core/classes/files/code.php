@@ -21,7 +21,8 @@ $txt = $code->read($file);
 class code extends objects {
 	protected $sec = array(); // sections
 	protected $vrs = array(); // variables
-	private   $hst = array(); // file history
+	protected $hst = array(); // file history
+	protected $bad = array(); // file history
 
 function __construct() {}
 
@@ -65,6 +66,7 @@ protected function getContent($file) {
 // ***********************************************************
 public function getVars() { return $this->vrs; }
 public function getHist() { return $this->hst; }
+public function getBad()  { return $this->bad; }
 
 public function getSecs() {
 	$out = array();
@@ -198,7 +200,7 @@ protected function getItems($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 // auxilliary methods
 // ***********************************************************
 protected function checkFile($fil) {
-	if ($fil == "fallback") { // short cut in templates
+	if ($fil == "fallback") { // shortcut in templates
 		$fil = end($this->hst);
 		$ful = FSO::join(APP_FBK, $fil);
 	}
@@ -207,8 +209,12 @@ protected function checkFile($fil) {
 		$ful = APP::file($fil);
 	}
 	if (isset($this->hst[$ful])) return false;
-	$this->hst[$ful] = APP::relPath($ful);
-	return $ful;
+
+	switch (is_file($ful)) {
+		case true: $this->hst[$ful] = $ful; return $ful;
+		default:   $this->bad[$ful] = $ful; break;
+	}
+	return false;
 }
 
 // ***********************************************************

@@ -36,7 +36,7 @@ if ($act) {
 // show output
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/genEdit.xdic.tpl");
+$tpl->load("editor/edit.xdic.tpl");
 $tpl->set("content", $htm);
 $tpl->show($sec);
 

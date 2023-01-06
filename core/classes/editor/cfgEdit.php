@@ -34,7 +34,7 @@ public function show($fil) {
 	$this->save();
 
 	$tpl = new tpl();
-	$tpl->load("editor/genEdit.text.tpl");
+	$tpl->load("editor/edit.text.tpl");
 	$tpl->set("file", APP::relPath($fil));
 	$tpl->set("content", $this->getText());
 	$tpl->show();

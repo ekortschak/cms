@@ -10,41 +10,32 @@
 	display: block;
 }
 
-/* ******************************************************** */
-/* dropdown buttons */
-/* ******************************************************** */
-.dropdown-button {
-	display: inline-block;
-	border: 1px solid OUTLINE;
-	margin: 0px 7px 0px 0px;
-	padding: 0px 7px 0px 10px;
-}
 
 /* ******************************************************** */
 /* dropdown content */
 /* ******************************************************** */
 .dropdown-content {
-	max-height: 450px;
-	position: absolute;
-	overflow: auto;
-	overscroll-behavior: none;
-
 	display: none;
-	color: FC_DROP;
-	background: BC_DROP;
+	position: absolute;
 	border: 1px solid OUTLINE;
 	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	min-width: 160px;
 	padding: 3px 7px;
 
+	max-height: 450px;
+	min-width: 160px;
+	overflow: auto;
+	overscroll-behavior: none;
+
+	color: FC_DROP;
+	background: BC_DROP;
 	font-weight: normal;
 }
 
 .dropdown-content a {
 	display: block;
-	color: FC_DROP;
 	padding: 0px 5px;
+	color: FC_DROP;
 	font-weight: normal;
 }
 .dropdown-content a:hover {

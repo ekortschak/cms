@@ -35,7 +35,7 @@ public static function init($dir = TAB_HOME) {
 	self::$dat = self::$uid = self::$idx = array();
 
 	self::$dir = $dir;
-	self::$fil = FSO::join($dir, "pfs.stat");
+	self::$fil = FSO::join("static", $dir, "pfs.stat");
 	self::$cnt = 1;
 
 	if (! self::getLast()) {

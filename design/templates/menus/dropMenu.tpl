@@ -6,17 +6,14 @@ class = localmenu
 
 
 # ***********************************************************
-[main] # multiple options with title
+[main] # multiple options without title
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-	<div class="<!VAR:class!>">
+<div class="localmenu">
 <!VAR:items!>
-	</div>
 </div>
 
 [main.box]
-<div class="dropdown">
-<!VAR:current!>&ensp;▾
+<div class="dropdown"><!VAR:current!>&ensp;▾
 <!SEC:content!>
 </div> &ensp;
 

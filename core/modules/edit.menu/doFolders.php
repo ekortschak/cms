@@ -16,7 +16,7 @@ $sts = (FSO::isHidden($loc)) ? "on" : "off";
 // show options
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/mnuFolders.tpl");
+$tpl->load("editor/menu.folders.tpl");
 $tpl->set("curloc", $loc);
 $tpl->set("curdir", basename($loc));
 $tpl->set("status", $sts);

@@ -4,11 +4,11 @@ $lst = SSV::myFiles();
 ksort($lst);
 
 // ***********************************************************
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 // ***********************************************************
-$box = new localMenu();
+$box = new dropMenu();
 $idx = $box->getKey("idx", $lst);
-$xxx = $box->show("compact");
+$xxx = $box->show();
 
 // ***********************************************************
 // ask for confirmation

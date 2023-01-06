@@ -19,7 +19,7 @@ $snp = $box->gc();
 $htm = APP::read($fil);
 
 switch ($sec) {
-	case "code": case "xhtml": break;
+	case "code": case "xtern": break;
 
 	case "ck4": case "ck5":
 		if (STR::contains($htm, "<?php")) $sec = "ckError"; break;
@@ -64,7 +64,7 @@ $rws = CHK::range($rws, 35, 7);
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/genEdit.$sec.tpl");
+$tpl->load("editor/edit.$sec.tpl");
 $tpl->set("file", APP::relPath($fil));
 $tpl->set("path", APP::tempDir("curedit"));
 $tpl->set("snips", $snp);

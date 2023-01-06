@@ -125,7 +125,7 @@ protected function manage($act, $fso) {
 // ***********************************************************
 protected function showInfo($head = false) {
 	$tpl = new tpl();
-	$tpl->load("editor/mnuSync.tpl");
+	$tpl->load("editor/menu.sync.tpl");
 
 	if (! $this->visOnly)
 	$tpl->set("what", BOOL_YES);

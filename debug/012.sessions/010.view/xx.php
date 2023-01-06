@@ -4,12 +4,12 @@ $lst = SSV::myFiles();
 ksort($lst);
 
 // ***********************************************************
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 // ***********************************************************
-$box = new localMenu();
+$box = new dropMenu();
 $idx = $box->getKey("idx", $lst);
 $div = $box->getKey("div", STR::toArray(".dbg.prm.env.pfs.oid.tan."));
-$xxx = $box->show("compact");
+$xxx = $box->show();
 
 $arr = VEC::get($_SESSION, $idx);
 $arr = VEC::get($arr, $div);

@@ -1,5 +1,5 @@
 [include]
-LOC_TPL/editor/genEdit.tpl
+LOC_TPL/editor/edit.tpl
 LOC_TPL/editor/toolbar.tpl
 
 [dic]

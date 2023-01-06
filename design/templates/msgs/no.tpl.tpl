@@ -1,7 +1,3 @@
-[vars]
-original = nothing
-file =
-
 [dic]
 tpl.missing = Missing template
 mytpl = Templates involved
@@ -10,6 +6,11 @@ mytpl = Templates involved
 tpl.missing = Vorlage nicht gefunden
 mytpl = Beteiligte Vorlagen
 
+[vars]
+missing = section 'main' is missing
+original = nothing
+file =
+
 
 # ***********************************************************
 [main]
@@ -17,16 +18,9 @@ mytpl = Beteiligte Vorlagen
 <!SEC:notpl!>
 
 [notpl]
-<div class="dropdown"><img src="ICONS/buttons/file.missing.png" />
+<div class="dropdown"><img src="ICONS/buttons/file.missing.png" style="vertical-align: bottom;" alt="file missing"> <!VAR:missing!>
 	<div class="dropdown-content">
-		<!DIC:tpl.missing!>: <!VAR:file!>
-	</div>
-</div>
-
-[dbg]
-<div class="dropdown">&spades;
-	<div class="dropdown-content">
-		<pre><!VAR:items!></pre>
+		<!VAR:baditems!>
 	</div>
 </div>
 

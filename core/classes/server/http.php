@@ -7,7 +7,9 @@ used for synchronizing fs via http
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$htp = new htp();
+$htp = new http();
+$dat = $htp->aggregate($arr);
+$erg = $htp->query($dir, $act);
 
 */
 
@@ -64,29 +66,6 @@ private function getPage($cmd) {
 		$out[$key] = trim($val);
 	}
 	return $out;
-}
-
-public function copy($file) {
-	$trg = "http://server:port/xxxxx.php";
-
-	$fil = new CURLFile(realpath($file));
-	$fls = array ("file" => $fil);
-	$opt = array("Content-Type: multipart/form-data");
-
-	$chn = curl_init();
-	curl_setopt($chn, CURLOPT_URL, $trg);
-	curl_setopt($chn, CURLOPT_POST, 1);
-	curl_setopt($chn, CURLOPT_HEADER, 0);
-	curl_setopt($chn, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($chn, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
-	curl_setopt($chn, CURLOPT_HTTPHEADER, $opt);
-	curl_setopt($chn, CURLOPT_FRESH_CONNECT, 1);
-	curl_setopt($chn, CURLOPT_FORBID_REUSE, 1);
-	curl_setopt($chn, CURLOPT_TIMEOUT, 100);
-	curl_setopt($chn, CURLOPT_POSTFIELDS, $fls);
-
-	$erg = curl_exec ($chn);
-	return ($erg === false);
 }
 
 // ***********************************************************

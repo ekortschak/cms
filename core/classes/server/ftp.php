@@ -34,6 +34,8 @@ class ftp extends objects {
 
 function __construct() {
 	$this->read("config/ftp.ini");
+
+	ftp_set_option($this->con, FTP_TIMEOUT_SEC, $this->timeout);
 }
 
 public function read($inifile) {
@@ -135,11 +137,10 @@ public function remote_del($file) {
 	return (bool) $erg;
 }
 public function remote_put($src, $dst) {
-	if ($this->errCnt > $this->errMax) return false;
+	if ($this->errCnt >= $this->errMax) return false;
 	if (! $dst) return false;
 
 	$erg = ftp_put($this->con, $dst, $src, FTP_BINARY);
-	$xxx = ftp_set_option($this->con, FTP_TIMEOUT_SEC, $this->timeout);
 
 	if ($erg) { // preserve timestamp
 		$tim = date("YmdGis", filemtime($src));

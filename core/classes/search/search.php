@@ -46,7 +46,7 @@ public function getScope() {
 	$box = new localMenu();
 	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_PATH);
 	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
-	return $box->gc("compact");
+	return $box->gc("menu");
 }
 
 protected function isScope($dir) {

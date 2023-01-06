@@ -23,6 +23,7 @@ $lin = $tpl->getSection($nam)
 class tpl extends objects {
 	protected $sec = array();   // tpl sections
 	private   $hst = array();   // list of included files
+	private   $bad = array();   // list of non-existant files
 
 function __construct() {
 	self::load("msgs/no.tpl.tpl");
@@ -37,15 +38,18 @@ public function load($file) {
 }
 
 public function read($file) {
-	$fil = APP::file($file); if (! $fil) return false;
+	$fil = $this->isFile($file); if (! $fil) return false;
 
 	$cod = new code();
 	$cod->read($fil);
 
-	$this->hst = array_merge($this->sec, $cod->getHist());
-	$this->sec = array_merge($this->sec, $cod->getSecs());
 	$this->set("file", $fil);
+	$this->sec = array_merge($this->sec, $cod->getSecs());
+	$this->hst = array_merge($this->hst, $cod->getHist());
+	$this->bad = array_merge($this->bad, $cod->getBad());
 	$this->merge($cod->getVars());
+
+if (count($this->bad) > 0) dbg();
 	return $fil;
 }
 
@@ -147,14 +151,13 @@ public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
-	$fil = end($this->hst);
+	$fil = $this->get("file");
+	$hst = $this->getHist(); // debug mode only
+	$xxx = $this->setBad();
+	$out = $this->getSection($sec);
+	$pfx = "<!-- $fil -->\n";
 
-	$out = "<!-- $fil -->\n";
-#	$out.= $this->getHist(); // debug mode only
-	$out.= $this->getSection($sec);
-
-	if ($this->isSec($sec)) return $out;
-	MSG::add("sec.unknown", "$fil &rarr; $sec");
+	return $pfx.$hst.$out;
 }
 
 // ***********************************************************
@@ -162,6 +165,23 @@ public function gc($sec = "main") {
 // ***********************************************************
 private function norm($sec) {
 	return STR::norm($sec, true);
+}
+
+private function isFile($fil) {
+	$out = APP::file($fil); if ($out) return $out;
+	$this->bad[$fil] = $fil;
+	return false;
+}
+
+private function setBad() {
+	if (count($this->bad) < 1) return; $out = "";
+	$lst = current($this->bad);
+
+	foreach ($this->bad as $fil) {
+		$out.= HTM::tag($fil, "div");
+	}
+	$this->set("missing", $lst);
+	$this->set("baditems", $out);
 }
 
 // ***********************************************************
