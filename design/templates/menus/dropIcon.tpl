@@ -11,7 +11,7 @@ dropBox.tpl
 </div> &emsp;
 
 [main.box]
-	<button><!SEC:label!>&ensp;▾</button>
+	<button><!SEC:label!>COMBO_DOWN</button>
 <!SEC:content!>
 
 [main.one]

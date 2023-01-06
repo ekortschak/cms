@@ -72,15 +72,24 @@ public static function path($msg, $info = "path") { // show path info
 public static function vector($arr, $info = "arr") {
 	SSV::set($info, $arr, "dbg");
 
-	$out = print_r($arr, true);
-	$out = str_replace("Array\n", "Array ", $out);
-	$out = trim($out);
-
 	if (self::$dest == "cl") {
+		$out = print_r($arr, true);
+		$out = str_replace("Array\n", "Array ", $out);
+		$out = trim($out);
+
 		echo "$info = $out";
 		return;
 	}
-	echo "<div class='pre'>$info = $out</div>";
+#	echo "<div class='pre'>$info = $out</div>";
+	incCls("menus/tview.php");
+
+	echo '<div style="max-height: 125px; overflow: auto;">';
+
+	$tvw = new tview();
+	$tvw->setData($arr);
+	$tvw->show();
+
+	echo '</div>';
 }
 
 public static function list($arr, $info) {

@@ -9,12 +9,15 @@ designed to handle tree views based on arbitrary arrays
 // ***********************************************************
 incCls("menues/tview.php");
 
-tview::readTree();
+$obj = new tview();
+$obj->readTree();
+$obj->setData($arr);
 
-$arr = tview::getMenu();
-$dat = tview::getData($index);
-$tit = tview::getTitle();
-$inf = tview::mnuInfo($index);
+$arr = $obj->getMenu();
+$dat = $obj->getData($index);
+$tit = $obj->getTitle();
+$inf = $obj->mnuInfo($index);
+
 */
 
 incCls("other/items.php");

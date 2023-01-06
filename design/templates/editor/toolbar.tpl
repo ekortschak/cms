@@ -88,7 +88,7 @@ askWidth = Bildbreite festlegen
 # formatting tasks
 # *****************************************************************
 [formatting]
-<div class="dropdown"><button class="icon rose" onclick="addTag('p');">¶&ensp;▾</button>
+<div class="dropdown"><button class="icon rose" onclick="addTag('p');">¶COMBO_DOWN</button>
 	<div id="edHead" class="dropdown-content">
 		<div><a href="javascript:addTag('p');"><p><!DIC:paragraph!></p></a></div>
 		<hr>
@@ -106,7 +106,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 # listings & tables
 # *****************************************************************
-<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/listing.png" />&ensp;▾</button>
+<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/listing.png" />COMBO_DOWN</button>
 	<div id="edList" class="dropdown-content">
 		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
 		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
@@ -114,7 +114,7 @@ askWidth = Bildbreite festlegen
 		<div><a href="javascript:addList('dl');"><!DIC:listdef!></a></div>
 	</div>
 </div>
-<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/table.png" />&ensp;▾</button>
+<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/table.png" />COMBO_DOWN</button>
 	<div id="tables" class="dropdown-content">
 		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
 		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
@@ -125,7 +125,7 @@ askWidth = Bildbreite festlegen
 
 [addImg]
 <div class="dropdown">
-	<button class="icon rose"><img src="ICONS/buttons/img.png" />&ensp;▾</button>
+	<button class="icon rose"><img src="ICONS/buttons/img.png" />COMBO_DOWN</button>
 
 	<div id="edImg" class="dropdown-content">
 		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
@@ -141,7 +141,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [characters]
 # *****************************************************************
-<div class="dropdown"><button class="icon" onclick="addTag('b');"><b>B</b>&ensp;▾</button>
+<div class="dropdown"><button class="icon" onclick="addTag('b');"><b>B</b>COMBO_DOWN</button>
 	<div id="edChar" class="dropdown-content">
 		<button class="icon" onclick="addTag('b');"><b>B</b></button>
 		<button class="icon" onclick="addTag('i');"><i>I</i></button>
@@ -170,7 +170,7 @@ askWidth = Bildbreite festlegen
 <button class="icon" onclick="clrTags();"><img src="ICONS/edit/clear.png" /></button>
 
 [addLFs]
-<div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;&ensp;▾</button>
+<div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
 	<div id="edLFs" class="dropdown-content">
 		<div><a href="javascript:insAny('<br>');">&crarr;</a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
@@ -186,7 +186,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [addLink]
 <div class="dropdown">
-	<button class="icon">🔗&ensp;▾</button>
+	<button class="icon">🔗COMBO_DOWN</button>
 
 	<div id="edLink" class="dropdown-content">
 		<div><a href="javascript:insRef('ax');"><!DIC:linknew!></a></div>

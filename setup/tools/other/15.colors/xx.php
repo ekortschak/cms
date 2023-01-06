@@ -24,7 +24,7 @@ $col = $sel->combo("color.names", $col);
 $mds = $sel->combo("color.fixed", $mds);
 $sat = $sel->range("color.chroma", 5, 0, 10) / 10;
 $stp = $sel->combo("color.step", $stp, "0.15");
-$sel->show();
+$act = $sel->show();
 
 // ***********************************************************
 // show color table

@@ -22,7 +22,6 @@ class code extends objects {
 	protected $sec = array(); // sections
 	protected $vrs = array(); // variables
 	protected $hst = array(); // file history
-	protected $bad = array(); // file history
 
 function __construct() {}
 
@@ -66,7 +65,6 @@ protected function getContent($file) {
 // ***********************************************************
 public function getVars() { return $this->vrs; }
 public function getHist() { return $this->hst; }
-public function getBad()  { return $this->bad; }
 
 public function getSecs() {
 	$out = array();
@@ -201,7 +199,7 @@ protected function getItems($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 // ***********************************************************
 protected function checkFile($fil) {
 	if ($fil == "fallback") { // shortcut in templates
-		$fil = end($this->hst);
+		$fil = array_key_last($this->hst);
 		$ful = FSO::join(APP_FBK, $fil);
 	}
 	else {
@@ -209,11 +207,9 @@ protected function checkFile($fil) {
 		$ful = APP::file($fil);
 	}
 	if (isset($this->hst[$ful])) return false;
+	$val = intval(is_file($ful));
 
-	switch (is_file($ful)) {
-		case true: $this->hst[$ful] = $ful; return $ful;
-		default:   $this->bad[$ful] = $ful; break;
-	}
+	$this->hst[$ful] = $val; if ($val) return $ful;
 	return false;
 }
 

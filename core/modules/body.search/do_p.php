@@ -17,8 +17,6 @@ foreach ($fls as $fil => $arr) {
 	$tpl->set("titel", $tit);
 	$tpl->set("page", $uid);
 
-#	$tpl->show("prv.topic");
-
 	foreach ($arr as $txt) {
 		if ($cnt++ > 0)
 		$tpl->show("item.sep");

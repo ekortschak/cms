@@ -23,11 +23,12 @@ $lin = $tpl->getSection($nam)
 class tpl extends objects {
 	protected $sec = array();   // tpl sections
 	private   $hst = array();   // list of included files
-	private   $bad = array();   // list of non-existant files
 
 function __construct() {
 	self::load("msgs/no.tpl.tpl");
 	self::load("msgs/msgs.tpl");
+
+	$this->set("tplfile", NV);
 }
 
 // ***********************************************************
@@ -43,13 +44,9 @@ public function read($file) {
 	$cod = new code();
 	$cod->read($fil);
 
-	$this->set("file", $fil);
 	$this->sec = array_merge($this->sec, $cod->getSecs());
 	$this->hst = array_merge($this->hst, $cod->getHist());
-	$this->bad = array_merge($this->bad, $cod->getBad());
 	$this->merge($cod->getVars());
-
-if (count($this->bad) > 0) dbg();
 	return $fil;
 }
 
@@ -151,12 +148,12 @@ public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
-	$fil = $this->get("file");
+	$fil = $this->get("tplfile");
 	$hst = $this->getHist(); // debug mode only
 	$xxx = $this->setBad();
 	$out = $this->getSection($sec);
-	$pfx = "<!-- $fil -->\n";
 
+	$pfx = "<!-- $fil -->\n";
 	return $pfx.$hst.$out;
 }
 
@@ -168,20 +165,27 @@ private function norm($sec) {
 }
 
 private function isFile($fil) {
-	$out = APP::file($fil); if ($out) return $out;
-	$this->bad[$fil] = $fil;
-	return false;
+	$this->setIf("tplfile", $fil);
+	$ful = APP::file($fil);
+
+	switch ($ful) {
+		case true: $this->hst[$ful] = 1; break;
+		default:   $this->hst[$fil] = 0;
+	}
+	return $ful;
 }
 
 private function setBad() {
-	if (count($this->bad) < 1) return; $out = "";
-	$lst = current($this->bad);
+	if (! in_array(0, $this->hst)) return;
 
-	foreach ($this->bad as $fil) {
-		$out.= HTM::tag($fil, "div");
+	$lst = array_reverse($this->hst);
+	$out = "";
+
+	foreach ($lst as $fil => $val) {
+		$xxx = $this->set("item", $fil);
+		$out.= $this->getSection("item.$val");
 	}
-	$this->set("missing", $lst);
-	$this->set("baditems", $out);
+	$this->set("history", $out);
 }
 
 // ***********************************************************
@@ -189,7 +193,6 @@ private function setBad() {
 // ***********************************************************
 public function getHist() {
 	if (EDITING != "check") return ""; $out = ""; $cnt = 0;
-	$lst = array_reverse($this->hst);
 
 	foreach ($lst as $itm) {
 		$sec = "hist.last"; if ($cnt++) $sec = "hist.item";

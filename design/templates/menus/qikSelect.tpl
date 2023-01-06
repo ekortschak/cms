@@ -16,7 +16,7 @@ dropBox.tpl
 	<td class="selHead" width=<!VAR:width!>><!VAR:uniq!></td>
 	<td class="selData">
 		<div class="dropdown">
-			<button><!VAR:current!>&ensp;▾</button>
+			<button><!VAR:current!>COMBO_DOWN</button>
 <!SEC:content!>
 		</div>
 	</td>

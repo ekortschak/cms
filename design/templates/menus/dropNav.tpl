@@ -22,12 +22,12 @@ dropBox.tpl
 </div>
 
 [main.box]
-<div class="dropdown"><!VAR:current!>&ensp;▾
+<div class="dropdown"><!VAR:current!>COMBO_DOWN
 <!SEC:content!>
-</div>
+</div>&ensp;
 
 [main.one]
-<!VAR:current!>
+<!VAR:current!>&ensp;
 
 # ***********************************************************
 # navigation

@@ -20,6 +20,8 @@ incCls("system/VEC.php"); // basic vector functions
 // ***********************************************************
 // read config file(s)
 // ***********************************************************
+include_once "core/include/preset.php";
+
 incCls("system/CFG.php"); // prepare constants
 CFG::setIf("layout");
 

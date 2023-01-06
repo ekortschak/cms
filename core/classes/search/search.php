@@ -158,6 +158,8 @@ protected function getMods() {
 // verify if search context has changed
 // ***********************************************************
 protected function isSame($what) {
+	if (strlen($what) < 3) return true;
+
 	$chk = $this->getParms($what);
 	$lst = ENV::get("search.parms");
 

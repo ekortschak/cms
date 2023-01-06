@@ -29,6 +29,8 @@ incCls("server/SSL.php"); // string encryption
 // ***********************************************************
 // set environment
 // ***********************************************************
+include_once "core/include/preset.php";
+
 incCls("system/CFG.php"); // prepare constants
 incCls("system/SSV.php"); // session vars
 incCls("system/ENV.php"); // session & env vars

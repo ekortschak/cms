@@ -68,6 +68,7 @@ private function inpTBox($class, $type, $uid, $value = "") {
 	return $inp->getValue($value);
 }
 
+// ***********************************************************
 public function addInput($type, $uid, $value = "") {
 	return $this->inpTBox("selInput", $type, $uid, $value);
 }
@@ -85,6 +86,7 @@ public function addImage($type, $uid, $value = "") {
 // wrapper for multiple choice fields
 // ***********************************************************
 private function inpDBox($class, $type, $uid, $vls, $sel = NV) {
+	if ($sel == NV) $sel = key($vls);
 	$this->setOidVal($uid, $sel);
 
 	$inp = new $class($this->oid);
@@ -96,6 +98,7 @@ private function inpDBox($class, $type, $uid, $vls, $sel = NV) {
 	return $inp->getValue($sel);
 }
 
+// ***********************************************************
 public function addCombo($type, $uid, $vls, $sel = NV) {
 	return $this->inpDBox("selCombo", $type, $uid, $vls, $sel);
 }

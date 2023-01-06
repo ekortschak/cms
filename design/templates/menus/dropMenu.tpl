@@ -13,7 +13,7 @@ class = localmenu
 </div>
 
 [main.box]
-<div class="dropdown"><!VAR:current!>&ensp;▾
+<div class="dropdown"><!VAR:current!>COMBO_DOWN
 <!SEC:content!>
 </div> &ensp;
 

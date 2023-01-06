@@ -313,8 +313,8 @@ private static function export() {
 private static function import() {
 	if (  EDITING != "view") return false;
 	if (! self::isStatic())  return false;
-	include_once(self::$fil);
 
+	include_once(self::$fil);
 	return count(self::$dat);
 }
 

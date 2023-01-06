@@ -31,7 +31,7 @@ topic = Thema
 
 [main.box]
 <div class="dropdown">
-<!DIC:tpc.list!>&ensp;▾
+<!DIC:tpc.list!>COMBO_DOWN
 <!SEC:content!>
 </div> &ensp;
 
