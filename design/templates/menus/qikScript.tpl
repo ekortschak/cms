@@ -14,6 +14,6 @@
 [main]
 # ***********************************************************
 <div class="dropdown">
-	<button>SnipsCOMBO_DOWN</button>
+	<button>Snips COMBO_DOWN</button>
 <!SEC:content!>
 </div>

@@ -17,7 +17,6 @@ wid = 85px
 [main]
 # ***********************************************************
 <!SEC:toolbar!>
-<hr>
 
 # followed by page content
 

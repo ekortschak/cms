@@ -13,7 +13,7 @@ $dir = $box->getKey("pic.folder", $drs);
 $ptn = FSO::join($dir, "*");
 $fls = FSO::files($ptn);
 
-$ful = $box->getKey("pic.file", $fls);
+$ful = $box->getKey("pic.file", $fls, "error.log");
 $xxx = $box->show();
 
 // ***********************************************************

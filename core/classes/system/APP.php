@@ -229,38 +229,30 @@ public static function read($file) { // read any text
 }
 
 public static function append($file, $data) {
-	if (is_dir($file)) return false;
-
-	$dir = FSO::force(dirname($file));
-	$txt = VEC::xform($data);
-	$txt = "\n".trim($txt)."\n";
-
-	$erg = file_put_contents($file, $txt, FILE_APPEND);
-	FSO::permit($file);
-	return ($erg !== false);
+	return self::writeFile($file, $data, FILE_APPEND);
 }
 
 public static function write($file, $data, $overwrite = true) {
-	if (is_dir($file)) return false;
 	if (is_file($file)) if (! $overwrite) return false;
+	return self::writeFile($file, $data, false);
+}
+
+private static function writeFile($file, $data, $mode = false) {
+	if (is_dir($file)) return false;
 
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
 	$txt = trim($txt)."\n";
 
-	$erg = file_put_contents($file, $txt, 0);
-	FSO::permit($file);
+	$erg = file_put_contents($file, $txt, $mode);
+	$xxx = FSO::permit($file);
 	return ($erg !== false);
 }
 
 public static function writeTell($file, $content, $overwrite = true) {
-	$fil = APP::relPath($file);
-
-	if (! $overwrite)
-	if (is_file($file)) return MSG::add("file.exists", $fil);
-
+	if (is_file($file)) if (! $overwrite) return MSG::add("file.exists", $fil);
 	$erg = self::write($file, $content); if ($erg !== false) return true;
-	return ERR::msg("no.write", $fil);
+	return ERR::msg("no.write", $file);
 }
 
 // ***********************************************************

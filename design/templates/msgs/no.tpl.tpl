@@ -7,7 +7,8 @@ tpl.missing = Vorlage nicht gefunden
 mytpl = Beteiligte Vorlagen
 
 [vars]
-history = Info: section 'main' is missing ...
+history = Status: OK
+status = BOOL_NO
 file =
 
 
@@ -17,10 +18,10 @@ file =
 <!SEC:notpl!>
 
 [notpl]
-<div class="dropdown"><img src="ICONS/buttons/file.missing.png" style="vertical-align: bottom;" alt="load error"> <!VAR:tplfile!>COMBO_DOWN
-	<div class="dropdown-content">
-		<!VAR:history!>
-	</div>
+<div class="dropdown pre"><img src="ICONS/buttons/file.missing.png" style="vertical-align: bottom;" alt="load error"> <!VAR:tplfile!>COMBO_DOWN _
+<div class="dropdown-content">_
+Section called: <!VAR:section!> BOOL_NO<hr class="low"><!VAR:history!> _
+</div> _
 </div>
 
 # ***********************************************************
@@ -33,19 +34,12 @@ file =
 
 
 # ***********************************************************
-[history]
+[debug]
 # ***********************************************************
-<div class="dropdown pre">&spades;
-	<div class="dropdown-content">
-		<h4><!DIC:mytpl!></h4>
-		<ul>
-		<!VAR:items!>
-		</ul>
-	</div>
+<div class="dropdown pre head">&spades; <!VAR:tplfile!>COMBO_DOWN _
+<div class="dropdown-content"> _
+Section called: <!VAR:section!> <!VAR:status!><hr class="low"><!VAR:history!> _
+</div> _
 </div>
 
-[hist.last]
-<li><blue><!VAR:item!></blue></li>
-
-[hist.item]
-<li><!VAR:item!></li>
+[debug.tell]

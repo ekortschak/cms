@@ -35,9 +35,9 @@
 	vertical-align: middle;
 }
 
-.rw				 { color: FC_TEVEN; background: BC_TEVEN; }
-.rw:nth-child(odd)  { color: FC_TODD;  background: BC_TODD;  }
-.rw:hover		   { color: FC_TMARK; background: BC_TMARK; }
+.rw	               { color: FC_TEVEN; background: BC_TEVEN; }
+.rw:nth-child(odd) { color: FC_TODD;  background: BC_TODD;  }
+.rw:hover	       { color: FC_TMARK; background: BC_TMARK; }
 
 .rf {
 	color: FC_TFOOT;
@@ -45,3 +45,10 @@
 	vertical-align: middle;
 }
 
+/* ******************************************************** */
+/* spaces */
+/* ******************************************************** */
+.head {
+	margin-top: 12px;
+	margin-bottom: 0px;
+}

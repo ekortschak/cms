@@ -144,17 +144,23 @@ private function insDics($txt) {
 // ***********************************************************
 // output
 // ***********************************************************
+public function xshow($sec = "main") {
+	$xxx = $this->setTplInfo($sec);
+	$out = $this->getSection("debug");
+	$out.= $this->gc($sec);
+	echo $out;
+}
 public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
-	$fil = $this->get("tplfile");
-	$hst = $this->getHist(); // debug mode only
-	$xxx = $this->setBad();
+	$xxx = $this->setTplInfo($sec);
 	$out = $this->getSection($sec);
+	$fil = $this->get("tplfile");
 
-	$pfx = "<!-- $fil -->\n";
-	return $pfx.$hst.$out;
+	$pfx = "\n<!-- TOF: $fil -->\n";
+	$sfx = "\n<!-- EOF: $fil -->\n";
+	return $pfx.$out.$sfx;
 }
 
 // ***********************************************************
@@ -175,33 +181,21 @@ private function isFile($fil) {
 	return $ful;
 }
 
-private function setBad() {
-	if (! in_array(0, $this->hst)) return;
-
-	$lst = array_reverse($this->hst);
-	$out = "";
+// ***********************************************************
+// template call stack
+// ***********************************************************
+private function setTplInfo($sec) {
+	$lst = array_reverse($this->hst); $out = "";
+	$sts = $this->isSec($sec);
+	$sts = ($sts) ? BOOL_YES : BOOL_NO;
 
 	foreach ($lst as $fil => $val) {
 		$xxx = $this->set("item", $fil);
 		$out.= $this->getSection("item.$val");
 	}
+	$this->set("section", $sec);
 	$this->set("history", $out);
-}
-
-// ***********************************************************
-// template call stack
-// ***********************************************************
-public function getHist() {
-	if (EDITING != "check") return ""; $out = ""; $cnt = 0;
-
-	foreach ($lst as $itm) {
-		$sec = "hist.last"; if ($cnt++) $sec = "hist.item";
-		$xxx = $this->set("file", $itm);
-		$out.= $this->getSection($sec);
-	}
-	$this->set("qid", uniqid());
-	$this->set("items", $out);
-	return $this->getSection("history");
+	$this->set("status",  $sts);
 }
 
 // ***********************************************************

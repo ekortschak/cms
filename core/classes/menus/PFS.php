@@ -230,6 +230,11 @@ private static function getProp($index, $key, $default = false) {
 	return VEC::get($arr, $key, $default);
 }
 
+private static function getPropVal($idx, $key, $default) {
+	if (! isset(self::$dat[$idx][$key])) return $default;
+	return self::$dat[$idx][$key];
+}
+
 // ***********************************************************
 public static function count() {
 	return count(self::$dat);
@@ -269,7 +274,7 @@ public static function mnuInfo($index) {
 		"level" => $lev,
 		"dtype" => $typ,
 		"mtype" => self::mnuType($idx, $lev, $typ),
-		"grey"  => self::refType($idx)
+		"grey"  => self::refType($idx),
 	);
 	return $out;
 }
@@ -302,19 +307,19 @@ public static function toggle() {
 }
 
 // ***********************************************************
-private static function export() {
-	$dat = var_export(self::$dat, true);
-	$uid = var_export(self::$uid, true);
-	$idx = var_export(self::$idx, true);
-
-	APP::write(self::$fil, "<?php\nself::\$dat = $dat;\nself::\$uid = $uid;\nself::\$idx = $idx;\n?>");
+private static function export() { // write menu info to stat file
+	APP::write (self::$fil, "<?php");
+	APP::append(self::$fil, "self::\$dat = ".var_export(self::$dat, true).";");
+	APP::append(self::$fil, "self::\$uid = ".var_export(self::$uid, true).";");
+	APP::append(self::$fil, "self::\$idx = ".var_export(self::$idx, true).";");
+	APP::append(self::$fil, "?>");
 }
 
 private static function import() {
 	if (  EDITING != "view") return false;
 	if (! self::isStatic())  return false;
 
-	include_once(self::$fil);
+	include_once(self::$fil); // read menu info from stat file
 	return count(self::$dat);
 }
 

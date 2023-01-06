@@ -83,7 +83,6 @@ public function show($sec = "main") {
 // ***********************************************************
 public function gc($sec = "main") {
     $htm = $this->getSection($sec); if (! $htm) return "";
-	$xxx = $this->set("pginfo", $this->getHist());
 
 	foreach ($this->mod as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
