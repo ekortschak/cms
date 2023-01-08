@@ -15,7 +15,7 @@ $srv = new curl();
 // BEGIN OF CLASS
 // ***********************************************************
 class curl {
-	private $url = "http://server:port";
+	private $url = "http://localhost/cms/x.curl.php";
 	private $con;
 
 function __construct() {
@@ -27,15 +27,16 @@ function __construct() {
 	curl_setopt($this->con, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
 	curl_setopt($this->con, CURLOPT_FRESH_CONNECT, 1);
 	curl_setopt($this->con, CURLOPT_FORBID_REUSE, 1);
-	curl_setopt($this->con, CURLOPT_TIMEOUT, 100);
+	curl_setopt($this->con, CURLOPT_TIMEOUT, 10);
 }
 
 // ***********************************************************
 public function copy($file) {
 	$trg = FSO::join($this->url, $file);
 	$fil = realpath($file);
+dbg($fil);
 
-	$fil = new CURLFile();
+	$fil = new CURLFile($fil);
 	$fls = array ("file" => $fil);
 	$opt = array("Content-Type: multipart/form-data");
 
