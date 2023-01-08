@@ -39,7 +39,6 @@ vtabs = Registerkarten (Tabs)
 # ***********************************************************
 <div class="container">
 <h3><!DIC:vtabs!></h3>
-<!MOD:msgs!>
 <!MOD:edit.tabs!>
 </div>
 

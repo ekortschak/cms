@@ -2,7 +2,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-Used to create combo boxes containing links for immeadiate action
+Used to handle DB objects
 
 // ***********************************************************
 // HOW TO USE
@@ -10,9 +10,9 @@ Used to create combo boxes containing links for immeadiate action
 incCls("menus/dropBox.php");
 
 $box = new dropBox();
-$box->setSpaces($before, $after);
-$box->getKey($qid, $values, $selected);
-$box->getVal($qid, $values, $selected);
+$box->getDbase();
+$box->getTable($dbs);
+$box->getField($dbs, $tpl);
 $box->show();
 */
 
@@ -42,8 +42,6 @@ public function getTable($dbs) {
 public function getField($dbs, $tbl) {
 	$arr = DBS::fields($dbs, $tbl);
 	return $this->getKey("db.field", $arr);
-}
-public function getPriv() {
 }
 
 // ***********************************************************

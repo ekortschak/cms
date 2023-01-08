@@ -2,6 +2,7 @@
 
 $loc = PFS::getLoc();
 
+// ***********************************************************
 $ini = new ini();
 $ext = $ini->get("props.ext", "pics");
 $dir = $ini->get("props.path", $loc);
@@ -23,7 +24,7 @@ $fil = APP::relPath($fil);
 // show file
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("modules/fview.mimetype.tpl");
+$obj->load("modules/fview.mimetype.tpl");
 $tpl->set("url", $fil);
 $tpl->show();
 

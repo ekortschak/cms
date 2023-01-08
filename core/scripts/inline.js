@@ -10,14 +10,6 @@ function getView() {
 	return (chk != "none");
 }
 
-function clip() { // copy to clipboard
-	obj = document.getElementById("content");
-	obj.select();
-	obj.setSelectionRange(0, 99999); /* For mobile devices */
-	document.execCommand("copy");
-	obj.value = "";
-}
-
 // **********************************************************
 // modifying html code
 // **********************************************************

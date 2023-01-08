@@ -61,6 +61,10 @@ public static function lf($tag = "hr") {
 	echo HTM::lf($tag);
 }
 
+public static function pre($text) {
+	echo HTM::tag($text, "pre");
+}
+
 // ***********************************************************
 // standard tags
 // ***********************************************************

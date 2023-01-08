@@ -8,7 +8,6 @@ core/scripts/metakeys.js
 [body] <!-- body -->
 # ***********************************************************
 <div class="container">
-<!MOD:msgs!>
 <!MOD:edit.seo!>
 
 #<div id="pgeView" class="cold" contenteditable="true" spellcheck="false">

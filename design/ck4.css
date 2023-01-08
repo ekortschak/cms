@@ -1053,10 +1053,6 @@ textarea {
 	margin: 0px 0px 4px;
 }
 
-.localicon {
-	padding: 2px 0px;
-}
-
 .submenu {
 	color: FC_MARK;
 	background: linear-gradient(-3deg, white, BC_MARK 45%);

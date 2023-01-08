@@ -21,26 +21,20 @@ class HTM  {
 // ***********************************************************
 // handling standard objects
 // ***********************************************************
-public static function wtag($text, $tag = "h4") {
-	echo self::tag($text, $tag);
-}
 public static function tag($text, $tag = "h4") {
+	if (! $text) return "";
+	if (is_array($text)) $text = print_r($text, true);
 	return "<$tag>$text</$tag>\n";
 }
 
 public static function xtag($text, $tag = "h4") {
-	$out = DIC::getPfx("tag", $text); if (! $out) return "";
-	$arr = STR::toArray($tag);
-
-	foreach ($arr as $tag) {
-		$out = "<$tag>$out</$tag>";
-	}
-	echo "$out\n";
+	$out = DIC::getPfx("tag", $text);
+	return self::tag($out);
 }
 
 public static function lf($tag = "hr") {
 	if ($tag == "pbr") $tag = "\n\n<hr class='pbr'>\n";
-	echo "<$tag>\n";
+	return "<$tag>\n";
 }
 
 // ***********************************************************

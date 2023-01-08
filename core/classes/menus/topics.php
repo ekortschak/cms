@@ -2,18 +2,8 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-Used to create combo boxes containing links for immeadiate action
+Used to display page topics
 
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("menus/topics.php");
-
-$box = new topics();
-$box->setSpaces($before, $after);
-$box->getKey($qid, $values, $selected);
-$box->getVal($qid, $values, $selected);
-$box->show();
 */
 
 incCls("menus/dropBox.php");

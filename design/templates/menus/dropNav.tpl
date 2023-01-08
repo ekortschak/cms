@@ -33,13 +33,13 @@ dropBox.tpl
 # navigation
 # ***********************************************************
 [nav.left]
-<a class="localicon" href="?<!VAR:parm!>=<!VAR:prev!>">
-	<div style="padding: 0 10px;">&ltrif;</div>
+<a href="?<!VAR:parm!>=<!VAR:prev!>">
+	<div class="localicon">&ltrif;</div>
 </a>
 
 [nav.right]
-<a class="localicon" href="?<!VAR:parm!>=<!VAR:next!>">
-	<div style="padding: 0 10px;">&rtrif;</div>
+<a href="?<!VAR:parm!>=<!VAR:next!>">
+	<div class="localicon">&rtrif;</div>
 </a>
 
 [nav.null]

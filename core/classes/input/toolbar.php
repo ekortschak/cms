@@ -10,7 +10,7 @@ will create a floating toolbar
 incCls("input/toolbar.php");
 
 $obj = new toolbar();
-$obj->add($url_req, $capiton);
+$obj->add($url_req, $caption);
 $obj->show();
 */
 

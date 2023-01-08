@@ -26,10 +26,9 @@ public static function range($min, $max) {
 }
 
 // ***********************************************************
-// converting into arrays
+// converting arrays
 // ***********************************************************
 public static function xform($arr, $name = false) {
-	if (! $arr) return false;
 	if (! is_array($arr)) return $arr;
 
 	$out = print_r($arr, true);
@@ -43,6 +42,7 @@ public static function xform($arr, $name = false) {
 	return $out;
 }
 
+// ***********************************************************
 public static function toAssoc($arr, $mds = "vals") {
 	switch ($mds) {
 		case "keys": $out = array_keys($arr); break;
@@ -51,6 +51,27 @@ public static function toAssoc($arr, $mds = "vals") {
 	return array_combine($out, $out);
 }
 
+// ***********************************************************
+public static function toText($arr, $pfx = "") {
+	if (! $arr) return "";
+	if (! is_array($arr)) return $pfx.$arr."\n"; $out = "";
+
+	foreach ($arr as $key => $val) {
+		if (is_numeric($key)) {
+			$key++;
+			if (count($val) < 2) {
+				if (is_array($val)) $val = current($val);
+				$out.= "$pfx$key. $val\n";
+			}
+			continue;
+		}
+		$out.= $pfx.$key."\n";
+		$out.= self::toText($val, $pfx."\t");
+	}
+	return $out;
+}
+
+// ***********************************************************
 public static function explode($text, $sep = ",", $max = 0) {
 	$out = array(); if (is_array($text)) return $text;
 

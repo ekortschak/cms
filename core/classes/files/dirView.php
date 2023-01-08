@@ -23,18 +23,19 @@ incCls("files/fileInfo.php");
 // ***********************************************************
 class dirView extends tpl {
 	private $dir = "";
-    private $vrz = array();
-    private $fls = array();
-    private $ext = array();
+	private $vrz = array();
+	private $fls = array();
+	private $ext = array();
 
-    private $sort = "asc";
+	private $sort = "asc";
 
 // ***********************************************************
 function __construct() {
 	parent::__construct();
+	$this->load("modules/fview.gallery.tpl");
 
-    $this->set("title", "No title");
-    $this->set("visOnly", true);
+	$this->set("title", "No title");
+	$this->set("visOnly", true);
 }
 
 // ***********************************************************
@@ -43,7 +44,7 @@ function __construct() {
 public function readTree($dir, $ext = false) {
 	if (! $dir) return;
 
-    $this->dir = APP::dir($dir);
+	$this->dir = APP::dir($dir);
 	$this->vrz = FSO::tree($this->dir);
 	$this->setExt($ext);
 
@@ -58,30 +59,31 @@ public function readTree($dir, $ext = false) {
 // ***********************************************************
 public function gc($sec = "main") {
 	$this->set("curloc",  $this->dir);
-    $this->set("folders", $this->getFolders());
-    $this->set("thumbs",  $this->getThumbs());
-    $this->set("files",   $this->getFiles());
-    $this->set("first",   $this->getFirst());
+	$this->set("folders", $this->getFolders());
+	$this->set("thumbs",  $this->getThumbs());
+	$this->set("files",   $this->getFiles());
+	$this->set("first",   $this->getFirst());
+	$this->set("url",     $this->getFirst());
 
-    return parent::gc($sec);
+	return parent::gc($sec);
 }
 
 // ***********************************************************
 // handling folders
 // ***********************************************************
 private function getFolders() {
-    $lin = $this->getSection("Folder"); if (! $lin) return "";
-    $out = array(); if (! $this->vrz) return "";
+	$lin = $this->getSection("Folder"); if (! $lin) return "";
+	$out = array(); if (! $this->vrz) return "";
 
-    foreach ($this->vrz as $dir => $nam) {
-        $txt = STR::clear($dir, $this->dir); if (! $txt) continue;
+	foreach ($this->vrz as $dir => $nam) {
+		$txt = STR::clear($dir, $this->dir); if (! $txt) continue;
 
-        $this->set("path", $dir);
-        $this->set("text", $txt);
+		$this->set("path", $dir);
+		$this->set("text", $txt);
 
-        $out[] = $this->getSection("folder");
-    }
-    return implode("\n", $out);
+		$out[] = $this->getSection("folder");
+	}
+	return implode("\n", $out);
 }
 
 // ***********************************************************
@@ -89,16 +91,16 @@ private function getFolders() {
 // ***********************************************************
 private function getThumbs() {
 	$dir = FSO::join($this->dir, ".thumbs"); if (is_dir($dir))
-    return $this->getFiles("thumb");
-    return $this->getFiles("file");
+	return $this->getFiles("thumb");
+	return $this->getFiles("file");
 }
 
 private function getFiles($what = "file") {
-    $lin = $this->getSec($what)."\n"; $out = "";
-    $inf = new fileInfo();
+	$lin = $this->getSec($what)."\n"; $out = "";
+	$inf = new fileInfo();
 
 	foreach($this->fls as $fil => $nam) {
-        $xxx = $inf->read($fil);
+		$xxx = $inf->read($fil);
 		$out.= $inf->insVars($lin);
 	}
 	if ($out) return $out;

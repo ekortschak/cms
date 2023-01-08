@@ -22,7 +22,6 @@ replicator = Seiten übertragen
 [body] <!-- body -->
 # ***********************************************************
 <div class="container">
-<!MOD:msgs!>
 <!MOD:body.xfer!>
 </div>
 

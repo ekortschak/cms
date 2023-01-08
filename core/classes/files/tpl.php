@@ -34,6 +34,13 @@ function __construct() {
 // ***********************************************************
 // handling the template
 // ***********************************************************
+public function fetch($dir, $file) {
+#	$dir = APP::relPath($dir);
+	$ful = FSO::join($dir, $file);
+#	$ful = APP::file($fil); if (! $ful) $ful = $file;
+	return self::read($ful);
+}
+
 public function load($file) {
 	return self::read("LOC_TPL/$file");
 }
@@ -100,7 +107,7 @@ protected function getSec($sec) {
 	$sec = $this->norm($sec);
 	$out = $this->getLangSec($sec); if (! $out) return "";
 
-	$out = STR::before($out, "<nolf>");
+	$out = STR::before ($out, "<nolf>");
 	$out = STR::replace($out, "<dolf>", "\n");
 	return $out;
 }

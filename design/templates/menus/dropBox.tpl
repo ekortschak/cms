@@ -16,7 +16,7 @@ current = ???
 sep = :
 
 tspace = 0
-bspace = 3
+bspace = 1
 
 
 # ***********************************************************
@@ -28,7 +28,7 @@ bspace = 3
 </div>
 
 [link]
-<div><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div>
+<div><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
 
 # ***********************************************************
 [main] # simple combo box

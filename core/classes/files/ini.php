@@ -161,11 +161,10 @@ public function getIncFile($typ = "inc") {
 		return "collect.php";
 	}
 	if ($typ == "red") return "redirect.php"; // redirection to another local directory
-	if ($typ == "lin") return "redirect.php"; // internal link = redirect
-	if ($typ == "url") return "links.php";    // external link
+	if ($typ == "url") return "links.php";    // list of external links
 
 	if ($typ == "mim") return "mimeview.php"; // show files
-	if ($typ == "dow") return "gallery.php";  // download
+	if ($typ == "dow") return "download.php"; // download
     if ($typ == "gal") return "gallery.php";  // show files
     if ($typ == "upl") return "upload.php";   // upload
 	if ($typ == "cam") return "livecam.php";  // camera

@@ -29,11 +29,11 @@ img.lft {
 /* collections */
 /* ******************************************************** */
 .collection {
+	border: 1px solid OUTLINE;
+	border-radius: 7px;
 	max-width: 100%;
-	min-height: 430px;
+#	min-height: 430px;
 	max-height: 430px;
 	background-position: top;
 	background-size: cover;
-	border: 1px solid OUTLINE;
-	border-radius: 7px;
 }

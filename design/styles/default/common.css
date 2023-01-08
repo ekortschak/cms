@@ -4,17 +4,16 @@
 .nomargin {
 	margin: 0px;
 }
-
 .nopad {
 	padding: 0px;
 }
 
 .pre {
+	max-height: 150px;
 	overflow: auto;
 	font-family: monospace;
 	font-size: 0.75em;
 	white-space: pre;
-	max-height: 150px;
 }
 
 /* ******************************************************** */

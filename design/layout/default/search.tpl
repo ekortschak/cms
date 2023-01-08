@@ -17,7 +17,6 @@ LOC_LAY/default/main.tpl
 [body] <!-- body -->
 # ***********************************************************
 <div id="scView" class="container">
-<!MOD:msgs!>
 <!MOD:body.search!>
 </div>
 

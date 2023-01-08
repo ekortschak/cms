@@ -4,6 +4,7 @@
 .toolbar {
 	z-index: 35;
 	background: #e7e7e7;
+	margin-bottom: 3px;
 }
 
 .btnbar {

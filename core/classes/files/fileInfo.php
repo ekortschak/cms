@@ -23,16 +23,14 @@ class fileInfo extends objects {
 	private $fil = "";
 
 // ***********************************************************
-function __construct($file = "") {
-    $this->getInfo($file);
-    $this->fil = $file;
+function __construct() {
 }
 
 // ***********************************************************
 // setting & retrieving info
 // ***********************************************************
 public function read($file) {
-	$this->fil = $file;
+    $this->fil = $file;
 	$this->vls = array(); if (! is_file($file)) return false;
 	$inf = pathinfo($file);
 

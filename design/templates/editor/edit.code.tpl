@@ -4,6 +4,7 @@ LOC_TPL/editor/toolbar.tpl
 
 [register]
 core/scripts/keyEvents.js
+core/scripts/clipboard.js
 core/scripts/inline.js
 
 

@@ -13,7 +13,7 @@ $exc = $ini->getType("inc");
 incCls("files/dirView.php");
 // ***********************************************************
 $obj = new dirView();
-$obj->load("modules/fview.gallery.tpl");
+$obj->load("modules/fview.download.tpl");
 $obj->setSort($srt);
 $obj->readTree($dox, $ext);
 $obj->show();

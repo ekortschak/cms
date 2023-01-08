@@ -57,10 +57,13 @@ title = PRJ_TITLE
 # horizontal panels
 # ***********************************************************
 [banner] <!-- banner -->
-<!MOD:banner!>
+<!MOD:app.banner!>
 
 [menu] <!-- menu -->
 <!MOD:menu!>
+
+[trailer] <!-- banner -->
+<!MOD:app.trailer!>
 
 # ***********************************************************
 # vertical panels
@@ -97,7 +100,7 @@ title = PRJ_TITLE
 # ***********************************************************
 [body] <!-- body -->
 <div class="container" id="scView">
-<!MOD:msgs!>
+<!MOD:body.head!>
 <!MOD:body.feedback!>
 <!MOD:body!>
 </div>
@@ -107,7 +110,9 @@ title = PRJ_TITLE
 # ***********************************************************
 [opts] <!-- opts -->
 <div class="container conOpts">
+<!MOD:app.info!><br>
 <!MOD:user.opts!><br>
+<!MOD:msgs!>
 <!MOD:msgs.log!>
 </div>
 
