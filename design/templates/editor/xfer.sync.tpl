@@ -1,9 +1,3 @@
-[vars]
-head = <!DIC:confirm!>
-title = Sync
-
-what = BOOL_NO
-
 [dic]
 confirm = Confirmation required
 
@@ -17,6 +11,13 @@ confirm = Bestätigung erforderlich
 sync.source = Quelle
 sync.analize = Vergleichen
 sync.execute = Ausführen
+
+
+[vars]
+inifile = config/ftp.ini
+head = <!DIC:confirm!>
+title = Sync
+what = BOOL_NO
 
 
 # ***********************************************************
@@ -57,13 +58,13 @@ sync.execute = Ausführen
 [info]
 <h4>Important information</h4>
 
-<p>Files that are listed in <dfn>config/ftp.ini</dfn> in the section <dfn>[protect]</dfn>
+<p>Files that are listed in <dfn><!VAR:inifile!></dfn> in the section <dfn>[protect]</dfn>
 will <b>never</b> be transferred automatically. (e.g. server configuration)</p>
 
 [info.de]
 <h4>Wichtiger Hinweis</h4>
 
-<p>Dateien, die in der Datei <dfn>config/ftp.ini</dfn> in der Sektion <dfn>[protect]</dfn> aufgelistet sind,
+<p>Dateien, die in der Datei <dfn><!VAR:inifile!></dfn> in der Sektion <dfn>[protect]</dfn> aufgelistet sind,
 werden <b>nie automatisch</b> übertragen. (z.B. Server-Konfiguration)</p>
 
 

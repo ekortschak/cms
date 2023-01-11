@@ -132,10 +132,11 @@ protected function showInfo($info = "info") {
 	if (! $this->visOnly)
 	$tpl->set("what", BOOL_YES);
 
-	$tpl->set("title",  $this->get("title"));
-	$tpl->set("head",   $this->get("head"));
-	$tpl->set("source", $this->src);
-	$tpl->set("dest",   $this->dst);
+	$tpl->set("inifile", $this->get("inifile"));
+	$tpl->set("title",   $this->get("title"));
+	$tpl->set("head",    $this->get("head"));
+	$tpl->set("source",  $this->src);
+	$tpl->set("dest",    $this->dst);
 
 	$tpl->show($info);
 	$tpl->show();

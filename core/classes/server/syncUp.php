@@ -40,6 +40,9 @@ function __construct() {
 
 // ***********************************************************
 public function read($ini = false) {
+	$fil = APP::relPath($ini);
+	$this->set("inifile", $fil);
+
 	$this->ftp->read($ini);
 	$this->getDest();
 }
