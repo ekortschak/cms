@@ -110,8 +110,8 @@ title = PRJ_TITLE
 # ***********************************************************
 [opts] <!-- opts -->
 <div class="container conOpts">
-<!MOD:app.info!><br>
-<!MOD:user.opts!><br>
+<!MOD:app.info!>
+<!MOD:user.opts!>
 <!MOD:msgs!>
 <!MOD:msgs.log!>
 </div>

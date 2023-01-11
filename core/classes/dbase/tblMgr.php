@@ -42,13 +42,13 @@ class tblMgr extends dbBasics {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
-	$this->register("$dbase.$table");
 
 	$this->dbs = $dbase;
-	$this->tbl = $table;
+	$this->register("$dbase.$table");
 
 	$rec = OID::get($this->oid, "rec", "list");
 
+	$this->setTable($table);
 	$this->set("rec", $rec);
 	$this->prp = new items();
 }
@@ -56,7 +56,9 @@ function __construct($dbase, $table) {
 // ***********************************************************
 // preparing view according to table info
 // ***********************************************************
-public function addFilter($filter) { $this->flt = $filter; }
+public function addFilter($filter) {
+	$this->flt = $filter;
+}
 
 public function permit($value = "x") {
 	$this->set("perms", $value);
@@ -74,6 +76,10 @@ public function setType($field, $type) {
 public function setProp($field, $prop, $value) {
 	$this->prp->addItem($field);
 	$this->prp->setProp($field, $prop, $value);
+}
+
+protected function getProps() {
+	return $this->prp->getItems();
 }
 
 // ***********************************************************
@@ -98,10 +104,10 @@ public function fixVal($field, $value) {
 // display methods
 // ***********************************************************
 public function show($recID = 0) {
-	$recID = intval($this->get("rec", $recID));
+	$recID = intval(ENV::getParm("rec", $recID));
 
 	switch ($recID) {
-		case 0:  $this->tblView(); break;
+		case 0:  $this->recView(); break;
 		default: $this->recEdit($recID);
 	}
 }
@@ -111,43 +117,43 @@ public function act() {
 }
 
 // ***********************************************************
-private function tblView() {
+private function recView() {
 	incCls("dbase/tblFilter.php");
 	incCls("dbase/tblView.php");
 
-	$dbs = $this->dbs;
-	$tbl = $this->tbl;
-	$prp = $this->prp->getItems();
-
-	$sel = new tblFilter($dbs, $tbl); // filter
+	$sel = new tblFilter($this->dbs, $this->tbl); // filter
 	$sel->set("oid", $this->oid);
 	$sel->addFilter($this->flt);
 	$sel->show();
 
-	$dbt = new tblView(); // data
-	$dbt->set("oid", $this->oid);
-	$dbt->setTable($dbs, $tbl, $sel->getFilter());
-	$dbt->mergeProps($prp);
-	$dbt->merge($this->vls);
-	$dbt->show();
+	$prp = $this->getProps();
+	$flt = $sel->getFilter();
 
-	$this->rec = $dbt->getRec();
-	$this->cnt = $dbt->rowCount();
+	$dbv = new tblView(); // data
+	$dbv->set("oid", $this->oid);
+	$dbv->setTable($this->dbs, $this->tbl, $flt);
+	$dbv->mergeProps($prp);
+	$dbv->merge($this->vls);
+	$dbv->show();
+
+	$this->rec = $dbv->getRec();
+	$this->cnt = $dbv->rowCount();
 }
 
 // ***********************************************************
 private function recEdit($recID) {
 	incCls("dbase/recEdit.php");
 
-	$prp = $this->prp->getItems();
+	$prm = $this->getPerms($recID);
+	$prp = $this->getProps();
 
 	$dbe = new recEdit($this->dbs, $this->tbl);
-	$dbe->enable("t");
 	$dbe->set("oid", $this->oid);
 	$dbe->mergeProps($prp);
 	$dbe->merge($this->vls);
 	$dbe->findRec($recID);
-	$dbe->permit($this->getPerms($recID));
+	$dbe->enable("t");
+	$dbe->permit($prm);
 	$dbe->show();
 
 	$this->rec = $dbe->getRec();

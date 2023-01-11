@@ -9,11 +9,13 @@ Intended to simplify modification of db objects.
 // ***********************************************************
 incCls("dbase/dbBasics.php");
 
-$dbo = new dbBasics($dbase, $table);
-$dbo->setQuery($table, $fields, $filter, $order);
+$dbo = new dbBasics($dbase);
 $dbo->setTable($table);
+$dbo->setField($table, $fields);
+$dbo->setWhere($filter);
+$dbo->setOrder($order);
 
-$inf = $dbo->fetch($key);
+$inf = $dbo->getStmt($key);
 
 */
 
@@ -25,30 +27,23 @@ incCls("input/confirm.php");
 // ***********************************************************
 class dbBasics extends sqlStmt {
 	protected $dbo = false;
-	protected $con = false;
 	protected $dbs = NV;
-	protected $tbl = "dummy";
+	protected $con = false;
 
-function __construct($dbase, $table = "dummy") {
+function __construct($dbase = NV) {
+	parent::__construct($dbase);
+
 	$ini = new ini("config/dbase.ini");
-	$this->dbs = $ini->get("dbase.file");
+	$this->dbs = $ini->get("dbase.file"); if ($dbase !== NV) $this->dbs = $dbase;
 	$this->usr = $ini->get("dbase.user");
 	$this->pwd = $ini->get("dbase.pass");
-	$this->tbl = $table;
-	$typ = DB_MODE;
 
-	if ($dbase !== NV) $this->dbs = $dbase;
-
-	$sql = APP::file("core/classes/dbase/$typ.php"); if (! $sql) return;
-
-	$this->init($typ); // read sql syntax
-	$this->setTable($table);
-	$this->setQuery($table, "*", 1);
-
-	incCls("dbase/$typ.php");
+	$typ = DB_MODE; incCls("dbase/$typ.php");
 
 	$this->dbo = new $typ("localhost", $this->dbs);
-	$this->con = $this->dbo->connect($this->usr, $this->pwd);
+	$this->con = $this->dbo->connect($this->usr, $this->pwd); if (! $this->con) return;
+
+	$this->init($typ); // read sql syntax
 }
 
 public function isDbase($dbs) {
@@ -93,7 +88,7 @@ public function exec($sql, $mode) {
 }
 
 public function query($filter = 1, $order = false) {
-	$this->setFilter($filter);
+	$this->setWhere($filter);
 	$this->setOrder($order);
 	$this->setLimit(1);
 	return $this->get1st("sel.sel"); // one record at a time
@@ -102,7 +97,7 @@ public function query($filter = 1, $order = false) {
 
 // ***********************************************************
 public function getData($flt = 1) {
-	$xxx = $this->setFilter($flt); $out = array();
+	$xxx = $this->setWhere($flt); $out = array();
 	$dat = $this->getRecs(); if (! $dat) return "";
 
 	foreach ($dat as $num => $rec) {
@@ -115,7 +110,7 @@ public function getRecs($stmt = "sel.sel", $mds = "a") {
 	if (! $this->con) return false;
 
 	$xxx = $this->setLimit(99);
-	$sql = $this->fetch($stmt);
+	$sql = $this->getStmt($stmt); if (! $sql) return array();
 
 	return $this->dbo->fetch($sql, $mds);
 }
@@ -123,7 +118,8 @@ public function get1st($stmt = "sel.sel", $mds = "a") {
 	if (! $this->con) return false;
 
 	$xxx = $this->setLimit(1);
-    $sql = $this->fetch($stmt); if (! $sql) return array();
+    $sql = $this->getStmt($stmt); if (! $sql) return array();
+
 	return $this->dbo->fetch1st($sql, $mds);
 }
 
@@ -182,7 +178,7 @@ public function isField($table, $field) {
 }
 public function getDVs($fields, $filter = 1, $sep = " ") {
 	$this->setFields($fields, true, false);
-	$this->setFilter($filter);
+	$this->setWhere($filter);
 
 	$arr = $this->getRecs("sel.dvs"); if (! $arr) return false;
 	$out = array();
@@ -199,11 +195,11 @@ public function getDVs($fields, $filter = 1, $sep = " ") {
 // retrieving data
 // ***********************************************************
 public function isRecord($filter = 1) {
-	$this->setFilter($filter);
+	$this->setWhere($filter);
 	return (bool) $this->get1st("sel.fnd");
 }
 public function rowCount($filter = 1) {
-	$this->setFilter($filter);
+	$this->setWhere($filter);
 	$arr = $this->get1st("sel.cnt");
 	return $arr[0];
 }
@@ -217,7 +213,7 @@ public function ta_rollback() { return $this->xact("rbk"); }
 
 protected function xact($wht) {
 	if ( ! $this->con) return false;
-    $qry = $this->fetch("hold.$wht");
+    $qry = $this->getStmt("hold.$wht");
     return $this->exec($qry);
 }
 

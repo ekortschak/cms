@@ -40,7 +40,10 @@ public function setTable($dbase, $table, $flt = "") {
 
 	$flt = implode(" AND ", $lst);
 
-    $xxx = $dbq->setQuery($table, $fds, $flt, $ord);
+    $dbq->setField($table, $fds);
+    $dbq->setWhere($flt);
+    $dbq->setOrder($ord);
+
     $arr = $dbq->getRecs(); if (! $arr) return;
 	$fds = $arr[0];
 

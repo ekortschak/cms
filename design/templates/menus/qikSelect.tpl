@@ -13,8 +13,8 @@ dropBox.tpl
 
 [main.box]
 <tr>
-	<td class="selHead" width=<!VAR:width!>><!VAR:uniq!></td>
-	<td class="selData">
+	<td class="selHead" width="<!VAR:wid!>"><!VAR:uniq!></td>
+	<td class="selData" width="*">
 		<div class="dropdown">
 			<button><!VAR:current!>COMBO_DOWN</button>
 <!SEC:content!>
@@ -24,6 +24,6 @@ dropBox.tpl
 
 [main.one]
 <tr>
-	<td width=<!VAR:width!>><!VAR:uniq!></td>
-	<td><button><!VAR:current!></button></td>
+	<td width="<!VAR:wid!>"><!VAR:uniq!></td>
+	<td width="*"><button><!VAR:current!></button></td>
 </tr>

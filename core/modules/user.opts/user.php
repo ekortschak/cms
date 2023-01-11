@@ -28,7 +28,7 @@ function getDB() {
 	</tr>
 	<tr>
 		<td>Groups</td>
-		<td><?php echo CFG::get("DB_GRPS", "-"); ?></td>
+		<td><?php echo DB_GRPS; ?></td>
 	</tr>
 	<tr>
 		<td>FS</td>

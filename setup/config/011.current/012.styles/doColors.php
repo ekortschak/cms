@@ -34,13 +34,13 @@ $tpl = new tpl();
 $tpl->load("editor/cssColors.tpl");
 $out = "";
 
-$arr = PGE::getSecs($ful);
+$ini = new ini($ful);
+$arr = $ini->getSecs();
 
 foreach ($arr as $key => $val) {
 	$xxx = $tpl->set("title", DIC::get($key));
 	$out.= $tpl->gc("section");
-
-	$clr = $ini->getValues($key);
+	$clr = $ini->getValues($ful, $key);
 	$lst = array();
 
 	foreach ($clr as $key => $val) {

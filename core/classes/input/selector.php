@@ -169,9 +169,9 @@ public function setProp($prop, $value) {
 // ***********************************************************
 // output
 // ***********************************************************
-public function xShow() {
+public function xShow($sec = "main") {
 	if ($this->act()) $this->itm->toROnly();
-	return $this->show();
+	return $this->show($sec);
 }
 
 public function show($sec = "main") {

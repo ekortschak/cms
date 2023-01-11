@@ -20,8 +20,10 @@ incCls("dbase/dbBasics.php");
 // ***********************************************************
 class dbInfo extends dbBasics {
 
-function __construct($dbase = NV, $table = "dummy") {
-	parent::__construct($dbase, $table);
+function __construct($dbase = NV, $table = NV) {
+	parent::__construct($dbase);
+
+	$this->setTable($table);
 }
 
 // ***********************************************************
@@ -33,8 +35,7 @@ public function dbases() {
 	$out = array();
 
 	foreach ($arr as $dbs) {
-		if (! $dbs) continue;
-		$nam = current($dbs);
+		if (! $dbs) continue; $nam = current($dbs);
 		if (STR::contains($nam, "_schema")) continue;
 		if (STR::contains($ign, ".$nam."))  continue;
 		$out[$nam] = $nam;
@@ -60,21 +61,11 @@ public function tables($tablemask = "%") {
 	return $out;
 }
 
-public function tblPerms($nam = "tbl.access") {
-	return array(
-		"w"  => "write",
-		"ae" => "add & edit", "ad" => "add & delete", "ed" => "edit & delete",
-		"a"  => "add", "e"  => "edit", "d"  => "delete",
-		"r"  => "read only", "x" => "none"
-	);
-}
-
 // ***********************************************************
 // handling fields
 // ***********************************************************
-public function fields($table, $fieldmask = "%") {
+public function fields($table) {
 	$xxx = $this->setTable($table);
-	$xxx = $this->setField($table, $fieldmask);
 	$arr = $this->getRecs("inf.fds"); if (! $arr) return false;
 	$arr = $this->getCol($arr, "Field");
 	$lng = CUR_LANG; $out = array();
@@ -89,49 +80,30 @@ public function fields($table, $fieldmask = "%") {
 }
 
 // ***********************************************************
-public function fldList($tbl, $mask = "%", $skip = "ID") {
-	$out = parent::fldList($tbl, $mask);
-	if ($skip) unset($out[$skip]);
-	return $out;
-}
-
+// general info
 // ***********************************************************
 public function fldTypes() {
-	return array(
-		"var" => "Text", "num" => "Number",
-		"mem" => "Memo", "dat" => "Date / Time",
-	);
+	return $this->getValues("opts.ftypes");
 }
 
 // ***********************************************************
 public function fldLen($typ) {
-	switch ($typ) {
-		case "var": return $this->getVarLens();
-		case "num": return array("int" => "Integer", "dbl" => "Double", "dec" => "Decimal");
-		case "dat": return array("dat" => "Date", "dnt" => "Date & Time", "tim" => "Time", "cur" => "Timestamp");
-		case "md5": return array(32 => 32);
-	}
-	return array("mem" => "*");
+	return $this->getValues("opts.flen.$typ");
 }
 
 public function fldLenFind($typ, $lng) {
 	if ($typ == "mem") return false;
-	if ($typ == "var") {
-		foreach ($this->getVarLens() as $val) {
-			if ($val >= $lng) return $val;
-		}	return $val;
+	if ($typ != "var") return $lng;
+
+	$arr = $this->fldLen($typ);
+
+	foreach ($arr as $val) {
+		if ($val >= $lng) return $val;
 	}
-	return $lng;
+	return $val;
 }
 
-private function getVarLens() {
-	$out = array(5, 10, 15, 25, 32, 50, 75, 100, 150, 200, 250);
-	$out = array_combine($out, $out);
-	$out[32] = "32 - MD5";
-	return $out;
-}
-
-
+// ***********************************************************
 public function fldNull($typ) {
 	switch ($typ) {
 		case "cur": case "txt": return array("YES" => "YES");
@@ -140,31 +112,16 @@ public function fldNull($typ) {
 }
 
 // ***********************************************************
-public function fldPerms() {
-	return array("w" => "write", "r" => "read only", "x" => "none");
-}
-
-// ***********************************************************
 // handling access groups
 // ***********************************************************
 public function usrGroups($sys = true) {
-	$lst = "x.ID.cat.spec"; if (! $sys) $lst.= ".www.user.admin";
+	$lst = "x.ID.cat.spec"; if (! $sys) // eliminate non group fields
+	$lst.= ".www.user.admin"; // eliminate system groups if needed
+
 	$arr = $this->fields("dbxs");
 	return $this->dropSysObjs($arr, $lst);
 }
 
-public function usrList($sys = true) {
-	$lst = ""; if (! $sys) $lst = "admin.powerman";
-	$arr = $this->getDVs("uname"); if (! $arr) return false;
-	return $this->dropSysObjs($arr, $lst);
-}
-
-public function usrPerms() {
-	return array("m" => "member", "x" => "none");
-}
-
-// ***********************************************************
-// auxilliary methods
 // ***********************************************************
 private function dropSysObjs($arr, $lst) {
  // drop reserved or delicate items from output array

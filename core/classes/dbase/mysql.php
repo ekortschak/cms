@@ -98,7 +98,7 @@ private function run($sql) {
 	if (! $sql) return false;
 
 	$sql = CFG::insert($sql);
-	$res = $this->con->query($sql); if ($res) return $res;
+	$res = @$this->con->query($sql); if ($res) return $res;
 
 	return ERR::sql($this->con->error."\n", $sql);
 }

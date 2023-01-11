@@ -12,7 +12,7 @@ Intended to simplify handling of mysql queries
 incCls("dbase/dbQuery.php)";
 
 $dbq = new dbQuery($dbs, $table);
-$dbq->setFilter($filter);
+$dbq->setWhere($filter);
 $dbq->setOrder($order);
 
 $arr = $dbq->query($filter); 	// return 1st record found
@@ -41,8 +41,9 @@ class dbQuery extends dbBasics {
 	protected $ask = true; // ask for confirmation
 
 function __construct($dbase, $table = "dummy") {
-	parent::__construct($dbase, $table);
+	parent::__construct($dbase);
 
+	$this->setTable($table);
 	$this->setValidator($dbase, $table);
 }
 
@@ -77,9 +78,9 @@ public function delete($filter) {
 // ***********************************************************
 private function runSQL($sec, $vls, $flt = 0) {
 	if ($vls) $this->setProps($vls);
-	if ($flt) $this->setFilter($flt);
+	if ($flt) $this->setWhere($flt);
 
-	$sql = $this->fetch($sec);
+	$sql = $this->getStmt($sec);
 	$mod = STR::after($sec, ".");
 
 	$cnf = $this->confirm($sql); if (! $cnf) return false;

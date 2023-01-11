@@ -15,7 +15,7 @@ sep =
 <!VAR:uniq!><!VAR:sep!>
 <div class="dropdown"><!VAR:current!>COMBO_DOWN
 <!SEC:content!>
-</div> &emsp;
+</div> &ensp;
 
 [main.one]
 <!VAR:uniq!><!VAR:sep!> <!VAR:current!> &ensp;

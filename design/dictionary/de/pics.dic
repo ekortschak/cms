@@ -1,10 +1,12 @@
 [dic.de]
 pic.editor = 📝
 pic.file = 📄
-pic.folder = <img src="ICONS/files/folder.gif" alt="folder">
+pic.folder = <img src="ICONS/files/folder.gif" class="icon" alt="folder">
 pic.medium = 💿
 pic.mode = Methode
-pic.dbase = <img src="ICONS/buttons/db.png" alt="databases">
-pic.table = <img src="ICONS/buttons/table.png" alt="tables">
-pic.group = <img src="ICONS/buttons/user.gif" alt="usergroups">
-pic.privs = <img src="ICONS/buttons/key.png" alt="privileges">
+pic.dbase = <img src="ICONS/buttons/db.png" class="icon" alt="databases">
+pic.table = <img src="ICONS/buttons/table.png" class="icon" alt="tables">
+pic.field = <img src="ICONS/buttons/field.png" class="icon" alt="column">
+pic.filter = <img src="ICONS/buttons/filter.png" class="icon" alt="record filter">
+pic.group = <img src="ICONS/buttons/ugroups.png" class="icon" alt="usergroups">
+pic.privs = <img src="ICONS/buttons/lock.png" class="icon" alt="privileges">

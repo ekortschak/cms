@@ -1,7 +1,6 @@
 [dic.de]
 Check UIDs - OK = Check UIDs - OK*
 file.exists = Datei existiert bereits
-meta = Meta*
 mnu.static = Menü ist eingefroren ...
 page.props = Seiten-Eigenschaften
 sys.exts = Erweiterungen

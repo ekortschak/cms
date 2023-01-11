@@ -38,14 +38,16 @@ class recEdit extends dbBasics {
 	protected $btn = "";
 
 function __construct($dbase, $table) {
-	parent::__construct($dbase, $table);
+	parent::__construct($dbase);
+
+	$this->register("$dbase.$table");
+	$this->setTable($table);
+	$this->forget();
 
 	$this->fds = new items();
 	$inf = $this->tblProps($table);
 
-	$this->register("$dbase.$table");
 	$this->permit($inf["perms"]);
-	$this->forget();
 	$this->findDefaults();
 }
 
@@ -171,9 +173,6 @@ public function gc() {
 	$xxx = OID::set($this->oid, "tan", $tan);
 
 	$sel = new fldEdit();
-
-	if (! STR::contains($this->btn, "t")) $sel->clearSec("buttons");
-
 	$sel->set("oid", $this->oid);
 	$sel->set("tan", $tan);
 	$sel->set("perms", $txs);
@@ -185,6 +184,7 @@ public function gc() {
 	$sec = "main"; if ($cnt < 1)
 	$sec = "no.perms";
 
+	if (! STR::contains($this->btn, "t")) $sel->clearSec("buttons");
 	return $sel->gc($sec);
 }
 

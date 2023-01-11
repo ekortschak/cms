@@ -35,7 +35,7 @@ grant = Erlaube
 
 [TCols]
 	<tr class="<!VAR:class!>">
-		<th align="center"><img src="ICONS/nav/OK.gif" onClick="toggleCB();"></th>
+		<th align="center"><img src="ICONS/nav/toggle.gif" onClick="toggleCB();"></th>
 		<!VAR:data!>
 	</tr>
 

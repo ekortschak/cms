@@ -23,55 +23,44 @@ $sql = new SQL($table);
 // Begin of Class
 // ***********************************************************
 class sqlStmt extends objects {
+	protected $tbl = NV;
 	protected $vls;   // array of string values
 
 public function __construct() {}
 
 public function init($dbtype) {
 	$typ = strtolower($dbtype);
-	$ini = new ini("dbase/syntax/$typ/sql.ini"); $this->merge($ini->getValues());
-	$ini = new ini("dbase/syntax/$typ/ddl.ini"); $this->merge($ini->getValues());
 
+	$ini = new ini(NV);
+	$ini->read("dbase/syntax/$typ/sql.ini");
+	$ini->read("dbase/syntax/$typ/ddl.ini");
+	$ini->read("dbase/syntax/$typ/def.ini");
+
+	$this->merge($ini->getValues());
 	$this->setMasks();
-	$this->setFields(); // sets distinct and order as well
-	$this->fetch();
-	$this->setLimit();
-}
-
-// ***********************************************************
-// queries
-// ***********************************************************
-public function setQuery($table, $fields = "", $filter = "", $order = "", $limit = 0) {
-	$this->setTable($table);
-    if ($fields) $this->setFields($fields);
-	if ($filter) $this->setFilter($filter);
-    if ($order)  $this->setOrder($order);
-    if ($limit)  $this->setLimit($limit);
-}
-
-private function reset($table, $fields = "*") {
-	$this->set("tab", $this->clearQuotes($table));
-    $this->setFields($fields);
-	$this->setFilter("");
-    $this->setOrder("");
-    $this->setLimit(0);
 }
 
 // ***********************************************************
 // tables and fields
 // ***********************************************************
 public function setTable($table) {
-	if ($table) $this->reset($table);
+	$this->tbl = $table;
+	$this->set("tab", $this->quoteClr($table));
+	$this->set("fld", "*");
+
+	$this->setWhere(1); $this->setOrder("");
+    $this->setLimit(0);
 }
+
 public function setField($table, $field) {
-	$this->setTable($table); if (! $field) return;
-	$this->set("fld", $field);
+	$this->setTable($table);
+	$this->set("fld", $this->quoteDbo($field));
 }
 
 public function setFields($fields = "*", $distinct = false, $order = true) {
 	$fds = "*"; if ($fields) $fds = $fields;
 	$fds = $this->quoteDbo($fields);
-	$this->set("fds", $fds);
+	$this->set("fld", $fds);
 	$this->setDistinct($distinct);
 	$this->setOrder($fds);
 }
@@ -79,28 +68,31 @@ public function setFields($fields = "*", $distinct = false, $order = true) {
 // ***********************************************************
 // functions related to SELECT statements
 // ***********************************************************
-public function setMasks($table = "%", $field = "%") {
-	$this->set("tmask", $table);
-	$this->set("fmask", $field);
-}
-public function setDistinct($value = false) {
-	$dvs = ""; if ($value) $dvs = $this->fetch("parts.dvs");
-	$this->set("dvs", $dvs);
-}
-public function setFilter($filter = false) {
-	$flt = 0; if ($filter) $flt = $filter;
-	if (is_array($filter)) $flt = $this->quotePairs($filter, " AND ");
+public function setWhere($filter = false) {
+	$flt = 0; if ($filter)
+	$flt = $filter; if (is_array($filter))
+	$flt = $this->quotePairs($filter, " AND ");
+
 	$this->set("flt", $flt);
-	$this->set("flt", $this->fetch("parts.whr"));
+	$this->set("flt", $this->getStmt("parts.whr"));
 }
 public function setOrder($fields = false) {
 	$str = $fields; if ($str == "*") $str = false;
 	$ord = "ID";    if ($str) $ord = $str;
 	$this->set("ord", $this->quoteDbo($ord));
-	$this->set("ord", $this->fetch("parts.ord"));
+	$this->set("ord", $this->getStmt("parts.ord"));
 }
 public function setOrderMan($crit) {
 	$this->set("ord", $crit);
+}
+
+public function setMasks($table = "%", $field = "%") {
+	$this->set("tmask", $table);
+	$this->set("fmask", $field);
+}
+protected function setDistinct($value = false) {
+	$dvs = ""; if ($value) $dvs = $this->getStmt("parts.dvs");
+	$this->set("dvs", $dvs);
 }
 
 // ***********************************************************
@@ -108,7 +100,7 @@ public function setOrderMan($crit) {
 // ***********************************************************
 public function setProps($values) {
 	if (! is_array($values)) return;
-	$this->set("fds", $this->quoteDbo(array_keys($values)));
+	$this->set("fld", $this->quoteDbo(array_keys($values)));
 	$this->set("vls", $this->quoteVls(array_values($values)));
 	$this->set("par", $this->quotePairs($values));
 }
@@ -117,16 +109,20 @@ public function setProps($values) {
 // handling limits
 // ***********************************************************
 public function setLimit($count = 1, $first = 0) {
-	$this->set("fst", $first); $what = "rng";
-	$this->set("cnt", $count); if ($first < 1) $what = "lim";
-	$this->set($what, $this->fetch("parts.$what"));
+	$this->set("lim", ""); $this->set("fst", $first);
+	$this->set("rng", ""); $this->set("max", $count);
+
+	$what = "rng"; if ($first < 1)
+	$what = "lim";
+
+	$this->set($what, $this->getStmt("parts.$what"));
 }
 
 // ***********************************************************
 // retrieving statements
 // ***********************************************************
-public function fetch($stmt = "sel.all") { // $stmt => section.key
-	$sql = $this->get($stmt); if (! $sql) return "SQL not found: $stmt";
+ public function getStmt($stmt = "sel.all") { // $stmt => section.key
+	$sql = $this->get($stmt); if (! $sql) return false;
 	$sql = $this->insVars($sql);
 	$sql = $this->chkSql($sql);
 	return $sql;
@@ -166,17 +162,17 @@ private function quoteDbo($dbo) {
 		return $out;
 	}
 	$sep = $this->get("props.qsep", ".");
-	$dbo = $this->clearQuotes($dbo);
-	$dbo = $this->addQuotes($dbo);
+	$dbo = $this->quoteClr($dbo);
+	$dbo = $this->quoteAdd($dbo);
 	return $dbo;
 }
 
-private function clearQuotes($dbo) {
+private function quoteClr($dbo) {
 	$dbo = STR::clear($dbo, $this->get("props.qot1", "`"));
 	$dbo = STR::clear($dbo, $this->get("props.qot2", "`"));
 	return $dbo;
 }
-private function addQuotes($dbo) {
+private function quoteAdd($dbo) {
 	$one = $this->get("props.qot1", "`");
 	$two = $this->get("props.qot2", "`");
 	$dbo = STR::toArray($dbo, ",");

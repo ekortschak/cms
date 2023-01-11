@@ -34,9 +34,6 @@ public static function init() {
 	self::seal();
 }
 
-// ***********************************************************
-// storing variables
-// ***********************************************************
 private static function mergeArr($arr) {
 	foreach ($arr as $key => $val) {
 		self::set($key, $val);

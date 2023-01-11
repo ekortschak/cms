@@ -22,19 +22,18 @@ DBS::init();
 class DBS {
 	private static $con = false;   // db connection
 	private static $dbs = false;   // db object
-	private static $inf = array(); // fld prop cache
 
 
 public static function init() {
 	CFG::set("DB_CON",   self::loadDbs());
 	CFG::set("DB_LOGIN", self::isUser());
 	CFG::set("DB_ADMIN", self::isAdmin());
-	CFG::set("USR_GRPS", self::getGroups());
+	CFG::set("USR_GRPS", self::ugroups());
 }
 
 // ***********************************************************
 private static function loadDbs() {
-	self::$dbs = new dbBasics(NV);
+	self::$dbs = new dbInfo();
 	self::$con = self::$dbs->getState();
 	return self::$con;
 }
@@ -43,16 +42,13 @@ private static function loadDbs() {
 // querying db state
 // ***********************************************************
 public static function dbases() {
-	$dbi = new dbInfo();
-	return $dbi->dbases();
+	return self::$dbs->dbases();
 }
 public static function tables($dbs) {
-	$dbi = new dbInfo($dbs);
-	return $dbi->tables();
+	return self::$dbs->tables();
 }
 public static function fields($dbs, $tbl, $key = false) {
-	$dbi = new dbInfo($dbs);
-	$out = $dbi->fields($tbl); if (! $key) unset($out["ID"]);
+	$out = self::$dbs->fields($tbl); if (! $key) unset($out["ID"]);
 	return $out;
 }
 
@@ -85,7 +81,7 @@ public static function isDbGroup($grp, $usr = CUR_USER)  {
 	return self::$dbs->isField($grp);
 }
 
-public static function getGroups($usr = CUR_USER)  {
+public static function ugroups($usr = CUR_USER)  {
 	if (  DB_ADMIN) return "admin";
 	if (! DB_LOGIN) return "www";
 
@@ -97,6 +93,11 @@ public static function getGroups($usr = CUR_USER)  {
 		if ("$val" == "m") $out[$key] = $key;
 	}
 	return implode(",", $out);
+}
+
+public static function pgroups($dbs, $mds = false) { // public groups (may be edited)
+	$out = self::$dbs->usrGroups($mds); if (! $out) $out = "?";
+	return $out;
 }
 
 // ***********************************************************

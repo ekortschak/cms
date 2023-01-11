@@ -39,8 +39,8 @@ public function readPath($dir, $fil = "perms.ini") {
 }
 
 public function read($file) { // ini lines
-	$fil = $this->checkFile($file); if (! $fil) return;
-	$txt = $this->getContent($fil); if (! $txt) return;
+	$fil = $this->checkFile($file); if (! $fil) return false;
+	$txt = $this->getContent($fil); if (! $txt) return false;
 	$txt = $this->buttons($txt);
 
 	$this->incFiles($txt);
@@ -50,6 +50,8 @@ public function read($file) { // ini lines
 	$this->addDics();
 	$this->setVars();
 	$this->setProps($file);
+
+	return true;
 }
 
 // ***********************************************************

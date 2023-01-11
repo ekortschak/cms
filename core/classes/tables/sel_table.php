@@ -48,7 +48,7 @@ protected function exec($dbase, $tbl, $flt) { // recSel templates
 	$vls = array($fld => $new);
 
 	$dbq = new dbQuery($dbase, $tbl);
-	$dbq->setFilter($flt);
+	$dbq->setWhere($flt);
 	$dbq->askMe(false);
 
 	foreach ($rec as $key => $val) {

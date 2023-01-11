@@ -34,18 +34,15 @@ class ftp extends objects {
 
 function __construct() {
 	$this->read("config/ftp.ini");
-
-	ftp_set_option($this->con, FTP_TIMEOUT_SEC, $this->timeout);
 }
 
 public function read($inifile) {
 	$this->set("inifile", $inifile);
 
 	$ini = new ini($inifile);
-	$prp = $ini->getValues();
-	$this->merge($prp);
-
+	$prp = $ini->getValues(); $this->merge($prp);
 	$prt = $ini->getValues("protect");
+
 	$this->prt = array_keys($prt);
 }
 
@@ -71,6 +68,7 @@ public function connect() {
 	$con = @ftp_connect($srv);           if (! $con) return false;
 	$erg = @ftp_login($con, $usr, $pwd); if (! $erg) return false;
 
+	ftp_set_option($con, FTP_TIMEOUT_SEC, $this->timeout);
 	ftp_raw($con, 'OPTS UTF8 ON');
 	ftp_pasv($con, true);
 

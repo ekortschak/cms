@@ -6,6 +6,9 @@ img {
 	border: 0px;
 	vertical-align: middle;
 }
+img.icon {
+	vertical-align: -2px;
+}
 img.flag {
 	border: 1px solid OUTLINE;
 	border-radius: 5px;

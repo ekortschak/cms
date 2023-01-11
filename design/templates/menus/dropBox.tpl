@@ -11,7 +11,7 @@ range = Bereich
 [vars]
 parm = ref
 type = button
-width = 125
+wid = 125
 current = ???
 sep = :
 

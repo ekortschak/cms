@@ -178,16 +178,19 @@ public function getIncFile($typ = "inc") {
 // reading ini files
 // ***********************************************************
 public function read($file) {
-	$this->setFile($file);
+	$fil = $this->chkFile($file);
 
 	$cod = new code();
-	$cod->read($this->file);
+	$erg = $cod->read($fil); if (! $erg) return;
 
 	$this->sec = array_merge($this->sec, $cod->getSecs());
 	$this->vrs = $cod->getVars();
-	$this->merge($cod->getValues());
 
+	$this->merge($cod->getValues());
 	$this->chkUID();
+
+#	if (! $this->isKey("props.uid"))
+#	$this->set("props.uid", basename($this->dir));
 }
 
 public function merge($arr, $pfx = false) {
@@ -272,16 +275,14 @@ protected function isSec($sec) {
 }
 
 // ***********************************************************
-protected function setFile($fil) {
+protected function chkFile($fil) {
 	$chk = APP::dir($fil); if ($chk)
 	$fil = FSO::join($fil, $this->fname);
 
 	$this->dir = dirname($fil);
 	$this->file = $fil;
-	$this->file = $fil;
 
-	if ($this->isKey("props.uid"))
-	$this->set("props.uid", basename($this->dir));
+	return $fil;
 }
 
 // ***********************************************************

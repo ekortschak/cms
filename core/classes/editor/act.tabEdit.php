@@ -103,7 +103,7 @@ private function tabSort() {
 	$lst = VEC::explode($lst, ";");
 
 	$ini = new iniWriter("LOC_CFG/tabsets.ini");
-	$ini->read("config/tabsets.ini");
+	$xxx = $ini->read("config/tabsets.ini");
 	$vls = $ini->getValues($set);
 	$out = array();
 

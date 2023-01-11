@@ -33,7 +33,6 @@ class PFS extends objects {
 
 public static function init($dir = TAB_HOME) {
 	self::$dat = self::$uid = self::$idx = array();
-
 	self::$dir = $dir;
 	self::$fil = FSO::join("static", $dir, "pfs.stat");
 	self::$cnt = 1;
@@ -62,7 +61,6 @@ public static function readTree($dir = NV) {
     foreach ($arr as $dir => $nam) {
         self::readTree($dir);
     }
-#	self::dump();
 }
 
 // ***********************************************************
@@ -106,6 +104,7 @@ public static function getLoc($pge = NV) {
 private static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
+
 	ENV::set("loc", $loc);
 	ENV::set("pge.".TAB_HOME, $loc);
 }
@@ -225,7 +224,7 @@ private static function setPropVal($idx, $key, $value) {
 
 // ***********************************************************
 private static function getProp($index, $key, $default = false) {
-	$idx = self::getIndex($index);     if (! $idx) return $default;
+	$idx = self::getIndex($index); if (! $idx) return $default;
 	$arr = VEC::get(self::$dat, $idx); if (! $arr) return $default;
 	return VEC::get($arr, $key, $default);
 }

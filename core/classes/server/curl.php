@@ -34,7 +34,6 @@ function __construct() {
 public function copy($file) {
 	$trg = FSO::join($this->url, $file);
 	$fil = realpath($file);
-dbg($fil);
 
 	$fil = new CURLFile($fil);
 	$fls = array ("file" => $fil);

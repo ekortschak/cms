@@ -1,15 +1,6 @@
-[dic]
-tpl.missing = Missing template
-mytpl = Templates involved
-
-[dic.de]
-tpl.missing = Vorlage nicht gefunden
-mytpl = Beteiligte Vorlagen
-
 [vars]
 history = Status: OK
 status = BOOL_NO
-file =
 
 
 # ***********************************************************

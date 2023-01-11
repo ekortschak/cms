@@ -25,8 +25,10 @@ class dbAlter extends dbBasics {
 	protected $ask = true; // ask for confirmation
 	protected $tell = true;
 
-function __construct($dbase, $table = "dummy") {
-	parent::__construct($dbase, $table);
+function __construct($dbase, $table = NV) {
+	parent::__construct($dbase);
+
+	$this->setTable($table);
 }
 
 // ***********************************************************
@@ -36,7 +38,7 @@ public function db_add($dbase) {
 	if ($this->isDBase($dbase)) return $this->doMsg("dbs.known", $dbase);
 
 	$xxx = $this->set("dbs", $dbase);
-	$qry = $this->fetch("dbase.add");
+	$qry = $this->getStmt("dbase.add");
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
 	return $this->dbo->exec($qry);
@@ -58,7 +60,7 @@ private function exDbs($stmt, $dbs) { // key => section.key
 	if (! $this->con) return $this->doMsg("no.connection");
 
 	$xxx = $this->set("dbs", $dbs);
-	$qry = $this->fetch($stmt);
+	$qry = $this->getStmt($stmt);
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
 	return $this->dbo->exec($qry);
@@ -77,7 +79,7 @@ public function t_add($table) {
 	if (! $this->con) return $this->doMsg("no.connection");
 	if ($this->dbo->isTable($table)) return $this->doMsg("tbl.known",  $table);
 
-	$this->setTable($table); $qry = $this->fetch("table.add");
+	$this->setTable($table); $qry = $this->getStmt("table.add");
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
 	return $this->dbo->exec($qry);
@@ -115,7 +117,7 @@ private function exTable($stmt, $tbl) {
 // ***********************************************************
 public function f_add($tbl, $fld, $typ, $len = 15, $std = "", $nul = "NULL") {
 	if ($this->dbo->isField($tbl, $fld)) return $this->doMsg("fld.known", $fld);
-	$xxx = $this->setType($typ, $len, $std, $nul);
+	$this->setType($typ, $len, $std, $nul);
 	return $this->exDDL("field.add", $tbl, $fld);
 }
 public function f_copy($tbl, $src, $dst) {
@@ -158,10 +160,9 @@ public function f_rename($tbl, $fld, $new) {
 // ***********************************************************
 private function exDDL($stmt, $tbl, $fld = "") { // key => section.key
 	if (! $this->con) return $this->doMsg("no.connection");
+	$this->setField($tbl, $fld);
 
-	$this->setTable($tbl);
-	$this->setField($tbl, $fld); $qry = $this->fetch($stmt);
-
+	$qry = $this->getStmt($stmt);
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
 	return $this->dbo->exec($qry);
 }
@@ -194,7 +195,7 @@ private function getInfo($tbl, $fld) {
 private function setType($typ, $len, $std, $nul) { // TODO: db specific checking
 	$this->set("size", $len); $typ = STR::left($typ);
 	$this->set("std",  $std);
-	$this->set("null", $nul); $def = $this->fetch("ftypes.$typ", NV);
+	$this->set("null", $nul); $def = $this->getStmt("ftypes.$typ");
 	$this->set("def",  $def);
 }
 

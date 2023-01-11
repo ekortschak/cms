@@ -19,10 +19,8 @@ $tpl = APP::file("LOC_LAY/default/stop.tpl");
 // ***********************************************************
 // read page file system - if needed
 // ***********************************************************
-if ($mod != "preview") {
-	incCls("menus/PFS.php");
-	PFS::init();
-}
+incCls("menus/PFS.php");
+PFS::init();
 
 // ***********************************************************
 // show page

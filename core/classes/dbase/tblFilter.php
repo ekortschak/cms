@@ -27,6 +27,7 @@ class tblFilter extends dbBasics {
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
 	$this->register("$dbase.$table");
+	$this->setTable($table);
 }
 
 // ***********************************************************
@@ -50,7 +51,7 @@ public function getFilter() {
 		if (! $key) continue;
 
 		switch ($key) {
-			case "ID": $out[] = "$key LIKE '$val'"; break;
+			case "ID": $out[] = "ID='$val'"; break;
 			default:   $out[] = "$key LIKE '%$val%'";
 		}
 	}
@@ -75,13 +76,12 @@ public function gc() {
 		$typ = VEC::get($inf, "dtype"); if (! $typ) continue;
 		$val = VEC::get($inf, "fstd");
 		$val = VEC::get($vls, $fld, $val);
+		$val = CFG::insert($val);
 
 		$inf["perms"] = "w"; if ($typ == "key")
 		$inf["dtype"] = "int"; // prevent keys from hiding
 
-		$val = CFG::insert($val);
-
-		$this->flt[$fld] = $sel->add($inf, "r", $val);
+		$this->flt[$fld] = $sel->add($inf, $val);
 		$cnt++;
 	}
 	if ($cnt < 1) return;
