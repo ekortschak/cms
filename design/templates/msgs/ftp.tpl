@@ -11,7 +11,7 @@ refresh = Erneut prüfen
 
 [test.rep]
 <div class="dropdown">
-<msg><!DIC:con!> = <!VAR:status!> <span style="border-left: 1px solid grey; margin-left: 15px; padding: 0px 5px;">COMBO_DOWN</span></msg>
+<msg><!DIC:con!> = <!VAR:ftpstate!> <span style="border-left: 1px solid grey; margin-left: 15px; padding: 0px 5px;">COMBO_DOWN</span></msg>
 <div class="dropdown-content">
 	<a href="?ftp=reset"><!DIC:refresh!></a>
 	<a href="config.php?tab=setup/config&pge=config&btn.const=F"><!DIC:chk!></a>

@@ -29,6 +29,8 @@ class syncDown extends sync {
 	protected $ftp;	// ftp object
 	protected $dbg = 0;
 
+	protected $tpl = "editor/xfer.syncDown.tpl";
+
 function __construct() {
 	parent::__construct();
 

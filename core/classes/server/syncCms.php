@@ -20,6 +20,7 @@ incCls("server/syncDown.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class syncCms extends syncDown {
+	protected $tpl = "editor/xfer.cms.tpl";
 
 function __construct() {
 	parent::__construct();

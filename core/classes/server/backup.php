@@ -19,9 +19,12 @@ incCls("server/sync.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class backup extends sync {
+	protected $tpl = "editor/xfer.backup.tpl";
 
 function __construct() {
 	parent::__construct();
+
+	$this->setVisOnly(false);
 }
 
 // ***********************************************************
@@ -36,15 +39,11 @@ public function setDevice($dev = SRV_ROOT) {
 // run jobs (backup mode)
 // ***********************************************************
 public function backup() {
-	$this->setTitle("Backup");
-
 	$this->setDest(APP::bkpDir("", $this->dev));
-	$this->showInfo();
+	$this->showInfo("backup");
 	$this->run();
 }
-public function restore($version = NV) {
-	$this->setTitle("Restore");
-
+public function restore() {
 	$vrs = $this->getBackups();
 	if (! $vrs) return MSG::now("restore.none");
 
@@ -52,9 +51,10 @@ public function restore($version = NV) {
 	$dst = $box->getKey("as of", $vrs);
 	$vrs = $box->gc("inline");
 
+	$this->set("head", $vrs);
 	$this->setDest(APP::bkpDir(basename($dst), $this->dev));
 	$this->revertFlow();
-	$this->showInfo($vrs);
+	$this->showInfo("restore");
 	$this->run();
 }
 
@@ -62,16 +62,14 @@ public function restore($version = NV) {
 // run jobs (sync mode)
 // ***********************************************************
 public function sync() {
-	$this->setTitle("sync.mirror");
-	$this->showInfo();
+	$this->showInfo("sync");
 	$this->run();
 }
 public function syncBack($version = NV) {
 	if (! is_dir($this->dst)) return MSG::now("sync.none", $this->dst);
 
-	$this->setTitle("sync.back");
 	$this->revertFlow();
-	$this->showInfo();
+	$this->showInfo("syncBack");
 	$this->run();
 }
 

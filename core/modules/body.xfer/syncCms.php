@@ -8,7 +8,6 @@ incCls("server/syncCms.php");
 
 // ***********************************************************
 $snc = new syncCms();
-$snc->set("head", "Downloading CMS");
 $snc->upgrade();
 
 ?>

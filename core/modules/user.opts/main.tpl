@@ -20,8 +20,6 @@ settings = Einstellungen
 # ***********************************************************
 [main]
 # ***********************************************************
-<!-- img src="img/logo.png" /-->
-<h1>PRJ_TITLE</h1>
 
 [lang]
 <div><a href="?lang=<!VAR:lang!>"><img class="flag" src="ICONS/flags/<!VAR:lang!>.gif" alt="<!VAR:lang!>" /> <!VAR:lang!></a></div>

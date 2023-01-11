@@ -27,6 +27,8 @@ class sync extends objects {
 	protected $dst = "";		// destination
 	protected $root = "";		// common path
 
+	protected $tpl = "editor/xfer.sync.tpl";
+
 	protected $lst = array();	// list of verified destination dirs
 	protected $rep = array();   // transaction report
 	protected $ren = array();   // fso's without numbers
@@ -117,25 +119,25 @@ protected function manage($act, $fso) {
 		case "dpf": return $this->do_kill($dst);
 		case "man": return; // do nothing !
 	}
-	echo "SyncERROR - $act";
+	ERR::msg("SyncERROR", $act);
 }
 
 // ***********************************************************
 // show operative info
 // ***********************************************************
-protected function showInfo($head = false) {
+protected function showInfo($info = "info") {
 	$tpl = new tpl();
-	$tpl->load("editor/menu.sync.tpl");
+	$tpl->load($this->tpl);
 
 	if (! $this->visOnly)
 	$tpl->set("what", BOOL_YES);
 
-	if ($head)
-	$tpl->set("head", $head);
-	$tpl->set("title", $this->get("title"));
+	$tpl->set("title",  $this->get("title"));
+	$tpl->set("head",   $this->get("head"));
 	$tpl->set("source", $this->src);
-	$tpl->set("dest", $this->dst); if ($this->get("info"))
-	$tpl->show("info");
+	$tpl->set("dest",   $this->dst);
+
+	$tpl->show($info);
 	$tpl->show();
 }
 
@@ -151,14 +153,12 @@ protected function analize() {
 protected function preView($tellMe = false) {
 	$arr = ENV::get("sync.jbs");
 
+	if ($this->error == "nocon") return MSG::now("no.connection");
 	if (! $arr) {
-		switch ($this->error) {
-			case "nocon": return MSG::now("no.connection");
-			default:
-				if (! $tellMe) return;
-				return MSG::now("do.nothing");
-		}
+		if (! $tellMe) return;
+		return MSG::now("do.nothing");
 	}
+
 	$this->showStat($arr, "man", "sync.protected");
 	$this->showStat($arr, "ren", "sync.rename");
 	$this->showStat($arr, "mkd", "sync.mkdir");
@@ -332,8 +332,6 @@ protected function chkRename($arr) {
 		if (count($itm) < 3) continue; extract($itm);
 		if ($typ != "d")     continue;
 		if ($src == $dst)    continue;
-
-#		$chk = $this->destName($src); if (is_dir($chk)) continue;
 
 		if (isset($arr["mkd"])) $arr["mkd"] = VEC::purge($arr["mkd"], $src); // src = new name
 		if (isset($arr["cpf"])) $arr["cpf"] = VEC::purge($arr["cpf"], $src);

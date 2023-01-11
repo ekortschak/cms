@@ -16,12 +16,12 @@ Section called: <!VAR:section!> BOOL_NO<hr class="low"><!VAR:history!> _
 </div>
 
 # ***********************************************************
-[item.1]
+[tplitem.1]
 # ***********************************************************
-<div><!VAR:item!></div>
+<div><!VAR:tplitem!></div>
 
-[item.0]
-<div><red><!VAR:item!></red></div>
+[tplitem.0]
+<div><red><!VAR:tplitem!></red></div>
 
 
 # ***********************************************************

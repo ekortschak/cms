@@ -197,8 +197,8 @@ private function setTplInfo($sec) {
 	$sts = ($sts) ? BOOL_YES : BOOL_NO;
 
 	foreach ($lst as $fil => $val) {
-		$xxx = $this->set("item", $fil);
-		$out.= $this->getSection("item.$val");
+		$xxx = $this->set("tplitem", $fil);
+		$out.= $this->getSection("tplitem.$val");
 	}
 	$this->set("section", $sec);
 	$this->set("history", $out);

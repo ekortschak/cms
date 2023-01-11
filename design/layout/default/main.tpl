@@ -63,7 +63,7 @@ title = PRJ_TITLE
 <!MOD:menu!>
 
 [trailer] <!-- banner -->
-<!MOD:app.trailer!>
+<!MOD:app.footer!>
 
 # ***********************************************************
 # vertical panels

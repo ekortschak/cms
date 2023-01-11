@@ -56,9 +56,9 @@ private static function store($div, $msg, $prm) {
 	if (isset(self::$msg[$msg])) return;
 
 	$prm = self::chkParm($msg, $prm);
-	$txt = DIC::get($msg).$prm;
+	$txt = DIC::get($msg);
 
-	self::$msg[$div][$msg] = $txt;
+	self::$msg[$div][$msg] = $txt.$prm;
 }
 
 private static function chkParm($msg, $prm) {
@@ -105,7 +105,8 @@ private static function collect($div, $sec) {
 	foreach ($arr as $msg => $txt) {
 #		$txt = htmlspecialchars($txt);
 		$xxx = $tpl->set("item", $txt);
-		$out.= $tpl->gc("item");
+		$lin = $tpl->gc("item");
+		$out.= $lin;
 	}
 	$xxx = $tpl->set("items", $out);
 	return $tpl->gc("$sec.show");

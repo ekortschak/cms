@@ -2,11 +2,11 @@
 LOC_TPL/menus/toc.view.tpl
 
 [dic]
-project = Transfer whole project
+project = Transfer the whole project
 select = Select branch to transfer!
 
 [dic.de]
-project = Betrifft gesamtes Projekt
+project = Betrifft das gesamte Projekt
 select = Wähle den Menü-Zweig, der übertragen werden soll.
 
 # ***********************************************************

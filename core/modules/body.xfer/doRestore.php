@@ -29,7 +29,6 @@ if (! FSO::hasXs($dev)) return;
 // transfer files
 // ***********************************************************
 $snc = new backup();
-$snc->setVisOnly(false);
 $snc->setDevice($dev);
 $snc->$fnc();
 

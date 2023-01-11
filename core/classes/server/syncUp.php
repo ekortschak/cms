@@ -26,6 +26,8 @@ class syncUp extends sync {
 	protected $htp;	// http object
 	protected $ftp;	// ftp object
 
+	protected $tpl = "editor/xfer.syncUp.tpl";
+
 function __construct() {
 	parent::__construct();
 

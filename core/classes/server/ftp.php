@@ -55,10 +55,7 @@ public function disconnect() {
 }
 
 public function connect() {
-	if (! NET::isCon()) {
-		$this->con = false;
-		return false;
-	}
+	if (! NET::isCon()) return ($this->con = false);
 	if ($this->con) return $this->con;
 
 	$srv = $this->get("ftp.fhost"); if (! $srv) return false;
@@ -91,18 +88,18 @@ public function isProtected($fso) {
 
 public function test() {
 	$con = $this->connect(); $this->disconnect();
-	$sts = ($con) ? "OK" : "0";
+	$sts = ($con) ? "OK" : BOOL_NO;
 
 	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
 
 	$tpl = new tpl();
 	$tpl->load("msgs/ftp.tpl");
 	$tpl->set("inifile", $this->get("inifile"));
-	$tpl->set("status", $sts);
+	$tpl->set("ftpstate", $sts);
 	$tpl->show("test.rep");
 
-	ENV::set("xfer", $sts);
-	return (bool) $sts;
+	ENV::set("xfer", $con);
+	return (bool) $con;
 }
 
 // ***********************************************************
