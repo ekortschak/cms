@@ -209,6 +209,10 @@ public static function getVar($idx, $key, $default = "") {
 	return VEC::get($out, $key, $default);
 }
 
+public static function getValues() {
+	return self::$cfg;
+}
+
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************

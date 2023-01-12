@@ -24,20 +24,18 @@ sync.execute = Ausführen
 # ***********************************************************
 <h4><red><!VAR:title!></red></h4>
 
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-	<div class="rh"><!VAR:head!></div>
-	<div class="confirm">
-		<div><!DIC:source!>: <!VAR:source!></div>
-		<div><!SEC:dest!></div>
+<div class="rh"><!VAR:head!></div>
+<div class="confirm">
+	<div><!DIC:source!>: <!VAR:source!></div>
+	<div><!SEC:dest!></div>
 
-		<hr>
-		<div><!SEC:hidden.files!></div>
-	</div>
+	<hr>
+	<div><!SEC:hidden.files!></div>
+</div>
 
-	<div class="rf" align="right">
-		<a href="?sync.act=1"><button><!DIC:sync.analize!></button></a>
-		<a href="?sync.act=2"><button><!DIC:sync.execute!></button></a>
-	</div>
+<div class="rf" align="right">
+	<a href="?sync.act=1"><button><!DIC:sync.analize!></button></a>
+	<a href="?sync.act=2"><button><!DIC:sync.execute!></button></a>
 </div>
 
 # ***********************************************************

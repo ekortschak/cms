@@ -10,8 +10,6 @@ ok = JA, genau das will ich jetzt!
 
 [vars]
 tpl = sql
-tspace = 12
-bspace = 7
 link = ?
 
 button = <!DIC:ok!>
@@ -20,7 +18,7 @@ button = <!DIC:ok!>
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+<div style="margin: 12px 0px 7px;"> # tspace
 <form method="post" action="<!VAR:link!>">
 
 	<div class="rh"><!DIC:confirm!></div>

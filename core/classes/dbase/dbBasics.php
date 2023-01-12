@@ -46,25 +46,21 @@ function __construct($dbase = NV) {
 	$this->init($typ); // read sql syntax
 }
 
+// ***********************************************************
+// retrieving dbase info
+// ***********************************************************
 public function isDbase($dbs) {
     $arr = $this->get1st("inf.dbs");
     return in_array($dbs, $arr);
-}
-
-public function selectDb($dbase) {
-	if (! $this->con) return;
-	$this->dbo->selectDb($dbase);
 }
 
 public function getState() {
 	return $this->con;
 }
 
-// ***********************************************************
-// user access
-// ***********************************************************
-public function setPerms($perms) { // overruling access permissions
-	$this->set("perms", $perms);
+public function selectDb($dbase) {
+	if (! $this->con) return;
+	$this->dbo->selectDb($dbase);
 }
 
 // ***********************************************************
@@ -94,9 +90,10 @@ public function query($filter = 1, $order = false) {
 	return $this->get1st("sel.sel"); // one record at a time
 }
 
-
 // ***********************************************************
-public function getData($flt = 1) {
+// retrieving data
+// ***********************************************************
+public function getData($flt = 1) { // get data in csv format
 	$xxx = $this->setWhere($flt); $out = array();
 	$dat = $this->getRecs(); if (! $dat) return "";
 
@@ -114,6 +111,7 @@ public function getRecs($stmt = "sel.sel", $mds = "a") {
 
 	return $this->dbo->fetch($sql, $mds);
 }
+
 public function get1st($stmt = "sel.sel", $mds = "a") {
 	if (! $this->con) return false;
 
@@ -132,36 +130,19 @@ protected function getCol($recs, $field) {
 	return $out;
 }
 
-public function fetch1st($sql, $mds = "a") {
-	if (! $this->con) return false;
-	return $this->dbo->fetch1st($sql, $mds);
-}
-
-// ***********************************************************
-// retrieving dbase info
-// ***********************************************************
-public function setDb($file) {
-	$typ = "mysql";
-	incCls("dbase/$typ.php");
-
-	$dbs = new $typ("localhost", $file);
-	$con = $dbs->connect(CUR_USER, CUR_PASS);
-}
-
-public function tblProps($table) {
-	return $this->dbo->tblProps($table);
-}
-
-public function fldProps($table, $field) {
-	return $this->dbo->fldProps($table, $field);
-}
-
 // ***********************************************************
 // retrieving table info
 // ***********************************************************
 public function isTable($table) {
 	$this->setMasks($table);
     return (bool) $this->get1st("inf.tbs");
+}
+
+public function tblProps($table) {
+	$out = $this->appProps("tbl", $table);
+	$txs = $this->tblPerms($table);
+	$out["perms"] = $txs;
+	return $out;
 }
 
 public function getPrimary() {
@@ -176,6 +157,18 @@ public function isField($table, $field) {
 	$this->setMasks($table, $field);
     return (bool) $this->get1st("inf.fld");
 }
+
+public function fldProps($table, $field) {
+	$dbo = $this->dbo->fldProps($table, $field);
+	$app = $this->appProps("fld", "$table.$field");
+	$txs = $this->tblPerms($table);
+	$fxs = $this->fldPerms($table, $field, $txs);
+
+	$out = array_merge($dbo, $app); // props overruled by app
+	$out["perms"] = $fxs;
+	return $out;
+}
+
 public function getDVs($fields, $filter = 1, $sep = " ") {
 	$this->setFields($fields, true, false);
 	$this->setWhere($filter);
@@ -198,6 +191,7 @@ public function isRecord($filter = 1) {
 	$this->setWhere($filter);
 	return (bool) $this->get1st("sel.fnd");
 }
+
 public function rowCount($filter = 1) {
 	$this->setWhere($filter);
 	$arr = $this->get1st("sel.cnt");
@@ -227,12 +221,64 @@ public function askMe($value = true) {
 protected function confirm($qry) {
 	if (! $this->ask) return true;
 
-	$qry = $this->beautify($qry);
-
 	$cnf = new confirm();
-	$cnf->add($qry);
+	$cnf->add($this->beautify($qry));
 	$cnf->show();
 	return $cnf->act();
+}
+
+// ***********************************************************
+// dbo properties
+// ***********************************************************
+public function setPerms($perms) { // overruling access permissions
+	$this->set("perms", $perms);
+}
+
+// ***********************************************************
+private function appProps($cat, $idx) {
+	$out = array(); if (! $this->isTable("dbobjs")) return $out;
+
+	$sql = "SELECT * FROM `dbobjs` WHERE (cat='$cat' AND spec='$idx')";
+    $arr = $this->dbo->fetch($sql); if (! $arr) return $out;
+
+    foreach ($arr as $vls) {
+		$key = VEC::get($vls, "prop");
+		$val = VEC::get($vls, "value");
+		$out[$key] = $val;
+	}
+	return $out;
+}
+
+// ***********************************************************
+private function userPerms($cat, $idx) {
+	if (! $this->isTable("dbxs")) return "x";
+
+	$sql = "SELECT USR_GRPS FROM `dbxs` WHERE (cat='$cat' AND spec='$idx')";
+    $arr = $this->dbo->fetch1st($sql); if (! $arr) return "x";
+    return implode("", $arr);
+}
+
+// ***********************************************************
+private function tblPerms($tbl) {
+	$prm = $this->userPerms("tbl", $tbl);
+
+	if (STR::contains($prm, "w")) return "w"; $out = "";
+	if (STR::contains($prm, "a")) $out.= "a";
+	if (STR::contains($prm, "e")) $out.= "e";
+	if (STR::contains($prm, "d")) $out.= "d"; if ($out) return $out;
+	if (STR::contains($prm, "r")) return "r";
+	return "x";
+}
+
+private function fldPerms($tbl, $fld, $inherited = "w") {
+	$prm = $this->userPerms("fld", "$tbl.$fld");
+
+	if ($inherited == "r") return "r";
+	if ($inherited == "x") return "x";
+
+	if (STR::contains($prm, "w")) return "w";
+	if (STR::contains($prm, "r")) return "r";
+	return "x";
 }
 
 // ***********************************************************

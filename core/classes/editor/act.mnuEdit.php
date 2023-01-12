@@ -74,12 +74,15 @@ private function nodeRename($dir) { // rename directory
 
 	if (is_dir($dst)) return ERR::msg("dir.exists", $dir); $erg = rename($dir, $dst);
     if (! $erg) return ERR::assist("dir", "no.write", $dir);
+
+    ENV::setPage($dst);
 	return true;
 }
 
 // ***********************************************************
 private function nodeHide($dir) { // hide or remove node
-	FSO::toggleVis($dir);
+	$new = FSO::toggleVis($dir);
+	ENV::setPage($new);
 }
 private function nodeDrop($dir) {
 	FSO::rmDir($dir);
@@ -90,16 +93,20 @@ private function nodeDrop($dir) {
 // ***********************************************************
 private function nodeOut($dir) { // move out in hierarchy
 	$dst = dirname(dirname($dir));
-	$chk = substr_count($dst, DIR_SEP); if ($chk < 2) return;
+	$chk = STR::count($dst, DIR_SEP); if ($chk < 2) return;
 	$dst = FSO::join($dst, basename($dir));
-	$xxx = FSO::mvDir($dir, $dst);
+
+	FSO::mvDir($dir, $dst);
+	ENV::setPage($dst);
 }
 private function nodeIn($dir) { // move in in hierarchy
 	$dst = FSO::getPrev($dir);
 	$dst = FSO::join($dst, basename($dir));
-	$lev = substr_count($dir, DIR_SEP);
-	$chk = substr_count($dst, DIR_SEP); if ($chk < $lev) return;
-	$xxx = FSO::mvDir($dir, $dst);
+	$lev = STR::count($dir, DIR_SEP);
+	$chk = STR::count($dst, DIR_SEP); if ($chk < $lev) return;
+
+	FSO::mvDir($dir, $dst);
+	ENV::setPage($dst);
 }
 
 // ***********************************************************

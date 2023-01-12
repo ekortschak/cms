@@ -151,7 +151,7 @@ public static function getHead($index = NV) {
 }
 public static function getLevel($idx) {
 	$idx = STR::after($idx, self::$dir);
-	$out = substr_count($idx, DIR_SEP) + 1;
+	$out = STR::count($idx, DIR_SEP) + 1;
 	return $out;
 }
 

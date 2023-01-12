@@ -1,6 +1,3 @@
-[vars]
-status = on
-
 [dic]
 sure      = Are you sure?
 
@@ -37,6 +34,10 @@ node.top  = Funktion gesperrt
 create    = Erstellen
 rename    = Umbennenen
 check     = Prüfen
+
+
+[vars]
+bulb = on
 
 
 # ***********************************************************
@@ -78,7 +79,7 @@ check     = Prüfen
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
 		<td style="vertical-align: middle;"><!DIC:node.hide!></td>
-		<td><button name="node_act" value="hide"><img src="ICONS/menu/bulb_<!VAR:status!>.gif" /></button></td>
+		<td><button name="node_act" value="hide"><img src="ICONS/menu/bulb_<!VAR:bulb!>.gif" /></button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>

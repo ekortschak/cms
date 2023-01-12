@@ -63,8 +63,8 @@ public function read($btn = "view") {
 	$this->set("link",    $cod->getProp("url"));
 	$this->set("target",  $cod->getProp("trg"));
 	$this->set("caption", $cod->getProp("caption"));
-	$this->set("tip",     $cod->getInfo());
 	$this->set("pic",     $cod->getProp("pic"));
+	$this->set("tip",     $cod->getTip());
 	$this->set("class",  "icon");
 }
 

@@ -1,6 +1,6 @@
 [vars]
-history = Status: OK
-status = BOOL_NO
+history = tstatus: OK
+tstatus = BOOL_NO
 
 
 # ***********************************************************
@@ -29,8 +29,6 @@ Section called: <!VAR:section!> BOOL_NO<hr class="low"><!VAR:history!> _
 # ***********************************************************
 <div class="dropdown pre head">&spades; <!VAR:tplfile!>COMBO_DOWN _
 <div class="dropdown-content"> _
-Section called: <!VAR:section!> <!VAR:status!><hr class="low"><!VAR:history!> _
+Section called: <!VAR:section!> <!VAR:tstatus!><hr class="low"><!VAR:history!> _
 </div> _
 </div>
-
-[debug.tell]

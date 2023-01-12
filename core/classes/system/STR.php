@@ -113,6 +113,10 @@ public static function right($txt, $len = 3, $norm = true) {
 	return self::left($txt, $len * -1, $norm);
 }
 
+public static function count($haystack, $needle) {
+	return substr_count($haystack, $needle);
+}
+
 // ***********************************************************
 public static function before($haystack, $sep = "\n", $trim = true) {
 	$out = self::simplify($haystack, $sep).self::$sep;

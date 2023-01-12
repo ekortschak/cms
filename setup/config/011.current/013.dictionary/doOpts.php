@@ -46,8 +46,8 @@ function reWrite() {
 			if (STR::begins($lin, "prop."))  continue;
 			if (STR::begins($lin, "btn."))   continue;
 			if (STR::begins($lin, "§"))      continue;
-			if (substr_count($lin, "/") > 1) continue;
-			if (substr_count($lin, "=") > 1) continue;
+			if (STR::count($lin, "/") > 1)   continue;
+			if (STR::count($lin, "=") > 1)   continue;
 			$out[] = $lin;
 		}
 		$txt = "$sec\n".implode("\n", $out);

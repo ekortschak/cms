@@ -5,13 +5,11 @@ click = Bitte klicken Sie auf eine Schaltfläche
 click = Please, click a button
 
 [vars]
-tspace = 0
-bspace = 2
 target = _self
 
 
 [main]
-<div class="btnbar" style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+<div class="btnbar">
 <!VAR:items!>
 </div>
 

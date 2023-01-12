@@ -5,10 +5,8 @@ sep =
 # ***********************************************************
 [main] # multiple options with title
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
-	<div class="localmenu">
+<div class="localmenu">
 <!VAR:items!>
-	</div>
 </div>
 
 [main.box]

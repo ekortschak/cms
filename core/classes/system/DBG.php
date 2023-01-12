@@ -83,7 +83,8 @@ public static function vector($arr, $info = "arr") {
 	}
 	incCls("menus/tview.php");
 
-	echo '<div style="max-height: 125px; overflow: auto; border: 1px solid OUTLINE; border-radius: 5px;">';
+	echo '<div style="max-height: 125px; overflow: auto; border: 1px solid lightgrey;">';
+	echo "<u><i>$info</i></u>";
 
 	$tvw = new tview();
 	$tvw->setData($arr);

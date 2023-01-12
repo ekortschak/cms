@@ -61,7 +61,7 @@ public static function handler($num, $msg, $file, $line) {
 	$tpl->set("errNum", self::fmtNum($num, $msg));
 	$tpl->set("errMsg", self::fmtMsg($msg));
 	$tpl->set("file",   self::fmtFName($file));
-	$tpl->set("items",  self::getInfo("item"));
+	$tpl->set("items",  self::stack("item"));
 	$tpl->show();
 }
 
@@ -91,14 +91,14 @@ public static function raise($msg) {
 // error tracing
 // ***********************************************************
 public static function trace() {
-	$arr = self::getInfo();
+	$arr = self::stack();
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
 	$tpl->set("items", trim($arr));
 	$tpl->show("trace");
 }
-private static function getInfo($sec = "short") {
+private static function stack($sec = "short") {
 	$arr = self::getList(0, self::$depth); // get list of calling functions
 
 	$tpl = new tpl();

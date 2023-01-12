@@ -13,17 +13,11 @@ $xxx = $box->show();
 if (! $dbs) return;
 
 // ***********************************************************
-// info
-// ***********************************************************
-HTW::tag("Check CMS requirements");
-HTW::tag("This will recreate missing tables and fields.", "p");
-
-// ***********************************************************
 // ask for confirmation
 // ***********************************************************
 $cnf = new confirm();
 $cnf->dic("dbo.sanitize");
-$cnf->add("&rarr; $dbs");
+$cnf->add("&rarr; Datenbank = $dbs");
 $cnf->show();
 
 if (! $cnf->act()) return;

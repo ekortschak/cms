@@ -41,7 +41,7 @@ public function db_add($dbase) {
 	$qry = $this->getStmt("dbase.add");
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
-	return $this->dbo->exec($qry);
+	return $this->exec($qry);
 }
 public function db_rename($dbase, $newName) {
 	$xxx = $this->set("dest", $newName);
@@ -63,26 +63,26 @@ private function exDbs($stmt, $dbs) { // key => section.key
 	$qry = $this->getStmt($stmt);
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
-	return $this->dbo->exec($qry);
+	return $this->exec($qry);
 }
 
 // ***********************************************************
 // handling tables
 // ***********************************************************
 public function t_ddl($ddl) {
-	if (! $this->dbo->exec($ddl)) return false;
+	if (! $this->exec($ddl)) return false;
 	return true;
 }
 
 // ***********************************************************
 public function t_add($table) {
 	if (! $this->con) return $this->doMsg("no.connection");
-	if ($this->dbo->isTable($table)) return $this->doMsg("tbl.known",  $table);
+	if ($this->isTable($table)) return $this->doMsg("tbl.known",  $table);
 
 	$this->setTable($table); $qry = $this->getStmt("table.add");
 
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
-	return $this->dbo->exec($qry);
+	return $this->exec($qry);
 }
 public function t_drop($table) {
 	return $this->exTable("table.drop", $table);
@@ -100,15 +100,15 @@ public function t_copy($table, $newTable) {
 	return $this->exTable("table.copy", $table);
 }
 public function t_rename($table, $newName) {
-	if ($table  == $newName) return $this->doMsg("no.effect");
-	if ($this->dbo->isTable($newName)) return $this->doMsg("tbl.known", $newName);
+	if ($table == $newName) return $this->doMsg("no.effect");
+	if ($this->isTable($newName)) return $this->doMsg("tbl.known", $newName);
 	$this->set("new", $newName);
 	return $this->exTable("table.rename", $table);
 }
 
 // ***********************************************************
 private function exTable($stmt, $tbl) {
-	if ( ! $this->dbo->isTable($tbl)) return $this->doMsg("tbl.unknown", $tbl);
+	if ( ! $this->isTable($tbl)) return $this->doMsg("tbl.unknown", $tbl);
 	return $this->exDDL($stmt, $tbl);
 }
 
@@ -116,13 +116,13 @@ private function exTable($stmt, $tbl) {
 // handling fields
 // ***********************************************************
 public function f_add($tbl, $fld, $typ, $len = 15, $std = "", $nul = "NULL") {
-	if ($this->dbo->isField($tbl, $fld)) return $this->doMsg("fld.known", $fld);
-	$this->setType($typ, $len, $std, $nul);
+	if ($this->isField($tbl, $fld)) return $this->doMsg("fld.known", $fld);
+	$xxx = $this->setType($typ, $len, $std, $nul);
 	return $this->exDDL("field.add", $tbl, $fld);
 }
 public function f_copy($tbl, $src, $dst) {
-	if (! $this->dbo->isField($tbl, $src)) { // create field if necessary
-		$inf = $this->getInfo($bl, $src); extract($inf);
+	if (! $this->isField($tbl, $src)) { // create field if necessary
+		$inf = $this->fldProps($tbl, $fld); extract($inf);
 		$this->f_add($dst, $ftype, $flen, $fstd, $fnull);
 	}
 	$this->set("fld", $src); // copy data
@@ -130,7 +130,7 @@ public function f_copy($tbl, $src, $dst) {
 	return $this->exDDL("field.copy", $tbl, $src);
 }
 public function f_merge($tbl, $src, $dst) {
-	$inf = $this->getInfo($bl, $src); extract($inf);
+	$inf = $this->fldProps($tbl, $fld); extract($inf);
 	$this->set("fld", $src);
 	$this->set("new", $dst);
 
@@ -164,7 +164,7 @@ private function exDDL($stmt, $tbl, $fld = "") { // key => section.key
 
 	$qry = $this->getStmt($stmt);
 	$cnf = $this->confirm($qry); if (! $cnf) return false;
-	return $this->dbo->exec($qry);
+	return $this->exec($qry);
 }
 
 private function exField($stmt, $tbl, $fld) {
@@ -188,10 +188,6 @@ public function getDDL($table) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getInfo($tbl, $fld) {
-	return $this->dbo->fldProps($tbl, $fld);
-}
-
 private function setType($typ, $len, $std, $nul) { // TODO: db specific checking
 	$this->set("size", $len); $typ = STR::left($typ);
 	$this->set("std",  $std);

@@ -29,7 +29,7 @@ public static function tag($text, $tag = "h4") {
 
 public static function xtag($text, $tag = "h4") {
 	$out = DIC::getPfx("tag", $text);
-	return self::tag($out);
+	return self::tag($out, $tag);
 }
 
 public static function lf($tag = "hr") {

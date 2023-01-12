@@ -106,71 +106,29 @@ private function run($sql) {
 // ***********************************************************
 // retrieving query related info
 // ***********************************************************
-public function tblProps($table) {
-	$app = $this->appProps("tbl", $table);    // props overruled by app
-	$prm = $this->dboPerms("tbl", $table);
-	$prm = $this->chkTPerms($prm);
-	$prm = array("perms" => $prm);
-	return array_merge($app, $prm);
-}
-
 public function fldProps($table, $field) {
-	$idx = "$table.$field";
-	$dbo = $this->dboProps($table, $field); // props by dbase
-	$txs = $this->dboPerms("tbl", $table);  // table permissions
-	$txs = $this->chkTPerms($txs);
-	$app = $this->appProps("fld", $idx);    // props overruled by app
-	$fxs = $this->dboPerms("fld", $idx);    // field permissions
-	$fxs = $this->chkFPerms($fxs, $txs);
-	$prm = array("perms" => $fxs);
-
-	return array_merge($dbo, $app, $prm);
-}
-
-private function dboProps($tbl, $fld = "%") {
-	$dbs = $this->dbs;
 	$sql = "SELECT * FROM information_schema.columns ";
-	$sql.= "WHERE table_schema='$dbs' AND table_name='$tbl' AND column_name LIKE '$fld' ";
+	$sql.= "WHERE table_schema='$this->dbs' AND table_name='$table' AND column_name LIKE '$field' ";
 	$sql.= "LIMIT 1;";
 
     $inf = $this->fetch1st($sql); if (! $inf) return array();
     $out = array(
-        "dbase" => $dbs,
-        "table" => $tbl,
-        "fname" => $fld,
+        "dbase" => $this->dbs,
+        "table" => $table,
+        "fname" => $field,
         "fpos"  => $inf["ORDINAL_POSITION"],
         "fstd"  => $inf["COLUMN_DEFAULT"],
         "flen"  => $inf["CHARACTER_MAXIMUM_LENGTH"],
         "ftype" => $inf["DATA_TYPE"],
 		"dtype" => $this->fldType($inf["DATA_TYPE"]),
-		"dcat"  => $this->fldCat($inf["DATA_TYPE"]),
-
-        "head"  => ucfirst($fld),
+		"dcat"  => $this->fldCat( $inf["DATA_TYPE"]),
+        "head"  => ucfirst($field),
         "facc"  => intval($inf["NUMERIC_PRECISION"]),
         "fnull" => intval($inf["IS_NULLABLE"] == "YES"),
 		"perms" => "x"
     );
 	if ($inf["COLUMN_KEY"]) $out["dtype"] = "key";
     return $out;
-}
-private function appProps($cat, $idx) {
-	$out = array(); if (! $this->isTable("dbobjs")) return $out;
-	$sql = "SELECT * FROM `dbobjs` WHERE (cat='$cat' AND spec='$idx')";
-    $arr = $this->fetch($sql); if (! $arr) return $out;
-
-    foreach ($arr as $vls) {
-		$key = VEC::get($vls, "prop");
-		$val = VEC::get($vls, "value");
-		$out[$key] = $val;
-	}
-	return $out;
-}
-
-private function dboPerms($cat, $idx) {
-	if (! $this->isTable("dbxs")) return "x";
-	$sql = "SELECT USR_GRPS FROM `dbxs` WHERE (cat='$cat' AND spec='$idx')";
-    $arr = $this->fetch1st($sql); if (! $arr) return "x";
-    return implode("", $arr);
 }
 
 // ***********************************************************
@@ -196,53 +154,12 @@ private function fldType($typ) {
 }
 
 // ***********************************************************
-// verify objects
-// ***********************************************************
-public function isTable($table) {
-    $inf = $this->fetch1st("SHOW TABLES LIKE '$table'");
-    return (bool) $inf;
-}
-public function isField($table, $field) {
-	if (! $this->isTable($table)) return false;
-    $inf = $this->fetch1st("SHOW COLUMNS FROM `$table` LIKE '$field'");
-    return (bool) $inf;
-}
-
-// ***********************************************************
-// user permissions
-// ***********************************************************
-private function chkTPerms($prm) {
-	if (STR::contains($prm, "w")) return "w"; $out = "";
-	if (STR::contains($prm, "a")) $out.= "a";
-	if (STR::contains($prm, "e")) $out.= "e";
-	if (STR::contains($prm, "d")) $out.= "d"; if ($out) return $out;
-	if (STR::contains($prm, "r")) return "r";
-	return "x";
-}
-
-private function chkFPerms($prm, $inherited = "w") {
-	if ($inherited == "r") return "r";
-	if ($inherited == "x") return "x";
-
-	if (STR::contains($prm, "w")) return "w";
-	if (STR::contains($prm, "r")) return "r";
-	return "x";
-}
-
-// ***********************************************************
 // auxilliary functions
 // ***********************************************************
 private function getMode($mds) {
 	if ($mds == "a") return MYSQLI_ASSOC;
 	if ($mds == "b") return MYSQLI_BOTH;
 	return MYSQLI_NUM;
-}
-
-// ***********************************************************
-// backup & restore
-// ***********************************************************
-public function dbdump() {
-#dmp = mysqldump --opt -h $this->host -u $this->usr -p $this->pwd $this->dbas | gzip > $file
 }
 
 // ***********************************************************

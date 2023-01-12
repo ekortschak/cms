@@ -11,7 +11,6 @@ topic = Thema
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
 <table class="nomargin" width="100%">
 	<tr>
 		<td class="nopad" width="*">
@@ -27,7 +26,6 @@ topic = Thema
 		</td>
 	</tr>
 </table>
-</div>
 
 [main.box]
 <div class="dropdown">

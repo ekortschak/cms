@@ -1,9 +1,5 @@
-[vars]
-tspace = 12
-bspace = 7
-
 [main]
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
+<div style="margin: 12px 0px 7px;"> # tspace
 <err><!SEC:howto!></err>
 </div>
 

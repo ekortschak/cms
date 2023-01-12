@@ -11,6 +11,6 @@ if (EDITING != "view") {
 
 ?>
 
-<div class="toc mnu lev1" style="margin-top: -5px;">
+<div class="toc mnu lev1">
 <?php echo $tit; ?>
 </div>

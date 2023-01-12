@@ -111,9 +111,9 @@ public function gc($sec = "main") {
 		$out = $this->getSection("main");
 		return "$out\n";
 	}
-	$dat = $this->getRows(); $fut = "";
-	$hed = $this->getRow("rh", $this->cls->getInfo("head"));
-	$fut = $this->getRow("rf", $this->cls->getInfo("foot"));
+	$dat = $this->getRows();
+	$hed = $this->getRow("rh", $this->cls->getCols());
+	$fut = $this->getRow("rf", $this->cls->getSums());
 
 	if ($rcs < $this->lns) {
 		$this->clearSec("stats");
@@ -150,18 +150,16 @@ protected function getRows() {
 protected function getRow($style, $arr) {
     if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
 
-    foreach ($arr as $val) {
+    foreach ($arr as $fld => $val) {
         $inf = $this->cls->getInfo($cnt++, $val);
-        if ($inf["hide"]) continue;
-
-        switch ($style) { // apply functions to data only
-            case "rh":
-            case "rf": $sec = "THead"; break;
-            default:   $sec = "TData";
-        }
+		switch ($style) { // apply functions to data only
+			case "rh": $sec = "THead"; break;
+			case "rf": $sec = "TFoot"; break;
+			default:   $sec = "TData";
+		}
         $out.= $this->getCell($sec, $inf)."\n";
 	}
-	$qid = isset($arr["ID"]) ? $arr["ID"] : -1;
+	$qid = VEC::get($arr, "ID", -1);
     $out = $this->getLine($out, $style, $qid);
 	return $out."\n";
 }
@@ -182,6 +180,8 @@ protected function getLine($data, $style, $qid) {
 
 // ***********************************************************
 protected function getCell($sec, $inf) {
+	if ($inf["hide"]) return "";
+
 	$xxx = $this->merge($inf);
     return $this->getSection($sec);
 }

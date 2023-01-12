@@ -53,9 +53,11 @@ public function addItem($item, $props = array()) {
 
 // ***********************************************************
 public function isItem($item) {
-	if (is_numeric($item)) return $item < $this->cnt;
+	if (is_numeric($item))
+	return CHK::range($item, 0, $this->cnt - 1);
 	return in_array($item, $this->col);
 }
+
 public function count() {
     return $this->cnt;
 }
@@ -67,44 +69,32 @@ public function getItems() {
 	$out = array();
 
 	foreach ($this->col as $idx => $name) {
-		$out[$name] = $this->itm[$idx]->getValues();
+		$out[$name] = $this->getItem($idx);;
 	}
 	return $out;
 }
 public function getItem($item) {
 	$idx = $this->getIndex($item);
-	$out = $this->itm[$idx]->getValues();
-	return $out;
-}
-
-public function getProp($item, $prop, $default = false) {
-	$idx = $this->getIndex($item);
-	return $this->itm[$idx]->lng($prop, $default);
+	$itm = VEC::get($this->itm, $idx); if (! $itm) return false;
+	return $itm->getValues();
 }
 
 // ***********************************************************
-public function getInfo($prop = "head", $default = "") {
-    $out = array(); // retrieve "$prop" of all items
-
-	foreach ($this->col as $idx => $key) {
-		$out[$idx] = $this->itm[$idx]->get($prop, $default);
-    }
-    return $out;
-}
-
-// ***********************************************************
-// setting properties
+// handling properties
 // ***********************************************************
 public function setProps($item, $arr) {
-	$idx = $this->getIndex($item);
-
 	foreach ($arr as $key => $val) {
-		$this->itm[$idx]->set($key, $val);
+		$this->setProp($item, $key, $val);
 	}
 }
 public function setProp($item, $prop, $value) {
 	$idx = $this->getIndex($item); if (! isset($this->itm[$idx])) return;
 	$this->itm[$idx]->set($prop, $value);
+}
+
+public function getProp($item, $prop, $default = false) {
+	$idx = $this->getIndex($item);
+	return $this->itm[$idx]->lng($prop, $default);
 }
 
 // ***********************************************************

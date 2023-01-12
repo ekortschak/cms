@@ -10,7 +10,6 @@ Used to create combo boxes containing links for immeadiate action
 incCls("menus/dropBox.php");
 
 $box = new dropBox();
-$box->setSpaces($before, $after);
 $box->getKey($qid, $values, $selected);
 $box->getVal($qid, $values, $selected);
 $box->show();
@@ -30,11 +29,6 @@ function __construct() {
 
 public function reset() {
 	$this->data = array();
-}
-
-public function setSpaces($before, $after) {
-	$this->set("tspace", $before); // top space
-	$this->set("bspace", $after); // bottom space
 }
 
 // ***********************************************************

@@ -5,7 +5,6 @@ dropBox.tpl
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
 <table class="nomargin" width="100%">
 	<tr>
 		<td class="nopad" width="*">
@@ -19,7 +18,6 @@ dropBox.tpl
 		<td class="nopad" width=10 align="right"><!SEC:nav.right!></td>
 	</tr>
 </table>
-</div>
 
 [main.box]
 <div class="dropdown"><!VAR:current!>COMBO_DOWN

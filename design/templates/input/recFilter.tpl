@@ -3,7 +3,7 @@ LOC_TPL/input/selector.tpl
 
 [dic.de]
 filter = Datenfilter
-filtered = Gefilterte Daten
+filtered = Passende Datensätze
 
 [dic.xx]
 filter = Use record filter

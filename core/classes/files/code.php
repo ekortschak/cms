@@ -85,7 +85,7 @@ public function getProp($prop, $default = "") {
 	return $default;
 }
 
-public function getInfo($sec = "info", $default = "") { // tailored for tooltips
+public function getTip($sec = "info", $default = "") { // tailored for tooltips
 	$chk = ENV::get("opt.tooltip");	if (! $chk) return;
 
 	$out = VEC::get($this->sec, $sec.".".CUR_LANG); if ($out) return $out;
@@ -123,7 +123,7 @@ protected function addDics() { // register dic entries
 	foreach ($this->sec as $sec => $txt) {
 		if ( ! STR::begins($sec, "dic")) continue;
 		$lng = STR::after($sec, ".");
-		$arr = $this->getItems($txt);
+		$arr = $this->split($txt);
 
 		DIC::append($arr, $lng);
 		unset($this->sec[$sec]);
@@ -163,7 +163,7 @@ protected function sections($txt) {
 
 protected function setVars() { // set vars
 	$txt = VEC::get($this->sec, "vars"); if (! $txt) return;
-	$arr = $this->getItems($txt);
+	$arr = $this->split($txt);
 
 	foreach ($arr as $key => $val) {
 		$this->vrs[$key] = DIC::xlate($val);
@@ -175,7 +175,7 @@ protected function setProps($file) {
 	$ext = FSO::ext($file); if ($ext == "tpl") return;
 
 	foreach ($this->sec as $sec => $txt) {
-		$arr = $this->getItems($txt);
+		$arr = $this->split($txt);
 
 		foreach ($arr as $key => $val) {
 			$val = DIC::xlate($val);
@@ -187,7 +187,7 @@ protected function setProps($file) {
 // ***********************************************************
 // splitting sections
 // ***********************************************************
-protected function getItems($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
+protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 	$arr = $txt; if (! is_array($txt))
 	$arr = explode($lfd, $pfx.$txt); $out = array();
 

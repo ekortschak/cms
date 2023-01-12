@@ -19,7 +19,7 @@ $tpl = new tpl();
 $tpl->load("editor/menu.folders.tpl");
 $tpl->set("curloc", $loc);
 $tpl->set("curdir", basename($loc));
-$tpl->set("status", $sts);
+$tpl->set("bulb", $sts);
 
 if ($lev < 2) {
 	$tpl->substitute("nodes.move", "nodes.top");

@@ -202,7 +202,7 @@ private function setTplInfo($sec) {
 	}
 	$this->set("section", $sec);
 	$this->set("history", $out);
-	$this->set("status",  $sts);
+	$this->set("tstatus", $sts);
 }
 
 // ***********************************************************

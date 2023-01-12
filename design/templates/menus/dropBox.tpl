@@ -14,9 +14,6 @@ type = button
 current = ???
 sep = :
 
-tspace = 0
-bspace = 0
-
 
 # ***********************************************************
 # common parts
@@ -32,9 +29,7 @@ bspace = 0
 # ***********************************************************
 [main] # simple combo box
 # ***********************************************************
-<div style="margin: <!VAR:tspace!>px 0px <!VAR:bspace!>px;">
 <!VAR:items!>
-</div>
 
 [main.box]
 <div class="dropdown">

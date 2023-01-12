@@ -11,7 +11,7 @@ incCls("files/fileInfo.php");
 
 $obj = new fileInfo($file);
 $xxx = $obj->read($file);
-$vls = $obj->getInfo();
+$vls = $obj->getValues();
 $txt = $obj->insVars($txt);
 
 */
@@ -40,10 +40,6 @@ public function read($file) {
 	$this->setDate($file);
 }
 
-public function getInfo($ful) {
-	return $this->vls;
-}
-
 // ***********************************************************
 private function setName($inf, $ful) {
 	$url = APP::relPath($ful);
@@ -59,7 +55,7 @@ private function setName($inf, $ful) {
 
  // remove leading numbers and extension from dir like in 10.xxx.jpg
     $this->set("caption", PRG::clrDigits($inf["filename"]));
-	$this->set("vis", $this->bulb($ful));
+	$this->set("bulb", $this->bulb($ful));
 }
 
 private function bulb($idx) {
