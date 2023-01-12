@@ -1,11 +1,13 @@
 <?php
 
 incCls("dbase/dbQuery.php");
+incCls("dbase/dbInfo.php");
 
 // ***********************************************************
 HTW::xtag("dbo.check privs", "h5");
 // ***********************************************************
-$tbs = DBS::tables($dbs); if (! $tbs) return;
+$dbi = new dbInfo($dbs);
+$tbs = $dbi->tables(); if (! $tbs) return;
 $lst = VEC::implode($tbs, "','");
 
 dropEntries($dbs, "cat='tbl' AND spec NOT IN ('$lst')");
@@ -14,7 +16,7 @@ foreach ($tbs as $tbl => $nam) {
 	echo "&bull; $tbl<br>";
 	addEntry($dbs, "tbl", $tbl);
 
-	$fds = DBS::fields($dbs, $tbl);
+	$fds = $dbi->fields($tbl);
 	$lst = VEC::implode($fds, "','$tbl.");
 
 	dropEntries($dbs, "cat='fld' AND spec LIKE '$tbl.%' AND spec NOT IN ('$tbl.$lst')");

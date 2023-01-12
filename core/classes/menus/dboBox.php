@@ -22,6 +22,7 @@ incCls("menus/dropBox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class dboBox extends dropBox {
+	private $dbi;
 
 function __construct() {
 	parent::__construct();
@@ -32,21 +33,25 @@ function __construct() {
 // show db tables and fields
 // ***********************************************************
 public function getDbase() {
-	$arr = DBS::dbases();
+    $dbi = new dbInfo();
+	$arr = $dbi->dbases();
 	return $this->getKey("pic.dbase", $arr);
 }
 
 public function getTable($dbs) {
-	$arr = DBS::tables($dbs);
+    $dbi = new dbInfo($dbs);
+	$arr = $dbi->tables();
 	return $this->getKey("pic.table", $arr);
 }
 
 public function getField($dbs, $tbl) {
-	$arr = DBS::fields($dbs, $tbl);
+    $dbi = new dbInfo($dbs);
+	$arr = $dbi->fields($tbl);
 	return $this->getKey("pic.field", $arr);
 }
 public function getFilter($dbs, $tbl) {
-	$arr = DBS::fields($dbs, $tbl);
+    $dbi = new dbInfo($dbs);
+	$arr = $dbi->fields($tbl);
 	return $this->getKey("pic.filter", $arr);
 }
 
@@ -54,7 +59,8 @@ public function getFilter($dbs, $tbl) {
 // show user related features
 // ***********************************************************
 public function getGroups($dbs, $all = true) {
-	$arr = DBS::pgroups($dbs, $all); // all or only user defined groups
+    $dbi = new dbInfo($dbs);
+	$arr = $dbi->usrGroups($all); // all or only user defined groups
 	return $this->getKey("pic.group", $arr);
 }
 

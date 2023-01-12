@@ -79,7 +79,7 @@ public function getItem($item) {
 
 public function getProp($item, $prop, $default = false) {
 	$idx = $this->getIndex($item);
-	return $this->itm[$idx]->get($prop, $default);
+	return $this->itm[$idx]->lng($prop, $default);
 }
 
 // ***********************************************************

@@ -54,8 +54,7 @@ public function tables($tablemask = "%") {
 
 	foreach ($arr as $tbl) {
 		$inf = $this->tblProps($tbl);
-		$cap = VEC::get($inf, "head", $tbl);
-		$cap = VEC::get($inf, "head.$lng", $cap);
+		$cap = VEC::lng($inf, "head", $tbl);
 		$out[$tbl] = $cap;
 	}
 	return $out;
@@ -72,8 +71,7 @@ public function fields($table) {
 
 	foreach ($arr as $fld) {
 		$inf = $this->fldProps($table, $fld);
-		$cap = VEC::get($inf, "head", $fld);
-		$cap = VEC::get($inf, "head.$lng", $cap);
+		$cap = VEC::lng($inf, "head", $fld);
 		$out[$fld] = $cap;
 	}
 	return $out;

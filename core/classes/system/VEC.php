@@ -90,6 +90,12 @@ public static function explode($text, $sep = ",", $max = 0) {
 // ***********************************************************
 // retrieving items
 // ***********************************************************
+public static function lng($arr, $key, $default = false) {
+	$lng = CUR_LANG; $try = "$key.$lng";
+	$out = self::get($arr, $try, NV); if ($out !== NV) return $out;
+	return self::get($arr, $key, $default);
+}
+
 public static function get($arr, $key, $default = false) {
 	if (! $arr) return $default;
 	if (! isset($arr[$key])) return $default;

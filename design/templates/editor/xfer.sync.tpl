@@ -16,7 +16,6 @@ sync.execute = Ausführen
 [vars]
 inifile = config/ftp.ini
 head = <!DIC:confirm!>
-title = Sync
 what = BOOL_NO
 
 

@@ -76,7 +76,7 @@ public function findDefaults() {
 	$this->std = new items();
 	$this->qid = -1;
 
-	$dbi = new dbInfo(NV, $this->tbl);
+	$dbi = new dbInfo($this->dbs, $this->tbl);
 	$fds = $dbi->fields($this->tbl); if (!$fds) return $out;
 
 	foreach ($fds as $fld => $hed) {
@@ -87,8 +87,7 @@ public function findDefaults() {
 			$val = CFG::insert($val); if ($prp == "value")
 			$val = OID::get($this->oid, $fld, $val);
 
-			$this->std->setProp($fld, $prp, $val); if ($prp == "fstd")
-			$this->std->setProp($fld, "value", $val);
+			$this->std->setProp($fld, $prp, $val);
 		}
 		$this->std->setProp($fld, "head", $hed);
 	}
@@ -166,26 +165,26 @@ public function show() {
 }
 
 public function gc() {
-	$txs = $this->getTPerms(); $cnt = 0;
-	$fds = $this->fds->getItems();
+	$fds = $this->fds->getItems(); $cnt = 0;
+	$txs = $this->getTPerms();
 
 	$tan = TAN::register($this->dbs, $this->tbl, $this->qid);
 	$xxx = OID::set($this->oid, "tan", $tan);
 
-	$sel = new fldEdit();
-	$sel->set("oid", $this->oid);
-	$sel->set("tan", $tan);
-	$sel->set("perms", $txs);
+	$fed = new fldEdit($this->dbs);
+	$fed->set("oid", $this->oid);
+	$fed->set("tan", $tan);
+	$fed->set("perms", $txs);
 
 	foreach ($fds as $fld => $inf) {
 		$val = $this->chkVal($inf, $txs); $cnt++;
-		$sel->add($inf, $val);
+		$fed->add($inf, $val);
 	}
 	$sec = "main"; if ($cnt < 1)
 	$sec = "no.perms";
 
-	if (! STR::contains($this->btn, "t")) $sel->clearSec("buttons");
-	return $sel->gc($sec);
+	if (! STR::contains($this->btn, "t")) $fed->clearSec("buttons");
+	return $fed->gc($sec);
 }
 
 public function act() {

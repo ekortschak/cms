@@ -221,7 +221,7 @@ public function parentType() {
 // language specific methods
 // ***********************************************************
 protected function langSec($sec) {
-	foreach (LNG::getRel() as $lng) {
+	foreach (LNG::getRel() as $lng) { // find first relevant language section
 		if ($this->isSec("$sec.$lng")) return "$sec.$lng";
 	}
 	return $sec;

@@ -151,7 +151,7 @@ protected function getRow($style, $arr) {
     if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
 
     foreach ($arr as $val) {
-        $inf = $this->cls->getColInfo($cnt++, $val);
+        $inf = $this->cls->getInfo($cnt++, $val);
         if ($inf["hide"]) continue;
 
         switch ($style) { // apply functions to data only

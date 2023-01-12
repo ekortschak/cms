@@ -14,6 +14,14 @@ $xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->tblProps($tbl);
+$fds = $dbi->fields($tbl);
+
+// ***********************************************************
+HTW::xtag("fields.available");
+// ***********************************************************
+foreach ($fds as $key => $val) {
+	echo "<button>$key</button>&ensp;";
+}
 
 // ***********************************************************
 // read field props
@@ -34,10 +42,12 @@ $sel->hidden("chk", "tcProps");
 foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
 
-	$cap = VEC::get($dat, "head", $prp); $cap = VEC::get($dat, "head.$lng", $cap);
-	$val = VEC::get($dat, "default");    $val = VEC::get($inf, $prp, $val);
+	$cap = VEC::lng($dat, "head", $prp);
+	$val = VEC::get($dat, "default");
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
+
+	$val = VEC::get($inf, $prp, $val);
 
 	$sel->addInput("prop[$prp]", $vls, $val);
 	$sel->setProp("title", $cap);
@@ -55,8 +65,7 @@ $sel->hidden("tbl", "$tbl");
 $sel->hidden("chk", "tlProps");
 
 foreach (LNG::get() as $lng) {
-	$tit = VEC::get($inf, "head", $tbl);
-	$tit = VEC::get($inf, "head.$lng", $tit);
+	$tit = VEC::lng($inf, "head", $tbl);
 	$flg = HTM::flag($lng);
 
 	$sel->input("head[$lng]", $tit);

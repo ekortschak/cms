@@ -16,6 +16,7 @@ $xxx = $box->show();
 
 $dbi = new dbInfo($dbs, $tbl);
 $arr = $dbi->fields($tbl, "%", $skip = $fld);
+unset($arr[$fld]);
 
 // ***********************************************************
 HTW::xtag("fld.move");

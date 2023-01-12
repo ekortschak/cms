@@ -20,8 +20,8 @@ DBS::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class DBS {
-	private static $con = false;   // db connection
-	private static $dbs = false;   // db object
+	private static $con = false; // db connection
+	private static $dbs = false; // db object
 
 
 public static function init() {
@@ -39,23 +39,9 @@ private static function loadDbs() {
 }
 
 // ***********************************************************
-// querying db state
-// ***********************************************************
-public static function dbases() {
-	return self::$dbs->dbases();
-}
-public static function tables($dbs) {
-	return self::$dbs->tables();
-}
-public static function fields($dbs, $tbl, $key = false) {
-	$out = self::$dbs->fields($tbl); if (! $key) unset($out["ID"]);
-	return $out;
-}
-
-// ***********************************************************
 // user status
 // ***********************************************************
-public static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
+private static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	if ( ! DB_CON) return false;
 	$pwd = STR::maskPwd($pwd);
 
@@ -63,7 +49,7 @@ public static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	return self::$dbs->isRecord("`uname`='$usr' AND `pwd`='$pwd'");
 }
 
-public static function isAdmin($usr = CUR_USER)  {
+private static function isAdmin($usr = CUR_USER)  {
 	if (! DB_LOGIN) return false;
 
 	$xxx = self::$dbs->setTable("dbxs");
@@ -73,7 +59,7 @@ public static function isAdmin($usr = CUR_USER)  {
 // ***********************************************************
 // user group info
 // ***********************************************************
-public static function isDbGroup($grp, $usr = CUR_USER)  {
+private static function isDbGroup($grp, $usr = CUR_USER)  {
 	if (! DB_CON) return false;
 	if (STR::contains("ID.cat.spec", ".$grp."))  return false;
 
@@ -81,7 +67,7 @@ public static function isDbGroup($grp, $usr = CUR_USER)  {
 	return self::$dbs->isField($grp);
 }
 
-public static function ugroups($usr = CUR_USER)  {
+private static function ugroups($usr = CUR_USER)  {
 	if (  DB_ADMIN) return "admin";
 	if (! DB_LOGIN) return "www";
 
@@ -93,11 +79,6 @@ public static function ugroups($usr = CUR_USER)  {
 		if ("$val" == "m") $out[$key] = $key;
 	}
 	return implode(",", $out);
-}
-
-public static function pgroups($dbs, $mds = false) { // public groups (may be edited)
-	$out = self::$dbs->usrGroups($mds); if (! $out) $out = "?";
-	return $out;
 }
 
 // ***********************************************************

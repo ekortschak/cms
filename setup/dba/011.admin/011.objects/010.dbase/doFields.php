@@ -3,6 +3,7 @@
 
 incCls("input/confirm.php");
 incCls("dbase/dbQuery.php");
+incCls("dbase/dbInfo.php");
 incCls("menus/dboBox.php");
 
 // ***********************************************************
@@ -11,6 +12,8 @@ incCls("menus/dboBox.php");
 $box = new dboBox();
 $dbs = $box->getDbase();
 $xxx = $box->show();
+
+$dbi = new dbInfo($dbs);
 
 // ***********************************************************
 // info
@@ -31,7 +34,7 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // execute analysis
 // ***********************************************************
-$tbs = DBS::tables($dbs);
+$tbs = $dbi->tables();
 
 $dbq = new dbQuery($dbs, "dbobjs");
 $dbq->askMe(false);
@@ -39,8 +42,7 @@ $dbq->askMe(false);
 $arr = array("head", "head.de", "head.en", "input", "mask", "default");
 
 foreach ($tbs as $tbl => $cap) {
-
-	$fds = DBS::fields($dbs, $tbl);
+	$fds = $dbi->fields($tbl);
 	$vls = array(
 		"cat" => "tbl", "spec" => "$tbl", "prop" => "head", "value" => ucfirst($tbl)
 	);

@@ -39,11 +39,8 @@ class sync extends objects {
 
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
+
 	$this->register();
-
-	$this->set("head", "Sync");
-	$this->set("info", false);
-
 	$this->setSource();
 	$this->setDest();
 }
@@ -129,11 +126,11 @@ protected function showInfo($info = "info") {
 	$tpl = new tpl();
 	$tpl->load($this->tpl);
 
-	if (! $this->visOnly)
-	$tpl->set("what", BOOL_YES);
+	$hed = $this->get("head", NV);
 
-	$tpl->set("inifile", $this->get("inifile"));
-	$tpl->set("title",   $this->get("title"));
+	if (! $this->visOnly)
+	$tpl->set("what",    BOOL_YES);
+	$tpl->set("inifile", $this->get("inifile")); if ($hed !== NV)
 	$tpl->set("head",    $this->get("head"));
 	$tpl->set("source",  $this->src);
 	$tpl->set("dest",    $this->dst);
@@ -171,7 +168,14 @@ protected function preView($tellMe = false) {
 protected function showStat($arr, $act, $cap) {
 	$arr = VEC::get($arr, $act); if (! $arr) return;
 	$cap = DIC::get($cap);
-	DBG::list($arr, $cap);
+
+	HTW::tag($cap, "h5");
+	echo "<div class='pre'>";
+
+	foreach ($arr as $key => $val) {
+		echo "[$key] = $val\n";
+	}
+	echo "</div>";
 }
 
 // ***********************************************************

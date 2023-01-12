@@ -79,6 +79,13 @@ public function get($key, $default = "") {
 }
 
 // ***********************************************************
+public function lng($key, $default = "") {
+	$lng = CUR_LANG; $try = "$key.$lng";
+	$out = $this->get($try, NV); if ($out !== NV) return $out;
+	return $this->get($key, $default);
+}
+
+// ***********************************************************
 public function getKeys($pfx = "") {
 	$arr = $this->getValues($pfx);
 	return VEC::keys($arr);

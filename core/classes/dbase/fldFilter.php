@@ -12,8 +12,8 @@ incCls("dbase/fldEdit.php");
 // ***********************************************************
 class fldFilter extends fldEdit {
 
-function __construct() {
-	parent::__construct();
+function __construct($dbs) {
+	parent::__construct($dbs);
 	$this->load("input/recFilter.tpl");
 }
 

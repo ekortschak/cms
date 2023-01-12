@@ -51,7 +51,7 @@ public function getFilter() {
 		if (! $key) continue;
 
 		switch ($key) {
-			case "ID": $out[] = "ID='$val'"; break;
+			case "ID": if (! $val) break; $out[] = "ID='$val'"; break;
 			default:   $out[] = "$key LIKE '%$val%'";
 		}
 	}
@@ -69,15 +69,17 @@ public function gc() {
 	$fds = $this->fds; $cnt = 0;
 	$vls = OID::getLast($this->oid);
 
-	$sel = new fldFilter();
+	$sel = new fldFilter($this->dbs);
 	$sel->set("oid", $this->oid);
 
 	foreach ($fds as $fld => $inf) {
+		$hed = VEC::lng($inf, "head");
 		$typ = VEC::get($inf, "dtype"); if (! $typ) continue;
 		$val = VEC::get($inf, "fstd");
 		$val = VEC::get($vls, $fld, $val);
 		$val = CFG::insert($val);
 
+		$inf["head"]  = $hed;
 		$inf["perms"] = "w"; if ($typ == "key")
 		$inf["dtype"] = "int"; // prevent keys from hiding
 

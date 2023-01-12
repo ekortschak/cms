@@ -2,10 +2,8 @@
 
 incCls("menus/dboBox.php");
 incCls("input/selector.php");
-incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
-$dbi = new dbInfo();
 
 // ***********************************************************
 // show menu

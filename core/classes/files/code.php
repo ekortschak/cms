@@ -163,7 +163,11 @@ protected function sections($txt) {
 
 protected function setVars() { // set vars
 	$txt = VEC::get($this->sec, "vars"); if (! $txt) return;
-	$this->vrs = $this->getItems($txt);
+	$arr = $this->getItems($txt);
+
+	foreach ($arr as $key => $val) {
+		$this->vrs[$key] = DIC::xlate($val);
+	}
 	unset($this->sec["vars"]);
 }
 

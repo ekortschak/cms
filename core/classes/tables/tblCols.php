@@ -60,7 +60,7 @@ public function setProp($item, $prop, $val) {
 // ***********************************************************
 // retrieving properties
 // ***********************************************************
-public function getColInfo($key, $val = NV) {
+public function getInfo($key, $val = NV) {
 	$out = $this->getItem($key); if (! $out) return false;
 	$val = $val;
 

@@ -41,8 +41,7 @@ foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
 	$typ = $inf["dtype"];
 
-	$cap = VEC::get($dat, "head", $prp);
-	$cap = VEC::get($dat, "head.$lng", $cap);
+	$cap = VEC::lng($dat, "head", $prp);
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
 
@@ -70,8 +69,7 @@ $sel->hidden("fld", "$tbl.$fld");
 $sel->hidden("chk", "flProps");
 
 foreach (LNG::get() as $lng) {
-	$tit = VEC::get($inf, "head", $fld);
-	$tit = VEC::get($inf, "head.$lng", $tit);
+	$tit = VEC::lng($inf, "head", $fld);
 	$flg = HTM::flag($lng);
 
 	$sel->input("head[$lng]", $tit);

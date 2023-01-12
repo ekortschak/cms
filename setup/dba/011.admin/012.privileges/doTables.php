@@ -8,7 +8,7 @@ incCls("tables/sel_table.php");
 // ***********************************************************
 $box = new dboBox();
 $dbs = $box->getDbase();
-$grp = $box->getGroups($dbs, true);
+$grp = $box->getGroups($dbs);
 $prm = $box->getPrivs("t");
 $xxx = $box->show();
 

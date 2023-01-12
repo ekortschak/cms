@@ -3,18 +3,31 @@
 // INFO
 // ***********************************************************
 Used to create user input fields for db tables
+
+// ***********************************************************
+// HOW TO USE
+// ***********************************************************
+incCls("input/fldEdit.php");
+
+$fed = new fldEdit($dbase);
+$fed->add($fldInfo, $value)
+$fed->show();
 */
 
 incCls("input/selector.php");
+incCls("dbase/dbInfo.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class fldEdit extends selector {
+	private $dbs = NV;
 
-function __construct() {
+function __construct($dbs) {
 	parent::__construct();
 	parent::load("input/recEdit.tpl");
+
+	$this->dbs = $dbs;
 
 	DIC::read("dbase/ref");
 }
@@ -92,10 +105,10 @@ protected function chkRef($ref) {
 	$ref = STR::after($ref, ":");
 
 	switch(STR::left($fnc)) {
-		case "fol": return APP::folders($ref);
-		case "fil": return APP::files($ref);
-		case "tab": return DBS::tables();
-		case "fie": return DBS::fields($ref);
+		case "folders": return APP::folders($ref);
+		case "files":   return APP::files($ref);
+		case "tables":  return $this->getDbInfo("tbl");
+		case "fields":  return $this->getDbInfo("fld", $ref);
 
 		case "dic": $ref = DIC::get("ref.$ref"); break;
 	}
@@ -108,6 +121,15 @@ protected function chkROnly($ref, $key) {
 	if (! is_array($ref)) return $key;
 	if (! array_key_exists($key, $ref)) return $key;
 	return $ref[$key];
+}
+
+// ***********************************************************
+// handling dbInfo
+// ***********************************************************
+protected function getDbInfo($typ, $prm = "") {
+	$dbi = new dbInfo($this->dbs);
+	if ($typ == "tbl") return $dbi->tables();
+	if ($typ == "fld") return $dbi->fields($prm);
 }
 
 // ***********************************************************

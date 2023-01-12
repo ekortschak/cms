@@ -210,8 +210,10 @@ public function tellMe($value = true) {
 	$this->tell = (bool) $value;
 }
 
-protected function doMsg($msg, $prm = "") {
-	if ($this->tell) MSG::now($msg, $prm);
+private function doMsg($msg, $prm = NV) {
+	if (! $this->tell) return;
+	if ($prm !== NV) return MSG::now($msg, $prm);
+	MSG::now($msg);
 }
 
 // ***********************************************************

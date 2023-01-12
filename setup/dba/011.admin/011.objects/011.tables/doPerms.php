@@ -9,7 +9,7 @@ incCls("tables/sel_table.php");
 $box = new dboBox();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
-$grp = $box->getGroups($dbs, true);
+$grp = $box->getGroups($dbs);
 $prm = $box->getPrivs("f");
 $xxx = $box->show();
 

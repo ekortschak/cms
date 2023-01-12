@@ -45,6 +45,7 @@ class DBG {
 // debugging tools
 // ***********************************************************
 public static function text($msg, $info = "dbg") {
+	if (is_object($msg)) return self::$obj($msg, $info);
 	if (is_array($msg)) {
 		if (count($msg) > 15) {
 			$msg = array_slice($msg, 0, 15);
@@ -80,26 +81,15 @@ public static function vector($arr, $info = "arr") {
 		echo "$info = $out";
 		return;
 	}
-#	echo "<div class='pre'>$info = $out</div>";
 	incCls("menus/tview.php");
 
-	echo '<div style="max-height: 125px; overflow: auto;">';
+	echo '<div style="max-height: 125px; overflow: auto; border: 1px solid OUTLINE; border-radius: 5px;">';
 
 	$tvw = new tview();
 	$tvw->setData($arr);
 	$tvw->show();
 
 	echo '</div>';
-}
-
-public static function list($arr, $info) {
-	HTW::tag($info, "h5");
-	echo "<div class='pre'>";
-
-	foreach ($arr as $key => $val) {
-		echo "[$key] = $val\n";
-	}
-	echo "</div>";
 }
 
 // ***********************************************************
