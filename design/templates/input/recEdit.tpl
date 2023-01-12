@@ -40,11 +40,6 @@ perms = r
 # ***********************************************************
 [main]
 # ***********************************************************
-<!SEC:open!>
-<!VAR:items!>
-<!SEC:close!>
-
-[open]
 <form method="post" action="?">
 	<!SEC:hidden!>
 
@@ -54,8 +49,7 @@ perms = r
 			<th width=<!VAR:wid2!>><!SEC:mandatory!></th>
 			<th width="100%"><!DIC:value!></th>
 		</tr>
-
-[close]
+<!VAR:items!>
 	</table>
 
 	<div class="flex rf" style="padding: 0px 5px;">

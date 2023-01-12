@@ -62,7 +62,7 @@ public function findRec($recID = -1) {
 	$this->fds = $this->std; if (! $arr) return;
 
 	foreach ($arr as $fld => $val) {
-		$this->fds->addItem($fld); if ($val)
+		$this->fds->addItem($fld);
 		$this->fds->setProp($fld, "value", $val);
 	}
 	$this->qid = $this->fds->getProp("ID", "value", -1);
@@ -109,9 +109,9 @@ public function getCurVal($field, $default = NV) {
 }
 
 private function chkVal($inf, $prm) {
-	$out = VEC::get($inf, "fstd"); if ($prm != "a")
-	return VEC::get($inf, "value", $out);
-	return $out;
+	if ($prm == "a")
+	return VEC::get($inf, "fstd");
+	return VEC::get($inf, "value");
 }
 
 // ***********************************************************

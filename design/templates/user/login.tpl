@@ -22,7 +22,6 @@ cancel = Abbrechen
 # ***********************************************************
 <h4><!DIC:usr.chg!></h4>
 
-<div>
 <form method="post" action="?">
 
 	<table>
@@ -48,7 +47,6 @@ cancel = Abbrechen
 	</table>
 
 </form>
-</div>
 
 # ***********************************************************
 [admin]

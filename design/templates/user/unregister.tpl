@@ -23,7 +23,6 @@ done = Ihr Benutzerkonto wurde gelöscht!
 
 <h4><!DIC:ask!></h4>
 
-<div>
 <form method="post" action="?vmode=login&btn.usr=D">
 
 	<table>
@@ -43,7 +42,6 @@ done = Ihr Benutzerkonto wurde gelöscht!
 	</table>
 
 </form>
-</div>
 
 
 # ***********************************************************

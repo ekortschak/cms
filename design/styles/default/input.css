@@ -1,5 +1,5 @@
 form {
-	margin: 2px 0px 7px;
+	margin: 2px 0px 20px;
 }
 
 form table {
@@ -67,6 +67,57 @@ input[type='checkbox'],
 input[type='radio'] {
 	margin-right: 5px;
 #	vertical-align: middle;
+}
+
+.cb {
+	display: block;
+	position: relative;
+	border: 0px;
+	border-radius: 5px;
+	padding-left: 30px;
+	height: 21px;
+
+	background: transparent;
+
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.cb input {
+	position: absolute;
+	opacity: 0;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+	top: 0;
+	left: 0;
+	height: 19px;
+	width: 50px;
+	background: BC_DROP;
+#	font-size: 0.8em;
+	text-align: center;
+}
+
+.checkmark:after {
+	color: black;
+	content: "no";
+}
+
+.container input:checked ~ .checkmark:after {
+	color: white;
+	content: "yes";
+}
+.cb input:checked ~ .checkmark {
+	border: 1px solid forestgreen;
+	background-color: forestgreen;
 }
 
 /* ******************************************************** */

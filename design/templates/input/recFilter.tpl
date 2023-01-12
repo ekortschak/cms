@@ -15,20 +15,16 @@ equal = &sime;
 # ***********************************************************
 [main]
 # ***********************************************************
+<h5><!DIC:filter!></h5>
+
 <form method="post" action="?" style="padding: 0px; margin: 0px;">
 	<input type="hidden" name="oid" value="<!VAR:oid!>" />
 
-	<table>
-		<tr>
-			<td class="nopad" colspan="100%"><h5><!DIC:filter!></h5></td>
-		</tr>
-		<tr>
-			<td class="nopad"><!SEC:data!></td>
-			<td rowspan="100%" style="vertical-align:bottom;"><!SEC:btn.ok!></td>
-		</tr>
-	</table>
+	<div class="flex flexbottom">
+		<div><!SEC:data!></div>
+		<div><!SEC:btn.ok!></div>
+	</div>
 </form>
-
 
 <h5><!DIC:filtered!></h5>
 

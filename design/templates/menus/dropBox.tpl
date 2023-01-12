@@ -11,12 +11,11 @@ range = Bereich
 [vars]
 parm = ref
 type = button
-wid = 125
 current = ???
 sep = :
 
 tspace = 0
-bspace = 1
+bspace = 0
 
 
 # ***********************************************************

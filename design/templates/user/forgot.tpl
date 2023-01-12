@@ -30,7 +30,6 @@ nomail  = Mailing ist deaktiviert.
 
 <h4><!DIC:head!></h4>
 
-<div>
 <form method="post" action="?vmode=login&btn.usr=F">
 
 	<table>
@@ -55,7 +54,6 @@ nomail  = Mailing ist deaktiviert.
 	</table>
 
 </form>
-</div>
 
 
 # ***********************************************************

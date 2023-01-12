@@ -52,7 +52,6 @@ mis   = password mismatch
 <h4><!DIC:head!></h4>
 <!VAR:uid!>
 
-<div>
 <form method="post" action="?vmode=login&btn.usr=R">
 
 	<table>
@@ -87,7 +86,6 @@ mis   = password mismatch
 	</table>
 
 </form>
-</div>
 
 
 # ***********************************************************

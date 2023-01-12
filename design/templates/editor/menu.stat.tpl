@@ -23,10 +23,8 @@ mnu.thaw = Auftauen
 
 <form method="post" action="?">
 <table>
-#	<tr><td colspan="100%" height=5></td></tr>
 <!SEC:act!>
 </table>
-
 </form>
 
 # ***********************************************************

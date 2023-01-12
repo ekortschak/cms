@@ -25,7 +25,6 @@ addfile = Datei erstellen
 # ***********************************************************
 <form method="post" action="?">
 	<input type="hidden" name="opt_act" value="upload" />
-
 <!SEC:addNode!>
 <!SEC:perms!>
 </form>

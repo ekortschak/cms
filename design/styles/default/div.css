@@ -11,3 +11,8 @@ div.flexleft {
 	justify-content: flex-start;
 	align-items: flex-end;
 }
+
+div.flexbottom {
+	display: flex;
+	align-items: flex-end;
+}

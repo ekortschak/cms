@@ -31,7 +31,6 @@ deny = verweigern
 			<th><!DIC:deny!></th>
 		</tr>
 <!VAR:items!>
-
 		<tr class="rf">
 			<td colspan="100%" align="right">
 				<input type="submit" name="perms.act" value="OK" style="padding:0px 20px;">

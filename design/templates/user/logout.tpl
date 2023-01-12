@@ -20,7 +20,6 @@ done  = Sie sind (nun) abgemeldet!
 
 <h4><!DIC:head!></h4>
 
-<div>
 <form method="post" action="?">
 
 	<input type="hidden" name="crdu" value="www" />
@@ -28,7 +27,6 @@ done  = Sie sind (nun) abgemeldet!
 	<input type="submit" name="B1" value="<!DIC:leave!>" />
 
 </form>
-</div>
 
 # ***********************************************************
 [done]

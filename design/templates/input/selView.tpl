@@ -4,21 +4,12 @@ LOC_TPL/input/selector.tpl
 # ***********************************************************
 [main]
 # ***********************************************************
-<!SEC:open!>
-<!VAR:items!>
-<!SEC:close!>
-
-<!SEC:back!>
-
-
-[open]
 <table>
 	<tr height=0>
 		<td width=<!VAR:wid1!>></td>
 		<td width=<!VAR:wid2!>></td>
 	</tr>
-
-[close]
+<!VAR:items!>
 </table>
 
 # ***********************************************************

@@ -35,10 +35,10 @@ replace = Ersetzen
 
 
 [refs]
-<p>Bible passages to be replaced</p>
+<p>External references to be replaced</p>
 
 [refs.de]
-<p>Zu ersetztende Bibelverse</p>
+<p>Zu ersetztende externe Referenzen</p>
 
 
 

@@ -17,7 +17,6 @@ caption = Ja, ich lebe wirklich
 # ***********************************************************
 <h4><!DIC:head!></h4>
 
-<div>
 <form method="post" action="?vmode=login&btn.usr=C">
 
 	<table>
@@ -37,7 +36,6 @@ caption = Ja, ich lebe wirklich
 	</table>
 
 </form>
-</div>
 
 
 # ***********************************************************
