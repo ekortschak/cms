@@ -35,7 +35,7 @@ function __construct() {
 // handling the template
 // ***********************************************************
 public function fetch($dir, $file) {
-#	$dir = APP::relPath($dir);
+	$dir = APP::relPath($dir);
 	$ful = FSO::join($dir, $file);
 #	$ful = APP::file($fil); if (! $ful) $ful = $file;
 	return self::read($ful);
@@ -179,13 +179,14 @@ private function norm($sec) {
 
 private function isFile($fil) {
 	$this->setIf("tplfile", $fil);
+	$fil = CFG::insert($fil);
 	$ful = APP::file($fil);
 
 	switch ($ful) {
-		case true: $this->hst[$ful] = 1; break;
-		default:   $this->hst[$fil] = 0;
+		case true: $this->hst[$ful] = 1; return $fil;
+		default:   $this->hst[$fil] = 0; return "";
 	}
-	return $ful;
+	return "";
 }
 
 // ***********************************************************

@@ -63,7 +63,7 @@ public function gc($sec = "main") {
 
 protected function setNav($data, $sel) {
 	$cur = VEC::indexOf($data, $sel) + 1; if (! $cur) return false;
-	$max = count($data);
+	$max = $cur; if (is_array($data)) count($data);
 
 	$this->set("prev", CHK::min($cur - 1, 1));
 	$this->set("next", CHK::max($cur + 1, $max));

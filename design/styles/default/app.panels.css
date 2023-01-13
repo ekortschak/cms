@@ -4,7 +4,7 @@
 /* css default */
 /* ******************************************************** */
 html {
- 	background: BC_OPTS;
+ 	background: white;
 	height: 100%;
 }
 
@@ -23,8 +23,8 @@ body {
 	border: 0px;
 }
 body.print {
-	margin: 25px 20px 75px;
-	width: 100%;
+	padding: 25px 20px 35px;
+	width: calc(100% - 40px);
 }
 
 /* ******************************************************** */

@@ -148,6 +148,7 @@ protected function getRows() {
 
 // ***********************************************************
 protected function getRow($style, $arr) {
+	if (! $arr) return "";
     if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
 
     foreach ($arr as $fld => $val) {

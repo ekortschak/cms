@@ -11,7 +11,7 @@ $opt = $obj->getScope();
 $fnd = ENV::get("search");
 $fnd = str_replace('"', "'", $fnd);
 
-$lst = $obj->getResults($fnd); if($lst) ksort($lst);
+$lst = $obj->getResults($fnd); if (is_array($lst)) ksort($lst);
 $res = "";
 
 // ***********************************************************

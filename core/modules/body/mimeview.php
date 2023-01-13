@@ -24,7 +24,7 @@ $fil = APP::relPath($fil);
 // show file
 // ***********************************************************
 $tpl = new tpl();
-$obj->load("modules/fview.mimetype.tpl");
+$tpl->load("modules/fview.mimetype.tpl");
 $tpl->set("url", $fil);
 $tpl->show();
 

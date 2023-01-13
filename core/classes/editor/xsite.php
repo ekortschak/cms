@@ -24,7 +24,7 @@ function __construct($cnt = 3) {
 // read all selected files
 // ***********************************************************
 public function read($pfs) {
-	$pge = ENV::addContent(); // backup current page
+	$pge = ENV::getPage(); // backup current page
 	$skp = $old = ""; $cnt = 0;
 
 	foreach($pfs as $dir => $nam) {

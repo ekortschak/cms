@@ -126,7 +126,7 @@ public static function makeUrl($fso) { // convert file to url
 
 	if (STR::begins($ful, APP_DIR))  return $rel;
 	if (STR::begins($ful, APP_FBK))  return FSO::join(CMS_URL, $rel);
-	if (STR::begins($ful, SRV_ROOT)) return STR::after($ful, SRV_ROOT);
+	if (STR::begins($ful, SRV_ROOT)) return FSO::join(SRV_ROOT, $rel);
 	return $fso;
 }
 
