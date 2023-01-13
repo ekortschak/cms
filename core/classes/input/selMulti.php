@@ -32,10 +32,18 @@ public function setChoice($options) {
 	$sel = parent::get("curVal", $sel);
 	$sel = OID::get($this->oid, $this->uid, $sel);
 
-	if (! is_array($sel)) $sel = array($sel);
-
 	$this->vals = $options;
-	$this->sels = $sel;
+	$this->sels = $this->getChoice($options, $sel);
+	return $this->sels;
+}
+
+private function getChoice($arr, $sel) {
+	if (is_array($sel)) return $sel;
+
+	foreach ($arr as $key => $val) {
+		$arr[$key] = (bool) $sel;
+	}
+	return $arr;
 }
 
 // ***********************************************************
@@ -55,6 +63,8 @@ public function getTool() {
 	$key = $this->get("fname");
 	$typ = $this->getType();
 	$opt = "";
+
+	if (count($this->vals) < 2) $this->clearSec("info.hint");
 
     foreach ($this->vals as $key => $val) {
 		$sel = VEC::get($this->sels, $key);

@@ -129,8 +129,8 @@ public function files($dir, $parm = "pic.file", $selected = false) {
 
 public function anyfiles($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::files($dir, false, false); if (! $arr) return false;
-	$arr = $this->sortFiles($arr);
 	$sel = VEC::find($arr, $selected);
+	$arr = $this->sortFiles($arr);
 
 	return $this->getKey($parm, $arr, $sel);
 }

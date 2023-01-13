@@ -100,7 +100,7 @@ protected function setInfo($info = "") {
 // ***********************************************************
 // output
 // ***********************************************************
-public function getFormat() {
+public function rowFormat() {
 	$typ = $this->getType();
 	if ($typ == "hid") return "hidden";
 	return "rows";

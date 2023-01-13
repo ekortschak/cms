@@ -9,7 +9,6 @@ div.flex {
 div.flexleft {
 	display: flex;
 	justify-content: flex-start;
-	align-items: flex-end;
 }
 
 div.flexbottom {

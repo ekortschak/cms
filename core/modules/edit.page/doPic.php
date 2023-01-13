@@ -5,7 +5,7 @@ incCls("dbase/recEdit.php");
 // ***********************************************************
 // show copy right properties
 // ***********************************************************
-HTW::tag("&copy;-Information", "b");
+HTW::tag("(CR)-Information", "b");
 
 if (DB_MODE != "none") {
 	$md5 = md5($fil);

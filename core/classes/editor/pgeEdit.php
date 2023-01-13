@@ -7,9 +7,9 @@ web site editor, used to create and manage files
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("editor/genEdit.php");
+incCls("editor/pgeEdit.php");
 
-$obj = new genEdit();
+$obj = new pgeEdit();
 */
 
 incCls("editor/iniWriter.php");
@@ -17,15 +17,17 @@ incCls("editor/iniWriter.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class genEdit {
+class pgeEdit {
 
-function __construct() {}
+function __construct() {
+	if (EDITING != "pedit") return;
+	$this->exec();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function exec() {
-	if (EDITING != "pedit") return;
+private function exec() {
 	$dir = ENV::get("loc");
 
 	if ($this->saveFile())     return;
@@ -61,7 +63,7 @@ private function saveFile() {
 private function conv2html() {
 	$cnv = ENV::getParm("conv", ""); if (! $cnv) return false;
 	$fil = ENV::getParm("fil",  ""); if (! $fil) return false;
-	$txt = APP::getBlock($fil);
+	$txt = APP::gc($fil);
 	$ext = FSO::ext($fil);
 
 	if (STR::contains($txt, "Uncaught Error:")) {

@@ -43,14 +43,14 @@ class tblMgr extends dbBasics {
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
 
+	$this->prp = new items();
+
 	$this->dbs = $dbase;
 	$this->register("$dbase.$table");
+	$this->setTable($table);
 
 	$rec = OID::get($this->oid, "rec", "list");
-
-	$this->setTable($table);
 	$this->set("rec", $rec);
-	$this->prp = new items();
 }
 
 // ***********************************************************

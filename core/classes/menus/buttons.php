@@ -13,9 +13,7 @@ Handles top navigation by buttons
 // ***********************************************************
 incCls("menus/buttons.php");
 
-$dir = APP::dir(__DIR__);
-
-$nav = new buttons("anyID", "A", $dir);
+$nav = new buttons("anyID", "A", __DIR__);
 $nav->add("A", "incA");
 $nav->add("B", "incB");
 $nav->add("C", "incC");
@@ -40,9 +38,10 @@ class buttons extends tpl {
 function __construct($owner, $std, $dir) {
 	$this->own = "btn.$owner";
 	$this->std = $std;
-	$this->dir = $dir;
+	$this->dir = FSO::norm($dir);
 
 	$this->load("menus/buttons.tpl");
+	$this->register();
 
 	OID::set($this->oid, "sfx", $owner);
 	ENV::setIf($this->own, $std);

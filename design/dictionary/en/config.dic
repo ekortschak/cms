@@ -21,8 +21,7 @@ ftp.report = Transfer report
 mailmaster = POSTMASTER
 mailtester = TESTMASTER
 no.grps = No groups
-no.grps.edit = No groups to edit
-no.grps.kill = No groups to remove
+no.grps.edit = There are currently no user defined groups!
 page.edit = Edit page
 prj.new = New project
 prj.tpl = Template
@@ -40,3 +39,5 @@ unq.method = Method
 unq.section = Section
 unq.subset = Subset
 unq.view = View
+
+usr.edit = Modify account info

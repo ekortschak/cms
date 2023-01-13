@@ -21,10 +21,10 @@ function __construct($cnt = 3) {
 }
 
 // ***********************************************************
-// read all ini files
+// read all selected files
 // ***********************************************************
 public function read($pfs) {
-	$pge = ENV::getPage(); // backup current page
+	$pge = ENV::addContent(); // backup current page
 	$skp = $old = ""; $cnt = 0;
 
 	foreach($pfs as $dir => $nam) {
@@ -38,8 +38,8 @@ public function read($pfs) {
 		$pbr = $ini->get(CUR_LANG.".pbreak");
 
 		if ($this->dbg) if ($cnt++ > $this->dbg) break;
-		ENV::setPage($dir);
 
+		ENV::setPage($dir);
 		set_time_limit(10);
 
 		if ($prn) { // noprint
@@ -50,16 +50,33 @@ public function read($pfs) {
 			if (STR::begins($dir, $skp)) continue;
 			$skp = "";
 		}
-		$this->getPage($inf, $pbr, $dir);
+		$this->addContent($inf, $pbr, $dir);
 	}
-	$this->dat = $this->getNotes();
+	$this->dat = $this->stripNotes();
 
 	ENV::setPage($pge); // restore current page
 }
 
-protected function getPage($inf, $pbr, $dir) {
+// ***********************************************************
+// display output
+// ***********************************************************
+public function show() {
+	echo $this->gc();
+}
+
+protected function gc() {
+	$out = $this->toc();
+	$out.= $this->dat;
+	$out.= $this->endnotes();
+	return $out;
+}
+
+// ***********************************************************
+// handling parts (ToC, content, endnotes)
+// ***********************************************************
+protected function addContent($inf, $pbr, $dir) {
 	$this->dat.= $this->getLF($inf, $pbr);
-	$this->dat.= "\n<section style='clear: both';>\n";
+	$this->dat.= "\n<section style='clear: both;'>\n";
 
 	$pic = ""; if (is_file("$dir/pic.png"))
 	$pic = "<img src='$dir/pic.png', align='right' width=198 style='margin: 0px 0px 5px 10px;' />\n";
@@ -72,21 +89,6 @@ protected function getPage($inf, $pbr, $dir) {
 	$this->dat.= "\n</section>\n";
 }
 
-public function save($fil) {
-	$out = $this->get();
-	$lnk = STR::startingat($fil, "temp/");
-	$inf = HTM::href("/$lnk", $fil);
-
-	MSG::now("file.saved", $inf);
-	APP::write($fil, $out);
-}
-public function show() {
-	echo $this->get();
-}
-
-// ***********************************************************
-// handling components
-// ***********************************************************
 protected function toc() {
 	$out = HTM::tag("Inhaltsverzeichnis", "h1");
 	$out.= implode("<br>\n", $this->toc);
@@ -102,44 +104,9 @@ protected function endnotes() {
 	return $out;
 }
 
-protected function get() {
-	$out = $this->toc();
-	$out.= $this->dat;
-	$out.= $this->endnotes();
-	return $out;
-}
-
 // ***********************************************************
-// auxilliary methods
+// handling content
 // ***********************************************************
-protected function getLF($inf, $pbr) {
-	$npg = HTM::lf("pbr");
-	$lev = ($inf["level"] < 2);
-
-	if ($lev) return $npg;
-	if ($pbr) return $npg;
-}
-
-protected function getTitle($inf) {
-	$lev = $inf["level"];
-	$hed = $inf["head"]; if (! $hed)
-	$hed = $inf["title"]; $tag = "h$lev";
-
-	$pfx = trim(str_repeat("&nbsp; ", $lev));
-	$num = $this->getNum($lev); if ($lev < $this->lvl)
-	$this->toc[] = "$pfx $num $hed"; // top 3 levels only
-
-	return "<$tag>$num $hed</$tag>\n";
-}
-
-protected function getNum($lev) {
-	$this->num[$lev - 1]++; if (! $lev) return false;
-	$this->num[$lev + 0] = 0;
-	$out = implode(".", $this->num);
-	$out = STR::before("$out.0.", ".0.");
-	return STR::after($out, "1.");
-}
-
 protected function getText($dir) {
 	$xxx = ob_start(); include("core/modules/body.xsite/item.php");
 	$txt = ob_get_clean();
@@ -150,31 +117,27 @@ protected function getText($dir) {
 	$txt = STR::replace($txt, "<h4>", "<p><b><u>"); $txt = STR::replace($txt, "</h4>", "</u></b></p>");
 	$txt = STR::replace($txt, "<h5>", "<p><u><i>");	$txt = STR::replace($txt, "</h5>", "</i></u></p>");
 	$txt = STR::replace($txt, "<h6>", "<p><i>");    $txt = STR::replace($txt, "</h6>", "</i></p>");
-
-#	$txt = $this->lookup($txt);
 	return $txt;
 }
 
-protected function getNotes() {
-	$out = $this->dat;
+// ***********************************************************
+protected function stripNotes() {
+	$out = $this->dat; $lst = array(); $cnt = 0;
+
 	$arr = STR::find($out, "<refbox", "</refbox>");
 	$out = PRG::replace($out, "<refbox-content>@ANY</refbox-content>", "");
-	$lst = array();
-	$cnt = 0;
 
 	foreach ($arr as $itm) {
-		$cnt++;
-
-		switch ($cnt % 2) {
+		switch ($cnt++ % 2) {
 			case 1:  $key = STR::between($itm, ">", "-content"); break;
 			default: $val = STR::after($itm, "-content>", "</ref");
 				$lst[$key] = trim($val);
 		}
 	}
-	$cnt = 0;
+	$cnt = 1;
 
 	foreach ($lst as $key => $val) {
-		$num = ++$cnt;
+		$num = $cnt++;
 		$tmp = VEC::get($this->hst, $key); if ($tmp) $num = $tmp;
 		$out = PRG::replace($out, "<refbox>$key", "$key<sup><fnote>$num</fnote></sup>");
 
@@ -182,6 +145,49 @@ protected function getNotes() {
 		$this->nts[$cnt] = "<div><fnote>$num</fnote> <b>$key</b><br>$val</div>";
 	}
 	return $out;
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+protected function getTitle($inf) {
+	$lev = $inf["level"];
+	$hed = $inf["head"]; if (! $hed)
+	$hed = $inf["title"];
+
+	$pfx = $this->getIndent($lev);
+	$num = $this->getKapNum($lev);
+	$xxx = $this->addToc($lev, "$pfx $num $hed");
+
+	return HTM::tag("$num $hed", "h$lev");
+}
+
+// ***********************************************************
+protected function getIndent($lev) {
+	return str_repeat("&nbsp; ", $lev);
+}
+
+protected function getKapNum($lev) {
+	$this->num[$lev - 1]++; if (! $lev) return "";
+	$this->num[$lev + 0] = 0;
+	$out = implode(".", $this->num);
+	$out = STR::before("$out.0.", ".0.");
+	$out = STR::after($out, "1."); if ($out) return $out;
+	return "1.";
+}
+
+protected function addToc($lev, $tit) {
+	if ($lev >= $this->lvl) return; // top 3 levels only
+	$this->toc[] = trim($tit);
+}
+
+// ***********************************************************
+protected function getLF($inf, $pbr) {
+	$npg = HTM::lf("pbr");
+	$lev = ($inf["level"] < 2);
+
+	if ($lev) return $npg;
+	if ($pbr) return $npg;
 }
 
 // ***********************************************************

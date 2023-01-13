@@ -8,22 +8,36 @@ $loc = PFS::getLoc();
 // ***********************************************************
 // read properties
 // ***********************************************************
-$ini = new ini();
+$ini = new ini("config/upload.ini");
 $ext = $ini->get("props.ext", "*");
 $max = $ini->get("props.max_size", 2000);
 $ovr = $ini->get("props.overwrite", 0);
 $dst = $ini->get("props.path", $loc);
 
 // ***********************************************************
-HTW::xtag("options");
+// react to previous commands
 // ***********************************************************
-$sel = new selector();
+$ptk = new ptracker();
+$act = $ptk->watch("act", "OK");
+
+if ($act) {
+	$upl = new upload();
+	$upl->setOverwrite(ENV::getPost("opt_overwrite", $ovr));
+	$upl->moveAllFiles($dst);
+	$upl->setMaxFiles(5);
+	$upl->setMaxSize($max);
+}
+
+// ***********************************************************
+HTW::xtag("settings");
+// ***********************************************************
+$sel = new selector(); // just for information
 $dst = $sel->ronly("upl.dest", $dst);
-$ext = $sel->ronly("upl.types", ".png,.gif,.jpg");
+$ext = $sel->ronly("upl.types", $ext);
 $cnt = $sel->ronly("upl.count", 5);
 $max = $sel->ronly("upl.size", $max);
 $xxx = $sel->setProp("info", "KB");
-$sel->show();
+$act = $sel->show();
 
 // ***********************************************************
 // get options

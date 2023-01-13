@@ -2,9 +2,8 @@
 
 incCls("menus/buttons.php");
 
-$dir = APP::dir(__DIR__);
-
-$nav = new buttons("dic", "S", $dir);
+// ***********************************************************
+$nav = new buttons("dic", "S", __DIR__);
 $nav->add("S", "doSearch");
 $nav->add("E", "doEdit");
 $nav->add("O", "doOpts");

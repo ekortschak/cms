@@ -22,8 +22,7 @@ incCls("files/iniTab.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class page extends tpl {
-	private $mod = array();	// array of modules called by layout and defined by modules/*/main.php
-	private $dir = "core/modules";
+	private $mod = array("app", "zzz");	// array of modules called by layout and defined by modules/*/main.php
 
 function __construct() {
 	parent::__construct();
@@ -41,27 +40,27 @@ public function read($tpl = "LOC_LAY/LAYOUT/view.tpl") {
 // handling page modules
 // ***********************************************************
 public function setModules() {
-	$arr = $this->getModules(); $hld = array();
+	$arr = $this->findModules(); $hld = array();
 
 	foreach ($arr as $mod => $idx) {
-		if (STR::begins($mod, "zzz.")) {
-			$hld[$mod] = $idx;
-			continue;
-		}
-		$this->addModule($mod);
+		$idx = "app"; if (STR::begins($mod, "zzz.")) $idx = "zzz";
+		$this->addModule($mod, $idx);
 	}
-	foreach ($hld as $mod => $idx) {
-		$this->addModule($mod);
-	}
-}
-
-private function addModule($mod) {
-		$ful = FSO::join($this->dir, $mod, "main.php");
-		$ful = APP::file($ful);
-		$this->mod[$mod] = $ful;
 }
 
 private function getModules() {
+	$app = $this->mod["app"];
+	$zzz = $this->mod["zzz"]; if (! $zzz) return $app;
+	return $app + $zzz;
+}
+
+private function addModule($mod, $idx) {
+	$ful = FSO::join("core/modules", $mod, "main.php");
+	$ful = APP::file($ful);
+	$this->mod[$idx][$mod] = $ful;
+}
+
+private function findModules() {
 	$tpl = parent::gc();
 	$out = STR::find($tpl, "<!MOD:", "!>");
 	return $out;
@@ -71,22 +70,24 @@ private function getModules() {
 // show page
 // ***********************************************************
 public function show($sec = "main") {
-	if (CUR_DEST == "csv") {
-		incCls("server/download.php");
-		$srv = new download();
-		$srv->csv("x.csv", $this->gc());
-		return;
+	$out = $this->gc($sec);
+
+	if (CUR_DEST != "csv") {
+		echo $out; return;
 	}
-	echo $this->gc($sec);
+	incCls("server/download.php");
+	$srv = new download();
+	$srv->csv("x.csv", $out);
 }
 
 // ***********************************************************
 public function gc($sec = "main") {
     $htm = $this->getSection($sec); if (! $htm) return "";
+    $arr = $this->getModules();
 
-	foreach ($this->mod as $key => $fil) { // fill in modules
+	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
-		$val = APP::getBlock($fil);
+		$val = APP::gc($fil);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);
 	}
@@ -94,8 +95,8 @@ public function gc($sec = "main") {
 	$htm = $this->solveLinks($htm, "src='");
 	$htm = $this->solveLinks($htm, 'href="');
 	$htm = $this->solveLinks($htm, "href='");
-
 	$htm = $this->cleanChars($htm);
+
 	return STR::dropSpaces($htm);
 }
 
@@ -103,16 +104,33 @@ public function gc($sec = "main") {
 // resolve file references and constants
 // ***********************************************************
 private function solveLinks($htm, $sep) {
-	$del = str_split("'\"?"); $lst = array();
-	$arr = STR::find($htm, $sep, $del);
+	$arr = STR::find($htm, $sep, str_split("'\"?"));
 
 	foreach ($arr as $fil) {
-		$url = APP::url($fil); if (! $url) continue;
+		$url = $this->makeUrl($fil); if (! $url) continue;
 		$htm = STR::replace($htm, $sep.$fil, $sep.$url);
 	}
 	return $htm;
 }
 
+// ***********************************************************
+public static function makeUrl($fso) { // convert file to url
+	if (FSO::isUrl($fso)) return ""; if (! $fso) return "";
+
+	if (STR::begins($fso, ".".DIR_SEP)) { // e.g. local pics
+		$loc = PFS::getLoc();  $fil = substr($fso, 2);
+		return FSO::join($loc, $fil);
+	}
+	$ful = APP::file($fso);
+	$rel = APP::relPath($ful);
+
+	if (STR::begins($ful, APP_DIR))  return $rel;
+	if (STR::begins($ful, APP_FBK))  return FSO::join(CMS_URL, $rel);
+	if (STR::begins($ful, SRV_ROOT)) return STR::after($ful, SRV_ROOT);
+	return $fso;
+}
+
+// ***********************************************************
 private function cleanChars($code) {
 	if (CUR_LANG != "de") return $code;
 

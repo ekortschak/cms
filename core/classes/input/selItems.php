@@ -51,7 +51,7 @@ public function setProp($prop, $value) {
 
 protected function setOidVal($key, $val) {
 	$chk = OID::update($this->oid, $key, $val); if (! $chk) return;
-	$xxx = OID::set($this->oid, $key, $val);
+#	$xxx = OID::set($this->oid, $key, $val);
 }
 
 // ***********************************************************
@@ -87,13 +87,14 @@ public function addImage($type, $uid, $value = "") {
 // ***********************************************************
 private function inpDBox($class, $type, $uid, $vls, $sel = NV) {
 	if ($sel == NV) $sel = key($vls);
-	$this->setOidVal($uid, $sel);
 
 	$inp = new $class($this->oid);
 	$inp->setProps($this->vls, $this->dic);
 	$inp->init($type, $uid, $sel);
-	$inp->setChoice($vls);
 
+	$sel = $inp->setChoice($vls);
+
+	$this->setOidVal($uid, $sel);
 	$this->add($uid, $inp);
 	return $inp->getValue($sel);
 }
@@ -148,9 +149,9 @@ public function getData() {
 	foreach ($this->itm as $uid => $itm) {
 		$inp = $this->itm[$uid][0];
 
-		$out[$uid]["type"] = $inp->getFormat();
-		$out[$uid]["vals"] = $inp->getValues();
+		$out[$uid]["type"] = $inp->rowFormat();
 		$out[$uid]["head"] = $inp->getTitle();
+		$out[$uid]["vals"] = $inp->getValues();
 		$out[$uid]["data"] = $this->compact($uid);
 	}
 	return $out;

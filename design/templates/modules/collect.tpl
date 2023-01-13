@@ -13,7 +13,7 @@ head = Description
 <img src="ICONS/1x1.gif" width="100%" />
 </div>
 
-<p><small>&copy; Unknown</small></p>
+<p><small>(CR) Unknown</small></p>
 
 [text]
 <div>

@@ -26,7 +26,7 @@ $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);
 $xxx = $box->show();
 
-$arr = CFG::getCfg("tabsets", "index.php");
+$arr = CFG::iniVar("tabsets", "index.php");
 $arr = VEC::keys($arr);
 
 $box = new qikSelect();

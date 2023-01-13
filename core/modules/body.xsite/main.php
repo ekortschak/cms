@@ -5,8 +5,6 @@
 
 $loc = PFS::getLoc();
 $dbg = ENV::get("xsite.dbg", 0);
-#$sav = ENV::get("opt.save", 1);
-$fil = ENV::get("fil");
 
 $cnt = 0; if ($dbg) $cnt = 3;
 

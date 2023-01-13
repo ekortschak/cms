@@ -13,7 +13,6 @@ $obj = new mnuEdit();
 */
 
 incCls("editor/iniWriter.php");
-incCls("server/upload.php");
 incCls("other/uids.php");
 
 
@@ -22,14 +21,15 @@ incCls("other/uids.php");
 // ***********************************************************
 class mnuEdit {
 
-function __construct() {}
+function __construct() {
+	if (EDITING != "medit") return;
+	$this->exec();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function exec() {
-	if (EDITING != "medit") return;
-
+private function exec() {
 	$dir = ENV::get("loc"); if (! is_dir($dir))
 	$dir = APP::dir($dir);	if (! $dir) return;
 	$act = ENV::get("btn.menu");

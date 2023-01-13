@@ -1,6 +1,7 @@
 <?php
 
-$loc = $dir;
+# included by xsite->getText();
+# $dir is inherited from calling method
 
 // ***********************************************************
 // retrieving page info
@@ -15,13 +16,13 @@ $prn = $ini->get("props.noprint"); if (  $prn) return;
 // ***********************************************************
 $fil = FSO::join(__DIR__, $inc); if (! is_file($fil))
 $fil = FSO::join("core/modules/body", $inc);
-$ful = APP::file($fil);
+$ful = APP::relPath($fil);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");
-$frm->setVar("head", APP::gc($loc, "head"));
+$frm->setVar("head", APP::gc($dir, "head"));
 $frm->setVar("page", APP::gcBody($ful));
-$frm->setVar("tail", APP::gc($loc, "tail"));
+$frm->setVar("tail", APP::gc($dir, "tail"));
 $frm->show("xsite");
 
 ?>

@@ -10,7 +10,7 @@ incCls("editor/iniWriter.php");
 // ***********************************************************
 $sel = new selector();
 $grp = $sel->input("grp.name", "new_group");
-$xxx = $sel->show();
+$act = $sel->show();
 
 if (! CHK::user($grp)) {
 	MSG::now("grp.bad");

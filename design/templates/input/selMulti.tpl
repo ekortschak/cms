@@ -1,42 +1,53 @@
 [include]
 LOC_TPL/input/selROnly.tpl
 
-[vars]
-auto =
-sep = <br>
+[register]
+core/scripts/selRec.js
 
 [dic]
-multi = Multiple selections possible
+multi = Multiple choices
+invert = Invert selection
 
 [dic.de]
-multi = Mehrfach-Auswahl möglich
+multi = Mehrfach-Auswahl
+invert = Auswahl umkehren
+
+[vars]
+cls = ms
+
 
 # ***********************************************************
 [main]
 # ***********************************************************
-#<small><blue><!DIC:multi!></blue></small>
-<div>
+<table>
+	<tr class="toolbar">
+		<td><img src="ICONS/nav/toggle.gif" class="icon" onClick="toggleCB('<!VAR:cls!>');"></td>
+		<td><small><!DIC:multi!></small></td>
+		<td> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> # TOOD: for optical reasons
+	</tr>
 <!VAR:items!>
-</div>
+</table>
+
 
 # ***********************************************************
 [input.mul]
 # ***********************************************************
-<label class="text" style="line-height: 24px;">
-	<input type="hidden"   name="<!VAR:fname!>[<!VAR:key!>]" value=0 />
-	<div style="display: table-cell;">
-	<input type="checkbox" name="<!VAR:fname!>[<!VAR:key!>]" value=1 <!VAR:checked!> />
-	</div>&nbsp;
-
-	<div style="display: table-cell; max-width: 650px;">
-	<!VAR:curVal!>
-	</div>
-</label> <!VAR:sep!>
+<tr>
+<td style="padding-left: 8px;"> # TODO: why not aligned with heading without additional padding
+	<input type="hidden"   name="<!VAR:fname!>[<!VAR:key!>]" value=0>
+	<input type="checkbox" name="<!VAR:fname!>[<!VAR:key!>]" value=1 <!VAR:checked!> class="<!VAR:cls!>">
+</td>
+<td><!VAR:curVal!>
+</td>
+</tr>
 
 # ***********************************************************
 [input.txt] # output for viewing
 # ***********************************************************
-<!VAR:curVal!>: <!VAR:checked!> <!SEC:info!>
+<tr>
+<td>&nbsp;</td>
+<td><!VAR:curVal!>: <!VAR:checked!> <!SEC:info!></td>
+</tr>
 
 # ***********************************************************
 [input.skip]

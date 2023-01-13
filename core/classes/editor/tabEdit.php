@@ -21,13 +21,15 @@ incCls("editor/iniWriter.php");
 // ***********************************************************
 class tabEdit {
 
-function __construct() {}
+function __construct() {
+	if (EDITING != "tedit") return;
+	$this->exec();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function exec() {
-	if (EDITING != "tedit") return;
+private function exec() {
 	$act = ENV::get("btn.tab");
 
 	switch ($act) {

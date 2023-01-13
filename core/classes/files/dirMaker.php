@@ -64,7 +64,7 @@ private function normValue($val) {
 	$pos = strpos($val, "."); if ($pos < 3)
 	$val = STR::afterX($val, ".");
 
-	$val = STR::pathify($val);
+	$val = $this->pathify($val);
 	$arr = STR::toArray($val, " ,-"); $out = "";
 
 	foreach ($arr as $itm) {
@@ -78,6 +78,18 @@ private function encoding($text) {
 		$txt = mb_convert_encoding($text, "UTF-8", $chr);
 		echo "$chr: $txt<br>";
 	}
+}
+
+// ***********************************************************
+public function pathify($out) {
+	$out = self::replace($out, "Ä", "Ae");
+	$out = self::replace($out, "ä", "ae");
+	$out = self::replace($out, "Ö", "Oe");
+	$out = self::replace($out, "ö", "oe");
+	$out = self::replace($out, "Ü", "Ue");
+	$out = self::replace($out, "ü", "ue");
+	$out = self::replace($out, "ß", "ss");
+	return $out;
 }
 
 // ***********************************************************

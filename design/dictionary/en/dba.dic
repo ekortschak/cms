@@ -9,6 +9,7 @@ db.field = Field
 db.fields = Fields
 db.fperm = Privileges
 db.group = Group
+db.missing = Database beyond reach
 db.module = Missing database module
 db.mperm = Privileges
 db.objects = DB Objects

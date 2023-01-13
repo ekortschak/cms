@@ -12,10 +12,12 @@ $dbs = $box->getDbase();
 $grp = $box->getGroups($dbs, false);
 $xxx = $box->show();
 
-if ($grp == "?") {
-	$tpl = new tpl();
-	$tpl->load("msgs/dba.tpl");
-	$tpl->show("no.groups");
+if (! $grp) {
+	MSG::now("no.grps.edit");
+
+#	$tpl = new tpl();
+#	$tpl->load("msgs/dba.tpl");
+#	$tpl->show("no.groups");
 	return;
 }
 

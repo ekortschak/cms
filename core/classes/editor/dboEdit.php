@@ -10,8 +10,8 @@ dbo editor, used to manage dbo properties
 incCls("editor/dboEdit.php");
 
 $obj = new dboEdit();
-$obj->exec();
-*
+* no public methods
+
 */
 
 incCls("dbase/dbQuery.php");
@@ -21,17 +21,24 @@ incCls("dbase/dbQuery.php");
 // ***********************************************************
 class dboEdit {
 
-function __construct() {}
+function __construct() {
+	$this->exec();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function exec() {
-	$dbs = ENV::getPost("dbs");  if (! $dbs) return;
+private function exec() {
+	$dbo = ENV::getPost("dbo"); if ($dbo != "dboEdit") return;
+	$dbs = ENV::getPost("dbs"); if (! $dbs) return;
 	$act = ENV::getPost("chk");
 
-	if (! STR::contains(".tcProps.tlProps.fcProps.flProps.", ".$act.")) return;
-	self::$act($dbs);
+	switch ($act) {
+		case "tcProps": return $this->tcProps($dbs);
+		case "tlProps": return $this->tlProps($dbs);
+		case "fcProps": return $this->fcProps($dbs);
+		case "flProps": return $this->flProps($dbs);
+	}
 }
 
 // ***********************************************************
@@ -40,9 +47,7 @@ private function tcProps($dbs) { // common table props
 	$arr = ENV::getPost("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
-		if (! $prop) continue;
-		$vls = array("cat" => "tbl", "spec" => $tbl, "prop" => $prop, "value" => $val);
-		self::dboEx($dbs, $vls, "cat='tbl' AND spec='$tbl' AND prop='$prop'");
+		self::dboEx($dbs, "tbl", $tbl, $prop, $val);
 	}
 }
 private function tlProps($dbs) { // lang specific table props
@@ -50,9 +55,7 @@ private function tlProps($dbs) { // lang specific table props
 	$arr = ENV::getPost("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
-		if (! $val) continue; $prop = "head.$lang";
-		$vls = array("cat" => "tbl", "spec" => $tbl, "prop" => $prop, "value" => $val);
-		self::dboEx($dbs, $vls, "cat='tbl' AND spec='$tbl' AND prop='$prop'");
+		self::dboEx($dbs, "tbl", $tbl, "head.$lang", $val);
 	}
 }
 
@@ -62,9 +65,7 @@ private function fcProps($dbs) { // common field props
 	$arr = ENV::getPost("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
-		if (! $prop) continue;
-		$vls = array("cat" => "fld", "spec" => $fld, "prop" => $prop, "value" => $val);
-		self::dboEx($dbs, $vls, "cat='fld' AND spec='$fld' AND prop='$prop'");
+		self::dboEx($dbs, "fld", $fld, $prop, $val);
 	}
 }
 private function flProps($dbs) { // lang specific field props
@@ -72,14 +73,16 @@ private function flProps($dbs) { // lang specific field props
 	$arr = ENV::getPost("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
-		if (! $val) continue; $prop = "head.$lang";
-		$vls = array("cat" => "fld", "spec" => $fld, "prop" => $prop, "value" => $val);
-		self::dboEx($dbs, $vls, "cat='fld' AND spec='$fld' AND prop='$prop'");
+		self::dboEx($dbs, "fld", $fld, "head.$lang", $val);
 	}
 }
 
 // ***********************************************************
-private function dboEx($dbs, $vls, $flt) {
+private function dboEx($dbs, $cat, $spec, $prop, $val) {
+#	if (! $val) return;
+	$vls = array("cat" => $cat, "spec" => $spec, "prop" => $prop, "value" => $val);
+	$flt = "cat='$cat' AND spec='$spec' AND prop='$prop'";
+
 	foreach ($vls as $key => $val) {
 		$vls[$key] = DBS::secure($val);
 	}

@@ -12,6 +12,8 @@ $wht = "keys";
 
 // ***********************************************************
 $inc = FSO::join(__DIR__, "doMeta.php");
+$inc = APP::relPath($inc);
+
 include $inc;
 
 ?>

@@ -21,6 +21,7 @@ class tblValidate extends dbBasics {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);
+	$this->setTable($table);
 }
 
 // ***********************************************************

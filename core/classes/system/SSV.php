@@ -99,9 +99,7 @@ public static function norm($key) {
 // auxilliary methods
 // ***********************************************************
 private static function chkReset() {
-	$ok = (  isset(self::$vrs));       if ($ok)
-	$ok = (! isset($_GET["reset"]));   if ($ok) return;
-
+	if (! isset($_GET["reset"])) return;
 	self::reset();
 	$_GET["reset"] = 0;
 }

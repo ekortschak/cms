@@ -7,6 +7,12 @@ if (! FS_ADMIN) {
 
 incCls("menus/localMenu.php");
 incCls("editor/ediTools.php");
+incCls("editor/pgeEdit.php");
+
+// ***********************************************************
+// react to previous commands
+// ***********************************************************
+$obj = new pgeEdit();
 
 // ***********************************************************
 // show title
@@ -48,9 +54,8 @@ switch ($sec) {
 	default:    $inc = "doEdit.php";
 }
 
-$dir = FSO::mySep(__DIR__);
-$inc = FSO::join($dir, $inc);
-$inc = APP::file($inc);
+$inc = FSO::join(__DIR__, $inc);
+$inc = APP::relPath($inc);
 
 return include($inc);
 

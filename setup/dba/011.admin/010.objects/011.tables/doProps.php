@@ -2,7 +2,13 @@
 
 incCls("menus/dboBox.php");
 incCls("editor/iniEdit.php");
+incCls("editor/dboEdit.php");
 incCls("dbase/dbInfo.php");
+
+// ***********************************************************
+// react to previous commands
+// ***********************************************************
+$dbo = new dboEdit();
 
 // ***********************************************************
 // show menu
@@ -12,13 +18,13 @@ $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $xxx = $box->show();
 
+// ***********************************************************
+HTW::xtag("fields.available");
+// ***********************************************************
 $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->tblProps($tbl);
 $fds = $dbi->fields($tbl);
 
-// ***********************************************************
-HTW::xtag("fields.available");
-// ***********************************************************
 foreach ($fds as $key => $val) {
 	echo "<button>$key</button>&ensp;";
 }
@@ -42,7 +48,7 @@ $sel->hidden("chk", "tcProps");
 foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
 
-	$cap = VEC::lng($dat, "head", $prp);
+	$cap = VEC::lng(CUR_LANG, $dat, "head", $prp);
 	$val = VEC::get($dat, "default");
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
@@ -65,7 +71,7 @@ $sel->hidden("tbl", "$tbl");
 $sel->hidden("chk", "tlProps");
 
 foreach (LNG::get() as $lng) {
-	$tit = VEC::lng($inf, "head", $tbl);
+	$tit = VEC::lng($lng, $inf, "head", $tbl);
 	$flg = HTM::flag($lng);
 
 	$sel->input("head[$lng]", $tit);

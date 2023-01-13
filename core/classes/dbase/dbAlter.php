@@ -27,7 +27,6 @@ class dbAlter extends dbBasics {
 
 function __construct($dbase, $table = NV) {
 	parent::__construct($dbase);
-
 	$this->setTable($table);
 }
 

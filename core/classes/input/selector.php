@@ -10,31 +10,27 @@ Used to create data entry forms
 incCls("input/selector.php");
 
 $sel = new selector();
-$sel->input("TITEL", "TEXT");
-$sel->setProp("title", "Titel");
-$sel->show();
+$val = $sel->input("TITEL", "TEXT");
+$xxx = $sel->setProp("title", "Titel");
+$act = $sel->show();
 
 */
 
 incCls("input/selItems.php");
+incCls("input/ptracker.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class selector extends tpl {
 	protected $itm = false; // list of input instances
-	protected $tpl = "input/selView.tpl";
 
 function __construct() {
 	parent::__construct();
-	$this->setTpl("input/selector.tpl");
 
-	$this->load($this->tpl);
+	$this->load("input/selector.tpl"); if (CUR_DEST != "screen")
+	$this->load("input/selView.tpl");
 	$this->register();
-}
-
-protected function setTpl($tpl) {
-	if (CUR_DEST == "screen") $this->tpl = $tpl;
 }
 
 public function register($oid = NV, $sfx = "*") {
@@ -42,7 +38,7 @@ public function register($oid = NV, $sfx = "*") {
 	$this->reset();
 }
 
-public function act() {
+protected function act() {
 	$chk = ENV::getPost("oid"); if ($chk != $this->oid) return false;
 	return ENV::getPost("act");
 }

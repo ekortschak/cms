@@ -1,6 +1,7 @@
 <?php
 
 $inc = FSO::join(__DIR__, "common.php");
+$inc = APP::relPath($inc);
 $fcs = "dbase";
 
 include($inc);
@@ -8,8 +9,9 @@ include($inc);
 // ***********************************************************
 HTW::xtag("dbo.check objects");
 // ***********************************************************
-$con = "-"; if (DB_CON) $con = "OK";
+$sts = ENV::dbState();
 
-MSG::now("db.con", $con);
+if ($sts == "nodb")  return MSG::now("db.missing");
+if ($sts == "nocon") return MSG::now("db.con");
 
 ?>

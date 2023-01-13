@@ -5,21 +5,26 @@ if (! FS_ADMIN) {
 	return;
 }
 
+incCls("editor/tabEdit.php");
 incCls("menus/buttons.php");
+
+// ***********************************************************
+// react to previous commands
+// ***********************************************************
+$obj = new tabEdit();
 
 // ***********************************************************
 // show title
 // ***********************************************************
 $loc = PFS::getLoc();
 $tit = PGE::getTitle($loc);
-$dir = APP::dir(__DIR__);
 
 HTW::tag("edit.tab", "h3");
 
 // ***********************************************************
 // show options
 // ***********************************************************
-$nav = new buttons("tab", "P", $dir);
+$nav = new buttons("tab", "P", __DIR__);
 
 $nav->add("T", "doTabs");
 $nav->add("S", "doSort");

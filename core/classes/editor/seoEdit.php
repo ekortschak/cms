@@ -21,29 +21,22 @@ incCls("editor/iniWriter.php");
 // ***********************************************************
 class seoEdit {
 
-function __construct() {}
+function __construct() {
+	if (EDITING != "seo") return;
+	$this->exec();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function exec() {
-	if (EDITING != "seo") return;
-
-	$this->save();
-}
-
-// ***********************************************************
-// visibility & sort order
-// ***********************************************************
-private function save() {
+private function exec() {
 	$act = ENV::getPost("meta.act"); if (! $act) return false;
-	$oid = ENV::getPost("oid");      if (! $oid) return false;
-	$wht = ENV::getPost("wht");
+	$wht = ENV::getPost("wht"); // keys or desc
 	$dat = ENV::getPost("data");
 	$loc = OID::get($oid, "loc");
 
 	if ($wht == "desc")
-	$dsc = STR::replace($dsc, "\n", "_\n");
+	$dat = STR::replace($dat, "\n", "_\n");
 	$lng = CUR_LANG;
 
 	$ini = new iniWriter();

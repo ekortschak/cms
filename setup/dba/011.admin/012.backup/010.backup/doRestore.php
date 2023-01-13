@@ -27,9 +27,9 @@ HTW::tag("dir = $bkp", "small");
 // ***********************************************************
 $arr = FSO::files("$ver/*.bkp"); $tbs = array();
 
-foreach ($arr as $fil => $tab) {
-	$tab = STR::clear($tab, ".bkp");
-	$tbs[$tab] = $tab;
+foreach ($arr as $fil => $tbl) {
+	$tbl = STR::clear($tbl, ".bkp");
+	$tbs[$tbl] = $tbl;
 }
 
 // ***********************************************************

@@ -5,9 +5,9 @@ incCls("input/selector.php");
 $sel = new selector();
 $fil = $sel->input("file.new");
 $xxx = $sel->setProp("hint", "xy.ini");
-$sel->show();
+$act = $sel->show();
 
-if (! $sel->act()) return;
+if (! $act) return;
 if (! $fil) return;
 
 // ***********************************************************

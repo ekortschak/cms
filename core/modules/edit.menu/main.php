@@ -5,21 +5,26 @@ if (! FS_ADMIN) {
 	return;
 }
 
+incCls("editor/mnuEdit.php");
 incCls("menus/buttons.php");
+
+// ***********************************************************
+// react to previous commands
+// ***********************************************************
+$obj = new mnuEdit();
 
 // ***********************************************************
 // show title
 // ***********************************************************
 $loc = PFS::getLoc();
 $tit = PGE::getTitle($loc);
-$dir = FSO::mySep(__DIR__);
 
 HTW::tag($tit, "h3");
 
 // ***********************************************************
 // show options
 // ***********************************************************
-$nav = new buttons("menu", "F", $dir);
+$nav = new buttons("menu", "F", __DIR__);
 
 $nav->add("D", "doFolders");
 $nav->add("F", "doFiles");

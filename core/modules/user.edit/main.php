@@ -2,12 +2,11 @@
 
 incCls("menus/buttons.php");
 
-$dir = APP::dir(__DIR__);
-$nav = new buttons("usr", "L", $dir);
-
 // ***********************************************************
 HTW::xtag("usr.opts", "h3");
 // ***********************************************************
+$nav = new buttons("usr", "L", __DIR__);
+
 if (CUR_USER == "www") {
 		$nav->add("L", "doLogin");
 

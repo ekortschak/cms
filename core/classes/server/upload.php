@@ -18,20 +18,22 @@ $upl->moveAllFiles($destination);
 // ***********************************************************
 class upload {
 	private $overwrite = true;
-	private $maxfiles = 10;
-	private $maxsize = 1500 * 1000;
-	private $ftypes = "*";
+	private $maxfiles = 10;         // number of concurrent uploads
+	private $maxsize = 1500 * 1000; // max size of files to upload
+	private $minsize =   10 * 1000; // min for max file size
+	private $ftypes = "*";          // file type filter
 
 function __construct() {}
 
+// ***********************************************************
 public function setOverwrite($value = true) {
 	$this->overwrite = (bool) $value;
 }
 public function setMaxFiles($value= 10) {
 	$this->maxfiles = CHK::range($value, 1, 25);
 }
-public function setMaxSize($value= 1500000) {
-	$this->maxfiles = CHK::range($value, 0, $this->maxsize);
+public function setMaxSize($value = 1500000) {
+	$this->maxfiles = CHK::range($value, $this->minsize, $this->maxsize);
 }
 
 // ***********************************************************
@@ -77,22 +79,20 @@ public function moveFiles($files, $dest) {
 		}
 		$sux+= $this->moveFile($itm["tfil"], $dest, $itm["name"]);
 	}
-	MSG::now("files.moved", "$sux / $cnt");
+	MSG::now("upl.copied", "$sux / $cnt");
 }
 
 public function moveFile($file, $dest, $fname) {
- // check if source exists
 	if (! is_file($file)) return false;
- // check if destination exists
-	if (is_file($dest)) if ($this->overwrite) FSO::kill($dest);
-	if (is_file($dest))
-	return ERR::assist("net", "ftp.exists", $file);
+	if (  is_file($dest)) if ($this->overwrite) FSO::kill($dest);
+	if (  is_file($dest))
+	return ERR::assist("net", "upl.exists", $file);
 
  // copy temp file to destination
 	$fname = basename($fname);
 
 	if (! copy($file, FSO::join($dest, $fname))) {
-		return ERR::msg("file.not copied", "$fname => $dest<br>$file");
+		return ERR::msg("upl.not copied", "$fname => $dest<br>$file");
 	}
 	return FSO::kill($file);
 }
@@ -104,14 +104,14 @@ private function chkError($err) {
 	if (! $err) return "";
 
 	switch ($err) {
-		case UPLOAD_ERR_INI_SIZE:	return "FILE.exceeds ini";	break;
-		case UPLOAD_ERR_FORM_SIZE:	return "FILE.exceeds max";	break;
-		case UPLOAD_ERR_PARTIAL: 	return "FILE.incomplete";	break;
-		case UPLOAD_ERR_NO_FILE:	return "FILE.missing";		break;
-		case UPLOAD_ERR_NO_TMP_DIR:	return "ERR.NO temp dir";	break;
-		case UPLOAD_ERR_CANT_WRITE:	return "XS.read only";		break;
+		case UPLOAD_ERR_INI_SIZE:	return "upl.exceeds ini"; break;
+		case UPLOAD_ERR_FORM_SIZE:	return "upl.exceeds max"; break;
+		case UPLOAD_ERR_PARTIAL: 	return "upl.incomplete";  break;
+		case UPLOAD_ERR_NO_FILE:	return "upl.missing";     break;
+		case UPLOAD_ERR_NO_TMP_DIR:	return "upl.temp dir";    break;
+		case UPLOAD_ERR_CANT_WRITE:	return "upl.read only";   break;
 	}
-	return "ERR.unknown";
+	return "upl.error";
 }
 // ***********************************************************
 } // END OF CLASS

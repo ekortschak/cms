@@ -23,7 +23,7 @@ nodata = Keine sortierbaren Einträge ...
 	<input type="hidden" name="slist" id="slist" />
 	<input type="hidden" name="sparm" value="<!VAR:sparm!>" />
 
-	<div class="flexleft">
+	<div class="flexleft flexbottom">
 		<div>
 			<!VAR:items!>
 		</div>

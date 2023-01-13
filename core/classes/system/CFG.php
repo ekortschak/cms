@@ -18,13 +18,13 @@ CFG::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class CFG {
-	private static $dat = array();
-	private static $cfg = array();
-	private static $vls = array();
+	private static $dat = array(); // constants
+	private static $cfg = array(); // ini data
+	private static $vls = array(); // buffer between .ini and .srv vars
 
 public static function init() {
 	self::fixForced(); // constants set before config.ini
-	self::fixServer();
+	self::fixServer(); // constants derived from env
 	self::fixPaths();
 
 	self::readCfg();
@@ -69,7 +69,7 @@ private static function fixPaths() {
 // reading config files
 // ***********************************************************
 public static function readCfg() {
-	$arr = FSO::files("config/*.ini");
+	$arr = APP::files("config/*.ini");
 
 	foreach ($arr as $fil => $nam) {
 		self::read($fil);
@@ -87,13 +87,14 @@ public static function readCss() {
 public static function read($file) {
 	$fil = self::insert($file); // resolve constants in file names
 	$fil = APP::file($fil);
+	$srv = STR::replace($fil, ".ini", ".srv");
 
 	if (! $fil) {
 		if (! stripos($file, "config.ini")) return;
 		die("Config file '$file' not found!");
 	};
 	self::load($fil); if (! IS_LOCAL)
-	self::load(STR::replace($fil, ".ini", ".srv"));
+	self::load($srv);
 
 	foreach (self::$vls as $key => $val) {
 		self::set($key, $val);
@@ -108,7 +109,7 @@ private static function load($fil) {
 	$idx = STR::before(basename($fil), ".");
 	$vls = array();
 
-	foreach ($arr as $lin) {
+	foreach ($arr as $lin) { // process lines
 		$lin = STR::dropComments($lin);
 
 		if (STR::begins($lin, "[")) $sec = STR::between($lin, "[", "]");
@@ -197,7 +198,7 @@ public static function recall($sec) {
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
-public static function getCfg($idx, $filter = false) {
+public static function iniVar($idx, $filter = false) {
 	$out = VEC::get(self::$cfg, $idx); if ($filter)
 	$out = VEC::match($out, $filter);
 	return $out;

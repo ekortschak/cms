@@ -224,6 +224,7 @@ protected function confirm($qry) {
 	$cnf = new confirm();
 	$cnf->add($this->beautify($qry));
 	$cnf->show();
+
 	return $cnf->act();
 }
 

@@ -22,7 +22,7 @@ $sel = new selector();
 $usr = $sel->input("usr.account");
 $pwd = $sel->pwd("usr.pwd");
 $agn = $sel->pwd("usr.pwd2");
-$xxx = $sel->show();
+$act = $sel->show();
 
 // ***********************************************************
 // check user & password

@@ -51,7 +51,7 @@ protected function getType() {
 // ***********************************************************
 // output
 // ***********************************************************
-public function getFormat() {
+public function rowFormat() {
 	return "line";
 }
 

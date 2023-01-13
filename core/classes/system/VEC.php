@@ -90,10 +90,9 @@ public static function explode($text, $sep = ",", $max = 0) {
 // ***********************************************************
 // retrieving items
 // ***********************************************************
-public static function lng($arr, $key, $default = false) {
-	$lng = CUR_LANG; $try = "$key.$lng";
-	$out = self::get($arr, $try, NV); if ($out !== NV) return $out;
-	return self::get($arr, $key, $default);
+public static function lng($lng, $arr, $key, $default = false) {
+	$out = self::get($arr, "$key.$lng", NV); if ($out !== NV) return $out;
+	return self::get($arr,  $key, $default);
 }
 
 public static function get($arr, $key, $default = false) {
@@ -115,11 +114,11 @@ public static function find($data, $sel, $default = false) {
 	if (self::get($data, $sel)) return $sel;
 
 	foreach ($data as $key => $val) {
-#		if ($val === $sel) return $key;
 		if ($sel === $val) return $key;
 	}
 	return self::getFirst($data);
 }
+
 public static function getFirst($data) {;
 	if (! $data) return ""; reset($data);
 	return key($data);

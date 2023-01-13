@@ -57,7 +57,7 @@ public static function text($msg, $info = "dbg") {
 		echo "$info: $msg\n";
 		return;
 	}
-	SSV::set($info, $msg, "dbg");
+	if (is_object("SSV")) SSV::set($info, $msg, "dbg");
 	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code

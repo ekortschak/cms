@@ -19,7 +19,7 @@ if (! $fls) {
 // preview searched item
 // ***********************************************************
 $inc = FSO::join(__DIR__, "do_$mod.php");
-$inc = APP::file($inc);
+$inc = APP::relPath($inc);
 
 include $inc;
 

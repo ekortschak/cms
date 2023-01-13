@@ -19,6 +19,11 @@ $inf = $dbi->fldProps($tbl, $fld);
 $inf["default"] = $inf["fstd"];
 
 // ***********************************************************
+// react to previous commands
+// ***********************************************************
+$dbo = new dboEdit();
+
+// ***********************************************************
 // read field props
 // ***********************************************************
 $ini = new ini("LOC_CFG/db.fields.ini");
@@ -41,7 +46,7 @@ foreach ($arr as $prp) {
 	$dat = $ini->getValues($prp);
 	$typ = $inf["dtype"];
 
-	$cap = VEC::lng($dat, "head", $prp);
+	$cap = VEC::lng(CUR_LANG, $dat, "head", $prp);
 	$vls = VEC::get($dat, "values");
 	$hnt = VEC::get($dat, "hint");
 
@@ -69,7 +74,7 @@ $sel->hidden("fld", "$tbl.$fld");
 $sel->hidden("chk", "flProps");
 
 foreach (LNG::get() as $lng) {
-	$tit = VEC::lng($inf, "head", $fld);
+	$tit = VEC::lng($lng, $inf, "head", $fld);
 	$flg = HTM::flag($lng);
 
 	$sel->input("head[$lng]", $tit);

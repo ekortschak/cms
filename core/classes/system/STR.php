@@ -218,19 +218,6 @@ public static function dropSpaces($code) {
 }
 
 // ***********************************************************
-public static function pathify($out) {
-	$out = self::replace($out, "Ä", "Ae");
-	$out = self::replace($out, "ä", "ae");
-	$out = self::replace($out, "Ö", "Oe");
-	$out = self::replace($out, "ö", "oe");
-	$out = self::replace($out, "Ü", "Ue");
-	$out = self::replace($out, "ü", "ue");
-	$out = self::replace($out, "ß", "ss");
-	return $out;
-}
-
-
-// ***********************************************************
 // replacing substrings
 // ***********************************************************
 public static function replace($haystack, $find, $rep) {

@@ -22,7 +22,6 @@ class dbInfo extends dbBasics {
 
 function __construct($dbase = NV, $table = NV) {
 	parent::__construct($dbase);
-
 	$this->setTable($table);
 }
 
@@ -54,7 +53,7 @@ public function tables($tablemask = "%") {
 
 	foreach ($arr as $tbl) {
 		$inf = $this->tblProps($tbl);
-		$cap = VEC::lng($inf, "head", $tbl);
+		$cap = VEC::lng(CUR_LANG, $inf, "head", $tbl);
 		$out[$tbl] = $cap;
 	}
 	return $out;
@@ -71,7 +70,7 @@ public function fields($table) {
 
 	foreach ($arr as $fld) {
 		$inf = $this->fldProps($table, $fld);
-		$cap = VEC::lng($inf, "head", $fld);
+		$cap = VEC::lng(CUR_LANG, $inf, "head", $fld);
 		$out[$fld] = $cap;
 	}
 	return $out;

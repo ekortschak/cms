@@ -1,12 +1,11 @@
 <?php
 
 incCls("menus/buttons.php");
-$dir = FSO::mySep(__DIR__);
 
 // ***********************************************************
 HTW::xtag("replicator", "h3");
 // ***********************************************************
-$nav = new buttons("xfer", "B", $dir);
+$nav = new buttons("xfer", "B", __DIR__);
 
 $nav->add("B", "doBackup");
 $nav->add("U", "syncUp");

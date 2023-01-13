@@ -10,7 +10,12 @@ used to track "most recent values" in html input-objects
 // ***********************************************************
 incCls("system/OID.php");
 
-$obj = new OID();
+$oid = OID::register();
+$val = OID::set($oid, $key, $val);
+$val = OID::get($oid, $key, $default);
+
+$arr = OID::getValues();
+
 */
 
 OID::init();
@@ -24,7 +29,7 @@ class OID {
 	private static $cnt = 100;
 
 public static function init() {
-	$oid = ENV::getPost("oid", "dummy");
+	$oid = ENV::getPost("oid", NV);
 
 	self::$vrs = &$_SESSION[APP_IDX]; if (! isset(self::$vrs["oid"])) self::$vrs["oid"] = array();
 	self::$top = &self::$vrs["oid"];  if (! isset(self::$top[$oid ])) self::$top[$oid]  = array();

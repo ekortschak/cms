@@ -33,7 +33,7 @@ public static function xtag($text, $tag = "h4") {
 }
 
 public static function lf($tag = "hr") {
-	if ($tag == "pbr") $tag = "\n\n<hr class='pbr'>\n";
+	if ($tag == "pbr") return "\n\n<hr class='pbr'>\n";
 	return "<$tag>\n";
 }
 

@@ -1,4 +1,3 @@
-
 <?php
 
 incCls("input/confirm.php");
@@ -12,8 +11,6 @@ incCls("menus/dboBox.php");
 $box = new dboBox();
 $dbs = $box->getDbase();
 $xxx = $box->show();
-
-$dbi = new dbInfo($dbs);
 
 // ***********************************************************
 // info
@@ -34,6 +31,7 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // execute analysis
 // ***********************************************************
+$dbi = new dbInfo($dbs);
 $tbs = $dbi->tables();
 
 $dbq = new dbQuery($dbs, "dbobjs");
@@ -56,8 +54,7 @@ foreach ($tbs as $tbl => $cap) {
 		);
 		foreach ($arr as $prop) {
 			$val = VEC::get($inf, $prop, ""); if (! $val) continue;
-
-			if (STR::contains($val, "&copy;")) $val = STR::replace($val, "&copy;", "(CR)");
+			$val = DBS::secure($val);
 
 			$vls["prop"] = $prop;
 			$vls["value"] = $val;

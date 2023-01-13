@@ -1,4 +1,5 @@
 [dic.de]
+act.manage = Verwalten
 act.backup = Sichern
 act.restore = aus Sicherung
 act.sync = Spiegeln
@@ -8,6 +9,9 @@ arr.dpf = Dateien gelöscht
 arr.mkd = Verzeichnisse erstellt
 arr.ren = Umbenannt
 arr.rmd = Verzeichnisse gelöscht
+bkp.manage = Backups verwalten
+bkp.drop = Sicherungen
+bkp.drop.info = Folgende Backups werden gelöscht
 cms.update = CMS Version aktualisieren
 do.nothing = Keine Aktion erforderlich.
 no.connection = Verbindung unterbrochen?

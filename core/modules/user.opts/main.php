@@ -1,7 +1,7 @@
 <?php
 
 $cfg = CFG::recall("mods");
-$dir = FSO::mySep(__DIR__);
+$dir = APP::relPath(__DIR__);
 
 // ***********************************************************
 $tpl = new tpl();

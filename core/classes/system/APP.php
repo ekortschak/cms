@@ -25,20 +25,25 @@ public static function init() {
 	$arr = explode(PATH_SEPARATOR, $pfd);
 	$arr = preg_filter('/$/', "/", $arr);
 
-	self::$rvs = self::$fbk = $arr;
-	krsort(self::$rvs);
+	self::$fbk = $arr;
 }
 
 // ***********************************************************
 // reducing paths to "local" paths
 // ***********************************************************
 public static function relPath($fso) {
-	$arr = APP::getFBK();
+	$fso = CFG::insert($fso);
+	$fso = FSO::norm($fso);
 
-	foreach ($arr as $dir) {
-		$out = STR::after($fso, $dir); if ($out !== false) return $out;
+	foreach (self::$fbk as $dir) {
+		$out = STR::after($fso, $dir); if ($out) return $out;
 	}
 	return $fso;
+}
+
+private static function getFBK($reverse = false) {
+	$out = self::$fbk; if ($reverse) krsort($out);
+	return $out;
 }
 
 // ***********************************************************
@@ -58,10 +63,6 @@ public static function genDir($dir = "", $sub = "") {
 	return FSO::join(SRV_ROOT, "cms.temp", $dir, $sub);
 }
 
-public static function getFBK() {
-	return self::$fbk;
-}
-
 public static function fbkDir($dir) {
 	$dir = STR::afterX($dir, APP_NAME);
 	$dir = trim($dir, DIR_SEP);
@@ -72,14 +73,15 @@ public static function fbkDir($dir) {
 // fs object lists
 // ***********************************************************
 public static function folders($dir) {
-	$dir = self::relPath($dir); $out = array();
+	$arr = self::getFBK(true); $out = array();
+	$dir = self::relPath($dir);
 
-	foreach (self::$rvs as $loc) { // add dirs from app and fbk folders
+	foreach ($arr as $loc) { // add dirs from app and fbk folders
 		$ful = FSO::join($loc, $dir);
 		$arr = FSO::folders($ful); if (! $arr) continue;
 
 		foreach ($arr as $vrz => $nam) {
-			$out[$nam] = $vrz; // only last concordance will be returned
+			$out[$nam] = $vrz; // APP_DIR to prevail over APP_FBK
 		}
 	}
 	$out = array_flip($out);
@@ -87,11 +89,12 @@ public static function folders($dir) {
 }
 
 public static function files($pattern, $ext = false, $visOnly = true) {
-	$ptn = self::relPath($pattern); if (! STR::contains($ptn, "*"))
-	$ptn = FSO::join($ptn, "*.*");
-	$ext = STR::toArray($ext); $out = array();
+	$arr = self::getFBK(true); $out = array();
+	$ptn = self::relPath($pattern);
+	$ptn = self::addJoker($ptn);
+	$ext = STR::toArray($ext);
 
-	foreach (self::$rvs as $loc) { // add files from app and fbk folders
+	foreach ($arr as $loc) { // add files from app and fbk folders
 		$ful = FSO::join($loc, $ptn);
 		$arr = FSO::files($ful, $visOnly); if (! $arr) continue;
 
@@ -100,62 +103,44 @@ public static function files($pattern, $ext = false, $visOnly = true) {
 				$chk = FSO::ext($fil);
 				if (! in_array($chk, $ext)) continue;
 			}
-			$out[$nam] = $fil; // only last concordance will be returned
+			$out[$nam] = $fil; // APP_DIR to prevail over APP_FBK
 		}
 	}
 	$out = array_flip($out);
 	return $out;
 }
 
+private static function addJoker($fso, $ptn = "*") {
+	if (STR::contains($fso, "*")) return $fso;
+	return FSO::join($fso, $ptn);
+}
+
 // ***********************************************************
 // single fs objects
 // ***********************************************************
 public static function dir($dir) { // find dir in extended fs
-	if (strlen($dir) < 3) return false;
-	if (is_dir($dir)) return $dir;
-
-	$dir = self::relPath($dir); if (! $dir) return false;
+	if (is_dir($dir)) return $dir; $dir = self::relPath($dir);
+	if (! $dir) return false;
 
 	foreach (self::$fbk as $loc) {
-		$ful = FSO::join($loc, $dir);
-		if (is_dir($ful)) return $ful;
+		$ful = FSO::join($loc, $dir); if (is_dir($ful)) return $ful;
 	}
 	return false;
 }
 
 public static function file($fso) { // find file in extended fs
-	if (! $fso) return ""; $fso = CFG::insert($fso);
-
 	if (FSO::isUrl($fso)) return $fso;
 	if (is_file($fso)) return $fso;
 
-	$fso = self::relPath($fso);
+	$fso = self::relPath($fso); if (! $fso) return false;
 
 	foreach (self::$fbk as $loc) {
-		$ful = FSO::join($loc, $fso);
-		if (is_file($ful)) return $ful;
+		$ful = FSO::join($loc, $fso); if (is_file($ful)) return $ful;
 	}
 	return false;
 }
 
-public static function url($fso) { // convert file to url
-	if (FSO::isUrl($fso)) return ""; if (! $fso) return "";
-
-	if (STR::begins($fso, ".".DIR_SEP)) { // e.g. local pics
-		$loc = PFS::getLoc();  $fil = substr($fso, 2);
-		return FSO::join($loc, $fil);
-	}
-	$ful = self::file($fso);
-	if (STR::begins($ful, APP_DIR)) return STR::after($ful, APP_DIR);
-	if (STR::begins($ful, APP_FBK)) {
-		$out = FSO::join(CMS_URL, STR::after($ful, APP_FBK));
-		if (FSO::isUrl($out)) return $out;
-		return STR::afterX($out, SRV_NAME);
-	}
-	if (STR::begins($ful, SRV_ROOT)) return STR::after($ful, SRV_ROOT);
-	return $fso;
-}
-
+// ***********************************************************
 public static function find($dir, $snip = "", $fext = false) {
 	$lgs = LNG::getRel($snip); // find language relevant content
 
@@ -183,37 +168,29 @@ public static function find($dir, $snip = "", $fext = false) {
 // ***********************************************************
 // retrieving content
 // ***********************************************************
-public static function getBlock($file) {
-	if (! is_file($file)) return false;
-	$xxx = ob_start(); include($file);
+public static function gc($fso, $snip = "") {
+	if (self::isLocked()) return "";
+
+	$ful = self::file($fso);        if (! $ful)
+	$ful = self::find($fso, $snip); if (! $ful) return "";
+
+	$xxx = ob_start(); include($ful);
 	$out = ob_get_clean();
 	return trim($out);
 }
 
-public static function gc($fso, $snip = "") { // find lang file
-	if (! is_file($fso)) $fso = self::find($fso, $snip);
-	return self::gcFil($fso);
-}
-public static function gcFil($ful) { // get content
-	$blk = ENV::get("blockme"); if ($blk) return "";
-	$ful = self::file($ful);
-	return self::getBlock($ful);
+public static function gcBody($fso) {
+	$out = self::gc($fso); if ($out) return $out;
+	return self::gc("core/modules/sitemap.php");
 }
 
-public static function gcBody($ful) {
-	$blk = ENV::get("blockme"); if ($blk) return "";
-	$out = self::gc($ful); if ($out !== NV) return $out;
-	$fil = APP::file("core/modules/sitemap.php");
-	return self::getBlock($fil);
-}
-
-public static function gcRec($dir, $snip = "banner", $revert = false) { // get content recursively
+public static function gcRec($dir, $snip = "banner") { // get content recursively
 	$arr = FSO::parents($dir); if (! $arr) return "";
-	$out = ""; if ($revert) rsort($arr);
+	$out = ""; if ($snip == "trailer") rsort($arr);
 
 	foreach ($arr as $dir) {
 		$out.= self::gc($dir, $snip);
-		$blk = ENV::get("blockme");	if ($blk) return $out;
+		if (self::isLocked()) return $out;
 	}
 	return $out;
 }
@@ -237,14 +214,14 @@ public static function write($file, $data, $overwrite = true) {
 	return self::writeFile($file, $data, false);
 }
 
-private static function writeFile($file, $data, $mode = false) {
+private static function writeFile($file, $data, $overwrite = false) {
 	if (is_dir($file)) return false;
 
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
 	$txt = trim($txt)."\n";
 
-	$erg = file_put_contents($file, $txt, $mode);
+	$erg = file_put_contents($file, $txt, $overwrite);
 	$xxx = FSO::permit($file);
 	return ($erg !== false);
 }
@@ -275,6 +252,10 @@ public static function lookup($txt) {
 public static function isView() {
 	if (  EDITING == "view")  return true;
 	return false;
+}
+
+private static function isLocked() {
+	return ENV::get("blockme");
 }
 
 // ***********************************************************

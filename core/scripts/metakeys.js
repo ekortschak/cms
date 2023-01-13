@@ -1,3 +1,5 @@
+var sep = " - ";
+
 function doKeys(e) {
 	if (e.key == "F5") return e; e.preventDefault(); e.stopPropagation(); e.returnValue = false;
 	if (e.key != "F4") return e;
@@ -6,7 +8,7 @@ function doKeys(e) {
 	txt = obj.value;
 	key = selHtml();
 
-	if (txt.length > 0) obj.value = txt + ", " + key;
+	if (txt.length > 0) obj.value = txt + sep + key;
 	else obj.value = key;
 
 	return e;

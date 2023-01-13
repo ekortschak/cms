@@ -13,7 +13,6 @@ incCls("menus/qikLink.php");
 
 $qik = new qikLink();
 $dbg = $qik->getVal("opt.debug", 1);
-#$sav = $qik->getVal("opt.save", 1);
 $prv = $qik->gc();
 
 ENV::set("xsite.dbg", $dbg);
@@ -37,6 +36,6 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // show module xsite
 // ***********************************************************
-# output handled by the module itself
+# output handled by the module body.xsite itself
 
 ?>

@@ -28,23 +28,20 @@ public static function init() {
 // path commands
 // ***********************************************************
 public static function join() {
-	$arr = func_get_args();
-	$out = implode(DIR_SEP, $arr);
+	$out = implode(DIR_SEP, func_get_args());
 	return self::norm($out);
 }
 
 public static function norm($fso) { // $fso => dir or file
     $sep = DIR_SEP; if (self::isUrl($fso)) return $fso;
 
+	$fso = strtr($fso, DIRECTORY_SEPARATOR, DIR_SEP);
 	$fso = rtrim($fso, $sep);
-	$fso = str_replace("..", ".", $fso);
-	$fso = str_replace("$sep.", $sep, $fso);
+
+	$fso = STR::replace($fso, "..", ".");
+	$fso = STR::replace($fso, "$sep.", $sep);
 	$fso = preg_replace("~($sep+)~", $sep, $fso);
 	return $fso;
-}
-
-public static function mySep($fso) {
-	return strtr($fso, DIRECTORY_SEPARATOR, DIR_SEP);
 }
 
 public static function isUrl($fso) {
@@ -56,8 +53,8 @@ public static function isUrl($fso) {
 
 // ***********************************************************
 public static function force($dir, $mod = FS_PERMS) {
-	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
-	$chk = trim($dir, "/");  if (strlen($chk) < 1) return false;
+	$dir = self::norm($dir);    if (is_dir($dir)) return $dir;
+	$chk = trim($dir, DIR_SEP); if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
 	$xxx = self::permit($dir, $mod);

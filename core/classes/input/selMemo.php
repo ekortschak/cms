@@ -26,7 +26,7 @@ function __construct($pid) {
 // ***********************************************************
 // output
 // ***********************************************************
-public function getFormat() {
+public function rowFormat() {
 	return "span";
 }
 

@@ -21,9 +21,9 @@ $nav->show();
 $tpl = "LOC_CFG/$fcs.ini";
 $fil = "config/$fcs.$ext";
 
-if (! is_file($fil))
-MSG::now("file.missing");
-HTW::tag("file = $fil", "small");
+$sts = ""; if (! is_file($fil)) $sts = BOOL_NO;
+
+HTW::tag("file = $fil $sts", "small");
 
 $ini = new iniMgr($tpl);
 $ini->update($fil);

@@ -88,12 +88,14 @@ public static function secure($str) {
 	$str = str_replace('"', "<dqot>", $str);
 	$str = str_replace("'", "<sqot>", $str);
 	$str = str_replace(";", "<scol>", $str);
+	$str = str_replace("&copy;", "(CR)", $str);
 	return $str;
 }
 public static function restore($str) {
 	$str = str_replace("<dqot>", '"', $str);
 	$str = str_replace("<sqot>", "'", $str);
 	$str = str_replace("<scol>", ";", $str);
+	$str = str_replace("(CR)", "&copy;", $str);
 	return $str;
 }
 

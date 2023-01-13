@@ -10,6 +10,9 @@ grant = Grant
 [dic.de]
 grant = Erlaube
 
+[vars]
+cls = cb
+
 # ***********************************************************
 [main]
 # ***********************************************************
@@ -28,14 +31,14 @@ grant = Erlaube
 # ***********************************************************
 	<tr class="<!VAR:class!>">
 		<td nowrap align="center">
-			<input type="checkbox" name="sel[<!VAR:recid!>]" class="cb">
+			<input type="checkbox" name="sel[<!VAR:recid!>]" class="<!VAR:cls!>">
 		</td>
 		<!VAR:data!>
 	</tr>
 
 [TCols]
 	<tr class="<!VAR:class!>">
-		<th align="center"><img src="ICONS/nav/toggle.gif" onClick="toggleCB();"></th>
+		<th align="center"><img src="ICONS/nav/toggle.gif" onClick="toggleCB('<!VAR:cls!>');"></th>
 		<!VAR:data!>
 	</tr>
 

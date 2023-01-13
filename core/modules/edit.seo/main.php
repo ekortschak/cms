@@ -5,20 +5,18 @@ if (! FS_ADMIN) {
 	return;
 }
 
+incCls("editor/seoEdit.php");
 incCls("menus/buttons.php");
 
 // ***********************************************************
-// show options
+// react to previous commands
 // ***********************************************************
-$loc = PFS::getLoc();
-$dir = FSO::mySep(__DIR__);
+$obj = new seoEdit();
 
+// ***********************************************************
 HTW::xtag("seo", "h3");
-
 // ***********************************************************
-// show options
-// ***********************************************************
-$nav = new buttons("seo", "L", $dir);
+$nav = new buttons("seo", "L", __DIR__);
 
 $nav->add("L", "doLinks");
 $nav->add("K", "doMetaKeys");

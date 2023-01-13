@@ -32,12 +32,12 @@ $ful = APP::file($fil);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");
-$frm->setVar("banner",  APP::gcRec($loc, "banner", false));
+$frm->setVar("banner",  APP::gcRec($loc, "banner"));
 $frm->setVar("help",    APP::gc($loc, "help"));
 $frm->setVar("head",    APP::gc($loc, "head"));
 $frm->setVar("page",    APP::gcBody($ful));
 $frm->setVar("tail",    APP::gc($loc, "tail"));
-$frm->setVar("trailer", APP::gcRec($loc, "trailer", true));
+$frm->setVar("trailer", APP::gcRec($loc, "trailer"));
 $frm->show();
 
 // ***********************************************************

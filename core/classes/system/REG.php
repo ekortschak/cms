@@ -12,11 +12,10 @@ incCls("system/REG.php");
 
 REG::add("css", "any.css");
 REG::add("js", "any.js");
+
 $arr = REG::get("js");
 
 */
-
-#REG::init();
 
 // ***********************************************************
 // BEGIN OF CLASS

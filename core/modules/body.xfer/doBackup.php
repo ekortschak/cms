@@ -12,7 +12,9 @@ $dev = array_flip($dev);
 
 $act = array(
 	"sync"   => DIC::get("act.sync"),
-	"backup" => DIC::get("act.backup")
+	"backup" => DIC::get("act.backup"),
+	""       => "<hr class='low'>",
+	"manage"  => DIC::get("act.manage")
 );
 
 // ***********************************************************
@@ -24,6 +26,13 @@ $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();
 
 if (! FSO::hasXs($dev)) return;
+
+if ($fnc == "manage") {
+	$inc = FSO::join(__DIR__, "exManage.php");
+	$inc = APP::relPath($inc);
+	include $inc;
+	return;
+}
 
 // ***********************************************************
 // transfer files

@@ -39,7 +39,7 @@ public function gc($fil, $sec = "main", $head = "") {
 	$htm->merge($this->vls); if ($head)
 	$htm->set("headc", $head);
 	$htm->set("code", $cod);
-	$htm->set("output", APP::gcFil($fil));
+	$htm->set("output", APP::gc($fil));
 	$htm->show($sec);
 }
 

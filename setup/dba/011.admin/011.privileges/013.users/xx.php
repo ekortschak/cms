@@ -1,11 +1,9 @@
 <?php
 
-$dir = FSO::mySep(__DIR__);
+incCls("menus/buttons.php");
 
 // ***********************************************************
-incCls("menus/buttons.php");
-// ***********************************************************
-$nav = new buttons("users", "E", $dir);
+$nav = new buttons("users", "E", __DIR__);
 $nav->add("A", "doAdd");
 $nav->add("E", "doEdit");
 $nav->add("D", "doDrop");

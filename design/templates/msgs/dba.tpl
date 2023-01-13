@@ -8,7 +8,4 @@ no.groups = Es gibt derzeit keine benutzerdefinierten Gruppen!
 
 
 [no.groups]
-<msg>
-<b><!DIC:sorry!></b>
-<p><!DIC:no.groups!></p>
-</msg>
+<msg><!DIC:no.groups!></msg>

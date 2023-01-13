@@ -31,11 +31,6 @@ incCls("server/NET.php");  // network tools
 // ***********************************************************
 include("core/inc.dbs.php");
 
-// ***********************************************************
-// execute pending fs modifications
-// ***********************************************************
-incCls("editor/ACT.php");  // modifications to project
-
 CFG::readCfg();
 
 // ***********************************************************

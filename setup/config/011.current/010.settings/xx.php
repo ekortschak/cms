@@ -2,9 +2,8 @@
 
 incCls("menus/buttons.php");
 
-$dir = APP::dir(__DIR__);
-
-$nav = new buttons("const", "C", $dir);
+// ***********************************************************
+$nav = new buttons("const", "C", __DIR__);
 $nav->add("C", "doConfig");
 $nav->add("X", "doMods");
 $nav->add("D", "doDbs");
