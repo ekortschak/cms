@@ -8,7 +8,7 @@ vtabs = Vertical tabs
 vtabs = Registerkarten (Tabs)
 
 # ***********************************************************
-[toc.de] <!-- toc -->
+[toc.de] <!-- toc.tedit -->
 # ***********************************************************
 <div class="container conToc">
 <h3>Tabs</h3>
@@ -20,7 +20,7 @@ vtabs = Registerkarten (Tabs)
 </div>
 
 # ***********************************************************
-[toc] <!-- toc -->
+[toc] <!-- toc.tedit -->
 # ***********************************************************
 <div class="container conToc">
 <h3>Tabs</h3>
@@ -32,14 +32,10 @@ vtabs = Registerkarten (Tabs)
 </ul>
 </div>
 
-<br>
-
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.tedit -->
 # ***********************************************************
 <div class="container">
 <h3><!DIC:vtabs!></h3>
 <!MOD:edit.tabs!>
 </div>
-
-<br>

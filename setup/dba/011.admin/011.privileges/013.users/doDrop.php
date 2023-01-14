@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/tblFilter.php");
 incCls("dbase/dbQuery.php");
 
@@ -26,7 +25,7 @@ if (! $lst) {
 // ***********************************************************
 HTW::xtag("usr.drop");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $usr = $box->getKey("user", $lst);
 $xxx = $box->show();
 

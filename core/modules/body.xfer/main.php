@@ -15,12 +15,6 @@ $nav->add("D", "syncDown");
 $nav->add("I", "doSingle");
 $nav->add("S", "doStatic");
 $nav->add("V", "syncCms");
-
 $nav->show();
-
-// ***********************************************************
-// show content
-// ***********************************************************
-$nav->showContent();
 
 ?>

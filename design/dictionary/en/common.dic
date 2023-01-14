@@ -1,11 +1,12 @@
 [dic.en]
+Verses = Bibelverse
 ask.sure = Sure?
 dbg.opts = Debug-Options
 dir.empty = Folder is empty ...
 edit.deny = This feature is reserved fot the <b>localhost</b>!
 file.denied = No write acces
-file.not copied = File has not been copied
 file.missing = File does not exist yet
+file.not copied = File has not been copied
 mail.check = Send test mail to testmaster@yourdomain.at
 mail.failed = Cannot deliver mail !
 mail.no message = Message is empty

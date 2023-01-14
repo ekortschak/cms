@@ -26,7 +26,7 @@ class code extends objects {
 function __construct() {}
 
 // ***********************************************************
-// special formats
+// read file(s)
 // ***********************************************************
 public function readPath($dir, $fil = "perms.ini") {
 	$dir = APP::dir($dir); if (! $dir) return;
@@ -56,7 +56,7 @@ public function read($file) { // ini lines
 
 // ***********************************************************
 protected function getContent($file) {
-	$txt = APP::read($file); if (! $txt) return array();
+	$txt = APP::read($file); if (! $txt) return "";
 	$txt = STR::dropComments($txt);
 	$txt = STR::dropSpaces($txt);
 	return STR::replace($txt, "\#", "#");
@@ -88,10 +88,10 @@ public function getProp($prop, $default = "") {
 public function getTip($sec = "info", $default = "") { // tailored for tooltips
 	$chk = ENV::get("opt.tooltip");	if (! $chk) return;
 
-	$out = VEC::get($this->sec, $sec.".".CUR_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec.".".GEN_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec.".xx"); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec); if ($out) return $out;
+	$out = VEC::get($this->sec, "$sec.".CUR_LANG); if ($out) return $out;
+	$out = VEC::get($this->sec, "$sec.".GEN_LANG); if ($out) return $out;
+	$out = VEC::get($this->sec, "$sec.xx"); if ($out) return $out;
+	$out = VEC::get($this->sec,  $sec); if ($out) return $out;
 	return $default;
 }
 
@@ -122,6 +122,7 @@ protected function regFiles($txt) { // register scripts
 protected function addDics() { // register dic entries
 	foreach ($this->sec as $sec => $txt) {
 		if ( ! STR::begins($sec, "dic")) continue;
+
 		$lng = STR::after($sec, ".");
 		$arr = $this->split($txt);
 

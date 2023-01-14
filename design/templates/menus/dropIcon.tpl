@@ -11,11 +11,12 @@ dropBox.tpl
 </div> &emsp;
 
 [main.box]
-	<button><!SEC:label!>COMBO_DOWN</button>
+<div class="dropdown">
 <!SEC:content!>
+</div>
 
 [main.one]
-	<button><!SEC:label!></button>
+<!SEC:main.box!>
 
 
 # ***********************************************************

@@ -48,9 +48,11 @@ function shutDown() {
 	if (! IS_LOCAL) return;
 
 	$lnk = HTM::href("?vmode=pedit", "edit mode");
+	$rst = HTM::href("?reset=1", "session");
 
 	HTW::tag("What can I do?", "h1");
 	HTW::tag("Enter $lnk", "li");
+	HTW::tag("Reset $rst", "li");
 }
 
 function errHandler($num, $msg, $file, $line) {

@@ -1,7 +1,7 @@
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.localmenu, .localicon, .submenu {
+.dropMenu, .submenu {
 	z-index: 150;
 	display: block;
 
@@ -35,10 +35,6 @@
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
-
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
 
 	background: BC_MENU;
 	background: linear-gradient(-2deg, BC_INFO, BC_MENU 50%, BC_MENU, #4D7FB2);

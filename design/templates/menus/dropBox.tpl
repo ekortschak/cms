@@ -16,17 +16,6 @@ sep = :
 
 
 # ***********************************************************
-# common parts
-# ***********************************************************
-[content]
-<div class="dropdown-content">
-<!VAR:links!>
-</div>
-
-[link]
-<div><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
-
-# ***********************************************************
 [main] # simple combo box
 # ***********************************************************
 <!VAR:items!>
@@ -40,16 +29,15 @@ sep = :
 [main.one]
 <button><!VAR:current!></button>
 
-# ***********************************************************
-[inline]
-# ***********************************************************
-<!VAR:items!>
 
-[inline.box]
-<div class="dropdown">
-<!VAR:current!>COMBO_DOWN
-<!SEC:content!>
+# ***********************************************************
+# common parts
+# ***********************************************************
+[content]
+<div class="dropdown-content">
+<!VAR:links!>
 </div>
 
-[inline.one]
-<!VAR:current!>
+[link]
+<div><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
+

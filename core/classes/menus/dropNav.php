@@ -10,12 +10,8 @@ dropNav will return a numeric index
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("menus/dropNav.php");
+see parent class
 
-$cmb = new dropNav();
-$cmb->getKey($qid, $values, $selected);
-$cmb->getVal($qid, $values, $selected);
-$cmb->show();
 */
 
 incCls("menus/dropBox.php");
@@ -31,6 +27,17 @@ function __construct() {
 }
 
 // ***********************************************************
+// display variants
+// ***********************************************************
+public function display($mode) {
+	switch ($mode) {
+#		case "xxxx": $tpl = "menus/xxxx.tpl"; break;
+		default: return;
+	}
+	$this->load($tpl);
+}
+
+// ***********************************************************
 // overruled methods
 // ***********************************************************
 public function getKey($qid, $data, $selected = false) {
@@ -40,30 +47,25 @@ public function getKey($qid, $data, $selected = false) {
 }
 
 protected function getSel($qid, $data, $sel) {
-	if (is_numeric($sel)) {
-		$arr = array_keys($data);
-		$sel = $arr[$sel - 1];
-		return ENV::set($qid, $sel);
-	}
+	$sel = ENV::get($qid, $sel);
+
+	if (! is_numeric($sel))
 	return parent::getSel($qid, $data, $sel);
+
+	$arr = array_keys($data);
+	$sel = $arr[$sel - 1];
+
+	return ENV::set($qid, $sel);
 }
 
 // ***********************************************************
 // display boxes
 // ***********************************************************
-public function show($sec = "main") {
-	echo $this->gc($sec);
-}
-public function gc($sec = "main") {
-	if (! $this->data) return "";
-
-	$this->set("items", $this->collect($sec));
-    return $this->getSection($sec);
-}
-
 protected function setNav($data, $sel) {
 	$cur = VEC::indexOf($data, $sel) + 1; if (! $cur) return false;
-	$max = $cur; if (is_array($data)) count($data);
+
+	$max = $cur; if (is_array($data))
+	$max = count($data);
 
 	$this->set("prev", CHK::min($cur - 1, 1));
 	$this->set("next", CHK::max($cur + 1, $max));
@@ -72,39 +74,6 @@ protected function setNav($data, $sel) {
 	if ($cur <= 1)    $this->substitute("nav.left",  "nav.null");
 
 	return $cur;
-}
-
-// ***********************************************************
-protected function collect($type) {
-    $out = "";
-
-    foreach ($this->data as $unq => $vls) { // boxes
-		extract ($vls);
-
-		$this->set("parm", $unq); $tmp = ""; $cnt = 0;
-		$this->set("uniq", DIC::getPfx("unq", $unq));
-		$this->set("current", $cur);
-
-		foreach ($dat as $key => $val) { // links
-			$this->set("value",   $key); $cnt++;
-			$this->set("caption", $val);
-
-			if ($key == $sel) continue;
-			$tmp.= $this->getSection("link");
-		}
-		if ($typ == "cmb") {
-			$sec = "$type.box"; if ($cnt < 2)
-			$sec = "$type.one";
-		}
-		else {
-			continue;
-		}
-		$this->set("links", $tmp);
-
-		$out.= $this->getSection($sec);
-    }
-   	$this->reset();
-    return $out;
 }
 
 // ***********************************************************

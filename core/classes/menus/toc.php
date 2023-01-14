@@ -3,6 +3,7 @@
 // INFO
 // ***********************************************************
 use for menues based on stylesheets only
+* depends on data from class PFS
 
 // ***********************************************************
 // HOW TO USE

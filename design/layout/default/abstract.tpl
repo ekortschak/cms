@@ -2,7 +2,7 @@
 LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
-[toc] <!-- toc -->
+[toc] <!-- toc.abstract -->
 # ***********************************************************
 <div class="container conToc" id="maindow">
 <!MOD:toc.banner!>
@@ -16,13 +16,9 @@ LOC_LAY/LAYOUT/main.tpl
 
 </div>
 
-<br>
-
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.abstract -->
 # ***********************************************************
 <div class="container">
 <!MOD:body.abstract!>
 </div>
-
-<br>

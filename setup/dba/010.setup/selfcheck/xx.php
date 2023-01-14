@@ -7,7 +7,5 @@ $nav = new buttons("sfchk", "H", __DIR__);
 $nav->add("H", "doRescue");
 $nav->show();
 
-$nav->showContent();
-
 ?>
 

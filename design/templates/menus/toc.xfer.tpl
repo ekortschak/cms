@@ -1,5 +1,5 @@
 [include]
-LOC_TPL/menus/toc.view.tpl
+toc.view.tpl
 
 [dic]
 project = Transfer the whole project

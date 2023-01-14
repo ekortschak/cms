@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/qikScript.php");
+incCls("menus/dropBox.php");
 
 $snp = new ini("config/snips.ini");
 $arr = $snp->getValues("html");
@@ -9,7 +9,7 @@ $arr = array_flip($arr);
 // ***********************************************************
 // toolbar code snips - if needed
 // ***********************************************************
-$box = new qikScript();
+$box = new dropBox();
 $xxx = $box->getCode("snip", $arr);
 $snp = $box->gc();
 

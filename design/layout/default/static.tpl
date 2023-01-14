@@ -25,21 +25,17 @@ LOC_LAY/LAYOUT/main.tpl
 </html>
 
 # ***********************************************************
-[toc] <!-- toc -->
+[toc] <!-- toc.static -->
 <div class="container conToc">
 <!MOD:toc!>
 </div>
 
-<br>
-
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.static -->
 <div class="container">
 <!MOD:body!>
 </div>
 
-<br>
-
 # ***********************************************************
-[opts] <!-- opts -->
+[opts] <!-- opts.static -->
 &nbsp;

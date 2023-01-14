@@ -26,6 +26,4 @@ $nav->add("X", "doXLate");
 $nav->add("F", "doXRef");
 $nav->show();
 
-$nav->showContent();
-
 ?>

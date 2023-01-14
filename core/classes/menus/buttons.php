@@ -4,7 +4,7 @@
 // ***********************************************************
 Handles top navigation by buttons
 
-2 files required going by the same name
+2 files are required going by the same name
 * an include file
 * an ini file
 
@@ -16,10 +16,9 @@ incCls("menus/buttons.php");
 $nav = new buttons("anyID", "A", __DIR__);
 $nav->add("A", "incA");
 $nav->add("B", "incB");
+$nav->addSpace(5);
 $nav->add("C", "incC");
 $nav->show();
-
-$nav->showContent();
 
 */
 
@@ -89,6 +88,8 @@ public function show($sec = "main") {
 	$out = implode("\n", $this->dat);
 	$this->set("items", $out);
 	echo parent::gc($sec);
+
+	$this->showContent();
 }
 
 public function act() {
@@ -98,7 +99,7 @@ public function act() {
 // ***********************************************************
 // show file
 // ***********************************************************
-public function showContent() {
+private function showContent() {
 	$sel = ENV::get($this->own, $this->std);
 	$inc = VEC::get($this->fls, $sel);
 

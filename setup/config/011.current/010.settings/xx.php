@@ -11,6 +11,4 @@ $nav->add("M", "doMail");
 $nav->add("F", "doFtp");
 $nav->show();
 
-$nav->showContent();
-
 ?>

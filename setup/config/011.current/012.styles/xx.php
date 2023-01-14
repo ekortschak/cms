@@ -12,6 +12,4 @@ $nav->add("F", "doFiles");
 $nav->add("S", "doStatic");
 $nav->show();
 
-$nav->showContent();
-
 ?>

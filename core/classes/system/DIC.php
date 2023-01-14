@@ -50,15 +50,15 @@ public static function read($dir) {
 // setting items
 // ***********************************************************
 public static function append($arr, $lang) {
-	if (! $lang) $lang = GEN_LANG;
+	$lng = LNG::find($lang);
 
 	foreach ($arr as $key => $val) {
-		self::set($key, $val, $lang);
+		self::set($key, $val, $lng);
 	}
 }
 
 public static function set($key, $value, $lang = CUR_LANG) {
-	$lng = self::getLang($lang);
+	$lng = LNG::find($lang);
 	$key = STR::norm($key);
 	$val = CFG::insert($value);
 
@@ -86,6 +86,15 @@ public static function getPfx($pfx, $key, $lang = CUR_LANG) {
 	return "<i>$key</i>";
 }
 
+public static function getAll($key) {
+	$lgs = LNG::get(); $out = array();
+
+	foreach ($lgs as $lng) {
+		$out[$lng] = self::get($key, $lng);
+	}
+	return $out;
+}
+
 // ***********************************************************
 // translate strings
 // ***********************************************************
@@ -102,17 +111,9 @@ public static function xlate($text, $lang = CUR_LANG) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private static function getLang($lang) {
-	$lgs = LANGUAGES;
-
-	if ($lang == CUR_LANG) return CUR_LANG;
-	if (STR::contains(".$lgs.", ".$lang.")) return $lang;
-	return GEN_LANG;
-}
-
 private static function find($key, $lng, $default = false) {
 	$idx = STR::norm($key); if (! $idx) return $default;
-	$lgs = array($lng => $lng, CUR_LANG => CUR_LANG, GEN_LANG => GEN_LANG);
+	$lgs = LNG::getGen($lng);
 
 	foreach ($lgs as $lng) {
 		$arr = VEC::get(self::$dat, $lng); if (! $arr) continue;

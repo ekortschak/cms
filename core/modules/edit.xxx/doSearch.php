@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
 
@@ -14,7 +14,7 @@ $act = array(
 	"replace" => "Search & Replace"
 );
 
-$box = new localMenu();
+$box = new dropMenu();
 $fnc = $box->getKey("Method", $act);
 $xxx = $box->show();
 
@@ -37,6 +37,13 @@ if ($fnc == "replace") {
 }
 $act = $sel->show();
 
+?>
+
+<h4>Info</h4>
+<div>LF: ###(\n?)</div>
+
+<?php
+
 if (! $act) return;
 
 // ***********************************************************
@@ -48,7 +55,7 @@ $cnt = $fds = 0;
 
 $pge = new pageInfo();
 
-HTM::lf();
+HTW::tag("Findings");
 echo "<small><table>\n";
 
 // ***********************************************************
@@ -74,9 +81,8 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</table></small>\n";
-HTM::lf();
+HTW::lf();
 echo "&nbsp; Finds: $cnt/$ttl files => $fds occurrencies\n";
-HTM::lf();
+HTW::lf();
 
 ?>
-

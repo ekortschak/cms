@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/dbQuery.php");
 
 // ***********************************************************
@@ -19,7 +18,7 @@ HTW::xtag("data.clean");
 $dbq = new dbQuery($dbs, $tbl);
 $vls = $dbq->getDVs($fld);
 
-$box = new qikSelect();
+$box = new dropBox();
 $val = $box->getKey("change.from", $vls); unset($vls[$val]);
 $new = $box->getKey("change.to", $vls);
 $xxx = $box->show();

@@ -2,7 +2,7 @@
 LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.feedback -->
 # ***********************************************************
 <div class="container">
 <!MOD:body.feedback!>
@@ -11,5 +11,3 @@ LOC_LAY/LAYOUT/main.tpl
 <div class="cold">
 <!MOD:body!>
 </div>
-
-<br>

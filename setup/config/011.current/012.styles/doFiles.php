@@ -1,8 +1,8 @@
 <?php
 
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 
-$box = new localMenu();
+$box = new dropMenu();
 $dir = $box->folders(LOC_CSS);
 $ful = $box->files($dir);
 $xxx = $box->show();

@@ -9,6 +9,4 @@ $nav->add("E", "doEdit");
 $nav->add("O", "doOpts");
 $nav->show();
 
-$nav->showContent();
-
 ?>

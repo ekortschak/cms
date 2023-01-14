@@ -10,6 +10,4 @@ $nav->add("C", "doConfig");
 $nav->add("B", "doButtons");
 $nav->show();
 
-$nav->showContent();
-
 ?>

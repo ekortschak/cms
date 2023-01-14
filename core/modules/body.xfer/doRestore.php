@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 incCls("server/backup.php");
 
 // ***********************************************************
@@ -18,7 +18,7 @@ $act = array(
 // ***********************************************************
 // choose action
 // ***********************************************************
-$box = new localMenu();
+$box = new dropMenu();
 $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();

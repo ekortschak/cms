@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -21,7 +20,7 @@ $xxx = $box->show();
 // ***********************************************************
 HTW::xtag("tbl.sort");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $mod = $box->getKey("sort.by", $mod);
 $xxx = $box->show();
 

@@ -1,6 +1,5 @@
 <?php
 
-incCls("menus/qikSelect.php");
 incCls("menus/dboBox.php");
 incCls("input/selector.php");
 incCls("dbase/dbInfo.php");
@@ -20,7 +19,7 @@ $tps = $dbi->fldTypes();
 // ***********************************************************
 HTW::xtag("fld.create");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $typ = $box->getKey("fld.type", $tps);
 
 $nls = $dbi->fldNull($typ);

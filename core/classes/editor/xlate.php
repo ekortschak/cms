@@ -20,7 +20,7 @@ if (! $xlc->act()) return;
 
 */
 
-incCls("menus/qikSelect.php");
+incCls("menus/dropBox.php");
 incCls("menus/qikLink.php");
 
 // ***********************************************************
@@ -59,7 +59,7 @@ public function setHead($text) {
 public function setLang() {
 	if (! $this->lgs) return MSG::now("xlate.none");
 
-	$box = new qikSelect();
+	$box = new dropBox();
 	$trg = $box->getKey("lang.target", $this->lgs);
 	$xxx = $box->show();
 

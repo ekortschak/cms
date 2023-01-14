@@ -5,10 +5,12 @@ LOC_TPL/user/login.tpl
 [dic]
 info = Your current data
 saved = Changes have been stored!
+back = Back
 
 [dic.de]
 info = Ihre gespeicherten Daten
 saved = Änderungen wurden gespeichert!
+back = Zurück
 
 
 ## ***********************************************************

@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -20,7 +19,7 @@ $xxx = $box->show();
 // ***********************************************************
 HTW::xtag("tbl.drop");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();
 

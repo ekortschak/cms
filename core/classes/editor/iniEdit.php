@@ -11,6 +11,7 @@ Used to create lists for input objects for ini Files
 incCls("forms/iniEdit.php");
 
 $obj = new iniEdit();
+$obj->addInput($prop, $vals, $val);
 $obj->show();
 */
 

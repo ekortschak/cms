@@ -68,13 +68,13 @@ public static function get($key, $default = false, $div = "env") {
 	return VEC::get($arr, $key, $default);
 }
 
+public static function getData($div = "env") {
+	return VEC::get(self::$vrs, $div);
+}
+
 // ***********************************************************
 public static function myFiles() {
 	return VEC::keys($_SESSION);
-}
-
-public static function getData($div = "env") {
-	return VEC::get(self::$vrs, $div);
 }
 
 public static function drop($key, $div = "env") {

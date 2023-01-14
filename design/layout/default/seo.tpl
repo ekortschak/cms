@@ -5,7 +5,7 @@ LOC_LAY/LAYOUT/main.tpl
 core/scripts/metakeys.js
 
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.seo -->
 # ***********************************************************
 <div class="container">
 <!MOD:edit.seo!>

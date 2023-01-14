@@ -36,6 +36,4 @@ $nav->add("U", "doUser");
 $nav->add("C", "doClip");
 $nav->show();
 
-$nav->showContent();
-
 ?>

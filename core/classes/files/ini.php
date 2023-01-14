@@ -188,9 +188,6 @@ public function read($file) {
 
 	$this->merge($cod->getValues());
 	$this->chkUID();
-
-#	if (! $this->isKey("props.uid"))
-#	$this->set("props.uid", basename($this->dir));
 }
 
 public function merge($arr, $pfx = false) {

@@ -13,6 +13,4 @@ $nav->add("M", "doMove");
 $nav->add("D", "doDrop");
 $nav->show();
 
-$nav->showContent();
-
 ?>

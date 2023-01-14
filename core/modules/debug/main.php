@@ -10,9 +10,9 @@ $arr = array(
 // ***********************************************************
 HTW::xtag("dbg.opts", "h3");
 // ***********************************************************
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 
-$box = new localMenu();
+$box = new dropMenu();
 $wht = $box->getKey("pic.show", $arr, "S");
 $box->show();
 

@@ -9,11 +9,12 @@ Used to handle DB objects
 // ***********************************************************
 incCls("menus/dropBox.php");
 
-$box = new dropBox();
+$box = new dropDbo();
 $box->getDbase();
 $box->getTable($dbs);
 $box->getField($dbs, $tpl);
 $box->show();
+
 */
 
 incCls("menus/dropBox.php");
@@ -21,7 +22,7 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class dboBox extends dropBox {
+class dropDbo extends dropBox {
 	private $dbi;
 
 function __construct() {

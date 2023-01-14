@@ -2,18 +2,19 @@
 dropBox.tpl
 
 [vars]
-class = localmenu
+class = dropMenu
 
 
 # ***********************************************************
-[main] # multiple options without title
+[main] # multiple options with title
 # ***********************************************************
-<div class="localmenu">
+<div class="<!VAR:class!>">
 <!VAR:items!>
 </div>
 
 [main.box]
-<div class="dropdown"><!VAR:current!>COMBO_DOWN
+<div class="dropdown">
+<!VAR:current!>COMBO_DOWN
 <!SEC:content!>
 </div> &ensp;
 

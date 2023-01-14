@@ -9,6 +9,4 @@ $nav->add("P", "doProps");
 $nav->add("D", "doDrop");
 $nav->show();
 
-$nav->showContent();
-
 ?>

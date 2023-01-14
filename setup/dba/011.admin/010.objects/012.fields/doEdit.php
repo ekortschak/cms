@@ -3,7 +3,6 @@
 incCls("dbase/dbQuery.php");
 incCls("dbase/dbInfo.php");
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("input/selector.php");
 incCls("dbase/dbAlter.php");
 
@@ -26,7 +25,7 @@ $lng = $inf["flen"]; $len = "";
 // ***********************************************************
 HTW::xtag("fld.modify");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $typ = $box->getKey("fld.type", $tps, $cat);
 
 $nls = $dbi->fldNull($typ);

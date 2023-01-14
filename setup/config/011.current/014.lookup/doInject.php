@@ -1,7 +1,6 @@
 <?php
 
-incCls("menus/localMenu.php");
-incCls("menus/qikSelect.php");
+incCls("menus/dropMenu.php");
 incCls("input/confirm.php");
 
 incCls("search/lookup.php");
@@ -20,7 +19,7 @@ $sec = array(
 // ***********************************************************
 // show file selector
 // ***********************************************************
-$box = new localMenu();
+$box = new dropMenu();
 $ful = $box->files("lookup");
 $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);
@@ -29,7 +28,7 @@ $xxx = $box->show();
 $arr = CFG::iniVar("tabsets", "index.php");
 $arr = VEC::keys($arr);
 
-$box = new qikSelect();
+$box = new dropBox();
 $tab = $box->getKey("apply.to", $arr);
 $xxx = $box->show();
 

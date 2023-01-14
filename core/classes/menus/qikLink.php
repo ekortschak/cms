@@ -7,11 +7,8 @@ Used to create (pseudo) check boxes for immeadiate action
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("menus/qikLink.php");
+see parent class
 
-$qik = new qikLink();
-$qik->getVal($qid, $value);
-$qik->show();
 */
 
 // ***********************************************************

@@ -43,7 +43,7 @@ title = PRJ_TITLE
 
 
 # ***********************************************************
-[layout]
+[layout] <!-- layout -->
 # ***********************************************************
 <body>
 	<div class="modtabs"><!SEC:tabs!></div>
@@ -87,15 +87,11 @@ title = PRJ_TITLE
 <!MOD:toc.blocks!>
 </div>
 
-<br>
-
 # ***********************************************************
 [mbar] <!-- middle bar -->
 <div style="padding: 15px 40px; font-size: 4pt;">
 	<a class="std" href="config.php">&nbsp;</a>
 </div>
-
-<br>
 
 # ***********************************************************
 [body] <!-- body -->
@@ -105,8 +101,6 @@ title = PRJ_TITLE
 <!MOD:body!>
 </div>
 
-<br>
-
 # ***********************************************************
 [opts] <!-- opts -->
 <div class="container conOpts">
@@ -115,5 +109,3 @@ title = PRJ_TITLE
 <!MOD:msgs!>
 <!MOD:msgs.log!>
 </div>
-
-<br>

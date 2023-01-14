@@ -37,6 +37,10 @@ function __construct($typ = "tabs.left") {
 public function readCfg() {
 	$tbs = new tabset();
 	$this->dat = $tbs->getTabs();
+
+	if (! $this->dat) {
+		die("Section [".APP_CALL."] not set in config/tabset.ini ...");
+	}
 }
 
 public function remove($key) {

@@ -22,39 +22,33 @@ class LNG {
 // methods
 // ***********************************************************
 public static function get($lang = CUR_LANG) {
-	$lgs = LANGUAGES;
-	return self::getArr("$lang.$lgs");
+	return self::getArr("$lang.".LANGUAGES);
 }
 
-public static function getAll() {
-	$out = self::get();
-	$out["xx"] = "xx";
-	return $out;
+public static function getGen($lang = CUR_LANG) {
+	return self::getArr("$lang.".CUR_LANG.".".GEN_LANG);
 }
 
 public static function getOthers() {
-	$arr = self::get(); unset($arr[CUR_LANG]);
-	return $arr;
-}
-
-public static function getRel($snip = true) {
-	$out = array(
-		CUR_LANG => CUR_LANG, "xx" => "xx",
-		GEN_LANG => GEN_LANG
-	);
-	if ($snip) $out[""] = "";
+	$out = self::get(); unset($arr[CUR_LANG]);
 	return $out;
 }
 
+public static function getRel($snip = true) {
+	$lgs = CUR_LANG.".xx.".GEN_LANG;
+	if (! $snip) return self::getArr($lgs);
+	return self::getArr("$lgs.");
+}
+
 // ***********************************************************
-public static function isCurLang($file) {
+public static function isCurrent($file) {
 	$fil = basename($file); $lng = CUR_LANG;
 
 	if (STR::begins($fil, "$lng.")) return true;
-	if (STR::begins($fil, "xx.")) return true;
+	if (STR::begins($fil, "xx."))   return true;
 
 	if (STR::contains($fil, ".$lng.")) return true;
-	if (STR::contains($fil, ".xx.")) return true;
+	if (STR::contains($fil, ".xx."))   return true;
 	return false;
 }
 

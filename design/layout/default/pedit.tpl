@@ -3,10 +3,8 @@ LOC_LAY/LAYOUT/main.tpl
 
 
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.pedit -->
 # ***********************************************************
 <div class="container" id="scView">
 <!MOD:edit.page!>
 </div>
-
-<br>

@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
@@ -21,7 +20,7 @@ unset($arr[$fld]);
 // ***********************************************************
 HTW::xtag("fld.move");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $aft = $box->getKey("fld.move after", $arr);
 $xxx = $box->show();
 

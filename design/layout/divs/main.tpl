@@ -1,7 +1,7 @@
 [include]
 LOC_LAY/default/main.tpl
 
-[layout]
+[layout] <!-- layout.divs -->
 <body>
 	<div class="modtabs"><!SEC:tabs!>  </div>
 	<div class="banner"> <!SEC:banner!></div>

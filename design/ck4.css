@@ -1038,7 +1038,7 @@ textarea {
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.localmenu, .localicon, .submenu {
+.dropMenu, .localicon, .submenu {
 	z-index: 150;
 	display: block;
 

@@ -11,7 +11,5 @@ $nav->add("P", "doFields", "props");
 #$nav->add("U", "doPerms");
 $nav->show();
 
-$nav->showContent();
-
 ?>
 

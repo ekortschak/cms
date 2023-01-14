@@ -32,6 +32,4 @@ $nav->add("P", "doProps");
 $nav->add("G", "doPics");
 $nav->show();
 
-$nav->showContent();
-
 ?>

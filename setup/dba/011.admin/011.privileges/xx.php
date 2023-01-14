@@ -9,6 +9,4 @@ $nav->add("T", "doTables");
 $nav->add("F", "doFields");
 $nav->show();
 
-$nav->showContent();
-
 ?>

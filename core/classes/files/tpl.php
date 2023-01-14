@@ -163,8 +163,12 @@ public function show($sec = "main") {
 public function gc($sec = "main") {
 	$xxx = $this->setTplInfo($sec);
 	$out = $this->getSection($sec);
-	$fil = $this->get("tplfile");
+#	$out = $this->addMarks($out);
+	return $out;
+}
 
+private function addMarks($txt) {
+	if (! $txt) return ""; $fil = $this->get("tplfile");
 	$pfx = "\n<!-- TOF: $fil -->\n";
 	$sfx = "\n<!-- EOF: $fil -->\n";
 	return $pfx.$out.$sfx;

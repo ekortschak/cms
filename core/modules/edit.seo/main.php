@@ -23,6 +23,4 @@ $nav->add("K", "doMetaKeys");
 $nav->add("D", "doMetaDesc");
 $nav->show();
 
-$nav->showContent();
-
 ?>

@@ -1,17 +1,18 @@
 [vars]
+class= dropMenu
 sep =
-
 
 # ***********************************************************
 [main] # multiple options with title
 # ***********************************************************
-<div class="localmenu">
+<div class="<!VAR:class!>">
 <!VAR:items!>
 </div>
 
 [main.box]
 <!VAR:uniq!><!VAR:sep!>
-<div class="dropdown"><!VAR:current!>COMBO_DOWN
+<div class="dropdown">
+<!VAR:current!>COMBO_DOWN
 <!SEC:content!>
 </div> &ensp;
 

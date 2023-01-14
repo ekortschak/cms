@@ -1,7 +1,6 @@
 <?php
 
 incCls("menus/dboBox.php");
-incCls("menus/qikSelect.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
@@ -25,7 +24,7 @@ $arr = $dbi->fields($tbl, "%", $fld); unset($arr["ID"]);
 // ***********************************************************
 HTW::xtag("fld.copy");
 // ***********************************************************
-$box = new qikSelect();
+$box = new dropBox();
 $dst = $box->getKey("copy.to", $arr);
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();

@@ -21,11 +21,10 @@ incCls("files/code.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class tabset extends iniTab {
-	private $cfg = "config/tabsets.ini";
 	private $tabs = array();
 
 function __construct() {
-	$this->read($this->cfg);
+	$this->read("config/tabsets.ini");
 }
 
 // ***********************************************************

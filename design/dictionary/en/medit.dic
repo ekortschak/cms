@@ -1,4 +1,6 @@
 [dic.en]
+default = Start page
+
 mnu.static = Menu is frozen ...
 page.props = Page proprties
 sys.exts = Extensions

@@ -135,6 +135,8 @@ private function cleanChars($code) {
 	if (CUR_LANG != "de") return $code;
 
 	$code = STR::replace($code, "(CR)", "&copy;");
+	$code = PRG::replace($code, "\n(\s?)", "\n");
+	$code = PRG::replace($code, "\n\n\n", "\n\n");
 
 	$fnd = array(
 		"ä" => "&auml;", "Ä" => "&Auml;", "ß" => "&szlig;",

@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 incCls("editor/iniMgr.php");
 
 // ***********************************************************
@@ -11,7 +11,7 @@ $arr = array(
 	"srv" => "Server"
 );
 
-$nav = new localMenu();
+$nav = new dropMenu();
 $ext = $nav->getKey("scope", $arr);
 $nav->show();
 

@@ -18,7 +18,7 @@ $lst = $obj->getSnips($dir, $fnd); // list of files and matching snips
 
 */
 
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -43,7 +43,7 @@ public function getScope() {
 	$drs = $this->getPaths();
 	$mds = $this->getMods();
 
-	$box = new localMenu();
+	$box = new dropMenu();
 	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_PATH);
 	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
 	return $box->gc("menu");
@@ -86,7 +86,7 @@ protected function search($what) { // $what expected as string
 		$fls = FSO::files("$dir/*.*"); if (! $fls) continue;
 
 		foreach ($fls as $fil => $nam) {
-			if (! LNG::isCurLang($fil)) continue;
+			if (! LNG::isCurrent($fil)) continue;
 
 			$txt = $this->prepare($fil);      if (! $txt) continue;
 			$psg = $this->match($txt, $what); if (! $psg) continue;
@@ -104,7 +104,7 @@ public function getSnips($dir, $what) { // called by preview
 	$arr = FSO::files("$dir/*"); $out = array();
 
 	foreach ($arr as $fil => $nam) {
-		if (! LNG::isCurLang($fil)) continue;
+		if (! LNG::isCurrent($fil)) continue;
 
 		$txt = $this->prepare($fil);
 		$arr = $this->match($txt, $what); if (! $arr) continue;

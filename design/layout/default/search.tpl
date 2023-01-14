@@ -11,13 +11,9 @@ LOC_LAY/default/main.tpl
 <!MOD:toc.search!>
 </div>
 
-<br>
-
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.search -->
 # ***********************************************************
 <div id="scView" class="container">
 <!MOD:body.search!>
 </div>
-
-<br>

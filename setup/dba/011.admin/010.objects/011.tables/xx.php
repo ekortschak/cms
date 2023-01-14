@@ -13,7 +13,5 @@ $nav->add("D", "doDrop");
 $nav->add("U", "doPerms");
 $nav->show();
 
-$nav->showContent();
-
 ?>
 

@@ -8,7 +8,5 @@ $nav->add("B", "doBackup");
 $nav->add("S", "doRestore");
 $nav->show();
 
-$nav->showContent();
-
 ?>
 

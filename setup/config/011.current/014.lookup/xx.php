@@ -12,6 +12,4 @@ $nav->add("D", "doDrop");
 $nav->add("I", "doInject");
 $nav->show();
 
-$nav->showContent();
-
 ?>

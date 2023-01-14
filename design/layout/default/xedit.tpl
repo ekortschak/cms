@@ -2,10 +2,8 @@
 LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
-[body] <!-- body -->
+[body] <!-- body.xedit -->
 # ***********************************************************
 <div class="container" id="scView">
 <!MOD:edit.xxx!>
 </div>
-
-<br>

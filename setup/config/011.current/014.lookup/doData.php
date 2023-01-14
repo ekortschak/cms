@@ -3,9 +3,9 @@
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/localMenu.php");
+incCls("menus/dropMenu.php");
 
-$box = new localMenu();
+$box = new dropMenu();
 $ful = $box->files("lookup");
 $xxx = $box->show();
 

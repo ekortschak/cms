@@ -32,7 +32,24 @@ public function reset() {
 }
 
 // ***********************************************************
-// setting info
+// display variants
+// ***********************************************************
+public function display($mode) {
+	switch ($mode) {
+		case "inline": $tpl = "menus/dropInline.tpl"; break;
+		case "topics": $tpl = "menus/dropTopics.tpl"; break;
+		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
+		default: return;
+	}
+	$this->load($tpl);
+}
+
+public function setClass($cls) {
+	$this->set("class", $cls);
+}
+
+// ***********************************************************
+// handling properties
 // ***********************************************************
 public function setProp($prop, $value) {
 	$this->set($prop, $value);
@@ -57,7 +74,7 @@ public function getVal($qid, $data, $selected = false) {
 }
 
 public function getKey($qid, $data, $selected = false) {
-	if (! $data) $data = array();
+	if (! $data) return;
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $this->getSel($qid, $data, $selected);

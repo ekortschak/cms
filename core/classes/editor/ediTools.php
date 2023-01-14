@@ -36,30 +36,13 @@ function __construct() {
 // methods
 // ***********************************************************
 public function getEditors($typ) {
-	if (is_file($typ))
-	$typ = $this->getType($typ);
+	if (is_file($typ))  $typ = $this->getType($typ);
 
-	if ($typ == "ini") {
-		return array(
-			"ini"   => "Ini Editor",
-			"text"  => "Text",
-		);
-	}
-	if ($typ == "code") {
-		return array(
-			"code"  => "Intern",
-			"xedit" => "Extern",
-			"text"  => "Text",
-		);
-	}
-	if ($typ ==	"html") {
-		return array(
-			"html"  => "Intern",
-			"xtern" => "Extern",
-			"ck4"   => "CK-Editor 4.x",
-			"ck5"   => "CK-Editor 5.x",
-		);
-	}
+	if ($typ == "ini")  return $this->getArr("ini,text");
+	if ($typ == "code") return $this->getArr("code,xedit,text");
+	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5");
+	if ($typ == "dic")  return $this->getArr("dic,text");
+	if ($typ == "ini")  return $this->getArr("css,text");
 	return array();
 }
 
@@ -68,6 +51,8 @@ public function getType($file) {
 
 	if (STR::contains(".php.", $ext)) return "code";
 	if (STR::contains(".ini.", $ext)) return "ini";
+	if (STR::contains(".dic.", $ext)) return "dic";
+#	if (STR::contains(".css.", $ext)) return "css";
 	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
 
 	if (STR::contains(".htm.", $ext)) {
@@ -82,6 +67,8 @@ public function getToolbar($typ) {
 	if ($typ == "code") return "code";
 	if ($typ == "html") return "html";
 	if ($typ == "text") return "text";
+	if ($typ == "dic")  return "dic";
+	if ($typ == "css")  return "css";
 	return false;
 }
 
@@ -107,6 +94,7 @@ public function exec() {
 	if ($act == "clear")   return $this->clear();
 }
 
+// ***********************************************************
 private function provide($file) {
 	if (! is_file($file)) return;
 	$cfg = FSO::join($this->dir, "extEdit.ini");
@@ -131,6 +119,29 @@ private function update($file) {
 
 private function clear() {
 	FSO::rmDir($this->dir);
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function getArr($items) {
+	$arr = STR::toArray($items); $out = array();
+	$dat = array(
+		"html"  => "Intern",
+		"code"  => "Intern",
+		"xedit" => "Extern",
+		"xtern" => "Extern",
+		"text"  => "Text",
+		"dic"   => "Dictionary",
+		"ini"   => "Ini-Editor",
+		"css"   => "Css-Editor",
+		"ck4"   => "CK-Editor 4.x",
+		"ck5"   => "CK-Editor 5.x",
+	);
+	foreach ($arr as $key) {
+		$out[$key] = $dat[$key];
+	}
+	return $out;
 }
 
 // ***********************************************************
