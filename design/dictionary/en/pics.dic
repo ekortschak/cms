@@ -3,4 +3,4 @@ pic.editor = 📝
 pic.folder = <img src="ICONS/files/folder.gif" alt="folder">
 pic.file = 📄
 pic.medium = 💿
-pic.mode = Method
+pic.mode = Method #<img src="ICONS/buttons/how.png" alt="folder">

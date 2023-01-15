@@ -3,7 +3,7 @@ dropBox.tpl
 
 [vars]
 class = dropMenu
-
+sep = :
 
 # ***********************************************************
 [main] # multiple options with title
@@ -13,10 +13,10 @@ class = dropMenu
 </div>
 
 [main.box]
-<div class="dropdown">
+<div class="dropdown"><!VAR:uniq!><!VAR:sep!>
 <!VAR:current!>COMBO_DOWN
 <!SEC:content!>
 </div> &ensp;
 
 [main.one]
-<!VAR:current!> &ensp;
+<!VAR:uniq!><!VAR:sep!> <!VAR:current!> &ensp;

@@ -3,7 +3,7 @@ pic.editor = 📝
 pic.file = 📄
 pic.folder = <img src="ICONS/files/folder.gif" class="icon" alt="folder">
 pic.medium = 💿
-pic.mode = Methode
+pic.mode = Methode #<img src="ICONS/buttons/how.png" alt="folder">
 pic.dbase = <img src="ICONS/buttons/db.png" class="icon" alt="databases">
 pic.table = <img src="ICONS/buttons/table.png" class="icon" alt="tables">
 pic.field = <img src="ICONS/buttons/field.png" class="icon" alt="column">

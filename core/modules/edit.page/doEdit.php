@@ -2,13 +2,13 @@
 
 incCls("menus/dropBox.php");
 
+// ***********************************************************
+// toolbar code snips - if needed
+// ***********************************************************
 $snp = new ini("config/snips.ini");
 $arr = $snp->getValues("html");
 $arr = array_flip($arr);
 
-// ***********************************************************
-// toolbar code snips - if needed
-// ***********************************************************
 $box = new dropBox();
 $xxx = $box->getCode("snip", $arr);
 $snp = $box->gc();
