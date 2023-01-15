@@ -1,12 +1,12 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("input/confirm.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $xxx = $box->show();
 

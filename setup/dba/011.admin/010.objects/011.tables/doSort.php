@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -11,7 +11,7 @@ $mod = array(
 	"DESC" => "Descending"
 );
 
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $fld = $box->getField($dbs, $tbl);

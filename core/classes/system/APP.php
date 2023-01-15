@@ -130,7 +130,7 @@ public static function dir($dir) { // find dir in extended fs
 
 public static function file($fso) { // find file in extended fs
 	if (FSO::isUrl($fso)) return $fso;
-	if (is_file($fso)) return $fso;
+	if (is_file($fso))    return $fso;
 
 	$fso = self::relPath($fso); if (! $fso) return false;
 
@@ -169,7 +169,7 @@ public static function find($dir, $snip = "", $fext = false) {
 // retrieving content
 // ***********************************************************
 public static function gc($fso, $snip = "") {
-	if (self::isLocked()) return "";
+	$qit = ENV::get("blockme");     if ($qit) return "";
 
 	$ful = self::file($fso);        if (! $ful)
 	$ful = self::find($fso, $snip); if (! $ful) return "";
@@ -184,13 +184,12 @@ public static function gcBody($fso) {
 	return self::gc("core/modules/sitemap.php");
 }
 
-public static function gcRec($dir, $snip = "banner") { // get content recursively
+public static function gcRec($dir, $snip) { // get content recursively
 	$arr = FSO::parents($dir); if (! $arr) return "";
 	$out = ""; if ($snip == "trailer") rsort($arr);
 
 	foreach ($arr as $dir) {
 		$out.= self::gc($dir, $snip);
-		if (self::isLocked()) return $out;
 	}
 	return $out;
 }
@@ -254,8 +253,8 @@ public static function isView() {
 	return false;
 }
 
-private static function isLocked() {
-	return ENV::get("blockme");
+public static function lock($value = false) {
+	ENV::set("blockme", $value);
 }
 
 // ***********************************************************

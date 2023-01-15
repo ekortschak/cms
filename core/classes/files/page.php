@@ -87,6 +87,8 @@ public function gc($sec = "main") {
 
 	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
+
+		$xxx = APP::lock(false);
 		$val = APP::gc($fil);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);

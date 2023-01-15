@@ -1,12 +1,12 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("tables/sel_table.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $grp = $box->getGroups($dbs);
 $prm = $box->getPrivs("g");

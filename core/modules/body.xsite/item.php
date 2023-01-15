@@ -16,12 +16,11 @@ $prn = $ini->get("props.noprint"); if (  $prn) return;
 // ***********************************************************
 $fil = FSO::join(__DIR__, $inc); if (! is_file($fil))
 $fil = FSO::join("core/modules/body", $inc);
-$ful = APP::relPath($fil);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");
 $frm->setVar("head", APP::gc($dir, "head"));
-$frm->setVar("page", APP::gcBody($ful));
+$frm->setVar("page", APP::gcBody($fil));
 $frm->setVar("tail", APP::gc($dir, "tail"));
 $frm->show("xsite");
 

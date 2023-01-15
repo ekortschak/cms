@@ -1,13 +1,13 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("dbase/dbInfo.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
 // show menu and options
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $fld = $box->getField($dbs, $tbl);

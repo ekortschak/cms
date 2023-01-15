@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
@@ -11,7 +11,7 @@ $fnc = array(
 	"t_drop" => "DROP (remove table completely)"
 );
 
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $xxx = $box->show();

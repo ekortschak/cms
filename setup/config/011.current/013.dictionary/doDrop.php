@@ -7,18 +7,14 @@ $dpf = ENV::getParm("dpf");
 $dpf = APP::relPath($dpf);
 
 if ($dpf) {
-	$arr = LNG::get(); $fil = basename($dpf);
-
-	foreach ($arr as $lng) {
-		$fil = FSO::join("dictionary", $lng, $fil);
-		FSO::kill($dst);
-	}
+	$dst = FSO::join(APP_DIR, $dpf);
+	FSO::kill($dst);
 }
 
 // ***********************************************************
 // show files
 // ***********************************************************
-$arr = FSO::files("dictionary/*");
+$arr = FSO::files("lookup/*");
 $cnt = 0;
 
 foreach ($arr as $fil => $nam) {

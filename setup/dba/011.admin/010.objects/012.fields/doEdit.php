@@ -2,14 +2,14 @@
 
 incCls("dbase/dbQuery.php");
 incCls("dbase/dbInfo.php");
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("input/selector.php");
 incCls("dbase/dbAlter.php");
 
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $fld = $box->getField($dbs, $tbl);

@@ -37,10 +37,13 @@ public function exec($file, $lang) {
 	$arr = OID::getLast($this->oid); if (! $arr) return;
 	$key = VEC::get($arr, "ckey"); if (! $key) return;
 
+	$dir = dirname(dirname($file));
+	$fil = basename($file);
+
 	foreach ($arr as $lng => $val) {
 		if (! STR::begins($lng, "lang_")) continue;
 		$lng = STR::after($lng, "lang_"); if (! $lng) continue;
-		$fil = STR::replace($file, "/$lang/", "/$lng/");
+		$ful = FSO::join($dir, $lng, $fil);
 
 		$erg = $this->save($fil, $lng, $key, $val);
 	}

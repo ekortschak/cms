@@ -34,12 +34,11 @@ public static function getOthers() {
 	return $out;
 }
 
-public static function getRel($snip = true) {
-	$lgs = CUR_LANG.".xx.".GEN_LANG;
-	if (! $snip) return self::getArr($lgs);
-	return self::getArr("$lgs.");
+public static function getRel($blank = false) {
+	$out = self::getArr(CUR_LANG.".xx.".GEN_LANG); if (! $blank) return $out;
+	$out = self::getArr(CUR_LANG.".xx.".GEN_LANG); $out["*"] = "";
+	return $out;
 }
-
 // ***********************************************************
 public static function isCurrent($file) {
 	$fil = basename($file); $lng = CUR_LANG;

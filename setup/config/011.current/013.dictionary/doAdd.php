@@ -2,10 +2,9 @@
 
 incCls("input/selector.php");
 
-// ***********************************************************
 $sel = new selector();
 $fil = $sel->input("file.new");
-$xxx = $sel->setProp("hint", "xy.dic");
+$xxx = $sel->setProp("hint", "xy.ini");
 $act = $sel->show();
 
 if (! $act) return;
@@ -14,11 +13,8 @@ if (! $fil) return;
 // ***********************************************************
 // create file
 // ***********************************************************
-$arr = LNG::get();
+$fil = FSO::join("lookup", $fil);
 
-foreach ($arr as $lng) {
-	$fil = FSO::join("dictionary", $lng, $fil);
-	APP::write($fil, "[dic.$lng]\n");
-}
+APP::write($fil, "");
 
 ?>

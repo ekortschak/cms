@@ -1,9 +1,9 @@
 <?php
 
 incCls("dbase/recEdit.php");
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $xxx = $box->show();
 

@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("editor/iniEdit.php");
 incCls("editor/dboEdit.php");
 incCls("dbase/dbInfo.php");
@@ -13,7 +13,7 @@ $dbo = new dboEdit();
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $tbl = $box->getTable($dbs);
 $xxx = $box->show();

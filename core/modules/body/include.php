@@ -1,8 +1,9 @@
 <?php
 
-$xxx = ENV::set("lookup", true);
 $loc = ENV::getPage();
 
+// ***********************************************************
+$xxx = ENV::set("lookup", true);
 // ***********************************************************
 $txt = APP::gc($loc);
 $txt = APP::lookup($txt);

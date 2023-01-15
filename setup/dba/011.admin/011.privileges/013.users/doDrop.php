@@ -1,10 +1,10 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("dbase/tblFilter.php");
 incCls("dbase/dbQuery.php");
 
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 $xxx = $box->show();
 

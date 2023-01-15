@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dboBox.php");
+incCls("menus/dropDbo.php");
 incCls("dbase/dbAlter.php");
 incCls("dbase/dbQuery.php");
 incCls("input/selector.php");
@@ -8,7 +8,7 @@ incCls("input/selector.php");
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dboBox();
+$box = new dropDbo();
 $dbs = $box->getDbase();
 
 $dir = APP::bkpDir("", SRV_ROOT, "db.$dbs"); $bkp = dirname($dir);
