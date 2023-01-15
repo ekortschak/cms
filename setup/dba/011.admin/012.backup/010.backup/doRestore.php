@@ -11,8 +11,8 @@ incCls("input/selector.php");
 $box = new dropDbo();
 $dbs = $box->getDbase();
 
-$dir = APP::bkpDir("", SRV_ROOT, "db.$dbs"); $bkp = dirname($dir);
-$vrs = FSO::folders("$bkp/db.$dbs.*"); krsort($vrs);
+$dir = APP::bkpDbs($dbs); $bkp = dirname($dir);
+$vrs = FSO::folders("$bkp/dbs.$dbs.*"); krsort($vrs);
 
 foreach ($vrs as $key => $val) {
 	$vrs[$key] = STR::after($val, "db.$dbs.");
@@ -25,7 +25,7 @@ HTW::tag("dir = $bkp", "small");
 // ***********************************************************
 // show tables
 // ***********************************************************
-$arr = FSO::files("$ver/*.bkp"); $tbs = array();
+$arr = FSO::files($ver, "*.bkp"); $tbs = array();
 
 foreach ($arr as $fil => $tbl) {
 	$tbl = STR::clear($tbl, ".bkp");

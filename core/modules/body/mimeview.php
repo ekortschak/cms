@@ -7,7 +7,7 @@ $ini = new ini();
 $ext = $ini->get("props.ext", "pics");
 $dir = $ini->get("props.path", $loc);
 
-$arr = FSO::files("$dir/*");
+$arr = FSO::files($dir);
 $arr = FSO::filter($arr, $ext);
 krsort($arr);
 

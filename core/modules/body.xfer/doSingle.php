@@ -3,8 +3,8 @@
 $loc = PFS::getLoc();
 
 $tit = PGE::getTitle($loc);
-$fil = APP::tempDir("single page", $tit);
-$fil.= ".htm";
+$dir = APP::tempDir("single page");
+$fil = FSO::join($dir, "$tit.htm");
 
 // ***********************************************************
 // preview ?
@@ -18,7 +18,14 @@ $prv = $qik->gc();
 ENV::set("xsite.dbg", $dbg);
 
 // ***********************************************************
-// Ask for confirmation
+// show info
+// ***********************************************************
+$tpl = new tpl();
+$tpl->load("editor/xsite.tpl");
+$tpl->show();
+
+// ***********************************************************
+// ask for confirmation
 // ***********************************************************
 incCls("input/confirm.php");
 

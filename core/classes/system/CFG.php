@@ -49,7 +49,6 @@ private static function fixServer() {
 	self::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
 	self::set("APP_FILE", VEC::get($_SERVER, "PHP_SELF", "unknown"));
 
-	self::set("APP_NAME", basename(APP_DIR));
 	self::set("APP_CALL", self::getCaller(APP_FILE));
 	self::set("APP_IDX",  self::getIndex());
 
@@ -59,17 +58,18 @@ private static function fixServer() {
 private static function fixPaths() {
 	if (! IS_LOCAL) return;
 
-	$rut = SRV_ROOT;
+	$ck4 = "/xtools/ck4";
+	$dir = FSO::join(SRV_ROOT, $ck4); if (is_dir($dir)) self::set("CK4_URL", $ck4);
 
-	$dir = "xtools/ck4"; if (is_dir("$rut/$dir")) self::set("CK4_URL", "/$dir");
-	$dir = "xtools/ck5"; if (is_dir("$rut/$dir")) self::set("CK5_URL", "/$dir");
+	$ck5 = "/xtools/ck4";
+	$dir = FSO::join(SRV_ROOT, $ck5); if (is_dir($dir)) self::set("CK5_URL", $ck5);
 }
 
 // ***********************************************************
 // reading config files
 // ***********************************************************
 public static function readCfg() {
-	$arr = APP::files("config/*.ini");
+	$arr = APP::files("config", "*.ini");
 
 	foreach ($arr as $fil => $nam) {
 		self::read($fil);

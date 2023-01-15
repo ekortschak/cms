@@ -12,7 +12,7 @@ $box = new dropDbo();
 $dbs = $box->getDbase();
 $xxx = $box->show();
 
-$dir = APP::bkpDir("", SRV_ROOT, "db.$dbs");
+$dir = APP::bkpDbs($dbs);
 HTW::tag("dir = $dir", "small");
 
 // ***********************************************************

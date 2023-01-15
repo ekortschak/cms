@@ -89,8 +89,7 @@ private function setCR($pic) {
 // auxilliary methods
 // ***********************************************************
 private function getPics($dir) {
-	$ptn = FSO::join($dir, "*");
-	$arr = FSO::files($ptn);
+	$arr = FSO::files($dir);
 	$arr = FSO::filter($arr, "pics");
 	return array_keys($arr);
 }

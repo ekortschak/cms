@@ -19,7 +19,7 @@ class clipBoard {
 	private $dir = "";
 
 function __construct() {
-	$dir = APP::genDir("clipboard");
+	$dir = APP::tempDir("clipboard");
 	$dir = FSO::force($dir);
 
 	$this->dir = $dir;

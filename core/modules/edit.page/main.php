@@ -56,9 +56,9 @@ switch ($sec) {
 	default:    $inc = "doEdit.php";
 }
 
-$inc = FSO::join(__DIR__, $inc);
-$inc = APP::relPath($inc);
-
-return include($inc);
+// ***********************************************************
+// act
+// ***********************************************************
+include APP::getInc(__DIR__, $inc);
 
 ?>

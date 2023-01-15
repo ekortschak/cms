@@ -83,7 +83,7 @@ protected function search($what) { // $what expected as string
 
 	foreach ($arr as $dir => $nam) {
 		if (! $this->isScope($dir)) continue;
-		$fls = FSO::files("$dir/*.*"); if (! $fls) continue;
+		$fls = FSO::files($dir); if (! $fls) continue;
 
 		foreach ($fls as $fil => $nam) {
 			if (! LNG::isCurrent($fil)) continue;
@@ -101,7 +101,7 @@ protected function search($what) { // $what expected as string
 // retrieving relevant passages from files
 // ***********************************************************
 public function getSnips($dir, $what) { // called by preview
-	$arr = FSO::files("$dir/*"); $out = array();
+	$arr = FSO::files($dir); $out = array();
 
 	foreach ($arr as $fil => $nam) {
 		if (! LNG::isCurrent($fil)) continue;

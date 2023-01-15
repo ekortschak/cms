@@ -29,7 +29,7 @@ $dir = $box->getKey("coll", $lst, $sel);
 $tit = $box->decode("coll", $dir);
 $xxx = $box->show();
 
-$pic = APP::files($dir, "png,jpg,gif");
+$pic = APP::files($dir, "*.png, *.jpb, *.gif");
 $pic = basename(key($pic));
 $dir = APP::relPath($dir);
 $pic = FSO::join($dir, $pic);

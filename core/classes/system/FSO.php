@@ -62,6 +62,14 @@ public static function force($dir, $mod = FS_PERMS) {
 	return ($erg) ? $dir : false;
 }
 
+public static function rename($old, $new) {
+	if ($old == $new) return;
+
+	if (is_dir($old))
+	return (bool) self::mvDir($old, $new);
+	return (bool) self::move ($old, $new);
+}
+
 // ***********************************************************
 // file permissions
 // ***********************************************************
@@ -154,40 +162,32 @@ public static function getPrev($dir) {
 }
 
 // ***********************************************************
-// dirs and files
-// ***********************************************************
-public static function rename($old, $new) {
-	if ($old == $new) return;
-
-	if (is_dir($old))
-	return (bool) self::mvDir($old, $new);
-	return (bool) self::move ($old, $new);
-}
-
-// ***********************************************************
 // files
 // ***********************************************************
 public static function fdTree($dir, $ptn = "*") {
  // list all files and dirs in $dir
 	return self::ftree($dir, $ptn, false);
 }
-public static function fTree($dir, $ptn = "*", $filesOnly = true) {
+public static function fTree($dir, $pattern = "*", $filesOnly = true) {
  // default: list all files in $dir recursively
 	$drs = self::tree($dir, false); // including hidden fso
-	$out = self::files("$dir/$ptn*", false);
+	$out = self::files($dir, $pattern, false);
 
 	foreach ($drs as $dir => $nam) {
 		if (is_link($dir)) continue;
 		if (! $filesOnly) $out[$dir] = $nam;
-		$out += self::files("$dir/$ptn*", false);
+
+		$out += self::files($dir, $pattern, false);
 	}
 	ksort($out);
 	return $out;
 }
 
-public static function files($pattern, $visOnly = true) {
+public static function files($dir, $pattern = "*", $visOnly = true) {
  // list all files matching $pattern
-	$ptn = self::norm($pattern); $out = array();
+	$ptn = self::join($dir, $pattern); $out = array();
+	$ptn = self::norm($ptn);
+
 	$arr = glob($ptn); if (! $arr) return $out;
 
 	foreach ($arr as $itm) {
@@ -201,9 +201,11 @@ public static function files($pattern, $visOnly = true) {
 }
 
 // ***********************************************************
+// working on files
+// ***********************************************************
 public static function backup($file) {
 	if (! is_file($file)) return;
-	$dst = APP::bkpDir("edited");
+	$dst = APP::tempDir("edited");
 	$dst = self::join($dst, basename($file));
 	self::copy($file, $dst);
 }
@@ -230,14 +232,6 @@ public static function kill($file) { // delete a file
 // ***********************************************************
 // folders
 // ***********************************************************
-public static function folderTitles($dir, $visOnly = true) {
-	$arr = self::folders($dir, $visOnly); $out = array();
-
-	foreach ($arr as $dir => $nam) {
-		$out[$dir] = PGE::getTitle($dir);
-	}
-	return $out;
-}
 public static function folders($dir, $visOnly = true) {
  // list all folders in $dir
 	$fso = $dir; if (! STR::contains($fso, "*")) $fso = self::join($dir, "*");

@@ -13,8 +13,6 @@ incCls("system/LOG.php");
 
 incCls("system/timer.php");
 
-define("LOC_LOG",  SRV_ROOT."/cms.log");
-
 LOG::init();
 
 // ***********************************************************
@@ -39,8 +37,8 @@ public static function init() {
 // ***********************************************************
 private static function chkDir() {
 	if (! SRV_ROOT) return false;
-	$app = basename(APP_DIR);
-	$dir = LOC_LOG."/$app"; if (! is_dir($dir))
+
+	$dir = APP::logDir(); if (! is_dir($dir))
 	$out = mkdir($dir, 0755, true);
 	$out = is_dir($dir); if (! $out) return false;
 	return $dir;

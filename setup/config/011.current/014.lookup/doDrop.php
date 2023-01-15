@@ -18,7 +18,7 @@ if ($dpf) {
 // ***********************************************************
 // show files
 // ***********************************************************
-$arr = FSO::files("dictionary/*");
+$arr = FSO::files("dictionary");
 $cnt = 0;
 
 foreach ($arr as $fil => $nam) {

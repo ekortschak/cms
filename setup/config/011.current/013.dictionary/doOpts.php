@@ -31,8 +31,8 @@ return;
 // ***********************************************************
 function reWrite() {
 	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng, "*.dic");
-	$fls = FSO::files($ptn);
+ 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng);
+	$fls = FSO::files($ptn, "*.dic");
 	$sec = "[dic.$lng]";
 
  	foreach ($fls as $fil => $nam) {
@@ -58,8 +58,8 @@ function reWrite() {
 // ***********************************************************
 function spawn() {
 	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng, "*.dic");
-	$fls = FSO::files($ptn);
+ 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng);
+	$fls = FSO::files($ptn, "*.dic");
 
 	foreach ($fls as $fil => $nam) {
 		$lns = file($fil); $out = array();

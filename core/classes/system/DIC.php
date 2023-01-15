@@ -37,8 +37,8 @@ public static function read($dir) {
 	$cod = new code();
 
 	foreach (LNG::get() as $lng) {
-		$ptn = FSO::join($dir, $lng, "*.dic");
-		$arr = APP::files($ptn);
+		$ptn = FSO::join($dir, $lng);
+		$arr = APP::files($ptn, "*.dic");
 
 		foreach ($arr as $fil => $nam) {
 			$cod->read($fil); // will set $this->dat

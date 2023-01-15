@@ -20,7 +20,7 @@ $fil = FSO::join("core/modules/body", $inc);
 $frm = new tpl();
 $frm->load("modules/page.tpl");
 $frm->setVar("head", APP::gc($dir, "head"));
-$frm->setVar("page", APP::gcBody($fil));
+$frm->setVar("page", APP::gcMap($fil));
 $frm->setVar("tail", APP::gc($dir, "tail"));
 $frm->show("xsite");
 

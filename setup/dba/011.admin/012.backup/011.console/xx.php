@@ -12,7 +12,7 @@ $xxx = $box->show();
 // ***********************************************************
 // table info
 // ***********************************************************
-$dir = APP::bkpDir("", SRV_ROOT, "db.$dbs");
+$dir = APP::bkpDbs($dbs);
 $usr = CFG::getVar("dbase", "dbase.user");
 
 $dmp = FSO::join($dir, "$dbs.sql");

@@ -11,9 +11,9 @@ $dev = $ini->getValues("local");
 $dev = array_flip($dev);
 
 $act = array(
-	"sync"   => DIC::get("act.sync"),
-	"backup" => DIC::get("act.backup"),
-	""       => "<hr class='low'>",
+	"sync"    => DIC::get("act.sync"),
+	"backup"  => DIC::get("act.backup"), 	"x" => "<hr class='low'>",
+	"version" => DIC::get("act.version"),	"y" => "<hr class='low'>",
 	"manage"  => DIC::get("act.manage")
 );
 
@@ -28,9 +28,7 @@ $xxx = $box->show();
 if (! FSO::hasXs($dev)) return;
 
 if ($fnc == "manage") {
-	$inc = FSO::join(__DIR__, "exManage.php");
-	$inc = APP::relPath($inc);
-	include $inc;
+	include APP::getInc(__DIR__, "exManage.php");
 	return;
 }
 

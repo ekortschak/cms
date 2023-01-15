@@ -65,3 +65,15 @@ design/templates/editor/xfer.sync.tpl
 <!SEC:backup.1st!>
 <br>
 
+
+# ***********************************************************
+[version]
+# ***********************************************************
+<h4>Save as new version</h4>
+<p>Versions are good and stable states of the current project meant for publishing. Else use <a href="?pic.mode=backup">backups</a>.</p>
+<br>
+
+[version.de]
+<h4>Als neue Version ablegen</h4>
+<p>Versionen sind gute und stabile Projektzustände, die zur Weitergabe an Dritte gedacht sind. Ansonsten sind <a href="?pic.mode=backup">Sicherungen</a> das Mittel der Wahl.</p>
+<br>

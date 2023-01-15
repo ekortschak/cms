@@ -6,7 +6,7 @@ incCls("input/selector.php");
 // ***********************************************************
 // show file selector
 // ***********************************************************
-$fnt = APP::files("design/fonts/*.ttf");
+$fnt = APP::files("design/fonts", "*.ttf");
 
 $box = new dropMenu();
 $fnt = $box->getKey("Font", $fnt);

@@ -1,8 +1,8 @@
 <?php
 
 $loc = PFS::getLoc();
-$ptn = FSO::join($loc, "snip.*.*");
-$arr = FSO::files($ptn);
+$dir = FSO::join($loc, "snip");
+$arr = FSO::files($dir);
 $lst = array();
 
 foreach ($arr as $fil => $nam) {

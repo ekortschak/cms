@@ -1,5 +1,6 @@
 [dic.en]
 act.manage = Manage
+act.version = Version
 act.backup = Backup
 act.restore = Restore
 act.sync = Mirror

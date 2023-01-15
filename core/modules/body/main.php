@@ -34,7 +34,7 @@ $frm->load("modules/page.tpl");
 $frm->setVar("banner",  APP::gcRec($loc, "banner"));
 $frm->setVar("help",    APP::gc($loc, "help"));
 $frm->setVar("head",    APP::gc($loc, "head"));
-$frm->setVar("page",    APP::gcBody($fil));
+$frm->setVar("page",    APP::gcMap($fil));
 $frm->setVar("tail",    APP::gc($loc, "tail"));
 $frm->setVar("trailer", APP::gcRec($loc, "trailer"));
 $frm->show();

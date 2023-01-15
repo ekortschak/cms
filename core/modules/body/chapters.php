@@ -2,7 +2,7 @@
 # used for directories with multiple numbered html files
 
 $loc = PFS::getLoc();
-$arr = APP::files("$loc/*.htm");
+$arr = APP::files($loc, "*.htm");
 $cnt = 1;
 
 if (count($arr) < 1) {

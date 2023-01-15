@@ -1,5 +1,6 @@
 [dic.de]
 act.manage = Verwalten
+act.version = Version
 act.backup = Sichern
 act.restore = aus Sicherung
 act.sync = Spiegeln

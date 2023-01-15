@@ -43,7 +43,7 @@ function __construct() {
 // read ini files
 // ***********************************************************
 public function readRef() {
-	$arr = FSO::files("lookup/*.ini"); if (! $arr) return false;
+	$arr = FSO::files("lookup", "*.ini"); if (! $arr) return false;
 
 	foreach ($arr as $fil => $nam) {
 		$this->read($fil);

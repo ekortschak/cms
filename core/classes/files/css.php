@@ -127,8 +127,8 @@ private function getFiles() {
 		"app"     => ""
 	);
 	foreach ($sets as $val) {
-		$set = FSO::join(LOC_CSS, $val, "*.css");
-		$set = APP::files($set);
+		$set = FSO::join(LOC_CSS, $val);
+		$set = APP::files($set, "*.css");
 		$arr = VEC::merge($arr, $set);
 	}
 	foreach ($arr as $fil => $nam) {

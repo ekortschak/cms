@@ -38,6 +38,15 @@ public function setDevice($dev = SRV_ROOT) {
 // ***********************************************************
 // run jobs (backup mode)
 // ***********************************************************
+public function version() {
+	$ver = 2;
+	$num = 3;
+
+	$this->setDest(APP::bkpVer($ver, $num, $this->dev));
+	$this->showInfo("version");
+	$this->run();
+}
+
 public function backup() {
 	$this->setDest(APP::bkpDir("", $this->dev));
 	$this->showInfo("backup");

@@ -47,26 +47,31 @@ private static function getFBK($reverse = false) {
 }
 
 // ***********************************************************
-// fs object lists
+// app dirs or files
 // ***********************************************************
-public static function bkpDir($dir = "", $root = SRV_ROOT, $pfx = "bkp") {
-	if (! $dir) $dir = "$pfx.".date("Y.m.d");
-	return FSO::join($root, "cms.backup", APP_NAME, $dir);
+public static function bkpVer($ver, $num = 0, $root = SRV_ROOT) {
+	return FSO::join($root, "cms.archive", APP_NAME, "ver.$ver.$num");
 }
-public static function logDir($dir = "") {
-	return FSO::join(SRV_ROOT, "cms.log", APP_NAME, $dir);
+public static function bkpDbs($dbs, $root = SRV_ROOT) {
+	return FSO::join($root, "cms.archive", APP_NAME, "dbs.$dbs");
 }
-public static function tempDir($dir = "", $sub = "") {
-	return FSO::join(SRV_ROOT, "cms.temp", APP_NAME, $dir, $sub);
-}
-public static function genDir($dir = "", $sub = "") {
-	return FSO::join(SRV_ROOT, "cms.temp", $dir, $sub);
+public static function bkpDir($dir, $root = SRV_ROOT) {
+	if (! $dir) $dir = "bkp.".date("Y.m.d"); // e.g. sync
+	return FSO::join($root, "cms.archive", APP_NAME, $dir);
 }
 
-public static function fbkDir($dir) {
-	$dir = STR::afterX($dir, APP_NAME);
-	$dir = trim($dir, DIR_SEP);
-	return APP_FBK.$dir;
+// ***********************************************************
+public static function logDir() { // always local dirs
+	return FSO::join(SRV_ROOT, "cms.archive", APP_NAME, "log");
+}
+public static function tempDir($dir = "", $sub = "") { // clipboard
+	return FSO::join(SRV_ROOT, "cms.archive", APP_NAME, "temp", $dir, $sub);
+}
+
+// ***********************************************************
+public static function getInc($dir, $file) {
+	$inc = FSO::join($dir, $file);
+	return self::relPath($inc);
 }
 
 // ***********************************************************
@@ -88,31 +93,24 @@ public static function folders($dir) {
 	return $out;
 }
 
-public static function files($pattern, $ext = false, $visOnly = true) {
+public static function files($dir, $pattern = "*", $visOnly = true) {
 	$arr = self::getFBK(true); $out = array();
-	$ptn = self::relPath($pattern);
-	$ptn = self::addJoker($ptn);
-	$ext = STR::toArray($ext);
+	$dir = self::relPath($dir);
+
+	$ext = VEC::explode($pattern, ",");
 
 	foreach ($arr as $loc) { // add files from app and fbk folders
-		$ful = FSO::join($loc, $ptn);
-		$arr = FSO::files($ful, $visOnly); if (! $arr) continue;
+		foreach ($ext as $ptn) {
+			$ful = FSO::join($loc, $dir);
+			$arr = FSO::files($ful, $ptn, $visOnly); if (! $arr) continue;
 
-		foreach ($arr as $fil => $nam) {
-			if ($ext) {
-				$chk = FSO::ext($fil);
-				if (! in_array($chk, $ext)) continue;
+			foreach ($arr as $fil => $nam) {
+				$out[$nam] = $fil; // APP_DIR to prevail over APP_FBK
 			}
-			$out[$nam] = $fil; // APP_DIR to prevail over APP_FBK
 		}
 	}
 	$out = array_flip($out);
 	return $out;
-}
-
-private static function addJoker($fso, $ptn = "*") {
-	if (STR::contains($fso, "*")) return $fso;
-	return FSO::join($fso, $ptn);
 }
 
 // ***********************************************************
@@ -141,25 +139,16 @@ public static function file($fso) { // find file in extended fs
 }
 
 // ***********************************************************
-public static function find($dir, $snip = "", $fext = false) {
+public static function find($dir, $snip = "", $fext = "php, htm, html") {
 	$lgs = LNG::getRel($snip); // find language relevant content
+	$vis = (! IS_LOCAL);       // show hidden files on localhost
+
+	$ext = VEC::explode($fext, ",");
 
 	foreach ($lgs as $lng) {
-		$ptn = FSO::join($dir, "$snip.$lng.*");
-		$arr = self::files($ptn, $fext, ! IS_LOCAL); if (! $arr) continue;
-		$fls = array();
-
-		foreach ($arr as $fil => $nam) {
-			$ext = FSO::ext($fil, true);
-			$fls[$ext] = $fil;
-		}
-		if (! $fext) {
-			$fil = VEC::get($fls, "php");  if ($fil) return $fil;
-			$fil = VEC::get($fls, "htm");  if ($fil) return $fil;
-			$fil = VEC::get($fls, "html"); if ($fil) return $fil;
-		}
-		else {
-			$fil = VEC::get($fls, $fext);  if ($fil) return $fil;
+		foreach ($ext as $ptn) {
+			$fil = FSO::join($dir, "$snip.$lng.").$ptn;
+			$ful = APP::file($fil); if (is_file($ful)) return $ful;
 		}
 	}
 	return false;
@@ -179,8 +168,17 @@ public static function gc($fso, $snip = "") {
 	return trim($out);
 }
 
-public static function gcBody($fso) {
-	$out = self::gc($fso); if ($out) return $out;
+public static function gc2($fso, $snip = "") {
+	$ful = self::find($fso, $snip); if (! $ful)
+	$ful = self::file($fso);        if (! $ful) return "";
+
+	$xxx = ob_start(); include($ful);
+	$out = ob_get_clean();
+	return trim($out);
+}
+
+public static function gcMap($fso) {
+	$out = self::gc2($fso); if ($out) return $out;
 	return self::gc("core/modules/sitemap.php");
 }
 

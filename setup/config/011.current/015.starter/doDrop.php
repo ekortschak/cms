@@ -11,7 +11,7 @@ if ($dpf) {
 	FSO::kill($dst);
 }
 
-$app = FSO::files(APP_DIR."*");
+$app = FSO::files(APP_DIR);
 $cnt = 0;
 
 foreach ($app as $fil => $nam) {

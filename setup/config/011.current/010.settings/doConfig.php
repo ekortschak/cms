@@ -1,7 +1,6 @@
 <?php
 
-$inc = FSO::join(__DIR__, "common.php");
-$inc = APP::relPath($inc);
+$inc = APP::getInc(__DIR__, "common.php");
 $fcs = "config";
 
 include($inc);
