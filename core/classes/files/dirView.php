@@ -48,7 +48,7 @@ public function readTree($dir, $ext = false) {
 	$this->vrz = FSO::tree($this->dir);
 	$this->setExt($ext);
 
-	$fls = FSO::files($dir, $this->get("visOnly", true));
+	$fls = FSO::files($dir, "*", $this->get("visOnly", true));
 	$fls = FSO::filter($fls, $ext);
 
 	$this->fls = $this->doSort($fls);

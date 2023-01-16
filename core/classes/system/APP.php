@@ -55,7 +55,7 @@ public static function bkpVer($ver, $num = 0, $root = SRV_ROOT) {
 public static function bkpDbs($dbs, $root = SRV_ROOT) {
 	return FSO::join($root, "cms.archive", APP_NAME, "dbs.$dbs");
 }
-public static function bkpDir($dir, $root = SRV_ROOT) {
+public static function bkpDir($dir = "", $root = SRV_ROOT) {
 	if (! $dir) $dir = "bkp.".date("Y.m.d"); // e.g. sync
 	return FSO::join($root, "cms.archive", APP_NAME, $dir);
 }
