@@ -53,7 +53,6 @@ public function read($ini = false) {
 // run jobs
 // ***********************************************************
 public function upgrade() {
-#	if (! $this->ftp->test()) return;
 	parent::run();
 }
 
@@ -77,10 +76,6 @@ protected function getTree($src, $dst) {
 protected function FSremote() {
 	$out = $this->htp->query(".", "get");
 	return $out;
-}
-
-protected function aggregate($data) { // prepare for webexec()
-	return $this->htp->aggregate($data);
 }
 
 // **********************************************************

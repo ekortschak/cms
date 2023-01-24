@@ -42,17 +42,20 @@ public function connect($user, $pass) {
 	return ERR::msg("db.module", "mysqli");
 
 	$this->con = new mysqli($this->host, $user, $pass);
-	$this->selectDb($this->dbs);
 
-	if ($this->con->connect_error) {
-		return $this->con = false;
+	if (! $this->con) {
+		return $this->dbs = false;
 	}
 	$this->con->set_charset("utf8");
+	$this->selectDb($this->dbs);
 	return true;
 }
 
 public function selectDb($dbase) {
-	$this->con->select_db($dbase);
+	$this->dbs = false; 
+	if (! $this->con) return;	
+	if (! $this->con->select_db($dbase)) return;
+	$this->dbs = $dbase;
 }
 
 // ***********************************************************
@@ -60,6 +63,7 @@ public function selectDb($dbase) {
 // ***********************************************************
 public function exec($sql) { // no scripts => use run();
 	$sql = strtok($sql, ";"); // only first statement will be executed
+	$res = $this->run($sql); if (! $res) return false;
 
 	return array(
 		"sql" => $sql,
@@ -95,12 +99,14 @@ public function fetch1st($sql, $mds = "a") {
 // ***********************************************************
 private function run($sql) {
 	if (! $this->con) return false;
+	if (! $this->dbs) return false;
 	if (! $sql) return false;
 
 	$sql = CFG::insert($sql);
-	$res = @$this->con->query($sql); if ($res) return $res;
+	$res = $this->con->query($sql); if ($res) return $res;
+	$msg = $this->con->error;
 
-	return ERR::sql($this->con->error."\n", $sql);
+	return ERR::sql($msg, $sql);
 }
 
 // ***********************************************************

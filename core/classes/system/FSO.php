@@ -35,7 +35,7 @@ public static function join() {
 public static function norm($fso) { // $fso => dir or file
     $sep = DIR_SEP; if (self::isUrl($fso)) return $fso;
 
-	$fso = strtr($fso, DIRECTORY_SEPARATOR, DIR_SEP);
+	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
 	$fso = rtrim($fso, $sep);
 
 	$fso = STR::replace($fso, "..", ".");
@@ -120,11 +120,11 @@ public static function mvDir($src, $dst) {
 
 // ***********************************************************
 public static function rmDir($src) {
-	$fso = self::fdTree($src); krsort($fso);
+	$arr = self::fdTree($src); krsort($arr);
 
-	foreach ($fso as $obj => $nam) {
-		if (is_file($obj)) self::kill($obj);
-		if (is_dir($obj))  rmdir($obj);
+	foreach ($arr as $fso => $nam) {
+		if (is_dir($fso)) rmdir($fso); else
+		if (is_file($fso)) self::kill($fso);
 	}
 	return rmdir($src);
 }

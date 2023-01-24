@@ -51,10 +51,6 @@ public function read($ini = false) {
 // ***********************************************************
 public function publish() {
 	$this->getVersions();
-	$this->run();
-}
-
-protected function run() {
 	parent::run();
 }
 
