@@ -18,9 +18,8 @@ foreach ($arr as $key => $val) { // mark hidden topics
 // ***********************************************************
 // show topics - if any
 // ***********************************************************
-$box = new dropBox();
+$box = new dropBox("topics");
 $box->getKey("tpc", $arr);
-$box->suit("topics");
 $box->show();
 
 ?>

@@ -20,8 +20,7 @@ unset($arr[$fld]);
 // ***********************************************************
 HTW::xtag("fld.move");
 // ***********************************************************
-$box = new dropBox();
-$xxx = $box->suit("table");
+$box = new dropBox("table");
 $aft = $box->getKey("fld.move after", $arr);
 $xxx = $box->show();
 

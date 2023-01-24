@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
 // ***********************************************************
@@ -8,7 +8,7 @@ incCls("input/selector.php");
 // ***********************************************************
 $fnt = APP::files("design/fonts", "*.ttf");
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $fnt = $box->getKey("Font", $fnt);
 $xxx = $box->show();
 

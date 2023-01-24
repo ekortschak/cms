@@ -3,9 +3,9 @@
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $ful = $box->files("lookup");
 $xxx = $box->show();
 

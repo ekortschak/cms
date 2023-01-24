@@ -22,9 +22,9 @@ class dropBox extends tpl {
 	protected $data = array();
 	protected $type = "button";
 
-function __construct() {
+function __construct($suit = "combo") {
 	parent::__construct();
-    $this->load("menus/dropBox.tpl");
+    $this->suit($suit);
 }
 
 public function reset() {
@@ -41,7 +41,9 @@ public function suit($mode) {
 		case "topics": $tpl = "menus/dropTopics.tpl"; break;
 		case "menu":   $tpl = "menus/dropMenu.tpl";   break;
 		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
-		default: return;
+		case "dbo":    $tpl = "menus/dropDbo.tpl";    break;
+		case "nav":    $tpl = "menus/dropNav.tpl";    break;
+		default: 	   $tpl = "menus/dropBox.tpl";
 	}
 	$this->load($tpl);
 }

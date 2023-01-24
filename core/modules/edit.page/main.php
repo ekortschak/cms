@@ -5,7 +5,7 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("editor/ediMgr.php");
 incCls("editor/saveFile.php");
 
@@ -28,7 +28,7 @@ HTW::tag($tit, "h3");
 // ***********************************************************
 $cur = basename(ENV::get("pic.file"));
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $fil = $box->anyfiles($loc, "pic.file");
 $fil = $box->focus("pic.file", $cur, $fil);
 

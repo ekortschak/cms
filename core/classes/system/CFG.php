@@ -180,7 +180,7 @@ public static function getCats() {
 	return $out + $cst;
 }
 
-public static function getData($sec = "user") {
+public static function getConsts($sec = "user") {
 	$out = get_defined_constants(true); if ($sec)
 	$out = $out[$sec]; ksort($out); if ($sec != "user") return $out;
 

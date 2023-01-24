@@ -15,7 +15,7 @@ $fls = $vew->getSnips();
 
 */
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("menus/dropNav.php");
 incCls("search/swrap.php");
 
@@ -41,7 +41,7 @@ public function showNav() {
 	$tpc = ENV::get("search.topic");
 	$dir = ENV::get("search.dir");
 
-	$mnu = new dropMenu();
+	$mnu = new dropBox("menu");
 #	$xxx = $mnu->set("sep", "");
 	$tpc = $mnu->getKey("search.topic", $lst, $dir);
 

@@ -24,8 +24,7 @@ $arr = $dbi->fields($tbl, "%", $fld); unset($arr["ID"]);
 // ***********************************************************
 HTW::xtag("fld.copy");
 // ***********************************************************
-$box = new dropBox();
-$xxx = $box->suit("table");
+$box = new dropBox("table");
 $dst = $box->getKey("copy.to", $arr);
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();

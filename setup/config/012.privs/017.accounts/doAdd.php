@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 incCls("input/confirm.php");
 incCls("editor/iniWriter.php");
@@ -14,7 +14,7 @@ $gps = $ini->getSecs();
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dropMenu();
+$box = new dropBox("menu");
 $grp = $box->getKey("group", $gps);
 $box->show();
 

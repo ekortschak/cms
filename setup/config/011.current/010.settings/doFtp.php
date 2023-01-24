@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("editor/iniMgr.php");
 
 // ***********************************************************
@@ -10,7 +10,7 @@ $arr = array(
 	"ini" => "Localhost",
 );
 
-$nav = new dropMenu();
+$nav = new dropBox("menu");
 $ext = $nav->getKey("scope", $arr);
 $nav->show();
 

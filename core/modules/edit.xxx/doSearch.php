@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("input/selector.php");
 incCls("files/pageInfo.php");
 
@@ -14,7 +14,7 @@ $act = array(
 	"replace" => "Search & Replace"
 );
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $fnc = $box->getKey("Method", $act);
 $xxx = $box->show();
 

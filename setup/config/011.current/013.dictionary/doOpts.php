@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // show options
@@ -11,7 +11,7 @@ $arr = array(
 	"spawn" => "Transfer entries from '$lng' to other languages",
 );
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $act = $box->getKey("dict.act", $arr);
 $xxx = $box->show();
 

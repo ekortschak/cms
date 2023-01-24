@@ -25,8 +25,7 @@ $lng = $inf["flen"]; $len = "";
 // ***********************************************************
 HTW::xtag("fld.modify");
 // ***********************************************************
-$box = new dropBox();
-$xxx = $box->suit("table");
+$box = new dropBox("table");
 $typ = $box->getKey("fld.type", $tps, $cat);
 
 $nls = $dbi->fldNull($typ);

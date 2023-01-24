@@ -33,8 +33,7 @@ public function restore() {
 	$vrs = $this->getBackups();
 	if (! $vrs) return MSG::now("restore.none");
 
-	$box = new dropBox();
-	$xxx = $box->suit("menu");
+	$box = new dropBox("menu");
 	$dst = $box->getKey("as of", $vrs);
 	$mnu = $box->gc();
 
@@ -58,8 +57,7 @@ public function revert($version = NV) {
 	$vrs = $this->getVersions();
 	if (! $vrs) return MSG::now("versions.none");
 
-	$box = new dropBox();
-	$xxx = $box->suit("inline");
+	$box = new dropBox("inline");
 	$dst = $box->getKey("as of", $vrs);
 	$vrs = $box->gc();
 

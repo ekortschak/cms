@@ -23,11 +23,9 @@ incCls("menus/dropBox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class dropDbo extends dropBox {
-	private $dbi;
 
-function __construct() {
-	parent::__construct();
-    $this->load("menus/dropDbo.tpl");
+function __construct($suit = "dbo") {
+	parent::__construct($suit);
 }
 
 // ***********************************************************

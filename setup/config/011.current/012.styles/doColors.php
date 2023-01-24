@@ -5,9 +5,9 @@ $dir = "design/colors";
 // ***********************************************************
 // select a color set
 // ***********************************************************
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 
-$box = new dropMenu();
+$box = new dropBox("menu");
 $ful = $box->files($dir, "color.set", COLORS.".ini");
 $xxx = $box->show();
 

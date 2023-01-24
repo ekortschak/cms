@@ -18,8 +18,7 @@ HTW::xtag("data.clean");
 $dbq = new dbQuery($dbs, $tbl);
 $vls = $dbq->getDVs($fld);
 
-$box = new dropBox();
-$xxx = $box->suit("table");
+$box = new dropBox("table");
 $val = $box->getKey("change.from", $vls); unset($vls[$val]);
 $new = $box->getKey("change.to", $vls);
 $xxx = $box->show();

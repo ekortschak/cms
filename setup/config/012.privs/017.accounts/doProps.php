@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("input/confirm.php");
 incCls("input/selector.php");
 incCls("editor/iniWriter.php");
@@ -20,7 +20,7 @@ if (! $gps) {
 // ***********************************************************
 // show menu
 // ***********************************************************
-$box = new dropMenu();
+$box = new dropBox("menu");
 $grp = $box->getKey("group", $gps); $acs = $ini->getKeys($grp);
 $usr = $box->getKey("user", $acs);
 $box->show();

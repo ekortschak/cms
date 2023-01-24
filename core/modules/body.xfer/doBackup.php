@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("server/syncArc.php");
 
 // ***********************************************************
@@ -20,7 +20,7 @@ $act = array(
 // ***********************************************************
 // choose action
 // ***********************************************************
-$box = new dropMenu();
+$box = new dropBox("menu");
 $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();

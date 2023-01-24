@@ -166,8 +166,7 @@ protected function getVersions() {
 	foreach ($drs as $key => $val) {
 		$arr[$key] = "Version $val";
 	}
-	$box = new dropBox();
-	$xxx = $box->suit("menu");
+	$box = new dropBox("menu");
 	$src = $box->getKey("sync.src", $arr);
 	$mnu = $box->gc();
 

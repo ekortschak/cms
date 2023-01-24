@@ -20,8 +20,7 @@ $xxx = $box->show();
 // ***********************************************************
 HTW::xtag("tbl.sort");
 // ***********************************************************
-$box = new dropBox();
-$xxx = $box->suit("table");
+$box = new dropBox("table");
 $mod = $box->getKey("sort.by", $mod);
 $xxx = $box->show();
 

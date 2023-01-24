@@ -21,9 +21,8 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 class dropNav extends dropBox {
 
-function __construct() {
-	parent::__construct();
-    $this->load("menus/dropNav.tpl");
+function __construct($suit = "nav") {
+	parent::__construct($suit);
 }
 
 // ***********************************************************

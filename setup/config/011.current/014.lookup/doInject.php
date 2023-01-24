@@ -1,6 +1,6 @@
 <?php
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 incCls("input/confirm.php");
 
 incCls("search/lookup.php");
@@ -19,7 +19,7 @@ $sec = array(
 // ***********************************************************
 // show file selector
 // ***********************************************************
-$box = new dropMenu();
+$box = new dropBox("menu");
 $ful = $box->files("lookup");
 $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);

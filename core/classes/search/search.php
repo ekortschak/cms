@@ -18,7 +18,7 @@ $lst = $obj->getSnips($dir, $fnd); // list of files and matching snips
 
 */
 
-incCls("menus/dropMenu.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -43,7 +43,7 @@ public function getScope() {
 	$drs = $this->getPaths();
 	$mds = $this->getMods();
 
-	$box = new dropMenu();
+	$box = new dropBox("menu");
 	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_PATH);
 	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
 	return $box->gc("menu");
