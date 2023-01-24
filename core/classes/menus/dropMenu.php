@@ -24,18 +24,6 @@ function __construct() {
 }
 
 // ***********************************************************
-// display variants
-// ***********************************************************
-public function display($mode) {
-	switch ($mode) {
-		case "submenu": $this->set("class", "submenu"); return;
-			# $tpl = "menus/localSubMenu.tpl"; break;
-		default: return;
-	}
-	$this->load($tpl);
-}
-
-// ***********************************************************
 } // END OF CLASS
 // ***********************************************************
 ?>

@@ -1,17 +1,20 @@
-[vars]
-wid = 250
-hgt = 150
-link = "notyet"
-
 [dic]
 source = Source
+target = Target
 
 [dic.de]
 source = Quelle
+target = Ziel
 
-[main]
+[vars]
+wid = 250
+hgt = 150
+link = notyet
 
+
+# ***********************************************************
 [img.org]
+# ***********************************************************
 <img src="<!VAR:file!>" />
 
 [img.std]

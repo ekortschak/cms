@@ -32,7 +32,7 @@ public static function xform($arr, $name = false) {
 	if (! is_array($arr)) return $arr;
 
 	$out = print_r($arr, true);
-	$out = str_replace("\r", "", $out);
+#	$out = str_replace("\r", "", $out);
 	$out = str_replace("\n\n", "\n", $out);
 	$out = str_replace("  ", " ", $out);
     $out = preg_replace("~\n\s+\(~", " (", $out); // opening braces should go with previous line

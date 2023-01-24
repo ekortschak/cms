@@ -18,61 +18,67 @@ $erg = $htp->query($dir, $act);
 // ***********************************************************
 class http {
 	private $url = "";
-	private $dbg = 0;
 
 function __construct($url) {
 	$this->url = "https://$url/x.sync.php";
 }
 
 // ***********************************************************
-public function query($dir, $act = "get") {
+public function query($dir, $act) {
 	$cmd = $this->getUrl($act, $dir);
 	return $this->getPage($cmd);
 }
 
 // ***********************************************************
-protected function getUrl($act, $fso) {
+public function getUrl($act, $fso) {
 	$tim = date("YmdGis"); if (is_file($fso))
 	$tim = filemtime($fso);
 	$prm = "w:=$act &f:=$fso &t:=$tim";
 
-	$md5 = SSL::md5($fso);
+	$md5 = SSL::md5($fso); // uses SECRET
 	$prm = SSL::encrypt($prm." &c:=$md5");
-	$url = $this->url."?p=$prm";
-
-	if ($this->dbg) {
-#		HTW::tag("$prm &c:=$md5", "p");
-		$lnk = HTM::href("$url&d=1", "Debug Server Response for $act", "dbg");
-		$xxx = HTW::tag($lnk, "p");
-	}
-	return $url;
+	return $this->url."?p=$prm";
 }
 
 // ***********************************************************
 private function getPage($cmd) {
  // get data from server
-	$ssl = $this->sslInfo();
-	$out = file($cmd, false, stream_context_create($ssl));
-
+	$out = file_get_contents($cmd);
+	$out = $this->getNewFmt($out); if (! is_array($out))
+	$out = $this->getOldFmt($out);
+	
 	foreach ($out as $key => $val) {
-
 		if (STR::begins($val, "ERROR")) {
 			MSG::now($val);
 			unset($out[$key]);
 			continue;
 		}
-		$val = utf8_decode($val);
-		$val = STR::afterX($val, "?"); // because of utf8_decode();
 		$out[$key] = trim($val);
 	}
 	return $out;
 }
 
-// ***********************************************************
-// checking dirs
-// ***********************************************************
-public function isDir($dir) {
-	return $this->query($dir, "dir");
+private function getNewFmt($out) {
+	if (! STR::contains($out, "<body>")) return $out;
+
+	$out = STR::between($out, "<pre>", "</pre>");
+	return STR::split($out, "\n");
+}
+
+private function getOldFmt($out) {
+	$out = STR::before($out, "<hr>");
+	$out = STR::split($out, "\n");
+	
+	foreach ($out as $key => $val) {
+		$val = STR::utf8decode($val); 
+		
+		switch ($key) {
+			case 0:  $dir = $val; break;
+			default: $val = STR::replace($val, $dir, "");
+		}
+		$out[$key] = $val;
+	}
+	return $out;
 }
 
 // ***********************************************************
@@ -107,12 +113,13 @@ public function aggregate($data) { // prepare for webexec()
 // auxilliary methods
 // ***********************************************************
 private function sslInfo() {
-	return array( // cheating on ssl
+	$arr = array( // cheating on ssl
 		"ssl" => array(
 			"verify_peer"      => false,
 			"verify_peer_name" => false
 		)
 	);
+	return stream_context_create($arr);
 }
 
 // ***********************************************************

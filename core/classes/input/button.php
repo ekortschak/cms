@@ -54,7 +54,7 @@ public function gc($btn = "view") {
 // ***********************************************************
 public function read($btn = "view") {
 	$fil = APP::file($btn); if (! is_file($fil))
-	$fil = FSO::join(LOC_BTN, "$btn.ini");
+	$fil = FSO::join(LOC_BTN, "$btn.btn");
 
 	$cod = new code();
 	$cod->read($fil);

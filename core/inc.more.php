@@ -1,6 +1,6 @@
 <?php
 
-ob_start();
+incCls("objects.php");	  // base class
 
 // ***********************************************************
 // load general classes
@@ -29,7 +29,7 @@ incCls("server/NET.php");  // network tools
 // ***********************************************************
 // db support
 // ***********************************************************
-include("core/inc.dbs.php");
+include_once "core/inc.dbs.php";
 
 CFG::readCfg();
 
@@ -40,11 +40,8 @@ $lcl = "core/include/locals.php";
 if (is_file($lcl)) include_once $lcl;
 
 // ***********************************************************
-// log generated output
+// benchmark
 // ***********************************************************
-$msg = ob_get_clean();
-
-LOG::total("config done");
-LOG::append($msg);
+TMR::punch("inc.more");
 
 ?>

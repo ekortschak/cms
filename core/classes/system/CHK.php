@@ -18,11 +18,6 @@ $var = CHK::range($val, $max, $min);
 // ***********************************************************
 class CHK {
 
-public static function list($val, $list, $default) {
-    if (STR::contains(".$list.", ".$val.")) return $val;
-    return $default;
-}
-
 public static function range($val, $max, $min = 0) {
 	if ($min > $max) { $tmp = $max; $max = $min; $min = $tmp; }
 	$val = self::min($val, $min);
@@ -50,9 +45,9 @@ public static function user($usr) {
 }
 
 public static function pwd($pwd, $agn = NV) {
-	if ($agn !== NV)                        if ($pwd != $agn) return false;
-	$chk = PRG::replace($pwd, "\d",    ""); if ($pwd == $chk) return false;
-	$chk = PRG::replace($pwd, "[A-z]", ""); if ($pwd == $chk) return false;
+	if ($agn !== NV)                          if ($pwd != $agn) return false;
+	$chk = preg_replace("~\d~",    "", $pwd); if ($pwd == $chk) return false;
+	$chk = preg_replace("~[A-z]~", "", $pwd); if ($pwd == $chk) return false;
 
 	return (strlen($pwd) > 5);
 }
@@ -61,14 +56,14 @@ public static function pwd($pwd, $agn = NV) {
 // urls
 // ***********************************************************
 public static function isUrl($url) {
-    $chk = curl_init();
-    curl_setopt($chk, CURLOPT_URL, $url);
-    curl_setopt($chk, CURLOPT_HEADER, 1);
-    curl_setopt($chk, CURLOPT_RETURNTRANSFER, 1);
+    $con = curl_init();
+    curl_setopt($con, CURLOPT_URL, $url);
+    curl_setopt($con, CURLOPT_HEADER, 1);
+    curl_setopt($con, CURLOPT_RETURNTRANSFER, 1);
 
-    $dat = curl_exec($chk);
-    $arr = curl_getinfo($chk);
-    curl_close($chk);
+    $dat = curl_exec($con);
+    $arr = curl_getinfo($con);
+    curl_close($con);
 
 	$out = $arr['http_code'];
 	return ($out < 400);

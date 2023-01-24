@@ -20,14 +20,8 @@ if ($arr) {
 // ***********************************************************
 HTW::xtag("bkp.manage");
 // ***********************************************************
-$dir = dirname(APP::bkpDir());
-$fls = FSO::folders($dir); if ($fls) krsort($fls);
-$arr = array();
-
-foreach ($fls as $dir => $nam) {
-	if (STR::misses($dir, "/bkp.")) continue;
-	$arr[$dir] = $nam;
-}
+$dir = APP::arcDir($dev, "bkp");
+$arr = FSO::folders($dir); if ($fls) krsort($fls);
 
 // ***********************************************************
 // show selector

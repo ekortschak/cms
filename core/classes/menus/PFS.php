@@ -318,7 +318,7 @@ private static function import() {
 	if (  EDITING != "view") return false;
 	if (! self::isStatic())  return false;
 
-	include_once(self::$fil); // read menu info from stat file
+	include_once self::$fil; // read menu info from stat file
 	return count(self::$dat);
 }
 

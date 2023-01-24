@@ -5,13 +5,13 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("editor/tabEdit.php");
+incCls("editor/saveTab.php");
 incCls("menus/buttons.php");
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$obj = new tabEdit();
+$obj = new saveTab();
 
 // ***********************************************************
 // show title

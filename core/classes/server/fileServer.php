@@ -9,19 +9,20 @@ used for uploading files to server via fileSever
 // ***********************************************************
 incCls("server/fileServer.php");
 
-$srv = new srvX($visOnly);
+$srv = new fileServer($visOnly);
 $srv->act()
 
 */
 
-incCls("server/download.php");
+#incCls("server/download.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class srvX {
+class fileServer {
 	private $media = "file"; // file or screen
 	private $visOnly = true;
+	private $dbg = false;
 
 function __construct($visOnly = true) {
 	$this->visOnly = $visOnly;
@@ -31,31 +32,26 @@ function __construct($visOnly = true) {
 // bulk execution methods
 // ***********************************************************
 public function act() {
-	$dbg = ENV::getParm("d", 0);
+	$dbg = ENV::getParm("d", false); $this->dbg = $dbg;
 	$prm = ENV::getParm("p");
 	$prm = SSL::decrypt($prm);
 	$lst = STR::toAssoc($prm, "&");
-
 	$md5 = VEC::get($lst, "c"); if (! SSL::isValid($md5)) return;
 	$fso = VEC::get($lst, "f"); if (! $fso) return;
 	$act = VEC::get($lst, "w");
-	$mod = "std";
 
 	if ($fso == ".") $fso = APP_DIR;
-
-	if ($dbg) {
-		echo "<pre>"; DBG::vector($lst, "Query Parameter");
-		echo "</pre>"; $mod = "debug";
-	}
+	$this->dbgParm($lst);
 
 	switch($act) {
-		case "dir": return is_dir($fso);
-		case "get": return $this->getTree($fso, $mod);
-		case "ren": return $this->do_ren ($fso, $mod);
-		case "mkd": return $this->do_mkDir($fso, $mod);
-		case "rmd": return $this->do_rmDir($fso, $mod);
+		case "ver": return $this->send(VERSION);
+		case "get": return $this->getTree($fso, "remote");
+
+		case "ren": return $this->do_ren  ($fso);
+		case "mkd": return $this->do_mkDir($fso);
+		case "rmd": return $this->do_rmDir($fso);
+		case "dpf": return $this->do_kill ($fso);
 		case "cpf": return; // no bulk copying ...
-		case "dpf": return $this->do_kill($fso, $mod);
 
 #		case "mod": // modify mdate
 #			$tim = VEC::get($lst, "t");
@@ -72,65 +68,65 @@ public function getFiles($dir) {
 	return $this->getTree($dir, "local");
 }
 
-private function getTree($dir, $mode = "std") {
+// ***********************************************************
+private function getTree($dir, $mode = "remote") {
 	if ($dir == ".") $dir = APP_DIR;
 
 	if (! is_dir($dir)) {
-#		echo "Error: Missing folder '$dir'";
 		return;
 	}
 	$arr = FSO::fdtree($dir); $out = array("root" => $dir);
 
 	foreach ($arr as $fso => $nam) {
-#		if (filesize($fso) < 1) continue; // 0 Byte files
-
-		if (! $fso) continue; $val = $this->getEntry($fso);
+		if (! $fso) continue; $val = $this->getEntry($fso, $dir);
 		if (! $val) continue; $out[] = $val;
 	}
 	if ($mode == "local") return $out;
-	if ($mode == "std") {
-		$srv = new download();
-		$srv->provide($out); // will end execution
-	}
-	$this->dump($out); // provide debug info
+
+	$this->send(implode("\n", $out));
 }
 
-private function getEntry($fso) {
+// ***********************************************************
+private function getEntry($fso, $root) {
 	if ($this->visOnly)
 	if (STR::contains($fso, HIDE)) return "";
 
-	if (  is_dir($fso))  return "d;1;$fso;1";
+	$rut = FSO::norm($root);
+	$itm = STR::afterX($fso, $rut.DIR_SEP, "");
+
+	if (  is_dir($fso))  return "d;1;$itm;1";
 	if (  is_link($fso)) return "";
 	if (! is_file($fso)) return "";
 
 	$dat = filemtime($fso); if (filesize($fso) < 1) $dat = 0;
 	$md5 = md5_file($fso);
 
-	return "f;$dat;$fso;$md5";
+	return "f;$dat;$itm;$md5";
 }
 
 // ***********************************************************
 // execute fs commands
 // ***********************************************************
-private function do_mkDir($dir, $mod)  { return $this->exec("force", $dir, $mod); }
-private function do_rmDir($dir, $mod)  { return $this->exec("rmDir", $dir, $mod); }
-private function do_kill ($fil, $mod)  { return $this->exec("kill",  $fil, $mod); }
+private function do_mkDir($dir) { return $this->exec("force", $dir); }
+private function do_rmDir($dir) { return $this->exec("rmDir", $dir); }
+private function do_kill ($fil) { return $this->exec("kill",  $fil); }
 
-private function exec($fnc, $fso, $mod = "std") {
+private function exec($fnc, $fso) {
 	$arr = explode(";", $fso); $cnt = 0;
 
 	foreach ($arr as $fso) {
 		$fso = $this->chkPath($fso); if (! $fso) continue;
 
-		switch ($mod) {
-			case "debug": HTW::tag("cmd: $fnc( $fso )", "li"); break;
-			default: $cnt+= (bool) FSO::$fnc($fso);
+		switch ($this->dbg) {
+			case true: HTW::tag("cmd: $fnc( $fso )", "li"); break;
+			default:   $cnt+= (bool) FSO::$fnc($fso);
 		}
 	}
-	return $cnt;
+	$this->send($cnt);
 }
 
-private function do_ren($fso, $mod) { // rename dirs or files
+// ***********************************************************
+private function do_ren($fso) { // rename dirs or files
 	$arr = explode(";", $fso); $cnt = 0;
 
 	foreach ($arr as $itm) {
@@ -140,13 +136,13 @@ private function do_ren($fso, $mod) { // rename dirs or files
 		$new = $this->chkPath($prp[1]); if (! $new) continue;
 		$old = $this->chkPath($prp[2]); if (! $old) continue;
 
-		if ($mod == "debug") {
+		if ($this->dbg) {
 			HTW::tag("rename $typ: $old => $new", "li");
 			continue;
 		}
 		$cnt+= (bool) FSO::rename($old, $new);
 	}
-	return $cnt;
+	$this->send($cnt);
 }
 
 // ***********************************************************
@@ -158,11 +154,20 @@ private function chkPath($fso) {
 	return $fso;
 }
 
-private function dump($out) {
-	HTM::lf(); echo "# of files: ".count($out);
-	HTM::lf(); echo implode("<br>\n", $out);
+// ***********************************************************
+private function send($txt) {
+	$out = APP::read("LOC_LAY/default/min.tpl");
+	$out = STR::replace($out, "<!VAR:content!>", $txt);
+	die($out);
 }
 
+// ***********************************************************
+private function dbgParm($inf) {
+	if (! $this->dbg) return;
+
+	$out = print_r($inf, true);
+	echo "<pre>$out</pre>";
+}
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

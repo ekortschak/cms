@@ -21,6 +21,7 @@ $xxx = $box->show();
 HTW::xtag("tbl.sort");
 // ***********************************************************
 $box = new dropBox();
+$xxx = $box->suit("table");
 $mod = $box->getKey("sort.by", $mod);
 $xxx = $box->show();
 

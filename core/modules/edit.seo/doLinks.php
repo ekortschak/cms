@@ -51,8 +51,7 @@ foreach ($arr as $ful => $nam) {
 }
 
 if (! $cnt) {
-	echo "No broken links ...";
-	return;
+	return MSG::now("No broken links ...");
 }
 
 // ***********************************************************

@@ -1,28 +1,27 @@
 <?php
 
-incCls("input/button.php");
+incCls("menus/dropMenu.php");
 
-$btn = new button();
-$btn->set("link", "?act=rewrite");
-$btn->set("caption", "ReWrite");
-$btn->show();
+// ***********************************************************
+// show options
+// ***********************************************************
+$lng = CUR_LANG;
+$arr = array(
+	"write" => "Sort entries within current language",
+	"spawn" => "Transfer entries from '$lng' to other languages",
+);
 
-echo "Sort entries within current language";
-HTM::lf("br");
+$box = new dropMenu();
+$act = $box->getKey("dict.act", $arr);
+$xxx = $box->show();
 
-$btn->set("link", "?act=spawn");
-$btn->set("caption", "Spawn ".strtoupper(CUR_LANG));
-$btn->show();
-
-echo "Transfer entries to other languages";
-HTM::lf("br");
-
-$act = ENV::getParm("act");
 
 switch($act) {
-	case "rewrite": reWrite(); break;
-	case "spawn":   spawn();   break;
+	case "write": reWrite(); break;
+	case "spawn": spawn();   break;
 }
+
+// TODO: confirm action
 
 return;
 

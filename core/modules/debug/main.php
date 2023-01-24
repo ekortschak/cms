@@ -17,10 +17,10 @@ $wht = $box->getKey("pic.show", $arr, "S");
 $box->show();
 
 switch ($wht) {
-	case "T": include("doTab.php");    break;
-	case "M": include("doMenu.php");   break;
-	case "I": include("doIni.php");    break;
-	case "P": include("doPFS.php");    break;
+	case "T": include "doTab.php";  break;
+	case "M": include "doMenu.php"; break;
+	case "I": include "doIni.php";  break;
+	case "P": include "doPFS.php";  break;
 }
 
 ?>

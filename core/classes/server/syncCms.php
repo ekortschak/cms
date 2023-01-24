@@ -2,16 +2,12 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-Designed to sync server to local project ...
+Designed to sync latest CMS version to local CMS ...
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("server/syncDown.php");
-
-$pub = new syncDown($inifile);
-$pub->xfer();
-
+see parent class
 */
 
 incCls("server/syncDown.php");
@@ -20,26 +16,24 @@ incCls("server/syncDown.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class syncCms extends syncDown {
-	protected $tpl = "editor/xfer.cms.tpl";
 
 function __construct() {
 	parent::__construct();
 
-	$this->set("info", false);
-
 	$this->ftp = new ftp();
-	$this->read(APP_FBK."/config/ftp_cms.ini");
-	$this->setDest(APP_FBK);
+
+	$this->read("config/ftp_cms.ini");
+	$this->load("modules/xfer.cms.tpl");
+	$this->setTarget(APP_FBK);
 }
 
-public function upgrade($version = NV) {
-	if (! $this->ftp->test()) return;
+// ***********************************************************
+public function read($ini = false) {
+	$fil = APP::relPath($ini); $this->set("inifile", $fil);
+	$ini = FSO::join(APP_FBK, $ini);
 
-	$this->setTitle("sync.cms");
-	$this->showInfo();
-	$this->run();
+	parent::read($ini);
 }
-
 
 // ***********************************************************
 } // END OF CLASS

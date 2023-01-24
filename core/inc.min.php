@@ -8,27 +8,24 @@ if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 // ***********************************************************
 require_once("funcs.php");
 
-incCls("system/DBG.php"); // debugging tools
+incCls("system/TMR.php"); // start timer
 
 // ***********************************************************
 // load basic classes (mostly static)
 // ***********************************************************
-incCls("objects.php");	  // base class
-
 incCls("system/STR.php"); // basic string functions
-incCls("system/CHK.php"); // basic validation functions
-incCls("system/DAT.php"); // basic date functions
-incCls("system/VEC.php"); // basic array functions
 incCls("system/LNG.php"); // language support
-incCls("system/APP.php"); // app specific functions
+incCls("system/VEC.php"); // basic array functions
 incCls("system/FSO.php"); // basic dir functions
+incCls("system/APP.php"); // app specific functions
+incCls("system/CHK.php"); // basic validation functions
 
 incCls("server/SSL.php"); // string encryption
 
 // ***********************************************************
 // set environment
 // ***********************************************************
-include_once "core/include/preset.php";
+incFnc("constants.php");  // set preliminary constants
 
 incCls("system/CFG.php"); // prepare constants
 incCls("system/SSV.php"); // session vars
@@ -36,8 +33,14 @@ incCls("system/ENV.php"); // session & env vars
 incCls("system/OID.php"); // object IDs
 
 // ***********************************************************
-// set environment
+// debugging tools
 // ***********************************************************
+incCls("system/DBG.php"); // debugging tools
 incCls("system/LOG.php"); // logging tools
+
+// ***********************************************************
+// benchmark
+// ***********************************************************
+TMR::punch("inc.min");
 
 ?>

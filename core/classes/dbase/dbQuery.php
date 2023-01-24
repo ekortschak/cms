@@ -95,7 +95,7 @@ private function setValidator($dbs, $tbl) {
 		$this->vld = new tblValidate($dbs, $tbl);
 		return;
 	}
-	include_once($fil); $cls = "val_$tbl"; // common validator
+	include_once $fil; $cls = "val_$tbl"; // common validator
 	$this->vld = new $cls($dbs, $tbl);
 }
 

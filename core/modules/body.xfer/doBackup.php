@@ -1,7 +1,7 @@
 <?php
 
 incCls("menus/dropMenu.php");
-incCls("server/backup.php");
+incCls("server/syncArc.php");
 
 // ***********************************************************
 // read options
@@ -35,7 +35,7 @@ if ($fnc == "manage") {
 // ***********************************************************
 // transfer files
 // ***********************************************************
-$snc = new backup();
+$snc = new syncArc();
 $snc->setDevice($dev);
 $snc->$fnc();
 

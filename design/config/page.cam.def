@@ -1,0 +1,13 @@
+[include]
+LOC_CFG/page.def
+
+[dic]
+ip = Camera IP
+
+[dic.de]
+ip = Kamera IP
+
+
+# additional properties
+[props]
+ip =

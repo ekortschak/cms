@@ -1,0 +1,6 @@
+[include]
+LOC_CFG/page.def
+
+# general properties
+[props]
+typ = inc

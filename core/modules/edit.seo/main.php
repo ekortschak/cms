@@ -5,13 +5,13 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("editor/seoEdit.php");
+incCls("editor/saveSeo.php");
 incCls("menus/buttons.php");
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$obj = new seoEdit();
+$obj = new saveSeo();
 
 HTW::xtag("seo", "h3");
 

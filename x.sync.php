@@ -1,19 +1,18 @@
 <?php
 
-ob_start();
+include_once "config/fallback.php";
+include_once "core/inc.min.php";
 
-include_once("config/basics.php");
-include_once("core/inc.min.php");
-
-incCls("/server/fileServer.php");
-
-echo ob_get_clean();
+incCls("server/fileServer.php");
 
 // ***********************************************************
-$srv = new srvX();
+error_reporting(E_ALL);
+
+// ***********************************************************
+$srv = new fileServer();
 $srv->act();
 
 ?>
 
 <hr>
-<p>CMS: FX complete</p>
+FX DONE

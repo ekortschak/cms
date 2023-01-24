@@ -27,8 +27,8 @@ if (! $cnf->act()) return;
 // ***********************************************************
 $dir = APP::relPath(__DIR__);
 
-include_once("$dir/exObjs.php");
-include_once("$dir/exPrivs.php");
-include_once("$dir/exAdmin.php");
+include_once "$dir/exObjs.php";
+include_once "$dir/exPrivs.php";
+include_once "$dir/exAdmin.php";
 
 ?>

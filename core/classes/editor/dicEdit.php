@@ -17,6 +17,7 @@ $obj->show();
 
 incCls("input/selector.php");
 incCls("menus/dropNav.php");
+incCls("editor/dicWriter.php");
 
 // ***********************************************************
 // BEGIN OF CLASS

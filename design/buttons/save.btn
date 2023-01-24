@@ -1,0 +1,10 @@
+[props]
+caption =
+pic = ICONS/buttons/save.png
+
+
+[info]
+<p>save changes.</p>
+
+[info.de]
+<p>Änderungen speichern.</p>

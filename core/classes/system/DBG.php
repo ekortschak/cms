@@ -61,7 +61,7 @@ public static function text($msg, $info = "dbg") {
 	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code
-	$msg = VEC::implode($msg, "\n");
+	if (is_array($msg)) $msg = implode("\n", $msg);
 	self::text(htmlspecialchars($msg), $info);
 }
 public static function path($msg, $info = "path") { // show path info

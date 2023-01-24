@@ -3,7 +3,7 @@
 incCls("menus/dropMenu.php");
 
 $box = new dropMenu();
-$fil = $box->files(LOC_LAY, "Layout", "default.ini");
+$ful = $box->files(LOC_LAY, "Layout", "default.ini");
 $xxx = $box->show();
 
 // ***********************************************************
@@ -11,8 +11,8 @@ $xxx = $box->show();
 // ***********************************************************
 incCls("editor/iniMgr.php");
 
-$ini = new iniMgr("LOC_CFG/css.dims.ini");
-$ini->update($fil);
+$ini = new iniMgr("LOC_CFG/css.dims.def");
+$ini->exec($ful);
 $ini->show();
 
 ?>

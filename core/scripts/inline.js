@@ -44,7 +44,7 @@ function insRef(typ) { // links
 
 function clrTags() {
 	htm = selString();
-	htm = htm.replace(/\r/g, "");
+//	htm = htm.replace(/\r/g, "");
 	htm = htm.replace(/\n/g, " ");
 	htm = htm.replace(/(<([^>]+)>)/gi, "");
 	repString(htm);

@@ -46,7 +46,7 @@ public static function clrBlanks($text) { // whitespace
 
 // ***********************************************************
 public static function replaceWords($text, $search, $mask, $mod = "") {
-	$rep = STR::replace($mask, $search, "\$1\$2\$3");
+	$rep = str_replace($search, "\$1\$2\$3", $mask);
 
 	switch (CUR_LANG) {
 		case "de": $fnd = "\b($search)([e]?)([snmr]?)\b"; break;
@@ -70,8 +70,8 @@ public static function clrTag($text, $tag) { // html tags and content
 // auxilliary methods
 // ***********************************************************
 private static function insert($out) {
-	$out = STR::replace($out, "@ANY", "(.*?)");
-	$out = STR::replace($out, "@NUM", "(\d+)");
+	$out = str_replace("@ANY", "(.*?)", $out);
+	$out = str_replace("@NUM", "(\d+)", $out);
 	return $out;
 }
 

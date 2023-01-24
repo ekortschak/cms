@@ -36,6 +36,7 @@ public static function init() {
 
 private static function mergeArr($arr) {
 	foreach ($arr as $key => $val) {
+		if (self::isAction($key)) continue;
 		self::set($key, $val);
 	}
 }
@@ -44,21 +45,19 @@ private static function mergeArr($arr) {
 // handling variables of global interest
 // ***********************************************************
 public static function set($key, $value) {
-	if (self::isAction($key)) return;
-
 	switch ($key) { // hiding passwords
 		case "crdp": $value = STR::maskPwd($value); break;
 	}
-	return SSV::set($key, $value);
+	return SSV::set($key, $value, "env");
 }
 
 public static function get($key, $default = "") {
-	return SSV::get($key, $default);
+	return SSV::get($key, $default, "env");
 }
 
 public static function setIf($key, $value) {
-	$val = SSV::get($key, NV); if ($val !== NV) return $val;
-	return SSV::set($key, $value);
+	$val = SSV::get($key, NV, "env"); if ($val !== NV) return $val;
+	return SSV::set($key, $value, "env");
 }
 
 // ***********************************************************

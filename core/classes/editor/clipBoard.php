@@ -44,6 +44,9 @@ public function exec($dir) {
 	return true;
 }
 
+// ***********************************************************
+// execute commands
+// ***********************************************************
 private function copy($src) {
 	return FSO::copyDir($src, $this->dir);
 }

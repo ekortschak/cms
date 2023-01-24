@@ -9,6 +9,9 @@
 // ***********************************************************
 incCls("system/APP.php");
 
+$drs = APP::folders($dir);
+$fls = APP::files($dir, "*.ext");
+
 */
 
 APP::init();
@@ -49,23 +52,12 @@ private static function getFBK($reverse = false) {
 // ***********************************************************
 // app dirs or files
 // ***********************************************************
-public static function bkpVer($ver, $num = 0, $root = SRV_ROOT) {
-	return FSO::join($root, "cms.archive", APP_NAME, "ver.$ver.$num");
-}
-public static function bkpDbs($dbs, $root = SRV_ROOT) {
-	return FSO::join($root, "cms.archive", APP_NAME, "dbs.$dbs");
-}
-public static function bkpDir($dir = "", $root = SRV_ROOT) {
-	if (! $dir) $dir = "bkp.".date("Y.m.d"); // e.g. sync
-	return FSO::join($root, "cms.archive", APP_NAME, $dir);
+public static function tempDir($dir = "temp", $sub = "") { // always local dirs
+	return self::arcDir(SRV_ROOT, $dir, $sub);
 }
 
-// ***********************************************************
-public static function logDir() { // always local dirs
-	return FSO::join(SRV_ROOT, "cms.archive", APP_NAME, "log");
-}
-public static function tempDir($dir = "", $sub = "") { // clipboard
-	return FSO::join(SRV_ROOT, "cms.archive", APP_NAME, "temp", $dir, $sub);
+public static function arcDir($root, $dir, $sub = "") { // archive
+	return FSO::join($root, "cms.archive", APP_NAME, $dir, $sub);
 }
 
 // ***********************************************************
@@ -163,22 +155,13 @@ public static function gc($fso, $snip = "") {
 	$ful = self::file($fso);        if (! $ful)
 	$ful = self::find($fso, $snip); if (! $ful) return "";
 
-	$xxx = ob_start(); include($ful);
-	$out = ob_get_clean();
-	return trim($out);
-}
-
-public static function gc2($fso, $snip = "") {
-	$ful = self::find($fso, $snip); if (! $ful)
-	$ful = self::file($fso);        if (! $ful) return "";
-
-	$xxx = ob_start(); include($ful);
+	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
 	return trim($out);
 }
 
 public static function gcMap($fso) {
-	$out = self::gc2($fso); if ($out) return $out;
+	$out = self::gc($fso); if ($out) return $out;
 	return self::gc("core/modules/sitemap.php");
 }
 
@@ -198,7 +181,6 @@ public static function gcRec($dir, $snip) { // get content recursively
 public static function read($file) { // read any text
 	$ful = self::file($file); if (! $ful) return "";
 	$out = file_get_contents($ful);
-	$out = str_replace("\r", "", $out);
 	return trim($out);
 }
 

@@ -21,18 +21,23 @@ sep = :
 <!VAR:items!>
 
 [main.box]
+<!SEC:uniq!>
 <div class="dropdown">
 <button><!VAR:current!>COMBO_DOWN</button>
 <!SEC:content!>
 </div>
 
 [main.one]
+<!SEC:uniq!>
 <button><!VAR:current!></button>
 
 
 # ***********************************************************
 # common parts
 # ***********************************************************
+[uniq]
+<!VAR:uniq!><!VAR:sep!>
+
 [content]
 <div class="dropdown-content">
 <!VAR:links!>

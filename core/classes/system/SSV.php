@@ -23,15 +23,15 @@ SSV::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class SSV {
-	private static $ses = false; // address of session vars
-	private static $vrs = false; // address of app's session vars
-	private static $min = 15;
-	private static $max = 180;
+	private static $dat = false; // address of app's session vars
+
+	private static $min = 15;    // timeout min
+	private static $max = 180;   // timeout max
 
 
 public static function init() {
-	self::$ses = &$_SESSION; if (! isset(self::$ses[APP_IDX])) self::$ses[APP_IDX] = array();
-	self::$vrs = &$_SESSION[APP_IDX];
+	if ( !  isset($_SESSION[APP_IDX])) $_SESSION[APP_IDX] = array();
+	self::$dat = &$_SESSION[APP_IDX];
 
 	self::chkReset();
 	self::chkTimeOut();
@@ -43,14 +43,14 @@ public static function init() {
 }
 
 public static function reset() {
-	self::$vrs = array(
-		"env" => array(), "oid" => array(),
-		"pfs" => array(), "tan" => array(),
+	self::$dat = array(
+		"env" => array(), "oid" => array(), "tmr" => array(),
+		"pfs" => array(), "tan" => array(), "log" => array(),
 		"prm" => array(), "dbg" => array()
 	);
 }
 public static function clear($div) {
-	self::$vrs[$div] = array();
+	self::$dat[$div] = array();
 }
 
 // ***********************************************************
@@ -58,38 +58,39 @@ public static function clear($div) {
 // ***********************************************************
 public static function set($key, $value, $div = "env") {
 	$key = self::norm($key);
-	self::$vrs[$div][$key] = $value;
+	self::$dat[$div][$key] = $value;
 	return $value;
 }
 
 public static function get($key, $default = false, $div = "env") {
 	$key = self::norm($key);
-	$arr = VEC::get(self::$vrs, $div); if (! $arr) return $default;
-	return VEC::get($arr, $key, $default);
+	if (! isset(self::$dat[$div][$key])) return $default;
+	return      self::$dat[$div][$key];
 }
 
 public static function getData($div = "env") {
-	return VEC::get(self::$vrs, $div);
+	return self::$dat[$div];
 }
 
 // ***********************************************************
 public static function myFiles() {
-	return VEC::keys($_SESSION);
+	return array_keys($_SESSION);
 }
 
 public static function drop($key, $div = "env") {
-	unset(self::$vrs[$div][$key]);
+	unset(self::$dat[$div][$key]);
 }
 
 public static function wipe($div = "env") {
-	self::$vrs[$div] = array();
+	self::$dat[$div] = array();
 }
 
 // ***********************************************************
 // other methods
 // ***********************************************************
 public static function norm($key) {
-	$key = STR::norm($key); $clr = str_split(".,: ");
+#	$key = STR::norm($key); 
+	$clr = str_split(".,: ");
 	$key = str_replace($clr, "_", $key);
 #	$key = strtolower($key);
 	return $key;
@@ -100,8 +101,7 @@ public static function norm($key) {
 // ***********************************************************
 private static function chkReset() {
 	if (! isset($_GET["reset"])) return;
-	self::reset();
-	$_GET["reset"] = 0;
+	self::reset(); unset($_GET["reset"]);
 }
 
 private static function chkTimeOut() { // drop all stored vars ?

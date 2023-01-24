@@ -65,6 +65,7 @@ public function getTool() {
 	$opt = "";
 
 	if (count($this->vals) < 2) $this->clearSec("info.hint");
+	if (count($this->vals) < 1) $this->setSec("input.head", NV);
 
     foreach ($this->vals as $key => $val) {
 		$sel = VEC::get($this->sels, $key);

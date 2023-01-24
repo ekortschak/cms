@@ -29,6 +29,7 @@ hint { color: FC_DEAD; background: BC_DEAD; font-size: 0.85em; font-style: norma
 code {
 	display: block;
 	overflow: auto;
+	min-height: 15px;
 }
 
 msg > ul {

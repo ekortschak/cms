@@ -8,16 +8,17 @@ Designed to sync local project to server ...
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$pub = new syncUp();
-$pub->read("ftp.ini");
-$pub->setSource(APP_DIR);
-$pub->publish();
+$snc = new syncUp();
+$snc->read("ftp.ini");
+$snc->publish();
 */
 
 incCls("server/sync.php");
 incCls("server/http.php");
 incCls("server/ftp.php");
 incCls("server/SSL.php");
+
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -26,43 +27,39 @@ class syncUp extends sync {
 	protected $htp;	// http object
 	protected $ftp;	// ftp object
 
-	protected $tpl = "editor/xfer.syncUp.tpl";
-
 function __construct() {
 	parent::__construct();
 
-	$this->set("info", true);
-
 	$this->ftp = new ftp();
+
 	$this->read();
-	$this->setSource(APP_DIR);
+	$this->load("modules/xfer.syncUp.tpl");
 }
 
 // ***********************************************************
 public function read($ini = false) {
-	$fil = APP::relPath($ini);
-	$this->set("inifile", $fil);
-
 	$this->ftp->read($ini);
-	$this->getDest();
-}
 
-protected function getDest() {
 	$dst = $this->ftp->get("web.url", "???");
-	$this->setDest($dst);
+	$dst = $this->setTarget($dst);
 
-	$this->htp = new http($this->dst);
+	$this->htp = new http($dst);
 }
 
 // ***********************************************************
 // run jobs
 // ***********************************************************
 public function publish() {
-	if (! $this->ftp->test()) return;
-
-	$this->setTitle("sync.up");
-	$this->showInfo();
+	$this->getVersions();
 	$this->run();
+}
+
+protected function run() {
+	parent::run();
+}
+
+protected function isGood() {
+	return $this->ftp->test();
 }
 
 // **********************************************************
@@ -86,8 +83,7 @@ protected function FSremote() {
 	if (! NET::isCon()) {
 		$this->error = "nocon"; return;
 	}
-	$out = $this->htp->query(".");
-	return $out;
+	return $this->htp->query(".", "get");
 }
 
 protected function aggregate($data) { // prepare for webexec()
@@ -117,27 +113,18 @@ protected function exec() { // prepare for webexec()
 }
 
 // ***********************************************************
-// debugging server response
-// ***********************************************************
-public function debug($dst) {
-	if (! $dst) return;
-
-	foreach ($arr as $act) {
-		$lst = VEC::get($dst, $act); if (! $lst) continue;
-
-		foreach ($lst as $itm) {
-			$this->getUrl($act, $itm);
-		}
-	}
-}
-
-// ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function destName($fso, $act = false) {
+protected function dstName($fso, $act = false) {
 	$chk = STR::contains(".cpf.mkd.", ".$act."); if (! $chk) return $fso;
 	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
 	return FSO::join($pfx, $fso);
+}
+
+protected function verTarget() {
+	$out = $this->htp->query(".", "ver");
+	$out = implode(" - ", $out);
+	return ($out) ? $out : "?";
 }
 
 // ***********************************************************
@@ -169,6 +156,27 @@ protected function do_rmDir($arr) { // bulk operation
 protected function do_kill($arr) { // bulk operation
 	$out = $this->htp->query($arr, "dpf");
 	return intval($out);
+}
+
+// ***********************************************************
+// find versions
+// ***********************************************************
+protected function getVersions() {
+	$ver = APP::arcDir(SRV_ROOT, "ver");
+
+	$drs = FSO::folders($ver);
+	$arr = array(APP_DIR => "Current state");
+	
+	foreach ($drs as $key => $val) {
+		$arr[$key] = "Version $val";
+	}
+	$box = new dropBox();
+	$xxx = $box->suit("menu");
+	$src = $box->getKey("sync.src", $arr);
+	$mnu = $box->gc();
+
+	$this->set("choices", $mnu);
+	$this->setSource($src);
 }
 
 // ***********************************************************

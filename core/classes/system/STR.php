@@ -21,6 +21,7 @@ incCls("search/searchString.php");
 // ***********************************************************
 class STR {
 	private static $sep = "¬¬¬";
+	private static $lim = "@|@";
 
 // ***********************************************************
 // concat
@@ -55,7 +56,7 @@ public static function misses($haystack, $needle) {
 public static function contains($haystack, $needle) {
 	if (! $needle) return false;
 	$out = self::simplify($haystack, $needle);
-	$pos = (strpos("@QWQ@.$out.", self::$sep));
+	$pos = strpos(self::$lim.$out, self::$sep);
 	return ($pos > 0);
 }
 
@@ -78,6 +79,11 @@ public static function conv2utf8($string) {
 		if ($chk == "UTF-8") return $string;
 	}
 	return mb_string_encoding($string, "UTF-8");
+}
+
+public static function utf8decode($string) {
+	$out = utf8_decode($string);
+	return STR::afterX($out, "?"); // because of utf8_decode();
 }
 
 // ***********************************************************
@@ -119,8 +125,8 @@ public static function count($haystack, $needle) {
 
 // ***********************************************************
 public static function before($haystack, $sep = "\n", $trim = true) {
-	$out = self::simplify($haystack, $sep).self::$sep;
-	$pos = strpos($out, self::$sep);
+	$out = self::simplify($haystack, $sep);
+	$out.= self::$sep; $pos = strpos($out, self::$sep);
 	$out = substr($out, 0, $pos);
 	return ($trim) ? trim($out) : $out;
 }
@@ -169,11 +175,6 @@ public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
 	return self::contains($text, $lst);
 }
 
-public static function beforeEOL($text, $lst = ".,;:!?") {
-	$lst = str_split($lst);
-	return self::before($text, $lst);
-}
-
 // ***********************************************************
 // removing from string
 // ***********************************************************
@@ -205,7 +206,8 @@ public static function dropComments($code) {
 
 // ***********************************************************
 public static function dropSpaces($code) {
-	$out = self::clear($code, "\r");
+#	$out = self::clear($code, "\r");
+	$out = $code;
 
 	$out = preg_replace("~ (\s*?)~", " ", $out);   // multiple blanks
 	$out = self::replace($out, "\n ", "\n");        // leading blank
@@ -292,15 +294,12 @@ private static function markit($haystack, $find, $idx) {
 // search strings
 // ***********************************************************
 public static function split($haystack, $sep1, $sep2 = "") {
-	$del = "@|@";
-	$txt = str_replace($sep1, $del.$sep1, $haystack);
-	$arr = explode($del, $txt); if (! $sep2) return $arr;
+	$txt = str_replace($sep1, self::$sep.$sep1, $haystack);
+	$arr = explode(self::$sep, $txt); if (! $sep2) return $arr;
 	$out = array();
 
 	foreach ($arr as $val) {
-		if (self::contains($val, $sep2))
-		$val = self::before($val, $sep2).$sep2;
-		$out[] = $val;
+		$out[] = self::before($val, $sep2).$sep2;
 	}
 	return $out;
 }

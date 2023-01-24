@@ -1,7 +1,11 @@
 <?php
 
 incCls("menus/dropMenu.php");
+incCls("editor/ediMgr.php");
 
+// ***********************************************************
+// show file selector
+// ***********************************************************
 $box = new dropMenu();
 $dir = $box->folders(LOC_LAY);
 $ful = $box->files($dir);
@@ -10,9 +14,8 @@ $xxx = $box->show();
 // ***********************************************************
 // show editor
 // ***********************************************************
-incCls("editor/cfgEdit.php");
-
-$cfg = new cfgEdit();
-$cfg->show($ful);
+$edi = new ediMgr();
+$edi->read($ful);
+$edi->show();
 
 ?>

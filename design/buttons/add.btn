@@ -1,0 +1,9 @@
+[props]
+caption =
+pic = ICONS/buttons/add.png
+
+[info*]
+<p>Add an item</p>
+
+[info.de*]
+<p>Eintrag hinzufügen</p>

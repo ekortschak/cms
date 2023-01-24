@@ -20,6 +20,7 @@ $tps = $dbi->fldTypes();
 HTW::xtag("fld.create");
 // ***********************************************************
 $box = new dropBox();
+$xxx = $box->suit("table");
 $typ = $box->getKey("fld.type", $tps);
 
 $nls = $dbi->fldNull($typ);

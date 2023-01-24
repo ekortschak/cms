@@ -1,0 +1,13 @@
+[include]
+LOC_CFG/page.def
+
+[dic]
+trg = Link target
+
+[dic.de]
+trg = Sprungziel
+
+
+# additional properties
+[props]
+trg =

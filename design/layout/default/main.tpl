@@ -107,5 +107,4 @@ title = PRJ_TITLE
 <!MOD:app.info!>
 <!MOD:user.opts!>
 <!MOD:msgs!>
-<!MOD:msgs.log!>
 </div>

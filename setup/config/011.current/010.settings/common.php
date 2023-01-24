@@ -18,15 +18,15 @@ $nav->show();
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$tpl = "LOC_CFG/$fcs.ini";
-$fil = "config/$fcs.$ext";
+$tpl = "LOC_CFG/$fcs.def";
+$ful = "config/$fcs.$ext";
 
-$sts = ""; if (! is_file($fil)) $sts = BOOL_NO;
+$sts = ""; if (! is_file($ful)) $sts = BOOL_NO;
 
-HTW::tag("file = $fil $sts", "small");
+HTW::tag("file = $ful $sts", "small");
 
 $ini = new iniMgr($tpl);
-$ini->update($fil);
+$ini->exec($ful);
 $ini->show();
 
 ?>

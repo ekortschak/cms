@@ -244,6 +244,14 @@ public static function folders($dir, $visOnly = true) {
 	return $out;
 }
 
+public static function rmFiles($dir) {
+	$fls = self::files($dir);
+	
+	foreach ($fls as $fil => $nam) {
+		self::kill($fil, "", 0);
+	}
+}
+
 // ***********************************************************
 public static function tree($dir, $visOnly = true) {
  // list all subfolders of $dir

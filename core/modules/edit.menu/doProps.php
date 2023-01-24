@@ -28,14 +28,14 @@ $ini = new ini($ful);
 $typ = $ini->get("props.typ", "inc");
 $typ = STR::left($typ);
 
-$tpl = "LOC_CFG/page.$typ.ini"; if (! is_file($tpl))
-$tpl = "LOC_CFG/page.ini";
+$tpl = "LOC_CFG/page.$typ.def"; if (! is_file($tpl))
+$tpl = "LOC_CFG/page.def";
 
 // ***********************************************************
 HTW::xtag("page.props");
 // ***********************************************************
 $ini = new iniMgr($tpl);
-$ini->read($ful);
+$ini->exec($ful);
 $ini->show();
 
 ?>

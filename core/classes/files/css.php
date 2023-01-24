@@ -7,14 +7,12 @@ used to generate style sheet from chosen directory
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-include_once("core/inc.css.php");
+include_once "core/inc.css.php";
 incCls("files/css.php");
 
 $css = new css();
 $css->get();
 */
-
-# include_once("core/inc.css.php");
 
 // ***********************************************************
 // BEGIN OF CLASS

@@ -98,6 +98,7 @@ public static function trace() {
 	$tpl->set("items", trim($arr));
 	$tpl->show("trace");
 }
+
 private static function stack($sec = "short") {
 	$arr = self::getList(0, self::$depth); // get list of calling functions
 

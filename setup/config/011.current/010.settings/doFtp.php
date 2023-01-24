@@ -1,17 +1,29 @@
 <?php
 
+incCls("menus/dropMenu.php");
 incCls("editor/iniMgr.php");
+
+// ***********************************************************
+// select destination
+// ***********************************************************
+$arr = array(
+	"ini" => "Localhost",
+);
+
+$nav = new dropMenu();
+$ext = $nav->getKey("scope", $arr);
+$nav->show();
 
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$fil = "config/ftp.ini";
+$ful = "config/ftp.ini";
 incCls("server/ftp.php");
 
-HTW::tag("file = $fil", "small");
+HTW::tag("file = $ful", "small");
 
-$ini = new iniMgr("LOC_CFG/ftp.ini");
-$ini->update($fil);
+$ini = new iniMgr("LOC_CFG/ftp.def");
+$ini->exec($ful);
 $ini->show();
 
 // ***********************************************************

@@ -20,6 +20,7 @@ $xxx = $box->show();
 HTW::xtag("tbl.drop");
 // ***********************************************************
 $box = new dropBox();
+$xxx = $box->suit("table");
 $fnc = $box->getKey("method", $fnc);
 $xxx = $box->show();
 

@@ -2,13 +2,13 @@
 
 incCls("menus/dropDbo.php");
 incCls("editor/iniEdit.php");
-incCls("editor/dboEdit.php");
+incCls("editor/saveDbo.php");
 incCls("dbase/dbInfo.php");
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$dbo = new dboEdit();
+$dbo = new saveDbo();
 
 // ***********************************************************
 // show menu
@@ -32,7 +32,7 @@ foreach ($fds as $key => $val) {
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("LOC_CFG/db.tables.ini");
+$ini = new ini("LOC_CFG/db.tables.def");
 $arr = $ini->getSecs($ini);
 $lng = CUR_LANG;
 

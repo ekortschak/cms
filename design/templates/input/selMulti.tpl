@@ -20,13 +20,19 @@ cls = ms
 [main]
 # ***********************************************************
 <table>
-	<tr class="toolbar">
-		<td><img src="ICONS/nav/toggle.gif" class="icon" onClick="toggleCB('<!VAR:cls!>');"></td>
-		<td><small><!DIC:multi!></small></td>
-		<td> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> # TOOD: for optical reasons
-	</tr>
+<!SEC:input.head!>
 <!VAR:items!>
 </table>
+
+
+# ***********************************************************
+[input.head]
+# ***********************************************************
+<tr class="toolbar">
+	<td><img src="ICONS/nav/toggle.gif" class="icon" onClick="toggleCB('<!VAR:cls!>');"></td>
+	<td nowrap><small><!DIC:multi!></small></td>
+	<td> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> # TOOD: &emsp; for optical reasons
+</tr>
 
 
 # ***********************************************************
@@ -37,7 +43,7 @@ cls = ms
 	<input type="hidden"   name="<!VAR:fname!>[<!VAR:key!>]" value=0>
 	<input type="checkbox" name="<!VAR:fname!>[<!VAR:key!>]" value=1 <!VAR:checked!> class="<!VAR:cls!>">
 </td>
-<td><!VAR:curVal!>
+<td nowrap><!VAR:curVal!>
 </td>
 </tr>
 

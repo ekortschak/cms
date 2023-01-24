@@ -108,7 +108,7 @@ protected function endnotes() {
 // handling content
 // ***********************************************************
 protected function getText($dir) {
-	$xxx = ob_start(); include("core/modules/body.xsite/item.php");
+	$xxx = ob_start(); include "core/modules/body.xsite/item.php";
 	$txt = ob_get_clean();
 
 	$txt = STR::replace($txt, "h1>", "h4>");

@@ -2,7 +2,7 @@
 
 // used to convert a topic to static pages
 
-include_once("core/inc.css.php");
+include_once "core/inc.css.php";
 
 incCls("files/css.php");
 incCls("files/iniTab.php");
@@ -20,7 +20,7 @@ class xform {
 	private $cnt = 0;  // files processed
 
 function __construct($cnt = 3) {
-	$this->tab = FSO::join(basename(APP_DIR), basename(TAB_HOME));
+	$this->tab = FSO::join(APP_NAME, basename(TAB_HOME));
 	$this->dir = APP::tempDir("static pages", STR::afterX($this->tab, APP_NAME));
 	$this->dbg = $cnt; // number of items handled in debug mode
 

@@ -17,7 +17,7 @@ $arr+= FSO::tree($loc);
 // ***********************************************************
 // paste collected pages into single page
 // ***********************************************************
-incCls("editor/xsite.php");
+incCls("modules/xsite.php");
 
 $xfm = new xsite($cnt);
 $xfm->read($arr);

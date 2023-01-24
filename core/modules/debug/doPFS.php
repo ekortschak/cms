@@ -2,8 +2,12 @@
 
 $arr = PFS::getData("dat");
 
-foreach ($arr as $key => $val) {
-	DBG::vector($val, $key);
-}
+// ***********************************************************
+incCls("menus/tview.php");
+// ***********************************************************
+$tvw = new tview();
+$tvw->setData($arr);
+$tvw->show();
+
 
 ?>

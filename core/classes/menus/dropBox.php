@@ -34,10 +34,12 @@ public function reset() {
 // ***********************************************************
 // display variants
 // ***********************************************************
-public function display($mode) {
+public function suit($mode) {
 	switch ($mode) {
+		case "table":  $tpl = "menus/dropTable.tpl";  break;
 		case "inline": $tpl = "menus/dropInline.tpl"; break;
 		case "topics": $tpl = "menus/dropTopics.tpl"; break;
+		case "menu":   $tpl = "menus/dropMenu.tpl";   break;
 		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
 		default: return;
 	}
@@ -46,6 +48,10 @@ public function display($mode) {
 
 public function setClass($cls) {
 	$this->set("class", $cls);
+}
+
+public function hideDesc() {
+	$this->setSec("uniq", "");
 }
 
 // ***********************************************************

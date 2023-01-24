@@ -2,7 +2,7 @@
 
 incCls("menus/dropDbo.php");
 incCls("editor/iniEdit.php");
-incCls("editor/dboEdit.php");
+incCls("editor/saveDbo.php");
 incCls("dbase/dbInfo.php");
 
 // ***********************************************************
@@ -22,12 +22,12 @@ $inf["default"] = $inf["fstd"];
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$dbo = new dboEdit();
+$dbo = new saveDbo();
 
 // ***********************************************************
 // read field props
 // ***********************************************************
-$ini = new ini("LOC_CFG/db.fields.ini");
+$ini = new ini("LOC_CFG/db.fields.def");
 $arr = $ini->getSecs($ini);
 $lng = CUR_LANG;
 

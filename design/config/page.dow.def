@@ -1,0 +1,6 @@
+[include]
+LOC_CFG/page.def
+
+# additional properties
+[props]
+ext = pdf

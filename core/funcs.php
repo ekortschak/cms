@@ -7,23 +7,15 @@
 // ***********************************************************
 // find files or default to fallback dir
 // ***********************************************************
-function incCls($file) { doInc("core/classes/$file"); }
-function incMod($file) { doInc("core/modules/$file"); }
-function incFnc($file) { doInc("core/include/$file"); }
-
-function doInc($file) {
-	$fil = APP_DIR."$file"; if (! is_file($fil))
-	$fil = APP_FBK."$file"; if (! is_file($fil)) {
-		die("File not found: $file");
-	}
-	require_once $fil;
-}
+function incCls($file) { require_once "core/classes/$file"; }
+function incMod($file) { require_once "core/modules/$file"; }
+function incFnc($file) { require_once "core/include/$file"; }
 
 // ***********************************************************
 // goodies
 // ***********************************************************
 function checkStop() { // force execution to stop
-	$fil = APP_DIR."x.stop";
+	$fil = FSO::join(APP_DIR, "x.stop");
 	if (is_file($fil)) die("Execution halted!");
 }
 

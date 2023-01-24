@@ -48,7 +48,7 @@ public function set($key, $val) {
 		return false;
 	}
 	$this->vls[$key] = $val;
-	return $key;
+	return $val;
 }
 
 public function drop($sec, $key = "") { // drop values

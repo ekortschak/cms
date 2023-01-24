@@ -43,6 +43,7 @@ private static function fixForced() { // constants set by startup script
 }
 
 private static function fixServer() {
+	self::set("SRV_ROOT", VEC::get($_SERVER, "DOCUMENT_ROOT", NV));
 	self::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
 	self::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	self::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
@@ -61,7 +62,7 @@ private static function fixPaths() {
 	$ck4 = "/xtools/ck4";
 	$dir = FSO::join(SRV_ROOT, $ck4); if (is_dir($dir)) self::set("CK4_URL", $ck4);
 
-	$ck5 = "/xtools/ck4";
+	$ck5 = "/xtools/ck5";
 	$dir = FSO::join(SRV_ROOT, $ck5); if (is_dir($dir)) self::set("CK5_URL", $ck5);
 }
 
@@ -174,7 +175,7 @@ public static function get($key, $default = "") {
 
 public static function getCats() {
 	$cst = get_defined_constants(true);
-	$cst = VEC::keys($cst); ksort($cst); unset($cst["user"]);
+	$cst = array_keys($cst); ksort($cst); unset($cst["user"]);
 	$out = array("user" => "USER", "" => "<hr>");
 	return $out + $cst;
 }

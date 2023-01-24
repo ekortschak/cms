@@ -10,8 +10,9 @@ Designed to sync server to local project ...
 // ***********************************************************
 incCls("server/syncDown.php");
 
-$pub = new syncDown();
-$pub->upgrade();
+$snc = new syncDown();
+$snc->read("ftp.ini");
+$snc->upgrade();
 
 */
 
@@ -27,17 +28,15 @@ incCls("server/SSL.php");
 class syncDown extends sync {
 	protected $htp;	// http object
 	protected $ftp;	// ftp object
-	protected $dbg = 0;
-
-	protected $tpl = "editor/xfer.syncDown.tpl";
 
 function __construct() {
 	parent::__construct();
 
-	$this->set("info", true);
-
 	$this->ftp = new ftp();
+	
 	$this->read();
+	$this->load("modules/xfer.syncDown.tpl");
+	$this->setTarget(APP_DIR);
 }
 
 // ***********************************************************
@@ -45,32 +44,17 @@ public function read($ini = false) {
 	$this->ftp->read($ini);
 
 	$src = $this->ftp->get("web.url", "???");
-	$this->setSource($src);
+	$xxx = $this->setSource($src);
 
-	$this->htp = new http($this->src);
-}
-
-// ***********************************************************
-// set parameters
-// ***********************************************************
-public function setSource($dir = ".") {
-	$this->src = FSO::norm($dir);
-	ENV::set("sync.src", $this->src);
-}
-public function setDest($dir = APP_DIR) {
-	$this->dst = FSO::norm($dir);
-	$xxx = ENV::set("sync.dst", $this->dst);
+	$this->htp = new http($src);
 }
 
 //// ***********************************************************
 // run jobs
 // ***********************************************************
 public function upgrade() {
-	if (! $this->ftp->test()) return;
-
-	$this->setTitle("sync.down");
-	$this->showInfo();
-	$this->run();
+#	if (! $this->ftp->test()) return;
+	parent::run();
 }
 
 // **********************************************************
@@ -91,7 +75,7 @@ protected function getTree($src, $dst) {
 // pass through methods
 // ***********************************************************
 protected function FSremote() {
-	$out = $this->htp->query(".");
+	$out = $this->htp->query(".", "get");
 	return $out;
 }
 
@@ -127,6 +111,12 @@ protected function exec() { // prepare for webexec()
 protected function srcName($fso, $act = false) {
 	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
 	return FSO::join($pfx, $fso);
+}
+
+protected function verSource() {
+	$out = $this->htp->query(".", "ver");
+	$out = implode(" - ", $out);
+	return ($out) ? $out : "?";
 }
 
 // ***********************************************************

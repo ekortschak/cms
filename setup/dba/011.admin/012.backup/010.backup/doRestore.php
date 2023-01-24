@@ -11,8 +11,8 @@ incCls("input/selector.php");
 $box = new dropDbo();
 $dbs = $box->getDbase();
 
-$dir = APP::bkpDbs($dbs); $bkp = dirname($dir);
-$vrs = FSO::folders("$bkp/dbs.$dbs.*"); krsort($vrs);
+$dir = APP::arcDir(SRV_ROOT, "dbs.$dbs");
+$vrs = FSO::folders($dir); if ($vrs) krsort($vrs);
 
 foreach ($vrs as $key => $val) {
 	$vrs[$key] = STR::after($val, "db.$dbs.");

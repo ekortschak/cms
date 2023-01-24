@@ -7,27 +7,26 @@ basic class for synching
 * contains common features for all derived classes
 * local working and backup dirs
 
+DOES NOT WORK BY ITSELF!
+* use derived classes 
+
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
 $snc = new sync();
 $snc->setDevice($dev);
 $snc->setSource($src);
-$snc->setDest($dest);
-$snc->backup();
-$snc->restore();
+$snc->setTarget($dest);
+
+for execution see derived classes
 */
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class sync extends objects {
+class sync extends tpl {
 	protected $dev = SRV_ROOT;  // storage device
-	protected $src = APP_DIR;   // source
-	protected $dst = "";		// destination
 	protected $root = "";		// common path
-
-	protected $tpl = "editor/xfer.sync.tpl";
 
 	protected $lst = array();	// list of verified destination dirs
 	protected $rep = array();   // transaction report
@@ -35,49 +34,84 @@ class sync extends objects {
 	protected $drp = array();   // dirs to drop
 
 	protected $visOnly = true;  // exclude hidden files from sync
+	protected $newProt = true;  // protect newer files
 	protected $error = false;
 
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
 
+	$this->load("modules/xfer.sync.tpl");
+
 	$this->register();
-	$this->setSource();
-	$this->setDest();
+	$this->setSource(APP_DIR);
+	$this->setTarget(NV);
+	$this->setNewer();
 }
 
 // ***********************************************************
 // set parameters
 // ***********************************************************
-public function setSource($dir = APP_DIR) {
-	$this->src = FSO::norm($dir);
-	ENV::set("sync.src", $this->src);
+public function setSource($dir) {
+	return $this->set("source", FSO::norm($dir));
 }
-public function setDest($dir = NV) {
-	if ($dir == NV) $dir = APP::bkpDir("sync", $this->dev);
-	$this->dst = FSO::norm($dir);
-	ENV::set("sync.dst", $this->dst);
+public function setTarget($dir) {
+	if ($dir == NV) $dir = APP::arcDir($this->dev, "sync");
+	return $this->set("target", FSO::norm($dir));
 }
 
-public function setVisOnly($value) {
-	$this->visOnly = (bool) $value;
+protected function setNewer() {
+	$val = ENV::get("pnew", 1);
+	$this->set("pnew", $val);
+	$this->newProt = $val;
 }
 
+// ***********************************************************
 protected function setTitle($title) {
 	$tit = DIC::get($title);
 	$this->set("title", $tit);
 }
 
+public function setVisOnly($value) {
+	$val = ($value) ? BOOL_NO : BOOL_YES;
+	$this->set("what", $val);
+}
+
+// ***********************************************************
+// retrieve info
+// ***********************************************************
+protected function verSource() {
+	$dir = $this->get("source");
+	return $this->getVersion($dir);
+}
+
+protected function verTarget() {
+	$dir = $this->get("target");
+	return $this->getVersion($dir);
+}
+
+protected function getVersion($dir) {
+	$fil = FSO::join($dir, "config/config.ini");
+
+	$ini = new ini($fil);
+	return $ini->get("app.VERSION", "?"); 
+}
+
 // ***********************************************************
 // run jobs
 // ***********************************************************
-// no further methods by itself
-
-protected function run() {
+protected function run($info = "info") {
 	$act = ENV::getParm("sync.act");
-	$arr = ENV::get("sync.jbs");
+	
+	if ($act == 2) $this->exec();
 
+	$this->set("vsrc", $this->verSource());
+	$this->set("vdst", $this->verTarget());
+
+	$this->show($info); if (! $this->isGood()) return;
+	$this->show();
+	
 	if ($act == 1) return $this->analize();
-	if ($act == 2) return $this->exec();
+	if ($act == 2) return $this->showStats();
 
 	ENV::set("sync.jbs", false);
 }
@@ -88,6 +122,8 @@ protected function exec() {
 	$arr = $this->aggregate($arr);
 
 	foreach ($arr as $act => $lst) {
+		if ($act == "nwr") continue;
+		
 		foreach ($lst as $key => $fso) {
 			$erg = $this->manage($act, $fso);
 			if ($erg) {
@@ -98,15 +134,12 @@ protected function exec() {
 		if ($act != "cpf") unset($arr[$act]);
 	}
 	ENV::set("sync.jbs", $arr);
-
-	$this->report();
-	$this->preview();
 }
 
 // **********************************************************
 protected function manage($act, $fso) {
 	$src = $this->srcName($fso, $act);
-	$dst = $this->destName($fso, $act);
+	$dst = $this->dstName($fso, $act);
 
 	switch ($act) {
 		case "ren": return $this->do_ren($fso);
@@ -116,40 +149,29 @@ protected function manage($act, $fso) {
 		case "dpf": return $this->do_kill($dst);
 		case "man": return; // do nothing !
 	}
-	ERR::msg("SyncERROR", $act);
+	ERR::msg("sync.error", $act);
 }
 
-// ***********************************************************
-// show operative info
-// ***********************************************************
-protected function showInfo($info = "info") {
-	$tpl = new tpl();
-	$tpl->load($this->tpl);
-
-	$hed = $this->get("head", NV);
-
-	if (! $this->visOnly)
-	$tpl->set("what",    BOOL_YES);
-	$tpl->set("inifile", $this->get("inifile")); if ($hed !== NV)
-	$tpl->set("head",    $this->get("head"));
-	$tpl->set("source",  $this->src);
-	$tpl->set("dest",    $this->dst);
-
-	$tpl->show($info);
-	$tpl->show();
+// **********************************************************
+protected function showStats() {
+	$this->report();
+	$this->preview();
 }
 
 // ***********************************************************
 // search file systems for differences
 // ***********************************************************
 protected function analize() {
-	$lst = $this->getTree($this->src, $this->dst);
+	$src = $this->get("source");
+	$dst = $this->get("target");
+	$lst = $this->getTree($src, $dst);
+
 	ENV::set("sync.jbs", $lst);
 	$this->preView(true);
 }
 
 protected function preView($tellMe = false) {
-	$arr = ENV::get("sync.jbs");
+	$arr = ENV::get("sync.jbs", NV);
 
 	if ($this->error == "nocon") return MSG::now("no.connection");
 	if (! $arr) {
@@ -158,6 +180,7 @@ protected function preView($tellMe = false) {
 	}
 
 	$this->showStat($arr, "man", "sync.protected");
+	$this->showStat($arr, "nwr", "sync.newer");
 	$this->showStat($arr, "ren", "sync.rename");
 	$this->showStat($arr, "mkd", "sync.mkdir");
 	$this->showStat($arr, "cpf", "sync.copy");
@@ -200,8 +223,8 @@ protected function report() {
 // ***********************************************************
 // file handling
 // ***********************************************************
-protected function getTree($dir, $dst) {
-	$src = $this->FSlocal($dir); if (! $src) return false;
+protected function getTree($src, $dst) {
+	$src = $this->FSlocal($src); if (! $src) return false;
 	$dst = $this->FSlocal($dst);
 	$out = $this->getNewer($src, $dst);
 
@@ -214,7 +237,7 @@ protected function getTree($dir, $dst) {
 protected function FSlocal($dir) {
 	incCls("server/fileServer.php");
 
-	$srv = new srvX($this->visOnly);
+	$srv = new fileServer($this->visOnly);
 	$out = $srv->getFiles($dir); if (! $out) return array();
 	$fst = current($out);
 
@@ -229,88 +252,73 @@ protected function getNewer($src, $dst) {
 	if (count($src) < 5) {
 		return MSG::now("err.fetch");
 	}
-	$out = $lst = array();
-	$roots = $this->getRoot($src);
-	$rootd = $this->getRoot($dst);
-
-#LOG::write("source.log", print_r($src, true), false);
-#LOG::write("dest.log", print_r($dst, true), false);
+	$out = $lst = $ren = array();
 
 	foreach ($src as $itm) { // source - e.g. local files
-		$tmp = $this->split($itm); if (! $tmp) continue; extract($tmp);
-		$fso = STR::after($fso, $roots); if (! $fso) continue;
+		$inf = $this->split($itm, "s"); if (! $inf) continue; extract($inf);
+		$lst[$fso] = $inf;
 
-		$lst[$fso]["typs"] = $type;
-		$lst[$fso]["dats"] = $date;
-		$lst[$fso]["md5s"] = $md5;
-
-		$alf = $this->getAlpha($fso);
-		$this->ren[$alf]["typ"] = $type;
-		$this->ren[$alf]["src"] = $fso;
+		$ren[$alf]["typ"] = $typd;
+		$ren[$alf]["src"] = $fso;
 	}
+
 	foreach ($dst as $itm) { // destination - e.g. remote files
-		$tmp = $this->split($itm); if (! $tmp) continue; extract($tmp);
-		$fso = STR::after($fso, $rootd); if (! $fso) continue;
+		$inf = $this->split($itm, "d"); if (! $inf) continue; extract($inf);
+		
+		if (  isset($lst[$fso])) $lst[$fso]+= $inf; else $lst[$fso] = $inf;
+		if (! isset($ren[$alf])) continue;
 
-		$lst[$fso]["typd"] = $type;
-		$lst[$fso]["datd"] = $date;
-		$lst[$fso]["md5d"] = $md5;
-
-		$alf = $this->getAlpha($fso);
-		$chk = VEC::get($this->ren, $alf); if (! $chk) continue;
-
-		if ($chk["src"] == $fso) unset($this->ren[$alf]);
-		else $this->ren[$alf]["dst"] = $fso;
+		if ( $ren[$alf]["src"] == $fso) unset($ren[$alf]);
+		else $ren[$alf]["dst"] = $fso;
 	}
-
-#LOG::write("list.log", print_r($lst, true), false);
 
 	foreach ($lst as $fso => $prp) { // check dates
-		$typs = VEC::get($prp, "typs", "x"); if ($typs == "h") continue;
-		$md5s = VEC::get($prp, "md5s", 0);
-		$dats = VEC::get($prp, "dats", 0);
-
-		$typd = VEC::get($prp, "typd", "x"); if ($typd == "h") continue;
-		$md5d = VEC::get($prp, "md5d", 0);
-		$datd = VEC::get($prp, "datd", 0);
-
+		$inf = $this->chkProps($prp); extract($inf); 
+		
 		if ($md5s === $md5d) continue;
 
-		$act = $this->getAction($typs.$typd, $dats, $datd);
-		$act = $this->chkDrop($act, $fso);
+		$act = $this->getAction($typs.$typd, $dats >= $datd);
+		$act = $this->chkAction($act, $fso);
 
 		if ($act == "x") continue;
 
 		$out[$act][] = $fso;
 	}
-#LOG::write("diff.log", print_r($out, true), false);
-
+	$this->ren = $ren;
 	return $out;
 }
 
 // ***********************************************************
-protected function getAction($mds, $dats, $datd) {
+// determining action
+// ***********************************************************
+protected function getAction($mds, $newer) {
 	if ($mds == "dx") return "mkd"; // mkdir
 	if ($mds == "xd") return "rmd"; // rmdir
 	if ($mds == "fx") return "cpf"; // copy file
 	if ($mds == "xf") return "dpf"; // drop file
 
 	if ($mds == "ff") {
-		if ($datd < $dats) return "cpf"; // update
+		if ($newer) return "cpf"; // update
+		if ($this->newProt) return "nwr"; // protect newer files
+		return "cpf";
 	}
 	return "x"; // ignore
 }
 
-protected function getAlpha($fso) {
-	$out = PRG::replace($fso, "\/\d\d\d\.", "\/");
-	return $out;
+protected function chkAction($act, $fso) {
+	if (STR::misses(".rmd.dpf.", $act)) return $act;
+	if (STR::begins($fso, $this->drp))  return "x";
+	if ($act == "rmd") $this->drp[] = $fso;
+	return $act;
 }
 
 // ***********************************************************
+// executing modifications
+// ***********************************************************
 protected function do_ren($fso) {
 	$prp = explode("|", $fso); if (count($prp) < 3) return false;
-	$old = $this->destName($prp[2]);
-	$new = $this->destName($prp[1]);
+	$old = $this->dstName($prp[2]);
+	$new = $this->dstName($prp[1]);
 
 	return (bool) FSO::rename($old, $new);
 }
@@ -357,47 +365,57 @@ protected function chkCount($arr) {
 	return $arr;
 }
 
-protected function chkDrop($act, $fso) {
-	if (STR::misses(".rmd.dpf.", $act)) return $act;
-	if (STR::begins($fso, $this->drp))  return "x";
-	if ($act == "rmd") $this->drp[] = $fso;
-	return $act;
-}
-
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function getRoot($arr) {
-	$out = VEC::get($arr, "root"); if (! $out)
-	$out = current($arr);
-	return rtrim($out, DIR_SEP).DIR_SEP;
-}
-
-protected function split($itm) {
+protected function split($itm, $pfx) {
 	$itm = strip_tags(trim($itm));
 	$itm = explode(";", $itm); if (count($itm) < 4) return false;
+	$fso = $itm[2];
 
 	return array(
-		"type" => $itm[0],
-		"fso"  => $itm[2],
-		"date" => $itm[1],
-		"md5"  => $itm[3]
+		"fso" => $fso,
+		"alf" => PRG::replace($fso, "\/\d\d\d\.", "\/"),
+		"typ".$pfx => $itm[0],
+		"dat".$pfx => $itm[1],
+		"md5".$pfx => $itm[3]
 	);
+}
+
+protected function chkProps($arr) {
+	$out = array(
+		"fso" => "",   "alf" => "",
+		"typs" => "x", "typd" => "x",
+		"dats" => "",  "datd" => "",
+		"md5s" => "",  "mdtd" => "",
+	);
+	foreach ($arr as $key => $val) {
+		$out[$key] = $val;
+	}
+	return $out;
 }
 
 // ***********************************************************
 // dummies for derived classes
 // ***********************************************************
 protected function srcName($fso, $act = false)  {
-	if (STR::begins($fso, $this->src)) return $fso;
-	return FSO::join($this->src, $fso);
+	$src = $this->get("source");
+	if (STR::begins($fso, $src)) return $fso;
+	return FSO::join($src, $fso);
 }
-protected function destName($fso, $act = false) {
-	if (STR::begins($fso, $this->dst)) return $fso;
-	return FSO::join($this->dst, $fso);
+protected function dstName($fso, $act = false) {
+	$dst = $this->get("target");
+	if (STR::begins($fso, $dst)) return $fso;
+	return FSO::join($dst, $fso);
 }
 
-protected function aggregate($arr) { return $arr; }
+protected function aggregate($arr) {
+	return $arr; 
+}
+
+protected function isGood() {
+	return true;
+}
 
 // ***********************************************************
 } // END OF CLASS

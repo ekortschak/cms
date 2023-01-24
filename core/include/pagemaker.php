@@ -3,8 +3,8 @@
 // ***********************************************************
 // set missing constants navigation parms
 // ***********************************************************
-CFG::read("LOC_CFG/defaults.ini");
-CFG::read("LOC_CFG/constants.ini");
+CFG::read("LOC_CFG/defaults.def");
+CFG::read("LOC_CFG/constants.def");
 PGE::init();
 
 // ***********************************************************

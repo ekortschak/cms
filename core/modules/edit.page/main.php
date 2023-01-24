@@ -6,13 +6,13 @@ if (! FS_ADMIN) {
 }
 
 incCls("menus/dropMenu.php");
-incCls("editor/ediTools.php");
-incCls("editor/pgeEdit.php");
+incCls("editor/ediMgr.php");
+incCls("editor/saveFile.php");
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$obj = new pgeEdit();
+$obj = new saveFile();
 
 // ***********************************************************
 // show title
@@ -35,30 +35,20 @@ $fil = $box->focus("pic.file", $cur, $fil);
 // ***********************************************************
 // find relevant editors
 // ***********************************************************
-$edi = new ediTools();
-$sec = $edi->getType($fil);
-$eds = $edi->getEditors($sec);
+$edi = new ediMgr();
+$xxx = $edi->read($fil);
+$utl = $edi->getType();
+$eds = $edi->getEditors();
 
-$sel = EDITOR; if ($sel == "default") $sel = $sec;
+$sel = EDITOR; if ($sel == "default") $sel = $utl;
 
 if ($eds)
-$sec = $box->getKey("pic.editor", $eds, $sel);
+$utl = $box->getKey("pic.editor", $eds, $sel);
 $xxx = $box->show();
 
 // ***********************************************************
-// show module
+// show editor
 // ***********************************************************
-switch ($sec) {
-	case "ini": $inc = "doIni.php"; break;
-	case "pic": $inc = "doPic.php"; break;
-	case "dic": $inc = "doDic.php"; break;
-	case "css": $inc = "doCss.php"; break;
-	default:    $inc = "doEdit.php";
-}
-
-// ***********************************************************
-// act
-// ***********************************************************
-include APP::getInc(__DIR__, $inc);
+$edi->show($utl);
 
 ?>

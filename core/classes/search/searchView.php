@@ -42,7 +42,7 @@ public function showNav() {
 	$dir = ENV::get("search.dir");
 
 	$mnu = new dropMenu();
-	$xxx = $mnu->set("sep", "");
+#	$xxx = $mnu->set("sep", "");
 	$tpc = $mnu->getKey("search.topic", $lst, $dir);
 
 	$arr = VEC::get($this->dat, $tpc);

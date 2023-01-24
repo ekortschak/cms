@@ -102,8 +102,8 @@ private function getRadio() {
 
 // ***********************************************************
 private function getRange() {
-	$min = $this->set("min", current($this->vals));
-	$max = $this->set("max", end($this->vals));
+	$this->set("min", current($this->vals));
+	$this->set("max", end($this->vals));
 	return $this->gc("input.rng");
 }
 

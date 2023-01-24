@@ -21,7 +21,7 @@ ENV::set("xsite.dbg", $dbg);
 // show info
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/xsite.tpl");
+$tpl->load("modules/xsite.tpl");
 $tpl->show();
 
 // ***********************************************************

@@ -21,7 +21,7 @@ foreach ($div as $fil => $nam) {
 	if (STR::contains($nam, "debug"))  continue;
 	if (STR::contains($nam, "readme")) continue;
 
-	$lnk = HTM::button("?cpy=$fil'>", $nam);
+	$lnk = HTM::button("?cpy=$fil'", $nam);
 	echo "<div style='margin-bottom: 3px;'>$lnk</div>";
 	$cnt++;
 }

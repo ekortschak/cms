@@ -12,11 +12,11 @@ $xxx = $box->show();
 // ***********************************************************
 // table info
 // ***********************************************************
-$dir = APP::bkpDbs($dbs);
 $usr = CFG::getVar("dbase", "dbase.user");
+$dir = APP::arcDir(SRV_ROOT, "dbs.$dbs");
+$dir = FSO::join($dir, "$dbs.sql");
 
-$dmp = FSO::join($dir, "$dbs.sql");
-$dmp = "<b>mysqldump</b> --opt -h DB_HOST -u $usr -p xxx $dbs | gzip > $dmp";
+$dmp = "<b>mysqldump</b> --opt -h DB_HOST -u $usr -p xxx $dbs | gzip > $dir";
 $dmp = CFG::insert($dmp);
 
 HTW::tag("Backup using console", "h5");

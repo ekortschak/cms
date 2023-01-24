@@ -1,8 +1,7 @@
 <?php
 
 incCls("menus/dropMenu.php");
-incCls("editor/dicWriter.php");
-incCls("editor/ediTools.php");
+incCls("editor/ediMgr.php");
 
 // ***********************************************************
 // show file selector
@@ -16,34 +15,18 @@ $lng = basename($dir);
 // ***********************************************************
 // find relevant editors
 // ***********************************************************
-$edi = new ediTools();
-$sec = $edi->getType($fil);
-$eds = $edi->getEditors($sec);
+$edi = new ediMgr();
+$xxx = $edi->read($fil);
+$utl = $edi->getType();
+$eds = $edi->getEditors();
 
 if ($eds)
-$sec = $box->getKey("pic.editor", $eds);
+$utl = $box->getKey("pic.editor", $eds);
 $xxx = $box->show();
 
 // ***********************************************************
-// show dic editor
+// show editor
 // ***********************************************************
-if ($sec == "dic") {
-	incCls("editor/dicEdit.php");
-
-	$dic = new dicEdit();
-	$dic->exec($fil, $lng);
-	$dic->show($fil, $lng);
-	return;
-}
-
-// ***********************************************************
-// show text editor
-// ***********************************************************
-$txt = APP::read($fil);
-
-$tpl = new tpl();
-$tpl->load("editor/edit.dic.tpl");
-$tpl->set("content", $txt);
-$tpl->show();
+$edi->show($utl);
 
 ?>

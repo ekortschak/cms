@@ -1,22 +1,20 @@
 <?php
 
-$dir = "LOC_CFG";
+incCls("menus/dropMenu.php");
+incCls("editor/ediMgr.php");
 
 // ***********************************************************
 // show file selector
 // ***********************************************************
-incCls("menus/dropMenu.php");
-
 $box = new dropMenu();
-$ful = $box->files($dir);
+$ful = $box->files(LOC_CFG);
 $xxx = $box->show();
 
 // ***********************************************************
 // show editor
 // ***********************************************************
-incCls("editor/cfgEdit.php");
-
-$cfg = new cfgEdit();
-$cfg->show($ful);
+$edi = new ediMgr();
+$edi->read($ful);
+$edi->show("code");
 
 ?>

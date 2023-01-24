@@ -1,0 +1,19 @@
+[include]
+LOC_CFG/page.def
+
+[dic]
+ext = File extensions
+max_files = Concurrent uploads
+max_size = Max. size
+
+[dic.de]
+ext = Dateitypen
+max_files = Gleichzeitige Uploads
+max_size = Max. Dateigröße
+
+
+# additional properties
+[props]
+ext = png, jpg, gif
+max_files = 15
+max_size = 1500

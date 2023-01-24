@@ -51,7 +51,12 @@ settings = Einstellungen
 
 <div>
 <!BTN:view!>
+<!SEC:pedit!>
+<!SEC:xedit!>
+<!SEC:medit!>
+&nbsp;
 <!SEC:xfer!>
+<!SEC:seo!>
 </div>
 
 <h4><!DIC:settings!></h4>

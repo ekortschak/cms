@@ -12,3 +12,4 @@ $snc->read("config/ftp.ini");
 $snc->publish();
 
 ?>
+

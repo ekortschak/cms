@@ -5,13 +5,13 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("editor/mnuEdit.php");
+incCls("editor/saveMenu.php");
 incCls("menus/buttons.php");
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$obj = new mnuEdit();
+$obj = new saveMenu();
 
 // ***********************************************************
 // show title

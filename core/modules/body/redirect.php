@@ -13,7 +13,8 @@ if (EDITING == "view") {
 // ***********************************************************
 // show new content
 // ***********************************************************
-ENV::setPage(APP_DIR.$dir);
+$pge = FSO::join(APP_DIR, $dir);
+ENV::setPage($pge);
 
 $txt = APP::gc($dir); if (! $txt) $txt = NV;
 echo $txt;

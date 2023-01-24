@@ -1,7 +1,7 @@
 <?php
 
 incCls("menus/dropMenu.php");
-incCls("server/backup.php");
+incCls("server/syncBack.php");
 
 // ***********************************************************
 // read options
@@ -12,7 +12,8 @@ $dev = array_flip($dev);
 
 $act = array(
 	"syncBack" => DIC::get("act.syncback"),
-	"restore"  => DIC::get("act.restore")
+	"restore"  => DIC::get("act.restore"),
+	"revert"   => DIC::get("act.revert"),
 );
 
 // ***********************************************************
@@ -28,7 +29,7 @@ if (! FSO::hasXs($dev)) return;
 // ***********************************************************
 // transfer files
 // ***********************************************************
-$snc = new backup();
+$snc = new syncBack();
 $snc->setDevice($dev);
 $snc->$fnc();
 

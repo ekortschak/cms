@@ -32,7 +32,7 @@ class ini extends objects {
 	protected $sealed = false;
 
 function __construct($fso = "CURDIR") {
-	if ($fso == "CURDIR") $fso = PFS::getLoc();
+	if ($fso == "CURDIR") $fso = ENV::get("loc");
 	$this->read($fso);
 }
 
@@ -202,7 +202,7 @@ public function merge($arr, $pfx = false) {
 // editing info
 // ***********************************************************
 public function validTypes() {
-	$ini = new ini("LOC_CFG/ptypes.ini");
+	$ini = new ini("LOC_CFG/ptypes.def");
 	$par = $this->parentType(); if (! $par) $par = "default";
 	$par = $this->findSec($par, "default");
 	return $ini->getValues($par);

@@ -87,8 +87,8 @@ public function isProtected($fso) {
 }
 
 public function test() {
-	$con = $this->connect(); $this->disconnect();
-	$sts = ($con) ? "OK" : BOOL_NO;
+	$con = $this->connect(); $this->disconnect(); if ($con) return true;
+	$sts = ($con) ? BOOL_YES : BOOL_NO;
 
 	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
 

@@ -104,14 +104,13 @@ private function showContent() {
 	$inc = VEC::get($this->fls, $sel);
 
 	if (! $inc) return $this->show("wrong.btn");
-	include_once($inc);
+	include_once $inc;
 }
 
 public function getFile() {
 	$sel = ENV::get($this->own, $this->std);
 	$out = VEC::get($this->fls, $sel);
-	$out = APP::file($out);
-	return $out;
+	return APP::file($out);
 }
 
 // ***********************************************************
@@ -126,7 +125,7 @@ private function chkPhp($qid, $php) {
 
 	if (APP_CALL != "index.php") return $fil;
 
-	FSO::copy("LOC_CFG/button.ini", $fil);
+	FSO::copy("LOC_CFG/button.def", $fil);
 	return $fil;
 }
 
@@ -135,11 +134,11 @@ private function chkIni($qid, $ini) {
 
 	$dir = APP::relPath($this->dir);
 	$fil = FSO::join($dir, "$ini.ini");   if (APP::file($fil)) return $fil;
-	$glb = APP::file("LOC_BTN/$ini.ini"); if (APP::file($glb)) return $glb;
+	$glb = APP::file("LOC_BTN/$ini.btn"); if (APP::file($glb)) return $glb;
 
 	if (APP_CALL != "index.php") return $fil;
 
-	FSO::copy("LOC_CFG/button.ini", $fil);
+	FSO::copy("LOC_CFG/button.def", $fil);
 	return $fil;
 }
 

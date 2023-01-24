@@ -10,7 +10,7 @@ simple ini editor
 incCls("editor/iniMgr.php");
 
 $obj = new iniMgr($tplfile);
-$ini->update($inifile);
+$ini->exec($inifile);
 $ini->show();
 */
 
@@ -24,6 +24,7 @@ class iniMgr extends iniTpl {
 
 function __construct($tplfile) {
 	parent::__construct($tplfile);
+
 	$this->register(NV, $tplfile);
 }
 
@@ -65,8 +66,8 @@ public function show() {
 // ***********************************************************
 // rewriting content
 // ***********************************************************
-public function update($ful) {
-	$this->save($ful);
+public function exec($ful) {
+	$this->save($ful); $this->forget();
 	$this->read($ful);
 }
 
