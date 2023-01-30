@@ -57,7 +57,7 @@ protected function isScope($dir) {
 // retrieving relevant files
 // ***********************************************************
 public function getResults($what) {
-	$out = $this->isSame($what); if (  $out) return $out;
+	$out = $this->isSame($what); if ($out) return $out;
 	$xxx = $this->saveRes("");   if (strlen($what) < 2) return;
 
 	$psg = $this->search($what); if (! $psg) return false;
@@ -66,12 +66,15 @@ public function getResults($what) {
 
 	foreach ($psg as $fil) {
 		$tab = $this->getTab($fil);
-		$tit = PGE::getTitle($fil, $tab);
-
-		$out[$tab][$fil] = $tit;
+		$out[$tab][$fil] = PGE::getTitle($fil);
 	}
 	$this->saveRes($out);
 	return $out;
+}
+
+protected function getTab($fil) {
+	$tab = STR::between($fil, TAB_ROOT, DIR_SEP);
+	return TAB_ROOT.$tab;
 }
 
 // ***********************************************************
@@ -119,10 +122,6 @@ public function getSnips($dir, $what) { // called by preview
 protected function sort($arr) {
 	return $arr;
 }
-protected function getTab($dir) {
-	$out = STR::between($dir, $this->dir.DIR_SEP, DIR_SEP);
-	return FSO::join($this->dir, $out);
-}
 protected function saveRes($val) {
 	ENV::set("search.last", $val);
 }
@@ -135,7 +134,6 @@ protected function getParms($what) {
 // ***********************************************************
 protected function getPaths() {
 	$dir = dirname(TAB_PATH);
-
 	$fil = FSO::join($dir, "tab.ini");
 	$typ = PGE::prop($fil, "props.typ");
 

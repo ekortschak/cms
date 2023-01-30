@@ -32,9 +32,7 @@ function __construct() {
 // ***********************************************************
 // show current slide
 // ***********************************************************
-public function show($dir = NV) {
-	if ($dir == NV) $dir = PFS::getLoc();
-
+public function show($dir = CUR_PAGE) {
 	$arr = $this->getPics($dir);
 
 	if (! $arr) {

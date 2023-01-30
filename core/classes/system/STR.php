@@ -34,22 +34,18 @@ public static function join() {
 // ***********************************************************
 // checking string content
 // ***********************************************************
-public static function from($haystack, $needle) {
-	$out = self::before($haystack, $needle);
-	return $needle.$out;
-}
-
 public static function begins($haystack, $needle, $start = 0) {
 	$out = self::simplify($haystack, $needle); if (! $needle) return false;
 	$out = substr($out, $start, strlen(self::$sep));
 	return ($out == self::$sep);
 }
-
-public static function matches($haystack, $needle) {
-	$obj = new searchString($haystack);
-	return $obj->match($needle);
+public static function ends($haystack, $needle) {
+	$out = self::simplify($haystack, $needle); if (! $needle) return false;
+	$out = substr($out, -strlen(self::$sep));
+	return ($out == self::$sep);
 }
 
+// ***********************************************************
 public static function misses($haystack, $needle) {
 	return (! self::contains($haystack, $needle));
 }
@@ -60,30 +56,15 @@ public static function contains($haystack, $needle) {
 	return ($pos > 0);
 }
 
-public static function ends($haystack, $needle) {
-	$out = self::simplify($haystack, $needle); if (! $needle) return false;
-	$out = substr($out, -strlen(self::$sep));
-	return ($out == self::$sep);
+public static function matches($haystack, $needle) {
+	$obj = new searchString($haystack);
+	return $obj->match($needle);
 }
 
-public static function last($haystack, $needle) {
-	$arr = VEC::explode($haystack, $needle);
-	return end($arr);
-}
-
-public static function conv2utf8($string) {
-	$arr = ['UTF-8', 'ASCII', 'ISO-8859-1'];
-
-	foreach ($arr as $chs) {
-		$chk = mb_detect_encoding($string, $arr);
-		if ($chk == "UTF-8") return $string;
-	}
-	return mb_string_encoding($string, "UTF-8");
-}
-
-public static function utf8decode($string) {
-	$out = utf8_decode($string);
-	return STR::afterX($out, "?"); // because of utf8_decode();
+// ***********************************************************
+public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
+	$lst = str_split($lst);
+	return self::contains($text, $lst);
 }
 
 // ***********************************************************
@@ -109,14 +90,19 @@ public static function find($haystack, $sep1, $sep2) {
 // ***********************************************************
 // finding sub strings
 // ***********************************************************
-public static function left($txt, $len = 3, $norm = true) {
-	$txt = trim($txt);
+public static function from($haystack, $needle) {
+	$out = self::after($haystack, $needle); if (! $out) return false;
+	return $needle.$out;
+}
+
+public static function left($text, $len = 3, $norm = true) {
+	$txt = trim($text);
 	$txt = substr($txt, 0, $len); if ($norm)
 	$txt = strtolower($txt);
 	return $txt;
 }
-public static function right($txt, $len = 3, $norm = true) {
-	return self::left($txt, $len * -1, $norm);
+public static function right($text, $len = 3, $norm = true) {
+	return self::left($text, $len * -1, $norm);
 }
 
 public static function count($haystack, $needle) {
@@ -138,45 +124,31 @@ public static function between($haystack, $sep1 = "(", $sep2 = ")", $trim = true
 }
 
 // ***********************************************************
-public static function afterAny($haystack, $sep = "\n", $trim = true) {
- //	find last $sep or return full string
-	if ( ! self::contains($haystack, $sep)) return $haystack;
-	$out = self::simplify($haystack, $sep).self::$sep;
-	$out = explode(self::$sep, $out);
+public static function afterLast($haystack, $needle = "\n", $trim = true) {
+ //	find last $needle or return full string
+	if ( ! self::contains($haystack, $needle)) return $haystack;
+	$out = self::simplify($haystack, $needle);
+	$out = explode(self::$needle, $out);
 	$out = end($out);
 	return ($trim) ? trim($out) : $out;
 }
 
-public static function after($haystack, $sep = "\n", $trim = true) {
- //	synonym for after1st
-	return self::after1st($haystack, $sep, $trim);
-}
-public static function after1st($haystack, $sep = "\n", $trim = true) {
- //	find first $sep or return nothing
-	if ($haystack == $sep) return "";
-	if ( ! self::contains($haystack, $sep)) return false;
-	$pos = self::findPos($haystack, $sep);
+public static function after($haystack, $needle = "\n", $trim = true) {
+ //	find first $needle or return nothing
+	if ($haystack == $needle) return "";
+	if ( ! self::contains($haystack, $needle)) return false;
+	$pos = self::findPos( $haystack, $needle);
 	$out = substr($haystack, current($pos) + strlen(key($pos)));
 	return ($trim) ? trim($out) : $out;
 }
-public static function afterX($haystack, $sep = "\n", $trim = true) {
- //	find first $sep or return full string
-	if ( ! self::contains($haystack, $sep)) return $haystack;
-	return self::after1st($haystack, $sep, $trim);
-}
-
-public static function startingat($haystack, $needle) {
-	$out = self::after($haystack, $needle); if (! $out) return false;
-	return $needle.$out;
-}
-
-public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
-	$lst = str_split($lst);
-	return self::contains($text, $lst);
+public static function afterX($haystack, $needle = "\n", $trim = true) {
+ //	find first $needle or return full string
+	$out = self::after($haystack, $needle, $trim);
+	return ($out) ? $out : $haystack;
 }
 
 // ***********************************************************
-// removing from string
+// cleaning strings
 // ***********************************************************
 public static function clear($haystack, $substring) {
 	return str_ireplace($substring, "", $haystack);
@@ -210,9 +182,9 @@ public static function dropSpaces($code) {
 	$out = $code;
 
 	$out = preg_replace("~ (\s*?)~", " ", $out);   // multiple blanks
-	$out = self::replace($out, "\n ", "\n");        // leading blank
-	$out = self::replace($out, " \n", "\n");        // trailing blank
-	$out = self::replace($out, "_\n", "");          // join lines
+	$out = self::replace($out, "\n ", "\n");       // leading blank
+	$out = self::replace($out, " \n", "\n");       // trailing blank
+	$out = self::replace($out, "_\n", "");         // join lines
 	$out = preg_replace("~\n(\n*?)~", "\n", $out); // multiple line feeds
 
 	if (self::ends($out, "_")) return trim($out, "_");
@@ -252,42 +224,8 @@ public static function markup($haystack, $from, $to) {
 }
 
 public static function mark($haystack, $find) {
-	$fnd = str_replace("|", " ", $find);
-
 	$obj = new searchString($haystack);
-	$lst = $obj->split($fnd);
-	$lst = VEC::sortByLen($lst);
-
-	$out = $haystack; if (self::contains($out, "<mark")) return $out;
-	$cnt = 0;
-
-	foreach ($lst as $itm) {
-		$idx = $cnt++ % 5 + 1;
-		$out = self::markit($out, $itm, $idx);
-	}
-	return $out;
-}
-private static function markit($haystack, $find, $idx) {
-	$lst = count(explode("^", $find));
-	$rep = "<mark$idx>$1</mark$idx>";
-
-
-	if ($lst > 2) $rep = "$1<mark>$2</mark>$3"; else
-	if ($lst > 1) {
-		if (self::ends($find, "^")) $rep = "<mark>$1</mark>$2";
-		else $rep = "$1<mark>$2</mark>";
-	}
-	$fnd = preg_quote($find);
-	$fnd = "($fnd)";
-	$fnd = str_replace("(\^", "^(", $fnd);
-	$fnd = str_replace("\^)", ")^", $fnd);
-	$fnd = str_replace("^", "(\W+)", $fnd);
-
-	$out = preg_replace("~$fnd~i", $rep, $haystack);
-# TODO: no marking in html-tags
-#	$out = preg_replace("~<(.*?)$fnd(.*?)>~i",  "<$1$2>",  $haystack);
-#	$out = preg_replace("~</(.*?)$fnd(.*?)>~i", "</$1$2>", $haystack);
-	return $out;
+	return $obj->hilite($find);
 }
 
 // ***********************************************************
@@ -304,7 +242,7 @@ public static function split($haystack, $sep1, $sep2 = "") {
 	return $out;
 }
 
-public static function toArray($what, $seps = "std") {
+public static function toArray($text, $seps = "std") {
  // turns a string with various common separators into an array
 	switch ($seps) {
 		case "std": $seps = ".,; \n"; break;
@@ -312,7 +250,7 @@ public static function toArray($what, $seps = "std") {
 	}
 	$del = self::$sep;
 	$sep = str_split($seps);
-	$txt = str_replace($sep, $del, $what);
+	$txt = str_replace($sep, $del, $text);
 	$arr = explode($del, $txt);
 	$out = array();
 
@@ -323,9 +261,9 @@ public static function toArray($what, $seps = "std") {
 	return $out;
 }
 
-public static function toAssoc($what, $seps = "ref") {
-	$arr = self::toArray($what, $seps);
-	if ( ! self::contains($what, ":=")) return array_combine($arr, $arr);
+public static function toAssoc($text, $seps = "ref") {
+	$arr = self::toArray($text, $seps);
+	if ( ! self::contains($text, ":=")) return array_combine($arr, $arr);
 	$out = array();
 
 	foreach ($arr as $val) {
@@ -353,16 +291,34 @@ public static function toNumber($val, $fmt = "de") {
 	return $out;
 }
 
-public static function dec($val) {
+public static function toDec($val) {
 	return number_format($val, 0, ",", ".");
 }
-public static function int($val) {
+public static function toInt($val) {
 	return intval($val);
 }
 
 public static function maskPwd($pwd) {
 	if (strlen($pwd) == 32) return $pwd;
 	return md5($pwd);
+}
+
+// ***********************************************************
+// handling utf8
+// ***********************************************************
+public static function conv2utf8($string) {
+	$arr = ['UTF-8', 'ASCII', 'ISO-8859-1'];
+
+	foreach ($arr as $chs) {
+		$chk = mb_detect_encoding($string, $arr);
+		if ($chk == "UTF-8") return $string;
+	}
+	return mb_string_encoding($string, "UTF-8");
+}
+
+public static function utf8decode($string) {
+	$out = utf8_decode($string);
+	return STR::afterX($out, "?"); // because of utf8_decode();
 }
 
 // ***********************************************************

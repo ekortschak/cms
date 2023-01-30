@@ -1,8 +1,5 @@
 <?php
 
-$loc = PFS::getLoc();
-$loc = APP::dir($loc);
-
 // ***********************************************************
 // get options
 // ***********************************************************
@@ -18,7 +15,7 @@ $ovr = $qik->gc();
 $fls = array(
 	"banner"  => "Banner",
 	"head"    => "Head",
-	"content" => "Content",
+	"page"    => "Content",
 	"help"    => "Help",
 	"tail"    => "Tail",
 	"trailer" => "Trailer",
@@ -35,7 +32,8 @@ $ext = array(
 incCls("menus/dropBox.php");
 
 $box = new dropBox();
-$box->getKey("sys.file", $fls, "content");
+$box->hideDesc();
+$box->getKey("sys.file", $fls, "page");
 $box->getKey("sys.lang", $lgs, "xx");
 $box->getKey("sys.ext",  $ext);
 
@@ -49,10 +47,10 @@ incCls("files/dirView.php");
 $tpl = new dirView();
 $tpl->load("editor/menu.files.tpl");
 $tpl->set("choice", $drp);
-$tpl->set("curloc", $loc);
+$tpl->set("curloc", CUR_PAGE);
 $tpl->set("visOnly", false);
 $tpl->set("overwrite", $ovr);
-$tpl->readTree($loc);
+$tpl->readTree(CUR_PAGE);
 $tpl->show();
 
 ?>

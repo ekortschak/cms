@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Optionen
+tooltip = <p>Wörterbuch-Tools.</p>
+
+[en]
+caption = Options
+tooltip = <p>Dictionary tools.</p>

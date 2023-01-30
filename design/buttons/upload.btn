@@ -1,9 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/file.upload.png
 
-[info]
-<p>Upload files to the current folder (menu item).</p>
+[de]
+caption = 
+tooltip = Dateien für den aktuellen Menüpunkt hochladen.
 
-[info.de]
-<p>Dateien für den aktuellen Menüpunkt hochladen.</p>
+[en]
+caption = 
+tooltip = Upload files to the current folder (menu item).

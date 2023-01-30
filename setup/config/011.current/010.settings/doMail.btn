@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Mailing
+tooltip = <p>E-Mail Einstellugen.</p>
+
+[en]
+caption = Mailing
+tooltip = <p>Mail settings.</p>

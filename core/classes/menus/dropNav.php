@@ -26,17 +26,6 @@ function __construct($suit = "nav") {
 }
 
 // ***********************************************************
-// display variants
-// ***********************************************************
-public function display($mode) {
-	switch ($mode) {
-#		case "xxxx": $tpl = "menus/xxxx.tpl"; break;
-		default: return;
-	}
-	$this->load($tpl);
-}
-
-// ***********************************************************
 // overruled methods
 // ***********************************************************
 public function getKey($qid, $data, $selected = false) {

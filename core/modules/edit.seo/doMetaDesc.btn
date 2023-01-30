@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Meta-Desc
+tooltip = Ergänzt page.ini-Dateien um Meta-Beschreibung.
+
+[en]
+caption = Meta-Desc
+tooltip = Adds meta-description to page.ini files.

@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Datenbank
+tooltip = <p>Database settings.</p>
+
+[en]
+caption = Database
+tooltip = <p>Datenbank-Einstellungen</p>

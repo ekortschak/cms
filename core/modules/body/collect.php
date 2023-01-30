@@ -2,8 +2,7 @@
 # a collection will collect all subdirectories of the current page
 # (first # level only) and display according to the given template
 
-$loc = PFS::getLoc();
-$arr = APP::folders($loc);
+$arr = APP::folders(CUR_PAGE);
 $sel = ENV::getParm("coll");
 $lst = array();
 
@@ -15,9 +14,7 @@ if (count($arr) < 1) {
 // read subdirs
 // ***********************************************************
 foreach ($arr as $dir => $itm) {
-	$ini = new ini();
-	$ini->read($dir);
-
+	$ini = new ini($dir);
 	$lst[$dir] = $ini->getHead();
 }
 

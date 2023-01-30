@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/db/login.gif
 url = APP_CALL?vmode=login
 
-[info]
-<p>Will call the user registration pages.</p>
+[de]
+caption = 
+tooltip = Ruft die Benutzer-Anmeldung auf.
 
-[info.de]
-<p>Ruft die Benutzer-Anmeldung auf.</p>
+[en]
+caption = 
+tooltip = Will call the user registration pages.

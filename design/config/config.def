@@ -9,7 +9,6 @@ security = Security
 environment = Environment
 debugging = Debugging
 languages = Languages
-std_lang = Principal language
 gen_lang = Fallback language
 colors = Colors
 secret = Encryption key
@@ -31,7 +30,6 @@ security = Sicherheit
 environment = Umgebung
 debugging = Fehlersuche
 languages = Sprachen
-std_lang = Hauptsprache
 gen_lang = Ersatzsprache
 colors = Farben
 secret = Schlüssel
@@ -47,7 +45,6 @@ err_show = Fehler anzeigen
 PRJ_TITLE = Free CMS
 VERSION = 1.1
 LANGUAGES = de.en
-STD_LANG = de
 GEN_LANG = en
 
 [design]

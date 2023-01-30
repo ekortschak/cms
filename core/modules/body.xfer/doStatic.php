@@ -20,12 +20,6 @@ else {
 }
 
 // ***********************************************************
-// set data
-// ***********************************************************
-$dir = PFS::getLoc();
-$arr = PFS::getData("dat");
-
-// ***********************************************************
 // options
 // ***********************************************************
 incCls("menus/qikLink.php");
@@ -43,7 +37,7 @@ $msg = DIC::get("static.create");
 
 $cnf = new confirm();
 $cnf->head($msg);
-$cnf->dic("from", $dir);
+$cnf->dic("from", CUR_PAGE);
 $cnf->add("&rarr; $dst");
 $cnf->add("<hr>");
 $cnf->add($prv);
@@ -54,6 +48,8 @@ if (!$cnf->act()) return;
 // ***********************************************************
 // create static files
 // ***********************************************************
+$arr = PFS::getData("dat");
+
 $xfm->pages($arr);
 $xfm->report();
 

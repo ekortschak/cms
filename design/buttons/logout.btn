@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/db/logout.gif
 url = APP_CALL?dmode=logout
 
-[info]
-<p>Will log off the current user.</p>
+[de]
+caption = 
+tooltip = Meldet den aktuellen Benutzer ab.</p
 
-[info.de]
-<p>Meldet den aktuellen Benutzer ab.</p>
+[en]
+caption = 
+tooltip = Will logout the current user.

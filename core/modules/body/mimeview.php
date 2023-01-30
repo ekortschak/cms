@@ -1,11 +1,7 @@
 <?php
 
-$loc = PFS::getLoc();
-
-// ***********************************************************
-$ini = new ini();
-$ext = $ini->get("props.ext", "pics");
-$dir = $ini->get("props.path", $loc);
+$ext = PGE::get("props.ext", "pics");
+$dir = PGE::get("props.path", CUR_PAGE);
 
 $arr = FSO::files($dir);
 $arr = FSO::filter($arr, $ext);

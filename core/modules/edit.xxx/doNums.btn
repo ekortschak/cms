@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = \#.\#\#\#
+tooltip = Ersetzt Zahlwörter durch Zahlen.
+
+[en]
+caption = \#.\#\#\#
+tooltip = Turns numbers in words into digits.

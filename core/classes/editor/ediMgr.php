@@ -47,12 +47,12 @@ public function getEditors() { return $this->edt; }
 // methods
 // ***********************************************************
 private function findType($file) {
-	$ext = FSO::ext($file, true);
+	$ext = FSO::ext($file, true); $ext = ".$ext.";
 
-	if (STR::contains(".php.", $ext)) return "code";
-	if (STR::contains(".ini.", $ext)) return "ini";
-	if (STR::contains(".dic.", $ext)) return "dic";
-	if (STR::contains(".css.", $ext)) return "css";
+	if (STR::contains(".php.",         $ext)) return "code";
+	if (STR::contains(".ini.btn.def.", $ext)) return "ini";
+	if (STR::contains(".dic.",         $ext)) return "dic";
+	if (STR::contains(".css.",         $ext)) return "css";
 	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
 
 	if (STR::contains(".htm.", $ext)) {
@@ -77,7 +77,7 @@ private function findList($typ) {
 public function show($tool = NV) {
 	if ($tool == NV) $tool = key($this->edt);	
 	if (! $tool) $tool = "text";
-	
+
 	if ($tool == "ini")   return $this->showCom("editIni");
 	if ($tool == "dic")   return $this->showCom("editDic");
 	if ($tool == "css")   return $this->showCss("editCss");

@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/debug.png
 url = x.edit.php?vmode=debug
 
-[info]
-<p>Switches to debug mode.</p>
+[de]
+caption = 
+tooltip = Switches to debug mode.
 
-[info.de]
-<p>Wechselt in den Debug-Modus.</p>
+[en]
+caption = 
+tooltip = Wechselt in den Debug-Modus.

@@ -52,19 +52,20 @@ public function gc($btn = "view") {
 // ***********************************************************
 // setting props
 // ***********************************************************
-public function read($btn = "view") {
-	$fil = APP::file($btn); if (! is_file($fil))
+public function read($btn) {
+	$fil = APP::file($btn); if (! $fil)
 	$fil = FSO::join(LOC_BTN, "$btn.btn");
+	$tip = ENV::get("opt.tooltip");
 
 	$cod = new code();
 	$cod->read($fil);
 	$this->merge($cod->getValues());
 
-	$this->set("link",    $cod->getProp("url"));
-	$this->set("target",  $cod->getProp("trg"));
-	$this->set("caption", $cod->getProp("caption"));
-	$this->set("pic",     $cod->getProp("pic"));
-	$this->set("tip",     $cod->getTip());
+	$this->set("pic",     $this->get("props.pic"));
+	$this->set("link",    $this->get("props.url"));
+	$this->set("target",  $this->get("props.trg"));
+	$this->set("caption", $this->lng("caption")); if ($tip)
+	$this->set("tip",     $this->lng("tooltip"));
 	$this->set("class",  "icon");
 }
 

@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = 🔗BOOL_YES
+tooltip = Sucht nach broken Links.
+
+[en]
+caption = 🔗BOOL_YES
+tooltip = Searches for broken links.

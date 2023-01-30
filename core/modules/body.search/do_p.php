@@ -8,14 +8,16 @@ $old = "";
 
 foreach ($fls as $fil => $arr) {
 	$dir = dirname($fil);
-	$num = intval(STR::between(basename($fil), ".", "."));
+	$nam = basename($fil);
+	
+	$num = STR::between($nam, ".", "."); $num = intval($num);
 	$tit = PGE::getTitle($dir);
 	$uid = PGE::getUID($dir, "props.uid");
 	$cnt = 0;
 
 	$tpl->set("topic", $tpc);
 	$tpl->set("titel", $tit);
-	$tpl->set("page", $uid);
+	$tpl->set("page",  $uid);
 
 	foreach ($arr as $txt) {
 		if ($cnt++ > 0)

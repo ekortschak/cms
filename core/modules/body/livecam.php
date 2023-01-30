@@ -1,7 +1,6 @@
 <?php
 
-$ini = new ini();
-$url = $ini->get("props.ip", "localhost");
+$url = PGE::get("props.ip", "localhost");
 
 if (! $url) {
 	return ERR::msg("no.IP");

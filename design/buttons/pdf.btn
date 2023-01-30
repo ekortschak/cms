@@ -1,10 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/file.pdf.png
 
-[info]
-<p>Single pages are used to convert page content to <b>PDF</b> or <b>Word</b> documents.</p>
+[de]
+caption = 
+tooltip = Diese Option wird benötigt, um Inhalte in ein <b>PDF-Dokument</b> zu verwandeln oder <b>Word-Dokumente</b> zu erstellen.
 
-[info.de]
-<p>Diese Option wird benötigt, um Inhalte in ein <b>PDF-Dokument</b> zu verwandeln oder <b>Word-Dokumente</b> zu erstellen.</p>
-
+[en]
+caption = 
+tooltip = Single pages are used to convert page content to <b>PDF</b> or <b>Word</b> documents.

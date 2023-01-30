@@ -1,9 +1,10 @@
 [props]
+pic = 
+
+[de]
 caption = A &rarr; a
-pic =
+tooltip = Eintrag umbenennen.
 
-[info]
-<p>Rename a table.</p>
-
-[info.de]
-<p>Tabellen umbenennen.</p>
+[en]
+caption = A &rarr; a
+tooltip = Rename item

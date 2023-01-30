@@ -17,9 +17,8 @@ $obj = new saveFile();
 // ***********************************************************
 // show title
 // ***********************************************************
-$loc = PFS::getLoc();
-$tit = PGE::getTitle($loc);
-$fil = APP::find($loc);
+$fil = APP::find(CUR_PAGE);
+$tit = PGE::getTitle();
 
 HTW::tag($tit, "h3");
 
@@ -29,7 +28,7 @@ HTW::tag($tit, "h3");
 $cur = basename(ENV::get("pic.file"));
 
 $box = new dropBox("menu");
-$fil = $box->anyfiles($loc, "pic.file");
+$fil = $box->anyfiles(CUR_PAGE, "pic.file");
 $fil = $box->focus("pic.file", $cur, $fil);
 
 // ***********************************************************

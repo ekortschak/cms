@@ -273,6 +273,7 @@ protected function getNewer($src, $dst) {
 	}
 
 	foreach ($lst as $fso => $prp) { // check dates
+		$chk = $this->chkPattern($fso); if (! $chk) continue;
 		$inf = $this->chkProps($prp); extract($inf); 
 		
 		if ($md5s === $md5d) continue;
@@ -363,6 +364,12 @@ protected function chkCount($arr) {
 		if (! $itm) unset($arr[$key]);
 	}
 	return $arr;
+}
+
+// ***********************************************************
+protected function chkPattern($fso) {
+	return true;
+	if (! STR::contains($fso, "page.ini")) return false;
 }
 
 // ***********************************************************

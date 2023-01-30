@@ -35,9 +35,7 @@ public static function getOthers() {
 }
 
 public static function getRel($blank = false) {
-	$out = self::getArr(CUR_LANG.".xx.".GEN_LANG); if (! $blank) return $out;
-	$out = self::getArr(CUR_LANG.".xx.".GEN_LANG); $out["*"] = "";
-	return $out;
+	return self::getArr(CUR_LANG.".xx.".GEN_LANG);
 }
 // ***********************************************************
 public static function isCurrent($file) {
@@ -53,7 +51,7 @@ public static function isCurrent($file) {
 
 // ***********************************************************
 public static function find($lang) {
-	$lgs = LANGUAGES;
+	$lgs = LANGUAGES; if (! $lang) return GEN_LANG;
 	if (STR::contains(".$lgs.", ".$lang.")) return $lang;
 	return GEN_LANG;
 }

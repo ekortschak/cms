@@ -121,6 +121,7 @@ private function deRefSrc($txt, $sep1, $sep2) {
 	foreach ($arr as $lnk) {
 		$dst = STR::clear($lnk, $rut);
 		$dst = FSO::join($this->dir, "res", $dst);
+dbg("CHECK ME");
 		$url = STR::from($dst, $res);
 		$url = ltrim($url, DIR_SEP);
 		$txt = STR::replace($txt, $lnk, $url);

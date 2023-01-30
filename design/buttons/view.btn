@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/view.png
 url = index.php?vmode=view
 
-[info]
-<p>Switches to default view mode.</p>
+[de]
+caption = 
+tooltip = Wechselt in die Standard-Ansicht.
 
-[info.de]
-<p>Wechselt in die Standard-Ansicht.</p>
+[en]
+caption = 
+tooltip = Switches to default view mode.

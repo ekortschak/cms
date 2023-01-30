@@ -36,15 +36,6 @@ public function setChoice($options) {
 	$this->vals = $options;
 }
 
-protected function setValue($value = NV) {
-	$val = $this->findKey($value);
-	$val = $this->getValue($val);
-	$xxx = $this->set("curVal", $val);
-}
-private function findKey($key) {
-	return VEC::find($this->vals, $key, $key);
-}
-
 // ***********************************************************
 // overruled methods
 // ***********************************************************

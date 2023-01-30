@@ -1,7 +1,6 @@
 <?php
 
-$loc = PFS::getLoc();
-$dir = FSO::join($loc, "snip");
+$dir = FSO::join(CUR_PAGE, "snip");
 $arr = FSO::files($dir);
 $lst = array();
 

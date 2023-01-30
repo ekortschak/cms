@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Schaltflächen
+tooltip = <p>Standard-Schaltflächen bearbeiten.</p>
+
+[en]
+caption = Buttons
+tooltip = <p>Edit standard buttons.</p>

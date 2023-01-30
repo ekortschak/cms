@@ -34,13 +34,6 @@ function __construct() {
 // ***********************************************************
 // handling the template
 // ***********************************************************
-public function fetch($dir, $file) {
-	$dir = APP::relPath($dir);
-	$ful = FSO::join($dir, $file);
-#	$ful = APP::file($fil); if (! $ful) $ful = $file;
-	return self::read($ful);
-}
-
 public function load($file) {
 	return self::read("LOC_TPL/$file");
 }

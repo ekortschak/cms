@@ -85,9 +85,8 @@ private function getItems($fil, $lng) {
 }
 
 private function showSel($arr) {
-	$box = new dropNav();
+	$box = new dropNav("menu2");
 	$key = $box->getKey("dic.item", $arr);
-	$xxx = $box->setClass("submenu");
 	$xxx = $box->show();
 	return $key;
 }

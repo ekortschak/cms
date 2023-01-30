@@ -1,9 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/static.png
 
-[info]
-<p>Create a static menu.</p>
+[de]
+caption = 
+tooltip = Statisches Menü erstellen.
 
-[info.de]
-<p>Statisches Menü erstellen.</p>
+[en]
+caption = 
+tooltip = Create a static menu.

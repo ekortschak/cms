@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Sicherung
+tooltip = Diese Funktion dient zur Übertragung der Dateien auf andere Medien.
+
+[en]
+caption = Backup
+tooltip = Use this feature to transfer the project to other media.

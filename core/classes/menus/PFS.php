@@ -94,19 +94,13 @@ public static function getData($index = false) {
 // ***********************************************************
 // handling location
 // ***********************************************************
-public static function getLoc($pge = NV) {
-	if ($pge == NV) return ENV::get("loc");
-
-	$loc = self::getIndex($pge);
-	return $loc;
-}
-
 private static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
 
 	ENV::set("loc", $loc);
 	ENV::set("pge.".TAB_HOME, $loc);
+	PGE::load($loc);
 }
 
 private static function chkLoc($dir) {

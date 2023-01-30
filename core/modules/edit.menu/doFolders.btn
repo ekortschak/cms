@@ -1,0 +1,10 @@
+[props]
+pic = ICONS/files/folder.gif
+
+[de]
+caption = Ordner
+tooltip = Edit and create menu items.
+
+[en]
+caption = Folder
+tooltip = Menüpunkte erstellen und bearbeiten.

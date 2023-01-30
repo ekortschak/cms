@@ -1,9 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/clipboard.png
 
-[info]
-<p>Move or copy menu items (including sub itmes) to the clipboard in order to reinsert them elsewhere.</p>
+[de]
+caption = 
+tooltip = Menü-Zweige in die Zwischenablage verschieben oder kopieren, um sie später an anderer Stelle wieder einzufügen.
 
-[info.de]
-<p>Menü-Zweige in die Zwischenablage verschieben oder kopieren, um sie später an anderer Stelle wieder einzufügen.</p>
+[en]
+caption = 
+tooltip = Move or copy menu items (including sub itmes) to the clipboard in order to reinsert them elsewhere.

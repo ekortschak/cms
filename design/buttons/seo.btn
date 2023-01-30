@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/google.png
 url = x.edit.php?vmode=seo
 
-[info]
-<p>Calls functions for Search Engine Optimization.</p>
+[de]
+caption = 
+tooltip = Ruft Funktionen zu Suchmaschinenoptimierung auf.
 
-[info.de]
-<p>Ruft Funktionen zu Suchmaschinenoptimierung auf.</p>
+[en]
+caption = 
+tooltip = Calls functions for Search Engine Optimization.

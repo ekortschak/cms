@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Webseite
+tooltip = <p>Allgemeine Einstellungen</p>
+
+[en]
+caption = Website
+tooltip = <p>General settings</p>

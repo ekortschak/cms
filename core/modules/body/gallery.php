@@ -1,13 +1,8 @@
 <?php
 
-$loc = PFS::getLoc();
-
-// ***********************************************************
-$ini = new ini();
-$ext = $ini->get("props.ext", "pdf, txt, doc, docx");
-$dox = $ini->get("props.path", $loc);
-$srt = $ini->get("props.sort");
-$exc = $ini->getType("inc");
+$ext = PGE::get("props.ext", "pdf, txt, doc, docx");
+$dox = PGE::get("props.path", CUR_PAGE);
+$srt = PGE::get("props.sort");
 
 // ***********************************************************
 incCls("files/dirView.php");

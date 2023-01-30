@@ -1,8 +1,10 @@
 [props]
+pic = 
+
+[de]
 caption = BOOL_NO
+tooltip = Eintrag löschen
 
-[info]
-<p>Drop a reference file.</p>
-
-[info.de]
-<p>Referenz-Datei löschen.</p>
+[en]
+caption = BOOL_NO
+tooltip = Delete item

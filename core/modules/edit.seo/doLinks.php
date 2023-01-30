@@ -9,12 +9,11 @@ HTW::xtag("links.check");
 // ***********************************************************
 // get parameters
 // ***********************************************************
-$loc = PFS::getLoc();
 $lng = CUR_LANG;
 
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->ronly("dir", $loc);
+$dir = $sel->ronly("dir", CUR_PAGE);
 $ptn = $sel->ronly("files", "$lng.htm");
 $act = $sel->show();
 

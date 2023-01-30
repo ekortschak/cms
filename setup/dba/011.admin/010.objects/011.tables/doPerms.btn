@@ -1,0 +1,10 @@
+[props]
+pic = ICONS/buttons/user.gif
+
+[de]
+caption = 
+tooltip = <p>Berechtigungen verwalten.</p>
+
+[en]
+caption = 
+tooltip = <p>Set privileges.</p>

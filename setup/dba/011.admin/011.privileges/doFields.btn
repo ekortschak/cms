@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Felder
+tooltip = <p>Feld-Berechtigungen.</p>
+
+[en]
+caption = Fields
+tooltip = <p>Field privileges.</p>

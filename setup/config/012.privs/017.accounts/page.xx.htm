@@ -1,0 +1,13 @@
+<?php
+
+incCls("menus/buttons.php");
+
+// ***********************************************************
+$nav = new buttons("accounts", "P", __DIR__);
+// ***********************************************************
+$nav->add("A", "doAdd",   "add");
+$nav->add("P", "doProps", "props");
+$nav->add("D", "doDrop",  "drop");
+$nav->show();
+
+?>

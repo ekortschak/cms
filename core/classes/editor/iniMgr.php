@@ -20,7 +20,7 @@ incCls("editor/iniEdit.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class iniMgr extends iniTpl {
+class iniMgr extends iniDef {
 
 function __construct($tplfile) {
 	parent::__construct($tplfile);
@@ -41,10 +41,11 @@ public function show() {
 
 		$inf = "[$sec]"; if (STR::contains(".$lgs.", ".$sec."))
 		$inf = HTM::flag($sec);
-
 		$sel->section($inf);
 
-		if (STR::ends($sec, "*")) { // memo sections
+		$typ = $this->getType($sec);
+
+		if ($typ == "tarea") { // memo sections
 			$val = $this->getSec($sec);
 			$sel->addInput($sec."[tarea]", $val, 15);
 		}

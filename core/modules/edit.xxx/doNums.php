@@ -8,12 +8,9 @@ HTW::xtag("nums.conv");
 // ***********************************************************
 // get parameters
 // ***********************************************************
-$loc = PFS::getLoc();
-$lng = CUR_LANG;
-
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->ronly("dir", $loc);
+$dir = $sel->ronly("dir", CUR_PAGE);
 $act = $sel->show();
 
 // ***********************************************************

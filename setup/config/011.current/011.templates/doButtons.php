@@ -15,6 +15,6 @@ $xxx = $box->show();
 // ***********************************************************
 $edi = new ediMgr();
 $edi->read($ful);
-$edi->show("code");
+$edi->show();
 
 ?>

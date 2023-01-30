@@ -1,9 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/file.copy.png
 
-[info]
-<p>Copy a table.</p>
+[de]
+caption = 
+tooltip = Tabellen kopieren.
 
-[info.de]
-<p>Tabellen kopieren.</p>
+[en]
+caption = 
+tooltip = Copy a table.

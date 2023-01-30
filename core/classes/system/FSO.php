@@ -132,11 +132,10 @@ public static function rmDir($src) {
 // ***********************************************************
 // methods for menus
 // ***********************************************************
-public static function parents($dir = "CURDIR") {
-	if ($dir == "CURDIR") $dir = PFS::getLoc();
-	if (  is_file($dir))  $dir = dirname($dir);
-	if (! is_dir($dir))   $dir = APP::dir($dir);
-	if (! is_dir($dir))	  return array();
+public static function parents($dir = CUR_PAGE) {
+	if (  is_file($dir)) $dir = dirname($dir);
+	if (! is_dir ($dir)) $dir = APP::dir($dir);
+	if (! is_dir ($dir)) return array();
 
 	$dir = APP::relPath($dir);
 	$out[] = $dir;

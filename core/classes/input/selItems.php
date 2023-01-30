@@ -91,10 +91,8 @@ private function inpDBox($class, $type, $uid, $vls, $sel = NV) {
 	$inp = new $class($this->oid);
 	$inp->setProps($this->vls, $this->dic);
 	$inp->init($type, $uid, $sel);
+	$inp->setChoice($vls);
 
-	$sel = $inp->setChoice($vls);
-
-	$this->setOidVal($uid, $sel);
 	$this->add($uid, $inp);
 	return $inp->getValue($sel);
 }

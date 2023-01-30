@@ -10,10 +10,10 @@ Intended to simplify handling of mysql database queries
 // ***********************************************************
 incCls("dbase/syntax/mysql.php");
 
-$obj = new mysql($dbase);
-$xxx = $obj->connect($user, $pwd);
-$arr = $obj->fetch($qry);
-$arr = $obj->fetch1st($qry);
+$dbo = new mysql($dbase);
+$xxx = $dbo->connect($user, $pwd);
+$arr = $dbo->fetch($qry);
+$arr = $dbo->fetch1st($qry);
 
 */
 

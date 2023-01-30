@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Konstante
+tooltip = <p>Konstante bearbeiten.</p>
+
+[en]
+caption = Constants
+tooltip = <p>Edit constants.</p>

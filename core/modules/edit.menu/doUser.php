@@ -1,7 +1,5 @@
 <?php
 
-$loc = PFS::getLoc();
-
 // ***********************************************************
 // get user list from config file
 // ***********************************************************
@@ -9,7 +7,7 @@ $ini = new ini("config/users.ini");
 $arr = $ini->getValues($ful, "user"); ksort($arr);
 
 $ini = new code();
-$xxx = $ini->readPath($loc);
+$xxx = $ini->readPath(CUR_PAGE);
 $prm = $ini->getValues("perms");
 
 // ***********************************************************

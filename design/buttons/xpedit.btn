@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/edit.png
 url = config.php?vmode=pedit
 
-[info]
-<p>Switches to page editor mode for setup pages.</p>
+[de]
+caption = 
+tooltip = Wechsetl zum Seiten-Editor für den Setup-Bereich.
 
-[info.de]
-<p>Wechsetl zum Seiten-Editor für den Setup-Bereich.</p>
+[en]
+caption = 
+tooltip = Switches to page editor mode for setup pages.

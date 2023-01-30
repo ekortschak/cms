@@ -1,9 +1,8 @@
 [props]
-caption = ???
 pic =
+url =
+trg = 
 
-[info.de]
-<p>Tool-Tip-Text.</p>
-
-[info]
-<p>Tool-Tip-Text.</p>
+[CUR_LANG]
+caption = 
+tooltip = 

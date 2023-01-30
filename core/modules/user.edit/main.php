@@ -24,7 +24,7 @@ else {
 	$nav->add("L", "doLogout");
 	$nav->add("E", "doData");
 	$nav->add("R", "doReset");
-	$nav->add("D", "doDrop");
+	$nav->add("D", "doDrop", "drop");
 }
 
 // ***********************************************************

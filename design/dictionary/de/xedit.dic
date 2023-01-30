@@ -6,6 +6,7 @@ file.pattern = Dateityp
 files = Dateien
 files.rename = Dateien umbenennen
 files.search = Dateien durchsuchen
+files.containing = Dateien mit
 find = Find*
 links.check = Links überprüfen
 loc = Loc*

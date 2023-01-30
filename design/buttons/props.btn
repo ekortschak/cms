@@ -1,10 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/props.png
 
+[de]
+caption = 
+tooltip = Eigenschaften bearbeiten.</p
 
-[info]
-<p>Modify item properties.</p>
-
-[info.de]
-<p>Eigenschaften bearbeiten.</p>
+[en]
+caption = 
+tooltip = Modify item properties.

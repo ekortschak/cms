@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = FTP
+tooltip = <p>FTP-Einstellugen.</p>
+
+[en]
+caption = FTP
+tooltip = <p>FTP properties.</p>

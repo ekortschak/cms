@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Farben
+tooltip = <p>Farb-Einstellungen bearbeiten.</p>
+
+[en]
+caption = Colors
+tooltip = <p>Edit color settings.</p>

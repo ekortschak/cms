@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Mitgliedsschaften
+tooltip = <p>Gruppen-Mitgliedschaften verwalten.</p>
+
+[en]
+caption = Memberships
+tooltip = <p>Add or remove users to user groups.</p>

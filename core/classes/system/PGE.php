@@ -10,12 +10,18 @@ page related functionality
 // BEGIN OF CLASS
 // ***********************************************************
 class PGE {
-	private static $tpc = "";
+	private static $sets = ""; // tabsets
+	private static $tabs = ""; // tabs
+	private static $tpcs = ""; // topics
+	
+	private static $tpc = "";  // current topic
+
+	private static $pinf = ""; // properties of current page
 
 public static function init() {
 	$idx = APP_IDX;
 	$tab = self::getTab();
-	$typ = self::getType($tab);
+	$typ = self::getTabType($tab);
 	$tpc = self::getTopic($tab, $typ);
 	$pge = self::getPage($tpc);
 
@@ -34,7 +40,52 @@ public static function init() {
 }
 
 // ***********************************************************
-// auxilliary methods
+// handling page props
+// ***********************************************************
+public static function load($dir) {
+	CFG::set("CUR_PAGE", $dir);
+
+	$ini = new ini($dir);
+	self::$pinf = $ini->getValues();
+
+#	self::$pinf["title"] = $ini->getTitle();
+#	self::$pinf["head"]  = $ini->getHead();
+#	self::$pinf["uid"]   = $ini->getUID();
+}
+
+public static function get($key, $default = false) {
+	return VEC::get(self::$pinf, $key, $default);
+}
+
+// ***********************************************************
+public static function getIncFile() {
+	$typ = self::get("props.typ", "include");
+	$typ = STR::left($typ);
+
+	if ($typ == "roo") return "include.php";  // root
+    if ($typ == "inc") return "include.php";  // default mode
+
+	if ($typ == "mim") return "mimeview.php"; // show files
+	if ($typ == "dow") return "download.php"; // download
+    if ($typ == "gal") return "gallery.php";  // show files
+    if ($typ == "upl") return "upload.php";   // upload
+	if ($typ == "cam") return "livecam.php";  // camera
+    if ($typ == "tut") return "tutorial.php"; // tutorial
+	if ($typ == "red") return "redirect.php"; // redirection to another local directory
+	if ($typ == "url") return "links.php";    // list of external links
+
+	if ($typ == "cha") return "chapters.php"; // multiple files
+	if ($typ == "col") { // collection of files in separate dirs
+		if (ENV::get("vmode") == "xfer") return "collect.xsite.php";
+		return "collect.php";
+	}
+	if ($typ == "dbt") return "dbtable.php";  // database table
+
+	return false;
+}
+
+// ***********************************************************
+// auxilliary methods for tabs
 // ***********************************************************
 private static function getTab() {
 	$tpc = ENV::getParm("tpc"); if ($tpc) {
@@ -53,7 +104,7 @@ private static function getTab() {
 }
 
 // ***********************************************************
-private static function getType($tab) {
+private static function getTabType($tab) {
 	$ini = new ini("$tab/tab.ini");
 	$typ = $ini->get("props.typ");
 	$std = $ini->get("props.std");
@@ -72,6 +123,8 @@ private static function getTopic($tab, $typ) {
 }
 
 // ***********************************************************
+// auxilliary methods for pages
+// ***********************************************************
 private static function getPage($tab) {
 	$pge = ENV::getParm("pge");  if ($pge) return $pge;
 	$pge = ENV::get("pge.$tab"); if ($pge) return $pge;
@@ -81,10 +134,19 @@ private static function getPage($tab) {
 	return $pge;
 }
 
+private static function langProp($prop) {
+	$out = self::get(CUR_LANG.".$prop"); if ($out) return $out;
+	$out = self::get(GEN_LANG.".$prop"); if ($out) return $out;
+	$out = self::get("xx.$prop");        if ($out) return $out;
+	$out = self::get($prop);             if ($out) return $out;
+	return false;
+}
+
+
 // ***********************************************************
 // common
 // ***********************************************************
-public static function getTitle($fso) {
+public static function getTitle($fso = CUR_PAGE) {
 	$ini = new ini($fso);
 	return $ini->getHead();
 }
@@ -98,9 +160,9 @@ public static function prop($fso, $key, $default = false) {
 	return $ini->get($key, $default);
 }
 
-protected static function getValues($fso) {
+protected static function getValues($fso, $sec = "*") {
 	$ini = new ini($fso);
-	return $ini->getValues();
+	return $ini->getValues($sec);
 }
 
 // ***********************************************************

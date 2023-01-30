@@ -1,3 +1,17 @@
+[dic]
+new.tab  = Add a new tab
+new.png  = vTab-pics
+del.png  = Delete tab pics
+node.new = e.g. pages/home
+create   = Add
+overwrite = Overwrite existing pics
+allsets  = Check all TabSets
+options  = Options
+cur.pic  = Current Image
+no.file  = No pic available
+cur.file = Location
+preview  = Preview
+
 [dic.de]
 new.tab  = Tab hinzufügen
 new.png  = Neue Tab-Bilder
@@ -12,19 +26,6 @@ no.file  = Keine Bilder vorhanden
 cur.file = Dateiname
 preview  = Vorschau
 
-[dic]
-new.tab  = Add a new tab
-new.png  = vTab-pics
-del.png  = Delete vTab-pics
-node.new = e.g. pages/home
-create   = Add
-overwrite = Overwrite existing pics
-allsets  = Check all TabSets
-options  = Options
-cur.pic  = Current Image
-no.file  = No pic available
-cur.file = Location
-preview  = Preview
 
 # ***********************************************************
 # create a new tab

@@ -1,9 +1,12 @@
 [props]
-caption =
 pic = ICONS/buttons/add.png
 
-[info*]
-<p>Add an item</p>
+[de]
+caption = 
+tooltip = Eintrag hinzufügen.
 
-[info.de*]
-<p>Eintrag hinzufügen</p>
+[en]
+caption = 
+tooltip = Add an item.
+
+

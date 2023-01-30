@@ -1,10 +1,22 @@
 [props]
-caption =
 pic = ICONS/buttons/save.png
+
+[de]
+caption = 
+tooltip = Änderungen speichern.
+
+[en]
+caption = 
+tooltip = save changes.
+
+
+[props]
+caption =
+pic = 
 
 
 [info]
-<p>save changes.</p>
+
 
 [info.de]
-<p>Änderungen speichern.</p>
+

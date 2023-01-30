@@ -1,9 +1,7 @@
 <?php
 
 $mds = ENV::get("vmode"); if (STR::begins($mds, "x")) return;
-
-$dir = PFS::getLoc();
-$arr = FSO::folders($dir);
+$arr = FSO::folders(CUR_PAGE);
 $out = "";
 
 // ***********************************************************
@@ -13,7 +11,7 @@ $tpl = new tpl();
 $tpl->load("msgs/sitemap.tpl");
 
 if (! $arr) {
-	$fil = APP::find($dir);
+	$fil = APP::find(CUR_PAGE);
 	$sec = ($fil) ? "empty" : "notyet";
 	return $tpl->show($sec);
 }

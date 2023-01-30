@@ -1,10 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/search.gif
 url = ?vmode=search
 
-[info]
-<p>Switches to search mode.</p>
+[de]
+caption = 
+tooltip = Schaltet in den Such-Modus.
 
-[info.de]
-<p>Schaltet in den Such-Modus.</p>
+[en]
+caption = 
+tooltip = Switches to search mode.

@@ -34,22 +34,19 @@ public function reset() {
 // ***********************************************************
 // display variants
 // ***********************************************************
-public function suit($mode) {
+private function suit($mode) {
 	switch ($mode) {
 		case "table":  $tpl = "menus/dropTable.tpl";  break;
 		case "inline": $tpl = "menus/dropInline.tpl"; break;
 		case "topics": $tpl = "menus/dropTopics.tpl"; break;
 		case "menu":   $tpl = "menus/dropMenu.tpl";   break;
+		case "menu2":  $tpl = "menus/dropMenu2.tpl";  break;
 		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
 		case "dbo":    $tpl = "menus/dropDbo.tpl";    break;
 		case "nav":    $tpl = "menus/dropNav.tpl";    break;
 		default: 	   $tpl = "menus/dropBox.tpl";
 	}
 	$this->load($tpl);
-}
-
-public function setClass($cls) {
-	$this->set("class", $cls);
 }
 
 public function hideDesc() {
@@ -142,13 +139,13 @@ public function getInput($qid, $value) {
 // ***********************************************************
 public function folders($dir, $parm = "pic.folder", $selected = false) {
 	$arr = APP::folders($dir); if (! $arr) return false;
-	$sel = array_search($selected, $arr);
+	$sel = VEC::find($arr, $selected);
 	return $this->getKey($parm, $arr, $sel);
 }
 public function files($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::files($dir); if (! $arr) return false;
+	$sel = VEC::find($arr, $selected);
 	$arr = $this->sortFiles($arr);
-	$sel = array_search($selected, $arr);
 	return $this->getKey($parm, $arr, $sel);
 }
 
@@ -156,7 +153,6 @@ public function anyfiles($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::files($dir, "*", false); if (! $arr) return false;
 	$sel = VEC::find($arr, $selected);
 	$arr = $this->sortFiles($arr);
-
 	return $this->getKey($parm, $arr, $sel);
 }
 
@@ -210,11 +206,9 @@ protected function collect($type) {
 			$sec = "$type.box"; if ($cnt < 2)
 			$sec = "$type.one";
 		}
-		else {
-			continue;
-		}
-		$this->set("links", $tmp);
+		else continue;
 
+		$xxx = $this->set("links", $tmp);
 		$out.= $this->getSection($sec);
     }
     return $out;

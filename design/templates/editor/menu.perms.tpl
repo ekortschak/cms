@@ -25,7 +25,7 @@ deny = verweigern
 <form method="post" action="?">
 	<table>
 		<tr class="rh">
-			<th width=120><!DIC:user!></th>
+			<th><!DIC:user!></th>
 			<th><!DIC:grant!></th>
 			<th><!DIC:inherit!></th>
 			<th><!DIC:deny!></th>

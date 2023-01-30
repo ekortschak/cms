@@ -86,16 +86,14 @@ public function addInput($fname, $vals, $val) {
 
 // ***********************************************************
 private function addObj($typ, $qid, $prm1, $prm2 = "", $prm3 = "") {
-	$cap = $qid;
-	if (STR::contains($qid, "@")) $cap = STR::afterX($qid, "@");
-	if (STR::contains($qid, "[")) $cap = STR::between($qid, "[", "]");
-
+	$cap = STR::afterX($qid, "@"); if (STR::contains($qid, "[")) 
+	$cap = STR::between($qid, "[", "]");
 	$cap = DIC::get($cap);
 
 	switch ($typ) {
 		case "memo":  $obj = $this->$typ($qid, $prm1, $prm2); return;
 		case "range": $obj = $this->$typ($qid, $prm1, $prm2, $prm3); break;
-		case "ronly": $obj = $this->$typ($qid, $prm2, $prm2); break;
+		case "ronly": $obj = $this->$typ($qid, $prm1, $prm2); break;
 		default:      $obj = $this->$typ($qid, $prm1, $prm2);
 	}
 	$xxx = $this->setProp("title", $cap);

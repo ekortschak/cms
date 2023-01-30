@@ -120,8 +120,8 @@ public static function makeUrl($fso) { // convert file to url
 	if (FSO::isUrl($fso)) return ""; if (! $fso) return "";
 
 	if (STR::begins($fso, ".".DIR_SEP)) { // e.g. local pics
-		$loc = PFS::getLoc();  $fil = substr($fso, 2);
-		return FSO::join($loc, $fil);
+		$fil = substr($fso, 2);
+		return FSO::join(CUR_PAGE, $fil);
 	}
 	$ful = APP::file($fso);
 	$rel = APP::relPath($ful);

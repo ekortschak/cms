@@ -1,0 +1,10 @@
+[props]
+pic = ICONS/buttons/file.upload.png
+
+[de]
+caption = cURL
+tooltip = Transfer the page to the web server (publishing).
+
+[en]
+caption = cURL
+tooltip = Dient zur Übertragung der Seite auf den Webserver.

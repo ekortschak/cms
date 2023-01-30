@@ -6,10 +6,8 @@
 // ***********************************************************
 // retrieving page info
 // ***********************************************************
-$ini = new ini($dir);
-$tit = $ini->getHead();
-$inc = $ini->getIncFile();         if (! $inc) return;
-$prn = $ini->get("props.noprint"); if (  $prn) return;
+$nop = PGE::get("props.noprint"); if (  $nop) return;
+$inc = PGE::getIncFile();         if (! $inc) return;
 
 // ***********************************************************
 // build and show page
@@ -19,9 +17,9 @@ $fil = FSO::join("core/modules/body", $inc);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");
-$frm->setVar("head", APP::gc($dir, "head"));
+$frm->setVar("head", APP::gcMod($dir, "head"));
 $frm->setVar("page", APP::gcMap($fil));
-$frm->setVar("tail", APP::gc($dir, "tail"));
+$frm->setVar("tail", APP::gcMod($dir, "tail"));
 $frm->show("xsite");
 
 ?>

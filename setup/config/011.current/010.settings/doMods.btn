@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Module
+tooltip = <p>Module aktivieren und deaktivieren.</p>
+
+[en]
+caption = Modules
+tooltip = <p>Activate and deactivate modules.</p>

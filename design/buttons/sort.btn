@@ -1,10 +1,10 @@
 [props]
-caption =
 pic = ICONS/buttons/sort.png
 
+[de]
+caption = 
+tooltip = Einträge sortieren.
 
-[info]
-<p>Sort items.</p>
-
-[info.de]
-<p>Einträge sortieren.</p>
+[en]
+caption = 
+tooltip = Sort items.

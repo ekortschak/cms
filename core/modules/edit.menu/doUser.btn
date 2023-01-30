@@ -1,0 +1,10 @@
+[props]
+pic = ICONS/buttons/ugroups.png
+
+[de]
+caption = 
+tooltip = Benutzer-Berechtigungen verwalten.
+
+[en]
+caption = 
+tooltip = Manage user permissions.

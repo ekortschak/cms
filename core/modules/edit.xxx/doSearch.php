@@ -21,14 +21,13 @@ $xxx = $box->show();
 // ***********************************************************
 // get parameters
 // ***********************************************************
-$loc = PFS::getLoc();
 $lng = CUR_LANG;
 $dbg = 1;
 
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->ronly("dir", $loc);
-$ptn = $sel->input("file.pattern", "$lng.htm");
+$dir = $sel->ronly("dir", CUR_PAGE);
+$ptn = $sel->input("file.pattern", "page.ini");
 $fnd = $sel->input("find", "xy");
 
 if ($fnc == "replace") {
@@ -36,13 +35,6 @@ if ($fnc == "replace") {
 	$dbg = $sel->check("opt.debug", 1);
 }
 $act = $sel->show();
-
-?>
-
-<h4>Info</h4>
-<div>LF: ###(\n?)</div>
-
-<?php
 
 if (! $act) return;
 
@@ -53,14 +45,16 @@ $arr = FSO::ftree($dir, $ptn);
 $ttl = count($arr);
 $cnt = $fds = 0;
 
-$pge = new pageInfo();
-
-HTW::tag("Findings");
-echo "<small><table>\n";
+$msg = DIC::get("files.containing");
+HTW::tag("$msg '$fnd'");
 
 // ***********************************************************
 // find and/or replace strings
 // ***********************************************************
+echo "<small><table>\n";
+
+$pge = new pageInfo();
+
 foreach ($arr as $ful => $nam) {
 	$txt = file_get_contents($ful); if (strlen($txt) < 1) continue;
 

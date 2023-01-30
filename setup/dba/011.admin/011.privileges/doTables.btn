@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Tabellen
+tooltip = <p>Tabellen-Berechtigungen.</p>
+
+[en]
+caption = Tables
+tooltip = <p>Table privilges.</p>

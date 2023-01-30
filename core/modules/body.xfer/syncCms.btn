@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = CMS
+tooltip = Bringt Ihre CMS-Version auf den neuesten Stand.
+
+[en]
+caption = CMS
+tooltip = Update your CMS version.

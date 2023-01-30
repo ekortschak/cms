@@ -42,7 +42,6 @@ public function showNav() {
 	$dir = ENV::get("search.dir");
 
 	$mnu = new dropBox("menu");
-#	$xxx = $mnu->set("sep", "");
 	$tpc = $mnu->getKey("search.topic", $lst, $dir);
 
 	$arr = VEC::get($this->dat, $tpc);
@@ -94,8 +93,8 @@ private function chkReset() {
 }
 
 private function chkData($arr) {
-	foreach ($arr as $dir => $val) {
-		$arr[$dir] = PGE::getTitle($val);
+	foreach ($arr as $key => $dir) {
+		$arr[$key] = PGE::getTitle($dir);
 	}
 	return $arr;
 }

@@ -1,11 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/edit.menu.png
 url = x.edit.php?vmode=medit
 
+[de]
+caption = 
+tooltip = Wechselt zum Menü-Editor.
 
-[info]
-<p>Switches to menu editor mode.</p>
-
-[info.de]
-<p>Wechselt zum Menü-Editor.</p>
+[en]
+caption = 
+tooltip = Switches to menu editor mode.

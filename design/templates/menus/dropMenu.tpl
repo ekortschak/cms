@@ -1,5 +1,5 @@
 [include]
-dropBox.tpl
+LOC_TPL/menus/dropBox.tpl
 
 [vars]
 class = dropMenu

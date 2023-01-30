@@ -60,8 +60,8 @@ public function add($qid, $file, $ini = "") {
 	$sel = ENV::get($this->own, $this->std);
 
 	$own = $this->own;
-	$inc = $this->chkPhp($qid, $file);
-	$ini = $this->chkIni($qid, $ini);
+	$inc = $this->chkPhp($file);
+	$ini = $this->chkIni($ini);
 	$cls = ($sel == $qid) ? "selected" : "";
 
 	$btn = new button();
@@ -116,7 +116,7 @@ public function getFile() {
 // ***********************************************************
 // create missing files
 // ***********************************************************
-private function chkPhp($qid, $php) {
+private function chkPhp($php) {
 	if (is_file($php)) return $php;
 
 	$dir = APP::relPath($this->dir);
@@ -129,12 +129,12 @@ private function chkPhp($qid, $php) {
 	return $fil;
 }
 
-private function chkIni($qid, $ini) {
-	if (is_file($ini)) return $ini;
+private function chkIni($btn) {
+	if (is_file($btn)) return $btn;
 
 	$dir = APP::relPath($this->dir);
-	$fil = FSO::join($dir, "$ini.ini");   if (APP::file($fil)) return $fil;
-	$glb = APP::file("LOC_BTN/$ini.btn"); if (APP::file($glb)) return $glb;
+	$fil = FSO::join($dir,   "$btn.btn"); if (APP::file($fil)) return $fil;
+	$glb = APP::file("LOC_BTN/$btn.btn"); if (APP::file($glb)) return $glb;
 
 	if (APP_CALL != "index.php") return $fil;
 

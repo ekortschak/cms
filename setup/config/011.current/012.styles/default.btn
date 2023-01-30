@@ -1,0 +1,21 @@
+[props]
+pic = 
+
+[de]
+caption = 
+tooltip = 
+
+[en]
+caption = 
+tooltip = 
+
+
+[props]
+caption = ???
+pic =
+
+[info.de]
+<p>Tool-Tip-Text.</p>
+
+[info]
+<p>Tool-Tip-Text.</p>

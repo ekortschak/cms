@@ -40,7 +40,7 @@ $arr = $ini->getSecs();
 foreach ($arr as $key => $val) {
 	$xxx = $tpl->set("title", DIC::get($key));
 	$out.= $tpl->gc("section");
-	$clr = $ini->getValues($ful, $key);
+	$clr = $ini->getValues( $key);
 	$lst = array();
 
 	foreach ($clr as $key => $val) {

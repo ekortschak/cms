@@ -82,8 +82,7 @@ private function getItem($sec, $inf) {
 }
 
 private function getClass($dir) {
-	$loc = PFS::getLoc();
-	if (STR::begins($loc, $dir)) return "active";
+	if (STR::begins(CUR_PAGE, $dir)) return "active";
 	return "std";
 }
 

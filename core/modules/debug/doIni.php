@@ -1,7 +1,6 @@
 <?php
 
-$loc = PFS::getLoc();
-$ful = FSO::join($loc, "page.ini");
+$ful = FSO::join(CUR_PAGE, "page.ini");
 $txt = APP::read($ful);
 
 incCls("other/tutorial.php");

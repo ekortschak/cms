@@ -1,0 +1,10 @@
+[props]
+pic = ICONS/buttons/inject.png
+
+[de]
+caption = 
+tooltip = <p>Injektionen verkürzen die Antwortzeiten, indem Look-Up Werte in den Text dauerhaft integriert werden.</p>
+
+[en]
+caption = 
+tooltip = <p>Injections will may speed up page rendering. Look-up values will be inserted permanently into the pages.</p>

@@ -209,7 +209,6 @@ private function fileAddSys($dir) { // add empty language file, e.g. de.htm
 	$ovr = ENV::get("opt.overwrite");
 
 	$fil = FSO::join($dir, "$nam.$lng.$ext");
-	$fil = STR::replace($fil, "content.", "");
 	$txt = ""; if ($ext == "php") $txt = "<?php\n?>";
 
 	APP::writeTell($fil, $txt, $ovr);

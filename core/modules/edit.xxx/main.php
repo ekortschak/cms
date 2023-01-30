@@ -12,7 +12,7 @@ HTW::xtag("xedit", "h3");
 // ***********************************************************
 $nav = new buttons("xedit", "S", __DIR__);
 // ***********************************************************
-$nav->add("S", "doSearch", "search");
+$nav->add("S", "doSearch");
 $nav->add("R", "doRename", "rename");
 $nav->add("N", "doNums");
 $nav->add("T", "doTidy");

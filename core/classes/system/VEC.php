@@ -9,7 +9,7 @@ handling regular array tasks
 // ***********************************************************
 incCls("system/VEC.php");
 
-$str = VEC::xform($arr, $name);
+$str = VEC::xform($data, $name);
 */
 
 // ***********************************************************
@@ -21,17 +21,17 @@ class VEC {
 // creating arrays
 // ***********************************************************
 public static function range($min, $max) {
-	$arr = range($min, $max);
-	return VEC::toAssoc($arr);
+	$data = range($min, $max);
+	return VEC::toAssoc($data);
 }
 
 // ***********************************************************
 // converting arrays
 // ***********************************************************
-public static function xform($arr, $name = false) {
-	if (! is_array($arr)) return $arr;
+public static function xform($data, $name = false) {
+	if (! is_array($data)) return $data;
 
-	$out = print_r($arr, true);
+	$out = print_r($data, true);
 #	$out = str_replace("\r", "", $out);
 	$out = str_replace("\n\n", "\n", $out);
 	$out = str_replace("  ", " ", $out);
@@ -43,20 +43,20 @@ public static function xform($arr, $name = false) {
 }
 
 // ***********************************************************
-public static function toAssoc($arr, $mds = "vals") {
+public static function toAssoc($data, $mds = "vals") {
 	switch ($mds) {
-		case "keys": $out = array_keys($arr); break;
-		default:     $out = array_values($arr);
+		case "keys": $out = array_keys($data); break;
+		default:     $out = array_values($data);
 	}
 	return array_combine($out, $out);
 }
 
 // ***********************************************************
-public static function toText($arr, $pfx = "") {
-	if (! $arr) return "";
-	if (! is_array($arr)) return $pfx.$arr."\n"; $out = "";
+public static function toText($data, $pfx = "") {
+	if (! $data) return "";
+	if (! is_array($data)) return $pfx.$data."\n"; $out = "";
 
-	foreach ($arr as $key => $val) {
+	foreach ($data as $key => $val) {
 		if (is_numeric($key)) {
 			$key++;
 			if (count($val) < 2) {
@@ -76,10 +76,10 @@ public static function explode($text, $sep = ",", $max = 0) {
 	$out = array(); if (is_array($text)) return $text;
 
 	switch ($max) {
-		case 0:  $arr = explode($sep, $text); break;
-		default: $arr = explode($sep, $text, $max);
+		case 0:  $data = explode($sep, $text); break;
+		default: $data = explode($sep, $text, $max);
 	}
-	foreach ($arr as $val) {
+	foreach ($data as $val) {
 		$out[] = trim($val);
 	}
 	if ($max)
@@ -90,22 +90,22 @@ public static function explode($text, $sep = ",", $max = 0) {
 // ***********************************************************
 // retrieving items
 // ***********************************************************
-public static function lng($lng, $arr, $key, $default = false) {
-	$out = self::get($arr, "$key.$lng", NV); if ($out !== NV) return $out;
-	return self::get($arr,  $key, $default);
+public static function lng($lng, $data, $key, $default = false) {
+	$out = self::get($data, "$key.$lng", NV); if ($out !== NV) return $out;
+	return self::get($data,  $key, $default);
 }
 
-public static function get($arr, $key, $default = false) {
-	if (! $arr) return $default;
-	if (! isset($arr[$key])) return $default;
-	return      $arr[$key];
+public static function get($data, $key, $default = false) {
+	if (! $data) return $default;
+	if (! isset($data[$key])) return $default;
+	return      $data[$key];
 }
 
 public static function indexOf($data, $sel, $default = false) {
 	if (! is_array($data)) return $default;
 
-	$arr = array_keys($data);
-	$out = array_search($sel, $arr); if ($out !== false) return $out;
+	$data = array_keys($data);
+	$out = array_search($sel, $data); if ($out !== false) return $out;
 	return $default;
 }
 
@@ -152,28 +152,29 @@ public static function match($data, $pfx = "") {
 }
 
 // ***********************************************************
-// enlarging arrays
+// handling arrays
 // ***********************************************************
-public static function append($arr, $key, $value, $glue = "") {
-	$val = self::get($arr, $key, ""); if ($val == "") $glue = "";
-	$arr[$key] = $val.$glue.$value;
-	return $arr;
+public static function append($data, $key, $value, $glue = "") {
+	$val = self::get($data, $key, ""); if ($val == "") $glue = "";
+	$data[$key] = $val.$glue.$value;
+	return $data;
 }
 
-public static function drop($arr, $value) {
-	$out = array(); if (! $arr) return $out;
+public static function drop($data, $value) {
+	$out = array(); if (! $data) return $out;
 
-	foreach ($arr as $key => $val) {
+	foreach ($data as $key => $val) {
 		if ($val == $value) continue;
 		if (is_numeric($key)) $out[] = $val;
 		else $out[$key] = $val;
 	}
 	return $out;
 }
-public static function purge($arr, $vals) {
-	$out = array(); if (! $arr) return $out;
 
-	foreach ($arr as $key => $val) {
+public static function purge($data, $vals) {
+	$out = array(); if (! $data) return $out;
+
+	foreach ($data as $key => $val) {
 		if (STR::begins($val, $vals)) continue;
 		if (is_numeric($key)) $out[] = $val;
 		else $out[$key] = $val;
@@ -181,15 +182,15 @@ public static function purge($arr, $vals) {
 	return $out;
 }
 
-public static function merge($arr1, $arr2) {
-	if (! is_array($arr2)) return $arr1;
-	return array_merge($arr1, $arr2);
+public static function merge($data1, $data2) {
+	if (! is_array($data2)) return $data1;
+	return array_merge($data1, $data2);
 }
 
-public static function implode($arr, $sep = "\n") {
-	if (! is_array($arr)) return trim($arr); $out = array();
+public static function implode($data, $sep = "\n") {
+	if (! is_array($data)) return trim($data); $out = array();
 
-	foreach ($arr as $itm) {
+	foreach ($data as $itm) {
 		if ($itm) $out [] = trim($itm);
 	}
 	return implode($sep, $out);
@@ -198,27 +199,27 @@ public static function implode($arr, $sep = "\n") {
 // ***********************************************************
 // diverse operations
 // ***********************************************************
-public static function isKey($arr, $key) {
-	return isset($arr[$key]);
+public static function isKey($data, $key) {
+	return isset($data[$key]);
 }
 
-public static function count(&$arr, $key) {
-	$old = self::get($arr, $key, 0);
-	return $arr[$key] = $old + 1;
+public static function count($data, $key) {
+	$old = self::get($data, $key, 0);
+	return $data[$key] = $old + 1;
 }
 
 // ***********************************************************
 // sorting data
 // ***********************************************************
-public static function sortByLen($arr) {
+public static function sortByLen($data) {
 	$out = $tmp = array();
-	foreach ($arr as $key => $val) {
+	foreach ($data as $key => $val) {
 		$tmp[$key] = strlen($val);
 	}
 	arsort($tmp);
 
 	foreach ($tmp as $key => $val) {
-		$out[$key] = $arr[$key];
+		$out[$key] = $data[$key];
 	}
 	return $out;
 }
@@ -226,11 +227,11 @@ public static function sortByLen($arr) {
 // ***********************************************************
 // filtering data
 // ***********************************************************
-public static function filter($arr, $crit, $key = false) {
-	$out = array(); if (! $arr) return false;
+public static function filter($data, $crit, $key = false) {
+	$out = array(); if (! $data) return false;
 	$crt = self::getCrit($crit);
 
-	foreach ($arr as $rec) {
+	foreach ($data as $rec) {
 		$vgl = self::implode($rec, "|");
 
 		if ($crt["ign"]) if (  STR::contains($vgl, $crt["ign"])) continue;
@@ -263,9 +264,9 @@ private static function getCrit($lst) {
 	return $out;
 }
 
-public static function add(&$arr, $key, $add = 1) {
-	$cur = self::get($arr, $key, 0);
-	return $arr[$key] = ++$cur;
+public static function add($data, $key, $add = 1) {
+	$cur = self::get($data, $key, 0);
+	return $data[$key] = ++$cur;
 }
 
 // ***********************************************************

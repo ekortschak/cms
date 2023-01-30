@@ -23,6 +23,7 @@ incCls("files/code.php");
 class ini extends objects {
 	protected $silent = true;
 	protected $sec = array();
+	protected $typ = array();
 	protected $vrs = array();
 
 	protected $dir = "";
@@ -31,8 +32,7 @@ class ini extends objects {
 
 	protected $sealed = false;
 
-function __construct($fso = "CURDIR") {
-	if ($fso == "CURDIR") $fso = ENV::get("loc");
+function __construct($fso = CUR_PAGE) {
 	$this->read($fso);
 }
 
@@ -75,6 +75,10 @@ public function setSec($sec, $data) {
 public function getSec($sec) {
 	$sec = $this->findSec($sec); if (! $sec) return "";
 	return $this->sec[$sec];
+}
+
+public function getType($sec) {
+	return VEC::get($this->typ, $sec, "input");
 }
 
 // ***********************************************************
@@ -143,57 +147,40 @@ public function getHead($lng = CUR_LANG) {
 	return $this->getTitle($lng);
 }
 
-public function getType($default = "inc") {
-	$typ = $this->get("props.typ"); if (! $typ) $typ = $default;
-	return STR::left($typ);
-}
-
-// ***********************************************************
-public function getIncFile($typ = "inc") {
-	$typ = $this->getType($typ);
-
-	if ($typ == "roo") return "include.php";  // root
-    if ($typ == "inc") return "include.php";  // default mode
-	if ($typ == "cha") return "chapters.php"; // multiple files
-
-	if ($typ == "col") { // collection of files in separate dirs
-		if (ENV::get("vmode") == "xfer") return "collect.xsite.php";
-		return "collect.php";
-	}
-	if ($typ == "red") return "redirect.php"; // redirection to another local directory
-	if ($typ == "url") return "links.php";    // list of external links
-
-	if ($typ == "mim") return "mimeview.php"; // show files
-	if ($typ == "dow") return "download.php"; // download
-    if ($typ == "gal") return "gallery.php";  // show files
-    if ($typ == "upl") return "upload.php";   // upload
-	if ($typ == "cam") return "livecam.php";  // camera
-
-	if ($typ == "dbt") return "dbtable.php";  // database table
-    if ($typ == "tut") return "tutorial.php"; // tutorial
-	return false;
-}
-
 // ***********************************************************
 // reading ini files
 // ***********************************************************
 public function read($file) {
 	$fil = $this->chkFile($file);
+	$ext = FSO::ext($fil);
 
 	$cod = new code();
 	$erg = $cod->read($fil); if (! $erg) return;
 
-	$this->sec = array_merge($this->sec, $cod->getSecs());
-	$this->vrs = $cod->getVars();
+	$this->mergeSecs($cod->getSecs(), $cod->getTypes(), $ext);
+	$this->mergeVars($cod->getVars());
+	$this->mergeVals($cod->getValues());
 
-	$this->merge($cod->getValues());
 	$this->chkUID();
 }
 
-public function merge($arr, $pfx = false) {
+protected function mergeSecs($secs, $types, $ext) {
+	foreach ($secs as $key => $val) {
+		if ($this->sealed) if (! $this->isKey($key)) continue;
+		$this->sec[$key] = $val; if ($ext == "def")
+		$this->typ[$key] = $types[$key];
+	}
+}
+
+protected function mergeVars($arr) {
+	foreach ($arr as $key => $val) {
+		$this->vrs[$key] = $val;
+	}
+}
+
+protected function mergeVals($arr) {
 	foreach ($arr as $key => $val) {
 		if ($this->sealed) if (! $this->isKey($key)) continue;
-		if ($pfx) $key = "$pfx.$key";
 		$this->set($key, $val);
 	}
 }

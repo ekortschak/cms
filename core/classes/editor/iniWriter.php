@@ -17,12 +17,12 @@ $obj->save();
 */
 
 incCls("files/ini.php");
-incCls("editor/iniTpl.php");
+incCls("editor/iniDef.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class iniWriter extends iniTpl {
+class iniWriter extends iniDef {
 	protected $tpl; // ini template - including sections for all ini types
 	protected $edt = array(); // ini sections
 

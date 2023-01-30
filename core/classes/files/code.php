@@ -20,6 +20,7 @@ $txt = $code->read($file);
 // ***********************************************************
 class code extends objects {
 	protected $sec = array(); // sections
+	protected $tps = array(); // section types
 	protected $vrs = array(); // variables
 	protected $hst = array(); // file history
 
@@ -77,22 +78,8 @@ public function getSecs() {
 	return $out;
 }
 
-public function getProp($prop, $default = "") {
-	$out = $this->get("props.$prop.".CUR_LANG); if ($out) return $out;
-	$out = $this->get("props.$prop.".GEN_LANG); if ($out) return $out;
-	$out = $this->get("props.$prop.xx"); if ($out) return $out;
-	$out = $this->get("props.$prop"); if ($out) return $out;
-	return $default;
-}
-
-public function getTip($sec = "info", $default = "") { // tailored for tooltips
-	$chk = ENV::get("opt.tooltip");	if (! $chk) return;
-
-	$out = VEC::get($this->sec, "$sec.".CUR_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, "$sec.".GEN_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, "$sec.xx"); if ($out) return $out;
-	$out = VEC::get($this->sec,  $sec); if ($out) return $out;
-	return $default;
+public function getTypes() {
+	return $this->tps;
 }
 
 // ***********************************************************
@@ -123,7 +110,7 @@ protected function addDics() { // register dic entries
 	foreach ($this->sec as $sec => $txt) {
 		if ( ! STR::begins($sec, "dic")) continue;
 
-		$lng = STR::after($sec, ".");
+		$lng = STR::after($sec, "."); if (! $lng) $lng = "xx";
 		$arr = $this->split($txt);
 
 		DIC::append($arr, $lng);
@@ -156,7 +143,14 @@ protected function sections($txt) {
 	foreach ($arr as $sec) {
 		$key = STR::norm($sec, true);
 		$val = STR::between($txt, "[$sec]", "\n[");
+		$typ = "input";
+
+		if (STR::ends($key, "*")) {
+			$key = STR::before($key, "*");
+			$typ = "tarea";
+		}		
 		$this->sec[$key] = $val;
+		$this->tps[$key] = $typ;
 	}
 	unset($this->sec["include"]);
 	unset($this->sec["register"]);

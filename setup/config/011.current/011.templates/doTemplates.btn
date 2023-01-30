@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Objekte
+tooltip = <p>Objekt-Klassen bearbeiten. (Nur für Programmierer!)</p>
+
+[en]
+caption = Objects
+tooltip = <p>Edit object classes. (Programmers only!)</p>

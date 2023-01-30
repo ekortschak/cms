@@ -2,7 +2,6 @@
 PRJ_TITLE = Free CMS
 LANGUAGES = de.en
 GEN_LANG = en
-STD_LANG = de
 
 [design]
 LAYOUT = default

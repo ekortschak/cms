@@ -22,7 +22,7 @@ public static function quote($find) {
 
 // ***********************************************************
 public static function find($haystack, $needle, $mod = "") {
-	$out = array();
+	$out = array(); if (STR::contains($needle, "\n")) $mod.= "g";
 	$erg = preg_match_all("~$needle~$mod", $haystack, $out);
 	return $out[0];
 }

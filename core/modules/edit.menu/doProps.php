@@ -2,15 +2,13 @@
 
 incCls("editor/iniMgr.php");
 
-$loc = PFS::getLoc();
-
 // ***********************************************************
 HTW::xtag("tab.props");
 // ***********************************************************
 $tab = new iniTab(TAB_PATH);
 $fst = $tab->get("props.std");
-$fst = PFS::getIndex($fst); // index of default page
-$cur = PFS::getIndex($loc); // index of current page
+$fst = PFS::getIndex($fst);     // index of default page
+$cur = PFS::getIndex(CUR_PAGE); // index of current page
 $stc = PFS::isStatic();
 
 $chk = ($fst == $cur) ? "CHECKED" : "";

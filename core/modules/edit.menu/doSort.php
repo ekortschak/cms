@@ -5,8 +5,7 @@ if (PFS::isStatic()) {
 }
 
 // ***********************************************************
-$loc = PFS::getLoc();
-$arr = FSO::folders($loc, false); if (! $arr)
+$arr = FSO::folders(CUR_PAGE, false); if (! $arr)
 $arr = array();
 
 $sec = "main"; if (count($arr) < 2)
@@ -24,7 +23,7 @@ foreach ($arr as $dir => $nam) {
 
 	$tpl->set("text", $tit);
 	$tpl->set("cnt", $ccc++);
-	$tpl->set("fso", STR::clear($dir, $loc));
+	$tpl->set("fso", STR::clear($dir, CUR_PAGE));
 
 	$its.= $tpl->getSection("item")."\n";
 }

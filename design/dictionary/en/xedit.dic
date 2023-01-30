@@ -1,6 +1,8 @@
 [dic.en]
 file.pattern = File type
 files.search = Search in files
+files.containing = Files containing
+
 xedit = Extended Editing
 
 xlRef.none = Document does not contains external references

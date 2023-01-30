@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Tags
+tooltip = <p>Stylesheet Vorschau</p>
+
+[en]
+caption = Tags
+tooltip = <p>Stylesheet preview</p>

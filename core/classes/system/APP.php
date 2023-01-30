@@ -131,9 +131,9 @@ public static function file($fso) { // find file in extended fs
 }
 
 // ***********************************************************
-public static function find($dir, $snip = "", $fext = "php, htm, html") {
-	$lgs = LNG::getRel($snip); // find language relevant content
-	$vis = (! IS_LOCAL);       // show hidden files on localhost
+public static function find($dir, $snip = "page", $fext = "php, htm, html") {
+	$lgs = LNG::getRel(); // find language relevant content
+	$vis = (! IS_LOCAL);  // show hidden files on localhost
 
 	$ext = VEC::explode($fext, ",");
 
@@ -149,8 +149,8 @@ public static function find($dir, $snip = "", $fext = "php, htm, html") {
 // ***********************************************************
 // retrieving content
 // ***********************************************************
-public static function gc($fso, $snip = "") {
-	$qit = ENV::get("blockme");     if ($qit) return "";
+public static function gc($fso, $snip = "page") {
+	$qit = ENV::get("blockme");     if (  $qit) return "";
 
 	$ful = self::file($fso);        if (! $ful)
 	$ful = self::find($fso, $snip); if (! $ful) return "";
@@ -158,6 +158,10 @@ public static function gc($fso, $snip = "") {
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
 	return trim($out);
+}
+
+public static function gcMod($fso, $snip) {
+	return self::gc($fso, $snip);
 }
 
 public static function gcMap($fso) {
@@ -180,7 +184,8 @@ public static function gcRec($dir, $snip) { // get content recursively
 // ***********************************************************
 public static function read($file) { // read any text
 	$ful = self::file($file); if (! $ful) return "";
-	$out = file_get_contents($ful);
+	$out = file($ful);
+	$out = implode("\n", $out);
 	return trim($out);
 }
 

@@ -8,12 +8,11 @@ HTW::xtag("files.rename");
 // ***********************************************************
 // get parameters
 // ***********************************************************
-$loc = PFS::getLoc();
 $lng = CUR_LANG;
 
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->ronly("dir", $loc);
+$dir = $sel->input("dir", CUR_PAGE);
 $fnd = $sel->input("find", "$lng.htm");
 $ren = $sel->input("rename", "$lng.htm");
 $act = $sel->show();

@@ -25,8 +25,22 @@ function __construct($text) {
 // ***********************************************************
 // handling search string
 // ***********************************************************
+public function hilite($find) {
+	if (STR::contains($this->txt, "<mark")) return $this->txt;
+
+	$fnd = str_replace("|", " ", $find); $cnt = 0;
+	$lst = $this->split($fnd); 
+	$out = $this->txt;
+
+	foreach ($lst as $itm) {
+		$idx = $cnt++ % 5 + 1;
+		$out = self::markit($out, $itm, $idx);
+	}
+	return $out;
+}
+
 public function match($what) { // returns yes or no
-	if (! $what) return false; $arr = self::split($what);
+	$arr = self::split($what); if (! $arr) return false;
 
 	foreach($arr as $itm) {
 		if (STR::begins($itm, "-")) {
@@ -80,7 +94,7 @@ private function chkNoun($what) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-public function split($what) {
+private function split($what) {
 	$lst = self::checkString($what);
 	$qts = STR::find($lst, "'", "'");
 	$qts = array_values($qts);
@@ -99,7 +113,7 @@ public function split($what) {
 		$sub = trim($sub); if (! $sub) continue;
 		$out[$sub] = $sub;
 	}
-	return $out;
+	return VEC::sortByLen($out);
 }
 
 private function checkString($txt) {
@@ -109,6 +123,27 @@ private function checkString($txt) {
 	$out = str_replace('"', "'", $out);
 	$out = str_replace($sep, " ", $out);
 	$out = preg_replace("~ (\s+)~", " ", $out);
+	return $out;
+}
+
+private static function markit(&$haystack, $find, $idx) {
+	$lst = count(explode("^", $find));
+	$rep = "<mark$idx>$1</mark$idx>";
+
+	if ($lst > 2) $rep = "$1<mark>$2</mark>$3"; else
+	if ($lst > 1) {
+		if (self::ends($find, "^")) $rep = "<mark>$1</mark>$2";
+		else $rep = "$1<mark>$2</mark>";
+	}
+	$fnd = preg_quote($find);        $fnd = "($fnd)";
+	$fnd = str_replace("(\^", "^(",  $fnd);
+	$fnd = str_replace("\^)", ")^",  $fnd);
+	$fnd = str_replace("^", "(\W+)", $fnd);
+
+	$out = preg_replace("~$fnd~i", $rep, $haystack);
+# TODO: no marking in html-tags
+#	$out = preg_replace("~<(.*?)$fnd(.*?)>~i",  "<$1$2>",  $haystack);
+#	$out = preg_replace("~</(.*?)$fnd(.*?)>~i", "</$1$2>", $haystack);
 	return $out;
 }
 

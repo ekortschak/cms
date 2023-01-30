@@ -4,8 +4,6 @@ if (PFS::isStatic()) {
 	return MSG::now("mnu.static");
 }
 
-$loc = PFS::getLoc();
-
 // ***********************************************************
 incCls("editor/clipBoard.php");
 
@@ -23,7 +21,7 @@ $obj = $cmb->gc();
 
 $tpl = new tpl();
 $tpl->load("editor/menu.clip.tpl");
-$tpl->set("curloc", $loc);
+$tpl->set("curloc", CUR_PAGE);
 $tpl->set("box", $obj);
 $tpl->show();
 

@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Wiederherstellung
+tooltip = Diese Funktion dient zur Wiederherstellung der Daten, falls diese verloren gegangen sind.
+
+[en]
+caption = Restore
+tooltip = Use this feature to restore your data after they have been lost.

@@ -2,8 +2,7 @@
 <ul>
 <?php
 
-$ini = new ini();
-$arr = $ini->getValues("url");
+$arr = PGE::getValues("url");
 
 foreach ($arr as $key => $val) {
 	$val = VEC::explode($val, ";", 2);

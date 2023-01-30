@@ -1,7 +1,6 @@
 <?php
 
-$loc = PFS::getLoc();
-$arr = PFS::mnuInfo($loc);
+$arr = PFS::mnuInfo(CUR_PAGE);
 
 // ***********************************************************
 incCls("tables/htm_table.php");

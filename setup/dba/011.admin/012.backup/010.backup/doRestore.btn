@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Wiederherstellen
+tooltip = <p>Tabellen-Eigenschaften bearbeiten.</p>
+
+[en]
+caption = Restore
+tooltip = <p>Edit table properties.</p>

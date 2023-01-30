@@ -1,8 +1,6 @@
 <?php
 
-$loc = PFS::getLoc();
-
-$tit = PGE::getTitle($loc);
+$tit = PGE::getTitle();
 $dir = APP::tempDir("single page");
 $fil = FSO::join($dir, "$tit.htm");
 

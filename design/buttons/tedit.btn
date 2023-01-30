@@ -1,11 +1,11 @@
 [props]
-caption =
 pic = ICONS/buttons/edit.tab.png
 url = x.edit.php?vmode=tedit
 
+[de]
+caption = 
+tooltip = Wechselt zum Tab-Editor.
 
-[info]
-<p>Switches to tab editor mode.</p>
-
-[info.de]
-<p>Wechselt zum Tab-Editor.</p>
+[en]
+caption = 
+tooltip = Switches to tab editor mode.

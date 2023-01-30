@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Stylesheets
+tooltip = <p>CSS-Dateien direkt bearbeiten.</p>
+
+[en]
+caption = Stylesheets
+tooltip = <p>Edit CSS files directly.</p>
