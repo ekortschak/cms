@@ -2,10 +2,15 @@
 
 $ext = PGE::get("props.ext", "pics");
 $dir = PGE::get("props.path", CUR_PAGE);
+$srt = PGE::get("props.sort");
 
 $arr = FSO::files($dir);
 $arr = FSO::filter($arr, $ext);
-krsort($arr);
+
+switch ($srt) {
+	case "asc":  $arr = VEC::sort($arr, "ksort"); break;
+	case "desc": $arr = VEC::sort($arr, "krsort");
+}
 
 // ***********************************************************
 incCls("menus/dropNav.php");
@@ -21,7 +26,8 @@ $fil = APP::relPath($fil);
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("modules/fview.mimetype.tpl");
-$tpl->set("url", $fil);
+$tpl->set("file", $fil);
+$tpl->set("url",  $fil);
 $tpl->show();
 
 ?>

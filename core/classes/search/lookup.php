@@ -57,7 +57,7 @@ public function read($fil) {
 	$ini = new ini($fil);
 	$arr = $ini->getValues("data*"); if (! $arr) return;
  	$prp = $ini->getValues("props");
-	krsort($arr);
+ 	$arr = VEC::sort($arr, "krsort");
 
 	$set = basename($fil);
 	$set = STR::before($set, ".");

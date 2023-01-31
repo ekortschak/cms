@@ -4,7 +4,8 @@
 // get user list from config file
 // ***********************************************************
 $ini = new ini("config/users.ini");
-$arr = $ini->getValues($ful, "user"); ksort($arr);
+$arr = $ini->getValues($ful, "user"); 
+$arr = VEC::sort($arr);
 
 $ini = new code();
 $xxx = $ini->readPath(CUR_PAGE);

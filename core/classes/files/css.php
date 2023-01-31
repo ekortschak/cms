@@ -136,8 +136,7 @@ private function getFiles() {
 		$key = basename($fil, ".css");
 		$lst[$key] = $fil;
 	}
-	ksort($lst); // sort prior to usage
-	return $lst;
+	return VEC::sort($lst); // sort prior to usage
 }
 
 // ***********************************************************

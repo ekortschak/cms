@@ -1,7 +1,6 @@
 <?php
 
-$dir = FSO::join(CUR_PAGE, "snip");
-$arr = FSO::files($dir);
+$arr = FSO::files(CUR_PAGE, "snip*");
 $lst = array();
 
 foreach ($arr as $fil => $nam) {

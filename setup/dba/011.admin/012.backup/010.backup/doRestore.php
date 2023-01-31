@@ -12,7 +12,8 @@ $box = new dropDbo();
 $dbs = $box->getDbase();
 
 $dir = APP::arcDir(SRV_ROOT, "dbs.$dbs");
-$vrs = FSO::folders($dir); if ($vrs) krsort($vrs);
+$vrs = FSO::folders($dir); 
+$vrs = VEC::sort($vrs, "krsort");
 
 foreach ($vrs as $key => $val) {
 	$vrs[$key] = STR::after($val, "db.$dbs.");

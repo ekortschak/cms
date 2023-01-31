@@ -82,13 +82,13 @@ private function encoding($text) {
 
 // ***********************************************************
 public function pathify($out) {
-	$out = self::replace($out, "Ä", "Ae");
-	$out = self::replace($out, "ä", "ae");
-	$out = self::replace($out, "Ö", "Oe");
-	$out = self::replace($out, "ö", "oe");
-	$out = self::replace($out, "Ü", "Ue");
-	$out = self::replace($out, "ü", "ue");
-	$out = self::replace($out, "ß", "ss");
+	$out = STR::replace($out, "Ä", "Ae");
+	$out = STR::replace($out, "ä", "ae");
+	$out = STR::replace($out, "Ö", "Oe");
+	$out = STR::replace($out, "ö", "oe");
+	$out = STR::replace($out, "Ü", "Ue");
+	$out = STR::replace($out, "ü", "ue");
+	$out = STR::replace($out, "ß", "ss");
 	return $out;
 }
 

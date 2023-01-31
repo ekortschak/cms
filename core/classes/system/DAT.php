@@ -116,11 +116,11 @@ public static function sort($arr, $key, $sort = "asc") {
 		$tmp[$crt][$key] = $rec;
 	}
 	switch ($sort) {
-		case "asc":  ksort( $tmp); break;
-		case "desc": krsort($tmp); break;
+		case "asc":  $tmp = VEC::sort($tmp, "ksort");  break;
+		case "desc": $tmp = VEC::sort($tmp, "krsort"); break;
 	}
 	foreach ($tmp as $dat => $rec) {
-		ksort($rec);
+		$rec = VEC::sort($rec);
 
 		foreach ($rec as $key => $inf) {
 			$out[$key] = $inf;

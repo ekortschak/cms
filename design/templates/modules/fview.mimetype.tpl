@@ -17,7 +17,7 @@ nofiles = Ordner ist leer!
 <embed width="100%" height=<!VAR:hgt!> src="<!VAR:url!>" />
 </div>
 
-<!SEC:info!>
+#<!SEC:info!>
 
 [info]
 <hint>If the file does not show automatically, it will after rescaling the viewport or pressing F5 or moving on and coming back.</hint>

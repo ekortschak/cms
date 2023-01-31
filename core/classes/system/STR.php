@@ -318,7 +318,7 @@ public static function conv2utf8($string) {
 
 public static function utf8decode($string) {
 	$out = utf8_decode($string);
-	return STR::afterX($out, "?"); // because of utf8_decode();
+	return self::afterX($out, "?"); // because of utf8_decode();
 }
 
 // ***********************************************************
@@ -340,7 +340,7 @@ public static function findPos($haystack, $sep) {
 		$pos = stripos($haystack, $del); if ($pos === false) continue;
 		$out[$del] = $pos; // store position in string
 	}
-	asort($out); return $out;
+	return VEC::sort($out, "asort");
 }
 
 // ***********************************************************

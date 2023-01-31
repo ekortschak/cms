@@ -35,8 +35,8 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false" _
-		onfocus="this.className='hot';" _
+	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false"
+		onfocus="this.className='hot';"
 		onblur="this.className='cold';">
 		<!VAR:content!>
 	</div>

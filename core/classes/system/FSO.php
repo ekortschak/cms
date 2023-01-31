@@ -93,8 +93,9 @@ public static function permit($fso, $mod = FS_PERMS) {
 public static function copyDir($src, $dst) {
 	$fso = self::fTree($src); if (! $fso) return;
 	$dir = self::join($dst, basename($src));
-	$dst = self::force($dir);
-	$cnt = 0; krsort($fso);
+	$dst = self::force($dir); $cnt = 0; 
+
+	$fso = VEC::sort($fso, "krsort");
 
 	foreach ($fso as $fil => $nam) {
 		$new = STR::after($fil, $src);
@@ -107,7 +108,7 @@ public static function copyDir($src, $dst) {
 // ***********************************************************
 public static function mvDir($src, $dst) {
 	$arr = self::fTree($src); if (! $arr) return false;
-	krsort($arr);
+	$arr = VEC::sort($arr, "krsort");
 
 	foreach ($arr as $fso => $nam) {
 		$new = STR::after($fso, $src.DIR_SEP);
@@ -120,7 +121,8 @@ public static function mvDir($src, $dst) {
 
 // ***********************************************************
 public static function rmDir($src) {
-	$arr = self::fdTree($src); krsort($arr);
+	$arr = self::fdTree($src); 
+	$arr = VEC::sort($arr, "krsort");
 
 	foreach ($arr as $fso => $nam) {
 		if (is_dir($fso)) rmdir($fso); else
@@ -178,8 +180,7 @@ public static function fTree($dir, $pattern = "*", $filesOnly = true) {
 
 		$out += self::files($dir, $pattern, false);
 	}
-	ksort($out);
-	return $out;
+	return VEC::sort($out);
 }
 
 public static function files($dir, $pattern = "*", $visOnly = true) {
@@ -264,8 +265,7 @@ public static function tree($dir, $visOnly = true) {
 		$lst = self::tree($dir, $visOnly); if (! $lst) continue;
 		$out = array_merge($out, $lst);
 	}
-	ksort($out);
-	return $out;
+	return VEC::sort($out);
 }
 
 // ***********************************************************

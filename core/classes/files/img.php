@@ -2,7 +2,9 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-?
+use this class to
+* create images from text
+* retrieve pic info
 
 // ***********************************************************
 // HOW TO USE
@@ -33,7 +35,7 @@ function __construct() {
 }
 
 // ***********************************************************
-// methods
+// creating images from text
 // ***********************************************************
 public function create($text, $angle = 90) {
 	$fnt = $this->fnt; $fgc = $this->fgc;
@@ -64,6 +66,8 @@ public function preview($file) {
 	$tpl->show("preview");
 }
 
+// ***********************************************************
+// retrieving pic info
 // ***********************************************************
 public function getSize($file) {
 	if (! is_file($file)) return false;

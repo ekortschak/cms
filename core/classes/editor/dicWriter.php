@@ -68,7 +68,8 @@ public function modify($lang, $key, $value) {
 // ***********************************************************
 private function save($ful, $sec, $lang) {
 	$arr = $this->getValues($sec); if (! $arr) return;
-	$out = "[$sec]\n"; ksort($arr);
+	$arr = VEC::sort($arr);
+	$out = "[$sec]\n";
 
 	foreach ($arr as $key => $val) {
 		$key = STR::clear($key, "$sec.");

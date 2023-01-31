@@ -45,7 +45,8 @@ public static function relPath($fso) {
 }
 
 private static function getFBK($reverse = false) {
-	$out = self::$fbk; if ($reverse) krsort($out);
+	$out = self::$fbk; if ($reverse) 
+	$out = VEC::sort($out, "krsort");
 	return $out;
 }
 

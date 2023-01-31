@@ -21,7 +21,8 @@ if ($arr) {
 HTW::xtag("bkp.manage");
 // ***********************************************************
 $dir = APP::arcDir($dev, "bkp");
-$arr = FSO::folders($dir); if ($fls) krsort($fls);
+$arr = FSO::folders($dir);
+$arr = VEC::sort($arr, "krsort");
 
 // ***********************************************************
 // show selector

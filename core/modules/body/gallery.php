@@ -1,16 +1,8 @@
 <?php
 
-$ext = PGE::get("props.ext", "pdf, txt, doc, docx");
-$dox = PGE::get("props.path", CUR_PAGE);
-$srt = PGE::get("props.sort");
+$inc = FSO::join(__DIR__, "mimeview.php");
+include $inc;
 
-// ***********************************************************
-incCls("files/dirView.php");
-// ***********************************************************
-$obj = new dirView();
-$obj->load("modules/fview.gallery.tpl");
-$obj->setSort($srt);
-$obj->readTree($dox, $ext);
-$obj->show();
+// TODO: add thumb gallery at bottom of pic
 
 ?>

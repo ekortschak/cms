@@ -104,7 +104,7 @@ public function focus($qid, $value, $default) {
 	$chk = ENV::getParm($qid); if ($chk) return $default;
 
 	$key = VEC::find($this->data[$qid]["dat"], $value); if (! $key) return $default;
-	$val = VEC::get($this->data[$qid]["dat"], $key);
+	$val = VEC::get( $this->data[$qid]["dat"], $key);
 
 	$this->data[$qid]["sel"] = $key;
 	$this->data[$qid]["cur"] = $val;

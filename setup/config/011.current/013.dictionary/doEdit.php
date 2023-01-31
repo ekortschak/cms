@@ -10,8 +10,6 @@ $box = new dropBox("menu");
 $dir = $box->folders(LOC_DIC);
 $fil = $box->files($dir);
 
-$lng = basename($dir);
-
 // ***********************************************************
 // find relevant editors
 // ***********************************************************

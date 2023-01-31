@@ -211,12 +211,17 @@ public static function count($data, $key) {
 // ***********************************************************
 // sorting data
 // ***********************************************************
+public static function sort($arr, $fnc = "ksort") {
+	if ($arr) $fnc($arr);
+	return $arr;
+}
+
 public static function sortByLen($data) {
 	$out = $tmp = array();
 	foreach ($data as $key => $val) {
 		$tmp[$key] = strlen($val);
 	}
-	arsort($tmp);
+	$tmp = self::sort($tmp, "arsort");
 
 	foreach ($tmp as $key => $val) {
 		$out[$key] = $data[$key];
