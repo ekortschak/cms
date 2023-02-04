@@ -74,7 +74,6 @@ public static function getIncFile() {
 	if ($typ == "red") return "redirect.php"; // redirection to another local directory
 	if ($typ == "url") return "links.php";    // list of external links
 
-	if ($typ == "cha") return "chapters.php"; // multiple files
 	if ($typ == "col") { // collection of files in separate dirs
 		if (ENV::get("vmode") == "xfer") return "collect.xsite.php";
 		return "collect.php";

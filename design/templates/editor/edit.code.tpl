@@ -14,8 +14,6 @@ core/scripts/inline.js
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-<textarea id="txtEdit" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false">_
-<!VAR:content!>_
-</textarea>
+<textarea id="txtEdit" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
 <!SEC:submit!>
 </form>

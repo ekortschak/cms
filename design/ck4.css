@@ -44,7 +44,7 @@ body.print {
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */
-.modtabs {
+.modTabs {
 	overflow: visible;
 	position: fixed;
 	height: 100%;
@@ -54,7 +54,7 @@ body.print {
     background: BC_DROP url("/cms/img/tabs/pborder.png") repeat-y right;
 }
 
-.modtoc {
+.modToc {
 	overflow: auto;
 	position: fixed;
 	left: W_TABS;
@@ -65,7 +65,7 @@ body.print {
 	background: BC_TOC;
 }
 
-.modmbar {
+.modMbar {
 	overflow: hidden;
 	position: fixed;
 	left: calc(W_TABS + W_TOC);
@@ -75,7 +75,7 @@ body.print {
     background: url("/cms/img/mbar/spirals.png") repeat-y;
 }
 
-.modbody {
+.modBody {
 	z-index: 5;
 	overflow: auto;
 	position: fixed;
@@ -87,7 +87,7 @@ body.print {
 	color: FC_BODY;
     background: BC_BODY;
 }
-.modopts {
+.modOpts {
 	z-index: 1;
 	overflow: auto;
 	position: fixed;
@@ -1572,10 +1572,10 @@ tr, .br {
 	html { transform: scale(0.70); height: calc(100% / 0.70); }
 	html { transform: scale(1); height: 100%; }
 	.micon { display: block; }
-	.modtoc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
-	.modmbar { display: none; }
-	.modbody { left: W_TABS; }
-	.modopts { left: calc(W_TABS + W_BODY); }
+	.modToc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
+	.modMbar { display: none; }
+	.modBody { left: W_TABS; }
+	.modOpts { left: calc(W_TABS + W_BODY); }
 }
 
 /*

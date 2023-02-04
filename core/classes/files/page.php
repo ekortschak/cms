@@ -136,9 +136,7 @@ public static function makeUrl($fso) { // convert file to url
 private function cleanChars($code) {
 	if (CUR_LANG != "de") return $code;
 
-	$code = STR::replace($code, "(CR)", "&copy;");
-	$code = PRG::replace($code, "\n(\s?)", "\n");
-	$code = PRG::replace($code, "\n\n\n", "\n\n");
+	$out = STR::replace($code, "(CR)", "&copy;");
 
 	$fnd = array(
 		"ä" => "&auml;", "Ä" => "&Auml;", "ß" => "&szlig;",
@@ -146,9 +144,9 @@ private function cleanChars($code) {
 		"ü" => "&uuml;", "Ü" => "&Uuml;",
 	);
 	foreach ($fnd as $key => $val) {
-		$code = str_replace($key, $val, $code);
+		$out = str_replace($key, $val, $out);
 	}
-	return $code;
+	return $out;
 }
 
 // ***********************************************************

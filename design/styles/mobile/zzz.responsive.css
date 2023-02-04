@@ -6,24 +6,24 @@
 		height: 100vh;
 	}
 	.banner {  position: absolute; }
-	.modmenu { position: absolute; }
+	.modMenu { position: absolute; }
 
-	.modtoc {
+	.modToc {
 		width: 250px;
 	}
-	.modtoc:hover {
+	.modToc:hover {
 		border-right: 1px solid grey;
 		width: 650px;
 		z-index: 500;
 	}
 
-	.modmbar {
+	.modMbar {
 		left: calc(W_TABS + 250px);
 	}
-	.modbody {
+	.modBody {
 		left: calc(W_TABS + 250px + W_MBAR);
 	}
-	.modopts {
+	.modOpts {
 		left: calc(W_TABS + 250px + W_MBAR + W_BODY);
 		width: calc(100% - W_TABS - 250px - W_MBAR - W_BODY);
 	}

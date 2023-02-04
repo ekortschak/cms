@@ -19,10 +19,10 @@
 	html { transform: scale(0.70); height: calc(100% / 0.70); }
 	html { transform: scale(1); height: 100%; }
 	.micon { display: block; }
-	.modtoc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
-	.modmbar { display: none; }
-	.modbody { left: W_TABS; }
-	.modopts { left: calc(W_TABS + W_BODY); }
+	.modToc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
+	.modMbar { display: none; }
+	.modBody { left: W_TABS; }
+	.modOpts { left: calc(W_TABS + W_BODY); }
 }
 
 /*

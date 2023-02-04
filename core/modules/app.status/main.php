@@ -1,7 +1,7 @@
 <?php
 
 $tpl = new tpl();
-$tpl->load("modules/app.footer.tpl");
+$tpl->load("modules/app.status.tpl");
 $tpl->show();
 
 ?>

@@ -54,6 +54,7 @@ HTW::tag("$msg '$fnd'");
 echo "<small><table>\n";
 
 $pge = new pageInfo();
+$fnd = STR::replace($fnd, "<dqot>", '"');
 
 foreach ($arr as $ful => $nam) {
 	$txt = file_get_contents($ful); if (strlen($txt) < 1) continue;

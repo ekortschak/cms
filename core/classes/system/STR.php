@@ -185,7 +185,8 @@ public static function dropSpaces($code) {
 	$out = self::replace($out, "\n ", "\n");       // leading blank
 	$out = self::replace($out, " \n", "\n");       // trailing blank
 	$out = self::replace($out, "_\n", "");         // join lines
-	$out = preg_replace("~\n(\n*?)~", "\n", $out); // multiple line feeds
+
+	$out = preg_replace("~\n\n\n(\n*?)~", "\n\n\n", $out); // multiple line feeds
 
 	if (self::ends($out, "_")) return trim($out, "_");
 	return "$out\n";

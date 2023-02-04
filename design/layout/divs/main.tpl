@@ -3,11 +3,11 @@ LOC_LAY/default/main.tpl
 
 [layout] <!-- layout.divs -->
 <body>
-	<div class="modtabs"><!SEC:tabs!>  </div>
+	<div class="modTabs"><!SEC:tabs!>  </div>
 	<div class="banner"> <!SEC:banner!></div>
-	<div class="modmenu"><!SEC:menu!>  </div>
-	<div class="modbody"><!SEC:body!>  </div>
-	<div class="modopts"><!SEC:opts!>  </div>
+	<div class="modMenu"><!SEC:menu!>  </div>
+	<div class="modBody"><!SEC:body!>  </div>
+	<div class="modOpts"><!SEC:opts!>  </div>
 </body>
 
 

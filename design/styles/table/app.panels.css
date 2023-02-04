@@ -28,7 +28,7 @@ body.print {
 /* ******************************************************** */
 /* panels */
 /* ******************************************************** */
-.modtabs {
+.modTabs {
 	overflow: hidden;
 	color: FC_TABS;
 	background: BC_TABS url("CMS_URL/img/tabs/pborder.png") repeat-y right;
@@ -37,7 +37,7 @@ body.print {
 	padding: 7px 0px 20px;
 }
 
-.modtoc {
+.modToc {
 	overflow: auto;
 	color: FC_TOC;
 	background: BC_TOC;
@@ -46,14 +46,14 @@ body.print {
 	padding: 15px 15px 35px;
 }
 
-.modmbar {
+.modMbar {
 	overflow: hidden;
 	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
 	min-width: W_MBAR;
 	max-width: W_MBAR;
 }
 
-.modbody {
+.modBody {
 	font-size: F_BODY;
 	color: FC_BODY;
 	background: BC_BODY;
@@ -61,7 +61,7 @@ body.print {
 	max-width: W_BODY;
 	padding: 15px 15px 35px;
 }
-.modopts {
+.modOpts {
 	overflow: auto;
 	color: FC_OPTS;
 	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;

@@ -46,11 +46,11 @@ title = PRJ_TITLE
 [layout] <!-- layout -->
 # ***********************************************************
 <body>
-	<div class="modtabs"><!SEC:tabs!></div>
-	<div class="modtoc" id="modToc"> <!SEC:toc!> </div>
-	<div class="modmbar"><!SEC:mbar!></div>
-	<div class="modbody"><!SEC:body!></div>
-	<div class="modopts"><!SEC:opts!></div>
+	<div class="modTabs"><!SEC:tabs!></div>
+	<div class="modToc" id="modToc"> <!SEC:toc!> </div>
+	<div class="modMbar"><!SEC:mbar!></div>
+	<div class="modBody"><!SEC:body!></div>
+	<div class="modOpts"><!SEC:opts!></div>
 </body>
 
 # ***********************************************************
@@ -63,7 +63,7 @@ title = PRJ_TITLE
 <!MOD:menu!>
 
 [trailer] <!-- banner -->
-<!MOD:app.footer!>
+<!MOD:app.status!>
 
 # ***********************************************************
 # vertical panels
@@ -80,7 +80,7 @@ title = PRJ_TITLE
 <!MOD:toc.topics!>
 <!MOD:toc.current!>
 <!MOD:toc!>
-<!MOD:toc.footer!>
+<!MOD:toc.status!>
 </div>
 
 <div class="container">
@@ -95,8 +95,11 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [body] <!-- body -->
-<div class="container" id="scView">
+<div class="hedBody">
 <!MOD:body.head!>
+</div>
+
+<div class="container" id="scView">
 <!MOD:body.feedback!>
 <!MOD:body!>
 </div>

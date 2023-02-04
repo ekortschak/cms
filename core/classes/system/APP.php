@@ -185,9 +185,10 @@ public static function gcRec($dir, $snip) { // get content recursively
 // ***********************************************************
 public static function read($file) { // read any text
 	$ful = self::file($file); if (! $ful) return "";
-	$out = file($ful);
-	$out = implode("\n", $out);
-	return trim($out);
+	$out = file_get_contents($ful);
+	$out = STR::replace($out, "\r", "");
+#	$out = STR::replace($out, "\n", "\r\n");
+	return $out;
 }
 
 public static function append($file, $data) {

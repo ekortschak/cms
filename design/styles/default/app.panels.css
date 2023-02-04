@@ -39,10 +39,18 @@ body.print {
 .conToc  { padding: 15px 15px 35px }
 .conOpts { padding: 0px 35px 35px; }
 
+.hedBody {
+	position: sticky;
+	top: 0px;
+	background: BC_BODY;
+	padding: 0px 20px;
+	width: calc(W_BODY - 40px);
+}
+
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */
-.modtabs {
+.modTabs {
 	overflow: visible;
 	position: fixed;
 	height: 100%;
@@ -52,7 +60,7 @@ body.print {
 	background: BC_DROP url("CMS_URL/img/tabs/pborder.png") repeat-y right;
 }
 
-.modtoc {
+.modToc {
 	overflow: auto;
 	position: fixed;
 	left: W_TABS;
@@ -63,7 +71,7 @@ body.print {
 	background: BC_TOC;
 }
 
-.modmbar {
+.modMbar {
 	overflow: hidden;
 	position: fixed;
 	left: calc(W_TABS + W_TOC);
@@ -73,7 +81,7 @@ body.print {
 	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
 }
 
-.modbody {
+.modBody {
 	z-index: 5;
 	overflow: auto;
 	position: fixed;
@@ -85,7 +93,7 @@ body.print {
 	color: FC_BODY;
 	background: BC_BODY;
 }
-.modopts {
+.modOpts {
 	z-index: 1;
 	overflow: auto;
 	position: fixed;

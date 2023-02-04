@@ -16,9 +16,6 @@ if (! $prm) return incMod("body/login.php");
 // ***********************************************************
 // retrieving page info
 // ***********************************************************
-$tit = PGE::getTitle();
-HTW::tag($tit, "h3");
-
 $inc = PGE::getIncFile();
 $fil = FSO::join("core/modules/body", $inc);
 

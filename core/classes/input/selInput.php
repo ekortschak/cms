@@ -156,7 +156,7 @@ public function getType() {
 }
 
 private function secure($val) {
-	$val = str_replace('"', "'", $val);
+	$val = str_replace('"', "<dqot>", $val);
 	return $val;
 }
 

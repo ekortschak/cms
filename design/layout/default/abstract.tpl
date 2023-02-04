@@ -8,7 +8,7 @@ LOC_LAY/LAYOUT/main.tpl
 <!MOD:toc.banner!>
 <!MOD:toc.topics!>
 <!MOD:toc.current!>
-<!MOD:toc.footer!>
+<!MOD:toc.status!>
 
 <div align="right">
 <a href="?vmode=view"><img src="ICONS/buttons/view.png" /></a>

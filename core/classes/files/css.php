@@ -53,7 +53,6 @@ private function getCss() {
 
 	foreach ($arr as $file) {
 		$css.= APP::read($file);
-		$css.= "\n";
 	}
 #	$css = $this->compress($css);
 	$css = $this->cleanUrls($css, 'url("', '"');
