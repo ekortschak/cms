@@ -13,38 +13,18 @@ $snc->read("ftp.ini");
 $snc->publish();
 */
 
-incCls("server/sync.php");
-incCls("server/http.php");
-incCls("server/curl.php");
-incCls("server/ftp.php");
-incCls("server/SSL.php");
-
-incCls("menus/dropBox.php");
+incCls("server/syncServer.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class syncUp extends sync {
-	protected $htp;	// http object
-	protected $ftp;	// ftp object
+class syncUp extends syncServer {
 
 function __construct() {
 	parent::__construct();
 
-	$this->ftp = new ftp();
-
-	$this->read();
 	$this->load("modules/xfer.syncUp.tpl");
-}
-
-// ***********************************************************
-public function read($ini = false) {
-	$this->ftp->read($ini);
-
-	$dst = $this->ftp->get("web.url", "???");
-	$dst = $this->setTarget($dst);
-
-	$this->htp = new http($dst);
+	$this->setTarget($this->get("web.url", "???"));
 }
 
 // ***********************************************************
@@ -55,14 +35,12 @@ public function publish() {
 	parent::run();
 }
 
-protected function isGood() {
-	return $this->ftp->test();
-}
-
 // **********************************************************
 // retrieving data for action
 // **********************************************************
 protected function getTree($src, $dst) {
+	if ($this->err) return;
+	
 	$src = $this->FSlocal($src); if (! $src) return false; // local files
 	$dst = $this->FSremote();    if (! $dst) return false; // remote
 	$out = $this->getNewer($src, $dst);
@@ -73,77 +51,45 @@ protected function getTree($src, $dst) {
 	return $out;
 }
 
-// ***********************************************************
-// pass through methods
-// ***********************************************************
-protected function FSremote() {
-	if (! NET::isCon()) {
-		$this->error = "nocon"; return;
-	}
-	return $this->htp->query(".", "get");
-}
-
-protected function aggregate($data) { // prepare for webexec()
-	return $this->htp->aggregate($data);
-}
-
 // **********************************************************
-// check for protected files
-// **********************************************************
-protected function chkProtect($arr) {
-	foreach ($arr as $act => $itm) {
-		foreach ($itm as $fso) {
-			if (! $this->ftp->isProtected($fso)) continue;
-			$arr[$act] = VEC::drop($arr[$act], $fso);
-			$arr["man"][] = $fso;
+protected function aggregate($data) { // prepare for webexec(), reducing pay load
+	$out = array();
+
+	foreach ($data as $act => $lst) {
+		if (STR::contains("nwr.man", $act)) continue; // do nothing
+		if (STR::contains("cpf", $act)) { // no bulk operations
+			$out[$act] = $lst; continue;
 		}
+		$arr = array(); $str = ""; $idx = 0;
+
+		foreach ($lst as $fso) {
+			if (strlen("$str;$fso") < 2000) $str.= "$fso;";
+			else { $str = "$fso;"; $idx++; }
+			
+			$arr[$idx] = trim($str);
+		}
+		if ($arr) $out[$act] = $arr;
 	}
-	return $arr;
-}
-
-// **********************************************************
-// executing retrieved data
-// **********************************************************
-protected function exec() { // prepare for webexec()
-	$this->ftp->connect(); parent::exec();
-	$this->ftp->disconnect();
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-protected function dstName($fso, $act = false) {
-	$chk = STR::contains(".cpf.mkd.", ".$act."); if (! $chk) return $fso;
-	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
-	return FSO::join($pfx, $fso);
-}
-
-protected function verTarget() {
-	$out = $this->htp->query(".", "ver");
-	$out = implode(" - ", $out);
-	return ($out) ? $out : "?";
+	return $out;
 }
 
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
-#protected function do_copy($src, $dst) { // single file op
-#	if ($this->ftp->isProtected($dst)) return false;
-#	return $this->ftp->remote_put($src, $dst);
-#}
-protected function do_copy($file) { // single file op
-	if ($this->ftp->isProtected($file)) return false;
+protected function do_copy($src, $dst) { // single file op
+	return $this->do_copy_ftp($src, $dst);
+	return $this->do_copy_curl($src);
+}
 
-	$srv = $this->ftp->get("web.url");
-	
-	$crl = new curl();
-	return $crl->upload("https://$srv", $file);
+protected function do_copy_ftp($src, $dst) { // single file op
+	return $this->ftp->remote_put($src, $dst);
+}
+
+protected function do_copy_curl($file) { // single file op
+	return $this->crl->upload($file);
 }
 
 // ***********************************************************
-#protected function do_mkDir($dst) { // single dir op
-#	return $this->ftp->remote_mkdir($dst);
-#}
 protected function do_mkDir($lst) { // bulk operation
 	$out = $this->htp->query($lst, "mkd");
 	return intval($out);
@@ -164,13 +110,28 @@ protected function do_kill($lst) { // bulk operation
 }
 
 // ***********************************************************
-// find versions
+// auxilliary methods
+// ***********************************************************
+protected function dstName($fso, $act = false) {
+	$chk = STR::contains(".cpf.", ".$act."); if (! $chk) return $fso;
+	$pfx = $this->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
+	return FSO::join($pfx, $fso);
+}
+
+protected function dstVersion() {
+	return $this->remoteVersion();
+}
+
+// ***********************************************************
+// find local (distributable) versions
 // ***********************************************************
 protected function getVersions() {
 	$ver = APP::arcDir(SRV_ROOT, "ver");
+	$ver = $this->correct($ver);
+	$cms = $this->getCms();
 
+	$arr = array($cms => "Current state");
 	$drs = FSO::folders($ver);
-	$arr = array(APP_DIR => "Current state");
 	
 	foreach ($drs as $key => $val) {
 		$arr[$key] = "Version $val";
@@ -181,6 +142,15 @@ protected function getVersions() {
 
 	$this->set("choices", $mnu);
 	$this->setSource($src);
+}
+
+// ***********************************************************
+protected function correct($ver) {
+	return $ver;
+}
+
+protected function getCms() {
+	return APP_DIR;
 }
 
 // ***********************************************************

@@ -35,7 +35,7 @@ class sync extends tpl {
 
 	protected $visOnly = true;  // exclude hidden files from sync
 	protected $newProt = true;  // protect newer files
-	protected $error = false;
+	protected $err = false;
 
 function __construct() {
 	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
@@ -59,7 +59,8 @@ public function setTarget($dir) {
 	return $this->set("target", FSO::norm($dir));
 }
 
-protected function setNewer() {
+// ***********************************************************
+protected function setNewer() { // protect newer files?
 	$val = ENV::get("pnew", 1);
 	$this->set("pnew", $val);
 	$this->newProt = $val;
@@ -79,16 +80,28 @@ public function setVisOnly($value) {
 // ***********************************************************
 // retrieve info
 // ***********************************************************
-protected function verSource() {
+protected function srcName($fso, $act = false)  {
+	$src = $this->get("source");
+	if (STR::begins($fso, $src)) return $fso;
+	return FSO::join($src, $fso);
+}
+protected function srcVersion() {
 	$dir = $this->get("source");
 	return $this->getVersion($dir);
 }
 
-protected function verTarget() {
+// ***********************************************************
+protected function dstName($fso, $act = false) {
+	$dst = $this->get("target");
+	if (STR::begins($fso, $dst)) return $fso;
+	return FSO::join($dst, $fso);
+}
+protected function dstVersion() {
 	$dir = $this->get("target");
 	return $this->getVersion($dir);
 }
 
+// ***********************************************************
 protected function getVersion($dir) {
 	$fil = FSO::join($dir, "config/config.ini");
 
@@ -100,14 +113,13 @@ protected function getVersion($dir) {
 // run jobs
 // ***********************************************************
 protected function run($info = "info") {
-	$act = ENV::getParm("sync.act");
-	
+	$act = ENV::getParm("sync.act"); if (! $this->isGood()) return;
 	if ($act == 2) $this->exec();
 
-	$this->set("vsrc", $this->verSource());
-	$this->set("vdst", $this->verTarget());
+	$this->set("vsrc", $this->srcVersion());
+	$this->set("vdst", $this->dstVersion());
 
-	$this->show($info); if (! $this->isGood()) return;
+	$this->show($info);
 	$this->show();
 	
 	if ($act == 1) return $this->analize();
@@ -122,16 +134,13 @@ protected function exec() {
 	$arr = $this->aggregate($arr);
 
 	foreach ($arr as $act => $lst) {
-		if ($act == "nwr") continue;
-		
 		foreach ($lst as $key => $fso) {
-			$erg = $this->manage($act, $fso);
-			if ($erg) {
-				$this->rep[$act]+= $erg;
-				if ($act == "cpf") unset($arr[$act][$key]);
-			}
+			$erg = $this->manage($act, $fso); if (! $erg) continue;
+
+			$this->rep[$act]+= $erg;
+			unset($arr[$act][$key]);
 		}
-		if ($act != "cpf") unset($arr[$act]);
+		if (! VEC::get($arr, $act)) unset($arr[$act]);
 	}
 	ENV::set("sync.jbs", $arr);
 }
@@ -147,9 +156,8 @@ protected function manage($act, $fso) {
 		case "rmd": return $this->do_rmDir($dst);
 		case "cpf": return $this->do_copy($src, $dst);
 		case "dpf": return $this->do_kill($dst);
-		case "man": return; // do nothing !
 	}
-	ERR::msg("sync.error", $act);
+	return; // do nothing !
 }
 
 // **********************************************************
@@ -173,7 +181,7 @@ protected function analize() {
 protected function preView($tellMe = false) {
 	$arr = ENV::get("sync.jbs", NV);
 
-	if ($this->error == "nocon") return MSG::now("no.connection");
+	if ($this->err) return MSG::now($this->err);
 	if (! $arr) {
 		if (! $tellMe) return;
 		return MSG::now("do.nothing");
@@ -205,14 +213,13 @@ protected function showStat($arr, $act, $cap) {
 // show results
 // ***********************************************************
 protected function report() {
-	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf";
+	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf.mkd";
 	$out = "<table>\n";
 
 	foreach ($this->rep as $key => $val) {
 		$inf = DIC::getPfx("arr", $key);
-		$cat = "file(s)";  if (STR::contains($blk, $key))
-		$cat = "block(s)"; if ($key == "mkd")
-		$cat = "dir(s)";
+		$cat = "file(s)"; if (STR::contains($blk, $key))
+		$cat = "block(s)"; 
 
 		$out.= "<tr><td width=200>$inf</td><td align='right'>$val</td><td><hint>$cat</hint></td><tr>\n";
 	}
@@ -261,21 +268,19 @@ protected function getNewer($src, $dst) {
 		$ren[$alf]["typ"] = $typd;
 		$ren[$alf]["src"] = $fso;
 	}
-
 	foreach ($dst as $itm) { // destination - e.g. remote files
 		$inf = $this->split($itm, "d"); if (! $inf) continue; extract($inf);
-		
+
 		if (  isset($lst[$fso])) $lst[$fso]+= $inf; else $lst[$fso] = $inf;
 		if (! isset($ren[$alf])) continue;
 
 		if ( $ren[$alf]["src"] == $fso) unset($ren[$alf]);
-		else $ren[$alf]["dst"] = $fso;
+		else $ren[$alf]["dst"] =  $fso;
 	}
 
 	foreach ($lst as $fso => $prp) { // check dates
-		$chk = $this->chkPattern($fso); if (! $chk) continue;
 		$inf = $this->chkProps($prp); extract($inf); 
-		
+
 		if ($md5s === $md5d) continue;
 
 		$act = $this->getAction($typs.$typd, $dats >= $datd);
@@ -367,12 +372,6 @@ protected function chkCount($arr) {
 }
 
 // ***********************************************************
-protected function chkPattern($fso) {
-	return true;
-	if (! STR::contains($fso, "page.ini")) return false;
-}
-
-// ***********************************************************
 // auxilliary methods
 // ***********************************************************
 protected function split($itm, $pfx) {
@@ -405,17 +404,6 @@ protected function chkProps($arr) {
 // ***********************************************************
 // dummies for derived classes
 // ***********************************************************
-protected function srcName($fso, $act = false)  {
-	$src = $this->get("source");
-	if (STR::begins($fso, $src)) return $fso;
-	return FSO::join($src, $fso);
-}
-protected function dstName($fso, $act = false) {
-	$dst = $this->get("target");
-	if (STR::begins($fso, $dst)) return $fso;
-	return FSO::join($dst, $fso);
-}
-
 protected function aggregate($arr) {
 	return $arr; 
 }

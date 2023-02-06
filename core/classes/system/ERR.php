@@ -18,17 +18,42 @@ ERR::trace();
 */
 
 // ***********************************************************
+// define error options
+// ***********************************************************
+register_shutdown_function("shutDown"); // defined in funcs.php
+set_error_handler("errHandler"); // defined in funcs.php
+error_reporting(E_ALL);
+
+ini_set("ignore_repeated_errors", 1);
+ini_set("error_log", LOG::file("error.log"));
+
+// ***********************************************************
+// define syntax colors
+// ***********************************************************
+ini_set("highlight.comment", "red");
+ini_set("highlight.default", "navy");
+ini_set("highlight.html", "purple");
+ini_set("highlight.keyword", "green");
+ini_set("highlight.string", "orange");
+
+ERR::show(ERR_SHOW);
+
+
+// ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class ERR {
 	private static $err = array(); // error information
 	private static $hst = array(); // trace history
-
+    
     private static $depth = 7;  // call stack depth to display
 	private static $done = 0;	// only first error will be displayed
 
-public static function init() {}
+public static function init($value) {}
 
+// ***********************************************************
+// add messages
+// ***********************************************************
 public static function msg($msg, $val = NV) {
 	return MSG::err($msg, $val);
 }
@@ -40,6 +65,18 @@ public static function sql($msg, $sql) {
 		$msg = "SQL error near: $chk\n";
 	}
 	MSG::sql($msg, $sql);
+}
+
+// ***********************************************************
+// turning errors on or off
+// ***********************************************************
+public static function show($value = true) {
+	switch ($value) {
+		case true: error_reporting(E_ALL); break;
+		default:   error_reporting(E_CORE_ERROR);
+	}
+	ini_set("display_startup_errors", $value);
+	ini_set("display_errors", $value);
 }
 
 // ***********************************************************
@@ -61,28 +98,14 @@ public static function handler($num, $msg, $file, $line) {
 	$tpl->set("errNum", self::fmtNum($num, $msg));
 	$tpl->set("errMsg", self::fmtMsg($msg));
 	$tpl->set("file",   self::fmtFName($file));
-	$tpl->set("items",  self::stack("item"));
+	$tpl->set("items",  self::getStack("item"));
 	$tpl->show();
-}
-
-// ***********************************************************
-// goodies
-// ***********************************************************
-private static function shhht() {
-	return error_get_last();
-}
-
-private static function mailto($num, $msg) {
-	if (IS_LOCAL) return;
-	error_log("Error: [$num] $msg", 1, TEST_MASTER, "From: ".MAIL_MASTER);
 }
 
 // ***********************************************************
 // custom errors
 // ***********************************************************
 public static function raise($msg) {
-	return self::trace("short");
-
 	if (is_array($msg)) $msg = print_r($msg, true);
 	trigger_error($msg, E_USER_WARNING);
 }
@@ -91,15 +114,13 @@ public static function raise($msg) {
 // error tracing
 // ***********************************************************
 public static function trace() {
-	$arr = self::stack();
-
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
-	$tpl->set("items", trim($arr));
+	$tpl->set("items", self::getStack());
 	$tpl->show("trace");
 }
 
-private static function stack($sec = "short") {
+private static function getStack($sec = "short") {
 	$arr = self::getList(0, self::$depth); // get list of calling functions
 
 	$tpl = new tpl();
@@ -110,9 +131,8 @@ private static function stack($sec = "short") {
 		$xxx = $tpl->merge($itm);
 		$out.= $tpl->getSection($sec);
 	}
-	$md5 = md5($out);
-	$cnt = VEC::count(self::$hst, $md5); if ($cnt > 1) return false;
-	return $out;
+	$md5 = md5($out); if (VEC::get(self::$hst, $md5)) return "";
+	return trim($out);
 }
 
 // ***********************************************************
@@ -215,6 +235,18 @@ public static function assist($cat, $key, $parm = "") {
 	$tpl->merge(self::$err);
 	$tpl->substitute("howto", $key);
 	$tpl->show();
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private static function shhht() {
+	return error_get_last();
+}
+
+private static function mailto($num, $msg) {
+	if (IS_LOCAL) return;
+	error_log("Error: [$num] $msg", 1, TEST_MASTER, "From: ".MAIL_MASTER);
 }
 
 // ***********************************************************

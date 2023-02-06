@@ -20,8 +20,6 @@ class syncCms extends syncDown {
 function __construct() {
 	parent::__construct();
 
-	$this->ftp = new ftp();
-
 	$this->read("config/ftp_cms.ini");
 	$this->load("modules/xfer.cms.tpl");
 	$this->setTarget(APP_FBK);

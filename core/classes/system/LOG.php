@@ -30,8 +30,6 @@ public static function file($file) {
 
 // ***********************************************************
 public static function write($file, $data, $mode = FILE_APPEND) {
-	if (! IS_LOCAL) return;
-	
 	$fil = FSO::join(self::$dir, $file);
 	$xxx = APP::write($fil, $data, $mode);
 }

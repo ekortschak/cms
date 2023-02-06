@@ -26,7 +26,6 @@ class ftp extends objects {
 	protected $ini = "";
 	protected $con = false;
 	protected $lst = array();
-	protected $prt = array(); // protected config files
 
 	protected $timeout = 5;
 	protected $errCnt = 0;
@@ -41,9 +40,7 @@ public function read($inifile) {
 
 	$ini = new ini($inifile);
 	$prp = $ini->getValues(); $this->merge($prp);
-	$prt = $ini->getValues("protect");
-
-	$this->prt = array_keys($prt);
+	$prt = $ini->getSec("protect"); $this->set("protect", $prt);
 }
 
 // ***********************************************************
@@ -80,10 +77,8 @@ public function fastCheck() {
 
 // ***********************************************************
 public function isProtected($fso) {
-	foreach ($this->prt as $itm) {
-		if (STR::begins($fso, $itm)) return true;
-	}
-	return false;
+	$prt = $this->get("protect"); if (! $prt) return false;
+	return STR::contains($prt, "\n$fso");
 }
 
 public function test() {
@@ -131,7 +126,10 @@ public function remote_del($file) {
 	$erg = ftp_delete($this->con, $file);
 	return (bool) $erg;
 }
+
+// ***********************************************************
 public function remote_put($src, $dst) {
+	if ($this->isProtected($src)) return false;
 	if ($this->errCnt >= $this->errMax) return false;
 	if (! $dst) return false;
 
@@ -151,6 +149,8 @@ public function remote_put($src, $dst) {
 // write remote file to local dir
 // ***********************************************************
 public function save($src, $dst) {
+	if ($this->isProtected($src)) return false;
+	
 	$tim = ftp_mdtm($this->con, $src); if ($tim < 1) return false;
 	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
 	if ($tim > 1) touch ($dst, $tim);

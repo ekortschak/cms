@@ -7,18 +7,23 @@ used for synchronizing fs via curl
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$crl = new curl();
-$crl->upload("https://your_domain",$file);
+$crl = new curl("https://your_domain/prj_dir");
+$crl->upload($file);
 
 */
+
+incCls("user/USR.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class curl {
+	private $url = NV;
 	private $dot = "¬";
 
-function __construct() {}
+function __construct($server = NV) {
+	$this->url = "https://$url/x.sync.php";
+}
 
 // ***********************************************************
 // acting to transfer requests
@@ -73,16 +78,17 @@ private function bulk_ren($lst) { // rename dirs and files
 // ***********************************************************
 private function copy($source, $dir, $target) { // $source = temp_file
 	$dst = FSO::join($dir, $target);
-	$dst = STR::replace($dst, ".ini", ".test");
 	return FSO::copy($source, $dst);
 }
 
 // ***********************************************************
 // uploading files
 // ***********************************************************
-public function upload($url, $file) { // copy non text file to destination
+public function upload($file) { // copy non text file to destination
+	if ($this->url == NV) return;	
+	
 	$dir = APP::relPath(dirname($file));
-	$dir = $this->secure($dir);
+	$dir = $this->secure($dir); if (! $dir) return;
 	$ful = realpath($file);
 
 	$inf = new CURLFile($ful);
@@ -98,11 +104,11 @@ public function upload($url, $file) { // copy non text file to destination
 	curl_setopt($con, CURLOPT_FORBID_REUSE, 1);
 	curl_setopt($con, CURLOPT_TIMEOUT, 10);
 
-	curl_setopt($con, CURLOPT_URL, "$url/x.sync.php");
+	curl_setopt($con, CURLOPT_URL, $this->url);
 	curl_setopt($con, CURLOPT_HTTPHEADER, $opt);
 	curl_setopt($con, CURLOPT_POSTFIELDS, $inf);
 
-	$erg = curl_exec($con);
+	$erg = curl_exec($con);  DBG::text($erg, "erg");
 	$erg = STR::between($erg, "curl:", "files");
 	$erg = intval($erg);
 
@@ -113,13 +119,19 @@ public function upload($url, $file) { // copy non text file to destination
 // auxilliary methods
 // ***********************************************************
 private function secure($fso) {
-	return STR::replace($fso, ".", $this->dot);
+	$pfx = USR::md5("admin", "powerman"); if (! $pfx) return false;
+	$fso = STR::replace($fso, ".", $this->dot);
+	return SSL::encrypt("$pfx:$fso");
 }
 
-private function restore($fso) {
-	$dot = $this->dot;
-	$out = STR::replace($fso, "$dot/", "");
-	return STR::replace($out,  $dot,  ".");
+private function restore($dat) {
+	$dat = SSL::decrypt($dat);
+	$pfx = USR::md5("admin", "powerman"); if (! $pfx) return false;
+	$chk = STR::before($dat, ":");  if ($chk != $pfx) return false;
+	$fso = STR::after($dat,  ":");
+	
+	$out = STR::replace($fso, "$this->dot/", "");
+	return STR::replace($out,  $this->dot,  ".");
 }
 
 // ***********************************************************

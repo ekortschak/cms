@@ -6,14 +6,12 @@ user related functionality
 
 */
 
-incCls("files/ini.php");
-
 USR::init();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class USR extends objects {
+class USR {
 	private static $dat = array();
 
 public static function init() {
@@ -60,6 +58,11 @@ private static function chkUser($grp, $usr, $pwd) {
 	$chk = STR::maskPwd($chk);
 	$pwd = STR::maskPwd($pwd);
 	return ($chk == $pwd);
+}
+
+public static function md5($grp, $usr) {
+	$pwd = VEC::get(self::$dat, "$grp.$usr"); if (! $pwd) return false;
+	return md5(SECRET.".$grp.$usr.$pwd");
 }
 
 // ***********************************************************

@@ -16,37 +16,20 @@ $snc->upgrade();
 
 */
 
-incCls("input/confirm.php");
-incCls("server/sync.php");
-incCls("server/http.php");
-incCls("server/ftp.php");
-incCls("server/SSL.php");
+incCls("server/syncServer.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class syncDown extends sync {
-	protected $htp;	// http object
-	protected $ftp;	// ftp object
+class syncDown extends syncServer {
 
 function __construct() {
 	parent::__construct();
-
-	$this->ftp = new ftp();
 	
-	$this->read();
 	$this->load("modules/xfer.syncDown.tpl");
+
+	$this->setSource($this->get("web.url", "???"));
 	$this->setTarget(APP_DIR);
-}
-
-// ***********************************************************
-public function read($ini = false) {
-	$this->ftp->read($ini);
-
-	$src = $this->ftp->get("web.url", "???");
-	$xxx = $this->setSource($src);
-
-	$this->htp = new http($src);
 }
 
 //// ***********************************************************
@@ -56,8 +39,6 @@ public function upgrade() {
 	parent::run();
 }
 
-// **********************************************************
-// retrieving data for action
 // **********************************************************
 protected function getTree($src, $dst) {
 	$src = $this->FSremote();    if (! $src) return false; // remote
@@ -71,55 +52,22 @@ protected function getTree($src, $dst) {
 }
 
 // ***********************************************************
-// pass through methods
-// ***********************************************************
-protected function FSremote() {
-	$out = $this->htp->query(".", "get");
-	return $out;
-}
-
-// **********************************************************
-// check for protected files
-// **********************************************************
-protected function chkProtect($arr) {
-	foreach ($arr as $act => $itm) {
-		foreach ($itm as $fso) {
-			if (! $this->ftp->isProtected($fso)) continue;
-			$arr[$act] = VEC::drop($arr[$act], $fso);
-			$arr["man"][] = $fso;
-		}
-	}
-	return $arr;
-}
-
-// **********************************************************
-// executing retrieved data
-// **********************************************************
-protected function exec() { // prepare for webexec()
-	$this->ftp->connect(); parent::exec();
-	$this->ftp->disconnect();
-}
-
-// ***********************************************************
 // auxilliary methods
 // ***********************************************************
 protected function srcName($fso, $act = false) {
-	$pfx = $this->ftp->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
-	return FSO::join($pfx, $fso);
+	$rut = $this->get("ftp.froot"); if (STR::begins($fso, $rut)) return $fso;
+	return FSO::join($rut, $fso);
 }
 
-protected function verSource() {
-	$out = $this->htp->query(".", "ver");
-	$out = implode(" - ", $out);
-	return ($out) ? $out : "?";
+protected function srcVersion() {
+	return $this->remoteVersion();
 }
 
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
 protected function do_copy($src, $dst) { // single file op
-	if ($this->ftp->isProtected($dst)) return false;
-	return $this->ftp->save($src, $dst);
+	return $ftp->save($src, $dst);
 }
 
 // ***********************************************************
