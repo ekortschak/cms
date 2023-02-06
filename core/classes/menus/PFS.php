@@ -171,7 +171,7 @@ private static function readProps($dir) { // single page info
 	$inf = $ini->getValues();
 	$tit = $ini->getTitle();
 	$uid = $ini->getUID();
-	$typ = STR::left($ini->get("props.typ"));
+	$typ = $ini->getType();
 
 	$lev = self::getLevel($idx);
 	$nxt = self::getMType($idx, $typ, $lev);

@@ -3,13 +3,16 @@
 include_once "config/fallback.php";
 include_once "core/inc.min.php";
 
-incCls("server/fileServer.php");
+// ***********************************************************
+// determine method
+// ***********************************************************
+$fnc = "xfer"; if ($_FILES) 
+$fnc = "curl";
 
 // ***********************************************************
-error_reporting(E_ALL);
+incCls("server/$fnc.php");
 
-// ***********************************************************
-$srv = new fileServer();
+$srv = new $fnc();
 $srv->act();
 
 ?>

@@ -30,20 +30,20 @@ refbox-content {
 	z-index: 99;
 	position: absolute;
 	display: none;
-	width: 275px;
+	min-width: 275px;
 	overflow: auto;
-
-	color: FC_HINT;
-	background: BC_HINT;
 
 	border: 1px solid OUTLINE;
 	border-radius: 12px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	padding: 5px 10px 7px;
 
+	color: FC_HINT;
+	background: BC_HINT;
+
 	font-weight: normal;
 	font-style: normal;
-	white-space: pre-wrap;
+	white-space: pre-line;
 	text-align: left;
 }
 

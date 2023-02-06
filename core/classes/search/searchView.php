@@ -50,7 +50,7 @@ public function showNav() {
 	$dir = $box->getKey("search.dir", $arr, $dir);
 
 	if ($arr) {
-		$uid = PGE::getUID($dir, "props.uid", $dir);
+		$uid = PGE::getUID($dir);
 
 		$this->set("topic", $tpc);
 		$this->set("page", $uid);

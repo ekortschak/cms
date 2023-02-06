@@ -90,18 +90,16 @@ public function aggregate($data) { // prepare for webexec()
 	foreach ($data as $act => $lst) {
 		if (! is_array($lst)) continue;
 
-		if (STR::contains(".mkd.cpf.nwr", $act)) { // no bulk operations
-			$out[$act] = $lst;
-			continue;
+		if (STR::contains("nwr.man", $act)) continue; // do nothing
+		if (STR::contains("cpf", $act)) { // no bulk operations
+			$out[$act] = $lst; continue;
 		}
 		$arr = array(); $str = ""; $idx = 0;
 
 		foreach ($lst as $fso) {
 			if (strlen("$str;$fso") < 2000) $str.= "$fso;";
-			else {
-				$str = "$fso;";
-				$idx++;
-			}
+			else { $str = "$fso;"; $idx++; }
+			
 			$arr[$idx] = trim($str);
 		}
 		if ($arr) $out[$act] = $arr;

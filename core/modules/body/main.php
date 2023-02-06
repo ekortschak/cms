@@ -1,6 +1,6 @@
 <?php
 
-if (TAB_TYPE == "select")
+if (TAB_TYPE == "sel")
 if (TAB_ROOT == TAB_PATH) return;
 
 if (! TAB_ROOT) {

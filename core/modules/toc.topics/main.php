@@ -1,6 +1,6 @@
 <?php
 
-if (TAB_TYPE != "select") return;
+if (TAB_TYPE != "sel") return;
 
 incCls("menus/dropBox.php");
 incCls("menus/tabs.php");

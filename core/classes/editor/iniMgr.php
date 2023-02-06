@@ -43,7 +43,7 @@ public function show() {
 		$inf = HTM::flag($sec);
 		$sel->section($inf);
 
-		$typ = $this->getType($sec);
+		$typ = $this->getSecType($sec);
 
 		if ($typ == "tarea") { // memo sections
 			$val = $this->getSec($sec);

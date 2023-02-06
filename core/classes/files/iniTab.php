@@ -42,11 +42,6 @@ public function getTitle($lng = CUR_LANG) {
 	return ucfirst($out);
 }
 
-public function getType($default = "root") {
-	$out = $this->get("props.typ", $default);
-	return STR::left($out);
-}
-
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

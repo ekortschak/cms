@@ -135,9 +135,11 @@ protected function getParms($what) {
 protected function getPaths() {
 	$dir = dirname(TAB_PATH);
 	$fil = FSO::join($dir, "tab.ini");
-	$typ = PGE::prop($fil, "props.typ");
 
-	if ($typ != "select") $dir = TAB_PATH;
+	$ini = new ini($fil);
+	$typ = $ini->getType();
+
+	if ($typ != "sel") $dir = TAB_PATH;
 
 	return array(
 		TAB_PATH => DIC::get("Local"),

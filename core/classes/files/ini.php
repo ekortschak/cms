@@ -77,7 +77,7 @@ public function getSec($sec) {
 	return $this->sec[$sec];
 }
 
-public function getType($sec) {
+public function getSecType($sec) {
 	return VEC::get($this->typ, $sec, "input");
 }
 
@@ -148,6 +148,12 @@ public function getHead($lng = CUR_LANG) {
 }
 
 // ***********************************************************
+public function getType($default = "inc") {
+	$out = $this->get("props.typ", $default);
+	return STR::left($out, 3);
+}
+
+// ***********************************************************
 // reading ini files
 // ***********************************************************
 public function read($file) {
@@ -198,7 +204,7 @@ public function validTypes() {
 public function parentType() {
 	$dir = dirname($this->dir);
 	$ini = new ini($dir);
-	return $ini->get("props.typ", "inc");
+	return $ini->getType();
 }
 
 // ***********************************************************

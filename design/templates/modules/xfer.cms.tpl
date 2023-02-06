@@ -18,7 +18,7 @@ This may induce problems.</p>
 # ***********************************************************
 <h4><red>Neueste CMS Version vom Server holen</red></h4>
 
-<p>Diese Funktion ersetzt ihr aktuelles CMS durch die neueste Version.<br>
+<p>Diese Funktion ersetzt das aktuelle CMS durch die neueste Version.<br>
 Dadurch kann es zu Problemen kommen.</p>
 
-<p><msg>Sichern Sie vor dem Update ihr aktuelles CMS!</msg></p>
+<p><msg>Sichern Sie vor dem Update das aktuelle CMS!</msg></p>

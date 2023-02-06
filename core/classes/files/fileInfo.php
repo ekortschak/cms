@@ -24,9 +24,7 @@ incCls("system/DAT.php"); // basic date functions
 class fileInfo extends objects {
 	private $fil = "";
 
-// ***********************************************************
-function __construct() {
-}
+function __construct() {}
 
 // ***********************************************************
 // setting & retrieving info
@@ -34,6 +32,7 @@ function __construct() {
 public function read($file) {
     $this->fil = $file;
 	$this->vls = array(); if (! is_file($file)) return false;
+
 	$inf = pathinfo($file);
 
 	$this->setName($inf, $file);

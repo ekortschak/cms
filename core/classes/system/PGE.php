@@ -13,10 +13,9 @@ class PGE {
 	private static $sets = ""; // tabsets
 	private static $tabs = ""; // tabs
 	private static $tpcs = ""; // topics
-	
-	private static $tpc = "";  // current topic
 
-	private static $pinf = ""; // properties of current page
+	private static $tpc = "";  // current topic
+	private static $pge = "";  // current page props
 
 public static function init() {
 	$idx = APP_IDX;
@@ -25,9 +24,8 @@ public static function init() {
 	$tpc = self::getTopic($tab, $typ);
 	$pge = self::getPage($tpc);
 
-	if ($typ != "select") {
-		$tab = $tpc;
-	}
+	if ($typ != "sel") $tab = $tpc;
+
 	CFG::set("TAB_HOME", $tpc);
 	CFG::set("TAB_ROOT", APP::dir($tab.DIR_SEP));
 	CFG::set("TAB_PATH", APP::dir($tpc.DIR_SEP));
@@ -46,15 +44,11 @@ public static function load($dir) {
 	CFG::set("CUR_PAGE", $dir);
 
 	$ini = new ini($dir);
-	self::$pinf = $ini->getValues();
-
-#	self::$pinf["title"] = $ini->getTitle();
-#	self::$pinf["head"]  = $ini->getHead();
-#	self::$pinf["uid"]   = $ini->getUID();
+	self::$pge = $ini->getValues();
 }
 
 public static function get($key, $default = false) {
-	return VEC::get(self::$pinf, $key, $default);
+	return VEC::get(self::$pge, $key, $default);
 }
 
 // ***********************************************************
@@ -105,10 +99,10 @@ private static function getTab() {
 // ***********************************************************
 private static function getTabType($tab) {
 	$ini = new ini("$tab/tab.ini");
-	$typ = $ini->get("props.typ");
+	$typ = $ini->getType("root");
 	$std = $ini->get("props.std");
 
-	if ($typ == "select") self::$tpc = basename($std);
+	if ($typ == "sel") self::$tpc = basename($std);
 	return $typ;
 }
 
@@ -117,7 +111,7 @@ private static function getTopic($tab, $typ) {
 	$tpc = ENV::getParm("tpc");  if ($tpc) return $tpc;
 	$tpc = ENV::get("tpc.$tab"); if ($tpc) return $tpc;
 
-	if ($typ != "select") return $tab;
+	if ($typ != "sel") return $tab;
 	return FSO::join($tab, self::$tpc);
 }
 
@@ -135,8 +129,8 @@ private static function getPage($tab) {
 
 private static function langProp($prop) {
 	$out = self::get(CUR_LANG.".$prop"); if ($out) return $out;
-	$out = self::get(GEN_LANG.".$prop"); if ($out) return $out;
 	$out = self::get("xx.$prop");        if ($out) return $out;
+	$out = self::get(GEN_LANG.".$prop"); if ($out) return $out;
 	$out = self::get($prop);             if ($out) return $out;
 	return false;
 }
@@ -151,12 +145,8 @@ public static function getTitle($fso = CUR_PAGE) {
 }
 
 public static function getUID($fso) {
-	return self::prop($fso, "props.uid", $fso);
-}
-
-public static function prop($fso, $key, $default = false) {
 	$ini = new ini($fso);
-	return $ini->get($key, $default);
+	return $ini->getUID();
 }
 
 protected static function getValues($fso, $sec = "*") {

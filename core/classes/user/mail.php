@@ -93,8 +93,6 @@ public function addSep($msg) {
 // output
 // ***********************************************************
 public function send($mode = MAILMODE) {
-	$this->merge($this->vls);
-
 	if (IS_LOCAL) {
 		MSG::now("mail.force preview");
 		$mode = "preview";

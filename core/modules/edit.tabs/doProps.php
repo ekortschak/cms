@@ -19,7 +19,7 @@ ENV::set("tedit.tab", $tab);
 // ***********************************************************
 $ini = new iniTab($tab);
 $tit = $ini->getTitle();
-$typ = $ini->get("props.typ", "root");
+$typ = $ini->getType("root");
 $std = $ini->get("props.std");
 
 $tbs = new tabs();

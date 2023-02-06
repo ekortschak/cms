@@ -9,7 +9,6 @@ $nav = new buttons("xfer", "B", __DIR__);
 // ***********************************************************
 $nav->add("B", "doBackup");
 $nav->add("U", "syncUp",   "upload");
-#$nav->add("C", "curlUp");
 $nav->add("R", "doRestore");
 $nav->add("D", "syncDown", "download");
 $nav->add("I", "doSingle", "pdf");

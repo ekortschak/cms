@@ -35,12 +35,9 @@ public function show() {
 // display
 // ***********************************************************
 private function showPic($fil) {
-	$uid = PGE::getUID($file);
-
 	$tpl = new tpl();
 	$tpl->load($this->tpl);
-	$tpl->set("title", $uid);
-	$tpl->set("file", $this->fil);
+	$tpl->set("file", $fil);
 	$tpl->show();
 }
 

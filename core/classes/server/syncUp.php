@@ -15,6 +15,7 @@ $snc->publish();
 
 incCls("server/sync.php");
 incCls("server/http.php");
+incCls("server/curl.php");
 incCls("server/ftp.php");
 incCls("server/SSL.php");
 
@@ -126,31 +127,39 @@ protected function verTarget() {
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
-protected function do_copy($src, $dst) { // single file op
-	if ($this->ftp->isProtected($dst)) return false;
-	return $this->ftp->remote_put($src, $dst);
-}
-
-// ***********************************************************
-protected function do_mkDir($dst) { // single dir op
-	return $this->ftp->remote_mkdir($dst);
-}
-#protected function do_mkDir($arr) { // bulk operation
-#	$out = $this->htp->query($arr, "mkd");
-#	return intval($out);
+#protected function do_copy($src, $dst) { // single file op
+#	if ($this->ftp->isProtected($dst)) return false;
+#	return $this->ftp->remote_put($src, $dst);
 #}
+protected function do_copy($file) { // single file op
+	if ($this->ftp->isProtected($file)) return false;
+
+	$srv = $this->ftp->get("web.url");
+	
+	$crl = new curl();
+	return $crl->upload("https://$srv", $file);
+}
 
 // ***********************************************************
-protected function do_ren($arr) { // bulk operation
-	$out = $this->htp->query($arr, "ren");
+#protected function do_mkDir($dst) { // single dir op
+#	return $this->ftp->remote_mkdir($dst);
+#}
+protected function do_mkDir($lst) { // bulk operation
+	$out = $this->htp->query($lst, "mkd");
 	return intval($out);
 }
-protected function do_rmDir($arr) { // bulk operation
-	$out = $this->htp->query($arr, "rmd");
+
+// ***********************************************************
+protected function do_ren($lst) { // bulk operation
+	$out = $this->htp->query($lst, "ren");
 	return intval($out);
 }
-protected function do_kill($arr) { // bulk operation
-	$out = $this->htp->query($arr, "dpf");
+protected function do_rmDir($lst) { // bulk operation
+	$out = $this->htp->query($lst, "rmd");
+	return intval($out);
+}
+protected function do_kill($lst) { // bulk operation
+	$out = $this->htp->query($lst, "dpf");
 	return intval($out);
 }
 

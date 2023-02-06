@@ -7,6 +7,7 @@ HTW::xtag("tab.props");
 // ***********************************************************
 $tab = new iniTab(TAB_PATH);
 $fst = $tab->get("props.std");
+
 $fst = PFS::getIndex($fst);     // index of default page
 $cur = PFS::getIndex(CUR_PAGE); // index of current page
 $stc = PFS::isStatic();
@@ -23,8 +24,7 @@ $sel->show();
 $ful = FSO::join($cur, "page.ini");
 
 $ini = new ini($ful);
-$typ = $ini->get("props.typ", "inc");
-$typ = STR::left($typ);
+$typ = $ini->getType();
 
 $tpl = "LOC_CFG/page.$typ.def"; if (! is_file($tpl))
 $tpl = "LOC_CFG/page.def";

@@ -179,7 +179,7 @@ public function show($sec = "main") {
 
 public function gc($sec = "main") {
 	$inp = $this->itm->getData(); $out = "";
-	$vls = $this->getValues();
+	$vls = $this->getValues(); // backup vars
 
 	$this->set("oid", $this->oid);
 
@@ -192,7 +192,7 @@ public function gc($sec = "main") {
 
 		$out.= $this->getSection($type);
 
-		$this->vls = $vls;
+		$this->vls = $vls; // restore vars
 	}
 	$this->set("items", $out);
 

@@ -12,7 +12,7 @@ foreach ($fls as $fil => $arr) {
 	
 	$num = STR::between($nam, ".", "."); $num = intval($num);
 	$tit = PGE::getTitle($dir);
-	$uid = PGE::getUID($dir, "props.uid");
+	$uid = PGE::getUID($dir);
 	$cnt = 0;
 
 	$tpl->set("topic", $tpc);

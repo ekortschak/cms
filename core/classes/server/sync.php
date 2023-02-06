@@ -235,9 +235,9 @@ protected function getTree($src, $dst) {
 
 // ***********************************************************
 protected function FSlocal($dir) {
-	incCls("server/fileServer.php");
+	incCls("server/xfer.php");
 
-	$srv = new fileServer($this->visOnly);
+	$srv = new xfer($this->visOnly);
 	$out = $srv->getFiles($dir); if (! $out) return array();
 	$fst = current($out);
 

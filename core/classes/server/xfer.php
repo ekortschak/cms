@@ -2,14 +2,14 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-used for uploading files to server via fileSever
+used for uploading files to server via xfer
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("server/fileServer.php");
+incCls("server/xfer.php");
 
-$srv = new fileServer($visOnly);
+$srv = new xfer($visOnly);
 $srv->act()
 
 */
@@ -19,10 +19,10 @@ $srv->act()
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class fileServer {
+class xfer {
 	private $media = "file"; // file or screen
 	private $visOnly = true;
-	private $dbg = false;
+	private $dbg = 1;
 
 function __construct($visOnly = true) {
 	$this->visOnly = $visOnly;
@@ -36,6 +36,7 @@ public function act() {
 	$prm = ENV::getParm("p");
 	$prm = SSL::decrypt($prm);
 	$lst = STR::toAssoc($prm, "&");
+
 	$md5 = VEC::get($lst, "c"); if (! SSL::isValid($md5)) return;
 	$fso = VEC::get($lst, "f"); if (! $fso) return;
 	$act = VEC::get($lst, "w");
@@ -47,16 +48,18 @@ public function act() {
 		case "ver": return $this->send(VERSION);
 		case "get": return $this->getTree($fso, "remote");
 
+ // bulk operations
 		case "ren": return $this->do_ren  ($fso);
 		case "mkd": return $this->do_mkDir($fso);
 		case "rmd": return $this->do_rmDir($fso);
 		case "dpf": return $this->do_kill ($fso);
-		case "cpf": return; // no bulk copying ...
+
+ // single file operations
+		case "cpf": return $this->do_copy($upload, $dest); // no bulk copying ...
 
 #		case "mod": // modify mdate
 #			$tim = VEC::get($lst, "t");
-#			FSO::copy("$fso~", $fso); touch($fso, $tim);
-#			FSO::kill("$fso~");
+#			touch($fso, $tim);
 	}
 }
 
@@ -70,12 +73,10 @@ public function getFiles($dir) {
 
 // ***********************************************************
 private function getTree($dir, $mode = "remote") {
-	if ($dir == ".") $dir = APP_DIR;
+	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return;
 
-	if (! is_dir($dir)) {
-		return;
-	}
-	$arr = FSO::fdtree($dir); $out = array("root" => $dir);
+	$arr = FSO::fdtree($dir); 
+	$out = array("root" => $dir);
 
 	foreach ($arr as $fso => $nam) {
 		if (! $fso) continue; $val = $this->getEntry($fso, $dir);
@@ -91,8 +92,8 @@ private function getEntry($fso, $root) {
 	if ($this->visOnly)
 	if (STR::contains($fso, HIDE)) return "";
 
-	$rut = FSO::norm($root);
-	$itm = STR::afterX($fso, $rut.DIR_SEP, "");
+	$dir = FSO::norm($root);
+	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 
 	if (  is_dir($fso))  return "d;1;$itm;1";
 	if (  is_link($fso)) return "";
@@ -105,14 +106,20 @@ private function getEntry($fso, $root) {
 }
 
 // ***********************************************************
-// execute fs commands
+// execute single file commands
 // ***********************************************************
-private function do_mkDir($dir) { return $this->exec("force", $dir); }
-private function do_rmDir($dir) { return $this->exec("rmDir", $dir); }
-private function do_kill ($fil) { return $this->exec("kill",  $fil); }
+private function do_copy($src, $trg) {
+}
 
-private function exec($fnc, $fso) {
-	$arr = explode(";", $fso); $cnt = 0;
+// ***********************************************************
+// execute bulk commands
+// ***********************************************************
+private function do_mkDir($lst) { return $this->exec("force", $lst); }
+private function do_rmDir($lst) { return $this->exec("rmDir", $lst); }
+private function do_kill ($lst) { return $this->exec("kill",  $lst); }
+
+private function exec($fnc, $lst) {
+	$arr = explode(";", $lst); $cnt = 0;
 
 	foreach ($arr as $fso) {
 		$fso = $this->chkPath($fso); if (! $fso) continue;
@@ -126,8 +133,8 @@ private function exec($fnc, $fso) {
 }
 
 // ***********************************************************
-private function do_ren($fso) { // rename dirs or files
-	$arr = explode(";", $fso); $cnt = 0;
+private function do_ren($lst) { // rename dirs or files
+	$arr = explode(";", $lst); $cnt = 0;
 
 	foreach ($arr as $itm) {
 		$prp = explode("|", $itm);      if (count($prp) < 3) continue;

@@ -101,7 +101,7 @@ private function getFiles($what = "file") {
 
 	foreach($this->fls as $fil => $nam) {
 		$xxx = $inf->read($fil);
-		$out.= $inf->insVars($lin);
+ 		$out.= $inf->insVars($lin);
 	}
 	if ($out) return $out;
 	return $this->getSection("nofiles");
