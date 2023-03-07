@@ -38,7 +38,7 @@ cls = cb
 
 [TCols]
 	<tr class="<!VAR:class!>">
-		<th align="center"><img src="ICONS/nav/toggle.gif" onClick="toggleCB('<!VAR:cls!>');"></th>
+		<th align="center"><img src="LOC_ICO/nav/toggle.gif" onClick="toggleCB('<!VAR:cls!>');"></th>
 		<!VAR:data!>
 	</tr>
 

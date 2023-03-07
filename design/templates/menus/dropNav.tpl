@@ -14,21 +14,25 @@ class = dropMenu
 			<div class="<!VAR:class!>"><!VAR:items!></div>
 		</td>
 		<td class="nopad" width=5></td>
-		<td class="nopad" width=10 align="right"><!SEC:nav.left!></td>
+		<td class="nopad" width=10><!SEC:nav.left!></td>
 		<td class="nopad" width=5></td>
-		<td class="nopad" width=10 align="right"><!SEC:nav.right!></td>
+		<td class="nopad" width=10><!SEC:nav.right!></td>
 	</tr>
 </table>
 
 [main.box]
-<div class="dropdown">
-<!VAR:current!>COMBO_DOWN
-<!SEC:content!>
-</div>&ensp;
+<!SEC:combo!>
 
 [main.one]
-<!VAR:current!>&ensp;
+<!SEC:text!>
 
+# ***********************************************************
+[combo]
+# ***********************************************************
+<div class="dropdown">
+<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
+<div class="dropbody"><!VAR:links!></div>
+</div>
 
 # ***********************************************************
 # navigation buttons

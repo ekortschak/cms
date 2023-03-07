@@ -1,5 +1,6 @@
 [dic.de]
 act.show = Anzeigen
+tpc.info = Info zum Thema
 tpc.desc = Abstrakt
 tpc.list = Themen
 tpc.nodesc = Keine Kurzbeschreibung vorhanden ...

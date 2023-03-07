@@ -1,10 +1,10 @@
 [props]
-pic = ICONS/buttons/rescue.png
+pic = LOC_ICO/buttons/rescue.png
 
 [de]
-caption = 
-tooltip = 
+caption =
+tooltip =
 
 [en]
-caption = 
-tooltip = 
+caption =
+tooltip =

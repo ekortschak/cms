@@ -42,7 +42,7 @@ link = notyet
 [yt.link]
 # ***********************************************************
 <p>
-	<img src="ICONS/nav/youtube.png" style="margin-right: 5px;" />
+	<img src="LOC_ICO/nav/youtube.png" style="margin-right: 5px;" />
 	<a href="https://www.youtube.com/watch?v=<!VAR:ytid!>" target="_blank"><!VAR:title!></a>
 	<hint><!VAR:len!> (ID = <!VAR:ytid!>)</hint>
 </p>
@@ -57,7 +57,7 @@ link = notyet
 # ***********************************************************
 [mp4]
 # ***********************************************************
-<a href="<!VAR:link!>"><!VAR:text!> </a> <!VAR:hint!>&nbsp; 🎥<img src="ICONS/files/movie.png" />
+<a href="<!VAR:link!>"><!VAR:text!> </a> <!VAR:hint!>&nbsp; 🎥<img src="LOC_ICO/files/movie.png" />
 
 
 # ***********************************************************

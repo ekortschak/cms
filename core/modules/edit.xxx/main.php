@@ -16,7 +16,7 @@ $nav->add("S", "doSearch");
 $nav->add("R", "doRename", "rename");
 $nav->add("N", "doNums");
 $nav->add("T", "doTidy");
-$nav->addSpace(5);
+$nav->space();
 $nav->add("X", "doXLate");
 $nav->add("F", "doXRef");
 $nav->show();

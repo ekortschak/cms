@@ -28,15 +28,15 @@ rows = 40
 	</div>
 </div>
 
+asdf
+
 # ***********************************************************
 [main]
 # ***********************************************************
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false">_
-<!VAR:content!>_
-</textarea>
+<!SEC:ctarea!>
 <!SEC:submit!>
 </form>
 

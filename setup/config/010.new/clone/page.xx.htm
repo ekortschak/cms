@@ -32,9 +32,9 @@ FSO::copy("$app/robots.txt", "$dir/robots.txt");
 FSO::copyDir("$app/config",  $dir);
 FSO::copyDir("$app/design",  $dir);
 
-FSO::copyDir("$app/core/classes", "$dir/core");
-FSO::copyDir("$app/core/modules", "$dir/core");
-FSO::copyDir("$app/core/include", "$dir/core");
+FSO::copyDir("$app/".LOC_CLS, "$dir/core");
+FSO::copyDir("$app/".LOC_MOD, "$dir/core");
+FSO::copyDir("$app/".LOC_INC, "$dir/core");
 
 // ***********************************************************
 // copy pages from CMS

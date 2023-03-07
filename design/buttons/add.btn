@@ -1,12 +1,12 @@
 [props]
-pic = ICONS/buttons/add.png
+pic = LOC_ICO/buttons/add.png
 
 [de]
-caption = 
+caption =
 tooltip = Eintrag hinzufügen.
 
 [en]
-caption = 
+caption =
 tooltip = Add an item.
 
 

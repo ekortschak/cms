@@ -29,7 +29,6 @@ function __construct() {
 }
 
 public function read($tpl = "LOC_LAY/LAYOUT/view.tpl") {
-	$tpl = CFG::insert($tpl);
 	$tpl = APP::file($tpl); if (! $tpl)
 	$tpl = APP::file("LOC_LAY/default/main.tpl");
 
@@ -55,7 +54,7 @@ private function getModules() {
 }
 
 private function addModule($mod, $idx) {
-	$ful = FSO::join("core/modules", $mod, "main.php");
+	$ful = FSO::join(LOC_MOD, $mod, "main.php");
 	$ful = APP::file($ful);
 	$this->mod[$idx][$mod] = $ful;
 }
@@ -87,7 +86,6 @@ public function gc($sec = "main") {
 
 	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
-
 		$xxx = APP::lock(false);
 		$val = APP::gc($fil);
 
@@ -99,6 +97,7 @@ public function gc($sec = "main") {
 	$htm = $this->solveLinks($htm, "href='");
 	$htm = $this->cleanChars($htm);
 
+	$htm = STR::replace($htm, "ANCHOR", ANCHOR);
 	return STR::dropSpaces($htm);
 }
 

@@ -25,6 +25,8 @@ paste = Kopierten Text in online <a href="https://translate.google.com/" target=
 return = Übersetzten Text in das Textfeld einfügen. <kbd>Strg</kbd><kbd>v</kbd>
 edit = Übersetzung <a href="?pic.editor=html">nachbearbeiten</a>
 
+[vars]
+rows = 7
 
 # ***********************************************************
 [main]
@@ -45,13 +47,10 @@ edit = Übersetzung <a href="?pic.editor=html">nachbearbeiten</a>
 			<td class="selData"><!DIC:return!></td>
 		</tr><tr>
 			<td class="selHead">&nbsp;</td>
-			<td class="selData">
-				<textarea id="content" name="content" class="max" rows="7" spellcheck="false"><!VAR:content!></textarea>
-			</td>
+			<td class="selData"><!SEC:ctarea!></td>
 		</tr><tr>
 			<td class="selHead"><!DIC:step!> 4:</td>
-			<td class="selData">
-				<!DIC:xlate!>
+			<td class="selData"><!DIC:xlate!>
 				<input type="submit" name="act_xlate" value="<!DIC:apply!>" />
 			</td>
 		</tr><tr>

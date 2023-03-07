@@ -21,15 +21,22 @@ php, code, dbg {
 	white-space: pre-wrap;
 }
 
-dbg  { color: FC_WARN; }
-msg  { color: FC_MSG;  background: BC_MSG;  }
-err  { color: FC_WARN; background: BC_WARN; }
-hint { color: FC_DEAD; background: BC_DEAD; font-size: 0.85em; font-style: normal; }
-
 code {
 	display: block;
 	overflow: auto;
 	min-height: 15px;
+}
+
+dbg  { color: FC_WARN; }
+msg  { color: FC_MSG;  background: BC_MSG;  }
+err  { color: FC_WARN; background: BC_WARN; }
+
+/* ******************************************************** */
+hint, .hint {
+	color: FC_DEAD;
+	background: BC_DEAD;
+	font-size: 0.85em;
+	font-style: normal;
 }
 
 msg > ul {
@@ -76,6 +83,7 @@ trace {
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
+	vertical-align: bottom;
 	text-align: center;
 	font-family: monospace;
 	font-weight: bold;

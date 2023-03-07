@@ -9,9 +9,14 @@ target = _self
 
 
 [main]
-<div class="btnbar">
+<div class="btnbar flex">
 <!VAR:items!>
 </div>
+
+# ***********************************************************
+[group]
+# ***********************************************************
+<div><!VAR:group!></div>
 
 # ***********************************************************
 [button]
@@ -32,10 +37,5 @@ target = _self
 # ***********************************************************
 # navigation
 # ***********************************************************
-[item.view]
-<a href="APP_CALL?vmode=view">
-	<button class="icon"><img src="ICONS/buttons/view.png" alt="View" /></button>
-</a>
-
 [wrong.btn]
 <!DIC:click!>

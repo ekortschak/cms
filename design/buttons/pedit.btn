@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/edit.png
+pic = LOC_ICO/buttons/edit.png
 url = x.edit.php?vmode=pedit
 
 [de]
-caption = 
+caption =
 tooltip = Wechselt zum Seiten-Editor.
 
 [en]
-caption = 
+caption =
 tooltip = Switches to page editor mode.

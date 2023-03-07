@@ -192,27 +192,17 @@ public static function getConsts($sec = "user") {
 	return $out;
 }
 
-public static function recall($sec) {
-	return self::$cfg[$sec];
-}
-
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
-public static function iniVar($idx, $filter = false) {
-	$out = VEC::get(self::$cfg, $idx); if ($filter)
-	$out = VEC::match($out, $filter);
-	return $out;
+public static function getVars($idx, $pfx = "") {
+	$arr = VEC::get(self::$cfg, $idx);
+	return VEC::match($arr, $pfx);
 }
 
 public static function getVar($idx, $key, $default = "") {
-	$key = trim($key);
 	$out = VEC::get(self::$cfg, $idx); if (! $out) return $default;
 	return VEC::get($out, $key, $default);
-}
-
-public static function getValues() {
-	return self::$cfg;
 }
 
 // ***********************************************************

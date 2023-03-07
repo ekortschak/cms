@@ -12,40 +12,40 @@ tables  = Tabellenzeilen
 
 
 [modules]
-FC_PAGE = navy
-BC_PAGE = whitesmoke
-FC_TOC  = navy
-BC_TOC  =
-FC_TABS = navy
-BC_TABS = gainsboro
-FC_BODY = black
-BC_BODY = white
-FC_OPTS = black
-BC_OPTS = gainsboro
+FC_PAGE  = navy
+BC_PAGE  = whitesmoke
+FC_TOC   = navy
+BC_TOC   =
+FC_TABS  = navy
+BC_TABS  = gainsboro
+FC_BODY  = black
+BC_BODY  = white
+FC_OPTS  = black
+BC_OPTS  = gainsboro
 
 [menues]
-FC_MENU = white
-BC_MENU = \#80BFFF
-FC_INFO = white
-BC_INFO = navy
-FC_DROP = black
-BC_DROP = rgb(238,238,238)
-FC_MARK = black
-BC_MARK = gold
+FC_MENU  = white
+BC_MENU  = \#80BFFF
+FC_INFO  = white
+BC_INFO  = navy
+FC_DROP  = black
+BC_DROP  = rgb(238,238,238)
+FC_MARK  = black
+BC_MARK  = gold
 
 [general]
-FC_HEAD = navy
-BC_HEAD =
-FC_LINK = forestgreen
-BC_LINK =
-FC_DEAD = grey
-BC_DEAD =
-FC_MSG  = black
-BC_MSG  = rgb(255,240,230)
-FC_WARN = maroon
-BC_WARN =
-FC_HINT = darkgreen
-BC_HINT =
+FC_HEAD  = navy
+BC_HEAD  =
+FC_LINK  = forestgreen
+BC_LINK  =
+FC_DEAD  = grey
+BC_DEAD  =
+FC_MSG   = black
+BC_MSG   = rgb(255,240,230)
+FC_WARN  = maroon
+BC_WARN  =
+FC_HINT  = darkgreen
+BC_HINT  =
 FC_INPUT =
 BC_INPUT = \#FFFFD2
 

@@ -100,7 +100,7 @@ private function getEntry($fso, $root) {
 	if (! is_file($fso)) return "";
 
 	$dat = filemtime($fso); if (filesize($fso) < 1) $dat = 0;
-	$md5 = md5_file($fso);
+	$md5 = FSO::hash($fso);
 
 	return "f;$dat;$itm;$md5";
 }

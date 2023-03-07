@@ -27,7 +27,7 @@ if (ENV::getPost("login.act") == 6) { // confirm account
 		$vls = array("status" => "verified", "acticode" => date("Y-m-d"));
 		$flt = "md5(ID)='$md5'";
 
-		$dbq = new dbQuery(NV, "dbusr");
+		$dbq = new dbQuery(null, "dbusr");
 		$xxx = $dbq->askMe(false);
 		$chk = $dbq->isRecord($flt); if ($chk)
 		$chk = $dbq->replace($vls, $flt, false);

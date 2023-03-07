@@ -15,6 +15,8 @@ $edt->suit($variant);
 $edt->show();
 */
 
+incCls("menus/dropBox.php");
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
@@ -36,10 +38,11 @@ public function load($file) {
 }
 
 public function suit($variant) {
-	$chk = "design/templates/editor/edit.$variant.tpl";
+	$tpl = "editor/edit.$variant.tpl";
+	$chk = FSO::join(LOC_TPL, $tpl);
 	if (! APP::file($chk)) return;
 
-	$this->tpl = "editor/edit.$variant.tpl";
+	$this->tpl = $tpl;
 }
 
 public function show() {
@@ -49,6 +52,7 @@ public function show() {
 	$tpl->load($this->tpl);
 	$tpl->merge($this->vls);
 	$tpl->set("file", $this->fil);
+	$tpl->set("snips", $this->getSnips());
 	$tpl->set("content", $htm);
 	$tpl->show();
 }
@@ -68,8 +72,22 @@ protected function getContent() {
 	$rws = STR::count($out, "\n") + 3;
 	$rws = CHK::range($rws, 35, 7);
 
+	$out = STR::replace($out, "<?php\n", "<php>");
+	$out = STR::replace($out, "<?php ", "<php>");
+	$out = STR::replace($out, "?>", "</php>");
+
 	$this->set("rows", $rws);
 	return $out;
+}
+
+protected function getSnips() {
+	$snp = new ini("config/snips.ini");
+	$arr = $snp->getValues("html");
+	$arr = array_flip($arr);
+
+	$box = new dropBox("script");
+	$box->getCode("snip", $arr);
+	return $box->gc();
 }
 
 // ***********************************************************

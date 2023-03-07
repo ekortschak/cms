@@ -1,4 +1,4 @@
-var mark = "¶x\n";
+var mark = "¶x";
 var hist = [];
 var cols = 2;
 var pwid = 200;
@@ -255,13 +255,6 @@ function getCurrent() {
 	return document.getElementById("content").value;
 }
 
-function hide() {
-	lst = document.getElementsByClassName("tollbox-content");
-	for (i = 0; i < lst.length; i++) {
-		lst[i].display("none");
-	}
-}
-
 // **********************************************************
 // saving data
 // **********************************************************
@@ -306,6 +299,7 @@ function toDivEdit() {
 // code tidying
 // **********************************************************
 function beautify(htm) {
+/*
 	htm = htm.replace(/(¶+)/gi, "");
 	htm = htm.trim();
 
@@ -329,10 +323,12 @@ function beautify(htm) {
 	htm = htm.replace(/><td/gi, ">\n<td");
 
 	htm = htm.replace(/\n\n\n/gi, "\n");
+*/
 	return htm;
 }
 
 function insertMarks(htm) {
+/*
 	htm = beautify(htm);
 	htm = htm.replace(/<div/gi, "<p");
 	htm = htm.replace(/div>/gi, "p>");
@@ -343,6 +339,7 @@ function insertMarks(htm) {
 	htm = "¶" + htm.trim() + "¶";
 	htm = htm.replace(/¶(\s*)¶/gi, "¶");
 	htm = htm.replace(/(¶+)/gi, "¶");
+*/
 	return htm;
 }
 

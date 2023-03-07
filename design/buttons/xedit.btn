@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/xedit.png
+pic = LOC_ICO/buttons/xedit.png
 url = x.edit.php?vmode=xedit
 
 [de]
-caption = 
+caption =
 tooltip = Wechselt zum erweiterten Editor für mehrere Dateien.
 
 [en]
-caption = 
+caption =
 tooltip = Switches to multiple file editor mode.

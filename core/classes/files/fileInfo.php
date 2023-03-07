@@ -52,7 +52,7 @@ private function setName($inf, $ful) {
 	$this->set("url",  $url);
 	$this->set("link", $url);
 	$this->set("icon", $url);
-	$this->set("md5",  md5_file($ful));
+	$this->set("md5",  FSO::hash($ful));
 
  // remove leading numbers and extension from dir like in 10.xxx.jpg
     $this->set("caption", PRG::clrDigits($inf["filename"]));

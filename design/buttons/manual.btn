@@ -1,12 +1,12 @@
 [props]
-pic = ICONS/buttons/book.gif
+pic = LOC_ICO/buttons/book.gif
 url = http://manual.glaubeistmehr.at/?tab=pages/editing
 trg = manual
 
 [de]
-caption = 
+caption =
 tooltip = Ruft das CMS-Handbuch auf.
 
 [en]
-caption = 
+caption =
 tooltip = Will call the CMS manual.

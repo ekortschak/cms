@@ -16,7 +16,7 @@ incCls("menus/buttons.php");
 $nav = new buttons("anyID", "A", __DIR__);
 $nav->add("A", "incA");
 $nav->add("B", "incB");
-$nav->addSpace(5);
+$nav->align("L" | "C" | "R");
 $nav->add("C", "incC");
 $nav->show();
 
@@ -33,6 +33,7 @@ class buttons extends tpl {
 	private $dir = "";
 	private $own = ""; // selected button
 	private $std = ""; // default button
+	private $idx = 1;  // button group
 
 function __construct($owner, $std, $dir) {
 	$this->own = "btn.$owner";
@@ -71,21 +72,25 @@ public function add($qid, $file, $ini = "") {
 	$xxx = $btn->set("link", "?$own=$qid");
 	$xxx = $btn->set("class", $cls);
 
-	$this->dat[$qid] = $btn->gc();
+	$this->dat[$this->idx][$qid] = $btn->gc();
 	$this->fls[$qid] = $inc;
 }
 
-public function addSpace($num = 5) {
-	$qid = uniqid();
-	$this->dat[$qid] = str_repeat("&nbsp ", $num);
-	$this->fls[$qid] = false;
+public function space() {
+	$this->idx++;
 }
 
 // ***********************************************************
 // display buttons
 // ***********************************************************
 public function show($sec = "main") {
-	$out = implode("\n", $this->dat);
+	$out = "";
+
+	foreach ($this->dat as $idx => $inf) {
+		$htm = implode("\n", $inf);
+		$this->set("group", $htm);
+		$out.= parent::gc("group");
+	}
 	$this->set("items", $out);
 	echo parent::gc($sec);
 

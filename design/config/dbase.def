@@ -20,12 +20,13 @@ user = User
 pass = Password
 
 [module]
-DB_MODE = none|mysql
+DB_MODE = 0|1
 
 # ************************************************************
 [dbase]
 # ************************************************************
 host = localhost
 file = dbname
+type = mysql | sql | none
 user = dbuser
 pass = password

@@ -25,7 +25,7 @@ $met = $box->getKey("method", $arr);
 $sec = $box->getKey("section", $sec);
 $xxx = $box->show();
 
-$arr = CFG::iniVar("tabsets", "index.php");
+$arr = CFG::getVars("tabsets", "index.php");
 $arr = VEC::keys($arr);
 
 $box = new dropBox();

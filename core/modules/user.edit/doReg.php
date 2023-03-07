@@ -28,7 +28,7 @@ if (ENV::getPost("rec.act")) {
 // ***********************************************************
 HTW::xtag("usr.register");
 // ***********************************************************
-$dbe = new recEdit(NV, "dbusr");
+$dbe = new recEdit(null, "dbusr");
 $dbe->findRec();
 $dbe->permit("a");
 $dbe->show();
@@ -51,7 +51,7 @@ function notify($usr, $pwd) {
 	$tpl->load("user/reg.sent.tpl");
 	$md5 = md5($pwd);
 
-	$dbq = new dbQuery(NV, "dbusr");
+	$dbq = new dbQuery(null, "dbusr");
 	$inf = $dbq->query("uname='$usr' AND pwd='$md5'"); if (! $inf) return $tpl->show("error");
 
 	$mel = new mail("mail.register");

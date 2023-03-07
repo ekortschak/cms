@@ -20,7 +20,6 @@ DBS::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class DBS {
-	private static $con = false; // db connection
 	private static $dbs = false; // db object
 
 
@@ -34,8 +33,7 @@ public static function init() {
 // ***********************************************************
 private static function loadDbs() {
 	self::$dbs = new dbInfo();
-	self::$con = self::$dbs->getState();
-	return self::$con;
+	return self::$dbs->getState();
 }
 
 // ***********************************************************
@@ -43,8 +41,8 @@ private static function loadDbs() {
 // ***********************************************************
 private static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	if ( ! DB_CON) return false;
-	$pwd = STR::maskPwd($pwd);
 
+	$pwd = STR::maskPwd($pwd);
 	$xxx = self::$dbs->setTable("dbusr");
 	return self::$dbs->isRecord("`uname`='$usr' AND `pwd`='$pwd'");
 }
@@ -59,14 +57,6 @@ private static function isAdmin($usr = CUR_USER)  {
 // ***********************************************************
 // user group info
 // ***********************************************************
-private static function isDbGroup($grp, $usr = CUR_USER)  {
-	if (! DB_CON) return false;
-	if (STR::contains("ID.cat.spec", ".$grp."))  return false;
-
-	$xxx = self::$dbs->setTable("dbxs");
-	return self::$dbs->isField($grp);
-}
-
 private static function ugroups($usr = CUR_USER)  {
 	if (  DB_ADMIN) return "admin";
 	if (! DB_LOGIN) return "www";

@@ -26,7 +26,7 @@ replace = Ersetzen
 <div>
 	<input type="checkbox" name="ref" value="<!VAR:ref!>" <!VAR:checked!> />
 	<div class="dropdown"><!VAR:ref!>
-		<div class="dropdown-content" style="max-wdith: 700px;">
+		<div class="dropbody" style="max-wdith: 700px;">
 			<!VAR:cur!> ... <hr> <!VAR:new!>
 		</div>
 	</div>

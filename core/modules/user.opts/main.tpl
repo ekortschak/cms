@@ -22,15 +22,15 @@ settings = Einstellungen
 # ***********************************************************
 
 [lang]
-<div><a href="?lang=<!VAR:lang!>"><img class="flag" src="ICONS/flags/<!VAR:lang!>.gif" alt="<!VAR:lang!>" /> <!VAR:lang!></a></div>
+<div><a href="?lang=<!VAR:lang!>"><img class="flag" src="LOC_ICO/flags/<!VAR:lang!>.gif" alt="<!VAR:lang!>" /> <!VAR:lang!></a></div>
 
 # ***********************************************************
 [nav]
 # ***********************************************************
 <div>
 <div class="dropdown">
-	<img class="flag" src="ICONS/flags/CUR_LANG.gif" alt="CUR_LANG" />
-	<div class="dropdown-content" style="min-width: 10px; padding: 1px 4px 2px;">
+	<img class="flag" src="LOC_ICO/flags/CUR_LANG.gif" alt="CUR_LANG" />
+	<div class="dropbody" style="min-width: 10px; padding: 1px 4px 2px;">
 		<!VAR:langs!>
 	</div>
 </div>

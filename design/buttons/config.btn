@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/screwdriver.png
+pic = LOC_ICO/buttons/screwdriver.png
 url = config.php?vmode=view
 
 [de]
-caption = 
-tooltip = 
+caption =
+tooltip = Wechselt in den Administrator-Modus.
 
 [en]
-caption = Wechselt in den Administrator-Modus.
+caption =
 tooltip = Switches to admin mode.

@@ -24,7 +24,14 @@ function __construct() {
 	parent::__construct();
 
 	$this->load("modules/xfer.syncUp.tpl");
-	$this->setTarget($this->get("web.url", "???"));
+}
+
+// ***********************************************************
+public function read($inifile) {
+	parent::read($inifile);
+
+	$srv = $this->get("web.url", "???");
+	$this->setTarget($srv);
 }
 
 // ***********************************************************
@@ -40,7 +47,7 @@ public function publish() {
 // **********************************************************
 protected function getTree($src, $dst) {
 	if ($this->err) return;
-	
+
 	$src = $this->FSlocal($src); if (! $src) return false; // local files
 	$dst = $this->FSremote();    if (! $dst) return false; // remote
 	$out = $this->getNewer($src, $dst);
@@ -53,7 +60,7 @@ protected function getTree($src, $dst) {
 
 // **********************************************************
 protected function aggregate($data) { // prepare for webexec(), reducing pay load
-	$out = array();
+	if (! $this->htp) return $data; $out = array();
 
 	foreach ($data as $act => $lst) {
 		if (STR::contains("nwr.man", $act)) continue; // do nothing
@@ -65,7 +72,7 @@ protected function aggregate($data) { // prepare for webexec(), reducing pay loa
 		foreach ($lst as $fso) {
 			if (strlen("$str;$fso") < 2000) $str.= "$fso;";
 			else { $str = "$fso;"; $idx++; }
-			
+
 			$arr[$idx] = trim($str);
 		}
 		if ($arr) $out[$act] = $arr;
@@ -77,36 +84,56 @@ protected function aggregate($data) { // prepare for webexec(), reducing pay loa
 // overwrite file actions
 // ***********************************************************
 protected function do_copy($src, $dst) { // single file op
-	return $this->do_copy_ftp($src, $dst);
-	return $this->do_copy_curl($src);
-}
-
-protected function do_copy_ftp($src, $dst) { // single file op
-	return $this->ftp->remote_put($src, $dst);
-}
-
-protected function do_copy_curl($file) { // single file op
-	return $this->crl->upload($file);
+	if ($this->ftp) return $this->ftp->remote_put($src, $dst);
+	if ($this->crl) return $this->crl->upload($src);
 }
 
 // ***********************************************************
-protected function do_mkDir($lst) { // bulk operation
-	$out = $this->htp->query($lst, "mkd");
-	return intval($out);
+protected function do_mkDir($lst) {
+	if ($this->htp) { // bulk operation
+		$out = $this->htp->query($lst, "mkd");
+		return intval($out);
+	}
+	if ($this->ftp) { // single file op
+		return $this->ftp->remote_mkDir($lst);
+	}
 }
 
 // ***********************************************************
-protected function do_ren($lst) { // bulk operation
-	$out = $this->htp->query($lst, "ren");
-	return intval($out);
+protected function do_ren($lst) {
+	if ($this->htp) { // bulk operation
+		$out = $this->htp->query($lst, "ren");
+		return intval($out);
+	}
+	$prp = explode("|", $lst); if (count($prp) < 3) return false;
+	$old = $this->dstName($prp[2]);
+	$new = $this->dstName($prp[1]);
+
+	if ($this->ftp) { // single file op
+		return $this->ftp->remote_rename($old, $new);
+	}
 }
-protected function do_rmDir($lst) { // bulk operation
-	$out = $this->htp->query($lst, "rmd");
-	return intval($out);
+
+// ***********************************************************
+protected function do_rmDir($lst) {
+	if ($this->htp) { // bulk operation
+		$out = $this->htp->query($lst, "rmd");
+		return intval($out);
+	}
+	if ($this->ftp) { // single file op
+		return $this->ftp->remote_rmDir($lst);
+	}
 }
-protected function do_kill($lst) { // bulk operation
-	$out = $this->htp->query($lst, "dpf");
-	return intval($out);
+
+// ***********************************************************
+protected function do_kill($lst) {
+	if ($this->htp) { // bulk operation
+		$out = $this->htp->query($lst, "dpf");
+		return intval($out);
+	}
+	if ($this->ftp) { // single file op
+		return $this->ftp->remote_del($lst);
+	}
 }
 
 // ***********************************************************
@@ -132,7 +159,7 @@ protected function getVersions() {
 
 	$arr = array($cms => "Current state");
 	$drs = FSO::folders($ver);
-	
+
 	foreach ($drs as $key => $val) {
 		$arr[$key] = "Version $val";
 	}

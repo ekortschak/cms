@@ -69,8 +69,8 @@ protected function getContent($file) {
 public function getVars() { return $this->vrs; }
 public function getHist() { return $this->hst; }
 
-public function getSecs() {
-	$out = array();
+public function getSecs($const = true) {
+	if (! $const) return $this->sec; $out = array();
 
 	foreach ($this->sec as $key => $val) {
 		$out[$key] = CFG::insert($val);
@@ -148,7 +148,7 @@ protected function sections($txt) {
 		if (STR::ends($key, "*")) {
 			$key = STR::before($key, "*");
 			$typ = "tarea";
-		}		
+		}
 		$this->sec[$key] = $val;
 		$this->tps[$key] = $typ;
 	}
@@ -201,10 +201,10 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 protected function checkFile($fil) {
 	if ($fil == "fallback") { // shortcut in templates
 		$fil = array_key_last($this->hst);
+		$fil = APP::relPath($fil);
 		$ful = FSO::join(APP_FBK, $fil);
 	}
 	else {
-		$fil = CFG::insert($fil);
 		$ful = APP::file($fil);
 	}
 	if (isset($this->hst[$ful])) return false;

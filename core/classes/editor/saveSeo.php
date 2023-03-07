@@ -30,10 +30,12 @@ function __construct() {
 // methods
 // ***********************************************************
 private function exec() {
-	$act = ENV::getPost("meta.act"); if (! $act) return false;
-	$wht = ENV::getPost("wht"); // keys or desc
+	$act = ENV::getPost("meta.act"); if (! $act) return;
+	$loc = ENV::getPage();           if (! $loc) return;
 	$dat = ENV::getPost("data");
-	$loc = OID::get($oid, "loc");
+	$oid = ENV::getPost("oid");
+
+	$wht = OID::get($oid, "what");   if (! $wht) return;
 
 	if ($wht == "desc")
 	$dat = STR::replace($dat, "\n", "_\n");
@@ -43,7 +45,6 @@ private function exec() {
 	$ini->read($loc);
 	$ini->set("$lng.$wht", trim($dat));
 	$ini->save();
-	return true;
 }
 
 // ***********************************************************

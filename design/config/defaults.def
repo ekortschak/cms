@@ -27,7 +27,7 @@ EDITOR = default
 SECRET = anystring
 
 [dbases]
-DB_MODE = none
+DB_MODE = 0
 DB_HOST = localhost
 DB_FILE = none
 DB_USER = none

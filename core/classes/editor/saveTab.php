@@ -33,12 +33,11 @@ private function exec() {
 	$act = ENV::get("btn.tab");
 
 	switch ($act) {
-		case "P": if ($this->setProps()) return; // save props
-		case "T": if ($this->toggle())   return; // turn tabs on/off
-		          if ($this->tabAdd())   return; // create a new tab
-		case "S": if ($this->tabSort())  return; // sort tabs
-		case "G": if ($this->pngTab())   return; // create xx.png files
-		          if ($this->pngDel())   return; // delete xx.png files
+		case "T": return $this->toggle();   // turn tabs on/off
+		case "A": return $this->tabAdd();   // create a new tab
+		case "P": return $this->tabProps(); // save props
+		case "S": return $this->tabSort();  // sort tabs
+		case "G": return $this->tabPics();  // handle tab.xx.png files
 	}
 }
 
@@ -46,9 +45,9 @@ private function exec() {
 // visibility & sort order
 // ***********************************************************
 private function toggle() {
-	$cmd = ENV::getPost("set.act"); if (! $cmd) return false;
-	$set = ENV::getPost("tabset");  if (! $set) return false;
-	$vls = ENV::getPost("tabs");    if (! $vls) return false;
+	$cmd = ENV::getPost("set.act"); if (! $cmd) return;
+	$set = ENV::getPost("tabset");  if (! $set) return;
+	$vls = ENV::getPost("tabs");    if (! $vls) return;
 	$lcs = ENV::getPost("tabl");
 	$std = ENV::getPost("tab.default");
 
@@ -70,13 +69,12 @@ private function toggle() {
 		$ini->set("$set.$key", $val);
 	}
 	$ini->save();
-	return true;
 }
 
 // ***********************************************************
 private function tabAdd() {
-	$cmd = ENV::getPost("tab_act"); if (! $cmd) return false;
-	$dir = ENV::getPost("tab_dir"); if (! $dir) return true;
+	$cmd = ENV::getPost("tab_act"); if (! $cmd) return;
+	$dir = ENV::getPost("tab_dir"); if (! $dir) return;
 	$set = APP_CALL;
 
 	$dir = FSO::join(APP_DIR, $dir);
@@ -92,15 +90,14 @@ private function tabAdd() {
 	$ini = new iniWriter($fil);
 	$ini->set("$set.$dir", 1);
 	$ini->save($fil);
-	return true;
 }
 
 // ***********************************************************
 private function tabSort() {
-	$cmd = ENV::getPost("sort_act"); if (! $cmd) return false;
+	$cmd = ENV::getPost("sort_act"); if (! $cmd) return;
 	$lst = ENV::getPost("slist");
 
-	if (! $lst) return true;
+	if (! $lst) return;
 	$set = ENV::getPost("sparm");
 	$lst = VEC::explode($lst, ";");
 
@@ -116,14 +113,13 @@ private function tabSort() {
 	$ini->clearSec($set);
 	$ini->setValues($set, $out);
 	$ini->save();
-	return true;
 }
 
 // ***********************************************************
 // methods for design/tabsets
 // ***********************************************************
-private function setProps() {
-	$arr = ENV::getPost("props"); if (! $arr) return false;
+private function tabProps() {
+	$arr = ENV::getPost("props"); if (! $arr) return;
 	$tab = ENV::get("tedit.tab");
 	$fil = FSO::join($tab, "tab.ini");
 
@@ -144,48 +140,43 @@ private function setProps() {
 		ENV::set("tab", $tab);
 		ENV::set("tpc", "");
 	}
-	return true;
 }
 
 // ***********************************************************
 // graphic tabs
 // ***********************************************************
-private function pngDel() { // remove tab pics
-	$tab = ENV::getParm("tab.drop"); if (! $tab) return false;
-	$fil = FSO::join($tab, "tab.png");
-	$xxx = FSO::kill($fil);
+private function tabPics() { // execute pic related tasks
+	$act = ENV::getParm("tab.act"); if (! $act) return;
 
+	switch ($act) {
+		case "add":  return $this->pngTab();
+		case "drop": return $this->pngDel();
+	}
+}
+
+// ***********************************************************
+private function pngDel() { // remove tab pics
 	foreach (LNG::get() as $lng) {
-		$fil = FSO::join($tab, "tab.$lng.png");
+		$fil = FSO::join(TAB_ROOT, "tab.$lng.png");
 		$xxx = FSO::kill($fil);
 	}
-	return true;
 }
 
+// ***********************************************************
 private function pngTab() { // create tab pics
-	$tab = ENV::getParm("tab.add");	if (! $tab) return false;
-
 	foreach (LNG::get() as $lng) {
-		$this->pngMake($tab, $lng, true);
+		$fil = FSO::join(TAB_ROOT, "tab.$lng.png");
+		if (is_file($fil)) continue;
+
+		incCls("files/img.php");
+
+		$ini = new iniTab(TAB_ROOT);
+		$tit = $ini->getTitle($lng);
+
+		$img = new img();
+		$img->create($tit);
+		$img->save($fil);
 	}
-	return true;
-}
-
-private function pngMake($tab, $lng, $rep) {
-	$fil = FSO::join($tab, "tab.$lng.png");
-
-	if (is_file($fil)) {
-		if (! $rep) return;
-		FSO::kill($fil);
-	}
-	incCls("files/img.php");
-
-	$ini = new iniTab($tab);
-	$tit = $ini->getTitle($lng);
-
-	$img = new img();
-	$img->create($tit);
-	$img->save($fil);
 }
 
 // ***********************************************************

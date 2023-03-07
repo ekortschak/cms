@@ -27,23 +27,22 @@ incCls("input/confirm.php");
 // ***********************************************************
 class dbBasics extends sqlStmt {
 	protected $dbo = false;
-	protected $dbs = NV;
+	protected $dbs = false;
 	protected $con = false;
 
-function __construct($dbase = NV) {
-	parent::__construct($dbase);
+function __construct($dbase = "default") {
+	$inf = CFG::getVars("dbase", $dbase); if (! $inf) return;
+	extract($inf); // set connection vars
 
-	$ini = new ini("config/dbase.ini");
-	$this->dbs = $ini->get("dbase.file"); if ($dbase !== NV) $this->dbs = $dbase;
-	$this->usr = $ini->get("dbase.user");
-	$this->pwd = $ini->get("dbase.pass");
+	$ful = FSO::join(LOC_CLS, "dbase", "$type.php");
+	$ful = APP::file($ful); if (! is_file($ful)) return;
 
-	$typ = DB_MODE; incCls("dbase/$typ.php");
+	require_once($ful); // load db class
 
-	$this->dbo = new $typ("localhost", $this->dbs);
-	$this->con = $this->dbo->connect($this->usr, $this->pwd); if (! $this->con) return;
+	$this->dbo = new $type($host, $file);
+	$this->con = $this->dbo->connect($user, $pass);
 
-	$this->init($typ); // read sql syntax
+	parent::__construct($type); // read syntax
 }
 
 // ***********************************************************

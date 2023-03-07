@@ -20,17 +20,18 @@ class syncCms extends syncDown {
 function __construct() {
 	parent::__construct();
 
-	$this->read("config/ftp_cms.ini");
 	$this->load("modules/xfer.cms.tpl");
-	$this->setTarget(APP_FBK);
 }
 
 // ***********************************************************
 public function read($ini = false) {
 	$fil = APP::relPath($ini); $this->set("inifile", $fil);
-	$ini = FSO::join(APP_FBK, $ini);
+	$ini = FSO::join(APP_FBK, $fil);
 
 	parent::read($ini);
+
+	$this->setSource($this->get("web.url", "???"));
+	$this->setTarget(APP_FBK);
 }
 
 // ***********************************************************

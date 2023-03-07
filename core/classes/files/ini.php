@@ -21,7 +21,9 @@ incCls("files/code.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class ini extends objects {
+	protected $sealed = false;
 	protected $silent = true;
+
 	protected $sec = array();
 	protected $typ = array();
 	protected $vrs = array();
@@ -29,8 +31,6 @@ class ini extends objects {
 	protected $dir = "";
 	protected $file = "";
 	protected $fname = "page.ini";
-
-	protected $sealed = false;
 
 function __construct($fso = CUR_PAGE) {
 	$this->read($fso);
@@ -43,9 +43,8 @@ public function getVars() {
 	return $this->vrs;
 }
 
-public function getValues($sec = "*") {
-	if ($sec == "*") return parent::getValues();
-	$sec = $this->langSec($sec);
+public function getValues($sec = "") {
+	if ($sec) $sec = $this->langSec($sec);
 	return parent::getValues($sec);
 }
 
@@ -166,7 +165,6 @@ public function read($file) {
 	$this->mergeSecs($cod->getSecs(), $cod->getTypes(), $ext);
 	$this->mergeVars($cod->getVars());
 	$this->mergeVals($cod->getValues());
-
 	$this->chkUID();
 }
 

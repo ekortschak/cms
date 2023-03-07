@@ -22,7 +22,7 @@ $arr = $dbo->fetch1st($qry);
 // ***********************************************************
 class mysql {
 	protected $host = "localhost";  // hostname
-	protected $dbs = "";		    // database
+	protected $dbs = false;		    // database
 	protected $con = false;		    // connection id
     protected $res = false;		    // record set id
 
@@ -52,8 +52,8 @@ public function connect($user, $pass) {
 }
 
 public function selectDb($dbase) {
-	$this->dbs = false; 
-	if (! $this->con) return;	
+	$this->dbs = false;
+	if (! $this->con) return;
 	if (! $this->con->select_db($dbase)) return;
 	$this->dbs = $dbase;
 }

@@ -9,7 +9,7 @@ cols = 50
 [main]
 # ***********************************************************
 <div class="collection" style="background-image: url('<!VAR:file!>');">
-<img src="ICONS/1x1.gif" width="100%" />
+<img src="LOC_ICO/1x1.gif" width="100%" />
 </div>
 
 [alternative]

@@ -63,7 +63,7 @@ chkFst = CHECKED
 <tr>
 	<td nowrap>
 		<a href="?file_act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</a>
-		<a href="?file_act=hide&fil=<!VAR:file!>"><img src="ICONS/menu/bulb_<!VAR:bulb!>.gif" /></a>
+		<a href="?file_act=hide&fil=<!VAR:file!>"><img src="LOC_ICO/menu/bulb_<!VAR:bulb!>.gif" /></a>
 	</td>
 
 	<td nowrap width=175><a href="?vmode=pedit&pic.file=<!VAR:file!>"><!VAR:file!></a></td>

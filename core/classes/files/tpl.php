@@ -22,7 +22,7 @@ $lin = $tpl->getSection($nam)
 // ***********************************************************
 class tpl extends objects {
 	protected $sec = array();   // tpl sections
-	private   $hst = array();   // list of included files
+	protected $hst = array();   // list of included files
 
 function __construct() {
 	self::load("msgs/no.tpl.tpl");
@@ -176,7 +176,6 @@ private function norm($sec) {
 
 private function isFile($fil) {
 	$this->setIf("tplfile", $fil);
-	$fil = CFG::insert($fil);
 	$ful = APP::file($fil);
 
 	switch ($ful) {

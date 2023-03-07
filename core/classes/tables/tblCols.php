@@ -127,7 +127,7 @@ private function getRef($val, $ref) {
 	$ref = str_replace("=>", ",", $ref);
 	$ref = VEC::explode($ref, ",", 3);
 
-	$dbq = new dbQuery(NV, $ref[0]);
+	$dbq = new dbQuery(null, $ref[0]);
 	$arr = $dbq->query("$ref[1]='$val'"); if (! $arr) return $val;
 	return $arr[$ref[2]];
 }

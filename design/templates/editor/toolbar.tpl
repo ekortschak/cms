@@ -1,6 +1,3 @@
-[include]
-LOC_TPL/menus/buttons.tpl
-
 [dic]
 paragraph = Paragraph
 head1 = Heading 1
@@ -81,15 +78,14 @@ askWidth = Bildbreite festlegen
 
 
 [edit]
-<button class="icon" onclick="doUndo();"><img src="ICONS/edit/undo.png" /></button>
+<button class="icon" onclick="doUndo();"><img src="LOC_ICO/edit/undo.png" /></button>
 &nbsp;
 
 # *****************************************************************
-# formatting tasks
-# *****************************************************************
 [formatting]
+# *****************************************************************
 <div class="dropdown"><button class="icon rose" onclick="addTag('p');">¶COMBO_DOWN</button>
-	<div id="edHead" class="dropdown-content">
+	<div id="edHead" class="dropbody">
 		<div><a href="javascript:addTag('p');"><p><!DIC:paragraph!></p></a></div>
 		<hr>
 		<div><a href="javascript:addTag('h1');"><h1><!DIC:head1!></h1></a></div>
@@ -104,45 +100,10 @@ askWidth = Bildbreite festlegen
 </div>
 
 # *****************************************************************
-# listings & tables
-# *****************************************************************
-<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/listing.png" />COMBO_DOWN</button>
-	<div id="edList" class="dropdown-content">
-		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
-		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
-		<div><hr class="low" /></div>
-		<div><a href="javascript:addList('dl');"><!DIC:listdef!></a></div>
-	</div>
-</div>
-<div class="dropdown"><button class="icon rose"><img src="ICONS/buttons/table.png" />COMBO_DOWN</button>
-	<div id="tables" class="dropdown-content">
-		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
-		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
-		<div><a href="javascript:addTable('tr');"><red><!DIC:trow!></red></a></div>
-		<div><a href="javascript:addTable('td');"><red><!DIC:tcell!></red></a></div>
-	</div>
-</div>
-
-[addImg]
-<div class="dropdown">
-	<button class="icon rose"><img src="ICONS/buttons/img.png" />COMBO_DOWN</button>
-
-	<div id="edImg" class="dropdown-content">
-		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
-		<div><a href="javascript:insImg('img');"><!DIC:imgfull!></a></div>
-		<hr>
-		<div><a href="javascript:askWid();"><!DIC:askWidth!></a></div>
-		<hr>
-		<div><a href="javascript:insImg('il');"><!DIC:imgleft!></a></div>
-		<div><a href="javascript:insImg('ir');"><!DIC:imgright!></a></div>
-	</div>
-</div>
-
-# *****************************************************************
 [characters]
 # *****************************************************************
 <div class="dropdown"><button class="icon" onclick="addTag('b');"><b>B</b>COMBO_DOWN</button>
-	<div id="edChar" class="dropdown-content">
+	<div id="edChar" class="dropbody">
 		<button class="icon" onclick="addTag('b');"><b>B</b></button>
 		<button class="icon" onclick="addTag('i');"><i>I</i></button>
 		<button class="icon" onclick="addTag('u');"><u>U</u></button>
@@ -167,11 +128,48 @@ askWidth = Bildbreite festlegen
 	</div>
 </div>
 
-<button class="icon" onclick="clrTags();"><img src="ICONS/edit/clear.png" /></button>
+<button class="icon" onclick="clrTags();"><img src="LOC_ICO/edit/clear.png" /></button>
+
+# *****************************************************************
+[listings]
+# *****************************************************************
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/listing.png" />COMBO_DOWN</button>
+	<div id="edList" class="dropbody">
+		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
+		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
+		<div><hr class="low" /></div>
+		<div><a href="javascript:addList('dl');"><!DIC:listdef!></a></div>
+	</div>
+</div>
+
+[tables]
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/table.png" />COMBO_DOWN</button>
+	<div id="tables" class="dropbody">
+		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
+		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
+		<div><a href="javascript:addTable('tr');"><red><!DIC:trow!></red></a></div>
+		<div><a href="javascript:addTable('td');"><red><!DIC:tcell!></red></a></div>
+	</div>
+</div>
+
+[images]
+<div class="dropdown">
+	<button class="icon rose"><img src="LOC_ICO/buttons/img.png" />COMBO_DOWN</button>
+
+	<div id="edImg" class="dropbody">
+		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
+		<div><a href="javascript:insImg('img');"><!DIC:imgfull!></a></div>
+		<hr>
+		<div><a href="javascript:askWid();"><!DIC:askWidth!></a></div>
+		<hr>
+		<div><a href="javascript:insImg('il');"><!DIC:imgleft!></a></div>
+		<div><a href="javascript:insImg('ir');"><!DIC:imgright!></a></div>
+	</div>
+</div>
 
 [addLFs]
 <div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
-	<div id="edLFs" class="dropdown-content">
+	<div id="edLFs" class="dropbody">
 		<div><a href="javascript:insAny('<br>');">&crarr;</a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
 		<div><a href="javascript:insAny('\n<hr class=\'pbr\'>\n');"><!DIC:pbreak!></a></div>
@@ -180,27 +178,32 @@ askWidth = Bildbreite festlegen
 	</div>
 </div>
 
+# *****************************************************************
+[addSnips]
+# *****************************************************************
+<!VAR:snips!>
+
 
 # *****************************************************************
-# tags with parameters
+[links]
 # *****************************************************************
-[addLink]
 <div class="dropdown">
 	<button class="icon">🔗COMBO_DOWN</button>
 
-	<div id="edLink" class="dropdown-content">
+	<div id="edLink" class="dropbody">
 		<div><a href="javascript:insRef('ax');"><!DIC:linknew!></a></div>
 		<div><a href="javascript:insRef('aa');"><!DIC:linkdef!></a></div>
 	</div>
 </div>
 
-<!VAR:snips!>
-
 # *****************************************************************
 [switch.htm]
 # *****************************************************************
-<td align="center">
-	<button class="icon" onclick="toggleView();">
-		<img src="ICONS/buttons/edit.toggle.png" alt="Toggle Editor" />
-	</button>
-</td>
+<button class="icon" onclick="toggleView();">
+	<img src="LOC_ICO/buttons/edit.toggle.png" alt="Toggle Editor" />
+</button>
+
+[item.view]
+<a href="APP_CALL?vmode=view">
+	<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View" /></button>
+</a>

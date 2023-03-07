@@ -20,7 +20,6 @@ incCls("system/PGE.php");  // tab and page info
 incCls("files/tpl.php");   // base template class
 incCls("files/code.php");  // reading editable files
 incCls("files/ini.php");   // handling ini files
-incCls("files/page.php");  // xform layout to page
 
 incCls("server/NET.php");  // network tools
 
@@ -37,7 +36,7 @@ CFG::readCfg();
 // ***********************************************************
 // load local constants and classes (if any)
 // ***********************************************************
-$lcl = "core/include/locals.php";
+$lcl = FSO::join(LOC_INC, "locals.php");
 if (is_file($lcl)) include_once $lcl;
 
 // ***********************************************************

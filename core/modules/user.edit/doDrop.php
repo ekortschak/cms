@@ -6,7 +6,7 @@ $sec = ENV::dbState("main");
 // check for action
 // ***********************************************************
 if (ENV::getPost("login.act", 0) == 7) {
-	$dbq = new dbQuery(NV, "dbusr");
+	$dbq = new dbQuery(null, "dbusr");
 	$xxx = $dbq->askMe(false);
 	$res = $dbq->delete("uname='CUR_USER'");
 

@@ -1,8 +1,6 @@
 <?php
 
 incCls("menus/tabset.php");
-incCls("menus/dropBox.php");
-incCls("input/selector.php");
 
 $set = APP_CALL;
 
@@ -34,14 +32,5 @@ foreach ($lst as $tab => $tit) {
 $tpl->set("tabset", $set);
 $tpl->set("items", $dat);
 $tpl->show();
-
-// ***********************************************************
-// add and drop tabs
-// ***********************************************************
-$tpl = new tpl();
-$tpl->load("editor/menu.tab.tpl");
-$tpl->set("tabset", $set);
-$tpl->show("add.tab");
-$tpl->show("help");
 
 ?>

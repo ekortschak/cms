@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/world.png
+pic = LOC_ICO/buttons/world.png
 url = index.php?vmode=xfer
 
 [de]
-caption = 
+caption =
 tooltip = Ruft Sicherungs- und Transfer-Optionen auf.
 
 [en]
-caption = 
+caption =
 tooltip = Will switch into backup and transfer mode.

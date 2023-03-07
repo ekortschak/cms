@@ -23,7 +23,7 @@ if (ENV::getPost("login.act") == 4) { // send requested
 	$flt = "uname='CUR_USER'";
 	$new = uniqid();
 
-	$dbq = new dbQuery(NV, "dbusr");
+	$dbq = new dbQuery(null, "dbusr");
 	$inf = $dbq->query($flt);
 
 	if (! $dbq->update(array("pwd" => $new, $flt))) {

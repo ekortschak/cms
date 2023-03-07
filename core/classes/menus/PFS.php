@@ -19,6 +19,12 @@ $inf = PFS::mnuInfo($index);
 */
 
 // ***********************************************************
+// react to previous editing commands
+// ***********************************************************
+incCls("editor/saveMenu.php");
+$obj = new saveMenu();
+
+// ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class PFS extends objects {
@@ -67,8 +73,8 @@ public static function readTree($dir = NV) {
 // retrieving data
 // ***********************************************************
 private static function getLast() {
-	$chk = ENV::getParm("reset");              if (! $chk) return false;
-	$chk = SSV::get("reload", false, "pfs");   if (  $chk) return false;
+	$chk = ENV::getParm("reset");              if ($chk) return false;
+	$chk = SSV::get("reload", false, "pfs");   if ($chk) return false;
 	$tpc = SSV::get("topic", TAB_PATH, "pfs"); if ($tpc != TAB_PATH) return false;
 	$arr = SSV::get("data", array(), "pfs");   if (! $arr) return false;
 
@@ -258,16 +264,16 @@ public static function mnuInfo($index) {
 	$typ = self::getType($idx);
 
 	$out = array(
+		"uid"   => self::getProp($idx, "uid"),
 		"title" => self::getTitle($idx),
 		"head"  => self::getHead($idx),
-		"uid"   => self::getProp($idx, "uid"),
 		"sname" => self::getProp($idx, "sname"),
 		"fpath" => self::getPath($idx),
 		"plink" => self::getLink($idx),
 		"level" => $lev,
 		"dtype" => $typ,
 		"mtype" => self::mnuType($idx, $lev, $typ),
-		"grey"  => self::refType($idx),
+		"state" => self::refType($idx),
 	);
 	return $out;
 }

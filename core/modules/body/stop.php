@@ -1,1 +1,1 @@
-<img src="ICONS/nav/stop.png" />
+<img src="LOC_ICO/nav/stop.png" />

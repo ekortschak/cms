@@ -26,12 +26,14 @@ HTW::tag("Tab = $tit");
 // create vtab pics
 // ***********************************************************
 $fil = APP::find(TAB_ROOT, "tab", "png");
+$fil = APP::relPath($fil);
+
 $sec = "add.png"; if ($fil) $sec = "del.png";
 
 $tpl = new tpl();
 $tpl->load("editor/menu.tab.tpl");
-$tpl->set("tab", TAB_ROOT);
-$tpl->set("file", APP::relPath($fil));
+$tpl->set("file", $fil);
+$tpl->show("png.info");
 $tpl->show($sec);
 
 ?>

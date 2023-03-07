@@ -25,8 +25,15 @@ class syncDown extends syncServer {
 
 function __construct() {
 	parent::__construct();
-	
+
 	$this->load("modules/xfer.syncDown.tpl");
+}
+
+// ***********************************************************
+public function read($inifile) {
+	parent::read($inifile);
+
+	$srv = $this->get("web.url", "???");
 
 	$this->setSource($this->get("web.url", "???"));
 	$this->setTarget(APP_DIR);
@@ -67,7 +74,9 @@ protected function srcVersion() {
 // overwrite file actions
 // ***********************************************************
 protected function do_copy($src, $dst) { // single file op
-	return $ftp->save($src, $dst);
+	if ($this->ftp) { // single file op
+		return $this->ftp->save($src, $dst);
+	}
 }
 
 // ***********************************************************

@@ -328,6 +328,11 @@ private static function inExt($fil, $arr) {
 	return false;
 }
 
+public static function hash($file) {
+#	return sha1_file($file);
+	return md5_file($file);
+}
+
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

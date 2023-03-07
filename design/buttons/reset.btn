@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/home.gif
+pic = LOC_ICO/buttons/home.gif
 url = ?reset=1
 
 [de]
-caption = 
+caption =
 tooltip = Reset: setzt alle Sitzungs-Variablen auf 0.
 
 [en]
-caption = 
+caption =
 tooltip = Reset: will set all session variables to 0.

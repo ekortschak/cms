@@ -7,7 +7,7 @@ err = Hinweis
 
 [main]
 <div><err class="dropdown">E<!VAR:errNum!> _
-<div class="dropdown-content err"> _
+<div class="dropbody err"> _
 	<div class="err"><!VAR:errMsg!></div> _
 	<div class="err1"><b><!VAR:line!></b> <!VAR:file!></div> _
 	<div><!VAR:items!></div> _

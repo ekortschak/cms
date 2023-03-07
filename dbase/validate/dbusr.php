@@ -3,7 +3,7 @@
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class val_dbusr extends tblValidate {
+class val_dbusr extends recProof {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);

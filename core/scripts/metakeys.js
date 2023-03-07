@@ -4,7 +4,7 @@ function doKeys(e) {
 	if (e.key == "F5") return e; e.preventDefault(); e.stopPropagation(); e.returnValue = false;
 	if (e.key != "F4") return e;
 
-	obj = document.getElementById("metaEdit");
+	obj = document.getElementById("content");
 	txt = obj.value;
 	key = selHtml();
 

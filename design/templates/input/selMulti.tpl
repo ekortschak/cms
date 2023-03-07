@@ -29,7 +29,7 @@ cls = ms
 [input.head]
 # ***********************************************************
 <tr class="toolbar">
-	<td><img src="ICONS/nav/toggle.gif" class="icon" onClick="toggleCB('<!VAR:cls!>');"></td>
+	<td><img src="LOC_ICO/nav/toggle.gif" class="icon" onClick="toggleCB('<!VAR:cls!>');"></td>
 	<td nowrap><small><!DIC:multi!></small></td>
 	<td> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> # TOOD: &emsp; for optical reasons
 </tr>

@@ -42,24 +42,23 @@ private function showPic($fil) {
 }
 
 private function showCR($fil) { // show copyright info
+	if (! DB_MODE) return;
+
 	HTW::tag("(CR)-Information", "b");
+	$md5 = md5($fil);
 
-	if (DB_MODE != "none") {
-		$md5 = md5($fil);
+	$dbe = new recEdit(null, "copyright");
+	$dbe->setDefault("md5", $md5);
+	$dbe->setDefault("holder", "Glaube ist mehr");
+	$dbe->setDefault("source", "https://glaubeistmehr.at");
+	$dbe->setDefault("perms", "free");
+	$dbe->setDefault("verified", 1);
 
-		$dbe = new recEdit(NV, "copyright");
-		$dbe->setDefault("md5", $md5);
-		$dbe->setDefault("holder", "Glaube ist mehr");
-		$dbe->setDefault("source", "https://glaubeistmehr.at");
-		$dbe->setDefault("perms", "free");
-		$dbe->setDefault("verified", 1);
+	$dbe->hide("md5,owner,verified");
+	$dbe->permit("ed");
 
-		$dbe->hide("md5,owner,verified");
-		$dbe->permit("ed");
-
-		$dbe->findRec("md5='$md5'");
-		$dbe->show();
-	}
+	$dbe->findRec("md5='$md5'");
+	$dbe->show();
 }
 
 // ***********************************************************

@@ -35,7 +35,7 @@
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 
-	background: url("CMS_URL/ICONS/input/rating.png") no-repeat top;
+	background: url("CMS_URL/LOC_ICO/input/rating.png") no-repeat top;
 }
 
 rating img {

@@ -22,7 +22,7 @@ class curl {
 	private $dot = "¬";
 
 function __construct($server = NV) {
-	$this->url = "https://$url/x.sync.php";
+	if (! STR::contains($server, NV)) $this->url = "$server/x.sync.php";
 }
 
 // ***********************************************************
@@ -34,7 +34,7 @@ public function act() {
 	foreach ($_FILES as $dir => $inf) {
 		$dir = $this->restore($dir); if (! $dir) continue;
 		extract($inf);
-		
+
 		switch ($name) { # commented cases are not tested
 			case "curl.mkd": # $cnt+= self::bulk_job($tmp_name, "force"); break;
 			case "curl.rmd": # $cnt+= self::bulk_job($tmp_name, "rmDir"); break;
@@ -56,7 +56,7 @@ private function bulk_job($lst, $fnc) { // mkdir, rmdir, kill
 	$arr = file($lst); FSO::kill($lst); $cnt = 0;
 
 	foreach ($arr as $fso) {
-		$cnt+= FSO::$fnc($fso); 
+		$cnt+= FSO::$fnc($fso);
 	}
 	return $cnt;
 }
@@ -85,8 +85,8 @@ private function copy($source, $dir, $target) { // $source = temp_file
 // uploading files
 // ***********************************************************
 public function upload($file) { // copy non text file to destination
-	if ($this->url == NV) return;	
-	
+	if ($this->url == NV) return;
+
 	$dir = APP::relPath(dirname($file));
 	$dir = $this->secure($dir); if (! $dir) return;
 	$ful = realpath($file);
@@ -94,7 +94,7 @@ public function upload($file) { // copy non text file to destination
 	$inf = new CURLFile($ful);
 	$inf = array ($dir => $inf);
 	$opt = array("Content-Type: multipart/form-data");
-       
+
 	$con = curl_init();
 	curl_setopt($con, CURLOPT_POST, 1);
 	curl_setopt($con, CURLOPT_HEADER, 0);
@@ -108,11 +108,30 @@ public function upload($file) { // copy non text file to destination
 	curl_setopt($con, CURLOPT_HTTPHEADER, $opt);
 	curl_setopt($con, CURLOPT_POSTFIELDS, $inf);
 
-	$erg = curl_exec($con);  DBG::text($erg, "erg");
+	$erg = curl_exec($con);
+	curl_close ($con);
+
+	DBG::text($this->url, "erg");
+
 	$erg = STR::between($erg, "curl:", "files");
 	$erg = intval($erg);
 
 	return ($erg > 0);
+}
+
+// ***********************************************************
+// uploading form data
+// ***********************************************************
+public function post($url, $arr) {
+	curl_setopt($con, CURLOPT_URL, $url);
+	curl_setopt($con, CURLOPT_POST, 1); // 0 for a get request
+	curl_setopt($con, CURLOPT_POSTFIELDS, $arr);
+	curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($con, CURLOPT_CONNECTTIMEOUT, 3);
+	curl_setopt($con, CURLOPT_TIMEOUT, 10);
+
+	$erg = curl_exec($con);
+	curl_close ($con);
 }
 
 // ***********************************************************
@@ -129,7 +148,7 @@ private function restore($dat) {
 	$pfx = USR::md5("admin", "powerman"); if (! $pfx) return false;
 	$chk = STR::before($dat, ":");  if ($chk != $pfx) return false;
 	$fso = STR::after($dat,  ":");
-	
+
 	$out = STR::replace($fso, "$this->dot/", "");
 	return STR::replace($out,  $this->dot,  ".");
 }

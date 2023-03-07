@@ -61,7 +61,7 @@ perms = r
 
 [mandatory]
 <div class="dropdown">?
-	<div class="dropdown-content"><!DIC:mandatory!></div>
+	<div class="dropbody"><!DIC:mandatory!></div>
 </div>
 
 # ***********************************************************
@@ -79,9 +79,9 @@ perms = r
 [buttons]
 	<div class="dropdown">
 		<a href="?oid=<!VAR:oid!>&rec=list">
-			<img class="button" src="ICONS/db/table.gif" />
+			<img class="button" src="LOC_ICO/db/table.gif" />
 		</a>
-		<div class="dropdown-content"><!DIC:to.table!></div>
+		<div class="dropbody"><!DIC:to.table!></div>
 	</div>
 
 # ***********************************************************

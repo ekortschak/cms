@@ -17,7 +17,7 @@ if (! $prm) return incMod("body/login.php");
 // retrieving page info
 // ***********************************************************
 $inc = PGE::getIncFile();
-$fil = FSO::join("core/modules/body", $inc);
+$fil = FSO::join(LOC_MOD, "body", $inc);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");

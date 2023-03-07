@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/view.png
+pic = LOC_ICO/buttons/view.png
 url = index.php?vmode=view
 
 [de]
-caption = 
+caption =
 tooltip = Wechselt in die Standard-Ansicht.
 
 [en]
-caption = 
+caption =
 tooltip = Switches to default view mode.

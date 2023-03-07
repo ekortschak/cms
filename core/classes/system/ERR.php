@@ -12,20 +12,30 @@ incCls("system/ERR.php");
 
 ERR::msg($msg, $parm);
 ERR::raise($msg);
-ERR::good();
 ERR::trace();
 
 */
 
-// ***********************************************************
-// define error options
-// ***********************************************************
-register_shutdown_function("shutDown"); // defined in funcs.php
-set_error_handler("errHandler"); // defined in funcs.php
 error_reporting(E_ALL);
 
 ini_set("ignore_repeated_errors", 1);
 ini_set("error_log", LOG::file("error.log"));
+
+// ***********************************************************
+// error handling
+// ***********************************************************
+function shutDown() { ERR::shutDown(); }
+function errHandler($num, $msg, $file, $line) {
+	ERR::handler($num, $msg, $file, $line);
+}
+
+// ***********************************************************
+// define error options
+// ***********************************************************
+if (class_exists("ERR")) {
+	register_shutdown_function("shutDown"); // defined above
+	set_error_handler("errHandler");        // defined above
+}
 
 // ***********************************************************
 // define syntax colors
@@ -36,7 +46,7 @@ ini_set("highlight.html", "purple");
 ini_set("highlight.keyword", "green");
 ini_set("highlight.string", "orange");
 
-ERR::show(ERR_SHOW);
+ERR::mode(ERR_SHOW);
 
 
 // ***********************************************************
@@ -45,11 +55,10 @@ ERR::show(ERR_SHOW);
 class ERR {
 	private static $err = array(); // error information
 	private static $hst = array(); // trace history
-    
+
     private static $depth = 7;  // call stack depth to display
 	private static $done = 0;	// only first error will be displayed
 
-public static function init($value) {}
 
 // ***********************************************************
 // add messages
@@ -61,7 +70,7 @@ public static function msg($msg, $val = NV) {
 public static function sql($msg, $sql) {
 	$chk = STR::after($msg, "to use near");
 	if ($chk) {
-		$chk = STR::left($chk, 7);
+		$chk = STR::before($chk, " ");
 		$msg = "SQL error near: $chk\n";
 	}
 	MSG::sql($msg, $sql);
@@ -70,7 +79,7 @@ public static function sql($msg, $sql) {
 // ***********************************************************
 // turning errors on or off
 // ***********************************************************
-public static function show($value = true) {
+public static function mode($value = true) {
 	switch ($value) {
 		case true: error_reporting(E_ALL); break;
 		default:   error_reporting(E_CORE_ERROR);
@@ -82,10 +91,6 @@ public static function show($value = true) {
 // ***********************************************************
 // error handling
 // ***********************************************************
-public static function state() {
-	return (count(self::$hst) > 0);
-}
-
 public static function handler($num, $msg, $file, $line) {
 	if (! ERR_SHOW) return;
 	if (! self::shhht()) return; // do not show suppressed errors
@@ -100,6 +105,27 @@ public static function handler($num, $msg, $file, $line) {
 	$tpl->set("file",   self::fmtFName($file));
 	$tpl->set("items",  self::getStack("item"));
 	$tpl->show();
+}
+
+// ***********************************************************
+public static function shutDown() {
+	$inf = error_get_last(); if (! $inf) return;
+	extract($inf);
+
+	echo "<hr>Error #$type<hr>in $file on <b>$line</b><br />";
+	HTW::tag($message, "pre"); if (! IS_LOCAL) return;
+
+	$lnk = HTM::href("?vmode=pedit", "edit mode");
+	$rst = HTM::href("?reset=1", "session");
+
+	HTW::tag("What can I do?", "h1");
+	HTW::tag("Enter $lnk", "li");
+	HTW::tag("Reset $rst", "li");
+}
+
+// ***********************************************************
+public static function state() {
+	return (count(self::$hst) > 0);
 }
 
 // ***********************************************************

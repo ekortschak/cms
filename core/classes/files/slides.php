@@ -55,14 +55,14 @@ public function show($dir = CUR_PAGE) {
 // ***********************************************************
 // copyright
 // ***********************************************************
-private function setCR($pic) {
+private function setCR($pic) { // copyright
 	if (! DB_CON) return "cr.nodb";
 
 	$this->set("pfile", $pic);
 	$this->set("text", $this->getText($pic));
-	$md5 = md5_file($pic);
+	$md5 = FSO::hash($pic);
 
-	$dbe = new recEdit(NV, "copyright");
+	$dbe = new recEdit(null, "copyright");
 	$dbe->setDefault("md5", $md5);
 	$dbe->findRec("md5='$md5'");
 

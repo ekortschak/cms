@@ -7,9 +7,9 @@ Intended to simplify handling of data filters
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/tblFilter.php");
+incCls("input/recFilter.php");
 
-$dbf = new tblFilter($table);
+$dbf = new recFilter($table);
 $dbf->show();
 
 */
@@ -20,7 +20,7 @@ incCls("dbase/dbBasics.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tblFilter extends dbBasics {
+class recFilter extends dbBasics {
 	private $fds = array();
 	private $flt = array();
 

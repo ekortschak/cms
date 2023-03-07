@@ -45,7 +45,7 @@ public static function relPath($fso) {
 }
 
 private static function getFBK($reverse = false) {
-	$out = self::$fbk; if ($reverse) 
+	$out = self::$fbk; if ($reverse)
 	$out = VEC::sort($out, "krsort");
 	return $out;
 }
@@ -153,12 +153,11 @@ public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 public static function gc($fso, $snip = "page") {
 	$qit = ENV::get("blockme");     if (  $qit) return "";
 
-	$ful = self::file($fso);        if (! $ful)
-	$ful = self::find($fso, $snip); if (! $ful) return "";
+	$ful = self::find($fso, $snip); if (! $ful)
+	$ful = self::file($fso);        if (! $ful) return "";
 
 	$xxx = ob_start(); include $ful;
-	$out = ob_get_clean();
-	return trim($out);
+	return ob_get_clean();
 }
 
 public static function gcMod($fso, $snip) {
@@ -167,7 +166,8 @@ public static function gcMod($fso, $snip) {
 
 public static function gcMap($fso) {
 	$out = self::gc($fso); if ($out) return $out;
-	return self::gc("core/modules/sitemap.php");
+	$map = FSO::join(LOC_MOD, "sitemap.php");
+	return self::gc($map);
 }
 
 public static function gcRec($dir, $snip) { // get content recursively

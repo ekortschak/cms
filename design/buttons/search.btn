@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/search.gif
+pic = LOC_ICO/buttons/search.gif
 url = ?vmode=search
 
 [de]
-caption = 
+caption =
 tooltip = Schaltet in den Such-Modus.
 
 [en]
-caption = 
+caption =
 tooltip = Switches to search mode.

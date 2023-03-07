@@ -1,5 +1,5 @@
 [props]
-pic = ICONS/files/folder.gif
+pic = LOC_ICO/files/folder.gif
 
 [de]
 caption = Ordner

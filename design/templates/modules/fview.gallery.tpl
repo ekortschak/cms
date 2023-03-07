@@ -24,7 +24,7 @@ nofiles = Ordner ist leer!
 
 [file]
 <div class="thumb">
-	<nobr><img src="ICONS/files/file.gif" />
+	<nobr><img src="LOC_ICO/files/file.gif" />
 		<a href="javascript:setFile('<!VAR:url!>');">
 			<!VAR:name!>
 		</a>

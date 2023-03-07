@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/db/logout.gif
+pic = LOC_ICO/db/logout.gif
 url = APP_CALL?dmode=logout
 
 [de]
-caption = 
+caption =
 tooltip = Meldet den aktuellen Benutzer ab.</p
 
 [en]
-caption = 
+caption =
 tooltip = Will logout the current user.

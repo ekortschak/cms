@@ -1,5 +1,8 @@
 <?php
 
+incCls("files/page.php");  // xform layout to page
+incCls("menus/PFS.php");
+
 // ***********************************************************
 // set missing constants navigation parms
 // ***********************************************************
@@ -19,7 +22,6 @@ $tpl = APP::file("LOC_LAY/default/stop.tpl");
 // ***********************************************************
 // read page file system - if needed
 // ***********************************************************
-incCls("menus/PFS.php");
 PFS::init();
 
 // ***********************************************************

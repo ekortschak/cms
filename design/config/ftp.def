@@ -6,6 +6,7 @@ fuser = FTP users
 fpass = Password
 froot = FTP root
 url = Web page
+pcl = Web protocol
 
 [dic.de]
 ftp_mode = FTP Modus
@@ -15,6 +16,7 @@ fuser = FTP Benutzer
 fpass = Passwort
 froot = Stammverzeichnis
 url = Webseite
+pcl = Webprotokoll
 
 
 [module]
@@ -29,8 +31,8 @@ fpass = pwd
 froot = /
 
 [web]
+pcl = https
 url = project.your_domain.org
-#cms = cms.your_domain.org
 
 [protect*]
 config.php

@@ -1,7 +1,7 @@
 <?php
 
 incCls("menus/dropDbo.php");
-incCls("dbase/tblFilter.php");
+incCls("dbase/recFilter.php");
 incCls("dbase/dbQuery.php");
 
 $box = new dropDbo();
@@ -11,7 +11,7 @@ $xxx = $box->show();
 // ***********************************************************
 // show filter
 // ***********************************************************
-$sel = new tblFilter($dbs, "dbusr"); // filter
+$sel = new recFilter($dbs, "dbusr"); // filter
 $xxx = $sel->addFilter("uname");
 $flt = $sel->getFilter();
 

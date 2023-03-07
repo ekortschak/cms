@@ -1,5 +1,5 @@
 [props]
-pic = ICONS/files/new.gif
+pic = LOC_ICO/files/new.gif
 
 [de]
 caption = Dateien
@@ -8,4 +8,4 @@ tooltip = Menüpunkte mit Inhalt befüllen (Dateien erstellen).
 [en]
 caption = Files
 tooltip = Populate menu items with information (files).
-               
+

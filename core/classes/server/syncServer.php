@@ -25,9 +25,9 @@ incCls("menus/dropBox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class syncServer extends sync {
-	protected $htp;	// http object
-	protected $crl;	// curl object
-	protected $ftp;	// ftp object
+	protected $htp = false; // http object
+	protected $crl = false; // curl object (upload only)
+	protected $ftp = false; // ftp object
 
 function __construct() {
 	parent::__construct();
@@ -40,19 +40,24 @@ public function read($inifile) {
 	$vls = $ini->getValues(); $this->merge($vls);
 	$prt = $ini->getSec("protect"); $this->set("protect", $prt);
 
-	$srv = $this->get("web.url", "???");
+	$ftp = $ini->get("module.FTP_MODE", "none");
+	$pcl = $ini->get("web.pcl", "http");
+	$srv = $ini->get("web.url", NV);
 
-	$this->htp = new http($srv);
-	$this->crl = new curl($srv);
-
-	$this->ftp = new ftp();
-	$this->ftp->read($inifile);
-
+	if ($srv !== NV) {
+		$this->htp = new http($srv);
+		$this->crl = new curl("$pcl://$srv");
+	}
+	if ($ftp == "passive") {
+		$this->ftp = new ftp();
+		$this->ftp->merge($vls);
+	}
 	$this->err = "no.connection"; // prophylaktisch
 }
 
 // ***********************************************************
 protected function run($info = "info") {
+	if (! $this->ftp) return;
 	if (! $this->ftp->test()) return;
 
 	$this->err = false;
@@ -68,7 +73,7 @@ protected function isGood() {
 }
 
 protected function FSremote() {
-	if ($this->error) return;
+	if ( ! $this->htp) return;
 	return $this->htp->query(".", "get");
 }
 
@@ -76,12 +81,12 @@ protected function FSremote() {
 // check for protected files
 // **********************************************************
 protected function chkProtect($arr) {
-	$prt = $this->get("protect"); if (! $prt) return $arr;
-	$prt = "\n$prt\n";	
-	
+	$grd = $this->get("protect"); if (! $grd) return $arr;
+	$grd = "\n$grd\n";
+
 	foreach ($arr as $act => $itm) {
 		foreach ($itm as $fso) {
-			if (! STR::contains($prt, "\n$fso")) continue;
+			if (! STR::contains($grd, "\n$fso")) continue;
 			$arr[$act] = VEC::drop($arr[$act], $fso);
 			$arr["man"][] = $fso;
 		}
@@ -93,6 +98,8 @@ protected function chkProtect($arr) {
 // auxilliary methods
 // ***********************************************************
 protected function remoteVersion() {
+	if ( ! $this->htp) return "?";
+
 	$out = $this->htp->query(".", "ver");
 	$out = implode(" - ", $out);
 	return ($out) ? $out : "?";

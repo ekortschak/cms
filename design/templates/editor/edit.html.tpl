@@ -17,14 +17,23 @@ rows = 40
 <div class="toolbar flex">
 	<div>
 		<!SEC:edit!>
-		<!SEC:characters!>&nbsp;
-		<!SEC:formatting!>
-		<!SEC:addImg!>
-		<!SEC:addLFs!>&nbsp;
-		<!SEC:addLink!>
-		<!SEC:switch.htm!>
+		<!SEC:characters!>
 	</div>
 	<div>
+		<!SEC:formatting!>
+		<!SEC:addLFs!>
+	</div>
+	<div>
+		<!SEC:listings!>
+		<!SEC:tables!>
+		<!SEC:images!>
+		<!SEC:links!>
+	</div>
+	<div>
+		<!SEC:addSnips!>
+	</div>
+	<div>
+		<!SEC:switch.htm!>
 		<!SEC:item.view!>
 	</div>
 </div>
@@ -35,15 +44,13 @@ rows = 40
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file_act=save">
-	<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false"
-		onfocus="this.className='hot';"
-		onblur="this.className='cold';">
-		<!VAR:content!>
-	</div>
+<div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false"
+	onfocus="this.className='hot';"
+	onblur="this.className='cold';"><!VAR:content!></div>
 
-	<div id="curEdit" class="hidden"> _
-		<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" spellcheck="false"><!VAR:content!></textarea>
-	</div>
+<div id="curEdit" class="hidden">_
+<!SEC:ctarea!>
+</div>
 
 <!SEC:submit!>
 </form>

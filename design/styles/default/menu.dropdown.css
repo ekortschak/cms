@@ -5,16 +5,21 @@
 .dropdown {
 	display: inline-block;
 }
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropbody {
 	z-index: 90;
 	display: block;
 }
 
+/* ******************************************************** */
+/* dropdown banner */
+/* ******************************************************** */
+.droptext {
+}
 
 /* ******************************************************** */
 /* dropdown content */
 /* ******************************************************** */
-.dropdown-content {
+.dropbody {
 	display: none;
 	position: absolute;
 	border: 1px solid OUTLINE;
@@ -32,16 +37,16 @@
 	font-weight: normal;
 }
 
-.dropdown-content a {
+.dropbody a {
 	display: block;
 	padding: 0px 5px;
 	color: FC_DROP;
 	font-weight: normal;
 }
-.dropdown-content a:hover {
+.dropbody a:hover {
 	color: FC_MARK;
 	background: BC_MARK;
 }
-.dropdown-content h4 {
+.dropbody h4 {
 	margin: 5px;
 }

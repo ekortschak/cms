@@ -118,10 +118,10 @@ public function act() {
 
 // ***********************************************************
 private function recView() {
-	incCls("dbase/tblFilter.php");
+	incCls("dbase/recFilter.php");
 	incCls("dbase/tblView.php");
 
-	$sel = new tblFilter($this->dbs, $this->tbl); // filter
+	$sel = new recFilter($this->dbs, $this->tbl); // filter
 	$sel->set("oid", $this->oid);
 	$sel->addFilter($this->flt);
 	$sel->show();

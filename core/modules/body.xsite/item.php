@@ -13,7 +13,7 @@ $inc = PGE::getIncFile();         if (! $inc) return;
 // build and show page
 // ***********************************************************
 $fil = FSO::join(__DIR__, $inc); if (! is_file($fil))
-$fil = FSO::join("core/modules/body", $inc);
+$fil = FSO::join(LOC_MOD, "body", $inc);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");

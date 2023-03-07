@@ -39,6 +39,10 @@ title = PRJ_TITLE
 <!MOD:zzz.styles!>
 
 [scripts]
+<script>
+	window.location = "\#vANCHOR";
+</script>
+
 <!MOD:zzz.scripts!>
 
 
@@ -109,5 +113,6 @@ title = PRJ_TITLE
 <div class="container conOpts">
 <!MOD:app.info!>
 <!MOD:user.opts!>
+<!MOD:user.tags!>
 <!MOD:msgs!>
 </div>

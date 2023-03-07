@@ -12,7 +12,7 @@ e.g. mysql, sqlite ...
 // ***********************************************************
 incCls("dbase/sqlStmt.php");
 
-$sql = new SQL($table);
+$sql = new sqlStmt($dbtype);
 
 */
 
@@ -26,9 +26,7 @@ class sqlStmt extends objects {
 	protected $tbl = NV;
 	protected $vls;   // array of string values
 
-public function __construct() {}
-
-public function init($dbtype) {
+public function __construct($dbtype) {
 	$typ = strtolower($dbtype);
 
 	$ini = new ini(NV);

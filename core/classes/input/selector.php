@@ -111,7 +111,7 @@ public function multi($uid, $vls, $sel = NV) { // multiple choice
 public function image($uid, $value, $file) { // image button
  // TODO: set divisions, height ... (e.g. rating)
 	$fil = APP::file($file); if (! $fil)
-	$fil = APP::file(FSO::join(ICONS, "input", $file));
+	$fil = APP::file(FSO::join(LOC_ICO, "input", $file));
 
 	$out = $this->itm->addImage("img", $uid, $value);
 	$xxx = $this->itm->setProp("file", $fil);

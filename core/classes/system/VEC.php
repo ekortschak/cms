@@ -139,13 +139,10 @@ public static function nums($data, $pfx) {
 }
 
 public static function match($data, $pfx = "") {
-	$out = array();
+	if (! $pfx) return $data; $out = array();
 
 	foreach ($data as $key => $val) {
-		if (! $key) continue;
-
-		if ($pfx) if (! STR::begins($key, $pfx)) continue;
-		if ($pfx) $key = STR::after($key, array("$pfx.", $pfx));
+		$key = STR::after($key, array("$pfx.", $pfx));
 		if ($key) $out[$key] = $val;
 	}
 	return $out;
@@ -212,8 +209,8 @@ public static function count($data, $key) {
 // sorting data
 // ***********************************************************
 public static function sort($arr, $fnc = "ksort") {
-	if ($arr) $fnc($arr);
-	return $arr;
+	if (! is_array($arr)) return false;
+	$fnc($arr); return $arr;
 }
 
 public static function sortByLen($data) {

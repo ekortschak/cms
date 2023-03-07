@@ -20,7 +20,7 @@ incCls("dbase/dbBasics.php");
 // ***********************************************************
 class dbInfo extends dbBasics {
 
-function __construct($dbase = NV, $table = NV) {
+function __construct($dbase = "default", $table = NV) {
 	parent::__construct($dbase);
 	$this->setTable($table);
 }
@@ -103,9 +103,9 @@ public function fldLenFind($typ, $lng) {
 // ***********************************************************
 public function fldNull($typ) {
 	switch ($typ) {
-		case "cur": case "txt": return array("YES" => "YES");
+		case "cur": case "txt": return array("NULL" => "YES");
 	}
-	return array("NULL" => "YES", 	"NOT NULL" => "NO");
+	return array("NULL" => "YES", "NOT NULL" => "NO");
 }
 
 // ***********************************************************

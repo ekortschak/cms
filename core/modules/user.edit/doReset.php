@@ -24,7 +24,7 @@ if (ENV::getPost("login.act") == 5) { // update pwd
 	$new = ENV::getPost("npwd", "new");
 	$cnf = ENV::getPost("cpwd", "cnf");
 
-	$dbq = new dbQuery(NV, "dbusr");
+	$dbq = new dbQuery(null, "dbusr");
 	$xxx = $dbq->askMe(false);
 	$inf = $dbq->query($flt);
 	$chk = $inf["pwd"];

@@ -108,7 +108,6 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;
 		$val = STR::after($itm, $del);
-		$val = CFG::insert($val);
         $out[$key] = $val;
     }
     return $out;

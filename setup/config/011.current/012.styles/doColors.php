@@ -1,15 +1,15 @@
 <?php
 
-$dir = "design/colors";
-
 // ***********************************************************
 // select a color set
 // ***********************************************************
 incCls("menus/dropBox.php");
 
 $box = new dropBox("menu");
-$ful = $box->files($dir, "color.set", COLORS.".ini");
+$ful = $box->files(LOC_CLR, "color.set", COLORS.".ini");
 $xxx = $box->show();
+
+HTW::tag("file = ".APP::relPath($ful), "hint");
 
 // ***********************************************************
 // write data
@@ -20,11 +20,12 @@ if (ENV::getPost("colEdit")) {
 
 	foreach ($arr as $key => $val) {
 		$itm = STR::between($txt, $key, "\n");
-		$val = str_replace("#", "\#", $val);
-		$new = "$key = $val";
-		$txt = str_replace("$key $itm", $new, $txt);
+		$val = STR::replace($val, "#", "\#");
+		$val = STR::replace($val, "\\#", "\#");
+		$rep = str_pad($key, 8);
+		$txt = PRG::replace($txt, "$key(\s*?)$itm", "$rep = $val");
 	}
-	APP::write($ful, $txt);
+	$xxx = APP::write($ful, $txt);
 }
 
 // ***********************************************************
@@ -49,14 +50,11 @@ foreach ($arr as $key => $val) {
 	}
 
 	foreach ($lst as $itm) {
-		$tpl->set("set", $itm);
-		$fgc = VEC::get($clr, "FC_$itm", "");
-		$bgc = VEC::get($clr, "BC_$itm", "");
+		$tpl->set("set", $itm); $fcn = "FC_$itm"; $bcn = "BC_$itm";
+		$tpl->set("FCN", $fcn); $tpl->set("FCV", VEC::get($clr, $fcn, ""));
+		$tpl->set("BCN", $bcn);	$tpl->set("BCV", VEC::get($clr, $bcn, ""));
 
-		$tpl->set("FCN", $fgc); $tpl->set("FCV", $fgc);
-		$tpl->set("BCN", $bgc); $tpl->set("BCV", $bgc);
-
-		$out.= $tpl->gc("item");
+		$out.= $tpl->getSection("item");
 	}
 }
 $tpl->set("items", $out);

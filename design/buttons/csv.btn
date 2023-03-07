@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/nav/csv.gif
+pic = LOC_ICO/nav/csv.gif
 url = ?dmode=csv
 
 [de]
-caption = 
+caption =
 tooltip = Gibt eine CSV-Datei aus. Kann mit Tabellenkalkulationen wie Excel verwendet werden.
 
 [en]
-caption = 
+caption =
 tooltip = Will return a CSV file which can be used in table calculation programs like Excel.

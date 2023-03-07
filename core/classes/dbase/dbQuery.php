@@ -31,7 +31,7 @@ $dbq->delete($filter);			// delete record
 */
 
 incCls("dbase/dbBasics.php");
-incCls("dbase/tblValidate.php");
+incCls("dbase/recProof.php");
 
 // ***********************************************************
 // Begin of Class
@@ -40,7 +40,7 @@ class dbQuery extends dbBasics {
 	private $vld; // data validator
 	protected $ask = true; // ask for confirmation
 
-function __construct($dbase, $table = "dummy") {
+function __construct($dbase = "default", $table = "dummy") {
 	parent::__construct($dbase);
 
 	$this->setTable($table);
@@ -92,7 +92,7 @@ private function setValidator($dbs, $tbl) {
 	$fil = APP::file("dbase/validate/$tbl.php");
 
 	if (! $fil) { // table specific validator
-		$this->vld = new tblValidate($dbs, $tbl);
+		$this->vld = new recProof($dbs, $tbl);
 		return;
 	}
 	include_once $fil; $cls = "val_$tbl"; // common validator

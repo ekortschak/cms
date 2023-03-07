@@ -27,9 +27,8 @@ class ediMgr {
 	private $typ = "text";
 	private $edt = array();
 	private $fil = false;
-	
-function __construct() {
-}
+
+function __construct() {}
 
 // ***********************************************************
 // methods
@@ -75,7 +74,7 @@ private function findList($typ) {
 // display
 // ***********************************************************
 public function show($tool = NV) {
-	if ($tool == NV) $tool = key($this->edt);	
+	if ($tool == NV) $tool = key($this->edt);
 	if (! $tool) $tool = "text";
 
 	if ($tool == "ini")   return $this->showCom("editIni");
@@ -83,14 +82,14 @@ public function show($tool = NV) {
 	if ($tool == "css")   return $this->showCss("editCss");
 	if ($tool == "xtern") return $this->showCom("editXtern", $tool);
 	if ($tool == "pic")   return $this->showCom("editPic",   $tool);
-	
+
 	return $this->showCom("editText",  $tool);
 }
 
 // ***********************************************************
 public function showCom($cls, $tool = "text") {
 	incCls("editor/$cls.php");
-	
+
 	$edt = new $cls();
 	$edt->load($this->fil);
 	$edt->suit($tool);
@@ -101,9 +100,9 @@ public function showCom($cls, $tool = "text") {
 // auxilliary methods
 // ***********************************************************
 private function getArr($items) {
-	$out = array(); $arr = STR::toArray($items); 
+	$out = array(); $arr = STR::toArray($items);
 	$dat = array(
-		"html"  => "Intern", "ini" => "Ini-Editor", "text" => "Text",			
+		"html"  => "Intern", "ini" => "Ini-Editor", "text" => "Text",
 		"code"  => "Intern", "dic" => "Dic-Editor", "ck4"  => "CK-Editor 4.x",
 		"xtern" => "Extern", "css" => "Css-Editor", "ck5"  => "CK-Editor 5.x",
 	);

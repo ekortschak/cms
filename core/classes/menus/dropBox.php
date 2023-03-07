@@ -10,6 +10,7 @@ Used to create combo boxes containing links for immeadiate action
 incCls("menus/dropBox.php");
 
 $box = new dropBox();
+$box->hideDesc();
 $box->getKey($qid, $values, $selected);
 $box->getVal($qid, $values, $selected);
 $box->show();
@@ -38,7 +39,9 @@ private function suit($mode) {
 	switch ($mode) {
 		case "table":  $tpl = "menus/dropTable.tpl";  break;
 		case "inline": $tpl = "menus/dropInline.tpl"; break;
+		case "button": $tpl = "menus/dropButton.tpl"; break;
 		case "topics": $tpl = "menus/dropTopics.tpl"; break;
+		case "script": $tpl = "menus/dropScript.tpl"; break;
 		case "menu":   $tpl = "menus/dropMenu.tpl";   break;
 		case "menu2":  $tpl = "menus/dropMenu2.tpl";  break;
 		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
@@ -79,7 +82,7 @@ public function getVal($qid, $data, $selected = false) {
 }
 
 public function getKey($qid, $data, $selected = false) {
-	if (! $data) return;
+	if (! $data) return; # $data = array();
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $this->getSel($qid, $data, $selected);
@@ -178,7 +181,7 @@ public function show($sec = "main") {
 }
 public function gc($sec = "main") {
 	if (! $this->isSec($sec)) $sec = "main";
-	if (! $this->data) return "";
+	if (! $this->data) $sec = "empty";
 
 	$this->set("items", $this->collect($sec));
     return $this->getSection($sec);
@@ -189,7 +192,7 @@ protected function collect($type) {
     $out = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
-		extract ($vls);
+		extract ($vls); if ($typ != "cmb") continue;
 
 		$this->set("parm", $unq); $tmp = ""; $cnt = 0;
 		$this->set("uniq", DIC::getPfx("unq", $unq));
@@ -202,11 +205,10 @@ protected function collect($type) {
 #			if ($key == $sel) continue;
 			$tmp.= $this->getSection("link");
 		}
-		if ($typ == "cmb") {
-			$sec = "$type.box"; if ($cnt < 2)
-			$sec = "$type.one";
-		}
-		else continue;
+
+		$sec = "$type.box"; if ($cnt < 2)
+		$sec = "$type.one"; if ($cnt < 1)
+		$sec = "empty";
 
 		$xxx = $this->set("links", $tmp);
 		$out.= $this->getSection($sec);

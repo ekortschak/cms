@@ -15,7 +15,7 @@ LOC_TPL/menus/dropBox.tpl
 	<td class="selData" width="*">
 		<div class="dropdown">
 			<button><!VAR:current!>COMBO_DOWN</button>
-<!SEC:content!>
+			<div class="dropbody"><!VAR:links!></div>
 		</div>
 	</td>
 </tr>

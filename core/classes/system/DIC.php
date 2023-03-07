@@ -60,7 +60,6 @@ public static function append($arr, $lang) {
 public static function set($key, $value, $lang = CUR_LANG) {
 	$lng = LNG::find($lang);
 	$key = STR::norm($key);
-	$val = CFG::insert($value);
 
 	self::$dat[$lng][$key] = $value;
 }
@@ -117,7 +116,8 @@ private static function find($key, $lng, $default = false) {
 
 	foreach ($lgs as $lng) {
 		$arr = VEC::get(self::$dat, $lng); if (! $arr) continue;
-		$out = VEC::get($arr, $idx); if ($out) return $out;
+		$out = VEC::get($arr, $idx); if ($out)
+		return CFG::insert($out);
 	}
 	return $default;
 }

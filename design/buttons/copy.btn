@@ -1,10 +1,10 @@
 [props]
-pic = ICONS/buttons/file.copy.png
+pic = LOC_ICO/buttons/file.copy.png
 
 [de]
-caption = 
+caption =
 tooltip = Tabellen kopieren.
 
 [en]
-caption = 
+caption =
 tooltip = Copy a table.

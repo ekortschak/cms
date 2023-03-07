@@ -55,7 +55,7 @@ result =
 
 [nav.toc]
 <div style="float: right;">
-	<a href="?vmode=view"><button class="icon"><img src="ICONS/buttons/view.png" align="right" /></button></a>
+	<a href="?vmode=view"><button class="icon"><img src="LOC_ICO/buttons/view.png" align="right" /></button></a>
 </div>
 
 [topic]
@@ -73,7 +73,7 @@ result =
 [prv.goto]
 <div style="float: right;">
 	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
-		<button class="icon"><img src="ICONS/buttons/view.png" alt="View"></button>
+		<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View"></button>
 	</a>
 </div>
 <div style="float: right; margin-right: 5px;">
@@ -84,7 +84,7 @@ result =
 
 [prv.topic]
 <div class="submenu">
-<img src="ICONS/buttons/view.png" style="vertical-align: bottom;" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
+<img src="LOC_ICO/buttons/view.png" style="vertical-align: bottom;" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
 </div>
 
 [item.sep]

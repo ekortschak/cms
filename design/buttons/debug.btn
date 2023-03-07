@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/debug.png
+pic = LOC_ICO/buttons/debug.png
 url = x.edit.php?vmode=debug
 
 [de]
-caption = 
+caption =
 tooltip = Switches to debug mode.
 
 [en]
-caption = 
+caption =
 tooltip = Wechselt in den Debug-Modus.

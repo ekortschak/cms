@@ -17,9 +17,7 @@ class = dropMenu
 <table class="nomargin" width="100%">
 	<tr>
 		<td class="nopad" width="*">
-			<div class="<!VAR:class!>">
-				<!VAR:items!>
-			</div>
+			<div class="<!VAR:class!>"><!VAR:items!></div>
 		</td>
 		<td class="nopad" width=5></td>
 		<td class="nopad" width=26 align="center">
@@ -32,8 +30,8 @@ class = dropMenu
 
 [main.box]
 <div class="dropdown">
-<!DIC:tpc.list!>COMBO_DOWN
-<!SEC:content!>
+<div class="droptext"><!DIC:tpc.list!>COMBO_DOWN</div>
+<div class="dropbody"><!VAR:links!></div>
 </div> &ensp;
 
 [main.one]

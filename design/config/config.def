@@ -49,7 +49,7 @@ GEN_LANG = en
 
 [design]
 LAYOUT = folders:LOC_LAY
-COLORS = files:design/colors
+COLORS = files:LOC_CLR
 EDITOR = default|ck4|ck5
 
 [security]

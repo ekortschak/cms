@@ -34,16 +34,18 @@ private function exec() {
 	$dir = APP::dir($dir);	if (! $dir) return;
 	$act = ENV::get("btn.menu");
 
-	if (STR::contains("DPRC", $act)) {
-		ENV::set("pfs.reload", 1);
-	}
 	switch ($act) {
-		case "D": if ($this->nodeOpts($dir)) return;
-		case "F": if ($this->fileOpts($dir)) return;
-		case "P": if ($this->pageOpts($dir)) return;
-		case "R": if ($this->sortOpts($dir)) return;
-		case "U": if ($this->userOpts($dir)) return;
-		case "C": if ($this->clipOpts($dir)) return;
+		case "F": return $this->fileOpts($dir);
+		case "U": return $this->userOpts($dir);
+
+		case "D": $this->nodeOpts($dir); break;
+		case "P": $this->pageOpts($dir); break;
+		case "R": $this->sortOpts($dir); break;
+		case "C": $this->clipOpts($dir); break;
+		default:  return;
+	}
+	if (STR::contains("DPRC", $act)) {
+		SSV::set("reload", true, "pfs");
 	}
 }
 
@@ -51,19 +53,17 @@ private function exec() {
 // node Opts
 // ***********************************************************
 private function nodeOpts($dir) {
-	$cmd = ENV::getPost("node_act"); if (! $cmd) return false;
+	$cmd = ENV::getPost("node_act"); if (! $cmd) return;
 
 	switch (STR::left($cmd)) {
-		case "ren": $this->nodeRename($dir); break; // rename directory
-		case "hid": $this->nodeHide($dir);   break; // hide node
-		case "dro": $this->nodeDrop($dir);   break; // drop node
-		case "uid": $this->nodeCheck($dir);  break; // verify UIDs
-		case "out": $this->nodeOut($dir);    break; // move out in hierarchy
-		case "min": $this->nodeIn($dir);     break; // move in in hierarchy
-		case "sub": $this->nodeAdd($dir);    break; // add a subnode
-		default: return false;
+		case "ren": return $this->nodeRename($dir); // rename directory
+		case "hid": return $this->nodeHide($dir);   // hide node
+		case "dro": return $this->nodeDrop($dir);   // drop node
+		case "uid": return $this->nodeCheck($dir);  // verify UIDs
+		case "out": return $this->nodeOut($dir);    // move out in hierarchy
+		case "min": return $this->nodeIn($dir);     // move in in hierarchy
+		case "sub": return $this->nodeAdd($dir);    // add a subnode
 	}
-	return true;
 }
 
 // ***********************************************************
@@ -76,7 +76,6 @@ private function nodeRename($dir) { // rename directory
     if (! $erg) return ERR::assist("dir", "no.write", $dir);
 
     ENV::setPage($dst);
-	return true;
 }
 
 // ***********************************************************
@@ -130,29 +129,28 @@ private function nodeCheck() { // add UID to page.ini recursively
 		$ini->save();
 	}
 	MSG::add("Check UIDs - OK");
-	return true;
 }
 
 // ***********************************************************
 // acting on subnodes
 // ***********************************************************
 private function nodeAdd($dir) {
-	$dst = ENV::getPost("sub_dir"); if (! $dst) return false;
+	$dst = ENV::getPost("sub_dir"); if (! $dst) return;
+	$ovr = ENV::get("opt.overwrite");
 	$dst = STR::toArray($dst);
 
-	foreach ($dst as $itm) {
-		$itm = FSO::join($dir, $itm);
+	foreach ($dst as $sub) {
+		$itm = FSO::join($dir, $sub);
 		$itm = FSO::force($itm); if (! $itm) return ERR::assist("dir", "no.write", $dir);
-		$this->saveStdIni($itm);
+		$this->saveStdIni($itm, $ovr, $sub);
 	}
-	return true;
 }
 
 // ***********************************************************
 // sorting entries
 // ***********************************************************
 private function sortOpts($dir) { // sort a node
-	$cmd = ENV::getPost("sort_act"); if (! $cmd) return false;
+	$cmd = ENV::getPost("sort_act"); if (! $cmd) return;
 	$lst = ENV::getPost("slist");    $cnt = 10; // start at #
 	$lst = VEC::explode($lst, ";");  $inc =  1;
 
@@ -166,7 +164,6 @@ private function sortOpts($dir) { // sort a node
 
 		rename($old, $new);
 	}
-	return true;
 }
 
 // ***********************************************************
@@ -174,17 +171,15 @@ private function sortOpts($dir) { // sort a node
 // ***********************************************************
 private function fileOpts($dir) {
 	$cmd = ENV::getPost("file_act"); if (! $cmd)
-	$cmd = ENV::getParm("file_act"); if (! $cmd) return false;
+	$cmd = ENV::getParm("file_act"); if (! $cmd) return;
 
 	switch(STR::left($cmd)) {
-		case "ini": $this->fileAddIni($dir); break; // add page.ini
-		case "sys": $this->fileAddSys($dir); break; // add language files, e.g. de.htm
-		case "any": $this->fileAddAny($dir); break; // add any new file
-		case "dro": $this->fileDelete($dir); break; // delete a file
-		case "hid": $this->fileToggle($dir); break; // hide and unhide a file
-		default: return false;
+		case "ini": return $this->fileAddIni($dir); // add page.ini
+		case "sys": return $this->fileAddSys($dir); // add language files, e.g. de.htm
+		case "any": return $this->fileAddAny($dir); // add any new file
+		case "dro": return $this->fileDelete($dir); // delete a file
+		case "hid": return $this->fileToggle($dir); // hide and unhide a file
 	}
-	return true;
 }
 
 // ***********************************************************
@@ -230,16 +225,14 @@ private function fileDelete($dir) { // delete a files
 	$fil = ENV::getParm("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
 	$erg = FSO::kill($fil);
-	return true;
 }
 
 // ***********************************************************
 // ini Opts
 // ***********************************************************
 private function pageOpts($dir) {
-	if ($this->pageDefault($dir)) return true; // set startup page
-	if ($this->pageProps($dir))   return true; // save page props
-	return false;
+	if ($this->pageDefault($dir)) return; // set startup page
+	if ($this->pageProps($dir))   return; // save page props
 }
 
 // ***********************************************************
@@ -281,7 +274,7 @@ private function pageDefault($dir) { // mark node as default
 // user Opts
 // ***********************************************************
 private function userOpts($dir) {
-	$chk = ENV::getPost("perms_act"); if (! $chk) return false;
+	$chk = ENV::getPost("perms_act"); if (! $chk) return;
 	$ful = FSO::join($dir, "perms.ini");
 
 	$arr = $_POST; unset($arr["perms_act"]);
@@ -296,16 +289,17 @@ private function userOpts($dir) {
 		$ini->replace("perms", $out);
 		$ini->save();
 	}
-	return true;
 }
 
 // ***********************************************************
 // write to ini files
 // ***********************************************************
-private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
+private function saveStdIni($dir, $ovr = false, $uid = NV) { // rewrite ini-file
 	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
+	if ($uid === NV) $uid = basename($dir);
 
 	$ini = new iniWriter("LOC_CFG/page.def");
+	$ini->set("props.uid", $uid);
 	$ini->read($fil);
 	$ini->save($fil);
 }
@@ -314,7 +308,7 @@ private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
 // clipboard Opts
 // ***********************************************************
 private function clipOpts($dir) {
-	$chk = ENV::getPost("clip_act"); if (! $chk) return false;
+	$chk = ENV::getPost("clip_act"); if (! $chk) return;
 
 	if ($chk == "cut") {
 		ENV::setPage(dirname($dir));
@@ -322,7 +316,7 @@ private function clipOpts($dir) {
 	incCls("editor/clipBoard.php");
 
 	$clp = new clipBoard();
-	return $clp->exec($dir);
+	$clp->exec($dir);
 }
 
 // ***********************************************************

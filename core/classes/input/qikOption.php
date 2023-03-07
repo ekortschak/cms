@@ -14,12 +14,12 @@ see parent class
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class qikLink extends tpl {
+class qikOption extends tpl {
 	private $lst = array();
 
 function __construct() {
 	parent::__construct();
-    $this->load("menus/qikLink.tpl");
+    $this->load("input/qikOption.tpl");
 }
 
 // ***********************************************************

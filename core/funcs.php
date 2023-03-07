@@ -1,15 +1,29 @@
 <?php
 
-/* this file contains minimum requirements
- * as needed for x.css.php and others
- */
+define("LOC_CLS", "core/classes");
+define("LOC_MOD", "core/modules");
+define("LOC_INC", "core/include");
+define("LOC_ICO", "core/icons");
+
+define("LOC_DIC", "design/dictionary");
+define("LOC_LAY", "design/layout");
+define("LOC_CSS", "design/styles");
+define("LOC_CFG", "design/config");
+define("LOC_CLR", "design/colors");
+define("LOC_TPL", "design/templates");
+define("LOC_BTN", "design/buttons");
 
 // ***********************************************************
 // find files or default to fallback dir
 // ***********************************************************
-function incCls($file) { require_once "core/classes/$file"; }
-function incMod($file) { require_once "core/modules/$file"; }
-function incFnc($file) { require_once "core/include/$file"; }
+function incCls($file) { incAny(LOC_CLS."/$file"); }
+function incMod($file) { incAny(LOC_MOD."/$file"); }
+function incFnc($file) { incAny(LOC_INC."/$file"); }
+
+function incAny($file) {
+#	if (! is_file($file)) die("File not found: $file");
+	require_once $file;
+}
 
 // ***********************************************************
 // goodies
@@ -24,35 +38,6 @@ function requireAdmin() { // force login of admin
 }
 function requireLogin() { // force login of any user
 	if (CUR_USER == "www") $_GET["dmode"] = "login";
-}
-
-// ***********************************************************
-// error handling
-// ***********************************************************
-function shutDown() {
-	$inf = error_get_last(); if (! $inf) return;
-	extract($inf);
-
-	echo "<hr>Error #$type<hr>";
-	echo "in $file on <b>$line</b><br />";
-	HTW::tag($message, "pre");
-
-	if (! IS_LOCAL) return;
-
-	$lnk = HTM::href("?vmode=pedit", "edit mode");
-	$rst = HTM::href("?reset=1", "session");
-
-	HTW::tag("What can I do?", "h1");
-	HTW::tag("Enter $lnk", "li");
-	HTW::tag("Reset $rst", "li");
-}
-
-function errHandler($num, $msg, $file, $line) {
-	if (class_exists("ERR")) {
-		ERR::handler($num, $msg, $file, $line);
-		return;
-	}
-	shutdown();
 }
 
 ?>

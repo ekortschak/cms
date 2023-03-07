@@ -55,7 +55,7 @@ public function gc($sec = "main") {
 		$this->set("sel", $this->isSelected($trg, $fpath));
 		$this->set("pos", $this->isOpen($trg, $fpath, $level));
 		$this->set("hid", $this->isHidden($fpath)); // show only in edit mode
-		$this->set("active", $grey);
+		$this->set("active", $state);
 
 		$typ = $this->chkType($mtype);
 		$out.= $this->getSection("link.$typ")."\n";

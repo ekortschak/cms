@@ -6,6 +6,8 @@ $box = new dropBox("menu");
 $ful = $box->files(LOC_LAY, "Layout", "default.ini");
 $xxx = $box->show();
 
+HTW::tag("file = ".APP::relPath($ful), "hint");
+
 // ***********************************************************
 // read and write data
 // ***********************************************************

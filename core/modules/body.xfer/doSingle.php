@@ -1,5 +1,9 @@
 <?php
 
+incCls("input/qikOption.php");
+incCls("input/confirm.php");
+
+// ***********************************************************
 $tit = PGE::getTitle();
 $dir = APP::tempDir("single page");
 $fil = FSO::join($dir, "$tit.htm");
@@ -7,9 +11,7 @@ $fil = FSO::join($dir, "$tit.htm");
 // ***********************************************************
 // preview ?
 // ***********************************************************
-incCls("menus/qikLink.php");
-
-$qik = new qikLink();
+$qik = new qikOption();
 $dbg = $qik->getVal("opt.debug", 1);
 $prv = $qik->gc();
 
@@ -25,8 +27,6 @@ $tpl->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-incCls("input/confirm.php");
-
 $cnf = new confirm();
 $cnf->set("link", "?dmode=xsite&fil=$fil");
 $cnf->head("Merge selected branch into single file!");

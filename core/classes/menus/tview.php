@@ -12,6 +12,7 @@ incCls("menues/tview.php");
 $obj = new tview();
 $obj->readTree();
 $obj->setData($arr);
+$obj->show();
 
 $arr = $obj->getMenu();
 $dat = $obj->getData($index);

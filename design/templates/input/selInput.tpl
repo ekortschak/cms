@@ -44,7 +44,7 @@ select = Datei(en) wählen
 [input.pwd]
 <input type="password" name="<!VAR:fname!>" value="<!VAR:curVal!>" size=11 />
 <div class="dropdown"><div class="info">i</div>
-	<div class="dropdown-content"><!DIC:pwdinfo!></div>
+	<div class="dropbody"><!DIC:pwdinfo!></div>
 </div>
 <!SEC:info!>
 
@@ -71,9 +71,8 @@ select = Datei(en) wählen
 [input.tar]
 # ***********************************************************
 <textarea name="<!VAR:fname!>" cols="<!VAR:cols!>" rows=<!VAR:rows!>
-	autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">_
-<!VAR:curVal!>_
-</textarea>
+	autocomplete="off" autocorrect="off" autocapitalize="off"
+	spellcheck="false"><!VAR:curVal!></textarea>
 
 # ***********************************************************
 [input.ron] # read only information

@@ -36,9 +36,10 @@ on = auf
 	<td class="selData">
 		<input type="text" name="<!VAR:FCN!>" value="<!VAR:FCV!>" size=15 /> &nbsp;
 	</td>
-	<td width=20 class="selHead" style="color:<!VAR:FCN!>; background-color:<!VAR:BCN!>; border-radius: 7px;">
-		Xyz
+	<td class="selHead" style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>; border-radius: 7px;" align="center">
+		Sample
 	</td>
+	<td width="*">&nbsp;</td>
 	<td class="selData"> &nbsp;
 		<input type="text" name="<!VAR:BCN!>" value="<!VAR:BCV!>" size=15 />
 	</td>

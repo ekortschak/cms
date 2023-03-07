@@ -1,11 +1,13 @@
 <?php
 
+incCls("input/qikOption.php");
+incCls("menus/dropBox.php");
+incCls("files/dirView.php");
+
 // ***********************************************************
 // get options
 // ***********************************************************
-incCls("menus/qikLink.php");
-
-$qik = new qikLink();
+$qik = new qikOption();
 $xxx = $qik->getVal("opt.overwrite", 0);
 $ovr = $qik->gc();
 
@@ -13,12 +15,12 @@ $ovr = $qik->gc();
 // prepare sys files
 // ***********************************************************
 $fls = array(
-	"banner"  => "Banner",
-	"head"    => "Head",
-	"page"    => "Content",
-	"help"    => "Help",
-	"tail"    => "Tail",
-	"trailer" => "Trailer",
+	"banner"  => "banner",
+	"head"    => "head",
+	"page"    => "page",
+	"help"    => "help",
+	"tail"    => "tail",
+	"trailer" => "trailer",
 );
 $lgs = array(
 	CUR_LANG  => CUR_LANG,
@@ -29,8 +31,9 @@ $ext = array(
 	"php"     => "php",
 );
 
-incCls("menus/dropBox.php");
-
+// ***********************************************************
+// show sys file boxes
+// ***********************************************************
 $box = new dropBox();
 $box->hideDesc();
 $box->getKey("sys.file", $fls, "page");
@@ -42,8 +45,6 @@ $drp = $box->gc();
 // ***********************************************************
 // show list
 // ***********************************************************
-incCls("files/dirView.php");
-
 $tpl = new dirView();
 $tpl->load("editor/menu.files.tpl");
 $tpl->set("choice", $drp);

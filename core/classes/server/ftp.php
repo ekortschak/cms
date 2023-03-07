@@ -150,9 +150,12 @@ public function remote_put($src, $dst) {
 // ***********************************************************
 public function save($src, $dst) {
 	if ($this->isProtected($src)) return false;
-	
-	$tim = ftp_mdtm($this->con, $src); if ($tim < 1) return false;
+
 	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
+	$tim = ftp_mdtm($this->con, $src);
+
+dbg($dst, $this->con);
+
 	if ($tim > 1) touch ($dst, $tim);
 	return $erg;
 }

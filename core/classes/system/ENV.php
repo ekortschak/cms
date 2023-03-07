@@ -111,7 +111,7 @@ public static function seal() { // TODO: xfer to CFG
 }
 
 public static function dbState($sec = "main") { // tpl section
-	if (DB_MODE == "none") return "nodb";
+	if (! DB_MODE)  return "nodb";
 	if (! DB_CON)   return "nocon";
 	if (! DB_LOGIN) return "nouser";
 	return $sec;

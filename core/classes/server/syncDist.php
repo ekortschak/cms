@@ -2,15 +2,13 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-Designed to sync local project to server ...
+Designed to sync local cms to server ...
 * settings: config/ftp.ini
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$snc = new syncUp();
-$snc->read("ftp.ini");
-$snc->publish();
+see parent class ...
 */
 
 incCls("server/syncUp.php");
@@ -32,7 +30,7 @@ protected function correct($ver) {
 }
 
 protected function getCms() {
-	return APP_FBK;
+	return APP_FBK; // force to cms
 }
 
 // ***********************************************************

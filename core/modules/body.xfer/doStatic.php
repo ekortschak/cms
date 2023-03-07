@@ -1,8 +1,10 @@
 <?php
 
 incCls("input/confirm.php");
+incCls("input/qikOption.php");
 incCls("editor/xform.php");
 
+// ***********************************************************
 $xfm = new xform(3);
 $dir = $xfm->getDir();
 $idx = $xfm->isPage();
@@ -22,9 +24,7 @@ else {
 // ***********************************************************
 // options
 // ***********************************************************
-incCls("menus/qikLink.php");
-
-$qik = new qikLink();
+$qik = new qikOption();
 $dbg = $qik->getVal("opt.debug", 1);
 $prv = $qik->gc();
 

@@ -7,9 +7,9 @@ used for validating data entered by user
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("dbase/tblValidate.php");
+incCls("dbase/recProof.php");
 
-$obj = new tblValidate();
+$obj = new recProof();
 */
 
 incCls("dbase/dbBasics.php");
@@ -17,7 +17,7 @@ incCls("dbase/dbBasics.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tblValidate extends dbBasics {
+class recProof extends dbBasics {
 
 function __construct($dbase, $table) {
 	parent::__construct($dbase, $table);

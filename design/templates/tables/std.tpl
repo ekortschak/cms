@@ -58,17 +58,17 @@ page = Seite
 # ***********************************************************
 [Nav]
 # ***********************************************************
-<a href="?act=f"><img src="ICONS/move/First.gif" alt="goto first"></a>
-<a href="?act=p"><img src="ICONS/move/Left.gif"  alt="goto previous"></a>
-<a href="?act=n"><img src="ICONS/move/Right.gif" alt="goto next"></a>
-<a href="?act=l"><img src="ICONS/move/Last.gif"  alt="goto last"></a>
+<a href="?act=f"><img src="LOC_ICO/move/First.gif" alt="goto first"></a>
+<a href="?act=p"><img src="LOC_ICO/move/Left.gif"  alt="goto previous"></a>
+<a href="?act=n"><img src="LOC_ICO/move/Right.gif" alt="goto next"></a>
+<a href="?act=l"><img src="LOC_ICO/move/Last.gif"  alt="goto last"></a>
 
 [stats]
 <!DIC:page!> <!VAR:1st!> / <!VAR:cnt!>
 
 [show.sql]
 <div class="dropdown">SQL
-	<div class="dropdown-content"><!VAR:sql!></div>
+	<div class="dropbody"><!VAR:sql!></div>
 </div>
 
 # ***********************************************************

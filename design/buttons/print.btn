@@ -1,11 +1,11 @@
 [props]
-pic = ICONS/buttons/print.gif
+pic = LOC_ICO/buttons/print.gif
 url = ?dmode=print
 
 [de]
-caption = 
+caption =
 tooltip = Gibt die aktuelle Seite in einem druckbaren Format aus, ohne Menüs und Optionen. Kann verwendet werden, um PDF-Dokumente zu erstellen.
 
 [en]
-caption = 
+caption =
 tooltip = Will return the current page in a printable format, without menus or options. This may be used to create PDF documents.

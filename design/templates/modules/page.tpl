@@ -26,7 +26,7 @@ LOC_TPL/msgs/sitemap.tpl
 
 [help]
 <div class="helpbox">
-	<img src="ICONS/help.png" />
+	<img src="LOC_ICO/help.png" />
 	<div class="helpbox-content"><!VAR:help!></div>
 </div>
 

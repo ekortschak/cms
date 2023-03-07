@@ -51,7 +51,7 @@ public static function href($lnk, $cap, $trg = "") {
 }
 
 public static function flag($lng) {
-	$img = "ICONS/flags/$lng.gif";
+	$img = "LOC_ICO/flags/$lng.gif";
 	return "<img src='$img' class='flag' alt='$lng'>";
 }
 

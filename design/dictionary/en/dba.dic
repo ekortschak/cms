@@ -3,7 +3,8 @@ access denied = Access denied
 act.rename = Rename to
 change.to = Change to
 data.clean = Clean up data
-db.con ok = Connection = OK
+db.con = Connection BOOL_NO
+db.con ok = Connection BOOL_YES
 db.dbase = Database
 db.error = Database Error
 db.field = Field

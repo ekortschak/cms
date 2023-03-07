@@ -1,18 +1,18 @@
 [props]
-pic = ICONS/buttons/save.png
+pic = LOC_ICO/buttons/save.png
 
 [de]
-caption = 
+caption =
 tooltip = Änderungen speichern.
 
 [en]
-caption = 
+caption =
 tooltip = save changes.
 
 
 [props]
 caption =
-pic = 
+pic =
 
 
 [info]

@@ -21,7 +21,7 @@ if (! $xlc->act()) return;
 */
 
 incCls("menus/dropBox.php");
-incCls("menus/qikLink.php");
+incCls("input/qikOption.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -85,7 +85,7 @@ public function setDest($file) {
 
 	HTM::vspace(12);
 
-	$qik = new qikLink();
+	$qik = new qikOption();
 	$this->ovr = $qik->getVal("opt.overwrite", $this->ovr);
 	$this->dbg = $qik->getVal("opt.preview", $this->dbg);
 	$qik->show();

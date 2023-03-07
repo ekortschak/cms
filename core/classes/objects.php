@@ -80,30 +80,22 @@ public function get($key, $default = "") {
 
 // ***********************************************************
 public function lng($key, $default = "xxx") {
-	$lng = CUR_LANG; 
-	$try = "$key.$lng";	$out = $this->get($try, NV); if ($out !== NV) return $out; 
-	$try = "$lng.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out; 
+	$lng = CUR_LANG;
+	$try = "$key.$lng";	$out = $this->get($try, NV); if ($out !== NV) return $out;
+	$try = "$lng.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;
 	return $this->get($key, $default);
 }
 
 // ***********************************************************
 public function getKeys($pfx = "") {
-	$arr = $this->getValues($pfx);
+	$arr = VEC::match($this->vls, $pfx);
 	return VEC::keys($arr);
 }
 
 public function getValues($pfx = "") {
-	$out = array();
-
-	foreach ($this->vls as $key => $val) {
-		if (! $key) continue;
-
-		if ($pfx) if (! STR::begins($key, $pfx)) continue;
-		if ($pfx) $key = STR::after($key, array("$pfx.", $pfx));
-		if ($key) $out[$key] = $val;
-	}
-	return $out;
+	return VEC::match($this->vls, $pfx);
 }
+
 public function setValues($sec, $arr) {
 	foreach ($arr as $key => $val) {
 		$key = "$sec.$key"; unset($this->vls[$key]);

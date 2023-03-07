@@ -29,7 +29,7 @@ no.info	= Keine weitere Info vorhanden
 	<tr>
 		<td colspan="100%" class="nopad">
 			<div style="background-image: url('<!VAR:pfile!>'); background-size: cover;">
-				<img src="ICONS/copyprot.gif" width=100% />
+				<img src="LOC_ICO/copyprot.gif" width=100% />
 			</div>
 		</td>
 	</tr>
@@ -78,7 +78,7 @@ no.info	= Keine weitere Info vorhanden
 
 [cr.unknown]
 <div class="dropdown">(CR) <!DIC:unknown!>COMBO_DOWN
-	<div class="dropdown-content">
+	<div class="dropbody">
 		<!SEC:login!>
 		<!SEC:email!>
 	</div>
@@ -86,7 +86,7 @@ no.info	= Keine weitere Info vorhanden
 
 [cr.nodb]
 <div class="dropdown">Sorry - <!DIC:nodb!>
-	<div class="dropdown-content">
+	<div class="dropbody">
 		<!SEC:email!>
 	</div>
 </div>
@@ -103,6 +103,6 @@ no.info	= Keine weitere Info vorhanden
 <a href="mailto:copyright@glaubeistmehr.at?subject=copyright&body=pfile:<!VAR:pfile!>"><!DIC:email!></a>
 
 [cinfo]
-<div class="dropdown-content">
+<div class="dropbody">
 	<!VAR:cinfo!>
 </div>

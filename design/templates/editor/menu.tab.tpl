@@ -30,7 +30,7 @@ preview  = Vorschau
 # ***********************************************************
 # create a new tab
 # ***********************************************************
-[add.tab]
+[add]
 <h4><!DIC:new.tab!></h4>
 <form action="?" method="post">
 <table>
@@ -51,7 +51,7 @@ preview  = Vorschau
 
 <div align="right">
 	<!DIC:new.png!>
-	<a href="?tab.add=<!VAR:tab!>">
+	<a href="?tab.act=add">
 		<button><!DIC:create!></button>
 	</a>
 </div>
@@ -68,7 +68,7 @@ preview  = Vorschau
 
 <div align="right">
 	<!DIC:del.png!>
-	<a href="?tab.drop=<!VAR:tab!>" onclick="return confirm('<!DIC:ask.sure!>');">
+	<a href="?tab.act=drop" onclick="return confirm('<!DIC:ask.sure!>');">
 		<button>BOOL_NO</button>
 	</a>
 </div>
@@ -76,7 +76,7 @@ preview  = Vorschau
 # ***********************************************************
 # further info
 # ***********************************************************
-[help]
+[drop]
 <h4>Remove this tab</h4>
 <ul>
 	<li>Open explorer of your operating system</li>
@@ -84,10 +84,24 @@ preview  = Vorschau
 	<li>Refresh display</li>
 </ul>
 
-[help.de]
+[drop.de]
 <h4>Tab löschen</h4>
 <ul>
 	<li>Explorer des Betriebssystems öffnen</li>
 	<li>Ordner löschen</li>
 	<li>Anzeige aktualisieren</li>
 </ul>
+
+# ***********************************************************
+[png.info]
+# ***********************************************************
+<p>Depending on your browser settings you may need to force reload of the modified pics.
+<kbd>Shift</kbd>+<kbd>F5</kbd>
+</p>
+<hr>
+
+[png.info.de]
+<p>Je nach Browser-Einstellungen kann es sein, dass die geänderten Bilder neu geladen werden müssen.
+<kbd>Shift</kbd>+<kbd>F5</kbd>
+</p>
+<hr>

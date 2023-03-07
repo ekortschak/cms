@@ -1,10 +1,10 @@
 [props]
-pic = ICONS/buttons/file.download.png
+pic = LOC_ICO/buttons/file.download.png
 
 [de]
-caption = 
+caption =
 tooltip = Dient zur Angleichung der Seite an den Webserver.
 
 [en]
-caption = 
+caption =
 tooltip = Sync local dirs with the web server.

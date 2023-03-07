@@ -98,7 +98,7 @@ public function insert($txt) {
 			$val = $this->findVal($set, $ref);
 			$val = $this->insLFs($val, $sep);
 
-			$val = PRG::replace("$val\n", "http(s?)://(.*?)[\n]", '<a href="http$1://$2"><img src="ICONS/buttons/web.gif" /></a>');
+			$val = PRG::replace("$val\n", "http(s?)://(.*?)[\n]", '<a href="http$1://$2"><img src="LOC_ICO/buttons/web.gif" /></a>');
 			$inf = "<b>$ref</b><br>$val";
 
 			$xxx = $this->setProp("caption", $key);

@@ -2,6 +2,7 @@
 
 incCls("server/upload.php");
 incCls("input/selector.php");
+incCls("input/qikOption.php");
 
 // ***********************************************************
 // read properties
@@ -40,9 +41,7 @@ $act = $sel->show();
 // ***********************************************************
 // get options
 // ***********************************************************
-incCls("menus/qikLink.php");
-
-$qik = new qikLink();
+$qik = new qikOption();
 $qik->getVal("opt.overwrite", 0);
 $qik->show();
 

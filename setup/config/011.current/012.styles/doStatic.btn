@@ -1,12 +1,12 @@
 [props]
-pic = ICONS/buttons/static.png
+pic = LOC_ICO/buttons/static.png
 
 [de]
-caption = 
+caption =
 tooltip = <!SEC:info.de!>
 
 [en]
-caption = 
+caption =
 tooltip = <!SEC:info!>
 
 

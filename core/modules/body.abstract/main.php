@@ -1,15 +1,17 @@
 <?php
 
-$fil = TAB_HOME;
+incCls("menus/buttons.php");
+
+HTW::xtag("tpc.info", "h3");
 
 // ***********************************************************
-// show description
+$nav = new buttons("abstract", "A", __DIR__);
 // ***********************************************************
-HTW::xtag("tpc.desc", "h3");
-
-$txt = APP::gc($fil); if (! $txt)
-$txt = DIC::get("tpc.nodesc");
-
-HTW::tag($txt, "div");
+$nav->add("A", "doAbstract");
+$nav->add("C", "doStats");
+$nav->space();
+$nav->add("V", "view");
+$nav->show();
 
 ?>
+

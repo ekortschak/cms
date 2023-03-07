@@ -13,10 +13,7 @@ sep = :
 </div>
 
 [main.box]
-<div class="dropdown">
-<!VAR:current!>COMBO_DOWN
-<!SEC:content!>
-</div> &ensp;
+<!SEC:combo!>
 
 [main.one]
-<!VAR:current!> &ensp;
+<!SEC:text!>

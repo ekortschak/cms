@@ -1,6 +1,3 @@
-[register]
-core/scripts/keyEvents.js
-
 [dic]
 conv = Save as
 sure = Sure?
@@ -12,6 +9,9 @@ conv = Speichern als
 sure = Sicher?
 clip = In Zwischenablage kopieren
 apply = Speichern
+
+[vars]
+placeholder =
 
 
 # ***********************************************************
@@ -26,6 +26,14 @@ apply = Speichern
 	<input type="text" name="filName" value="<!VAR:file!>" class="filename" />
 
 	<button name="file_act" value="save" onclick="exSubmit();">
-		<img src="ICONS/buttons/save.png" />
+		<img src="LOC_ICO/buttons/save.png" />
 	</button>
 </div>
+
+# ***********************************************************
+[ctarea]
+# ***********************************************************
+<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" _
+placeholder="<!VAR:placeholder!>" tabindex=0 _
+autocomplete="off" autocorrect="off" autocapitalize="off" _
+spellcheck="false"><!VAR:content!></textarea>

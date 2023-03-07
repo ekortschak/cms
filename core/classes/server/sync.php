@@ -8,7 +8,7 @@ basic class for synching
 * local working and backup dirs
 
 DOES NOT WORK BY ITSELF!
-* use derived classes 
+* use derived classes
 
 // ***********************************************************
 // HOW TO USE
@@ -106,7 +106,7 @@ protected function getVersion($dir) {
 	$fil = FSO::join($dir, "config/config.ini");
 
 	$ini = new ini($fil);
-	return $ini->get("app.VERSION", "?"); 
+	return $ini->get("app.VERSION", "?");
 }
 
 // ***********************************************************
@@ -121,7 +121,7 @@ protected function run($info = "info") {
 
 	$this->show($info);
 	$this->show();
-	
+
 	if ($act == 1) return $this->analize();
 	if ($act == 2) return $this->showStats();
 
@@ -219,7 +219,7 @@ protected function report() {
 	foreach ($this->rep as $key => $val) {
 		$inf = DIC::getPfx("arr", $key);
 		$cat = "file(s)"; if (STR::contains($blk, $key))
-		$cat = "block(s)"; 
+		$cat = "block(s)";
 
 		$out.= "<tr><td width=200>$inf</td><td align='right'>$val</td><td><hint>$cat</hint></td><tr>\n";
 	}
@@ -279,7 +279,7 @@ protected function getNewer($src, $dst) {
 	}
 
 	foreach ($lst as $fso => $prp) { // check dates
-		$inf = $this->chkProps($prp); extract($inf); 
+		$inf = $this->chkProps($prp); extract($inf);
 
 		if ($md5s === $md5d) continue;
 
@@ -405,7 +405,7 @@ protected function chkProps($arr) {
 // dummies for derived classes
 // ***********************************************************
 protected function aggregate($arr) {
-	return $arr; 
+	return $arr;
 }
 
 protected function isGood() {

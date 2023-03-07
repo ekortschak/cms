@@ -125,7 +125,7 @@ input[type='radio'] {
 /* combo boxes */
 /* ******************************************************** */
 select {
-	background: BC_DROP url("CMS_URL/ICONS/input/combodown.png") no-repeat right;
+	background: BC_DROP url("CMS_URL/LOC_ICO/input/combodown.png") no-repeat right;
 	min-width: 105px;
 	height: 24px;
 	cursor: pointer;

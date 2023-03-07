@@ -13,6 +13,7 @@ $obj = new saveFile();
 */
 
 incCls("editor/iniWriter.php");
+incCls("editor/tidy.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -37,27 +38,14 @@ private function exec() {
 }
 
 private function saveFile() {
-	$act = ENV::getPost("file_act");    if ($act != "save") return false;
-	$old = ENV::getPost("orgName", "");	if (! $old) return false;
-	$fil = ENV::getPost("filName", "");	if (! $fil) return false;
-	$txt = ENV::getPost("content");
+	$fil = ENV::getPost("filName"); if (! $fil) return false;
+	$old = ENV::getPost("orgName"); if (  $fil != $old) FSO::kill($old);
+	$txt = ENV::getPost("content"); if (! $txt) return false;
 
-	if ($txt) { // prepare for storage
-		$txt = STR::replace($txt, "¶", "");
-		$txt = PRG::replace($txt, "(\s*?)<br>", "<br>");
-		$txt = PRG::replace($txt, "(\s*?)</p>", "</p>");
-		$txt = PRG::replace($txt, "<br></p>", "</p>");
-		$txt = PRG::replace($txt, "<br></h([1-9]?)>", "</h$1>");
-		$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
-		$txt = PRG::replace($txt, "<p>(\s*?)</p>", "");
-		$txt = PRG::replace($txt, "<php>", "<?php ");
-		$txt = PRG::replace($txt, "</php>", " ?>");
-		$txt = PRG::replace($txt, "\n(\s*?)", "\n");
+	$tdy = new tidy($txt);
+	$txt = $tdy->get();
 
-		$erg = APP::write($fil, $txt);
-	}
-#	if ($old != $fil) FSO::move($old, $fil);
-	return true;
+	return APP::write($fil, $txt);
 }
 
 private function conv2html() {
@@ -67,19 +55,16 @@ private function conv2html() {
 	$ext = FSO::ext($fil);
 
 	if (STR::contains($txt, "Uncaught Error:")) {
-		HTW::tag($txt, "pre");
-		return;
+		return HTW::tag($txt, "pre");
 	}
 	$new = str_replace(".$ext", ".$cnv", $fil);
-	FSO::move($fil, $new);
-	return true;
+	return FSO::move($fil, $new);
 }
 
 private function dropFile($loc) {
 	$act = ENV::getParm("file_act"); if ($act != "drop") return false;
 	$fil = ENV::getParm("fil"); if (! $fil) return false;
-	$erg = FSO::kill($fil);
-	return true;
+	return FSO::kill($fil);
 }
 
 // ***********************************************************

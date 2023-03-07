@@ -17,7 +17,7 @@ $inf = $obj->exec(); // will destroy all $tan related info !!!
 */
 
 TAN::init();
-TAN::exec("tan"); // apply pending transactions
+TAN::exec(); // apply pending transactions
 
 // ***********************************************************
 // BEGIN OF CLASS
