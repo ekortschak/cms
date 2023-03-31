@@ -110,6 +110,11 @@ public static function count($haystack, $needle) {
 }
 
 // ***********************************************************
+public static function beforePunct($haystack) {
+	$out = self::toArray($haystack, "pnc");
+	return current($out);
+}
+
 public static function before($haystack, $sep = "\n", $trim = true) {
 	$out = self::simplify($haystack, $sep);
 	$out.= self::$sep; $pos = strpos($out, self::$sep);
@@ -195,8 +200,10 @@ public static function dropSpaces($code) {
 // ***********************************************************
 // replacing substrings
 // ***********************************************************
-public static function replace($haystack, $find, $rep) {
+public static function replace($haystack, $find, $rep, $case = true) {
+	if ($case)
 	return str_replace($find, $rep, $haystack);
+	return str_ireplace($find, $rep, $haystack);
 }
 
 public static function repFirst($haystack, $find, $rep) {
@@ -246,13 +253,13 @@ public static function split($haystack, $sep1, $sep2 = "") {
 public static function toArray($text, $seps = "std") {
  // turns a string with various common separators into an array
 	switch ($seps) {
-		case "std": $seps = ".,; \n"; break;
+		case "pnc": $seps = ".,;:/\n()"; break;
+		case "std": $seps = ".,;: \n()"; break;
 		case "ref": $seps = ";|\n"; break;
 	}
-	$del = self::$sep;
 	$sep = str_split($seps);
-	$txt = str_replace($sep, $del, $text);
-	$arr = explode($del, $txt);
+	$txt = str_replace($sep, self::$sep, $text);
+	$arr = explode(self::$sep, $txt);
 	$out = array();
 
 	foreach ($arr as $val) {

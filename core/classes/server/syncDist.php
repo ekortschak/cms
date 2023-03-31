@@ -26,7 +26,8 @@ function __construct() {
 // find versions
 // ***********************************************************
 protected function correct($ver) {
-	return STR::replace($ver, APP_NAME, "cms"); // force to cms
+	$ver = STR::replace($ver, "/tools", "/kor"); // force to cms
+	return STR::replace($ver, APP_NAME, "cms" ); // force to cms
 }
 
 protected function getCms() {

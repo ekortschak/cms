@@ -59,15 +59,19 @@ public function getNumPath() {
 }
 
 private function normValue($val) {
+	$val = strip_tags($val);
+	$val = STR::before($val, array("(", ".", ",", "/"));
 	$val = PRG::replace($val, "(\d+)\. ", "");
 
 	$pos = strpos($val, "."); if ($pos < 3)
 	$val = STR::afterX($val, ".");
 
 	$val = $this->pathify($val);
-	$arr = STR::toArray($val, " ,-"); $out = "";
+	$arr = STR::toArray($val, " ,-");
+	$out = ""; $cnt = 0;
 
 	foreach ($arr as $itm) {
+		if ($cnt++ > 2) break;
 		$out.= ucfirst(STR::left($itm));
 	}
 	return substr($out, 0, 30);

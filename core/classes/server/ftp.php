@@ -133,10 +133,8 @@ public function remote_put($src, $dst) {
 	if ($this->errCnt >= $this->errMax) return false;
 	if (! $dst) return false;
 
-	$erg = ftp_put($this->con, $dst, $src, FTP_BINARY);
-
-	if ($erg) { // preserve timestamp
-		$tim = date("YmdGis", filemtime($src));
+	if (ftp_put($this->con, $dst, $src, FTP_BINARY)) {
+		$tim = date("YmdGis", filemtime($src)); // preserve timestamp
 		ftp_raw( $this->con, "MFMT  $tim $dst");
 		ftp_site($this->con, "CHMOD 0755 $dst");
 		return true;
@@ -153,8 +151,6 @@ public function save($src, $dst) {
 
 	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
 	$tim = ftp_mdtm($this->con, $src);
-
-dbg($dst, $this->con);
 
 	if ($tim > 1) touch ($dst, $tim);
 	return $erg;

@@ -72,9 +72,10 @@ protected function getContent() {
 	$rws = STR::count($out, "\n") + 3;
 	$rws = CHK::range($rws, 35, 7);
 
-	$out = STR::replace($out, "<?php\n", "<php>");
-	$out = STR::replace($out, "<?php ", "<php>");
+	$out = STR::replace($out, "<?php", "<php>");
+	$out = PRG::replace($out, "<php>(\s+)", "<php>");
 	$out = STR::replace($out, "?>", "</php>");
+	$out = PRG::replace($out, "(\s+)</php>", "</php>");
 
 	$this->set("rows", $rws);
 	return $out;

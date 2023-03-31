@@ -74,7 +74,9 @@ public static function rename($old, $new) {
 // file permissions
 // ***********************************************************
 public static function hasXs($fso, $tell = true) {
-	$out = is_writable($fso); if ($out) return true;
+	return true;
+	if (is_writable($fso)) return true;
+dbg(2);
 	if ($tell) MSG::now("file.denied", $fso);
 	return false;
 }
@@ -93,7 +95,7 @@ public static function permit($fso, $mod = FS_PERMS) {
 public static function copyDir($src, $dst) {
 	$fso = self::fTree($src); if (! $fso) return;
 	$dir = self::join($dst, basename($src));
-	$dst = self::force($dir); $cnt = 0; 
+	$dst = self::force($dir); $cnt = 0;
 
 	$fso = VEC::sort($fso, "krsort");
 
@@ -121,7 +123,7 @@ public static function mvDir($src, $dst) {
 
 // ***********************************************************
 public static function rmDir($src) {
-	$arr = self::fdTree($src); 
+	$arr = self::fdTree($src);
 	$arr = VEC::sort($arr, "krsort");
 
 	foreach ($arr as $fso => $nam) {
@@ -178,7 +180,7 @@ public static function fTree($dir, $pattern = "*", $filesOnly = true) {
 		if (is_link($dir)) continue;
 		if (! $filesOnly) $out[$dir] = $nam;
 
-		$out += self::files($dir, $pattern, false);
+		$out+= self::files($dir, $pattern, false);
 	}
 	return VEC::sort($out);
 }
@@ -246,7 +248,7 @@ public static function folders($dir, $visOnly = true) {
 
 public static function rmFiles($dir) {
 	$fls = self::files($dir);
-	
+
 	foreach ($fls as $fil => $nam) {
 		self::kill($fil, "", 0);
 	}
@@ -254,9 +256,7 @@ public static function rmFiles($dir) {
 
 // ***********************************************************
 public static function tree($dir, $visOnly = true) {
- // list all subfolders of $dir
-	if (is_link($dir)) return array();
-
+ // list all subfolders of $dir - including symbolic links
 	$dir = APP::dir($dir);                if (! $dir) return array();
 	$arr = self::folders($dir, $visOnly); if (! $arr) return array();
 	$out = $arr;

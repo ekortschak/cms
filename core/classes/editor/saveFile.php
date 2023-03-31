@@ -42,8 +42,8 @@ private function saveFile() {
 	$old = ENV::getPost("orgName"); if (  $fil != $old) FSO::kill($old);
 	$txt = ENV::getPost("content"); if (! $txt) return false;
 
-	$tdy = new tidy($txt);
-	$txt = $tdy->get();
+	$tdy = new tidy();
+	$txt = $tdy->get($txt);
 
 	return APP::write($fil, $txt);
 }

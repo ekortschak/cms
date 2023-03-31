@@ -1,21 +1,10 @@
 [props]
-pic = 
-
-[de]
-caption = 
-tooltip = 
-
-[en]
-caption = 
-tooltip = 
-
-
-[props]
-caption = ???
 pic =
 
-[info.de]
-<p>Tool-Tip-Text.</p>
+[de]
+caption =
+tooltip =
 
-[info]
-<p>Tool-Tip-Text.</p>
+[en]
+caption =
+tooltip =

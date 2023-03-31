@@ -75,7 +75,7 @@ public function getFiles($dir) {
 private function getTree($dir, $mode = "remote") {
 	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return;
 
-	$arr = FSO::fdtree($dir); 
+	$arr = FSO::fdtree($dir);
 	$out = array("root" => $dir);
 
 	foreach ($arr as $fso => $nam) {

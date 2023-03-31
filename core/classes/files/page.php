@@ -48,7 +48,7 @@ public function setModules() {
 }
 
 private function getModules() {
-	$app = $this->mod["app"];
+	$app = $this->mod["app"]; if (! $app) $app = array();
 	$zzz = $this->mod["zzz"]; if (! $zzz) return $app;
 	return $app + $zzz;
 }
@@ -88,6 +88,9 @@ public function gc($sec = "main") {
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
 		$xxx = APP::lock(false);
 		$val = APP::gc($fil);
+
+		if (! STR::contains(APP_IDX, "config.php"))
+		$val = CFG::insert($val);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);
 	}

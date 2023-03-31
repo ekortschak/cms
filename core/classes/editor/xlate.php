@@ -111,7 +111,7 @@ public function save($text) {
 }
 
 public function act() {
-	if (! is_file($this->trg)) return false;
+	if (! is_file($this->trg)) return true;
 	if (! $this->ovr) return false;
 
 	return true;

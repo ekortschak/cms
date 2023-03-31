@@ -26,11 +26,11 @@ function addTag(tag) { // bracket selection by tag
 	if (wlf.includes("." + tag + ".")) htm = htm + mark;
 	repString(htm);
 }
-function insAny(txt) { // insert after tag after selection
+function insAny(txt) { // insert txt after selection
 	htm = selString() + txt;
 	repString(htm);
 }
-function repAny(txt) { // insert after tag after selection
+function repAny(txt) { // insert txt after selection
 	repString(txt);
 }
 

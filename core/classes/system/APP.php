@@ -119,14 +119,14 @@ public static function dir($dir) { // find dir in extended fs
 	return false;
 }
 
-public static function file($fso) { // find file in extended fs
-	if (FSO::isUrl($fso)) return $fso;
-	if (is_file($fso))    return $fso;
+public static function file($file) { // find file in extended fs
+	if (FSO::isUrl($file)) return $file;
+	if (is_file($file))    return $file;
 
-	$fso = self::relPath($fso); if (! $fso) return false;
+	$file = self::relPath($file); if (! $file) return false;
 
 	foreach (self::$fbk as $loc) {
-		$ful = FSO::join($loc, $fso); if (is_file($ful)) return $ful;
+		$ful = FSO::join($loc, $file); if (is_file($ful)) return $ful;
 	}
 	return false;
 }

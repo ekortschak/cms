@@ -40,7 +40,7 @@ public function readPath($dir, $fil = "perms.ini") {
 }
 
 public function read($file) { // ini lines
-	$fil = $this->checkFile($file); if (! $fil) return false;
+	$fil = $this->isKnown($file);   if (! $fil) return false;
 	$txt = $this->getContent($fil); if (! $txt) return false;
 	$txt = $this->buttons($txt);
 
@@ -189,7 +189,7 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;
 		$val = STR::after($itm, $del);
-		$val = CFG::insert($val);
+#		$val = CFG::insert($val);
         $out[$key] = $val;
     }
     return $out;
@@ -198,7 +198,7 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function checkFile($fil) {
+protected function isKnown($fil) {
 	if ($fil == "fallback") { // shortcut in templates
 		$fil = array_key_last($this->hst);
 		$fil = APP::relPath($fil);

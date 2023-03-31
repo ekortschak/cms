@@ -158,6 +158,8 @@ public function isField($table, $field) {
 }
 
 public function fldProps($table, $field) {
+	if (! $this->dbo) return array();
+
 	$dbo = $this->dbo->fldProps($table, $field);
 	$app = $this->appProps("fld", "$table.$field");
 	$txs = $this->tblPerms($table);
