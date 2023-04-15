@@ -74,7 +74,7 @@ protected function setTitle($title) {
 
 public function setVisOnly($value) {
 	$val = ($value) ? BOOL_NO : BOOL_YES;
-	$this->set("what", $val."xxx");
+	$this->set("what", $val);
 }
 
 // ***********************************************************
