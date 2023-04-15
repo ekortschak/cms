@@ -130,6 +130,7 @@ select {
 	height: 24px;
 	cursor: pointer;
 
+	padding-right: 15px;
 	font-family: inherit;
 
 	appearance: none;

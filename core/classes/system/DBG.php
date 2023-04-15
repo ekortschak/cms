@@ -61,7 +61,10 @@ public static function text($msg, $info = "dbg") {
 	echo "\n<li><blue>$info</blue>: $msg</li>";
 }
 public static function html($msg, $info = "htm") { // show html code
-	if (is_array($msg)) $msg = implode("\n", $msg);
+	if (is_array($msg)) {
+		self::vector($msg, $info);
+		return;
+	}
 	self::text(htmlspecialchars($msg), $info);
 }
 public static function path($msg, $info = "path") { // show path info
@@ -83,7 +86,7 @@ public static function vector($arr, $info = "arr") {
 	}
 	incCls("menus/tview.php");
 
-	echo '<div style="max-height: 125px; overflow: auto; border: 1px solid lightgrey;">';
+	echo '<div style="height: 175px; overflow: auto; border: 1px solid lightgrey; resize: vertical;">';
 	echo "<u><i>$info</i></u>";
 
 	$tvw = new tview();

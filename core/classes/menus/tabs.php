@@ -39,7 +39,7 @@ public function readCfg() {
 	$this->dat = $tbs->getTabs();
 
 	if (! $this->dat) {
-		die("Section [".APP_CALL."] not set in config/tabset.ini ...");
+		die("Section [".APP_CALL."] not set in config/tabsets.ini ...");
 	}
 }
 

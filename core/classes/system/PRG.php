@@ -46,13 +46,29 @@ public static function clrBlanks($text) { // whitespace
 
 // ***********************************************************
 public static function replaceWords($text, $search, $mask, $mod = "") {
-	$rep = str_replace($search, "\$1\$2\$3", $mask);
+	if (! STR::contains($text, $search)) return $text;
 
 	switch (CUR_LANG) {
-		case "de": $fnd = "\b($search)([e]?)([snmr]?)\b"; break;
-		default:   $fnd = "\b($search)([s]?)\b"; break;
+		case "de": return self::replaceWordsDE($text, $search, $mask, $mod);
 	}
+	$fnd = "\b($search)([s]?)\b";
+	$rep = str_replace($search, "\$1\$2\$3", $mask);
 	return preg_replace("~$fnd~$mod", $rep, $text);
+}
+
+public static function replaceWordsDE($text, $search, $mask, $mod = "") {
+	$rep = str_replace($search, "\$1\$2\$3", $mask);
+	$out = $text;
+
+	$fnd = "\b($search)\b";
+	$out = preg_replace("~$fnd~$mod", $rep, $out);
+
+	$fnd = "\b($search)([e]+)([nmr]?)\b";
+	$out = preg_replace("~$fnd~$mod", $rep, $out);
+
+	$fnd = "\b($search)([e]?)([s]+)\b";
+	$out = preg_replace("~$fnd~$mod", $rep, $out);
+	return $out;
 }
 
 public static function clrComments($text) {

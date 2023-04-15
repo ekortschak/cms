@@ -2,8 +2,9 @@
 # a collection will collect all subdirectories of the current page
 # (first # level only) and display according to the given template
 
-$arr = APP::folders(CUR_PAGE);
 $sel = ENV::getParm("coll");
+$pge = ENV::getPage();
+$arr = APP::folders($pge);
 $lst = array();
 
 if (count($arr) < 1) {

@@ -24,7 +24,6 @@ function __construct($cnt = 3) {
 // read all selected files
 // ***********************************************************
 public function read($pfs) {
-	$pge = ENV::getPage(); // backup current page
 	$skp = $old = ""; $cnt = 0;
 
 	foreach($pfs as $dir => $nam) {
@@ -54,7 +53,8 @@ public function read($pfs) {
 	}
 	$this->dat = $this->stripNotes();
 
-	ENV::setPage($pge); // restore current page
+ // restore current page
+ 	ENV::setPage(CUR_PAGE);
 }
 
 // ***********************************************************

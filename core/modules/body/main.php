@@ -18,15 +18,25 @@ if (! $prm) return incMod("body/login.php");
 // ***********************************************************
 $inc = PGE::getIncFile();
 $fil = FSO::join(LOC_MOD, "body", $inc);
+$pge = ENV::getPage();
 
-$frm = new tpl();
-$frm->load("modules/page.tpl");
-$frm->setVar("banner",  APP::gcRec(CUR_PAGE, "banner"));
-$frm->setVar("help",    APP::gcMod(CUR_PAGE, "help"));
-$frm->setVar("head",    APP::gcMod(CUR_PAGE, "head"));
-$frm->setVar("page",    APP::gcMap($fil));
-$frm->setVar("tail",    APP::gcMod(CUR_PAGE, "tail"));
-$frm->setVar("trailer", APP::gcRec(CUR_PAGE, "trailer"));
-$frm->show();
+$htm = new tpl();
+$htm->load("modules/page.tpl");
+$htm->setVar("banner",  APP::gcRec($pge, "banner"));
+$htm->setVar("help",    APP::gcMod($pge, "help"));
+$htm->setVar("head",    APP::gcMod($pge, "head"));
+$htm->setVar("page",    APP::gcMap($fil));
+$htm->setVar("tail",    APP::gcMod($pge, "tail"));
+$htm->setVar("trailer", APP::gcRec($pge, "trailer"));
+
+$out = $htm->gc();
+
+// ***********************************************************
+// resolve constants
+// ***********************************************************
+switch (APP_IDX) {
+	case "index.php": $out = CFG::insert($out);
+}
+echo $out;
 
 ?>

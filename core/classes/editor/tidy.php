@@ -44,7 +44,8 @@ private function sweep($txt) {
 	$txt = STR::replace($txt, "<br></p>", "</p>");
 	$txt = PRG::replace($txt, "(\s+)", " ");
 
-	$txt = $this->clearEmpty($txt);
+	$txt = $this->clearUselessTags($txt);
+	$txt = $this->clearEmptyTags($txt);
 	$txt = $this->clearBlanks($txt);
 
 	$txt = $this->addLFs($txt);
@@ -76,11 +77,19 @@ private function addLF($txt, $fnd, $rep = "\n") {
 }
 
 // ***********************************************************
-private function clearEmpty($txt) {
-	$arr = STR::split("p.b.u.i.h1.h2.h3.h4.h5.h6.div", ".");
+private function clearEmptyTags($txt) {
+	$arr = STR::toArray("p.b.u.i.h1.h2.h3.h4.h5.h6.div", ".");
 
 	foreach ($arr as $tag) {
-		$txt = PRG::replace($txt, "<$tag>(\s*?)</$tag>", "");
+		$txt = PRG::replace($txt, "<$tag>(\s*?)</$tag>", " ");
+	}
+	return $txt;
+}
+private function clearUselessTags($txt) {
+	$arr = STR::toArray("b.u.i", ".");
+
+	foreach ($arr as $tag) {
+		$txt = PRG::replace($txt, "</$tag>(\s*?)<$tag>", " ");
 	}
 	return $txt;
 }
@@ -89,6 +98,8 @@ private function clearBlanks($txt) {
 	$arr = str_split(".,:;?!");
 
 	foreach ($arr as $chr) {
+		$txt = STR::replace($txt, "   $chr", $chr);
+		$txt = STR::replace($txt, "  $chr", $chr);
 		$txt = STR::replace($txt, " $chr", $chr);
 	}
 	return $txt;

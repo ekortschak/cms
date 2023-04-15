@@ -20,7 +20,6 @@ incCls("files/ini.php");
 // ***********************************************************
 class iniTab extends ini {
 	protected $fname = "tab.ini";
-	protected $fso = "";
 
 function __construct($fso = TAB_ROOT) {
 	$fso = APP::dir($fso);

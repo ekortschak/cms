@@ -45,6 +45,7 @@ public function getVars() {
 
 public function getValues($sec = "") {
 	if ($sec) $sec = $this->langSec($sec);
+	if ($sec) if (! STR::ends($sec, ".")) $sec.= ".";
 	return parent::getValues($sec);
 }
 

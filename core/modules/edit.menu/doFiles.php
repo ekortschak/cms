@@ -34,7 +34,7 @@ $ext = array(
 // ***********************************************************
 // show sys file boxes
 // ***********************************************************
-$box = new dropBox();
+$box = new dropBox("button");
 $box->hideDesc();
 $box->getKey("sys.file", $fls, "page");
 $box->getKey("sys.lang", $lgs, "xx");

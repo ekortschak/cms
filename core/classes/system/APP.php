@@ -151,7 +151,7 @@ public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 // retrieving content
 // ***********************************************************
 public static function gc($fso, $snip = "page") {
-	$qit = ENV::get("blockme");     if (  $qit) return "";
+	if (ENV::get("blockme")) return "";
 
 	$ful = self::find($fso, $snip); if (! $ful)
 	$ful = self::file($fso);        if (! $ful) return "";

@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 if (isset($_GET["layout"])) define("LAYOUT", $_GET["layout"]);
 
 // ***********************************************************

@@ -4,7 +4,7 @@ incCls("files/page.php");  // xform layout to page
 incCls("menus/PFS.php");
 
 // ***********************************************************
-// set missing constants navigation parms
+// set missing constants & navigation parms
 // ***********************************************************
 CFG::read("LOC_CFG/defaults.def");
 CFG::read("LOC_CFG/constants.def");

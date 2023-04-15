@@ -113,6 +113,10 @@ private function nodeIn($dir) { // move in in hierarchy
 // ***********************************************************
 private function nodeCheck() { // add UID to page.ini recursively
 	$dir = ENV::getPost("root_dir");
+	$this->checkUIDs($dir);
+}
+
+public function checkUIDs($dir) {
 	$arr = FSO::tree($dir); unset($arr[0]);
 	$ids = new uids();
 
@@ -120,10 +124,8 @@ private function nodeCheck() { // add UID to page.ini recursively
 		$ini = new iniWriter("LOC_CFG/page.def");
 		$ini->read($dir);
 
-		$uid = $ini->getUID();
+		$uid = $ini->getUID(); // make sure UID is unique
 		$chk = $ids->getUID($uid); if ($uid == $chk) continue;
-
-		MSG::add("$uid => $dir");
 
 		$ini->set("props.uid", $chk);
 		$ini->save();
@@ -158,7 +160,7 @@ private function sortOpts($dir) { // sort a node
 		$itm = basename($itm); if (! $itm) continue;
 
 		$num = sprintf("%03d", $cnt); $cnt+= $inc; // increment
-		$new = $num.".".ltrim($itm, "/0..9.");
+		$new = $num.".".ltrim($itm, "0..9.");
 		$new = FSO::join($dir, $new);
 		$old = FSO::join($dir, $itm); if ($old == $new) continue;
 

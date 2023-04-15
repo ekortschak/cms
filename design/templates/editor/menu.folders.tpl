@@ -137,7 +137,7 @@ bulb = on
 </ul>
 
 [help.de]
-<h4>Ordner Verschieben</h4>
+<h4>Ordner verschieben</h4>
 <ul>
 	<li><a href="?btn.menu=C">Clipboard</a> verwenden</li>
 </ul>

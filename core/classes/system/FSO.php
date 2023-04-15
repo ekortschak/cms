@@ -44,17 +44,20 @@ public static function norm($fso) { // $fso => dir or file
 	return $fso;
 }
 
-public static function isUrl($fso) {
-	if (STR::contains($fso, "://")) return true;
-	if (STR::contains($fso, "?")) return true;
-	if (STR::contains($fso, "script:")) return true;
-	return false;
+public static function trim($fso) { // $fso => dir or file
+	return STR::trim($fso, DIR_SEP);
+}
+
+public static function level($fso) {
+	return STR::count($fso, DIR_SEP) + 1;
 }
 
 // ***********************************************************
+
+// ***********************************************************
 public static function force($dir, $mod = FS_PERMS) {
-	$dir = self::norm($dir);    if (is_dir($dir)) return $dir;
-	$chk = trim($dir, DIR_SEP); if (strlen($chk) < 1) return false;
+	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
+	$chk = self::trim($dir); if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
 	$xxx = self::permit($dir, $mod);
@@ -75,8 +78,9 @@ public static function rename($old, $new) {
 // ***********************************************************
 public static function hasXs($fso, $tell = true) {
 	return true;
+
+// TODO
 	if (is_writable($fso)) return true;
-dbg(2);
 	if ($tell) MSG::now("file.denied", $fso);
 	return false;
 }
@@ -275,7 +279,7 @@ public static function toggleVis($fso, $value = "toggle") {
 	$par = dirname($fso);
 	$itm = basename($fso);
 
-	if (STR::begins($itm, HIDE)) $nam = trim($itm, HIDE);
+	if (STR::begins($itm, HIDE)) $nam = STR::trim($itm, HIDE);
 	else $nam = HIDE.$itm;
 
 	$new = self::join($par, $nam);
@@ -285,6 +289,13 @@ public static function toggleVis($fso, $value = "toggle") {
 
 public static function isHidden($fso) {
 	return STR::contains($fso, DIR_SEP.HIDE);
+}
+
+public static function isUrl($fso) {
+	if (STR::contains($fso, "://")) return true;
+	if (STR::contains($fso, "?")) return true;
+	if (STR::contains($fso, "script:")) return true;
+	return false;
 }
 
 // ***********************************************************
@@ -307,7 +318,7 @@ public static function filter($files, $ext) {
 	return $out;
 }
 
-public static function getExts($ext) {
+private static function getExts($ext) {
 	switch ($ext) {
 		case "pics": $ext = "jpg,png,gif"; break;
 	}

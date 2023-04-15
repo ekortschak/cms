@@ -18,15 +18,12 @@ $mnu->show();
 // BEGIN OF CLASS
 // ***********************************************************
 class toc extends tpl {
-	private $dir = "";
 	private $dat = array();
 
 function __construct() {
 	parent::__construct();
  	$this->load("menus/toc.view.tpl"); if (EDITING != "view")
 	$this->load("menus/toc.edit.tpl");
-
-	$this->dir = ENV::getPage();
 }
 
 // ***********************************************************
@@ -62,6 +59,8 @@ public function gc($sec = "main") {
     }
     $this->set("items", $out);
     $out = parent::gc($sec);
+
+	$out = CFG::insert($out);
     return $out;
 }
 

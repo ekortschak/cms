@@ -87,7 +87,7 @@ public function markPHP($tutorial) {
 }
 
 private function getFile($fil) {
-	if (! STR::begins($fil, "./")) return $fil;
+	if ( ! STR::begins ($fil, "./")) return $fil;
 	return STR::replace($fil, "./", CUR_PAGE.DIR_SEP);
 }
 

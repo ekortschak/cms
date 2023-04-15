@@ -5,18 +5,13 @@ incCls("input/qikOption.php");
 // ***********************************************************
 // handle options
 // ***********************************************************
-$arr = array(
-	"opt.feedback" => 0,
-	"opt.tooltip" => 0,
-);
-
-if (! VEC::get($cfg, "uopts.fback")) unset($arr["opt.feedback"]);
-if (! DB_MODE) unset($arr["opt.feedback"]);
+$dbs = (bool) DB_MODE; if (DB_MODE == "false") $dbs = false;
 
 // ***********************************************************
 HTW::xtag("options");
 // ***********************************************************
 $qik = new qikOption();
+if ($dbs)
 $qik->getVal("opt.feedback", 0);
 $qik->getVal("opt.tooltip", 0);
 $qik->show();

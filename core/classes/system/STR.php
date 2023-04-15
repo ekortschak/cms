@@ -156,7 +156,7 @@ public static function afterX($haystack, $needle = "\n", $trim = true) {
 // cleaning strings
 // ***********************************************************
 public static function clear($haystack, $substring) {
-	return str_ireplace($substring, "", $haystack);
+	return self::replace($haystack, $substring, "", false);
 }
 
 public static function clean($haystack, $sep1 = "(", $sep2 = ")") {
@@ -183,18 +183,25 @@ public static function dropComments($code) {
 
 // ***********************************************************
 public static function dropSpaces($code) {
-#	$out = self::clear($code, "\r");
-	$out = $code;
+	$out = self::trim($code, "_");
+	$out = self::clear($out, "\r");
+	$out = self::replace($out, "_\n", "");    // join lines
+	$out = self::replace($out, "\t ", " ");
+	$out = self::limChar($out, " ");
 
-	$out = preg_replace("~ (\s*?)~", " ", $out);   // multiple blanks
-	$out = self::replace($out, "\n ", "\n");       // leading blank
-	$out = self::replace($out, " \n", "\n");       // trailing blank
-	$out = self::replace($out, "_\n", "");         // join lines
+	$out = self::replace($out, "\n ", "\n");  // leading blank
+	$out = self::replace($out, " \n", "\n");  // trailing blank
+	$out = self::limChar($out, "\n", 3);
+	return $out;
+}
 
-	$out = preg_replace("~\n\n\n(\n*?)~", "\n\n\n", $out); // multiple line feeds
+public static function limChar($code, $chr, $cnt = 1) { // limit char repetition
+	$rep = str_repeat($chr, $cnt);
+	return preg_replace("~$rep($chr+)~", $rep, $code);
+}
 
-	if (self::ends($out, "_")) return trim($out, "_");
-	return "$out\n";
+public static function trim($text, $chars = "") {
+	return trim($text, " \n\r\t\v\x00".$chars);
 }
 
 // ***********************************************************
@@ -202,7 +209,7 @@ public static function dropSpaces($code) {
 // ***********************************************************
 public static function replace($haystack, $find, $rep, $case = true) {
 	if ($case)
-	return str_replace($find, $rep, $haystack);
+	return str_replace ($find, $rep, $haystack);
 	return str_ireplace($find, $rep, $haystack);
 }
 

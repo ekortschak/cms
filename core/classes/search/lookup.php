@@ -55,7 +55,7 @@ public function read($fil) {
 	if (! is_file($fil)) return;
 
 	$ini = new ini($fil);
-	$arr = $ini->getValues("data*"); if (! $arr) return;
+	$arr = $ini->getValues("data"); if (! $arr) return;
  	$prp = $ini->getValues("props");
  	$arr = VEC::sort($arr, "krsort");
 
@@ -85,7 +85,7 @@ public function insert($txt) {
 	$txt = $this->inject($txt);
 
 	foreach ($this->dat as $set => $lst) {
-		$sep = $this->getProp($set, "sep", NV);
+		$sep = $this->getProp($set, "sep", $this->sep);
 		$sec = $this->getProp($set, "tplsec", $this->sec);
 		$col = $this->getProp($set, "color",  $this->col);
 		$xxx = $this->setProp("color", $col);
@@ -97,13 +97,11 @@ public function insert($txt) {
 			$ref = $this->findKey($set, $key); if (! $ref) continue;
 			$val = $this->findVal($set, $ref);
 			$val = $this->insLFs($val, $sep);
+			$val = $this->insHRef($val);
 
-			$val = PRG::replace("$val\n", "http(s?)://(.*?)[\n]", '<a href="http$1://$2"><img src="LOC_ICO/buttons/web.gif" /></a>');
-			$inf = "<b>$ref</b><br>$val";
-
-			$xxx = $this->setProp("caption", $key);
-			$xxx = $this->setProp("info", $inf);
-			$xxx = $this->setInfo($set, $ref, $val);
+			$this->setProp("caption", $key);
+			$this->setProp("info", "<b>$ref</b><br>$val");
+			$this->setInfo($set, $ref, $val);
 
 			$fnd = $this->embrace($lup, $key);
 			$rep = $this->tpl->getSection($sec);
@@ -123,7 +121,13 @@ public function clear($txt) {
 		$lup = $this->getLup($set);
 		$fnd = $this->embrace($lup, "(.*?)");
 		$txt = PRG::replace($txt, $fnd, '$1');
+		$txt = STR::clear($txt, " ()");
 	}
+	return $txt;
+}
+
+protected function cleanDups($txt, $lup) {
+	$txt = PRG::replace($txt, "<$lup><$lup>(.*?)</$lup>", "<$lup>$1");
 	return $txt;
 }
 
@@ -153,11 +157,14 @@ public function inject($txt) {
 			if (! $key) continue;
 			if (! STR::contains($txt, $key)) continue;
 
+			$txt = $this->chkVal($txt, $val);
 			$rep = $this->embrace($lup, $key);
+
 			$fnd = PRG::quote($key);
 			$txt = PRG::replaceWords($txt, $fnd, $rep);
 		}
 		$txt = $this->cleanTags($txt, $lup);
+		$txt = $this->cleanDups($txt, $lup);
 	}
 	return $txt;
 }
@@ -184,8 +191,8 @@ protected function findKey($set, $key) {
 protected function findVal($set, $key) {
 	$arr = VEC::get($this->dat, $set); if (! $arr) return "???";
 	$val = $arr[$key]; if (! STR::begins($val, "siehe ")) return $val;
-	$key = STR::after($val, "siehe");
-	return VEC::get($arr, $key, "???");
+	$fnd = STR::after($val, "siehe");
+	return VEC::get($arr, $fnd, $key);
 }
 
 // ***********************************************************
@@ -199,17 +206,28 @@ protected function embrace($lup, $key) { // eliminates the risk of double
 	return "<$lup>$key</$lup>";
 }
 
+protected function insLFs($txt, $sep) {
+	if ($sep == NV) return $txt;
+	$txt = STR::trim($txt, $sep);
+	$txt = STR::replace($txt, $sep, "<br>");
+	return $txt;
+}
+protected function insHRef($val) {
+	$rep = '<a href="http$1://$2"><img src="LOC_ICO/buttons/web.gif" /></a>';
+	return PRG::replace("$val\n", "http(s?)://(.*?)[\n]", $rep);
+}
+
 // ***********************************************************
 // dummy methods for derived classes
 // ***********************************************************
-protected function setInfo($set, $key, $val) {
-	// dummy for derived classes
-	// meant to allow for additional tpl vars
-}
-protected function insLFs($txt, $sep) {
-	if ($sep == NV) return $txt;
-	$txt = STR::replace($txt, $sep, "<br>");
+protected function chkVal($txt, $val) {
+ // dummy for derived classes
 	return $txt;
+}
+
+protected function setInfo($set, $key, $val) {
+ // dummy for derived classes
+ // meant to allow for additional tpl vars
 }
 
 // ***********************************************************

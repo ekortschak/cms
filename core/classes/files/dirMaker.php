@@ -19,6 +19,7 @@ class dirMaker {
 	private $dat = array();
 	private $num = array();
 	private $size = 9;
+	private $len = 5;
 
 function __construct($size = 9) {
 	$this->dat = array_fill(0, $size, "");
@@ -71,7 +72,7 @@ private function normValue($val) {
 	$out = ""; $cnt = 0;
 
 	foreach ($arr as $itm) {
-		if ($cnt++ > 2) break;
+		if ($cnt++ > $this->len - 1) break;
 		$out.= ucfirst(STR::left($itm));
 	}
 	return substr($out, 0, 30);

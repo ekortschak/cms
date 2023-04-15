@@ -48,8 +48,8 @@ LANGUAGES = de.en
 GEN_LANG = en
 
 [design]
-LAYOUT = folders:LOC_LAY
-COLORS = files:LOC_CLR
+LAYOUT = inifile:LOC_LAY
+COLORS = inifile:LOC_CLR
 EDITOR = default|ck4|ck5
 
 [security]

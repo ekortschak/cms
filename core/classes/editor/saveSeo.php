@@ -31,7 +31,6 @@ function __construct() {
 // ***********************************************************
 private function exec() {
 	$act = ENV::getPost("meta.act"); if (! $act) return;
-	$loc = ENV::getPage();           if (! $loc) return;
 	$dat = ENV::getPost("data");
 	$oid = ENV::getPost("oid");
 
@@ -42,7 +41,7 @@ private function exec() {
 	$lng = CUR_LANG;
 
 	$ini = new iniWriter();
-	$ini->read($loc);
+	$ini->read(CUR_PAGE);
 	$ini->set("$lng.$wht", trim($dat));
 	$ini->save();
 }

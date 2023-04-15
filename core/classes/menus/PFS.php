@@ -28,13 +28,13 @@ $obj = new saveMenu();
 // BEGIN OF CLASS
 // ***********************************************************
 class PFS extends objects {
-	static private $dat = array(); // menu items & props
-	static private $uid = array(); // menu id list
-	static private $idx = array(); // menu index list
+	private static $dat = array(); // menu items & props
+	private static $uid = array(); // menu id list
+	private static $idx = array(); // menu index list
 
-	static private $dir = ""; // current topic
-	static private $fil = ""; // name of static menu file
-	static private $cnt = 1;
+	private static $dir = ""; // current topic
+	private static $fil = ""; // name of static menu file
+	private static $cnt = 1;
 
 
 public static function init($dir = TAB_HOME) {
@@ -74,9 +74,9 @@ public static function readTree($dir = NV) {
 // ***********************************************************
 private static function getLast() {
 	$chk = ENV::getParm("reset");              if ($chk) return false;
-	$chk = SSV::get("reload", false, "pfs");   if ($chk) return false;
+	$chk = SSV::get("reload", false,   "pfs"); if ($chk) return false;
 	$tpc = SSV::get("topic", TAB_PATH, "pfs"); if ($tpc != TAB_PATH) return false;
-	$arr = SSV::get("data", array(), "pfs");   if (! $arr) return false;
+	$arr = SSV::get("data", array(),   "pfs"); if (! $arr) return false;
 
 	self::$dat = $arr["dat"];
 	self::$uid = $arr["uid"];
@@ -115,7 +115,7 @@ private static function chkLoc($dir) {
 
 	while ($dir = dirname($dir)) {
 		if ($dir < TAB_PATH) break; // no access outside tab path
-		if (is_dir($dir)) return trim($dir, DIR_SEP);
+		if (is_dir($dir)) return FSO::trim($dir);
 	}
 	return TAB_HOME;
 }
@@ -144,7 +144,9 @@ public static function getType($index = NV) {
 	return self::getProp($index, "props.typ", "inc");
 }
 public static function getTitle($index = NV) {
-	return self::getProp($index, "title", $index);
+	$lng = CUR_LANG;
+	$out = self::getProp($index, CUR_LANG.".title", $index); if ($out) return $out;
+	return self::getProp($index, GEN_LANG.".title", $index, $index);
 }
 public static function getHead($index = NV) {
 	return self::getProp($index, "head", $index);
@@ -241,8 +243,7 @@ public static function count() {
 
 private static function norm($dir) {
 	$out = APP::relPath($dir);
-	$out = trim($out, DIR_SEP);
-	return $out;
+	return FSO::trim($out);
 }
 
 // ***********************************************************

@@ -26,8 +26,8 @@ deny = verweigern
 	<table>
 		<tr class="rh">
 			<th><!DIC:user!></th>
-			<th><!DIC:grant!></th>
-			<th><!DIC:inherit!></th>
+			<th><!DIC:grant!><sup>1</sup></th>
+			<th><!DIC:inherit!><sup>2</sup></th>
 			<th><!DIC:deny!></th>
 		</tr>
 <!VAR:items!>
@@ -37,6 +37,8 @@ deny = verweigern
 			</td>
 		</tr>
 	</table>
+<div style="height: 5px;"></div>
+<!SEC:explain!>
 </form>
 
 [item]
@@ -55,41 +57,45 @@ deny = verweigern
 </tr>
 
 # ***********************************************************
+[explain]
+# ***********************************************************
+<small>
+<table>
+	<tr>
+		<td><sup>1</sup></td> <td>Grant access</td>
+	</tr>
+	<tr>
+		<td><sup>2</sup></td> <td>Inherit permissions from parent folders</td>
+	</tr>
+</table>
+</small>
+
+# ***********************************************************
+[explain.de]
+# ***********************************************************
+<small>
+<table>
+	<tr>
+		<td><sup>1</sup></td> <td>Zugriff gestatten</td>
+	</tr>
+	<tr>
+		<td><sup>2</sup></td> <td>Zugriff von übergeordneten Ordnern übernehmen</td>
+	</tr>
+</table>
+</small>
+
+# ***********************************************************
 [info]
 # ***********************************************************
 <h4>Info</h4>
-<h4>Explanation</h4>
-<table>
-	<tr>
-		<td><!DIC:grant!></td>
-		<td>Grant access</td>
-	</tr>
-	<tr>
-		<td><!DIC:grant!></td>
-		<td>Inherit permissions from parent folders</td>
-	</tr>
-</table>
-
 <p>Users are defined by <dfn>config/users.ini</dfn>.
-<p>As soon as there are users with the "grant" option this will automatically exclude all other users
+<p>As soon as there are users with the "grant" or "deny" option this will <b>automatically exclude all unidentified users</b>
 from accessing that folder or any subfoder therof.</p>
 
 # ***********************************************************
 [info.de]
 # ***********************************************************
-<h4>Legende</h4>
-<table>
-	<tr>
-		<td><!DIC:grant!></td>
-		<td>Zugriff gestatten</td>
-	</tr>
-	<tr>
-		<td><!DIC:inherit!></td>
-		<td>Zugriff von übergeordneten Ordnern übernehmen</td>
-	</tr>
-</table>
-
 <h4>Info</h4>
 <p>Benutzer werden in <dfn>config/users.ini</dfn> definiert.
-<p>Sobald in einem Ordner einzelne Benutzer "Zugang" erhalten, sind alle anderen von diesem Ordner und
-allen seinen Unterordnern automatisch ausgeschlossen.</p>
+<p>Sobald in einem Ordner einzelne Benutzer "Zugang" erhalten oder ausgeschlossen werden, sind <b>unangemeldete Benutzer</b> von diesem Ordner und
+allen seinen Unterordnern <b>automatisch ausgeschlossen</b>.</p>

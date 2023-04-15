@@ -1,25 +1,6 @@
 [include]
 LOC_TPL/modules/fview.gallery.tpl
 
-[dic]
-inis = Create ini file(s)
-uids = Check UIDs
-
-all = all
-select = Select file(s)
-sibling = Add a sibling
-addfile = Create a new file
-
-[dic.de]
-inis = Ini-Datei(en) erstellen
-uids = UIDs überprüfen
-
-all = Alle
-select = Datei(en) wählen
-sibling = Eintrag erstellen
-addfile = Datei erstellen
-
-
 # ***********************************************************
 [main]
 # ***********************************************************

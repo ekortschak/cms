@@ -7,7 +7,7 @@ incCls("files/iniTab.php");
 
 // ***********************************************************
 $set = APP_CALL;
-$tab = trim(TAB_ROOT, "/");
+$tab = FSO::trim(TAB_ROOT);
 
 $tbs = new tabset();
 $tab = $tbs->verify($set, $tab);

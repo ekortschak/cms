@@ -89,9 +89,6 @@ public function gc($sec = "main") {
 		$xxx = APP::lock(false);
 		$val = APP::gc($fil);
 
-		if (! STR::contains(APP_IDX, "config.php"))
-		$val = CFG::insert($val);
-
 		$htm = str_ireplace($mod, "$val\n", $htm);
 	}
 	$htm = $this->solveLinks($htm, 'src="');

@@ -70,6 +70,7 @@
 	margin-right: 5px;
 }
 .topmenu-button:hover{
+	border-radius: 50%;
 	color: FC_INFO;
 	background: BC_INFO;
 }

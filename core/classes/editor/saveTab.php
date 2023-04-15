@@ -125,7 +125,7 @@ private function tabProps() {
 
 	$std = $arr["std"];
 	$stp = STR::afterX($std, $tab);
-	$arr["std"] = trim($stp, "/");
+	$arr["std"] = FSO::trim($stp);
 
 	$ini = new iniWriter("LOC_CFG/tab.def");
 	$ini->read($fil);

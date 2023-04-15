@@ -11,7 +11,7 @@ incCls("menus/tabset.php");
 
 $tbs = new tabset();
 $arr = $tbs->getTabs($set);
-$
+
 */
 
 incCls("files/iniTab.php");

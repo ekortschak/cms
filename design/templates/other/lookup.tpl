@@ -1,11 +1,10 @@
 [vars]
 caption = Test
-info = Any description ...
+info = [ ??? ]
 color = FC_BODY
 
 [lookup]
-<refbox style="color: <!VAR:color!>;">
-<!VAR:caption!>_
+<refbox style="color: <!VAR:color!>;"><!VAR:caption!>_
 <refbox-content><!VAR:info!></refbox-content>
 </refbox><nolf>
 

@@ -161,7 +161,9 @@ protected function setVars() { // set vars
 	$arr = $this->split($txt);
 
 	foreach ($arr as $key => $val) {
-		$this->vrs[$key] = DIC::xlate($val);
+		$val = CFG::insert($val);
+		$val = DIC::xlate($val);
+		$this->vrs[$key] = $val;
 	}
 	unset($this->sec["vars"]);
 }
@@ -189,7 +191,6 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;
 		$val = STR::after($itm, $del);
-#		$val = CFG::insert($val);
         $out[$key] = $val;
     }
     return $out;

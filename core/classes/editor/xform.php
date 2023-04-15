@@ -32,17 +32,16 @@ function __construct($cnt = 3) {
 // read all ini files
 // ***********************************************************
 public function pages($pfs) {
-	$pge = ENV::getPage(); // back up current page
-	$xxx = ENV::set("output", "static");
-
 	$this->num = count($pfs);
 	$this->cnt = $cnt = 0;
+
+	ENV::set("output", "static");
 
 	foreach($pfs as $dir => $inf) {
 		if ($this->dbg) if ($cnt++ >= $this->dbg) break;
 		$this->doPage($dir, $inf);
 	}
-	ENV::setPage($pge); // restore current page
+	ENV::setPage(CUR_PAGE); // restore current page
 	ENV::set("output", "");
 
 	self::writeCss();

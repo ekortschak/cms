@@ -26,6 +26,7 @@ public static function init() {
 	self::fixForced(); // constants set before config.ini
 	self::fixServer(); // constants derived from env
 	self::fixPaths();
+	self::fixLangs();  // defined languages
 
 	self::readCfg();
 }
@@ -64,6 +65,11 @@ private static function fixPaths() {
 
 	$ck5 = "/xtools/ck5";
 	$dir = FSO::join(SRV_ROOT, $ck5); if (is_dir($dir)) self::set("CK5_URL", $ck5);
+}
+
+private static function fixLangs() {
+	if (APP_IDX != "config.php") return;
+	self::set("LANGUAGES", "de.en");
 }
 
 // ***********************************************************

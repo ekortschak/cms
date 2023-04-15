@@ -60,12 +60,17 @@ public function addInput($fname, $vals, $val) {
 		$max = STR::after($vals, "-");
 		return $this->addObj("range", $fname, $val, $min, $max);
 	}
+
 	if (STR::begins($vals, "folders:")) {
 		$arr = $this->getFolders($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
 	if (STR::begins($vals, "files:")) {
 		$arr = $this->getFiles($vals);
+		return $this->addObj("combo", $fname, $arr, $val);
+	}
+	if (STR::begins($vals, "inifile:")) {
+		$arr = $this->iniFiles($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
 
@@ -86,7 +91,7 @@ public function addInput($fname, $vals, $val) {
 
 // ***********************************************************
 private function addObj($typ, $qid, $prm1, $prm2 = "", $prm3 = "") {
-	$cap = STR::afterX($qid, "@"); if (STR::contains($qid, "[")) 
+	$cap = STR::afterX($qid, "@"); if (STR::contains($qid, "["))
 	$cap = STR::between($qid, "[", "]");
 	$cap = DIC::get($cap);
 
@@ -118,8 +123,20 @@ private function getFolders($dir) {
 }
 private function getFiles($dir) {
 	$dir = STR::after($dir, ":"); if (! $dir) return array();
-	return APP::files($dir); $lst = array();
+	return APP::files($dir);
 }
+private function iniFiles($dir) {
+	$dir = STR::after($dir, ":"); if (! $dir) return array();
+	$arr = APP::files($dir);
+	$out = array();
+
+	foreach ($arr as $fil => $nam) {
+		$key = STR::clear($nam, ".ini");
+		$out[$key] = $key;
+	}
+	return $out;
+}
+
 
 // ***********************************************************
 } // END OF CLASS

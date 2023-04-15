@@ -52,7 +52,7 @@ public function set($key, $val) {
 }
 
 public function drop($sec, $key = "") { // drop values
-	$chk = trim("$sec.$key", ".");
+	$chk = STR::trim("$sec.$key", ".");
 
 	foreach ($this->vls as $key => $val) {
 		if (STR::begins($key, $chk)) unset($this->vls[$key]);
@@ -80,9 +80,11 @@ public function get($key, $default = "") {
 
 // ***********************************************************
 public function lng($key, $default = "xxx") {
-	$lng = CUR_LANG;
+	$lng = CUR_LANG; $gen = GEN_LANG;
 	$try = "$key.$lng";	$out = $this->get($try, NV); if ($out !== NV) return $out;
 	$try = "$lng.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;
+	$try = "$key.$gen";	$out = $this->get($try, NV); if ($out !== NV) return $out;
+	$try = "$gen.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;
 	return $this->get($key, $default);
 }
 

@@ -20,14 +20,15 @@ class pageAnalizer {
 	private $srv = "";
 
 function __construct($server) {
-	$this->srv = trim($server, "/");
+	$this->srv = FSO::trim($server);
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
 public function show($page, $what) {
-	$htm = file_get_contents($this->srv."/".$page);
+	$pge = FSO::join($this->srv, $page);
+	$htm = file_get_contents($pge);
 
 	if ($what == "css") return $this->showStyles($htm);
 	if ($what == "scr") return $this->showScripts($htm);
@@ -94,7 +95,7 @@ private function showLink($cap) {
 	if (strlen($cap) < 2) return;
 
 	$lnk = $cap; if (STR::begins($cap, "/"))
-	$lnk = $this->srv."/".trim($cap, "/");
+	$lnk = FSO::join($this->srv, $cap);
 
 	HTW::href($lnk, $cap, "analizer");
 }

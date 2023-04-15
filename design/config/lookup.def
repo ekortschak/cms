@@ -10,8 +10,8 @@ color = Farbe
 
 [props]
 tplsec = lookup|abbr
+color  = colors
 token  = ;
 #context = (\d)*
-color  = colors
 
 [data*]

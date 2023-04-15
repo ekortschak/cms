@@ -30,6 +30,7 @@ public static function code($file, $head = "") {
 	$cod = new tutorial();
 	$cod->sample($file, $head);
 }
+
 public static function snip($file, $head = "") {
 	incCls("other/tutorial.php");
 
@@ -37,11 +38,11 @@ public static function snip($file, $head = "") {
 	$cod->text($file, $head);
 }
 
+// ***********************************************************
 public static function csv($file, $sep = ";") {
 	incCls("tables/csv_table.php");
 
-	$pge = ENV::getPage();
-	$fil = STR::replace($file, "./", "$pge/");
+	$fil = self::getLink($file);
 
 	$csv = new csv_table();
 	$csv->load($fil, $sep);
@@ -71,15 +72,12 @@ public static function pre($text) {
 public static function button($lnk, $cap, $trg = "_self") {
 	echo HTM::button($lnk, $cap, $trg);
 }
-
 public static function href($lnk, $cap, $trg = "") {
 	echo HTM::href($lnk, $cap, $trg);
 }
-
 public static function vspace($size) {
 	echo HTM::vspace($size);
 }
-
 public static function def($key, $val) {
 	echo HTM::def($key, $val);
 }
@@ -96,8 +94,7 @@ public static function img($file) {
 
 private static function doImage($sec, $link = "") {
 	$mds = ENV::get("vmode"); if ($mds == "xsite") return self::thumbR($link);
-	$pge = ENV::getPage();
-	$lnk = self::getLink($link, "./", "$pge/");
+	$lnk = self::getLink($link);
 
 	self::$tpl->set("file", $lnk);
 	self::$tpl->show($sec);
@@ -115,8 +112,7 @@ public static function thumb($link, $wid = 200, $hgt = NV) {
 }
 
 private static function doThumb($sec, $link = "", $wid = 200, $hgt = NV) {
-	$pge = ENV::getPage();
-	$lnk = self::getLink($link, "./", "$pge/");
+	$lnk = self::getLink($link);
 
 	self::$tpl->set("link", $lnk);
 	self::$tpl->set("wid", $wid);
@@ -147,7 +143,7 @@ public static function ytube($ytid, $tit, $len = "", $typ = "link") {
 // ***********************************************************
 private static function getLink($link) {
 	$pge = ENV::getPage();
-	return STR::replace($link, "./", "$pge/");
+	return STR::replace($link, ".".DIR_SEP, $pge.DIR_SEP);
 }
 
 // ***********************************************************

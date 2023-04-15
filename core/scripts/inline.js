@@ -1,4 +1,4 @@
-var mark = "¶x";
+var mark = "¶";
 var hist = [];
 var cols = 2;
 var pwid = 200;

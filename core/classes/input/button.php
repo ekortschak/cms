@@ -46,7 +46,9 @@ public function gc($btn = "view") {
 		$tpl->set("pic", $tpl->getSection("pic"));
 	}
 	$sec = "button"; if ($ref) $sec = "button.tip";
-	return $tpl->gc($sec);
+	$out = $tpl->gc($sec);
+	$out = CFG::insert($out);
+	return $out;
 }
 
 // ***********************************************************
