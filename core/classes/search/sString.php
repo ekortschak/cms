@@ -7,14 +7,14 @@ handling string tasks with preg functions
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("search/searchString.php");
+incCls("search/sString.php");
 
 */
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class searchString {
+class sString {
 	private $txt = "";
 	private $sep = "|"; // OR operator
 
@@ -29,7 +29,7 @@ public function hilite($find) {
 	if (STR::contains($this->txt, "<mark")) return $this->txt;
 
 	$fnd = str_replace("|", " ", $find); $cnt = 0;
-	$lst = $this->split($fnd); 
+	$lst = $this->split($fnd);
 	$out = $this->txt;
 
 	foreach ($lst as $itm) {

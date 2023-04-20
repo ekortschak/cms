@@ -1,5 +1,5 @@
 [register]
-core/scripts/sorter.js
+LOC_SCR/sorter.js
 
 [dic]
 sort = Sort entries

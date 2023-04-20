@@ -38,9 +38,9 @@ class PFS extends objects {
 
 
 public static function init($dir = TAB_HOME) {
-	self::$dat = self::$uid = self::$idx = array();
 	self::$dir = $dir;
 	self::$fil = FSO::join("static", $dir, "pfs.stat");
+	self::$dat = self::$uid = self::$idx = array();
 	self::$cnt = 1;
 
 	if (! self::getLast()) {
@@ -60,13 +60,12 @@ public static function readTree($dir = NV) {
 	if (self::import()) return;
 	if ($dir == NV) $dir = self::$dir;
 
-	$dir = APP::dir($dir); if (! $dir) return;
-	$arr = FSO::folders($dir, ! IS_LOCAL);
-	$nxt = self::readProps($dir); if (! $nxt) return;
+	$dir = APP::dir($dir);
+	$drs = FSO::dtree($dir, ! IS_LOCAL);
 
-    foreach ($arr as $dir => $nam) {
-        self::readTree($dir);
-    }
+	foreach ($drs as $dir => $nam) {
+		self::readProps($dir);
+	}
 }
 
 // ***********************************************************

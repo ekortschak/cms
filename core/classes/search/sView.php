@@ -7,9 +7,9 @@ view search results
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("search/searchView.php");
+incCls("search/sView.php");
 
-$vew = new searchView();
+$vew = new sView();
 $xxx = $vew->showNav();
 $fls = $vew->getSnips();
 
@@ -17,12 +17,12 @@ $fls = $vew->getSnips();
 
 incCls("menus/dropBox.php");
 incCls("menus/dropNav.php");
-incCls("search/swrap.php");
+incCls("search/search.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class searchView extends tpl {
+class sView extends tpl {
 	private $dat = array();
 
 function __construct() {
@@ -76,7 +76,7 @@ public function getSnips() {
 	$dir = ENV::get("search.dir");
 	$fnd = ENV::get("search");
 
-	$obj = new swrap();
+	$obj = new search();
 	return $obj->getSnips($dir, $fnd);
 }
 

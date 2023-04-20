@@ -4,7 +4,7 @@ incCls("menus/dropBox.php");
 
 // ***********************************************************
 $arr = CFG::getVars("bookmarks", "day1"); #if (! $arr) return;
-$arr = array_flip($arr);
+$arr = VEC::flip($arr);
 
 // ***********************************************************
 HTW::xtag("bookmarks");

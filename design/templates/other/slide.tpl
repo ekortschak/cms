@@ -1,5 +1,5 @@
 [register]
-core/scripts/slide.js
+LOC_SCR/slide.js
 
 [dic]
 login = Log in (to enter data or deny usage)

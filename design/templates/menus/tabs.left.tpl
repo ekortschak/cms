@@ -1,5 +1,5 @@
 [register]
-core/scripts/mobile.js
+LOC_SCR/mobile.js
 
 [vars]
 os = ""

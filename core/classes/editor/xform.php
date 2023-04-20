@@ -2,7 +2,7 @@
 
 // used to convert a topic to static pages
 
-include_once "core/inc.css.php";
+include_once "core/include/load.css.php";
 
 incCls("files/css.php");
 incCls("files/iniTab.php");

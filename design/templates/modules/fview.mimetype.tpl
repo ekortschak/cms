@@ -1,5 +1,5 @@
 [register]
-core/scripts/embedded.js
+LOC_SCR/embedded.js
 
 [vars]
 hgt = 500

@@ -3,9 +3,9 @@ LOC_TPL/editor/edit.tpl
 LOC_TPL/editor/toolbar.tpl
 
 [register]
-core/scripts/keyEvents.js
-core/scripts/clipboard.js
-core/scripts/inline.js
+LOC_SCR/keyEvents.js
+LOC_SCR/clipboard.js
+LOC_SCR/inline.js
 
 [vars]
 rows = 40

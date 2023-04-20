@@ -21,18 +21,22 @@ public static function quote($find) {
 }
 
 // ***********************************************************
-public static function find($haystack, $needle, $mod = "") {
+public static function find($haystack, $needle, $mod = "u") {
 	$out = array(); if (STR::contains($needle, "\n")) $mod.= "g";
 	$erg = preg_match_all("~$needle~$mod", $haystack, $out);
 	return $out[0];
 }
 
 // ***********************************************************
-public static function replace($text, $search, $replace, $mod = "") {
+public static function replace($text, $search, $replace, $mod = "u") {
 	$fnd = self::insert($search);
 	return preg_replace("~$fnd~$mod", $replace, $text);
 }
-public static function clear($text, $what, $mod) { // clear $what
+public static function replace1($text, $search, $replace, $mod = "u") {
+	$fnd = self::insert($search);
+	return preg_replace("~$fnd~$mod", $replace, $text, 1);
+}
+public static function clear($text, $what, $mod = "u") { // clear $what
 	return self::replace($text, $what, "", $mod);
 }
 
@@ -45,32 +49,6 @@ public static function clrBlanks($text) { // whitespace
 }
 
 // ***********************************************************
-public static function replaceWords($text, $search, $mask, $mod = "") {
-	if (! STR::contains($text, $search)) return $text;
-
-	switch (CUR_LANG) {
-		case "de": return self::replaceWordsDE($text, $search, $mask, $mod);
-	}
-	$fnd = "\b($search)([s]?)\b";
-	$rep = str_replace($search, "\$1\$2\$3", $mask);
-	return preg_replace("~$fnd~$mod", $rep, $text);
-}
-
-public static function replaceWordsDE($text, $search, $mask, $mod = "") {
-	$rep = str_replace($search, "\$1\$2\$3", $mask);
-	$out = $text;
-
-	$fnd = "\b($search)\b";
-	$out = preg_replace("~$fnd~$mod", $rep, $out);
-
-	$fnd = "\b($search)([e]+)([nmr]?)\b";
-	$out = preg_replace("~$fnd~$mod", $rep, $out);
-
-	$fnd = "\b($search)([e]?)([s]+)\b";
-	$out = preg_replace("~$fnd~$mod", $rep, $out);
-	return $out;
-}
-
 public static function clrComments($text) {
 	$out = preg_replace("~\/\*(.*?)\*\/~", "", $text); // multiline comments
 	$out = preg_replace("~\/\/(.*?)\n~", "", $out); // lines starting at //

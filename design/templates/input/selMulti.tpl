@@ -2,14 +2,14 @@
 LOC_TPL/input/selROnly.tpl
 
 [register]
-core/scripts/selRec.js
+LOC_SCR/selRec.js
 
 [dic]
-multi = Multiple choices
+multi = Multiple choices possible
 invert = Invert selection
 
 [dic.de]
-multi = Mehrfach-Auswahl
+multi = Mehrfach-Auswahl möglich
 invert = Auswahl umkehren
 
 [vars]

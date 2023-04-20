@@ -99,7 +99,7 @@ private function getCurrent($max) {
 
 private function getText($pic) {
 	$dir = dirname($pic);
-	$fnm = basename($pic); $fnm = STR::before($fnm, ".");
+	$fnm = FSO:name($pic);
 	return APP::gc($dir, $fnm);
 }
 

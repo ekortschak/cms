@@ -53,8 +53,6 @@ public static function level($fso) {
 }
 
 // ***********************************************************
-
-// ***********************************************************
 public static function force($dir, $mod = FS_PERMS) {
 	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
 	$chk = self::trim($dir); if (strlen($chk) < 1) return false;
@@ -94,7 +92,27 @@ public static function permit($fso, $mod = FS_PERMS) {
 }
 
 // ***********************************************************
-// working on directories
+// folders
+// ***********************************************************
+public static function folders($dir = APP_DIR, $visOnly = true) {
+	if (! is_dir($dir)) return array();
+
+	$hdl = opendir($dir); if (! $hdl) return array();
+	$out = array();
+
+	while (false !== ($itm = readdir($hdl))) {
+		if (STR::begins($itm, "." )) continue; if ($visOnly)
+		if (STR::begins($itm, HIDE)) continue;
+
+		$ful = FSO::join($dir, $itm); if (is_file($ful)) continue;
+		$out[$ful] = $itm;
+	}
+	closedir($hdl);
+	return $out;
+}
+
+// ***********************************************************
+// working on folders
 // ***********************************************************
 public static function copyDir($src, $dst) {
 	$fso = self::fTree($src); if (! $fso) return;
@@ -138,58 +156,9 @@ public static function rmDir($src) {
 }
 
 // ***********************************************************
-// methods for menus
-// ***********************************************************
-public static function parents($dir = CUR_PAGE) {
-	if (  is_file($dir)) $dir = dirname($dir);
-	if (! is_dir ($dir)) $dir = APP::dir($dir);
-	if (! is_dir ($dir)) return array();
-
-	$dir = APP::relPath($dir);
-	$out[] = $dir;
-
-	while ($dir = dirname($dir)) {
-		if ($dir == ".") break; // no access outside app path
-		$out[] = $dir;
-	}
-	sort($out);
-	return $out;
-}
-
-public static function getPrev($dir) {
-	$par = dirname($dir);
-	$arr = self::folders($par);
-	$prv = $par;
-
-	foreach ($arr as $key => $val) {
-		if (STR::contains($key, $dir)) return $prv;
-		$prv = $key;
-	}
-	return $dir;
-}
-
-// ***********************************************************
 // files
 // ***********************************************************
-public static function fdTree($dir, $ptn = "*") {
- // list all files and dirs in $dir
-	return self::ftree($dir, $ptn, false);
-}
-public static function fTree($dir, $pattern = "*", $filesOnly = true) {
- // default: list all files in $dir recursively
-	$drs = self::tree($dir, false); // including hidden fso
-	$out = self::files($dir, $pattern, false);
-
-	foreach ($drs as $dir => $nam) {
-		if (is_link($dir)) continue;
-		if (! $filesOnly) $out[$dir] = $nam;
-
-		$out+= self::files($dir, $pattern, false);
-	}
-	return VEC::sort($out);
-}
-
-public static function files($dir, $pattern = "*", $visOnly = true) {
+public static function files($dir, $pattern = "*") {
  // list all files matching $pattern
 	$ptn = self::join($dir, $pattern); $out = array();
 	$ptn = self::norm($ptn);
@@ -198,12 +167,17 @@ public static function files($dir, $pattern = "*", $visOnly = true) {
 
 	foreach ($arr as $itm) {
 		if (is_dir($itm)) continue;
-		if ($visOnly)
-		if (self::isHidden($itm)) continue;
-
 		$out[$itm] = basename($itm);
 	}
 	return $out;
+}
+
+public static function rmFiles($dir) {
+	$fls = self::files($dir);
+
+	foreach ($fls as $fil => $nam) {
+		self::kill($fil, "", 0);
+	}
 }
 
 // ***********************************************************
@@ -236,40 +210,67 @@ public static function kill($file) { // delete a file
 }
 
 // ***********************************************************
-// folders
+// tree listings
 // ***********************************************************
-public static function folders($dir, $visOnly = true) {
- // list all folders in $dir
-	$fso = $dir; if (! STR::contains($fso, "*")) $fso = self::join($dir, "*");
-	$arr = glob($fso, GLOB_ONLYDIR); $out = array();
-
-	foreach ($arr as $itm) {
-		$chk = self::isHidden($itm); if ($chk) if ($visOnly) continue;
-		$out[$itm] = basename($itm);
-	}
-	return $out;
-}
-
-public static function rmFiles($dir) {
-	$fls = self::files($dir);
-
-	foreach ($fls as $fil => $nam) {
-		self::kill($fil, "", 0);
-	}
-}
-
-// ***********************************************************
-public static function tree($dir, $visOnly = true) {
- // list all subfolders of $dir - including symbolic links
+public static function dtree($dir, $visOnly = true) {
+ // list all subfolders of $dir, including symbolic links
 	$dir = APP::dir($dir);                if (! $dir) return array();
 	$arr = self::folders($dir, $visOnly); if (! $arr) return array();
 	$out = $arr;
 
 	foreach ($arr as $dir => $nam) {
-		$lst = self::tree($dir, $visOnly); if (! $lst) continue;
+		$lst = self::dtree($dir, $visOnly); if ($lst)
 		$out = array_merge($out, $lst);
 	}
 	return VEC::sort($out);
+}
+
+public static function fTree($dir, $pattern = "*", $incDirs = false) {
+ // list all files in $dir recursively, including hidden dirs
+	$drs = self::dtree($dir, false);
+	$out = self::files($dir, $pattern);
+
+	foreach ($drs as $dir => $nam) {
+		if ($incDirs) $out[$dir] = $nam;
+		$lst = self::files($dir, $pattern); if ($lst)
+		$out = array_merge($out, $lst);
+	}
+	return VEC::sort($out);
+}
+
+public static function fdTree($dir, $pattern = "*") {
+	return self::ftree($dir, $pattern, true);
+}
+
+// ***********************************************************
+// methods for menus
+// ***********************************************************
+public static function parents($dir = CUR_PAGE) {
+	if (  is_file($dir)) $dir = dirname($dir);
+	if (! is_dir ($dir)) $dir = APP::dir($dir);
+	if (! is_dir ($dir)) return array();
+
+	$dir = APP::relPath($dir);
+	$out[] = $dir;
+
+	while ($dir = dirname($dir)) {
+		if ($dir == ".") break; // no access outside app path
+		$out[] = $dir;
+	}
+	sort($out);
+	return $out;
+}
+
+public static function getPrev($dir) {
+	$par = dirname($dir);
+	$arr = self::folders($par);
+	$prv = $par;
+
+	foreach ($arr as $key => $val) {
+		if (STR::contains($key, $dir)) return $prv;
+		$prv = $key;
+	}
+	return $dir;
 }
 
 // ***********************************************************
@@ -305,6 +306,11 @@ public static function ext($file, $norm = false) {
 	$out = pathinfo($file, PATHINFO_EXTENSION); if ($norm)
 	$out = STR::left($out);
 	return $out;
+}
+
+public static function name($file) {
+	$out = basename($file);
+	return STR::before($out, ".");
 }
 
 public static function filter($files, $ext) {

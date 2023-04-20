@@ -1,23 +1,23 @@
 <?php
 
-incCls("search/sView.php");
+include_once "config/fallback.php";
+include_once "include/load.min.php";
 
 // ***********************************************************
-// select records
+// determine method
 // ***********************************************************
-$vew = new sView();
-$xxx = $vew->showNav();
-$fls = $vew->getSnips($dir);
-$mod = $vew->getMode();
+$fnc = "xfer"; if ($_FILES)
+$fnc = "curl";
 
-if (! $fls) {
-	$vew->show("none");
-	return;
-}
+incCls("server/$fnc.php");
 
 // ***********************************************************
-// preview searched item
+// return requested data
 // ***********************************************************
-include APP::getInc(__DIR__, "do_$mod.php");
+$srv = new $fnc();
+$srv->act();
 
 ?>
+
+<hr>
+FX DONE

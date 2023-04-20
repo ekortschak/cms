@@ -7,18 +7,9 @@ refbox {
 	color: FC_HEAD;
 
 	text-decoration: underline dotted;
-	text-align: left;
+	text-align: right;
 }
 
-refbox.help {
-	margin: -45px -7px 0px 0px;
-	float: right;
-	right: 0px;
-}
-
-/* ******************************************************** */
-/* hover action */
-/* ******************************************************** */
 refbox:hover refbox-content {
 	display: block;
 }
@@ -27,10 +18,13 @@ refbox:hover refbox-content {
 /* lookup content */
 /* ******************************************************** */
 refbox-content {
-	z-index: 99;
 	position: absolute;
+	position: float;
+	right: var(--aln);
+
+	z-index: 99;
 	display: none;
-	min-width: 275px;
+	width: 300px;
 	overflow: auto;
 
 	border: 1px solid OUTLINE;
@@ -41,6 +35,7 @@ refbox-content {
 	color: FC_HINT;
 	background: BC_HINT;
 
+	font-size: 0.85em;
 	font-weight: normal;
 	font-style: normal;
 	white-space: pre-line;

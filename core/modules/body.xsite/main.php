@@ -11,7 +11,7 @@ $cnt = 0; if ($dbg) $cnt = 3;
 // collect sub tree
 // ***********************************************************
 $arr = array(CUR_PAGE => "start");
-$arr+= FSO::tree(CUR_PAGE);
+$arr+= FSO::dtree(CUR_PAGE);
 
 // ***********************************************************
 // paste collected pages into single page

@@ -1,5 +1,8 @@
 <?php
 
+incFnc("load.min.php");
+incFnc("load.more.php");
+
 incCls("files/page.php");  // xform layout to page
 incCls("menus/PFS.php");
 

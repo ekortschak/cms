@@ -73,7 +73,7 @@ public function revert($version = NV) {
 protected function revertFlow() {
 	$src = $this->get("source");
 	$dst = $this->get("target");
-	
+
 	$this->set("source", $dst);
 	$this->set("target", $src);
 }
@@ -81,13 +81,13 @@ protected function revertFlow() {
 // ***********************************************************
 protected function getBackups() {
 	$dir = APP::arcDir($this->dev, "bkp");
-	return FSO::folders("$dir/*");
+	return FSO::folders($dir);
 }
 
 // ***********************************************************
 protected function getVersions() {
 	$dir = APP::arcDir($this->dev, "ver");
-	return FSO::folders("$dir/*");
+	return FSO::folders($dir);
 }
 
 // ***********************************************************

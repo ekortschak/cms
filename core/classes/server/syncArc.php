@@ -19,6 +19,7 @@ incCls("server/sync.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class syncArc extends sync {
+	protected $dev = ARCHIVE;  // storage device
 
 function __construct() {
 	parent::__construct();
@@ -30,8 +31,9 @@ function __construct() {
 // ***********************************************************
 // set parameters
 // ***********************************************************
-public function setDevice($dev = SRV_ROOT) {
-	$this->dev = FSO::norm($dev);
+public function setDevice($dev = ARCHIVE) {
+	$this->dev = $dev;
+	$this->setTarget($dev);
 }
 
 // ***********************************************************
@@ -40,7 +42,7 @@ public function setDevice($dev = SRV_ROOT) {
 public function backup() {
 	$dir = APP::arcDir($this->dev, "bkp");
 	$dir = FSO::join($dir, date("Y.m.d"));
-	
+
 	$this->setTarget($dir);
 	$this->run("backup");
 }
@@ -54,7 +56,7 @@ public function sync() {
 public function version() {
 	$dir = APP::arcDir($this->dev, "ver");
 	$dir = FSO::join($dir, VERSION);
-	
+
 	$this->setTarget($dir);
 	$this->run("version");
 }

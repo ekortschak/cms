@@ -7,7 +7,7 @@ used to generate style sheet from chosen directory
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-include_once "core/inc.css.php";
+include_once "core/include/load.css.php";
 incCls("files/css.php");
 
 $css = new css();
@@ -109,6 +109,7 @@ public function export($file) {
 // read all css files from styles folder(s) into array
 // ***********************************************************
 private function getStatic() {
+	return false; // TODO:kill
 	$ful = APP::file($this->cms); if (! $ful) return false;
 	$out = file_get_contents($ful);
 	return trim($out);

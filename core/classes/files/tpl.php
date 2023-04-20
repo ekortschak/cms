@@ -39,7 +39,7 @@ public function load($file) {
 }
 
 public function read($file) {
-	$fil = $this->isFile($file); if (! $fil) return false;
+	$fil = APP::file($file); if (! $fil) return false;
 
 	$cod = new code();
 	$cod->read($fil);

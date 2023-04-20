@@ -9,7 +9,7 @@ target = _self
 
 
 [main]
-<div class="btnbar flex">
+<div class="flex btnbar">
 <!VAR:items!>
 </div>
 
@@ -26,8 +26,7 @@ target = _self
 </a>
 
 [button.tip]
-<refbox>
-<!SEC:button!>
+<refbox><!SEC:button!>
 <refbox-content><!VAR:tip!></refbox-content>
 </refbox>
 

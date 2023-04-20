@@ -8,7 +8,7 @@ incCls("server/syncBack.php");
 // ***********************************************************
 $ini = new ini("config/backup.ini");
 $dev = $ini->getValues("local");
-$dev = array_flip($dev);
+$dev = VEC::flip($dev);
 
 $act = array(
 	"syncBack" => DIC::get("act.syncback"),

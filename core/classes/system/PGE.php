@@ -69,7 +69,7 @@ public static function getIncFile() {
 	if ($typ == "url") return "links.php";    // list of external links
 
 	if ($typ == "col") { // collection of files in separate dirs
-		if (ENV::get("vmode") == "xfer") return "collect.xsite.php";
+		if (EDITING == "xfer") return "collect.xsite.php";
 		return "collect.php";
 	}
 	if ($typ == "dbt") return "dbtable.php";  // database table
@@ -90,8 +90,8 @@ private static function getTab() {
 
 	$ini = new ini("config/tabsets.ini");
 	$arr = $ini->getValues($set);
-	$lst = array_flip($arr);
 
+	$lst = VEC::flip($arr);
 	$tab = VEC::get($lst, "default"); if ($tab) return $tab;
 	return key($arr);
 }

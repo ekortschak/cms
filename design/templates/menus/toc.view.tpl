@@ -1,5 +1,5 @@
 [register]
-core/scripts/toc.view.js
+LOC_SCR/toc.view.js
 
 [dic]
 dir.empty = Folder is empty ...

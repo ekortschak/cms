@@ -117,7 +117,7 @@ private function nodeCheck() { // add UID to page.ini recursively
 }
 
 public function checkUIDs($dir) {
-	$arr = FSO::tree($dir); unset($arr[0]);
+	$arr = FSO::dtree($dir); unset($arr[0]);
 	$ids = new uids();
 
 	foreach ($arr as $dir => $nam) {
@@ -191,8 +191,8 @@ private function fileAddIni($dir) { // add page.ini (recursively)
 	$tab = ENV::getTopDir();
 
 	switch ($all) {
-		case true: $arr = FSO::tree($tab); unset($arr[0]); break;
-		default:   $arr = FSO::tree($dir);
+		case true: $arr = FSO::dtree($tab); unset($arr[0]); break;
+		default:   $arr = FSO::dtree($dir);
 	}
 	foreach ($arr as $dir => $nam) {
 		$this->saveStdIni($dir, $ovr);

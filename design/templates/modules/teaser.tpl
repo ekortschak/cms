@@ -1,5 +1,5 @@
 [register]
-core/scripts/teaser.js
+LOC_SCR/teaser.js
 
 [vars]
 #timer = 5000

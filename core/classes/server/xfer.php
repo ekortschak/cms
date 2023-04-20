@@ -22,7 +22,7 @@ $srv->act()
 class xfer {
 	private $media = "file"; // file or screen
 	private $visOnly = true;
-	private $dbg = 1;
+	private $dbg = 0;
 
 function __construct($visOnly = true) {
 	$this->visOnly = $visOnly;
@@ -96,7 +96,6 @@ private function getEntry($fso, $root) {
 	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 
 	if (  is_dir($fso))  return "d;1;$itm;1";
-	if (  is_link($fso)) return "";
 	if (! is_file($fso)) return "";
 
 	$dat = filemtime($fso); if (filesize($fso) < 1) $dat = 0;

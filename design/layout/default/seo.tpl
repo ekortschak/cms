@@ -2,7 +2,7 @@
 LOC_LAY/LAYOUT/main.tpl
 
 [register]
-core/scripts/metakeys.js
+LOC_SCR/metakeys.js
 
 # ***********************************************************
 [body] <!-- body.seo -->

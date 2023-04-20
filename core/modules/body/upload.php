@@ -48,7 +48,7 @@ $qik->show();
 // ***********************************************************
 HTW::xtag("upl.upload");
 // ***********************************************************
-REG::add("js", "core/scripts/upload.js");
+REG::add("js", "LOC_SCR/upload.js");
 
 $sel = new selector();
 $sel->hidden("dest", $dst);

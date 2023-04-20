@@ -2,7 +2,7 @@
 LOC_TPL/input/selROnly.tpl
 
 [register]
-core/scripts/imageMap.js
+LOC_SCR/imageMap.js
 
 # ***********************************************************
 [input.img] # currently one line pix only !

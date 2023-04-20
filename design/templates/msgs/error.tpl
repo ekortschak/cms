@@ -28,7 +28,7 @@ err = Hinweis
 </div> _
 
 [item]
-<div style="white-space: nowrap;">
+<div style="white-space: nowrap; font-size: 0.75em;">
 <b><!VAR:line!></b> <!VAR:file!><br>
 &nbsp;<!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)
 </div>

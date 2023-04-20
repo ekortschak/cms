@@ -151,12 +151,6 @@ public function files($dir, $parm = "pic.file", $selected = false) {
 	$arr = $this->sortFiles($arr);
 	return $this->getKey($parm, $arr, $sel);
 }
-public function anyfiles($dir, $parm = "pic.file", $selected = false) {
-	$arr = APP::files($dir, "*", false); if (! $arr) return false;
-	$sel = VEC::find($arr, $selected);
-	$arr = $this->sortFiles($arr);
-	return $this->getKey($parm, $arr, $sel);
-}
 
 // ***********************************************************
 protected function sortFiles($arr) {

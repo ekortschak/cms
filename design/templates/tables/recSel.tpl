@@ -1,5 +1,5 @@
 [register]
-core/scripts/selRec.js
+LOC_SCR/selRec.js
 
 [include]
 LOC_TPL/tables/std.tpl

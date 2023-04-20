@@ -2,7 +2,7 @@
 LOC_TPL/modules/fview.gallery.tpl
 
 [register]
-core/scripts/upload.js
+LOC_SCR/upload.js
 
 
 [dic]

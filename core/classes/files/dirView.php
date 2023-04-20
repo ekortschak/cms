@@ -42,13 +42,11 @@ function __construct() {
 // Verzeichnis auslesen
 // ***********************************************************
 public function readTree($dir, $ext = false) {
-	if (! $dir) return;
-
-	$this->dir = APP::dir($dir);
-	$this->vrz = FSO::tree($this->dir);
+	$this->dir = APP::dir($dir); if (! $this->dir) return;
+	$this->vrz = FSO::dtree($this->dir);
 	$this->setExt($ext);
 
-	$fls = FSO::files($dir, "*", $this->get("visOnly", true));
+	$fls = FSO::files($dir, "*");
 	$fls = FSO::filter($fls, $ext);
 
 	$this->fls = $this->doSort($fls);

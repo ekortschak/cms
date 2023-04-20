@@ -1,17 +1,17 @@
 <?php
 
-incCls("search/swrap.php");
+incCls("search/search.php");
 
 // ***********************************************************
 // get parameters
 // ***********************************************************
-$obj = new swrap();
+$obj = new search();
 $opt = $obj->getScope();
 
 $fnd = ENV::get("search");
 $fnd = str_replace('"', "'", $fnd);
 
-$lst = $obj->getResults($fnd); 
+$lst = $obj->getResults($fnd);
 $lst = VEC::sort($lst);
 $res = "";
 

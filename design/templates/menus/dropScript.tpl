@@ -2,7 +2,7 @@
 LOC_TPL/menus/dropBox.tpl
 
 [register]
-core/scripts/inline.js
+LOC_SCR/inline.js
 
 
 [main.one]

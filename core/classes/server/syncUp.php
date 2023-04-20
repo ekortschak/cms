@@ -153,7 +153,7 @@ protected function dstVersion() {
 // find local (distributable) versions
 // ***********************************************************
 protected function getVersions() {
-	$ver = APP::arcDir(SRV_ROOT, "ver");
+	$ver = APP::arcDir(ARCHIVE, "ver");
 	$ver = $this->correct($ver);
 	$cms = $this->getCms();
 

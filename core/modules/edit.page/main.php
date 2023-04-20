@@ -28,7 +28,7 @@ HTW::tag($tit, "h3");
 $cur = basename(ENV::get("pic.file"));
 
 $box = new dropBox("menu");
-$fil = $box->anyfiles(CUR_PAGE, "pic.file");
+$fil = $box->files(CUR_PAGE, "pic.file");
 $fil = $box->focus("pic.file", $cur, $fil);
 
 // ***********************************************************

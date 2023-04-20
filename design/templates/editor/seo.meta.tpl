@@ -1,5 +1,5 @@
 [register]
-core/scripts/metakeys.js
+LOC_SCR/metakeys.js
 
 [dic]
 ed.key = Meta-Keywords

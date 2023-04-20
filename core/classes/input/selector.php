@@ -38,7 +38,7 @@ public function register($oid = NV, $sfx = "*") {
 	$this->reset();
 }
 
-protected function act() {
+public function act() {
 	$chk = ENV::getPost("oid"); if ($chk != $this->oid) return false;
 	return ENV::getPost("act");
 }

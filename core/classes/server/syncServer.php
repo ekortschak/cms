@@ -13,6 +13,8 @@ $snc->read("ftp.ini");
 $snc->publish();
 */
 
+incCls("server/NET.php");  // network tools
+
 incCls("server/sync.php");
 incCls("server/http.php");
 incCls("server/curl.php");
@@ -53,6 +55,12 @@ public function read($inifile) {
 		$this->ftp->merge($vls);
 	}
 	$this->err = "no.connection"; // prophylaktisch
+}
+
+// ***********************************************************
+public function setTarget($dir) {
+	$dir = CFG::insert($dir);
+	return $this->set("target", FSO::norm($dir));
 }
 
 // ***********************************************************

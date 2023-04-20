@@ -1,5 +1,5 @@
 [register]
-core/scripts/gallery.js
+LOC_SCR/gallery.js
 
 [dic]
 head = Images

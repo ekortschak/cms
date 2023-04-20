@@ -67,6 +67,7 @@ public function add($qid, $file, $ini = "") {
 
 	$btn = new button();
 	$btn->read($ini);
+	$btn->set("qid", $qid);
 
 	$lnk = $btn->get("link"); if (! $lnk)
 	$xxx = $btn->set("link", "?$own=$qid");
@@ -89,6 +90,7 @@ public function show($sec = "main") {
 	foreach ($this->dat as $idx => $inf) {
 		$htm = implode("\n", $inf);
 		$this->set("group", $htm);
+
 		$out.= parent::gc("group");
 	}
 	$this->set("items", $out);

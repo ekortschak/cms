@@ -1,6 +1,9 @@
 <?php
 
-$use = CFG::get("DB_MODE"); if (! $use) return;
+switch (CFG::get("DB_MODE")) {
+	case "true": case 1: case true; break;
+	default: return;
+}
 
 // ***********************************************************
 incCls("dbase/dbBasics.php");

@@ -93,10 +93,9 @@ public static function img($file) {
 }
 
 private static function doImage($sec, $link = "") {
-	$mds = ENV::get("vmode"); if ($mds == "xsite") return self::thumbR($link);
-	$lnk = self::getLink($link);
+	if (EDITING == "xsite") return self::thumbR($link);
 
-	self::$tpl->set("file", $lnk);
+	self::$tpl->set("file", self::getLink($link));
 	self::$tpl->show($sec);
 }
 

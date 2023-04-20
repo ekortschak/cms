@@ -93,18 +93,11 @@ public static function mode($value = true) {
 // ***********************************************************
 public static function handler($num, $msg, $file, $line) {
 	if (! ERR_SHOW) return;
-	if (! self::shhht()) return; // do not show suppressed errors
-	if (  self::$done++) return; // handle only first error
+	if (self::suppress()) return; // do not show suppressed errors
+	if (self::$done++) return; // handle only first error
 
-	$tpl = new tpl();
-	$tpl->load("msgs/error.tpl");
-	$tpl->set("errID", "$num:$line");
-	$tpl->set("line",   $line);
-	$tpl->set("errNum", self::fmtNum($num, $msg));
-	$tpl->set("errMsg", self::fmtMsg($msg));
-	$tpl->set("file",   self::fmtFName($file));
-	$tpl->set("items",  self::getStack("item"));
-	$tpl->show();
+	if (class_exists("tpl")) self::show($file, $num, $msg, $line);
+	else self::tell($file, $num, $msg, $line);
 }
 
 // ***********************************************************
@@ -243,6 +236,28 @@ private static function getArg($itm, $max) {
 // ***********************************************************
 // long messages
 // ***********************************************************
+private static function show($file, $num, $msg, $line) {
+	$tpl = new tpl();
+	$tpl->load("msgs/error.tpl");
+	$tpl->set("errID", "$num:$line");
+	$tpl->set("line",   $line);
+	$tpl->set("errNum", self::fmtNum($num, $msg));
+	$tpl->set("errMsg", self::fmtMsg($msg));
+	$tpl->set("file",   self::fmtFName($file));
+	$tpl->set("items",  self::getStack("item"));
+	$tpl->show();
+}
+
+private static function tell($file, $num, $msg, $line) {
+	echo "<pre>";
+	echo "Error $num on line $line in $file:\n";
+	echo $msg;
+	echo "</pre>";
+}
+
+// ***********************************************************
+// long messages
+// ***********************************************************
 public static function box() {
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
@@ -266,8 +281,8 @@ public static function assist($cat, $key, $parm = "") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private static function shhht() {
-	return error_get_last();
+private static function suppress() {
+	return (! error_get_last());
 }
 
 private static function mailto($num, $msg) {

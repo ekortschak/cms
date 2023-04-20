@@ -5,7 +5,7 @@ if (PFS::isStatic()) {
 }
 
 // ***********************************************************
-$arr = FSO::folders(CUR_PAGE, false); if (! $arr)
+$arr = FSO::folders(CUR_PAGE); if (! $arr)
 $arr = array();
 
 $sec = "main"; if (count($arr) < 2)

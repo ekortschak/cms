@@ -8,7 +8,7 @@ incCls("server/syncArc.php");
 // ***********************************************************
 $ini = new ini("config/backup.ini");
 $dev = $ini->getValues("local");
-$dev = array_flip($dev);
+$dev = VEC::flip($dev);
 
 $act = array(
 	"sync"    => DIC::get("act.sync"),

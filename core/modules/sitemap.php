@@ -1,6 +1,7 @@
 <?php
 
-$mds = ENV::get("vmode"); if (STR::begins($mds, "x")) return;
+if (STR::begins(EDITING, "x")) return;
+
 $arr = FSO::folders(CUR_PAGE);
 $out = "";
 

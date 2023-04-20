@@ -90,6 +90,8 @@ public function replace($sec, $arr) {
 protected function secure($val) {
 	$val = STR::replace($val, "\#", "#");
 	$val = STR::replace($val, "#", "\#");
+
+	$val = STR::replace($val, "<dqot>", '"');
 	return $val;
 }
 
@@ -113,6 +115,7 @@ public function save($ful = NV) {
 				$key = STR::clear($key, "$sec.");
 				$val = $this->secure($val);
 				$val = $this->chkValue($val, $sec);
+
 				$out.= "$key = $val\n";
 			}
 		}

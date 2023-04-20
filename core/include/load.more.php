@@ -21,12 +21,12 @@ incCls("files/tpl.php");   // base template class
 incCls("files/code.php");  // reading editable files
 incCls("files/ini.php");   // handling ini files
 
-incCls("server/NET.php");  // network tools
+incCls("editor/ACR.php");  // transforming acronyms
 
 // ***********************************************************
 // db support
 // ***********************************************************
-include_once "core/inc.dbs.php";
+include_once "load.dbs.php";
 
 // ***********************************************************
 // read config files
@@ -37,7 +37,10 @@ CFG::readCfg();
 // load local constants and classes (if any)
 // ***********************************************************
 $lcl = FSO::join(LOC_INC, "locals.php");
-if (is_file($lcl)) include_once $lcl;
+
+if (is_file($lcl))
+include_once $lcl;
+include_once "defaults.php";
 
 // ***********************************************************
 // benchmark

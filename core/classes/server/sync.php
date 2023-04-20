@@ -25,7 +25,6 @@ for execution see derived classes
 // BEGIN OF CLASS
 // ***********************************************************
 class sync extends tpl {
-	protected $dev = SRV_ROOT;  // storage device
 	protected $root = "";		// common path
 
 	protected $lst = array();	// list of verified destination dirs
@@ -44,7 +43,7 @@ function __construct() {
 
 	$this->register();
 	$this->setSource(APP_DIR);
-	$this->setTarget(NV);
+	$this->setTarget(ARCHIVE);
 	$this->setNewer();
 }
 
@@ -52,10 +51,12 @@ function __construct() {
 // set parameters
 // ***********************************************************
 public function setSource($dir) {
+	$dir = CFG::insert($dir);
 	return $this->set("source", FSO::norm($dir));
 }
 public function setTarget($dir) {
-	if ($dir == NV) $dir = APP::arcDir($this->dev, "sync");
+	$dir = CFG::insert($dir);
+	$dir = APP::arcDir($dir, "sync");
 	return $this->set("target", FSO::norm($dir));
 }
 
@@ -265,7 +266,7 @@ protected function getNewer($src, $dst) {
 		$inf = $this->split($itm, "s"); if (! $inf) continue; extract($inf);
 		$lst[$fso] = $inf;
 
-		$ren[$alf]["typ"] = $typd;
+		$ren[$alf]["typ"] = $typs;
 		$ren[$alf]["src"] = $fso;
 	}
 	foreach ($dst as $itm) { // destination - e.g. remote files
@@ -393,7 +394,7 @@ protected function chkProps($arr) {
 		"fso" => "",   "alf" => "",
 		"typs" => "x", "typd" => "x",
 		"dats" => "",  "datd" => "",
-		"md5s" => "",  "mdtd" => "",
+		"md5s" => "",  "md5d" => "",
 	);
 	foreach ($arr as $key => $val) {
 		$out[$key] = $val;

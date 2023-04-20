@@ -54,7 +54,7 @@ private static function getFBK($reverse = false) {
 // app dirs or files
 // ***********************************************************
 public static function tempDir($dir = "temp", $sub = "") { // always local dirs
-	return self::arcDir(SRV_ROOT, $dir, $sub);
+	return self::arcDir(ARCHIVE, $dir, $sub);
 }
 
 public static function arcDir($root, $dir, $sub = "") { // archive
@@ -82,11 +82,10 @@ public static function folders($dir) {
 			$out[$nam] = $vrz; // APP_DIR to prevail over APP_FBK
 		}
 	}
-	$out = array_flip($out);
-	return $out;
+	return array_flip($out);
 }
 
-public static function files($dir, $pattern = "*", $visOnly = true) {
+public static function files($dir, $pattern = "*") {
 	$arr = self::getFBK(true); $out = array();
 	$dir = self::relPath($dir);
 
@@ -95,15 +94,14 @@ public static function files($dir, $pattern = "*", $visOnly = true) {
 	foreach ($arr as $loc) { // add files from app and fbk folders
 		foreach ($ext as $ptn) {
 			$ful = FSO::join($loc, $dir);
-			$arr = FSO::files($ful, $ptn, $visOnly); if (! $arr) continue;
+			$arr = FSO::files($ful, $ptn); if (! $arr) continue;
 
 			foreach ($arr as $fil => $nam) {
 				$out[$nam] = $fil; // APP_DIR to prevail over APP_FBK
 			}
 		}
 	}
-	$out = array_flip($out);
-	return $out;
+	return VEC::flip($out);
 }
 
 // ***********************************************************

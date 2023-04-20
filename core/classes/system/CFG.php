@@ -113,7 +113,7 @@ private static function load($fil) {
 	if (! is_file($fil)) return;
 
 	$arr = file($fil); $sec = "";
-	$idx = STR::before(basename($fil), ".");
+	$idx = FSO::name($fil);
 	$vls = array();
 
 	foreach ($arr as $lin) { // process lines

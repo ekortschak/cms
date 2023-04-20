@@ -14,7 +14,7 @@ $var = self::begins($haystack, $needle);
 */
 
 if (function_exists("incCls"))
-incCls("search/searchString.php");
+incCls("search/sString.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -57,7 +57,7 @@ public static function contains($haystack, $needle) {
 }
 
 public static function matches($haystack, $needle) {
-	$obj = new searchString($haystack);
+	$obj = new sString($haystack);
 	return $obj->match($needle);
 }
 
@@ -73,8 +73,8 @@ public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
 public static function find($haystack, $sep1, $sep2) {
 	$out = array(); // searches for distinct substrings between $sep1 and $sep2
 	if (is_array($haystack)) return $haystack;
-	if (! self::contains($haystack, $sep1)) return $out;
-	if (! self::contains($haystack, $sep2)) return $out;
+	if (self::misses($haystack, $sep1)) return $out;
+	if (self::misses($haystack, $sep2)) return $out;
 
 	$arr = explode($sep1, $haystack); unset($arr[0]);
 	if (! $arr) return $out;
@@ -131,7 +131,7 @@ public static function between($haystack, $sep1 = "(", $sep2 = ")", $trim = true
 // ***********************************************************
 public static function afterLast($haystack, $needle = "\n", $trim = true) {
  //	find last $needle or return full string
-	if ( ! self::contains($haystack, $needle)) return $haystack;
+	if ( self::misses($haystack, $needle)) return $haystack;
 	$out = self::simplify($haystack, $needle);
 	$out = explode(self::$needle, $out);
 	$out = end($out);
@@ -141,7 +141,7 @@ public static function afterLast($haystack, $needle = "\n", $trim = true) {
 public static function after($haystack, $needle = "\n", $trim = true) {
  //	find first $needle or return nothing
 	if ($haystack == $needle) return "";
-	if ( ! self::contains($haystack, $needle)) return false;
+	if ( self::misses($haystack, $needle)) return false;
 	$pos = self::findPos( $haystack, $needle);
 	$out = substr($haystack, current($pos) + strlen(key($pos)));
 	return ($trim) ? trim($out) : $out;
@@ -239,7 +239,7 @@ public static function markup($haystack, $from, $to) {
 }
 
 public static function mark($haystack, $find) {
-	$obj = new searchString($haystack);
+	$obj = new sString($haystack);
 	return $obj->hilite($find);
 }
 
@@ -278,7 +278,7 @@ public static function toArray($text, $seps = "std") {
 
 public static function toAssoc($text, $seps = "ref") {
 	$arr = self::toArray($text, $seps);
-	if ( ! self::contains($text, ":=")) return array_combine($arr, $arr);
+	if ( self::misses($text, ":=")) return array_combine($arr, $arr);
 	$out = array();
 
 	foreach ($arr as $val) {

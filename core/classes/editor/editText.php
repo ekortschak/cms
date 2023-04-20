@@ -84,7 +84,7 @@ protected function getContent() {
 protected function getSnips() {
 	$snp = new ini("config/snips.ini");
 	$arr = $snp->getValues("html");
-	$arr = array_flip($arr);
+	$arr = VEC::flip($arr);
 
 	$box = new dropBox("script");
 	$box->getCode("snip", $arr);

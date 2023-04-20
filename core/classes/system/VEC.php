@@ -139,7 +139,9 @@ public static function nums($data, $pfx) {
 }
 
 public static function match($data, $pfx = "") {
-	if (! $pfx) return $data; $out = array();
+	$out = array();
+	if (! is_array($data)) return $out;
+	if (! $pfx) return $data;
 
 	foreach ($data as $key => $val) {
 		$key = STR::after($key, array("$pfx.", $pfx));
@@ -225,6 +227,13 @@ public static function sortByLen($data) {
 	}
 	return $out;
 }
+
+public static function flip($data) {
+	if (! is_array($data)) return array();
+	return array_flip($data);
+}
+
+
 
 // ***********************************************************
 // filtering data

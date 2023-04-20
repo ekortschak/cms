@@ -3,16 +3,13 @@
 if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
-// ***********************************************************
-// start the session
-// ***********************************************************
 require_once("funcs.php");
-
-incCls("system/TMR.php"); // start timer
 
 // ***********************************************************
 // load basic classes (mostly static)
 // ***********************************************************
+incCls("system/TMR.php"); // start timer
+
 incCls("system/STR.php"); // basic string functions
 incCls("system/LNG.php"); // language support
 incCls("system/VEC.php"); // basic array functions
