@@ -88,6 +88,17 @@ public static function explode($text, $sep = ",", $max = 0) {
 }
 
 // ***********************************************************
+// viewing items
+// ***********************************************************
+public static function show($data) {
+	incCls("menus/tview.php");
+
+	$tvw = new tview();
+	$tvw->setData($data);
+	$tvw->show();
+}
+
+// ***********************************************************
 // retrieving items
 // ***********************************************************
 public static function lng($lng, $data, $key, $default = false) {

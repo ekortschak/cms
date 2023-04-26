@@ -1,8 +1,14 @@
 <?php
 
+$lng = CUR_LANG;
 $oid = OID::register();
-OID::set($oid, "loc", $loc);
+
 OID::set($oid, "what", $wht);
+
+$ini = new ini(CUR_PAGE);
+$dat = $ini->get("$lng.$wht");
+
+dbg($dat);
 
 // ***********************************************************
 // show editor

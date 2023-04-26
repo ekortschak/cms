@@ -1,6 +1,6 @@
 <?php
 
-if (EDITING == "view") {
+if (VMODE == "view") {
 	$dir = PGE::get("props.trg"); if (! is_dir($dir))
 	$dir = PFS::getPath($dir);
 }

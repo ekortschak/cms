@@ -1,19 +1,18 @@
 <?php
+
+if (VMODE != "pedit") return;
+
 /* ***********************************************************
 // INFO
 // ***********************************************************
 web site editor, used to create and manage files
-
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("editor/saveFile.php");
-
-$obj = new saveFile();
+* no public methods
 */
 
 incCls("editor/iniWriter.php");
 incCls("editor/tidy.php");
+
+new saveFile();
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -21,7 +20,6 @@ incCls("editor/tidy.php");
 class saveFile {
 
 function __construct() {
-	if (EDITING != "pedit") return;
 	$this->exec();
 }
 
@@ -29,50 +27,40 @@ function __construct() {
 // methods
 // ***********************************************************
 private function exec() {
-	$dir = ENV::get("loc");
+	$dir = ENV::getPage();
 
 	if ($this->saveFile())     return;
-	if ($this->conv2html())    return;
 	if ($this->dropFile($dir)) return;
 	if ($this->picProps($dir)) return;
 }
 
 private function saveFile() {
 	$fil = ENV::getPost("filName"); if (! $fil) return false;
-	$old = ENV::getPost("orgName"); if (  $fil != $old) FSO::kill($old);
 	$txt = ENV::getPost("content"); if (! $txt) return false;
+	$old = ENV::getPost("orgName");
 
 	$tdy = new tidy();
 	$txt = $tdy->get($txt);
 
-	return APP::write($fil, $txt);
-}
+	if ($fil != $old) FSO::kill($old);
 
-private function conv2html() {
-	$cnv = ENV::getParm("conv", ""); if (! $cnv) return false;
-	$fil = ENV::getParm("fil",  ""); if (! $fil) return false;
-	$txt = APP::gc($fil);
-	$ext = FSO::ext($fil);
-
-	if (STR::contains($txt, "Uncaught Error:")) {
-		return HTW::tag($txt, "pre");
-	}
-	$new = str_replace(".$ext", ".$cnv", $fil);
-	return FSO::move($fil, $new);
+	APP::write($fil, $txt);
+	return true;
 }
 
 private function dropFile($loc) {
 	$act = ENV::getParm("file_act"); if ($act != "drop") return false;
 	$fil = ENV::getParm("fil"); if (! $fil) return false;
-	return FSO::kill($fil);
+	$xxx = FSO::kill($fil);
+	return true;
 }
 
 // ***********************************************************
 // pic Opts
 // ***********************************************************
 private function picProps($dir) { // modify UID and title
-	$act = ENV::getPost("pic_act"); if (! $act) return;
-	$new = ENV::getPost("pic_new"); if (! $new) return;
+	$act = ENV::getPost("pic_act"); if (! $act) return false;
+	$new = ENV::getPost("pic_new"); if (! $new) return false;
 	$arr = LNG::get();
 
 	FSO::rename($act, $new);
@@ -88,6 +76,7 @@ private function picProps($dir) { // modify UID and title
 		$ini->set("$lng.title", $new);
 	}
 	$ini->save();
+	return true;
 }
 
 // ***********************************************************

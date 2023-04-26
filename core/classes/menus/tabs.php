@@ -106,7 +106,7 @@ public function gc($sec = "main") {
 // auxilliary methods
 // ***********************************************************
 private function getMode() {
-	if (STR::contains(EDITING, "edit")) return EDITING;
+	if (STR::contains(VMODE, "edit")) return VMODE;
 	return "view";
 }
 

@@ -26,7 +26,8 @@ $sts = ""; if (! is_file($ful)) $sts = BOOL_NO;
 HTW::tag("file = $ful $sts", "small");
 
 $ini = new iniMgr($tpl);
-$ini->exec($ful);
+$ini->save($ful);
+$ini->read($ful);
 $ini->show();
 
 ?>

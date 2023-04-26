@@ -63,9 +63,12 @@ settings = Einstellungen
 
 <div>
 <!BTN:config!>
+<!SEC:config.cms!>
+</div>
+
+[config.cms]
 <!BTN:xpedit!>
 <!BTN:xmedit!>
-</div>
 
 # ***********************************************************
 [edit]

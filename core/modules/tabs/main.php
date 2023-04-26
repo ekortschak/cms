@@ -19,7 +19,7 @@ if (STR::contains(APP_FILE, "admin.php")) $vis = $edt = 1;
 $nav = new tabs();
 $nav->readCfg();
 
-switch (EDITING) {
+switch (VMODE) {
 	case "search": $nav->substitute("search", "return"); break;
 	case "tedit":  $nav->substitute("tedit",  "tview");  break;
 }

@@ -221,7 +221,7 @@ public static function writeTell($file, $content, $overwrite = true) {
 // ***********************************************************
 public static function lookup($txt) {
 	if (APP_CALL != "index.php") return $txt;
-	if (EDITING  != "view")      return $txt;
+	if (VMODE    != "view")      return $txt;
 	if (! ENV::get("lookup"))    return $txt;
 
 	$cls = CFG::getVar("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
@@ -234,7 +234,7 @@ public static function lookup($txt) {
 }
 
 public static function isView() {
-	if (  EDITING == "view")  return true;
+	if (VMODE == "view")  return true;
 	return false;
 }
 

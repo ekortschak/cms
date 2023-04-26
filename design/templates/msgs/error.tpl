@@ -18,7 +18,7 @@ err = Hinweis
 # ***********************************************************
 [trace]
 # ***********************************************************
-<div class="err1" style="overflow: auto;">
+<div class="err1 scroll">
 <!VAR:items!>
 </div>
 

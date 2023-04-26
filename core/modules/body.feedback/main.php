@@ -8,7 +8,7 @@ incCls("dbase/recEdit.php");
 // ***********************************************************
 HTW::xtag("Feedback", "h3");
 // ***********************************************************
-$dbe = new recEdit(null, "feedback");
+$dbe = new recEdit("default", "feedback");
 
 $dbe->setDefault("topic", "content");
 $dbe->setDefault("page",   PGE::getTitle());

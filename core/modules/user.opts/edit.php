@@ -1,12 +1,5 @@
 <?php
 
-switch (APP_CALL) {
-	case "config.php": return $tpl->show("config");
-	case "index.php":  break;
-	default: return;
-}
-
-// ***********************************************************
 $edt = false;
 $edt = ($edt || VEC::get($cfg, "eopts.pedit"));
 $edt = ($edt || VEC::get($cfg, "eopts.medit"));
@@ -30,6 +23,17 @@ if (! is_file("debug.php")) {
 if (! IS_LOCAL) {
 	$tpl->clearSec("xfer");
 	$tpl->clearSec("debug");
+}
+
+if (APP_NAME != "cms") {
+	$tpl->clearSec("config.cms");
+}
+
+// ***********************************************************
+switch (APP_CALL) {
+	case "config.php": return $tpl->show("config");
+	case "index.php":  break;
+	default: return;
 }
 
 // ***********************************************************

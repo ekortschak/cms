@@ -93,7 +93,7 @@ public static function img($file) {
 }
 
 private static function doImage($sec, $link = "") {
-	if (EDITING == "xsite") return self::thumbR($link);
+	if (VMODE == "xsite") return self::thumbR($link);
 
 	self::$tpl->set("file", self::getLink($link));
 	self::$tpl->show($sec);

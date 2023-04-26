@@ -36,9 +36,10 @@ CFG::readCfg();
 // ***********************************************************
 // load local constants and classes (if any)
 // ***********************************************************
-$lcl = FSO::join(LOC_INC, "locals.php");
+$lcl = FSO::join(LOC_INC, "main.php");
+$lcl = APP::file($lcl);
 
-if (is_file($lcl))
+if ($lcl)
 include_once $lcl;
 include_once "defaults.php";
 

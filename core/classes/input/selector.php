@@ -67,6 +67,10 @@ public function pwd($uid) { // password - no value !
 	return $this->itm->addInput("pwd", $uid);
 }
 
+public function text($uid, $value = "") {
+	return $this->input($uid, $value);
+}
+
 // ***********************************************************
 public function hidden($uid, $value) { // hidden values
 	return $this->itm->addInput("hid", $uid, $value);
@@ -79,6 +83,8 @@ public function date($uid, $value) {
 
 // ***********************************************************
 public function tarea($uid, $value = "", $rows = 4) { // text area
+	if (is_array($value)) $value = implode("\n", $value);
+
 	$out = $this->itm->addInput("tar", $uid, $value);
 	$xxx = $this->itm->set("rows", $rows);
 	return $out;

@@ -1,20 +1,17 @@
 <?php
+
+if (VMODE != "tedit") return;
+
 /* ***********************************************************
 // INFO
 // ***********************************************************
 web site editor, used to create and manage files
-
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("editor/saveTab.php");
-
-$obj = new saveTab();
-$obj->exec();
-*
+* no public methods
 */
 
 incCls("editor/iniWriter.php");
+
+new saveTab();
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -22,7 +19,6 @@ incCls("editor/iniWriter.php");
 class saveTab {
 
 function __construct() {
-	if (EDITING != "tedit") return;
 	$this->exec();
 }
 

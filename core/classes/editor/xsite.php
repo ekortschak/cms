@@ -38,7 +38,7 @@ public function read($pfs) {
 
 		if ($this->dbg) if ($cnt++ > $this->dbg) break;
 
-		ENV::setPage($dir);
+		ENV::setPage($dir); // set focus to this page
 		set_time_limit(10);
 
 		if ($prn) { // noprint
@@ -122,27 +122,29 @@ protected function getText($dir) {
 
 // ***********************************************************
 protected function stripNotes() {
-	$out = $this->dat; $lst = array(); $cnt = 0;
+	$out = $this->dat; $lst = array();
 
-	$arr = STR::find($out, "<refbox", "</refbox>");
-	$out = PRG::replace($out, "<refbox-content>@ANY</refbox-content>", "");
+	$rba = "<refbox>";  $rca = "<refbody>";
+	$rbe = "</refbox>"; $rce = "</refbody>";
+
+	$arr = STR::find ($out, "$rba", "$rbe");
+	$out = PRG::clear($out, "$rca@ANY$rce");
 
 	foreach ($arr as $itm) {
-		switch ($cnt++ % 2) {
-			case 1:  $key = STR::between($itm, ">", "-content"); break;
-			default: $val = STR::after($itm, "-content>", "</ref");
-				$lst[$key] = trim($val);
-		}
+		$key = STR::before( $itm, $rca);
+		$val = STR::between($itm, $rca, $rce);
+		$lst[$key] = trim($val);
 	}
 	$cnt = 1;
 
 	foreach ($lst as $key => $val) {
-		$num = $cnt++;
-		$tmp = VEC::get($this->hst, $key); if ($tmp) $num = $tmp;
-		$out = PRG::replace($out, "<refbox>$key", "$key<sup><fnote>$num</fnote></sup>");
+		$idx = VEC::get($this->hst, $key, $cnt);
+		$sup = "<fnote>$idx</fnote>";
+		$out = PRG::replace($out, $rba.$key.$rbe, "$key<sup>$sup</sup>");
 
-		if ($cnt != $num) continue;
-		$this->nts[$cnt] = "<div><fnote>$num</fnote> <b>$key</b><br>$val</div>";
+		if ($idx < $cnt) continue;
+		$this->nts[$idx] = "<div>$sup<b>$key</b><br>$val</div>";
+		$cnt++;
 	}
 	return $out;
 }

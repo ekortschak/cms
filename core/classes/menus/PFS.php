@@ -19,12 +19,6 @@ $inf = PFS::mnuInfo($index);
 */
 
 // ***********************************************************
-// react to previous editing commands
-// ***********************************************************
-incCls("editor/saveMenu.php");
-$obj = new saveMenu();
-
-// ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class PFS extends objects {
@@ -103,14 +97,12 @@ private static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
 
-	ENV::set("loc", $loc);
 	ENV::set("pge.".TAB_HOME, $loc);
 	PGE::load($loc);
 }
 
 private static function chkLoc($dir) {
 	if (APP::dir($dir)) return $dir;
-	$dir = ENV::get("loc");
 
 	while ($dir = dirname($dir)) {
 		if ($dir < TAB_PATH) break; // no access outside tab path
@@ -134,7 +126,7 @@ public static function getLink($index = NV) {
 }
 
 private static function isCollection($typ) {
-	if (EDITING != "view") return false;
+	if (VMODE != "view") return false;
 	return (STR::contains(".col.", $typ)); // collections
 }
 
@@ -144,8 +136,8 @@ public static function getType($index = NV) {
 }
 public static function getTitle($index = NV) {
 	$lng = CUR_LANG;
-	$out = self::getProp($index, CUR_LANG.".title", $index); if ($out) return $out;
-	return self::getProp($index, GEN_LANG.".title", $index, $index);
+	$out = self::getProp($index, CUR_LANG.".title", false); if ($out) return $out;
+	return self::getProp($index, GEN_LANG.".title", ucfirst(basename($index)));
 }
 public static function getHead($index = NV) {
 	return self::getProp($index, "head", $index);
@@ -248,19 +240,22 @@ private static function norm($dir) {
 // ***********************************************************
 // menu node info
 // ***********************************************************
-public static function getMenu() {
+public static function getMenu($depth = 99) {
 	$out = array(); $max = count(self::$uid);
 
 	for ($i = 0; $i < $max; $i++) {
-		$out[$i] = self::mnuInfo($i);
+		$arr = self::mnuInfo($i, $depth); if (! $arr) continue;
+		$out[] = $arr;
 	}
 	return $out;
 }
 
 // ***********************************************************
-public static function mnuInfo($index) {
-	$idx = self::getIndex($index); if (! $idx) return array();
-	$lev = self::getLevel($idx);
+public static function mnuInfo($index, $depth = 99) {
+	$dep = CHK::range($depth, 2, 99);
+
+	$idx = self::getIndex($index); if (! $idx)    return array();
+	$lev = self::getLevel($idx); if ($lev > $dep) return array();
 	$typ = self::getType($idx);
 
 	$out = array(
@@ -280,14 +275,14 @@ public static function mnuInfo($index) {
 
 // ***********************************************************
 private static function mnuType($idx, $lev, $typ) {
-	if (EDITING == "view") {
+	if (VMODE == "view") {
 		if ($typ == "col") return "file";
 	}
 	return self::getProp($idx, "mtype", false);
 }
 
 private static function refType($idx) {
-	if (EDITING  !=  "view") return "active";
+	if (VMODE !=  "view") return "active";
 	if (FSO::isHidden($idx)) return "inactive";
 	return "active";
 }
@@ -315,8 +310,8 @@ private static function export() { // write menu info to stat file
 }
 
 private static function import() {
-	if (  EDITING != "view") return false;
-	if (! self::isStatic())  return false;
+	if (  VMODE != "view")  return false;
+	if (! self::isStatic()) return false;
 
 	include_once self::$fil; // read menu info from stat file
 	return count(self::$dat);

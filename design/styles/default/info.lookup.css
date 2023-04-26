@@ -1,44 +1,45 @@
 /* ******************************************************** */
 /* lookup info */
 /* ******************************************************** */
-refbox {
+refbox, .refbox {
 	position: relative;
 	display: inline-block;
-	color: FC_HEAD;
 
+	vertical-align: bottom;
+	color: FC_HEAD;
 	text-decoration: underline dotted;
-	text-align: right;
 }
 
-refbox:hover refbox-content {
+refbox:hover refbody, .refbox:hover refbody, .refbox:hover .refbody, refbox:hover .refbody {
+	z-index: 90;
 	display: block;
 }
 
 /* ******************************************************** */
 /* lookup content */
 /* ******************************************************** */
-refbox-content {
-	position: absolute;
-	position: float;
-	right: var(--aln);
-
-	z-index: 99;
+refbody, .refbody {
 	display: none;
-	width: 300px;
-	overflow: auto;
+	position: absolute;
+#	position: float;
+#	right: var(--aln);
 
+	background: BC_HINT;
 	border: 1px solid OUTLINE;
-	border-radius: 12px;
+	border-radius: 7px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	padding: 5px 10px 7px;
 
-	color: FC_HINT;
-	background: BC_HINT;
+	max-height: 375px;
+	min-width: 10px;
+	overflow: auto;
+	overscroll-behavior: none;
 
+	color: FC_HINT;
 	font-size: 0.85em;
 	font-weight: normal;
 	font-style: normal;
-	white-space: pre-line;
+#	white-space: pre-line;
 	text-align: left;
 }
 

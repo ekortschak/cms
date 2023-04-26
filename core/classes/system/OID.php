@@ -42,8 +42,8 @@ public static function init() {
 // ***********************************************************
 public static function register($key = NV, $sfx = "'") {
 	if ($key == NV) {
-		$pge = ENV::get("loc", "none");
-		$key = "$pge.$sfx.".self::$cnt++;
+		$dir = ENV::getPage();
+		$key = "$dir.$sfx.".self::$cnt++;
 	}
 	if (strlen($key) != 32) $key = md5($key);
 

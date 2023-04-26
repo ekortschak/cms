@@ -3,7 +3,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-used to inject refboxes (explanatory text) into pages
+used to inject explanatory text (dropdown boxes) into pages
 
 // ***********************************************************
 // HOW TO USE

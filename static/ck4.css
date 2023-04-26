@@ -563,14 +563,14 @@ refbox.help {
 /* ******************************************************** */
 /* hover action */
 /* ******************************************************** */
-refbox:hover refbox-content {
+refbox:hover refbody {
 	display: block;
 }
 
 /* ******************************************************** */
 /* lookup content */
 /* ******************************************************** */
-refbox-content {
+refbody {
 	z-index: 99;
 	position: absolute;
 	display: none;

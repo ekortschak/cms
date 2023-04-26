@@ -24,7 +24,9 @@ ini_set("error_log", LOG::file("error.log"));
 // ***********************************************************
 // error handling
 // ***********************************************************
-function shutDown() { ERR::shutDown(); }
+function shutDown() {
+	ERR::shutDown();
+}
 function errHandler($num, $msg, $file, $line) {
 	ERR::handler($num, $msg, $file, $line);
 }

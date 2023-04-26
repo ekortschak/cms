@@ -1,6 +1,6 @@
 <?php
 
-if (STR::begins(EDITING, "x")) return;
+if (STR::begins(VMODE, "x")) return;
 
 $arr = FSO::folders(CUR_PAGE);
 $out = "";

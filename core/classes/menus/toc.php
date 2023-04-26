@@ -22,7 +22,7 @@ class toc extends tpl {
 
 function __construct() {
 	parent::__construct();
- 	$this->load("menus/toc.view.tpl"); if (EDITING != "view")
+ 	$this->load("menus/toc.view.tpl"); if (VMODE != "view")
 	$this->load("menus/toc.edit.tpl");
 }
 

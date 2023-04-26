@@ -14,7 +14,8 @@ HTW::tag("file = ".APP::relPath($ful), "hint");
 incCls("editor/iniMgr.php");
 
 $ini = new iniMgr("LOC_CFG/css.dims.def");
-$ini->exec($ful);
+$ini->save($ful);
+$ini->read($ful);
 $ini->show();
 
 ?>

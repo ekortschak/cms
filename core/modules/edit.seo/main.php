@@ -5,15 +5,9 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("editor/saveSeo.php");
-incCls("menus/buttons.php");
-
-// ***********************************************************
-// react to previous commands
-// ***********************************************************
-$obj = new saveSeo();
-
 HTW::xtag("seo", "h3");
+
+incCls("menus/buttons.php");
 
 // ***********************************************************
 $nav = new buttons("seo", "L", __DIR__);

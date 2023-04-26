@@ -22,16 +22,7 @@ class iniTab extends ini {
 	protected $fname = "tab.ini";
 
 function __construct($fso = TAB_ROOT) {
-	$fso = APP::dir($fso);
 	parent::__construct($fso);
-}
-
-// ***********************************************************
-public function isVisible($tab) {
-	if (EDITING != "view") return true;
-
-	$xxx = $this->read($tab);
-	return $this->get("props.sts", true);
 }
 
 // ***********************************************************

@@ -9,9 +9,7 @@ head = Dateien
 
 [main]
 <h4><!DIC:head!></h4>
-<!SEC:files!>
 
-[FILES]
 <table>
 <!VAR:files!>
 </table>

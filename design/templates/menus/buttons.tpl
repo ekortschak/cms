@@ -1,8 +1,8 @@
-[dic.de]
-click = Bitte klicken Sie auf eine Schaltfläche
+[dic]
+click = Please, click a button
 
 [dic.de]
-click = Please, click a button
+click = Bitte klicken Sie auf eine Schaltfläche
 
 [vars]
 target = _self
@@ -26,12 +26,17 @@ target = _self
 </a>
 
 [button.tip]
-<refbox><!SEC:button!>
-<refbox-content><!VAR:tip!></refbox-content>
-</refbox>
+<div class="dropdown"><!SEC:button!>
+<div class="dropbody"><!VAR:tip!></div>
+</div>
 
 [pic]
 <img src="<!VAR:pic!>" />
+
+[link]
+<a href="<!VAR:link!>" target="<!VAR:target!>">
+	<button class="<!VAR:class!>"><!VAR:caption!></button>
+</a>
 
 # ***********************************************************
 # navigation

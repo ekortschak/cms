@@ -33,5 +33,6 @@ opt.ignore = Vollständige Seite übertragen
 opt.overwrite = Bestehende Datei(en) überschreiben
 opt.save = Speichern
 opt.tooltip = Tool-Tips
+output.screen = Ausgabe am Bildschirm
 sec.unknown = Vorlagenabschnitt nicht definiert
 bookmarks = Lesezeichen

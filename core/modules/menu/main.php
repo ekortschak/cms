@@ -1,6 +1,7 @@
 <?php
 
-$arr = PFS::getMenu();
+$lev = ENV::get("maxDepth", 99);
+$arr = PFS::getMenu($lev);
 
 // ***********************************************************
 // show horizontal menu

@@ -27,16 +27,18 @@ $tpl->show();
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
+$dst = DIC::get("output.screen");
+
 $cnf = new confirm();
 $cnf->set("link", "?dmode=xsite&fil=$fil");
 $cnf->head("Merge selected branch into single file!");
 $cnf->dic("scope", $tit);
-$cnf->add("&rarr; output goes to screen"); // $fil
+$cnf->add("&rarr; $dst");
 $cnf->add("<hr>");
 $cnf->add($prv);
 $cnf->show();
 
-if (! $cnf->act()) return;
+# if (! $cnf->act()) return;
 
 // ***********************************************************
 // show module xsite

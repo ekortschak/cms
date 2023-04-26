@@ -42,6 +42,6 @@ button.rose, .rose {
 }
 
 button.selected {
-	background: linear-gradient(white, snow);
+	background: linear-gradient(#F0FEDB, #D1FF00);
 	font-weight: bold;
 }

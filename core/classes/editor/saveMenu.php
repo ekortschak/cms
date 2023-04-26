@@ -1,20 +1,18 @@
 <?php
+
+if (VMODE != "medit") return;
+
 /* ***********************************************************
 // INFO
 // ***********************************************************
 web site editor, used to create and manage menu items
-
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("editor/saveMenu.php");
-
-$obj = new saveMenu();
+* no public methods
 */
 
 incCls("editor/iniWriter.php");
 incCls("other/uids.php");
 
+new saveMenu();
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -22,7 +20,6 @@ incCls("other/uids.php");
 class saveMenu {
 
 function __construct() {
-	if (EDITING != "medit") return;
 	$this->exec();
 }
 
@@ -30,8 +27,7 @@ function __construct() {
 // methods
 // ***********************************************************
 private function exec() {
-	$dir = ENV::get("loc"); if (! is_dir($dir))
-	$dir = APP::dir($dir);	if (! $dir) return;
+	$dir = ENV::getPage();
 	$act = ENV::get("btn.menu");
 
 	switch ($act) {
@@ -44,9 +40,7 @@ private function exec() {
 		case "C": $this->clipOpts($dir); break;
 		default:  return;
 	}
-	if (STR::contains("DPRC", $act)) {
-		SSV::set("reload", true, "pfs");
-	}
+	SSV::set("reload", true, "pfs");
 }
 
 // ***********************************************************
@@ -247,10 +241,9 @@ private function pageProps($dir) { // change uid, display type
 
 	$ini = new iniWriter($tpl);
 	$ini->read($dir);
-	$ini->setPost();
-	$ini->save();
+	$ini->savePost();
 
-	ENV::setPage($ini->get($cmd["uid"]));
+	ENV::setPage($ini->getUID());
 	return true;
 }
 

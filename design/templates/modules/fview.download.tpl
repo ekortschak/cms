@@ -17,10 +17,7 @@ free = Kostenlose Downloads
 <p><!DIC:info!></p>
 
 <h4><!DIC:free!></h4>
-<!SEC:files!>
 
-
-[files]
 <table>
 <!VAR:files!>
 </table>

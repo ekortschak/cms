@@ -7,7 +7,7 @@ designed to handle tree views based on arbitrary arrays
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("menues/tview.php");
+incCls("menus/tview.php");
 
 $obj = new tview();
 $obj->readTree();

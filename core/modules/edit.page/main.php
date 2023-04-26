@@ -7,12 +7,6 @@ if (! FS_ADMIN) {
 
 incCls("menus/dropBox.php");
 incCls("editor/ediMgr.php");
-incCls("editor/saveFile.php");
-
-// ***********************************************************
-// react to previous commands
-// ***********************************************************
-$obj = new saveFile();
 
 // ***********************************************************
 // show title

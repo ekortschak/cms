@@ -26,9 +26,8 @@ class iniWriter extends iniDef {
 	protected $tpl; // ini template - including sections for all ini types
 	protected $edt = array(); // ini sections
 
-function __construct($tplfile = NV) {
+function __construct($tplfile) {
 	parent::__construct($tplfile);
-	$this->sealed = is_file($tplfile);
 }
 
 // ***********************************************************
@@ -49,8 +48,9 @@ public function clearSec($sec) {
 // ***********************************************************
 // modifying properties
 // ***********************************************************
-public function setPost() {
+public function savePost() {
 	$this->setProps(OID::getLast());
+	$this->save();
 }
 
 public function setProps($arr) {

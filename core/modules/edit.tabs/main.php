@@ -5,13 +5,7 @@ if (! FS_ADMIN) {
 	return;
 }
 
-incCls("editor/saveTab.php");
 incCls("menus/buttons.php");
-
-// ***********************************************************
-// react to previous commands
-// ***********************************************************
-$obj = new saveTab();
 
 // ***********************************************************
 $nav = new buttons("tab", "P", __DIR__);

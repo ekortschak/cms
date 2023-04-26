@@ -33,7 +33,7 @@ HTW::tag("Tab = $tit");
 $ful = FSO::join($tab, "tab.ini");
 
 $ini = new iniMgr("LOC_CFG/tab.def");
-$ini->exec($ful);
+$ini->read($ful);
 $ini->setChoice("props.typ", $tps, $typ);
 $ini->setChoice("props.std", $arr, $std);
 $ini->show();

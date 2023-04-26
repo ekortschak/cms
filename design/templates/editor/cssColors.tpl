@@ -36,7 +36,7 @@ on = auf
 	<td class="selData">
 		<input type="text" name="<!VAR:FCN!>" value="<!VAR:FCV!>" size=15 /> &nbsp;
 	</td>
-	<td class="selHead" style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>; border-radius: 7px;" align="center">
+	<td class="selHead round7" style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>;" align="center">
 		Sample
 	</td>
 	<td width="*">&nbsp;</td>

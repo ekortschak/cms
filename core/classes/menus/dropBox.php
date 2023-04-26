@@ -46,7 +46,7 @@ private function suit($mode) {
 		case "menu2":  $tpl = "menus/dropMenu2.tpl";  break;
 		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
 		case "dbo":    $tpl = "menus/dropDbo.tpl";    break;
-		case "nav":    $tpl = "menus/dropNav.tpl";    break;
+#		case "nav":    $tpl = "menus/dropNav.tpl";    break;
 		default: 	   $tpl = "menus/dropBox.tpl";
 	}
 	$this->load($tpl);
@@ -149,6 +149,15 @@ public function files($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::files($dir); if (! $arr) return false;
 	$sel = VEC::find($arr, $selected);
 	$arr = $this->sortFiles($arr);
+	return $this->getKey($parm, $arr, $sel);
+}
+public function pages($dir, $parm = "pic.file", $selected = false) {
+	$arr = APP::folders($dir); if (! $arr) return false;
+
+	foreach ($arr as $dir => $nam) {
+		$ini = new ini($dir);
+		$arr[$dir] = $ini->getHead();
+	}
 	return $this->getKey($parm, $arr, $sel);
 }
 

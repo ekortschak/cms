@@ -9,6 +9,8 @@ keys = Keywords
 desc = Description
 pbreak = Page break
 
+ext = File type
+
 [dic.de]
 uid = UID
 typ = Ordner-Inhalt
@@ -19,6 +21,8 @@ head = Titel im Text
 keys = Schlüsselwörter
 desc = Beschreibung
 pbreak = Seitenvorschub
+
+ext = Dateityp
 
 
 # general properties

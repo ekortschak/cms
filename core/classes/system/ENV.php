@@ -106,7 +106,7 @@ public static function seal() { // TODO: xfer to CFG
 		case "prn": $dst = "prn"; break; // printing and pdf
 		default:    $dst = "screen";
 	}
-	CFG::set("EDITING",  $mod);
+	CFG::set("VMODE", $mod);
 	CFG::set("CUR_DEST", $dst);
 }
 

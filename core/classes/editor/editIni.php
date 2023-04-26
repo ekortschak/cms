@@ -29,7 +29,7 @@ public function show() {
 	$tpl = STR::replace($tpl, ".ini", ".def");
 
 	$ini = new iniMgr("LOC_CFG/$tpl");
-	$ini->exec($this->fil);
+	$ini->read($this->fil);
 	$ini->show();
 }
 

@@ -9,11 +9,18 @@ dat.empty = Keine Daten ...
 
 [vars]
 pfx = tv
+info = no info provided
 
 
 [main]
 <div class="toc">
 <!VAR:items!>
+</div>
+
+[debug]
+<div class="scroll" style="height: 175px; border: 1px solid lightgrey; resize: vertical;">
+<u><i><!VAR:info!></i></u>
+<!SEC:main!>
 </div>
 
 # ***********************************************************

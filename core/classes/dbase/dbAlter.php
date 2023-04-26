@@ -25,7 +25,7 @@ class dbAlter extends dbBasics {
 	protected $ask = true; // ask for confirmation
 	protected $tell = true;
 
-function __construct($dbase, $table = NV) {
+function __construct($dbase = "default", $table = NV) {
 	parent::__construct($dbase);
 	$this->setTable($table);
 }
@@ -197,10 +197,6 @@ private function setType($typ, $len, $std, $nul) { // TODO: db specific checking
 // ***********************************************************
 // data manipulation
 // ***********************************************************
-public function askMe($value = true) {
-	$this->ask = (bool) $value;
-}
-
 public function tellMe($value = true) {
 	$this->tell = (bool) $value;
 }

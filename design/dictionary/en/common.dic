@@ -30,5 +30,6 @@ opt.ignore = Transfer page
 opt.overwrite = Overwrite existing file(s)
 opt.save = Save
 opt.tooltip = Tool tips
+output.screen = output goes to screen"
 sec.unknown = Template section not defined
 bookmarks = Bookmarks

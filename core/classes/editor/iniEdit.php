@@ -95,13 +95,8 @@ private function addObj($typ, $qid, $prm1, $prm2 = "", $prm3 = "") {
 	$cap = STR::between($qid, "[", "]");
 	$cap = DIC::get($cap);
 
-	switch ($typ) {
-		case "memo":  $obj = $this->$typ($qid, $prm1, $prm2); return;
-		case "range": $obj = $this->$typ($qid, $prm1, $prm2, $prm3); break;
-		case "ronly": $obj = $this->$typ($qid, $prm1, $prm2); break;
-		default:      $obj = $this->$typ($qid, $prm1, $prm2);
-	}
-	$xxx = $this->setProp("title", $cap);
+	$this->$typ($qid, $prm1, $prm2, $prm3);
+	$this->setProp("title", $cap);
 	return true;
 }
 

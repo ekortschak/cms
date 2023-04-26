@@ -54,6 +54,8 @@ private static function fixServer() {
 	self::set("APP_CALL", self::getCaller(APP_FILE));
 	self::set("APP_IDX",  self::getIndex());
 
+	self::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
+
 	self::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
 }
 

@@ -2,7 +2,6 @@
 
 incCls("menus/dropDbo.php");
 incCls("editor/iniEdit.php");
-incCls("editor/saveDbo.php");
 incCls("dbase/dbInfo.php");
 
 // ***********************************************************
@@ -18,11 +17,6 @@ $dbi = new dbInfo($dbs, $tbl);
 $inf = $dbi->fldProps($tbl, $fld);
 
 $inf["default"] = $inf["fstd"];
-
-// ***********************************************************
-// react to previous commands
-// ***********************************************************
-$dbo = new saveDbo();
 
 // ***********************************************************
 // read field props

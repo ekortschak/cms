@@ -30,6 +30,9 @@ class dbBasics extends sqlStmt {
 	protected $dbs = false;
 	protected $con = false;
 
+	protected $inf = array(); // info about last query
+
+
 function __construct($dbase = "default") {
 	$inf = CFG::getVars("dbase", $dbase); if (! $inf) return;
 	extract($inf); // set connection vars
@@ -70,16 +73,9 @@ public function run($script) {
 		$this->exec($sql);
 	}
 }
-public function exec($sql, $mode) {
+public function exec($sql) {
 	if ( ! $this->con) return false;
-	$inf = $this->dbo->exec($sql);
-
-	switch ($mode) {
-		case "ins": return $inf["lid"];
-		case "upd": return $inf["aff"];
-		case "del": return $inf["aff"];
-	}
-	return $inf["res"];
+	return $this->inf = $this->dbo->exec($sql);
 }
 
 public function query($filter = 1, $order = false) {
@@ -107,6 +103,7 @@ public function getRecs($stmt = "sel.sel", $mds = "a") {
 
 	$xxx = $this->setLimit(99);
 	$sql = $this->getStmt($stmt); if (! $sql) return array();
+	$sql = $this->chkSql($sql);
 
 	return $this->dbo->fetch($sql, $mds);
 }
@@ -116,6 +113,7 @@ public function get1st($stmt = "sel.sel", $mds = "a") {
 
 	$xxx = $this->setLimit(1);
     $sql = $this->getStmt($stmt); if (! $sql) return array();
+	$sql = $this->chkSql($sql);
 
 	return $this->dbo->fetch1st($sql, $mds);
 }
@@ -153,6 +151,7 @@ public function getPrimary() {
 // retrieving field info
 // ***********************************************************
 public function isField($table, $field) {
+	$this->set("tab", $table);
 	$this->setMasks($table, $field);
     return (bool) $this->get1st("inf.fld");
 }
@@ -190,7 +189,8 @@ public function getDVs($fields, $filter = 1, $sep = " ") {
 // ***********************************************************
 public function isRecord($filter = 1) {
 	$this->setWhere($filter);
-	return (bool) $this->get1st("sel.fnd");
+	$out = $this->get1st("sel.fnd");
+	return (bool) $out;
 }
 
 public function rowCount($filter = 1) {

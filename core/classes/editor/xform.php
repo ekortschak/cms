@@ -39,7 +39,7 @@ public function pages($pfs) {
 
 	foreach($pfs as $dir => $inf) {
 		if ($this->dbg) if ($cnt++ >= $this->dbg) break;
-		$this->doPage($dir, $inf);
+		$this->doPage($dir, $inf); // will change current page
 	}
 	ENV::setPage(CUR_PAGE); // restore current page
 	ENV::set("output", "");

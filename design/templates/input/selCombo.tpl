@@ -4,7 +4,6 @@ LOC_TPL/input/selROnly.tpl
 [vars]
 auto =
 sep = &emsp;
-sep =
 
 [head]
 <!VAR:title!>

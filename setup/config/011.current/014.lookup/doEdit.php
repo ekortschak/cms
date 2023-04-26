@@ -15,7 +15,8 @@ $xxx = $box->show();
 incCls("editor/iniMgr.php");
 
 $ini = new iniMgr("LOC_CFG/lookup.def");
-$ini->exec($ful);
+$ini->save($ful);
+$ini->read($ful);
 $ini->show();
 
 ?>

@@ -10,7 +10,7 @@ color = FC_BODY
 
 [lookup]
 <refbox style="color: <!VAR:color!>;"><!VAR:caption!>
-<refbox-content><b><!VAR:key!></b><br><!VAR:info!></refbox-content>
+<refbody><b><!VAR:key!></b><br><!VAR:info!></refbody>
 </refbox><nolf>
 
 [doc]

@@ -67,7 +67,7 @@ public function exec($sql) { // no scripts => use run();
 
 	return array(
 		"sql" => $sql,
-		"res" => $this->run($sql),
+		"res" => $res,
 		"aff" => $this->con->affected_rows,
 		"lid" => $this->con->insert_id
 	);

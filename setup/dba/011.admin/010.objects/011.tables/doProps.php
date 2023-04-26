@@ -2,13 +2,7 @@
 
 incCls("menus/dropDbo.php");
 incCls("editor/iniEdit.php");
-incCls("editor/saveDbo.php");
 incCls("dbase/dbInfo.php");
-
-// ***********************************************************
-// react to previous commands
-// ***********************************************************
-$dbo = new saveDbo();
 
 // ***********************************************************
 // show menu

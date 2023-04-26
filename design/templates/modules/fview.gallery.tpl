@@ -16,7 +16,7 @@ nofiles = Ordner ist leer!
 #<!SEC:location!>
 
 <div><img id="pic" src="<!VAR:first!>" width="100%" /></div>
-<div style="overflow: auto; margin: 7px 0px 15px;"><!VAR:thumbs!></div>
+<div class="scroll" style="margin: 7px 0px 15px;"><!VAR:thumbs!></div>
 
 # ***********************************************************
 [files]

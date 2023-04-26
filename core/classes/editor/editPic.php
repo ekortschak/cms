@@ -47,7 +47,7 @@ private function showCR($fil) { // show copyright info
 	HTW::tag("(CR)-Information", "b");
 	$md5 = md5($fil);
 
-	$dbe = new recEdit(null, "copyright");
+	$dbe = new recEdit("default", "copyright");
 	$dbe->setDefault("md5", $md5);
 	$dbe->setDefault("holder", "Glaube ist mehr");
 	$dbe->setDefault("source", "https://glaubeistmehr.at");

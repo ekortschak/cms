@@ -77,6 +77,17 @@ public function add($qid, $file, $ini = "") {
 	$this->fls[$qid] = $inc;
 }
 
+public function link($qid, $caption, $url) {
+	$sel = ENV::get($this->own, $this->std);
+
+	$btn = new button();
+	$btn->set("qid", $qid);
+	$btn->set("caption", DIC::get($caption));
+	$btn->set("link", $url);
+
+	$this->dat[$this->idx][$qid] = $btn->gc("link");
+}
+
 public function space() {
 	$this->idx++;
 }

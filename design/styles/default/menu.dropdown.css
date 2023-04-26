@@ -4,7 +4,9 @@
 /* ******************************************************** */
 .dropdown {
 	display: inline-block;
+	vertical-align: bottom;
 }
+
 .dropdown:hover .dropbody {
 	z-index: 90;
 	display: block;

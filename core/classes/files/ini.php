@@ -32,7 +32,8 @@ class ini extends objects {
 	protected $file = "";
 	protected $fname = "page.ini";
 
-function __construct($fso = CUR_PAGE) {
+
+function __construct($fso) {
 	$this->read($fso);
 }
 
@@ -93,10 +94,6 @@ public function findSec($sec, $default = false) {
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public function setSealed($value) {
-	$this->sealed = (bool) $value;
-}
-
 public function getUID() {
  // TODO: verify uniqueness
 	$uid = $this->get("props.uid");       if (! $this->isDefault($uid)) return $uid;
@@ -171,7 +168,6 @@ public function read($file) {
 
 protected function mergeSecs($secs, $types, $ext) {
 	foreach ($secs as $key => $val) {
-		if ($this->sealed) if (! $this->isKey($key)) continue;
 		$this->sec[$key] = $val; if ($ext == "def")
 		$this->typ[$key] = $types[$key];
 	}
@@ -185,7 +181,6 @@ protected function mergeVars($arr) {
 
 protected function mergeVals($arr) {
 	foreach ($arr as $key => $val) {
-		if ($this->sealed) if (! $this->isKey($key)) continue;
 		$this->set($key, $val);
 	}
 }

@@ -17,15 +17,15 @@ $obj->show($inifile);
 // BEGIN OF CLASS
 // ***********************************************************
 class iniDef extends ini {
-	protected $lst = array();
+	protected $lst = array(); // dropdown values for editor
 
 function __construct($tplfile) {
 	parent::__construct($tplfile);
 
+	$this->setSealed($tplfile);
 	$this->chkLang();
-	$this->lst = $this->vls;
 
-	$this->setSealed(is_file($tplfile));
+	$this->lst = $this->vls;
 }
 
 // ***********************************************************
@@ -33,6 +33,20 @@ function __construct($tplfile) {
 // ***********************************************************
 public function addSec($sec) {
 	$this->sec[$sec] = array();
+}
+
+// ***********************************************************
+// handling sealed ini files
+// ***********************************************************
+private function setSealed($fso) {
+	$isf = APP::file($fso);
+	$def = STR::ends($fso, ".def");
+
+	$this->sealed = ($isf && $def);
+}
+
+public function isKey($key) {
+	return VEC::isKey($this->lst, $key);
 }
 
 // ***********************************************************
@@ -69,14 +83,6 @@ private function chkLang() {
 		$this->sec[$lng] = $lng;
 	}
 	unset($this->sec[$pfx]);
-}
-
-// ***********************************************************
-// checking values
-// ***********************************************************
-protected function secure($val) {
-	$val = STR::replace($val, "<?php", "&lt;?php");
-	return parent::secure($val);
 }
 
 // ***********************************************************

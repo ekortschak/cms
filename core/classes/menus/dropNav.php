@@ -23,6 +23,7 @@ class dropNav extends dropBox {
 
 function __construct($suit = "nav") {
 	parent::__construct($suit);
+	$this->load("menus/dropNav.tpl");
 }
 
 // ***********************************************************

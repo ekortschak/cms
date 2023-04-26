@@ -9,7 +9,7 @@ Intended to simplify handling of data filters
 // ***********************************************************
 incCls("input/recFilter.php");
 
-$dbf = new recFilter($table);
+$dbf = new recFilter($dbase, $table);
 $dbf->show();
 
 */
@@ -24,7 +24,7 @@ class recFilter extends dbBasics {
 	private $fds = array();
 	private $flt = array();
 
-function __construct($dbase, $table) {
+function __construct($dbase = "default", $table = NV) {
 	parent::__construct($dbase, $table);
 	$this->register("$dbase.$table");
 	$this->setTable($table);

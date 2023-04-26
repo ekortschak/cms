@@ -40,7 +40,7 @@ class tblMgr extends dbBasics {
 	protected $prp;					// properties to pass on
 	protected $cnt = 0;          	// number of records
 
-function __construct($dbase, $table) {
+function __construct($dbase = "default", $table = NV) {
 	parent::__construct($dbase, $table);
 
 	$this->prp = new items();

@@ -86,14 +86,10 @@ public static function vector($arr, $info = "arr") {
 	}
 	incCls("menus/tview.php");
 
-	echo '<div style="height: 175px; overflow: auto; border: 1px solid lightgrey; resize: vertical;">';
-	echo "<u><i>$info</i></u>";
-
 	$tvw = new tview();
 	$tvw->setData($arr);
-	$tvw->show();
-
-	echo '</div>';
+	$tvw->set("info", $info);
+	$tvw->show("debug");
 }
 
 // ***********************************************************

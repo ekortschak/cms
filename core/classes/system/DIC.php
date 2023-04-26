@@ -139,7 +139,7 @@ return $key;
 	if (strlen($key) > 50) return $key; // text
 	if (strlen($key) <  3) return $key;
 
-	$mod = EDITING; if (STR::begins(TAB_HOME, "setup"))
+	$mod = VMODE; if (STR::begins(TAB_HOME, "setup"))
 	$mod = basename(TAB_HOME);
 
  	$fil = FSO::join(APP_FBK, LOC_DIC, $lang, "$mod.dic");

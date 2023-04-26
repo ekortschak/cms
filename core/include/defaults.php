@@ -2,7 +2,7 @@
 
 // project
 CFG::set("PRJ_TITLE",  "Free CMS");
-CFG::set("EDITING",    "view");
+CFG::set("VMODE",      "view");
 CFG::set("ERR_SHOW",   1);
 
 CFG::set("LAYOUT",     "default");
@@ -13,8 +13,6 @@ CFG::set("LANGUAGES",  "en");
 CFG::set("GEN_LANG",   "en");
 CFG::set("DATE_FMT",   "Y/m/d");
 CFG::set("TIMEZONE",   "Europe/Vienna");
-
-CFG::set("ARCHIVE",    SRV_ROOT);
 
 // security
 CFG::set("WWW_USER",   "www-data");

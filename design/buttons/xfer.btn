@@ -1,6 +1,6 @@
 [props]
 pic = LOC_ICO/buttons/world.png
-url = index.php?vmode=xfer
+url = x.edit.php?vmode=xfer
 
 [de]
 caption =

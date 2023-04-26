@@ -1,6 +1,6 @@
 <?php
 
-if (EDITING == "medit") {
+if (VMODE == "medit") {
 	$btn = ENV::get("btn.menu");
 
 	if ($btn == "S") {

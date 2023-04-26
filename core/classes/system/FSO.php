@@ -199,8 +199,9 @@ public static function copy($src, $dst) { // copy a file
 }
 
 public static function move($old, $new) { // rename a file
-	if (! is_file($old)) return false; rename($old, $new);
-	if (  is_file($new)) return true;
+	if (! is_file($old)) return false;
+	$dir = self::force(dirname($new)); rename($old, $new);
+	$xxx = self::permit($new); if (is_file($new)) return true;
 	return ERR::assist("file", "no.copy", $new);
 }
 

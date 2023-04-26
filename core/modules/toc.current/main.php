@@ -5,7 +5,7 @@ $tit = $ini->getTitle();
 $uid = $ini->getUID();
 
 // ***********************************************************
-if (EDITING != "view") {
+if (VMODE != "view") {
 	$tit = HTM::href("?pge=$uid", $tit);
 }
 

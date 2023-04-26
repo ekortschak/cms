@@ -24,7 +24,6 @@ $sql = new sqlStmt($dbtype);
 // ***********************************************************
 class sqlStmt extends objects {
 	protected $tbl = NV;
-	protected $vls;   // array of string values
 
 public function __construct($dbtype) {
 	$typ = strtolower($dbtype);
@@ -119,10 +118,9 @@ public function setLimit($count = 1, $first = 0) {
 // ***********************************************************
 // retrieving statements
 // ***********************************************************
- public function getStmt($stmt = "sel.all") { // $stmt => section.key
+public function getStmt($stmt = "sel.all") { // $stmt => section.key
 	$sql = $this->get($stmt); if (! $sql) return false;
 	$sql = $this->insVars($sql);
-	$sql = $this->chkSql($sql);
 	return $sql;
 }
 

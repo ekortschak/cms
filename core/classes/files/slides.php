@@ -62,7 +62,7 @@ private function setCR($pic) { // copyright
 	$this->set("text", $this->getText($pic));
 	$md5 = FSO::hash($pic);
 
-	$dbe = new recEdit(null, "copyright");
+	$dbe = new recEdit("default", "copyright");
 	$dbe->setDefault("md5", $md5);
 	$dbe->findRec("md5='$md5'");
 

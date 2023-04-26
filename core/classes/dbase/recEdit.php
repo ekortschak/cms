@@ -37,8 +37,8 @@ class recEdit extends dbBasics {
 	protected $neu = true;
 	protected $btn = "";
 
-function __construct($dbase, $table) {
-	parent::__construct($dbase);
+function __construct($dbase = "default", $table = NV) {
+	parent::__construct($dbase, $table);
 
 	$this->register("$dbase.$table");
 	$this->setTable($table);

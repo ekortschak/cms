@@ -41,7 +41,7 @@ class dbQuery extends dbBasics {
 	protected $ask = true; // ask for confirmation
 
 function __construct($dbase = "default", $table = "dummy") {
-	parent::__construct($dbase);
+	parent::__construct($dbase, $table);
 
 	$this->setTable($table);
 	$this->setValidator($dbase, $table);
@@ -51,51 +51,51 @@ function __construct($dbase = "default", $table = "dummy") {
 // data manipulation
 // ***********************************************************
 public function replace($values, $filter) {
-	if ($this->isRecord($filter))
+	$chk = $this->isRecord($filter); if ($chk)
 	return $this->update($values, $filter);
 	return $this->insert($values);
 }
 
+// ***********************************************************
 public function insert($values) {
-	$vls = $this->vld->check("i", $values);	if (! $vls) return false;
-	$erg = $this->runSQL("mod.ins", $vls);  if (  $erg)
-	$xxx = $this->vld->onIns($vls);
-	return $erg;
+	if (! $vls = $this->vld->check($values))       return false;
+	if (! $this->vld->b4Ins($vls))                 return false;
+	if (! $this->runSQL("mod.ins", $vls))          return false;
+	      $this->vld->onIns($vls);                 return $this->inf["lid"];
 }
 public function update($values, $filter = 1) {
-	$vls = $this->vld->check("u", $values); if (! $vls) return false;
-	$erg = $this->runSQL("mod.upd", $vls, $filter); if ($erg)
-	$xxx = $this->vld->onUpd($vls, $filter);
-	return $erg;
+	if (! $vls = $this->vld->check($values))       return false;
+	if (! $this->vld->b4Upd($vls, $filter))        return false;
+	if (! $this->runSQL("mod.upd", $vls, $filter)) return false;
+	      $this->vld->onUpd($vls, $filter);        return $this->inf["aff"];
 }
 public function delete($filter) {
-	$chk = $this->vld->b4Del($filter); if (! $chk) return false;
-	$erg = $this->runSQL("mod.del", 0, $filter); if ($erg)
-	$xxx = $this->vld->onDel($filter);
-	return $erg;
+	if (! $this->vld->b4Del($filter))              return false;
+	if (! $this->runSQL("mod.del", 0, $filter))    return false;
+	      $this->vld->onDel($filter);              return $this->inf["aff"];
 }
 
 // ***********************************************************
 private function runSQL($sec, $vls, $flt = 0) {
-	if ($vls) $this->setProps($vls);
-	if ($flt) $this->setWhere($flt);
+	$this->setProps($vls); $mod = STR::after($sec, ".");
+	$this->setWhere($flt);
 
 	$sql = $this->getStmt($sec);
-	$mod = STR::after($sec, ".");
-
 	$cnf = $this->confirm($sql); if (! $cnf) return false;
 	return $this->exec($sql, $mod);
 }
 
 // ***********************************************************
+// set validator
+// ***********************************************************
 private function setValidator($dbs, $tbl) {
 	$fil = APP::file("dbase/validate/$tbl.php");
+	$cls = "recProof";
 
-	if (! $fil) { // table specific validator
-		$this->vld = new recProof($dbs, $tbl);
-		return;
+	if ($fil) { // table specific validator
+		include_once $fil;
+		$cls = "val_$tbl"; // common validator
 	}
-	include_once $fil; $cls = "val_$tbl"; // common validator
 	$this->vld = new $cls($dbs, $tbl);
 }
 

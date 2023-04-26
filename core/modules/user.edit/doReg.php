@@ -28,7 +28,7 @@ if (ENV::getPost("rec.act")) {
 // ***********************************************************
 HTW::xtag("usr.register");
 // ***********************************************************
-$dbe = new recEdit(null, "dbusr");
+$dbe = new recEdit("default", "dbusr");
 $dbe->findRec();
 $dbe->permit("a");
 $dbe->show();

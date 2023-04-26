@@ -19,7 +19,7 @@ public static function init() {
 	CFG::set("CUR_LANG", ENV::get("lang", STD_LANG));
 
 	$usr = ENV::get("crdu", "www");
-	$pwd = ENV::get("crdp", "www");	$mod = EDITING;
+	$pwd = ENV::get("crdp", "www");	$mod = VMODE;
 	self::read();
 
 	if (! self::isUser($usr, $pwd)) {

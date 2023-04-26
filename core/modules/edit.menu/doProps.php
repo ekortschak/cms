@@ -26,14 +26,14 @@ $ful = FSO::join($cur, "page.ini");
 $ini = new ini($ful);
 $typ = $ini->getType();
 
-$tpl = "LOC_CFG/page.$typ.def"; if (! is_file($tpl))
+$tpl = "LOC_CFG/page.$typ.def"; if (! APP::file($tpl))
 $tpl = "LOC_CFG/page.def";
 
 // ***********************************************************
 HTW::xtag("page.props");
 // ***********************************************************
 $ini = new iniMgr($tpl);
-$ini->exec($ful);
+$ini->read($ful);
 $ini->show();
 
 ?>

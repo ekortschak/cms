@@ -23,7 +23,8 @@ incCls("server/ftp.php");
 HTW::tag("file = $ful", "small");
 
 $ini = new iniMgr("LOC_CFG/ftp.def");
-$ini->exec($ful);
+$ini->save($ful);
+$ini->read($ful);
 $ini->show();
 
 // ***********************************************************

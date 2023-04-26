@@ -67,25 +67,19 @@
 	height: H_MENU;
 	text-shadow: 1px 1px 2px grey;
 #   border-radius: 10px 10px 0px 0px;
-	margin-right: 5px;
-}
-.topmenu-button:hover{
-	border-radius: 50%;
-	color: FC_INFO;
-	background: BC_INFO;
 }
 
 /* ******************************************************** */
 .topmenu-content {
 	z-index: 99;
-	position: fixed;
+	position: absolute;
 	display: none;
 	color: FC_DROP;
 	background: BC_DROP;
 	font-weight: normal;
 	border: 1px solid OUTLINE;
-	border-radius: 0px 15px 15px 15px;
-  	padding: 3px 10px 10px;
+	border-radius: 0px 0px 15px 15px;
+  	padding: 3px 0px 10px;
   	max-height: 400px;
   	overflow: auto;
 }
@@ -94,7 +88,7 @@
 	display: block;
 	padding: 3px 10px;
 	color: FC_BODY;
-	font-size: 1.15em;
+	font-size: 1.1em;
 	font-weight: normal;
 }
 

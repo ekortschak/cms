@@ -1,20 +1,17 @@
 <?php
+
+if (VMODE != "seo") return;
+
 /* ***********************************************************
 // INFO
 // ***********************************************************
 web site editor, used to manage meta information
-
-// ***********************************************************
-// HOW TO USE
-// ***********************************************************
-incCls("editor/saveSeo.php");
-
-$obj = new saveSeo();
-$obj->exec();
-*
+* no public methods
 */
 
 incCls("editor/iniWriter.php");
+
+new saveSeo();
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -22,7 +19,6 @@ incCls("editor/iniWriter.php");
 class saveSeo {
 
 function __construct() {
-	if (EDITING != "seo") return;
 	$this->exec();
 }
 
@@ -30,6 +26,8 @@ function __construct() {
 // methods
 // ***********************************************************
 private function exec() {
+	$dir = ENV::getPage();
+
 	$act = ENV::getPost("meta.act"); if (! $act) return;
 	$dat = ENV::getPost("data");
 	$oid = ENV::getPost("oid");
@@ -40,8 +38,7 @@ private function exec() {
 	$dat = STR::replace($dat, "\n", "_\n");
 	$lng = CUR_LANG;
 
-	$ini = new iniWriter();
-	$ini->read(CUR_PAGE);
+	$ini = new iniWriter($dir);
 	$ini->set("$lng.$wht", trim($dat));
 	$ini->save();
 }

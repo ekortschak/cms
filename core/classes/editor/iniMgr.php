@@ -10,7 +10,8 @@ simple ini editor
 incCls("editor/iniMgr.php");
 
 $obj = new iniMgr($tplfile);
-$ini->exec($inifile);
+$ini->save($inifile);
+$ini->read($inifile);
 $ini->show();
 */
 
@@ -53,6 +54,8 @@ public function show() {
 			$arr = $this->getValues($sec);
 
 			foreach ($arr as $key => $val) {
+				if (! $this->isKey("$sec.$key")) continue;
+
 				$qid = $sec."[$key]";
 				$vls = $this->getChoice("$sec.$key");
 				$val = $this->chkValue($val, $sec);
@@ -67,19 +70,9 @@ public function show() {
 // ***********************************************************
 // rewriting content
 // ***********************************************************
-public function exec($ful) {
-	$this->save($ful); $this->forget();
-	$this->read($ful);
-}
-
-private function save($ful = NV) {
-	$arr = OID::getLast(); if (! $arr) return;
-
-	if ($ful == NV) $ful = $this->file;
-
+public function save($ful) {
 	$ini = new iniWriter($ful);
-	$ini->setPost($arr);
-	$ini->save();
+	$ini->savePost();
 }
 
 // ***********************************************************

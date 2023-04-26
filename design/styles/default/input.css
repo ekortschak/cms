@@ -9,7 +9,7 @@ form table {
 /* ******************************************************** */
 /* input fields */
 /* ******************************************************** */
-input, select, button {
+input, select, button, .dmbtn {
 	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;

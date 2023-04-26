@@ -53,28 +53,32 @@ public static function get($key, $default = false) {
 
 // ***********************************************************
 public static function getIncFile() {
-	$typ = self::get("props.typ", "include");
-	$typ = STR::left($typ);
+	$act = self::get("props.typ", "include");
 
-	if ($typ == "roo") return "include.php";  // root
-    if ($typ == "inc") return "include.php";  // default mode
+	$out = "$act.php";
+	$ful = FSO::join(LOC_MOD, "body", $out);
+	if (APP::file($ful)) return $out;
 
-	if ($typ == "mim") return "mimeview.php"; // show files
-	if ($typ == "dow") return "download.php"; // download
-    if ($typ == "gal") return "gallery.php";  // show files
-    if ($typ == "upl") return "upload.php";   // upload
-	if ($typ == "cam") return "livecam.php";  // camera
-    if ($typ == "tut") return "tutorial.php"; // tutorial
-	if ($typ == "red") return "redirect.php"; // redirection to another local directory
-	if ($typ == "url") return "links.php";    // list of external links
+	switch (STR::left($act)) {
+		case "roo": return "include.php";  // root
+		case "inc": return "include.php";  // default mode
 
-	if ($typ == "col") { // collection of files in separate dirs
-		if (EDITING == "xfer") return "collect.xsite.php";
-		return "collect.php";
+		case "mim": return "mimeview.php"; // show files
+		case "dow": return "download.php"; // download
+		case "gal": return "gallery.php";  // show files
+		case "upl": return "upload.php";   // upload
+		case "cam": return "livecam.php";  // camera
+		case "tut": return "tutorial.php"; // tutorial
+		case "red": return "redirect.php"; // redirection to another local directory
+		case "url": return "links.php";    // list of external links
+
+		case "dbt": return "dbtable.php";  // database table
+
+		case "col": // collection of files in separate dirs
+			if (VMODE != "xfer") return "collect.php";
+			return "collect.xsite.php";
 	}
-	if ($typ == "dbt") return "dbtable.php";  // database table
-
-	return false;
+	return "invalid.php";
 }
 
 // ***********************************************************
