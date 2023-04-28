@@ -9,6 +9,7 @@ field = Feld
 range = Bereich
 
 [vars]
+align = left
 parm = ref
 type = button
 current = ???

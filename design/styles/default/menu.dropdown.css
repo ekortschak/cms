@@ -37,6 +37,7 @@
 	color: FC_DROP;
 	background: BC_DROP;
 	font-weight: normal;
+	text-align: left;
 }
 
 .dropbody a {

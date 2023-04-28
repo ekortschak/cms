@@ -8,7 +8,7 @@ sep = :
 # ***********************************************************
 [main] # multiple options with title
 # ***********************************************************
-<div class="<!VAR:class!>">
+<div class="<!VAR:class!>" style="text-align: <!VAR:align!>;">
 <!VAR:items!>
 </div>
 

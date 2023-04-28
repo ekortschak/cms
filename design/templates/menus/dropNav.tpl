@@ -10,7 +10,7 @@ class = dropMenu
 # ***********************************************************
 <table class="nomargin" width="100%">
 	<tr>
-		<td class="nopad" width="*">
+		<td class="nopad" width="*" align="<!var:align!>">
 			<div class="<!VAR:class!>"><!VAR:items!></div>
 		</td>
 		<td class="nopad" width=5></td>
