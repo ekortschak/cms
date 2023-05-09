@@ -117,14 +117,21 @@ protected function run($info = "info") {
 	$act = ENV::getParm("sync.act"); if (! $this->isGood()) return;
 	if ($act == 2) $this->exec();
 
+TMR::punch(4);
 	$this->set("vsrc", $this->srcVersion());
-	$this->set("vdst", $this->dstVersion());
+TMR::punch(5);
+#	$this->set("vdst", $this->dstVersion());
 
+TMR::punch(6);
 	$this->show($info);
+TMR::punch(7);
 	$this->show();
+TMR::punch(8);
 
 	if ($act == 1) return $this->analize();
 	if ($act == 2) return $this->showStats();
+
+TMR::punch(9);
 
 	ENV::set("sync.jbs", false);
 }
@@ -199,33 +206,35 @@ protected function preView($tellMe = false) {
 
 protected function showStat($arr, $act, $cap) {
 	$arr = VEC::get($arr, $act); if (! $arr) return;
-	$cap = DIC::get($cap);
-
-	HTW::tag($cap, "h5");
-	echo "<div class='pre'>";
+	$cap = DIC::get($cap); $out = array();
 
 	foreach ($arr as $key => $val) {
-		echo "[$key] = $val\n";
+		$out[] = "[$key] = $val";
 	}
-	echo "</div>";
+	$this->set("cap", $cap);
+	$this->set("data", implode("\n", $out));
+
+	echo $this->getSection("stats");
 }
 
 // ***********************************************************
 // show results
 // ***********************************************************
 protected function report() {
-	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf.mkd";
-	$out = "<table>\n";
+	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf.mkd"; $out = array();
 
 	foreach ($this->rep as $key => $val) {
-		$inf = DIC::getPfx("arr", $key);
 		$cat = "file(s)"; if (STR::contains($blk, $key))
 		$cat = "block(s)";
 
-		$out.= "<tr><td width=200>$inf</td><td align='right'>$val</td><td><hint>$cat</hint></td><tr>\n";
+		$this->set("inf", DIC::getPfx("arr", $key));
+		$this->set("val", $val);
+		$this->set("cat", $cat);
+
+		$out[] = $this->getSection("report.row");
 	}
-	$out.= "</table>\n";
-	HTW::tag($out, "p");
+	$this->set("tdata", implode("\n", $out));
+	echo $this->getSection("report");
 }
 
 // ***********************************************************

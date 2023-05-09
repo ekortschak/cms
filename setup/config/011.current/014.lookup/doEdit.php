@@ -1,22 +1,12 @@
 <?php
 
-// ***********************************************************
-// show file selector
-// ***********************************************************
-incCls("menus/dropBox.php");
-
-$box = new dropBox("menu");
-$ful = $box->files("lookup");
-$xxx = $box->show();
-
-// ***********************************************************
-// show editor
-// ***********************************************************
 incCls("editor/iniMgr.php");
 
+// ***********************************************************
+// read and write data
+// ***********************************************************
 $ini = new iniMgr("LOC_CFG/lookup.def");
-$ini->save($ful);
-$ini->read($ful);
-$ini->show();
+$fil = $ini->menu("lookup", "Lookup", "default.ini");
+$xxx = $ini->show($fil);
 
 ?>

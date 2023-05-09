@@ -9,13 +9,12 @@ $old = "";
 foreach ($fls as $fil => $arr) {
 	$dir = dirname($fil);
 	$nam = basename($fil);
-	
+
 	$num = STR::between($nam, ".", "."); $num = intval($num);
 	$tit = PGE::getTitle($dir);
 	$uid = PGE::getUID($dir);
 	$cnt = 0;
 
-	$tpl->set("topic", $tpc);
 	$tpl->set("titel", $tit);
 	$tpl->set("page",  $uid);
 

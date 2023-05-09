@@ -1,6 +1,8 @@
 <?php
 
 include_once "config/fallback.php";
+
+include_once "include/load.err.php";
 include_once "include/load.min.php";
 
 // ***********************************************************

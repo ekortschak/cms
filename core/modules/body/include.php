@@ -1,9 +1,9 @@
 <?php
 
-$loc = ENV::getPage();
+$pge = ENV::getPage();
 
 // ***********************************************************
-$txt = APP::gc($loc);
+$txt = APP::gcSys($pge);
 $txt = APP::lookup($txt);
 $txt = ACR::tidy($txt);
 

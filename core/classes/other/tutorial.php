@@ -39,7 +39,7 @@ public function gc($fil, $sec = "main", $head = "") {
 	$htm->merge($this->vls); if ($head)
 	$htm->set("headc", $head);
 	$htm->set("code", $cod);
-	$htm->set("output", APP::gc($fil));
+	$htm->set("output", APP::gcFile($fil));
 	$htm->show($sec);
 }
 
@@ -63,24 +63,24 @@ public function pic($file) {
 // ***********************************************************
 // code marking
 // ***********************************************************
-public function markVars($tutorial) {
-	$out = str_replace("&lt;!", "<green><b>&lt;!", $tutorial);
+public function markVars($text) {
+	$out = str_replace("&lt;!", "<green><b>&lt;!", $text);
 	$out = str_replace("!&gt;", "!></b></green>", $out);
 	return $out;
 }
-public function markGroups($tutorial) {
-	$out = str_replace("[", "\n<blue><b>[", $tutorial);
+public function markGroups($text) {
+	$out = str_replace("[", "\n<blue><b>[", $text);
 	$out = str_replace("]", "]</b></blue>", $out);
 	return $out;
 }
-public function markComments($tutorial) {
-	$out = str_replace("#", "<red>#", $tutorial);
+public function markComments($text) {
+	$out = str_replace("#", "<red>#", $text);
 	$out = str_replace("\<red>#", "\#", $out);
     $out = preg_replace("~<red>(.*)\n~", "<red>\${1}</red>\n", $out);
     return $out;
 }
-public function markPHP($tutorial) {
-	$out = highlight_string($tutorial, true);
+public function markPHP($text) {
+	$out = highlight_string($text, true);
 #	$out = STR::clear($out, '<span style="color: #000000">');
 #	$out = STR::clear($out, "</span>");
 	return $out;

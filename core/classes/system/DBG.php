@@ -45,7 +45,7 @@ class DBG {
 // debugging tools
 // ***********************************************************
 public static function text($msg, $info = "dbg") {
-	if (is_object($msg)) return self::$obj($msg, $info);
+	if (is_object($msg)) return self::obj($msg, $info);
 	if (is_array($msg)) {
 		if (count($msg) > 15) {
 			$msg = array_slice($msg, 0, 15);

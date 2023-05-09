@@ -33,6 +33,7 @@ public static function join() {
 }
 
 public static function norm($fso) { // $fso => dir or file
+	if (! $fso) return "";
     $sep = DIR_SEP; if (self::isUrl($fso)) return $fso;
 
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
@@ -108,7 +109,7 @@ public static function folders($dir = APP_DIR, $visOnly = true) {
 		$out[$ful] = $itm;
 	}
 	closedir($hdl);
-	return $out;
+	return VEC::sort($out, "ksort");
 }
 
 // ***********************************************************
@@ -116,10 +117,8 @@ public static function folders($dir = APP_DIR, $visOnly = true) {
 // ***********************************************************
 public static function copyDir($src, $dst) {
 	$fso = self::fTree($src); if (! $fso) return;
-	$dir = self::join($dst, basename($src));
+	$dir = self::join ($dst, basename($src));
 	$dst = self::force($dir); $cnt = 0;
-
-	$fso = VEC::sort($fso, "krsort");
 
 	foreach ($fso as $fil => $nam) {
 		$new = STR::after($fil, $src);
@@ -132,7 +131,6 @@ public static function copyDir($src, $dst) {
 // ***********************************************************
 public static function mvDir($src, $dst) {
 	$arr = self::fTree($src); if (! $arr) return false;
-	$arr = VEC::sort($arr, "krsort");
 
 	foreach ($arr as $fso => $nam) {
 		$new = STR::after($fso, $src.DIR_SEP);
@@ -146,7 +144,7 @@ public static function mvDir($src, $dst) {
 // ***********************************************************
 public static function rmDir($src) {
 	$arr = self::fdTree($src);
-	$arr = VEC::sort($arr, "krsort");
+	$arr = VEC::sort($arr, "krsort"); // subdirs first
 
 	foreach ($arr as $fso => $nam) {
 		if (is_dir($fso)) rmdir($fso); else
@@ -159,7 +157,7 @@ public static function rmDir($src) {
 // files
 // ***********************************************************
 public static function files($dir, $pattern = "*") {
- // list all files matching $pattern
+ // collect all files matching $pattern
 	$ptn = self::join($dir, $pattern); $out = array();
 	$ptn = self::norm($ptn);
 
@@ -169,7 +167,7 @@ public static function files($dir, $pattern = "*") {
 		if (is_dir($itm)) continue;
 		$out[$itm] = basename($itm);
 	}
-	return $out;
+	return VEC::sort($out, "ksort");
 }
 
 public static function rmFiles($dir) {
@@ -241,6 +239,15 @@ public static function fTree($dir, $pattern = "*", $incDirs = false) {
 
 public static function fdTree($dir, $pattern = "*") {
 	return self::ftree($dir, $pattern, true);
+}
+
+public function dropEmpty($dir) {
+	$fls = FSO::dtree($dir);
+
+	foreach ($fls as $dir => $nam) {
+		$arr = FSO::files($dir); if (count($arr) > 0) continue;
+		$xxx = FSO::rmDir($dir);
+	}
 }
 
 // ***********************************************************

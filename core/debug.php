@@ -9,6 +9,8 @@ define("ERR_SHOW", 1);
 
 // ***********************************************************
 include_once "config/fallback.php";
+
+include_once "core/include/load.err.php";
 include_once "core/include/load.min.php";
 include_once "core/include/load.more.php";
 

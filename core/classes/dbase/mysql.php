@@ -38,9 +38,10 @@ function __construct($host, $dbase) {
 // connecting to db
 // ***********************************************************
 public function connect($user, $pass) {
-	if (! function_exists("mysqli_connect"))
-	return ERR::msg("db.module", "mysqli");
-
+	if (! DB_MODE) return;
+	if (! function_exists("mysqli_connect")) {
+		return ERR::msg("db.module", "mysqli");
+	}
 	$this->con = new mysqli($this->host, $user, $pass);
 
 	if (! $this->con) {
@@ -98,7 +99,6 @@ public function fetch1st($sql, $mds = "a") {
 // run any statement
 // ***********************************************************
 private function run($sql) {
-	if (! $this->con) return false;
 	if (! $this->dbs) return false;
 	if (! $sql) return false;
 

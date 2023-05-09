@@ -33,7 +33,6 @@ class syncServer extends sync {
 
 function __construct() {
 	parent::__construct();
-	$this->read("config/ftp.ini");
 }
 
 // ***********************************************************

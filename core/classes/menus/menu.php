@@ -54,7 +54,6 @@ public function gc($sec = "main") {
 		$box = "item"; if (! $sub) $box = "empty";
 
 		$this->set("class", $this->getClass($inf["fpath"]));
-		$this->set("os",    $this->getOS());
 		$this->set("entry", $sub);
 
 		$its.= $this->getItem($box, $inf);

@@ -24,10 +24,10 @@ $pge = ENV::getPage();
 $htm = new tpl();
 $htm->load("modules/page.tpl");
 $htm->setVar("banner",  APP::gcRec($pge, "banner"));
-$htm->setVar("help",    APP::gcMod($pge, "help"));
-$htm->setVar("head",    APP::gcMod($pge, "head"));
+$htm->setVar("help",    APP::gcSys($pge, "help"));
+$htm->setVar("head",    APP::gcSys($pge, "head"));
 $htm->setVar("page",    APP::gcMap($fil));
-$htm->setVar("tail",    APP::gcMod($pge, "tail"));
+$htm->setVar("tail",    APP::gcSys($pge, "tail"));
 $htm->setVar("trailer", APP::gcRec($pge, "trailer"));
 
 $out = $htm->gc();

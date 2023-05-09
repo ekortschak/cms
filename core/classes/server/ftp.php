@@ -65,8 +65,8 @@ public function connect() {
 	$erg = @ftp_login($con, $usr, $pwd); if (! $erg) return false;
 
 	ftp_set_option($con, FTP_TIMEOUT_SEC, $this->timeout);
-	ftp_raw($con, 'OPTS UTF8 ON');
 	ftp_pasv($con, true);
+	ftp_raw($con, 'OPTS UTF8 ON');
 
 	$this->con = $con;
 	return $con;
@@ -135,10 +135,12 @@ public function remote_put($src, $dst) {
 	if ($this->errCnt >= $this->errMax) return false;
 	if (! $dst) return false;
 
+	ftp_pasv($this->con, true);
+
 	if (ftp_put($this->con, $dst, $src, FTP_BINARY)) {
 		$tim = date("YmdGis", filemtime($src)); // preserve timestamp
-		ftp_raw( $this->con, "MFMT  $tim $dst");
-		ftp_site($this->con, "CHMOD 0755 $dst");
+		@ftp_raw ($this->con, "MFMT  $tim $dst");
+		@ftp_site($this->con, "CHMOD 0755 $dst");
 		return true;
 	}
 	$this->errCnt++;

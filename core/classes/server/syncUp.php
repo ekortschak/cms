@@ -48,8 +48,8 @@ public function publish() {
 protected function getTree($src, $dst) {
 	if ($this->err) return;
 
-	$src = $this->FSlocal($src); if (! $src) return false; // local files
-	$dst = $this->FSremote();    if (! $dst) return false; // remote
+	$src = $this->FSlocal($src); if (! $src) return; // local files
+	$dst = $this->FSremote();    if (! $dst) return; // remote
 	$out = $this->getNewer($src, $dst);
 
 	$out = $this->chkProtect($out);

@@ -33,7 +33,6 @@ $tpl = "LOC_CFG/page.def";
 HTW::xtag("page.props");
 // ***********************************************************
 $ini = new iniMgr($tpl);
-$ini->read($ful);
-$ini->show();
+$ini->show($ful);
 
 ?>

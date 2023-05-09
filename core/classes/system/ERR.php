@@ -16,39 +16,26 @@ ERR::trace();
 
 */
 
-error_reporting(E_ALL);
-
-ini_set("ignore_repeated_errors", 1);
 ini_set("error_log", LOG::file("error.log"));
 
 // ***********************************************************
 // error handling
 // ***********************************************************
-function shutDown() {
+function shutDownTpl() {
 	ERR::shutDown();
 }
-function errHandler($num, $msg, $file, $line) {
+function errHandlerTpl($num, $msg, $file, $line) {
 	ERR::handler($num, $msg, $file, $line);
 }
 
 // ***********************************************************
 // define error options
 // ***********************************************************
-if (class_exists("ERR")) {
-	register_shutdown_function("shutDown"); // defined above
-	set_error_handler("errHandler");        // defined above
-}
+#register_shutdown_function("shutDown"); // defined above
+#set_error_handler("errHandler");        // defined above
 
-// ***********************************************************
-// define syntax colors
-// ***********************************************************
-ini_set("highlight.comment", "red");
-ini_set("highlight.default", "navy");
-ini_set("highlight.html", "purple");
-ini_set("highlight.keyword", "green");
-ini_set("highlight.string", "orange");
-
-ERR::mode(ERR_SHOW);
+#ERR::mode(ERR_SHOW);
+ERR::mode(true);
 
 
 // ***********************************************************
@@ -98,8 +85,15 @@ public static function handler($num, $msg, $file, $line) {
 	if (self::suppress()) return; // do not show suppressed errors
 	if (self::$done++) return; // handle only first error
 
-	if (class_exists("tpl")) self::show($file, $num, $msg, $line);
-	else self::tell($file, $num, $msg, $line);
+	$tpl = new tpl();
+	$tpl->load("msgs/error.tpl");
+	$tpl->set("errID", "$num:$line");
+	$tpl->set("line",   $line);
+	$tpl->set("errNum", self::fmtNum($num, $msg));
+	$tpl->set("errMsg", self::fmtMsg($msg));
+	$tpl->set("file",   self::fmtFName($file));
+	$tpl->set("items",  self::getStack("item"));
+	$tpl->show();
 }
 
 // ***********************************************************
@@ -107,15 +101,13 @@ public static function shutDown() {
 	$inf = error_get_last(); if (! $inf) return;
 	extract($inf);
 
-	echo "<hr>Error #$type<hr>in $file on <b>$line</b><br />";
-	HTW::tag($message, "pre"); if (! IS_LOCAL) return;
-
-	$lnk = HTM::href("?vmode=pedit", "edit mode");
-	$rst = HTM::href("?reset=1", "session");
-
-	HTW::tag("What can I do?", "h1");
-	HTW::tag("Enter $lnk", "li");
-	HTW::tag("Reset $rst", "li");
+	$tpl = new tpl();
+	$tpl->load("msgs/error.tpl");
+	$tpl->set("type", $type);
+	$tpl->set("file", $file);
+	$tpl->set("line", $line);
+	$tpl->set("message", $message);
+	$tpl->show("fatal");
 }
 
 // ***********************************************************
@@ -233,28 +225,6 @@ private static function getArg($itm, $max) {
 	if (STR::contains($itm, "</")) return "HTML-Code";
 	if (strlen($itm) > $max) return substr($itm, 0, $max);
 	return $itm;
-}
-
-// ***********************************************************
-// long messages
-// ***********************************************************
-private static function show($file, $num, $msg, $line) {
-	$tpl = new tpl();
-	$tpl->load("msgs/error.tpl");
-	$tpl->set("errID", "$num:$line");
-	$tpl->set("line",   $line);
-	$tpl->set("errNum", self::fmtNum($num, $msg));
-	$tpl->set("errMsg", self::fmtMsg($msg));
-	$tpl->set("file",   self::fmtFName($file));
-	$tpl->set("items",  self::getStack("item"));
-	$tpl->show();
-}
-
-private static function tell($file, $num, $msg, $line) {
-	echo "<pre>";
-	echo "Error $num on line $line in $file:\n";
-	echo $msg;
-	echo "</pre>";
 }
 
 // ***********************************************************

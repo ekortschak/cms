@@ -31,7 +31,7 @@ refbody, .refbody {
 	padding: 5px 10px 7px;
 
 	max-height: 375px;
-	min-width: 10px;
+	min-width: 130px;
 	overflow: auto;
 	overscroll-behavior: none;
 

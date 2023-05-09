@@ -12,7 +12,9 @@ info = Downloads von dieser Seite erfolgen auf eigenes Risiko.
 free = Kostenlose Downloads
 
 
+# ***********************************************************
 [main]
+# ***********************************************************
 <h4><!DIC:resp!></h4>
 <p><!DIC:info!></p>
 
@@ -22,7 +24,9 @@ free = Kostenlose Downloads
 <!VAR:files!>
 </table>
 
+# ***********************************************************
 [file]
+# ***********************************************************
 <tr>
 	<td><img src="LOC_ICO/files/file.gif" /></td>
 	<td nowrap><a href="<!VAR:url!>" target="_blank"><!VAR:caption!></a></td>

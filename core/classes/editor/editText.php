@@ -10,59 +10,59 @@ used for editing common text files
 incCls("editor/editText.php");
 
 $edt = new editText();
-$edt->load($file);
+$edt->save($file);
+$edt->edit($file);
 $edt->suit($variant);
 $edt->show();
 */
 
 incCls("menus/dropBox.php");
+incCls("editor/tidy.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class editText extends objects {
-	protected $tpl = "editor/edit.text.tpl";
+class editText extends tpl {
 	protected $fil = false;
 	protected $ful = false;
 
-function __construct() {}
+function __construct() {
+	parent::__construct();
+
+	$this->load("editor/edit.text.tpl");
+	$this->register();
+}
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function load($file) {
+public function edit($file) {
 	$this->ful = $file;
 	$this->fil = APP::relPath($file);
-
-	$this->exec();
 }
 
 public function suit($variant) {
 	$tpl = "editor/edit.$variant.tpl";
 	$chk = FSO::join(LOC_TPL, $tpl);
-	if (! APP::file($chk)) return;
 
-	$this->tpl = $tpl;
+	if (! APP::file($chk)) return;
+	$this->load($tpl);
 }
 
-public function show() {
+public function show($sec = "main") {
 	$htm = $this->getContent();
 
-	$tpl = new tpl();
-	$tpl->load($this->tpl);
-	$tpl->merge($this->vls);
-	$tpl->set("file", $this->fil);
-	$tpl->set("snips", $this->getSnips());
-	$tpl->set("content", $htm);
-	$tpl->show();
+	parent::set("file",  $this->fil);
+	parent::set("snips", $this->getSnips());
+	parent::set("content", $htm);
+	parent::show($sec);
 }
 
 // ***********************************************************
 // providing and updating externally edited files
 // ***********************************************************
-protected function exec() {
-// exec done by class saveFile
-}
+// automatic updates by class saveFile  !!!
+// else: provide a method for saving in calling module.
 
 // ***********************************************************
 // reading info
@@ -72,10 +72,8 @@ protected function getContent() {
 	$rws = STR::count($out, "\n") + 3;
 	$rws = CHK::range($rws, 35, 7);
 
-	$out = STR::replace($out, "<?php", "<php>");
-	$out = PRG::replace($out, "<php>(\s+)", "<php>");
-	$out = STR::replace($out, "?>", "</php>");
-	$out = PRG::replace($out, "(\s+)</php>", "</php>");
+	$tdy = new tidy();
+	$out = $tdy->phpSecure($out);
 
 	$this->set("rows", $rws);
 	return $out;

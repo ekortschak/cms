@@ -2,8 +2,19 @@
 <div align="center" style="padding: 10px 0px;">
 
 <a href="?pge=start">
-	<img src="img/wappen.png" /> &nbsp;
-	<img src="img/banner.png" />
+	<!SEC:logo!>
+	<!SEC:banner!>
 </a>
 
 </div>
+
+# ***********************************************************
+[logo]
+# ***********************************************************
+<img src="img/logo.png" /> &nbsp;
+
+[banner]
+<img src="img/banner.en.png" />
+
+[banner.de]
+<img src="img/banner.de.png" />

@@ -10,7 +10,7 @@ if (VMODE == "view") {
 // ***********************************************************
 $pge = FSO::join(APP_DIR, $dir);
 $xxx = ENV::setPage($pge);
-$txt = APP::gc($dir); if (! $txt) $txt = NV;
+$txt = APP::gcSys($dir); if (! $txt) $txt = NV;
 
 echo $txt;
 

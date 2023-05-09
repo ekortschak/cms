@@ -6,8 +6,9 @@ LOC_SCR/teaser.js
 pix = 'img/wappen.gif'
 pic = img/wappen.gif
 
+# ***********************************************************
 [main]
-
+# ***********************************************************
 <script>
 	FaderFramework.init({
 		id: "teaser",

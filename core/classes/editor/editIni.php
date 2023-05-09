@@ -22,15 +22,14 @@ function __construct() {}
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show() {
+public function show($sec = "main") {
 	incCls("editor/iniMgr.php");
 
 	$tpl = basename($this->fil);
 	$tpl = STR::replace($tpl, ".ini", ".def");
 
 	$ini = new iniMgr("LOC_CFG/$tpl");
-	$ini->read($this->fil);
-	$ini->show();
+	$ini->show($this->fil);
 }
 
 // ***********************************************************

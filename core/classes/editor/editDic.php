@@ -22,7 +22,7 @@ function __construct() {}
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show() {
+public function show($sec = "main") {
 	incCls("editor/dicEdit.php");
 
 	$dic = new dicEdit();

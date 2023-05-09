@@ -135,8 +135,7 @@ private static function langProp($prop) {
 	$out = self::get(CUR_LANG.".$prop"); if ($out) return $out;
 	$out = self::get("xx.$prop");        if ($out) return $out;
 	$out = self::get(GEN_LANG.".$prop"); if ($out) return $out;
-	$out = self::get($prop);             if ($out) return $out;
-	return false;
+	return self::get($prop);
 }
 
 

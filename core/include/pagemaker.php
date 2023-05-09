@@ -1,10 +1,7 @@
 <?php
 
-incFnc("load.min.php");    // load preliminary classes
-incFnc("load.more.php");   // load additional classes
-
 // ***********************************************************
-// set missing constants & navigation parms
+// provide missing constants & navigation parms
 // ***********************************************************
 CFG::read("LOC_CFG/defaults.def");
 CFG::read("LOC_CFG/constants.def");

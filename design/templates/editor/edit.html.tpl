@@ -46,7 +46,8 @@ rows = 40
 <form id="inlineEdit" method="post" action="?file_act=save">
 <div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false"
 	onfocus="this.className='hot';"
-	onblur="this.className='cold';"><!VAR:content!></div>
+	onblur="this.className='cold';"><!VAR:content!>
+</div>
 
 <div id="curEdit" class="hidden">_
 <!SEC:ctarea!>

@@ -13,7 +13,7 @@ $dbs = $box->getDbase();
 
 $dir = APP::arcDir(ARCHIVE, "dbs.$dbs");
 $vrs = FSO::folders($dir);
-$vrs = VEC::sort($vrs, "krsort");
+$vrs = VEC::sort($vrs, "krsort"); // newest first
 
 foreach ($vrs as $key => $val) {
 	$vrs[$key] = STR::after($val, "db.$dbs.");

@@ -156,7 +156,7 @@ private function getTitle($inf) {
 }
 
 private function getText($dir) {
-	return APP::gc($dir);
+	return APP::gcSys($dir);
 }
 
 // ***********************************************************

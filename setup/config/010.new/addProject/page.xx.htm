@@ -64,7 +64,7 @@ $obj->reconfig("$dir/config/config.ini", $prj);
 // ***********************************************************
 // create first page (= howto)
 // ***********************************************************
-APP::write("$hme/tab.ini",  $obj->getTabIni($prj, $tpc));
+APP::write("$hme/tab.ini",  $obj->getTabIni($prj));
 APP::write("$hme/page.ini", $obj->getIni("home"));
 
 $tpl = "$cms/design/setup";

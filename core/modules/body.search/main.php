@@ -7,7 +7,7 @@ incCls("search/sView.php");
 // ***********************************************************
 $vew = new sView();
 $xxx = $vew->showNav();
-$fls = $vew->getSnips($dir);
+$fls = $vew->getSnips();
 $mod = $vew->getMode();
 
 if (! $fls) {

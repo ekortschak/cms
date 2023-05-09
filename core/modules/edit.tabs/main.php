@@ -12,9 +12,11 @@ $nav = new buttons("tab", "P", __DIR__);
 // ***********************************************************
 $nav->add("T", "doTabs");
 $nav->add("A", "doAdd", "add");
+$nav->add("X", "doDrop", "drop");
+$nav->space();
 $nav->add("S", "doSort");
 $nav->add("P", "doProps");
-$nav->add("X", "doDrop", "drop");
+$nav->space();
 $nav->add("G", "doPics");
 $nav->show();
 

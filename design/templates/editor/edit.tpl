@@ -31,6 +31,17 @@ placeholder =
 </div>
 
 # ***********************************************************
+[submit.simple]
+# ***********************************************************
+<div style="text-align: right; margin: 5px 0px;">
+	<input type="hidden" name="filName" value="<!VAR:file!>" />
+
+	<button name="file_act" value="save" onclick="exSubmit();">
+		<img src="LOC_ICO/buttons/save.png" />
+	</button>
+</div>
+
+# ***********************************************************
 [ctarea]
 # ***********************************************************
 <textarea id="content" name="content" class="max" rows="<!VAR:rows!>" _

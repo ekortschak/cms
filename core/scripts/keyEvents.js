@@ -1,5 +1,11 @@
 
 function exKey(e) {
+	if (e.keyCode === 9) {
+		console.log("9");
+		insAny("\t");
+		return stopEx(e);
+	}
+
 	if (e.shiftKey) {
 		if (e.keyCode === 13) {
 			insAny("<br>");
@@ -14,6 +20,8 @@ function exKey(e) {
 		case "i": case "k": addTag("i"); break;
 		case "u":           addTag("u"); break;
 		case "s":           exSubmit();  break;
+		case "c":
+		case "v": break;
 		default: return e;
 	}
 	return stopEx(e);

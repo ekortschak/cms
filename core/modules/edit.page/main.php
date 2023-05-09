@@ -13,6 +13,8 @@ incCls("editor/ediMgr.php");
 // ***********************************************************
 $fil = APP::find(CUR_PAGE);
 $tit = PGE::getTitle();
+$std = ENV::get("pic.file");
+$std = FSO::join(CUR_PAGE, $std);
 
 HTW::tag($tit, "h3");
 
@@ -22,8 +24,7 @@ HTW::tag($tit, "h3");
 $cur = basename(ENV::get("pic.file"));
 
 $box = new dropBox("menu");
-$fil = $box->files(CUR_PAGE, "pic.file");
-$fil = $box->focus("pic.file", $cur, $fil);
+$fil = $box->files(CUR_PAGE, "pic.file", $std);
 
 // ***********************************************************
 // find relevant editors

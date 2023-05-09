@@ -56,7 +56,7 @@ private function readIni($fil) {
 	$arr = $ini->getValues("data"); if (! $arr) return;
  	$prp = $ini->getValues("props");
 
- 	$arr = VEC::sort($arr, "krsort");
+ 	$arr = VEC::sort($arr, "krsort"); // longest first
 	$set = FSO::name($fil);
 
 	$this->prp[$set] = $prp;

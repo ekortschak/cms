@@ -16,37 +16,32 @@ incCls("editor/editText.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class editXtern extends editText {
-	protected $tpl = "editor/edit.text.tpl";
-
-	protected $fil = false; // source file
-
 	protected $dir = false; // destination dir
 	protected $ext = false; // destination file
 	protected $cfg = false; // destination ini file
 
 
 function __construct() {
-	$lng = CUR_LANG;
-	
+	parent::__construct();
+
+	$this->load("editor/edit.xtern.tpl");
 	$this->dir = APP::tempDir("curedit");
+
+	$lng = CUR_LANG;
 	$this->ext = FSO::join($this->dir, "curEdit.$lng.php");
 	$this->cfg = FSO::join($this->dir, "extEdit.ini");
-
-	$this->exec();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show() {
+public function show($sec = "main") {
 	$htm = APP::read($this->fil);
-	
-	$tpl = new tpl();
-	$tpl->load("editor/edit.xtern.tpl");
-	$tpl->set("path", $this->dir);
-	$tpl->set("file", $this->fil);
-	$tpl->set("content", $htm);
-	$tpl->show();
+
+	parent::set("path", $this->dir);
+	parent::set("file", $this->fil);
+	parent::set("content", $htm);
+	parent::show($sec);
 }
 
 // ***********************************************************
@@ -76,10 +71,10 @@ private function provide($file) {
 // ***********************************************************
 private function update($file) {
 	if (! is_file($file)) return;
-	
+
 	$ini = new ini($this->cfg);
 	$chk = $ini->get("props.file");
-	
+
 	if ($chk == $file) FSO::copy($this->ext, $file);
 	else MSG::add("path.wrong");
 }

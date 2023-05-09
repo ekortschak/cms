@@ -22,7 +22,7 @@ HTW::xtag("bkp.manage");
 // ***********************************************************
 $dir = APP::arcDir($dev, "bkp");
 $arr = FSO::folders($dir);
-$arr = VEC::sort($arr, "krsort");
+$arr = VEC::sort($arr, "krsort"); // latest first
 
 // ***********************************************************
 // show selector

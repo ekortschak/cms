@@ -1,9 +1,7 @@
 [dic]
-nodata = No filter specified!
 sep = ,
 
 [dic.de]
-nodata = Keine Daten vorhanden!
 sep = ;
 
 [Vars]
@@ -36,4 +34,4 @@ eol = <br>
 # ***********************************************************
 [NoData]
 # ***********************************************************
-<!DIC:nodata!>
+<!DIC:no.data!>

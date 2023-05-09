@@ -17,16 +17,17 @@ incCls("dbase/recEdit.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class editPic extends editText {
-	protected $tpl = "editor/edit.pic.tpl";
 
 function __construct() {
-	$this->exec();
+	parent::__construct();
+
+	$this->load("editor/edit.pic.tpl");
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show() {
+public function show($sec = "main") {
 	$this->showCR( $this->fil);
 	$this->showPic($this->fil);
 }
@@ -35,10 +36,8 @@ public function show() {
 // display
 // ***********************************************************
 private function showPic($fil) {
-	$tpl = new tpl();
-	$tpl->load($this->tpl);
-	$tpl->set("file", $fil);
-	$tpl->show();
+	parent::set("file", $fil);
+	parent::show();
 }
 
 private function showCR($fil) { // show copyright info

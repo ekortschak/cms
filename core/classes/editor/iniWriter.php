@@ -49,11 +49,15 @@ public function clearSec($sec) {
 // modifying properties
 // ***********************************************************
 public function savePost() {
-	$this->setProps(OID::getLast());
+	$arr = OID::getLast(); if (! $arr) return;
+
+	$this->setProps($arr);
 	$this->save();
 }
 
 public function setProps($arr) {
+	if (! is_array($arr)) return;
+
 	foreach ($arr as $sec => $vls) {
 		if (! is_array($vls)) continue;
 		self::setVals($vls, $sec);

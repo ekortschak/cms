@@ -1,8 +1,8 @@
 <?php
 
 switch (CFG::get("DB_MODE")) {
-	case "true": case 1: case true; break;
-	default: return;
+#	case "true": case 1: case true; break;
+#	default: return;
 }
 
 // ***********************************************************

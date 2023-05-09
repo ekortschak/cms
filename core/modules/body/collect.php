@@ -43,7 +43,7 @@ if (! is_file($pic)) {
 }
 $tpl->set("head", $tit);
 $tpl->set("pic", $pic);
-$tpl->set("text", APP::gc($dir));
+$tpl->set("text", APP::gcSys($dir));
 $tpl->show();
 
 ?>

@@ -44,6 +44,7 @@ function __construct($dbase = "default") {
 
 	$this->dbo = new $type($host, $file);
 	$this->con = $this->dbo->connect($user, $pass);
+	$this->dbs = $dbase;
 
 	parent::__construct($type); // read syntax
 }

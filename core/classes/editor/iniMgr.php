@@ -10,13 +10,14 @@ simple ini editor
 incCls("editor/iniMgr.php");
 
 $obj = new iniMgr($tplfile);
-$ini->save($inifile);
-$ini->read($inifile);
-$ini->show();
+$fil = $ini->getFile($dir, $caption);
+$ext = $ini->getScope();
+$xxx = $ini->show($fil);
 */
 
 incCls("editor/iniWriter.php");
 incCls("editor/iniEdit.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -30,9 +31,53 @@ function __construct($tplfile) {
 }
 
 // ***********************************************************
+// show selector
+// ***********************************************************
+public function getFile($dir, $caption, $selected = false) {
+	$box = new dropBox("menu");
+	$rel = $box->files($dir, $caption, $selected);
+	$xxx = $box->show($rel);
+	return $rel;
+}
+
+public function getScope($host = true) {
+	$arr = array();
+	$arr["ini"] = "Localhost"; if ($host)
+	$arr["srv"] = "Server";
+
+	$box = new dropBox("menu");
+	$ext = $box->getKey("scope", $arr);
+	$box->show();
+
+	return $ext;
+}
+
+public function show($file = NV) {
+	if ($file == NV) $rel = $this->file;
+	else {
+		$rel = APP::relPath($file);
+		$this->save($rel);
+	}
+	$ful = APP::file($rel);
+	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+	HTW::tag("file = $ful", "hint");
+
+	if ($file != NV) $this->read($rel);
+	$this->showForm();
+}
+
+// ***********************************************************
+// rewriting content
+// ***********************************************************
+public function save($ful) {
+	$ini = new iniWriter($ful);
+	$ini->savePost();
+}
+
+// ***********************************************************
 // display input fields by sections
 // ***********************************************************
-public function show() {
+private function showForm() {
 	$sel = new iniEdit(); $lgs = LANGUAGES;
 	$sel->register($this->oid);
 	$sel->forget();
@@ -65,14 +110,6 @@ public function show() {
 		}
 	}
 	$sel->show();
-}
-
-// ***********************************************************
-// rewriting content
-// ***********************************************************
-public function save($ful) {
-	$ini = new iniWriter($ful);
-	$ini->savePost();
 }
 
 // ***********************************************************

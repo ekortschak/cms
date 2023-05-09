@@ -46,11 +46,17 @@ err = Hinweis
 # ***********************************************************
 [fatal]
 # ***********************************************************
-<h3>Fatal Error [<!VAR:type!>]</h3>
+<hr>
+Error \#<!VAR:type!>
+<hr>
+<p>in <!VAR:file!> on <b><!VAR:line!></b></p>;
+<pre><!VAR:message!></pre>
+
+<h1>What can you do?</h1>
 <ul>
-<li><!VAR:text!></li>
-<li>in file <!VAR:file!></li>
-<li>on line &num;<b><!VAR:line!></b></li>
+<li><a href="?vmode=pedit">Enter edit mode</a></li>
+<li><a href="?reset=1">Reset session</a></li>
+<li><a href="?">Reload</a></li>
 </ul>
 
 # ***********************************************************

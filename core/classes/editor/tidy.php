@@ -37,12 +37,8 @@ private function sweep($txt) {
 	$txt = STR::replace($txt, "¶", "");
 	$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
 
-	$txt = PRG::replace($txt, "\s", " ");
 	$txt = PRG::replace($txt, "<([^/]*?)> ", " <$1>");
 	$txt = PRG::replace($txt, " </(.*?)>", "</$1> ");
-	$txt = PRG::replace($txt, "<br>(\s*?)", "<br>");
-	$txt = STR::replace($txt, "<br></p>", "</p>");
-	$txt = PRG::replace($txt, "(\s+)", " ");
 
 	$txt = $this->clearUselessTags($txt);
 	$txt = $this->clearEmptyTags($txt);
@@ -51,14 +47,16 @@ private function sweep($txt) {
 	$txt = $this->addLFs($txt);
 	$txt = $this->addLF($txt, "bblRef");
 	$txt = $this->addLF($txt, "bblShow");
+
+	$txt = $this->clearBr($txt);
 	return trim($txt);
 }
 
 // ***********************************************************
 private function addLFs($txt) {
 	$arr = array(); $cnt = 1;
-	$arr[] = "<div.<p.<br.<ul.<dl.<li.</ul.</dl.</table.<tr.</tr.<td";
-	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6.<hr.<table.<blockquote";
+	$arr[] = "<div.<p.<br.<ul.<ol.<li.</ul.</ol.<dl.<dd.<dt.</dl.</table.<tr.</tr.<th.<td"; // single lf
+	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6.<hr.<table.<blockquote"; // double lf
 
 	foreach ($arr as $tgs) {
  		$its = explode(".", $tgs);
@@ -77,6 +75,8 @@ private function addLF($txt, $fnd, $rep = "\n") {
 }
 
 // ***********************************************************
+// clean up html code
+// ***********************************************************
 private function clearEmptyTags($txt) {
 	$arr = STR::toArray("p.b.u.i.h1.h2.h3.h4.h5.h6.div", ".");
 
@@ -94,32 +94,61 @@ private function clearUselessTags($txt) {
 	return $txt;
 }
 
+// ***********************************************************
 private function clearBlanks($txt) {
 	$arr = str_split(".,:;?!");
+	$txt = PRG::replace($txt, " ( *?)", " ");
 
 	foreach ($arr as $chr) {
-		$txt = STR::replace($txt, "   $chr", $chr);
-		$txt = STR::replace($txt, "  $chr", $chr);
 		$txt = STR::replace($txt, " $chr", $chr);
 	}
 	return $txt;
 }
 
 // ***********************************************************
-// php methods
-// ***********************************************************
-private function phpSecure($txt) {
-	$txt = &$this->htm;
-	$txt = PRG::replace($txt, "<--?php(\s+)", "<php>");
-	$txt = PRG::replace($txt, "<\?php(\s+)", "<php>");
-	$txt = STR::replace($txt, "(\s+)--?>", "</php>");
-	$txt = STR::replace($txt, "(\s+)?>", "</php>");
+private function clearBr($txt) {
+	$txt = STR::replace($txt, "<br />", "<br>");
+	$txt = PRG::replace($txt, "(\s*?)<br>(\s*?)", "<br>");
+	$txt = PRG::replace($txt, "(\s*?)<br>(\s*?)</", "</");
 	return $txt;
 }
 
-private function phpRestore($txt) {
+// ***********************************************************
+// php methods
+// ***********************************************************
+public function phpSecure($txt) { // do not act outside of php code
+	$arr = STR::find($txt, "<?php", "?>"); if (! $arr) return $txt;
+
+	$txt = STR::replace($txt, "<?php ",  "<php>");
+	$txt = STR::replace($txt, "<?php\n", "<php>\n");
+	$txt = STR::replace($txt, ";?>",   " </php>");
+	$txt = STR::replace($txt, " ?>",   " </php>");
+	$txt = STR::replace($txt, "\n?>", "\n</php>");
+
+	foreach ($arr as $key => $val) {
+		$rep = $val;
+		$rep = STR::replace($rep, "->", "&rarr;");
+		$rep = STR::replace($rep, "=>", "&rArr;");
+
+		$txt = STR::replace($txt, $val, $rep);
+	}
+	return $txt;
+}
+
+public function phpRestore($txt) { // do not act outside of php code
+	return $txt;
+	$arr = STR::find($txt, "<php>", "</php>"); if (! $arr) return $txt;
+
 	$txt = STR::replace($txt, "<php>", "<?php ");
 	$txt = STR::replace($txt, "</php>", "?>");
+
+	foreach ($arr as $key => $val) {
+		$rep = $val;
+		$rep = STR::replace($rep, "→", "->");
+		$rep = STR::replace($rep, "⇒", "=>");
+
+		$txt = STR::replace($txt, $val, $rep);
+	}
 	return $txt;
 }
 

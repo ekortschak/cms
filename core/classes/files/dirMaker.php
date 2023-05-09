@@ -9,7 +9,7 @@ used to create path hierarchies from strings
 // ***********************************************************
 incCls("input/dirMaker.php");
 
-$btn = new dirMaker();
+$hir = new dirMaker();
 */
 
 // ***********************************************************

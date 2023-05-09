@@ -106,3 +106,21 @@ vdst = VERSION
 
 [hidden.files.de]
 <!VAR:what!> Versteckte Dateien kopieren
+
+# ***********************************************************
+[report]
+# ***********************************************************
+<table>
+<!VAR:tdata!>
+</table>
+
+[report.row]
+<tr>
+	<td nowrap><!VAR:inf!> &nbsp; &nbsp; </td>
+	<td align='right'><!VAR:val!></td>
+	<td><hint><!VAR:cat!></hint></td>
+<tr>
+
+[stats]
+<h5><!VAR:cap!></h5>
+<div class='pre'><!VAR:data!></div>

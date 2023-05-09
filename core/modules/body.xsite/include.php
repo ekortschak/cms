@@ -4,7 +4,7 @@
 # $dir is not inherited
 
 $loc = ENV::getPage();
-$txt = APP::gc($loc);
+$txt = APP::gcSys($loc);
 # $txt = APP::lookup($txt);
 
 // ***********************************************************

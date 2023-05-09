@@ -16,19 +16,17 @@ rows = 40
 # ***********************************************************
 <div class="toolbar flex">
 	<div>
-		<!SEC:edit!>
-		<!SEC:characters!>&nbsp;
-		<!SEC:formatting!>
-		<!SEC:addImg!>
-		<!SEC:addLFs!>&nbsp;
-		<!SEC:addLink!>
+#		<!SEC:edit!>
+#		<!SEC:characters!>&nbsp;
+#		<!SEC:formatting!>
+#		<!SEC:addImg!>
+#		<!SEC:addLFs!>&nbsp;
+#		<!SEC:addLink!>
 	</div>
 	<div>
 		<!SEC:item.view!>
 	</div>
 </div>
-
-asdf
 
 # ***********************************************************
 [main]

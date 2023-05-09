@@ -86,7 +86,6 @@ public function getKey($qid, $data, $selected = false) {
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $this->getSel($qid, $data, $selected);
-
 	$cur = VEC::get($data, $sel); if (! $cur)
 	$cur = current($data);
 
@@ -103,26 +102,15 @@ public function setType($qid, $type) {
 	$this->data[$qid]["typ"] = $type;
 }
 
-public function focus($qid, $value, $default) {
-	$chk = ENV::getParm($qid); if ($chk) return $default;
-
-	$key = VEC::find($this->data[$qid]["dat"], $value); if (! $key) return $default;
-	$val = VEC::get( $this->data[$qid]["dat"], $key);
-
-	$this->data[$qid]["sel"] = $key;
-	$this->data[$qid]["cur"] = $val;
-	return ENV::set($qid, $key);
-}
-
 // ***********************************************************
 protected function getSel($qid, $data, $sel) {
-	$sel = ENV::get($qid, $sel);
-	$chk = VEC::isKey($data, $sel);
+	$key = ENV::getParm($qid); if (! $key)
+	$key = ENV::get($qid, $sel);
+	$key = VEC::find($data, $key);
 
-	if (! $chk) $sel = false;
-	if (! $sel)
+	if (! $key)
 	return ENV::set($qid, array_key_first($data));
-	return ENV::setIf($qid, $sel);
+	return ENV::set($qid, $key);
 }
 
 // ***********************************************************
@@ -142,14 +130,12 @@ public function getInput($qid, $value) {
 // ***********************************************************
 public function folders($dir, $parm = "pic.folder", $selected = false) {
 	$arr = APP::folders($dir); if (! $arr) return false;
-	$sel = VEC::find($arr, $selected);
-	return $this->getKey($parm, $arr, $sel);
+	return $this->getKey($parm, $arr, $selected);
 }
 public function files($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::files($dir); if (! $arr) return false;
-	$sel = VEC::find($arr, $selected);
 	$arr = $this->sortFiles($arr);
-	return $this->getKey($parm, $arr, $sel);
+	return $this->getKey($parm, $arr, $selected);
 }
 public function pages($dir, $parm = "pic.file", $selected = false) {
 	$arr = APP::folders($dir); if (! $arr) return false;
@@ -158,7 +144,7 @@ public function pages($dir, $parm = "pic.file", $selected = false) {
 		$ini = new ini($dir);
 		$arr[$dir] = $ini->getHead();
 	}
-	return $this->getKey($parm, $arr, $sel);
+	return $this->getKey($parm, $arr, $selected);
 }
 
 // ***********************************************************
@@ -166,8 +152,7 @@ protected function sortFiles($arr) {
 	$pri = $els = array();
 
 	foreach ($arr as $fil => $nam) { // put htm files first
-		$ext = FSO::ext($fil);
-		switch ($ext) {
+		switch (FSO::ext($fil)) {
 			case "htm": case "php": $pri[$fil] = $nam; break;
 			default:                $els[$fil] = $nam;
 		}

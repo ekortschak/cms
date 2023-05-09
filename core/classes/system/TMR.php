@@ -37,16 +37,16 @@ public static function punch($info = NV) { // get elapsed time
 }
 
 public static function get() {
-	return self::$dat();
+	return self::$dat;
 }
 
 // ***********************************************************
 private static function doTime($ref, $key = NV) {
 	if ($key === NV) $key = uniqid();
-	
+
 	$cur = microtime(true);
 	$dif = sprintf("%1.3fs", $cur - $ref);
-	
+
 	self::$cTime = $cur;
 	self::$dat[$key] = $dif;
 }

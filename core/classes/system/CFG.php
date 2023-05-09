@@ -102,6 +102,7 @@ public static function read($file) {
 		if (! stripos($file, "config.ini")) return;
 		die("Config file '$file' not found!");
 	};
+
 	self::load($fil); if (! IS_LOCAL)
 	self::load($srv);
 
@@ -142,6 +143,9 @@ private static function load($fil) {
 public static function set($key, $value) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
 	$val = trim($value); self::$dat[$key] = $val;
+
+	if ($val === "false") $val = false;
+	if ($val === "true")  $val = true;
 	define($key, $val);
 }
 
@@ -163,7 +167,7 @@ public static function groups() {
 // replacing constants in strings
 // ***********************************************************
 public static function insert($out) {
-	$arr = self::$dat;
+	$arr = self::$dat; if (! $out) return $out;
 
 	foreach ($arr as $key => $val) {
 		if (! $key) continue;

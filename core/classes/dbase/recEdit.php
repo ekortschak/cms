@@ -77,7 +77,7 @@ public function findDefaults() {
 	$this->qid = -1;
 
 	$dbi = new dbInfo($this->dbs, $this->tbl);
-	$fds = $dbi->fields($this->tbl); if (!$fds) return $out;
+	$fds = $dbi->fields($this->tbl); if (!$fds) return;
 
 	foreach ($fds as $fld => $hed) {
 		$inf = $this->fldProps($this->tbl, $fld);

@@ -115,4 +115,5 @@ title = PRJ_TITLE
 <!MOD:user.opts!>
 <!MOD:user.tags!>
 <!MOD:msgs!>
+<!MOD:debug.timer!>
 </div>

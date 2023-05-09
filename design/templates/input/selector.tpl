@@ -1,10 +1,8 @@
 [dic]
-nodata = No filter specified!
 mandatory = marks mandatory field
 hint = Info
 
 [dic.de]
-nodata = Keine Daten vorhanden!
 mandatory = markiert Pflichtfelder
 hint = Hinweis
 
@@ -64,7 +62,7 @@ cols = 69
 [NoData]
 # ***********************************************************
 <h5><!DIC:hint!></h5>
-<p><!DIC:nodata!></p>
+<p><!DIC:no.data!></p>
 
 # ***********************************************************
 [btn.ok]

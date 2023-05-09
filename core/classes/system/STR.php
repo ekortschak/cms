@@ -340,6 +340,7 @@ public static function utf8decode($string) {
 // auxilliary methods
 // ***********************************************************
 private static function simplify($txt, $sep) {
+	if (! $txt) return "";
 	if (! is_array($sep)) $sep = array($sep);
 
 	foreach ($sep as $del) { // delimiter
@@ -355,7 +356,7 @@ public static function findPos($haystack, $sep) {
 		$pos = stripos($haystack, $del); if ($pos === false) continue;
 		$out[$del] = $pos; // store position in string
 	}
-	return VEC::sort($out, "asort");
+	return VEC::sort($out, "asort"); // first occurrance first
 }
 
 // ***********************************************************

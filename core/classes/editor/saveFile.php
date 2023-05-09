@@ -37,12 +37,10 @@ private function exec() {
 private function saveFile() {
 	$fil = ENV::getPost("filName"); if (! $fil) return false;
 	$txt = ENV::getPost("content"); if (! $txt) return false;
-	$old = ENV::getPost("orgName");
+	$old = ENV::getPost("orgName");	if ($fil != $old) FSO::kill($old);
 
 	$tdy = new tidy();
 	$txt = $tdy->get($txt);
-
-	if ($fil != $old) FSO::kill($old);
 
 	APP::write($fil, $txt);
 	return true;

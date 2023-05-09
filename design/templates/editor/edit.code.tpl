@@ -9,6 +9,29 @@ LOC_SCR/inline.js
 
 
 # ***********************************************************
+[toolbar]
+# ***********************************************************
+<div class="toolbar flex">
+	<div>
+		<!SEC:edit!>
+		<!SEC:characters!>
+	</div>
+	<div>
+		<!SEC:formatting!>
+		<!SEC:addLFs!>
+	</div>
+	<div>
+		<!SEC:listings!>
+		<!SEC:tables!>
+		<!SEC:images!>
+		<!SEC:links!>
+	</div>
+	<div>
+		<!SEC:item.view!>
+	</div>
+</div>
+
+# ***********************************************************
 [main]
 # ***********************************************************
 <!SEC:toolbar!>

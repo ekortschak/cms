@@ -56,6 +56,7 @@ public static function readTree($dir = NV) {
 
 	$dir = APP::dir($dir);
 	$drs = FSO::dtree($dir, ! IS_LOCAL);
+	$drs[$dir] = $dir;
 
 	foreach ($drs as $dir => $nam) {
 		self::readProps($dir);

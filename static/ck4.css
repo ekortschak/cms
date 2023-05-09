@@ -973,7 +973,7 @@ rating img {
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.dropMenu, .submenu {
+.dropMenu, .subMenu {
 	z-index: 150;
 	display: block;
 
@@ -992,7 +992,7 @@ rating img {
 	padding: 2px 10px;
 }
 
-.submenu {
+.subMenu {
 	color: black;
 	background: linear-gradient(-3deg, cadetblue, white 65%);
 	border: 1px solid #AAA;
@@ -1001,7 +1001,7 @@ rating img {
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.topmenu {
+.topMenu {
 	z-index: 99;
 	position: relative;
 	width: 100%;
@@ -1015,24 +1015,24 @@ rating img {
 	font-weight: bold;
 }
 
-.topmenu a {
+.topMenu a {
 	color: snow;
 }
-.topmenu .active {
+.topMenu .active {
 	color: snow;
 	background: navy;
 }
 
 /* ******************************************************** */
-.topmenu-item {
+.topItem {
 	display: inline-block;
 }
-.topmenu-item:hover .topmenu-content {
+.topItem:hover .topList {
 	display: block;
 }
 
 /* ******************************************************** */
-.topmenu-button {
+.topText {
 	display: inline-block;
 	border: 0px;
 	padding: 7px 20px;
@@ -1041,13 +1041,13 @@ rating img {
 #   border-radius: 10px 10px 0px 0px;
 	margin-right: 5px;
 }
-.topmenu-button:hover{
+.topText:hover{
 	color: snow;
 	background: navy;
 }
 
 /* ******************************************************** */
-.topmenu-content {
+.topList {
 	z-index: 99;
 	position: fixed;
 	display: none;
@@ -1061,7 +1061,7 @@ rating img {
   	overflow: auto;
 }
 
-.topmenu-content a {
+.topList a {
 	display: block;
 	padding: 3px 10px;
 	color: black;
@@ -1069,7 +1069,7 @@ rating img {
 	font-weight: normal;
 }
 
-.topmenu-content a:hover {
+.topList a:hover {
 	color: black;
 	background: gold;
 }

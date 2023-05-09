@@ -6,7 +6,7 @@ $arr = APP::folders("blocks");
 // show blocks
 // ***********************************************************
 foreach ($arr as $dir => $nam) {
-	echo APP::gc($dir);
+	echo APP::gcSys($dir);
 }
 
 ?>

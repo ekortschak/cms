@@ -37,8 +37,8 @@ public function act() {
 	$prm = SSL::decrypt($prm);
 	$lst = STR::toAssoc($prm, "&");
 
-	$md5 = VEC::get($lst, "c"); if (! SSL::isValid($md5)) return;
-	$fso = VEC::get($lst, "f"); if (! $fso) return;
+	$md5 = VEC::get($lst, "c"); if (! SSL::isValid($md5)) return "ERROR";
+	$fso = VEC::get($lst, "f"); if (! $fso) return "ERROR";
 	$act = VEC::get($lst, "w");
 
 	if ($fso == ".") $fso = APP_DIR;

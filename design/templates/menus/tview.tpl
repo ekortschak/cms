@@ -1,12 +1,6 @@
 [register]
 LOC_SCR/toc.view.js
 
-[dic]
-dat.empty = No data ...
-
-[dic.de]
-dat.empty = Keine Daten ...
-
 [vars]
 pfx = tv
 info = no info provided
@@ -58,4 +52,4 @@ display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>
 # ***********************************************************
 [empty]
 <h3>Info</h3>
-<p><!DIC:dat.empty!></p>
+<p><!DIC:no.data!></p>

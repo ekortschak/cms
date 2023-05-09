@@ -86,7 +86,7 @@ private function nodeDrop($dir) {
 // ***********************************************************
 private function nodeOut($dir) { // move out in hierarchy
 	$dst = dirname(dirname($dir));
-	$chk = STR::count($dst, DIR_SEP); if ($chk < 2) return;
+	$chk = STR::count($dst, DIR_SEP); if ($chk < 1) return;
 	$dst = FSO::join($dst, basename($dir));
 
 	FSO::mvDir($dir, $dst);

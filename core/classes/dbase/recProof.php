@@ -44,7 +44,7 @@ public function check($vls) {
 protected function checkNull($vls) { // may be used to overrule values
 	foreach ($vls as $fld => $val) {
 		if ($this->mayNull($fld)) continue;
-		return ERR::msg("fld.empty", "$tbl.$fld");
+		return ERR::msg("fld.empty", "$this->tbl.$fld");
 	}
 	return $vls;
 }

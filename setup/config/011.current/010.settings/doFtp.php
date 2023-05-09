@@ -1,31 +1,14 @@
 <?php
 
-incCls("menus/dropBox.php");
 incCls("editor/iniMgr.php");
-
-// ***********************************************************
-// select destination
-// ***********************************************************
-$arr = array(
-	"ini" => "Localhost",
-);
-
-$nav = new dropBox("menu");
-$ext = $nav->getKey("scope", $arr);
-$nav->show();
+incCls("server/ftp.php");
 
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$ful = "config/ftp.ini";
-incCls("server/ftp.php");
-
-HTW::tag("file = $ful", "small");
-
 $ini = new iniMgr("LOC_CFG/ftp.def");
-$ini->save($ful);
-$ini->read($ful);
-$ini->show();
+$ini->getScope(false);
+$ini->show("config/ftp.ini");
 
 // ***********************************************************
 HTW::xtag("ftp.check");

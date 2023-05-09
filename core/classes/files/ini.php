@@ -75,7 +75,7 @@ public function setSec($sec, $data) {
 
 public function getSec($sec) {
 	$sec = $this->findSec($sec); if (! $sec) return "";
-	return $this->sec[$sec];
+	return VEC::get($this->sec, $sec);
 }
 
 public function getSecType($sec) {
@@ -132,7 +132,7 @@ private function chkTitle($txt) {
 private function scrTitle($txt) {
 	$scr = STR::after($txt, "script:"); if (! $scr) return false;
 	$scr = FSO::join($this->dir, $scr);
-	$out = APP::gc($scr); if ($out) return $out;
+	$out = APP::gcFile($scr); if ($out) return $out;
 	return false;
 }
 

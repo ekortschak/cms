@@ -64,7 +64,7 @@ private function findType($file) {
 
 private function findList($typ) {
 	if ($typ == "code") return $this->getArr("code,xtern,text");
-	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5");
+	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5,code");
 	if ($typ == "ini")  return $this->getArr("ini,text");
 	if ($typ == "dic")  return $this->getArr("dic,text");
 	return array();
@@ -91,7 +91,7 @@ public function showCom($cls, $tool = "text") {
 	incCls("editor/$cls.php");
 
 	$edt = new $cls();
-	$edt->load($this->fil);
+	$edt->edit($this->fil);
 	$edt->suit($tool);
 	$edt->show();
 }
@@ -103,7 +103,7 @@ private function getArr($items) {
 	$out = array(); $arr = STR::toArray($items);
 	$dat = array(
 		"html"  => "Intern", "ini" => "Ini-Editor", "text" => "Text",
-		"code"  => "Intern", "dic" => "Dic-Editor", "ck4"  => "CK-Editor 4.x",
+		"code"  => "Code",   "dic" => "Dic-Editor", "ck4"  => "CK-Editor 4.x",
 		"xtern" => "Extern", "css" => "Css-Editor", "ck5"  => "CK-Editor 5.x",
 	);
 	foreach ($arr as $key) {

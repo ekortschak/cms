@@ -48,8 +48,8 @@ public function setModules() {
 }
 
 private function getModules() {
-	$app = $this->mod["app"]; if (! $app) $app = array();
-	$zzz = $this->mod["zzz"]; if (! $zzz) return $app;
+	$app = VEC::get($this->mod, "app", array());
+	$zzz = VEC::get($this->mod, "zzz", array());
 	return $app + $zzz;
 }
 
@@ -87,7 +87,7 @@ public function gc($sec = "main") {
 	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
 		$xxx = APP::lock(false);
-		$val = APP::gc($fil);
+		$val = APP::gcFile($fil);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);
 	}

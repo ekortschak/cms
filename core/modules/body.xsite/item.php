@@ -17,9 +17,9 @@ $fil = FSO::join(LOC_MOD, "body", $inc);
 
 $frm = new tpl();
 $frm->load("modules/page.tpl");
-$frm->setVar("head", APP::gcMod($dir, "head"));
+$frm->setVar("head", APP::gcSys($dir, "head"));
 $frm->setVar("page", APP::gcMap($fil));
-$frm->setVar("tail", APP::gcMod($dir, "tail"));
+$frm->setVar("tail", APP::gcSys($dir, "tail"));
 $frm->show("xsite");
 
 ?>

@@ -1,9 +1,7 @@
 [dic]
-nodata = No data
 recNew = Append a new record
 
 [dic.de]
-nodata = Keine Daten
 recNew = Neuen Datensatz anlegen
 
 # ***********************************************************
@@ -30,7 +28,7 @@ recNew = Neuen Datensatz anlegen
 		</td>
 	</tr>
 	<tr class="rf">
-		<td align="center"><!DIC:nodata!></td>
+		<td align="center"><!DIC:no.data!></td>
 	</tr>
 </table>
 

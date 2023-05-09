@@ -1,7 +1,7 @@
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.dropMenu, .submenu {
+.dropMenu, .subMenu {
 	z-index: 150;
 	display: block;
 
@@ -20,16 +20,16 @@
 	padding: 2px 10px;
 }
 
-.submenu {
+.subMenu {
 	color: FC_MARK;
-	background: linear-gradient(-3deg, cadetblue, white 65%);
+	background: linear-gradient(-3deg, white, cadetblue 65%);
 	border: 1px solid OUTLINE;
 }
 
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.topmenu {
+.topMenu {
 	z-index: 99;
 	position: relative;
 	width: 100%;
@@ -43,34 +43,35 @@
 	font-weight: bold;
 }
 
-.topmenu a {
+.topMenu a {
 	color: FC_MENU;
 }
-.topmenu .active {
+.topMenu .active {
 	color: FC_INFO;
 	background: BC_INFO;
 }
 
 /* ******************************************************** */
-.topmenu-item {
+.topItem {
 	display: inline-block;
 }
-.topmenu-item:hover .topmenu-content {
+.topItem:hover .topList {
 	display: block;
 }
 
 /* ******************************************************** */
-.topmenu-button {
+.topText {
 	display: inline-block;
 	border: 0px;
-	padding: 7px 20px;
+	padding: 7px 12px;
 	height: H_MENU;
 	text-shadow: 1px 1px 2px grey;
 #   border-radius: 10px 10px 0px 0px;
+	color: FC_MENU;
 }
 
 /* ******************************************************** */
-.topmenu-content {
+.topList {
 	z-index: 99;
 	position: absolute;
 	display: none;
@@ -84,7 +85,7 @@
   	overflow: auto;
 }
 
-.topmenu-content a {
+.topList a {
 	display: block;
 	padding: 3px 10px;
 	color: FC_BODY;
@@ -92,7 +93,7 @@
 	font-weight: normal;
 }
 
-.topmenu-content a:hover {
+.topList a:hover {
 	color: FC_MARK;
 	background: BC_MARK;
 }
