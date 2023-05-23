@@ -29,8 +29,7 @@ if (! FSO::hasXs($dev)) return;
 // ***********************************************************
 // transfer files
 // ***********************************************************
-$snc = new syncBack();
-$snc->setDevice($dev);
+$snc = new syncBack($dev);
 $snc->$fnc();
 
 ?>

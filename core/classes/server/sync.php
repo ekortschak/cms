@@ -21,12 +21,12 @@ $snc->setTarget($dest);
 for execution see derived classes
 */
 
+incCls("server/xfer.php");
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class sync extends tpl {
-	protected $root = "";		// common path
-
 	protected $lst = array();	// list of verified destination dirs
 	protected $rep = array();   // transaction report
 	protected $ren = array();   // fso's without numbers
@@ -36,14 +36,22 @@ class sync extends tpl {
 	protected $newProt = true;  // protect newer files
 	protected $err = false;
 
-function __construct() {
-	$this->rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
+	protected $dev = "";		// backup media root path
+
+	protected $srcHost = false;
+	protected $srcPath = false;
+	protected $srcVer  = false;
+
+	protected $trgHost = false;
+	protected $trgPath = false;
+	protected $trgVer  = false;
+
+
+function __construct($dev) {
+	$this->dev = $dev;
 
 	$this->load("modules/xfer.sync.tpl");
-
 	$this->register();
-	$this->setSource(APP_DIR);
-	$this->setTarget(ARCHIVE);
 	$this->setNewer();
 }
 
@@ -51,13 +59,12 @@ function __construct() {
 // set parameters
 // ***********************************************************
 public function setSource($dir) {
-	$dir = CFG::insert($dir);
-	return $this->set("source", FSO::norm($dir));
+	$this->srcPath = $this->chkPath($dir);
+	$this->srcVer  = $this->getVersion($dir);
 }
 public function setTarget($dir) {
-	$dir = CFG::insert($dir);
-	$dir = APP::arcDir($dir, "sync");
-	return $this->set("target", FSO::norm($dir));
+	$this->trgPath = $this->chkPath($dir);
+	$this->trgVer  = $this->getVersion($dir);
 }
 
 // ***********************************************************
@@ -68,11 +75,6 @@ protected function setNewer() { // protect newer files?
 }
 
 // ***********************************************************
-protected function setTitle($title) {
-	$tit = DIC::get($title);
-	$this->set("title", $tit);
-}
-
 public function setVisOnly($value) {
 	$val = ($value) ? BOOL_NO : BOOL_YES;
 	$this->set("what", $val);
@@ -81,29 +83,20 @@ public function setVisOnly($value) {
 // ***********************************************************
 // retrieve info
 // ***********************************************************
-protected function srcName($fso, $act = false)  {
-	$src = $this->get("source");
-	if (STR::begins($fso, $src)) return $fso;
-	return FSO::join($src, $fso);
-}
-protected function srcVersion() {
-	$dir = $this->get("source");
-	return $this->getVersion($dir);
+protected function srcName($fso)  {
+	if (STR::begins($fso, $this->srcPath)) return $fso;
+	return FSO::join($this->srcPath, $fso);
 }
 
 // ***********************************************************
 protected function dstName($fso, $act = false) {
-	$dst = $this->get("target");
-	if (STR::begins($fso, $dst)) return $fso;
-	return FSO::join($dst, $fso);
-}
-protected function dstVersion() {
-	$dir = $this->get("target");
-	return $this->getVersion($dir);
+	if (STR::begins($fso, $this->trgPath)) return $fso;
+	return FSO::join($this->trgPath, $fso);
 }
 
 // ***********************************************************
 protected function getVersion($dir) {
+	if (! $dir) return "?";
 	$fil = FSO::join($dir, "config/config.ini");
 
 	$ini = new ini($fil);
@@ -114,43 +107,52 @@ protected function getVersion($dir) {
 // run jobs
 // ***********************************************************
 protected function run($info = "info") {
-	$act = ENV::getParm("sync.act"); if (! $this->isGood()) return;
+	$act = ENV::getParm("sync.act");
+
+ // execute before display
 	if ($act == 2) $this->exec();
 
-TMR::punch(4);
-	$this->set("vsrc", $this->srcVersion());
-TMR::punch(5);
-#	$this->set("vdst", $this->dstVersion());
-
-TMR::punch(6);
-	$this->show($info);
-TMR::punch(7);
-	$this->show();
-TMR::punch(8);
+	$this->confirm($info);
 
 	if ($act == 1) return $this->analize();
 	if ($act == 2) return $this->showStats();
-
-TMR::punch(9);
 
 	ENV::set("sync.jbs", false);
 }
 
 // **********************************************************
+protected function confirm($info) {
+	$this->set("source", $this->srcHost); $this->set("vsrc", $this->srcVer);
+	$this->set("target", $this->trgHost); $this->set("vdst", $this->trgVer);
+
+	$this->show($info);
+	$this->show();
+}
+
+// **********************************************************
 protected function exec() {
+TMR::punch("exec.in");
+
 	$arr = ENV::get("sync.jbs"); if (! $arr) return false;
+	$rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
+
 	$arr = $this->aggregate($arr);
 
 	foreach ($arr as $act => $lst) {
 		foreach ($lst as $key => $fso) {
 			$erg = $this->manage($act, $fso); if (! $erg) continue;
 
-			$this->rep[$act]+= $erg;
+			$rep[$act]+= $erg;
 			unset($arr[$act][$key]);
 		}
 		if (! VEC::get($arr, $act)) unset($arr[$act]);
 	}
+
+
 	ENV::set("sync.jbs", $arr);
+	$this->rep = $rep;
+
+TMR::punch("exec.done");
 }
 
 // **********************************************************
@@ -178,16 +180,14 @@ protected function showStats() {
 // search file systems for differences
 // ***********************************************************
 protected function analize() {
-	$src = $this->get("source");
-	$dst = $this->get("target");
-	$lst = $this->getTree($src, $dst);
+	$lst = $this->getTree($this->srcPath, $this->trgPath);
 
 	ENV::set("sync.jbs", $lst);
 	$this->preView(true);
 }
 
 protected function preView($tellMe = false) {
-	$arr = ENV::get("sync.jbs", NV);
+	$arr = ENV::get("sync.jbs", false);
 
 	if ($this->err) return MSG::now($this->err);
 	if (! $arr) {
@@ -241,8 +241,8 @@ protected function report() {
 // file handling
 // ***********************************************************
 protected function getTree($src, $dst) {
-	$src = $this->FSlocal($src); if (! $src) return false;
-	$dst = $this->FSlocal($dst);
+	$src = $this->lclFiles($src); if (! $src) return false;
+	$dst = $this->lclFiles($dst);
 	$out = $this->getNewer($src, $dst);
 
 	$out = $this->chkRename($out);
@@ -251,24 +251,35 @@ protected function getTree($src, $dst) {
 }
 
 // ***********************************************************
-protected function FSlocal($dir) {
-	incCls("server/xfer.php");
-
+protected function lclFiles($dir) {
 	$srv = new xfer($this->visOnly);
-	$out = $srv->getFiles($dir); if (! $out) return array();
-	$fst = current($out);
+	$out = $srv->getFiles($dir);
+	return $this->conv($out);
+}
 
-	if (STR::begins($fst, "Error")) {
-		MSG::now($fst);
+protected function conv($txt) {
+	$arr = explode("\n", $txt); $out = array();
+	return $arr;
+
+	foreach ($arr as $itm) {
+		$key = STR::between($itm, ";;", ";");
+		$val = STR::clear($itm, ";;$key");
+		$out[$key] = $v;
 	}
 	return $out;
 }
 
+protected function chkErr($arr, $inf) {
+	if (count($arr) > 5) return false;
+	$this->err = DIC::get("err.fetch")." ".DIC::get($inf);
+	return true;
+}
+
 // ***********************************************************
 protected function getNewer($src, $dst) {
-	if (count($src) < 5) {
-		return MSG::now("err.fetch");
-	}
+	if ($this->chkErr($src, "source")) return array();
+#	if ($this->chkErr($dst, "target")) return array();
+
 	$out = $lst = $ren = array();
 
 	foreach ($src as $itm) { // source - e.g. local files
@@ -387,14 +398,14 @@ protected function chkCount($arr) {
 protected function split($itm, $pfx) {
 	$itm = strip_tags(trim($itm));
 	$itm = explode(";", $itm); if (count($itm) < 4) return false;
-	$fso = $itm[2];
+	$fso = $itm[3];
 
 	return array(
 		"fso" => $fso,
-		"alf" => PRG::replace($fso, "\/\d\d\d\.", "\/"),
+		"alf" => PRG::replace($fso, "\/\d\d\d\.", DIR_SEP),
 		"typ".$pfx => $itm[0],
 		"dat".$pfx => $itm[1],
-		"md5".$pfx => $itm[3]
+		"md5".$pfx => $itm[4]
 	);
 }
 
@@ -411,15 +422,16 @@ protected function chkProps($arr) {
 	return $out;
 }
 
+protected function chkPath($dir) {
+	$dir = CFG::insert($dir);
+	return FSO::norm($dir);
+}
+
 // ***********************************************************
 // dummies for derived classes
 // ***********************************************************
 protected function aggregate($arr) {
 	return $arr;
-}
-
-protected function isGood() {
-	return true;
 }
 
 // ***********************************************************

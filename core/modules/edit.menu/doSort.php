@@ -16,6 +16,8 @@ $sec = "nodata";
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/sort.items.tpl");
+$tpl->register();
+
 $its = ""; $ccc = 1;
 
 foreach ($arr as $dir => $nam) {

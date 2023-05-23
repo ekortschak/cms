@@ -6,6 +6,7 @@ head3 = Heading 3
 head4 = Heading 4
 head5 = Heading 5
 head6 = Heading 6
+lfeed = Linefeed
 pbreak = Page break
 sbreak = Soft hyphen
 hrule = Horizontale Linie
@@ -45,6 +46,7 @@ head3 = Überschrift 3
 head4 = Überschrift 4
 head5 = Überschrift 5
 head6 = Überschrift 6
+lfeed = Zeilenumbruch
 pbreak = Seitenumbruch
 sbreak = Bedingter Trennstrich
 hrule = Horizontale Linie
@@ -79,7 +81,6 @@ askWidth = Bildbreite festlegen
 
 [edit]
 <button class="icon" onclick="doUndo();"><img src="LOC_ICO/edit/undo.png" /></button>
-&nbsp;
 
 # *****************************************************************
 [formatting]
@@ -170,7 +171,7 @@ askWidth = Bildbreite festlegen
 [addLFs]
 <div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
 	<div id="edLFs" class="dropbody">
-		<div><a href="javascript:insAny('<br>');">&crarr;</a></div>
+		<div><a href="javascript:insAny('<br>');"><!DIC:lfeed!></a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
 		<div><a href="javascript:insAny('\n<hr class=\'pbr\'>\n');"><!DIC:pbreak!></a></div>
 		<div><a href="javascript:insAny('&shy;');"><!DIC:sbreak!></a></div>

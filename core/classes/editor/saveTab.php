@@ -5,28 +5,31 @@ if (VMODE != "tedit") return;
 /* ***********************************************************
 // INFO
 // ***********************************************************
-web site editor, used to create and manage files
-* no public methods
+see parent
 */
 
-incCls("editor/iniWriter.php");
+incCls("editor/tabEdit.php");
 
 new saveTab();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class saveTab {
+class saveTab extends saveMany {
 
 function __construct() {
-	$this->exec();
+	parent::__construct();
+
+	switch ($this->env("btn.tab")) {
+		case "G": return $this->exec();
+	}
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-private function exec() {
-	$act = ENV::get("btn.tab");
+protected function exec() {
+	$act = $this->env("btn.tab");
 
 	switch ($act) {
 		case "T": return $this->toggle();   // turn tabs on/off
@@ -41,101 +44,77 @@ private function exec() {
 // visibility & sort order
 // ***********************************************************
 private function toggle() {
-	$cmd = ENV::getPost("set.act"); if (! $cmd) return;
-	$set = ENV::getPost("tabset");  if (! $set) return;
-	$vls = ENV::getPost("tabs");    if (! $vls) return;
-	$lcs = ENV::getPost("tabl");
-	$std = ENV::getPost("tab.default");
-
-	$ini = new iniWriter("LOC_CFG/tabsets.def");
-	$ini->read("config/tabsets.ini");
+	$cmd = $this->get("set.act"); if (! $cmd) return;
+	$set = $this->get("tabset");  if (! $set) return;
+	$vls = $this->get("tabs");    if (! $vls) return;
+	$lcs = $this->get("tabl");
+	$std = $this->get("tab.default");
 
 	$set = basename($set);
 	$frc = $lcs[$std];
 
+	$edt = new tabEdit("config/tabsets.ini");
+
 	foreach ($vls as $key => $val) {
-		if ($key == $std) {
-			$val = "default";
-		}
-		if ($frc) $val = "$val, local";
+		if ($key == $std) $val = "default";
+		if ($frc)         $val = "$val, local";
 		else {
 			$lcl = VEC::get($lcs, $key);
 			if ($lcl) $val = "$val, local";
 		}
-		$ini->set("$set.$key", $val);
+		$edt->set("$set.$key", $val);
 	}
-	$ini->save();
+	$edt->save();
 }
 
 // ***********************************************************
 private function tabAdd() {
-	$cmd = ENV::getPost("tab_act"); if (! $cmd) return;
-	$dir = ENV::getPost("tab_dir"); if (! $dir) return;
+	$cmd = $this->get("tab.act"); if (! $cmd) return;
+	$dir = $this->get("tab.dir"); if (! $dir) return;
+	$fil = FSO::join($dir, "tab.ini");
 	$set = APP_CALL;
 
-	$dir = FSO::join(APP_DIR, $dir);
-	$dir = FSO::force($dir);
-	$fil = FSO::join($dir, "tab.ini");
-	$dir = APP::relPath($dir);
+	$edt = new tabEdit($fil); // create default tab.ini
+	$edt->save();
 
-	$ini = new iniWriter("LOC_CFG/tabsets.def");
-	$ini->read($fil);
-	$ini->save($fil);
-
-	$fil = "config/tabsets.ini";
-	$ini = new iniWriter($fil);
-	$ini->set("$set.$dir", 1);
-	$ini->save($fil);
+	$edt = new tabEdit("config/tabsets.ini"); // register new tab
+	$edt->set("$set.$dir", 1);
+	$edt->save();
 }
 
 // ***********************************************************
 private function tabSort() {
-	$cmd = ENV::getPost("sort_act"); if (! $cmd) return;
-	$lst = ENV::getPost("slist");
+	$cmd = $this->get("sort.act");  if (! $cmd) return;
+	$lst = $this->get("sort.list"); if (! $lst) return;
+	$set = $this->get("sort.parm");
 
-	if (! $lst) return;
-	$set = ENV::getPost("sparm");
 	$lst = VEC::explode($lst, ";");
 
-	$ini = new iniWriter("LOC_CFG/tabsets.def");
-	$xxx = $ini->read("config/tabsets.ini");
-	$vls = $ini->getValues($set);
+	$edt = new tabEdit("config/tabsets.ini");
+	$vls = $edt->getValues($set);
 	$out = array();
 
 	foreach ($lst as $itm) {
 		if (! $itm) continue;
 		$out[$itm] = VEC::get($vls, $itm, 1);
 	}
-	$ini->clearSec($set);
-	$ini->setValues($set, $out);
-	$ini->save();
+	$edt->clearSec($set);
+	$edt->setValues($set, $out);
+	$edt->save();
 }
 
 // ***********************************************************
 // methods for design/tabsets
 // ***********************************************************
 private function tabProps() {
-	$arr = ENV::getPost("props"); if (! $arr) return;
-	$tab = ENV::get("tedit.tab");
+	$tab = $this->env("tedit.tab"); if (! $tab) return;
 	$fil = FSO::join($tab, "tab.ini");
 
-	$std = $arr["std"];
-	$stp = STR::afterX($std, $tab);
-	$arr["std"] = FSO::trim($stp);
+	$edt = new tabEdit($fil);
+	$edt->savePost();
 
-	$ini = new iniWriter("LOC_CFG/tab.def");
-	$ini->read($fil);
-	$ini->setVals($arr);
-	$ini->save($fil);
-
-	if ($arr["typ"] == "select") {
-		ENV::set("tab", $tab);
-		ENV::set("tpc", $std);
-	}
-	else {
-		ENV::set("tab", $tab);
-		ENV::set("tpc", "");
-	}
+	ENV::set("tab", $tab);
+	ENV::set("tpc", $tpc);
 }
 
 // ***********************************************************

@@ -16,8 +16,6 @@ ERR::trace();
 
 */
 
-ini_set("error_log", LOG::file("error.log"));
-
 // ***********************************************************
 // error handling
 // ***********************************************************
@@ -34,8 +32,7 @@ function errHandlerTpl($num, $msg, $file, $line) {
 #register_shutdown_function("shutDown"); // defined above
 #set_error_handler("errHandler");        // defined above
 
-#ERR::mode(ERR_SHOW);
-ERR::mode(true);
+ERR::mode(0);
 
 
 // ***********************************************************
@@ -71,17 +68,16 @@ public static function sql($msg, $sql) {
 public static function mode($value = true) {
 	switch ($value) {
 		case true: error_reporting(E_ALL); break;
-		default:   error_reporting(E_CORE_ERROR);
+		default:   error_reporting(null);
 	}
-	ini_set("display_startup_errors", $value);
-	ini_set("display_errors", $value);
 }
 
 // ***********************************************************
 // error handling
 // ***********************************************************
 public static function handler($num, $msg, $file, $line) {
-	if (! ERR_SHOW) return;
+	if (! ERR_SHOW) return; if (! $num) return;
+
 	if (self::suppress()) return; // do not show suppressed errors
 	if (self::$done++) return; // handle only first error
 
@@ -98,13 +94,16 @@ public static function handler($num, $msg, $file, $line) {
 
 // ***********************************************************
 public static function shutDown() {
-	$inf = error_get_last(); if (! $inf) return;
-	extract($inf);
+	if (! ERR_SHOW) {
+		die("A fatal error occured ...");
+	}
+	$inf = error_get_last(); extract($inf); if (! $inf) return;
+	$fil = APP::relPath($file);
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
 	$tpl->set("type", $type);
-	$tpl->set("file", $file);
+	$tpl->set("file", $fil);
 	$tpl->set("line", $line);
 	$tpl->set("message", $message);
 	$tpl->show("fatal");
@@ -152,7 +151,7 @@ private static function getStack($sec = "short") {
 // reading backtrace info into array
 // ***********************************************************
 private static function getList($fst = 0, $cnt = NV) {
-	if ($cnt == NV) $cnt = self::$depth;
+	if ($cnt === NV) $cnt = self::$depth;
 
 	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";

@@ -19,8 +19,6 @@ $ftp->disconnect();
 
 */
 
-incCls("server/NET.php");  // network tools
-
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
@@ -83,22 +81,6 @@ public function isProtected($fso) {
 	return STR::contains($prt, "\n$fso");
 }
 
-public function test() {
-	$con = $this->connect(); $this->disconnect(); if ($con) return true;
-	$sts = ($con) ? BOOL_YES : BOOL_NO;
-
-	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
-
-	$tpl = new tpl();
-	$tpl->load("msgs/ftp.tpl");
-	$tpl->set("inifile", $this->get("inifile"));
-	$tpl->set("ftpstate", $sts);
-	$tpl->show("test.rep");
-
-	ENV::set("xfer", $con);
-	return (bool) $con;
-}
-
 // ***********************************************************
 // remote operations
 // ***********************************************************
@@ -131,11 +113,11 @@ public function remote_del($file) {
 
 // ***********************************************************
 public function remote_put($src, $dst) {
-	if ($this->isProtected($src)) return false;
-	if ($this->errCnt >= $this->errMax) return false;
 	if (! $dst) return false;
+	if (  $this->isProtected($src)) return false;
+	if (  $this->errCnt >= $this->errMax) return false;
 
-	ftp_pasv($this->con, true);
+	@ftp_pasv($this->con, true);
 
 	if (ftp_put($this->con, $dst, $src, FTP_BINARY)) {
 		$tim = date("YmdGis", filemtime($src)); // preserve timestamp

@@ -21,8 +21,8 @@ incCls("files/code.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class ini extends objects {
-	protected $sealed = false;
 	protected $silent = true;
+	protected $sealed = false;
 
 	protected $sec = array();
 	protected $typ = array();
@@ -35,6 +35,11 @@ class ini extends objects {
 
 function __construct($fso) {
 	$this->read($fso);
+}
+
+function reset() {
+	$this->sec = $this->typ = $this->vrs = $this->vls = array();
+	$this->dir = $this->file;
 }
 
 // ***********************************************************
@@ -62,10 +67,6 @@ public function getSecs($filter = true) {
 		$out[$sec] = $sec;
 	}
 	return $out;
-}
-
-public function dropSec($sec) {
-	unset($this->sec[$sec]);
 }
 
 // ***********************************************************
@@ -107,12 +108,16 @@ public function getUID() {
 		}
 		if ($out) return $out;
 	}
-	return $this->getDirName();
+	return $this->getDir();
 }
 
-public function getDirName() {
+public function getDir() {
 	$dir = basename($this->dir);
 	return PRG::clrDigits($dir);
+}
+
+public function getFile() {
+	return $this->file;
 }
 
 // ***********************************************************
@@ -138,7 +143,7 @@ private function scrTitle($txt) {
 
 // ***********************************************************
 public function getHead($lng = CUR_LANG) {
-	$out = $this->get("$lng.head");
+	$out = $this->lng("head");
 	if ($out == "GET_HEAD") $out = "";
 	if ($out) return $out;
 	return $this->getTitle($lng);
@@ -154,35 +159,28 @@ public function getType($default = "inc") {
 // reading ini files
 // ***********************************************************
 public function read($file) {
-	$fil = $this->chkFile($file);
+	$fil = $this->chkFile($file); if (! $fil) return;
 	$ext = FSO::ext($fil);
 
 	$cod = new code();
 	$erg = $cod->read($fil); if (! $erg) return;
 
-	$this->mergeSecs($cod->getSecs(), $cod->getTypes(), $ext);
-	$this->mergeVars($cod->getVars());
-	$this->mergeVals($cod->getValues());
+	$this->mergex($this->sec, $cod->getSecs()); if (! $this->sealed)
+	$this->mergex($this->typ, $cod->getTypes());
+	$this->mergex($this->vrs, $cod->getVars());
+	$this->mergex($this->vls, $cod->getValues());
 	$this->chkUID();
 }
 
-protected function mergeSecs($secs, $types, $ext) {
-	foreach ($secs as $key => $val) {
-		$this->sec[$key] = $val; if ($ext == "def")
-		$this->typ[$key] = $types[$key];
+protected function mergex(&$dst, $arr) {
+	foreach ($arr as $key => $val) {
+		if ($this->sealed) if (! isset($dst[$key])) continue;
+		$dst[$key] = $val;
 	}
 }
 
-protected function mergeVars($arr) {
-	foreach ($arr as $key => $val) {
-		$this->vrs[$key] = $val;
-	}
-}
-
-protected function mergeVals($arr) {
-	foreach ($arr as $key => $val) {
-		$this->set($key, $val);
-	}
+protected function seal() {
+	$this->sealed = true;
 }
 
 // ***********************************************************
@@ -212,12 +210,13 @@ protected function langSec($sec) {
 }
 
 private function langProp($prop, $lng = CUR_LANG) {
-	$out = $this->get("$lng.$prop");      if ($out) return $out;
-	$out = $this->get(CUR_LANG.".$prop"); if ($out) return $out;
-	$out = $this->get(GEN_LANG.".$prop"); if ($out) return $out;
-	$out = $this->get("xx.$prop");        if ($out) return $out;
-	$out = $this->get("$prop");           if ($out) return $out;
-	return false;
+	$lgs = array($lng => $lng);
+	$lgs+= LNG::getRel();
+
+	foreach ($lgs as $lng) {
+		$out = self::get("$lng.$prop"); if ($out) return $out;
+	}
+	return self::get($prop, false);
 }
 
 // ***********************************************************
@@ -229,9 +228,9 @@ protected function chkUID() {
 	$this->set("props.uid", $this->getUID());
 }
 
-protected function chkValue($val, $sec) {
+public function chkValue($val, $sec) {
 	if ($val == "GET_UID")    return $this->getUID();
-	if ($val == "DIR_NAME")   return $this->getDirName();
+	if ($val == "DIR_NAME")   return $this->getDir();
 	if ($val == "GET_DIR")    return $this->dir;
 	if ($val == "GET_TITLE")  return $this->getTitle($sec);
 	if ($val == "GET_HEAD")   return $this->getHead($sec);
@@ -262,6 +261,7 @@ protected function isSec($sec) {
 protected function chkFile($fil) {
 	$chk = APP::dir($fil); if ($chk)
 	$fil = FSO::join($fil, $this->fname);
+	$ful = APP::file($fil);
 
 	$this->dir = dirname($fil);
 	$this->file = $fil;

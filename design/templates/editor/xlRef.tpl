@@ -14,11 +14,13 @@ replace = Ersetzen
 <h4><!SEC:refs!></h4>
 
 <form method="post" action="?">
+<!SEC:oid!>
+
 <!VAR:items!>
 <hr>
 	<div class="flex">
 		<!SEC:hint!>
-		<input type="submit" name="act_xlref" value="<!DIC:replace!>" />
+		<input type="submit" name="act.xlref" value="<!DIC:replace!>" />
 	</div>
 </form>
 

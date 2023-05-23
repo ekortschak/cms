@@ -30,16 +30,14 @@
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
 .topMenu {
-	z-index: 99;
-	position: relative;
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
 
-	background: BC_MENU;
-	background: linear-gradient(-2deg, BC_INFO, BC_MENU 50%, BC_MENU, #4D7FB2);
+#	background: BC_MENU;
+	background: rgb(15, 0, 100, 0.5);
 
-	font-size: 1.1em;
+#	font-size: 1.1em;
 	font-weight: bold;
 }
 
@@ -54,6 +52,13 @@
 /* ******************************************************** */
 .topItem {
 	display: inline-block;
+	border-radius: 10px 10px 0px 0px;
+	color: FC_MENU;
+	text-shadow: 1px 1px 2px grey;
+}
+
+.topItem:hover {
+	background: BC_MENU;
 }
 .topItem:hover .topList {
 	display: block;
@@ -62,12 +67,9 @@
 /* ******************************************************** */
 .topText {
 	display: inline-block;
-	border: 0px;
+	border-radius: 10px 10px 0px 0px;
 	padding: 7px 12px;
 	height: H_MENU;
-	text-shadow: 1px 1px 2px grey;
-#   border-radius: 10px 10px 0px 0px;
-	color: FC_MENU;
 }
 
 /* ******************************************************** */
@@ -75,14 +77,17 @@
 	z-index: 99;
 	position: absolute;
 	display: none;
-	color: FC_DROP;
 	background: BC_DROP;
-	font-weight: normal;
 	border: 1px solid OUTLINE;
+	border-top: 0px;
 	border-radius: 0px 0px 15px 15px;
-  	padding: 3px 0px 10px;
+  	padding: 0px 0px 5px;
   	max-height: 400px;
   	overflow: auto;
+
+	color: FC_DROP;
+	font-weight: normal;
+	text-shadow: 0px;
 }
 
 .topList a {

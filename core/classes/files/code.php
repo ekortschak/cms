@@ -47,6 +47,7 @@ public function read($file) { // ini lines
 	$this->incFiles($txt);
 	$this->regFiles($txt);
 	$this->sections($txt);
+	$this->chkLangs();
 
 	$this->addDics();
 	$this->setVars();
@@ -145,8 +146,8 @@ protected function sections($txt) {
 		$val = STR::between($txt, "[$sec]", "\n[");
 		$typ = "input";
 
-		if (STR::ends($key, "*")) {
-			$key = STR::before($key, "*");
+		if (STR::ends($sec, "*")) {
+			$key = STR::before($sec, "*");
 			$typ = "tarea";
 		}
 		$this->sec[$key] = $val;
@@ -154,6 +155,16 @@ protected function sections($txt) {
 	}
 	unset($this->sec["include"]);
 	unset($this->sec["register"]);
+}
+
+protected function chkLangs() {
+	$chk = VEC::get($this->sec, "anylang"); if (! $chk) return;
+
+	foreach (LNG::get() as $lng) {
+		$this->sec[$lng] = $this->sec["anylang"];
+		$this->tps[$lng] = $this->tps["anylang"];
+	}
+	unset($this->sec["anylang"]);
 }
 
 protected function setVars() { // set vars

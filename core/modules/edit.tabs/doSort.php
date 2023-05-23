@@ -1,21 +1,15 @@
 <?php
 
-incCls("menus/tabset.php");
 incCls("menus/dropBox.php");
-
-$set = APP_CALL;
-
-// ***********************************************************
-// collect info
-// ***********************************************************
-$tbs = new tabset();
-$lst = $tbs->getTabs($set, true);
 
 // ***********************************************************
 // show elements to sort
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/sort.items.tpl");
+$tpl->register();
+
+$lst = PGE::tabsets(APP_CALL, true);
 
 $its = "";
 $ccc = 1;
@@ -28,7 +22,7 @@ foreach ($lst as $key => $val) {
 	$its.= $tpl->getSection("item")."\n";
 }
 
-$tpl->set("sparm", $set);
+$tpl->set("sparm", APP_CALL);
 $tpl->set("items", $its);
 $tpl->show();
 

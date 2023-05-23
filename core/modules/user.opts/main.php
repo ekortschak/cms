@@ -1,6 +1,6 @@
 <?php
 
-$cfg = CFG::getVars("mods");
+$cfg = CFG::getValues("mods");
 $dir = APP::relPath(__DIR__);
 
 // ***********************************************************

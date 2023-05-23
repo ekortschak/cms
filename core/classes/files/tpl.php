@@ -25,7 +25,7 @@ class tpl extends objects {
 	protected $hst = array();   // list of included files
 
 function __construct() {
-	self::load("msgs/no.tpl.tpl");
+	self::load("msgs/basics.tpl");
 	self::load("msgs/msgs.tpl");
 
 	$this->set("tplfile", NV);
@@ -90,10 +90,9 @@ public function isSec($sec) {
 // ***********************************************************
 public function getSection($sec = "main") {
     $out = $this->getSec($sec); if (! $out) return "";
-    $out = $this->insVars($out, false);
+    $out = $this->insVars($out);
     $out = $this->insSecs($out, $sec);
-    $out = DIC::xlate($out);
-	return $out;
+    return DIC::xlate($out);
 }
 
 protected function getSec($sec) {
@@ -106,11 +105,10 @@ protected function getSec($sec) {
 }
 
 private function getLangSec($sec) {
-	$out = VEC::get($this->sec, $sec.".".CUR_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec.".".GEN_LANG); if ($out) return $out;
-	$out = VEC::get($this->sec, $sec.".xx");        if ($out) return $out;
-	$out = VEC::get($this->sec, $sec);              if ($out) return $out;
-	return false;
+	foreach (LNG::getRel() as $lng) {
+		$out = VEC::get($this->sec, $sec.".$lng"); if ($out) return $out;
+	}
+	return VEC::get($this->sec, $sec, false);
 }
 
 // ***********************************************************
@@ -130,8 +128,9 @@ private function insSecs($out, $sec) {
 // ***********************************************************
 // handling variables
 // ***********************************************************
-public function setVar($var, $val) { // suppress section if no content
-	$val = trim($val); if (! $val) $this->clearSec($var);
+public function setX($var, $val) { // suppress section if no content
+	$val = trim($val);
+	if (! $val) $this->clearSec($var);
 	else $this->set($var, $val);
 }
 

@@ -70,7 +70,7 @@ public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
 // ***********************************************************
 // finding multiple sub strings
 // ***********************************************************
-public static function find($haystack, $sep1, $sep2) {
+public static function find($haystack, $sep1, $sep2, $trim = true) {
 	$out = array(); // searches for distinct substrings between $sep1 and $sep2
 	if (is_array($haystack)) return $haystack;
 	if (self::misses($haystack, $sep1)) return $out;
@@ -81,7 +81,7 @@ public static function find($haystack, $sep1, $sep2) {
 
 	foreach ($arr as $itm) {
 		if (! $itm) continue; // drop anything after $sep2
-		$key = self::before($itm, $sep2);
+		$key = self::before($itm, $sep2, $trim);
 		$out[$key] = $key;
 	}
 	return $out;
@@ -246,15 +246,9 @@ public static function mark($haystack, $find) {
 // ***********************************************************
 // search strings
 // ***********************************************************
-public static function split($haystack, $sep1, $sep2 = "") {
-	$txt = str_replace($sep1, self::$sep.$sep1, $haystack);
-	$arr = explode(self::$sep, $txt); if (! $sep2) return $arr;
-	$out = array();
-
-	foreach ($arr as $val) {
-		$out[] = self::before($val, $sep2).$sep2;
-	}
-	return $out;
+public static function split($haystack, $sep) {
+	$txt = str_replace($sep1, self::$sep.$sep, $haystack);
+	return explode(self::$sep, $txt);
 }
 
 public static function toArray($text, $seps = "std") {

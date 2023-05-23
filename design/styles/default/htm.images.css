@@ -6,6 +6,7 @@ img {
 	border: 0px;
 	vertical-align: middle;
 }
+
 img.icon {
 	vertical-align: -2px;
 }
@@ -13,6 +14,14 @@ img.flag {
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 }
+
+img.btn {
+	background: linear-gradient(snow, lightgrey);
+	padding: 1px 7px;
+	border: 1px solid OUTLINE;
+	border-radius: 5px;
+}
+
 img.rgt {
 	text-align: right;
 	padding-left: 25px;

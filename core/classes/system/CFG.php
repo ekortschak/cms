@@ -50,11 +50,10 @@ private static function fixServer() {
 	self::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
 	self::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
 	self::set("APP_FILE", VEC::get($_SERVER, "PHP_SELF", "unknown"));
+	self::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
 
 	self::set("APP_CALL", self::getCaller(APP_FILE));
 	self::set("APP_IDX",  self::getIndex());
-
-	self::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
 
 	self::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
 }
@@ -180,11 +179,6 @@ public static function insert($out) {
 // ***********************************************************
 // retrieving constants
 // ***********************************************************
-public static function get($key, $default = "") {
-	$key = strtoupper(trim($key)); if (! defined($key)) return $default;
-	return constant($key);
-}
-
 public static function getCats() {
 	$cst = get_defined_constants(true);
 	$cst = array_keys($cst); ksort($cst); unset($cst["user"]);
@@ -204,15 +198,20 @@ public static function getConsts($sec = "user") {
 	return $out;
 }
 
+public static function getConst($key, $default = "") {
+	if (! defined($key)) return $default;
+	return constant($key);
+}
+
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
-public static function getVars($idx, $pfx = "") {
+public static function getValues($idx, $pfx = "") {
 	$arr = VEC::get(self::$cfg, $idx);
 	return VEC::match($arr, $pfx);
 }
 
-public static function getVar($idx, $key, $default = "") {
+public static function getVal($idx, $key, $default = "") {
 	$out = VEC::get(self::$cfg, $idx); if (! $out) return $default;
 	return VEC::get($out, $key, $default);
 }

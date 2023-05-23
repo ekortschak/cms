@@ -28,7 +28,7 @@ sep = :
 <!SEC:uniq!> <!SEC:button!>
 
 [empty]
-<div><!DIC:no.data!></div>
+-
 
 # ***********************************************************
 # common parts

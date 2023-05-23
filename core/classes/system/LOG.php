@@ -21,7 +21,6 @@ class LOG {
 
 public static function init() {
 	self::$dir = FSO::join(SRV_ROOT, "_log", APP_NAME);
-	FSO::force(self::$dir);
 	FSO::rmFiles(self::$dir);
 }
 

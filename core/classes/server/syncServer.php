@@ -8,80 +8,65 @@ Designed to sync local project to server ...
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$snc = new syncServer();
-$snc->read("ftp.ini");
-$snc->publish();
+for internal use only
 */
 
-incCls("server/NET.php");  // network tools
-
+incCls("server/SSL.php");  // string encryption
 incCls("server/sync.php");
 incCls("server/http.php");
-incCls("server/curl.php");
-incCls("server/ftp.php");
-incCls("server/SSL.php");
-
-incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class syncServer extends sync {
 	protected $htp = false; // http object
-	protected $crl = false; // curl object (upload only)
-	protected $ftp = false; // ftp object
 
-function __construct() {
-	parent::__construct();
+function __construct($dev) {
+	$this->err = "no.connection"; // prophylaktisch
+
+	parent::__construct($dev);
 }
 
 // ***********************************************************
 public function read($inifile) {
 	$ini = new ini($inifile);
 	$vls = $ini->getValues(); $this->merge($vls);
-	$prt = $ini->getSec("protect"); $this->set("protect", $prt);
+	$prt = $ini->getSec("protect");
 
-	$ftp = $ini->get("module.FTP_MODE", "none");
-	$pcl = $ini->get("web.pcl", "http");
-	$srv = $ini->get("web.url", NV);
+	$ftp = $this->get("module.FTP_MODE", "none");
+	$pcl = $this->get("web.pcl", "https");
+	$srv = $this->get("web.url");
+	$xxx = $this->set("protect", $prt);
 
-	if ($srv !== NV) {
-		$this->htp = new http($srv);
-		$this->crl = new curl("$pcl://$srv");
+	if ($srv) {
+		$this->htp = new http($srv, $pcl);
 	}
-	if ($ftp == "passive") {
-		$this->ftp = new ftp();
-		$this->ftp->merge($vls);
-	}
-	$this->err = "no.connection"; // prophylaktisch
-}
-
-// ***********************************************************
-public function setTarget($dir) {
-	$dir = CFG::insert($dir);
-	return $this->set("target", FSO::norm($dir));
 }
 
 // ***********************************************************
 protected function run($info = "info") {
-	if (! $this->ftp) return;
-	if (! $this->ftp->test()) return;
-
+	if (! NET::isCon()) return MSG::now("no.connection");
 	$this->err = false;
-	$this->ftp->connect(); parent::run($info);
-	$this->ftp->disconnect();
+	parent::run($info);
 }
 
 // ***********************************************************
 // run jobs
 // ***********************************************************
-protected function isGood() {
-	return NET::isCon();
+protected function srvFiles() {
+	if ( ! $this->htp) return;
+
+	$out = $this->htp->query("get");
+	$out = $this->stripInf($out);
+	return $this->conv($out);
 }
 
-protected function FSremote() {
-	if ( ! $this->htp) return;
-	return $this->htp->query(".", "get");
+protected function srvVersion() {
+	if ( ! $this->htp) return "?";
+
+	$out = $this->htp->query("ver");
+	$out = $this->stripInf($out);
+	return ($out) ? $out : "?";
 }
 
 // **********************************************************
@@ -101,15 +86,11 @@ protected function chkProtect($arr) {
 	return $arr;
 }
 
-// ***********************************************************
+// **********************************************************
 // auxilliary methods
-// ***********************************************************
-protected function remoteVersion() {
-	if ( ! $this->htp) return "?";
-
-	$out = $this->htp->query(".", "ver");
-	$out = implode(" - ", $out);
-	return ($out) ? $out : "?";
+// **********************************************************
+protected function stripInf($txt) {
+	return STR::between($txt, "<body><pre>", "</pre></body>");
 }
 
 // ***********************************************************

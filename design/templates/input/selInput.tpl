@@ -1,13 +1,6 @@
 [include]
 LOC_TPL/input/selROnly.tpl
 
-[vars]
-max = 1500000
-cols = 50
-rows = 5
-sep = <br>
-ext = audio/*
-
 [dic]
 pwdinfo = min. 6 letters<br>A-z + 0-9 + special chars
 select = Select file(s)
@@ -15,6 +8,13 @@ select = Select file(s)
 [dic.de]
 pwdinfo = min. 6 Zeichen<br>A-z + 0-9 + Sonderzeichen
 select = Datei(en) wählen
+
+[vars]
+max = 15000
+cols = 50
+rows = 5
+sep = <br>
+type = */*
 
 
 # ***********************************************************
@@ -112,4 +112,4 @@ select = Datei(en) wählen
 # ***********************************************************
 <input type="hidden" name="MAX_FILE_SIZE" value="<!VAR:max!>" />
 <label for="upload" id="label" class="upload"><!DIC:select!></label>
-<input type="file" id="upload" name="fload[]" style="display:none;" accept="<!VAR:ext!>" multiple onChange="setCaption();" />
+<input type="file" id="upload" name="fload[]" style="display:none;" accept="<!VAR:type!>" multiple onChange="setCaption();" />

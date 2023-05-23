@@ -1,3 +1,6 @@
+[include]
+LOC_TPL/menus/dropMenu.tpl
+
 [vars]
 class = dropMenu
 sep =
@@ -9,5 +12,11 @@ sep =
 <!VAR:items!>
 </div>
 
+[main.box]
+<!SEC:uniq!> <!SEC:combo!>
+
 [main.one]
 <!SEC:uniq!> <!VAR:current!> &ensp;
+
+[empty]
+<div class="dropMenu"><!DIC:no.data!></div>

@@ -11,20 +11,11 @@ LOC_TPL/msgs/sitemap.tpl
 <!SEC:tail!>
 <!SEC:trailer!>
 
-[xsite]
-<!SEC:head!>
-<!SEC:page!>
-<!SEC:tail!>
-
 [banner]
-<div>
-<!VAR:banner!>
-</div>
+<div><!VAR:banner!></div>
 
 [head]
-<div>
-<!VAR:head!>
-</div>
+<div><!VAR:head!></div>
 
 [help]
 <div class="helpbox">
@@ -35,19 +26,13 @@ LOC_TPL/msgs/sitemap.tpl
 # ***********************************************************
 [page]
 # ***********************************************************
-<div>
-<!VAR:page!>
-</div>
+<div><!VAR:page!></div>
 
 [tail]
-<div>
-<!VAR:tail!>
-</div>
+<div><!VAR:tail!></div>
 [
 trailer]
-<div>
-<!VAR:trailer!>
-</div>
+<div><!VAR:trailer!></div>
 
 # ***********************************************************
 [sorry]

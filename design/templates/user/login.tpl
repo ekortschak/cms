@@ -23,6 +23,7 @@ cancel = Abbrechen
 <h4><!DIC:usr.chg!></h4>
 
 <form method="post" action="?">
+<!SEC:oid!>
 
 	<table>
 		<tr>

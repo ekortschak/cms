@@ -12,53 +12,50 @@ $snc->setDevice($dev);
 $snc->backup();
 */
 
-incCls("menus/dropBox.php");
 incCls("server/sync.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class syncArc extends sync {
-	protected $dev = ARCHIVE;  // storage device
 
-function __construct() {
-	parent::__construct();
+function __construct($dev) {
+	parent::__construct($dev);
 
 	$this->load("modules/xfer.backup.tpl");
-	$this->setVisOnly(false);
-}
 
-// ***********************************************************
-// set parameters
-// ***********************************************************
-public function setDevice($dev = ARCHIVE) {
-	$this->dev = $dev;
-	$this->setTarget($dev);
+	$this->setVisOnly(false);
+	$this->setSource(APP_DIR);
+	$this->srcHost = APP_DIR;
 }
 
 // ***********************************************************
 // run jobs (backup mode)
 // ***********************************************************
-public function backup() {
-	$dir = APP::arcDir($this->dev, "bkp");
-	$dir = FSO::join($dir, date("Y.m.d"));
-
-	$this->setTarget($dir);
-	$this->run("backup");
+public function sync() {
+	$dir = APP::arcDir($this->dev, "sync");
+	$this->common($dir, "sync");
 }
 
 // ***********************************************************
-public function sync() {
-	$this->run("sync");
+public function backup() {
+	$dir = APP::arcDir($this->dev, "bkp", date("Y.m.d"));
+	$this->common($dir, "backup");
 }
 
 // ***********************************************************
 public function version() {
-	$dir = APP::arcDir($this->dev, "ver");
-	$dir = FSO::join($dir, VERSION);
+	$dir = APP::arcDir($this->dev, "ver", VERSION);
+	$this->common($dir, "version");
+}
 
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+protected function common($dir, $sec) {
 	$this->setTarget($dir);
-	$this->run("version");
+	$this->trgHost = $dir;
+	$this->run($sec);
 }
 
 // ***********************************************************

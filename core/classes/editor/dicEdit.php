@@ -59,8 +59,12 @@ private function save($fil, $lng, $key, $val) {
 // ***********************************************************
 // display editof
 // ***********************************************************
-public function show($fil, $lng = CUR_LANG) {
-	parent::show("title");
+public function edit($fil, $lng = CUR_LANG) {
+	$this->show("title");
+
+	$ful = APP::file($fil);
+	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+	HTW::tag("file = $ful", "hint");
 
 	$arr = $this->getItems($fil, $lng);
 	$key = $this->showSel($arr);

@@ -22,7 +22,7 @@ incCls("system/DAT.php"); // basic date functions
 // BEGIN OF CLASS
 // ***********************************************************
 class fileInfo extends objects {
-	private $fil = "";
+	private $file = "";
 
 function __construct() {}
 
@@ -30,7 +30,7 @@ function __construct() {}
 // setting & retrieving info
 // ***********************************************************
 public function read($file) {
-    $this->fil = $file;
+    $this->file = $file;
 	$this->vls = array(); if (! is_file($file)) return false;
 
 	$inf = pathinfo($file);
@@ -91,9 +91,9 @@ private function fmtSize($size) {
 // ***********************************************************
 private function setDate($ful) {
 	$dat = filemtime($ful);
-	$this->set("date", DAT::Ymd($dat));
-	$this->set("time", DAT::Time($dat));
-	$this->set("dnt",  DAT::YmdTime($dat));
+	$this->set("date", DAT::date($dat));
+	$this->set("time", DAT::time($dat));
+	$this->set("dnt",  DAT::long($dat));
 }
 
 // ***********************************************************

@@ -17,23 +17,14 @@ incCls("server/syncDown.php");
 // ***********************************************************
 class syncCms extends syncDown {
 
-function __construct() {
-	parent::__construct();
+function __construct($inifile) {
+	parent::__construct($inifile);
 
 	$this->load("modules/xfer.cms.tpl");
-}
 
-// ***********************************************************
-public function read($ini = false) {
-	$fil = APP::relPath($ini); $this->set("inifile", $fil);
-	$ini = FSO::join(APP_FBK, $fil);
-
-	parent::read($ini);
-
-	$this->setSource($this->get("web.url", "???"));
 	$this->setTarget(APP_FBK);
+	$this->trgHost = APP_FBK;
 }
-
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

@@ -142,7 +142,7 @@ public static function ytube($ytid, $tit, $len = "", $typ = "link") {
 // ***********************************************************
 private static function getLink($link) {
 	$pge = ENV::getPage();
-	return STR::replace($link, ".".DIR_SEP, $pge.DIR_SEP);
+	return STR::replace($link, "./", $pge.DIR_SEP);
 }
 
 // ***********************************************************

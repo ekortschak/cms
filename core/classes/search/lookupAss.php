@@ -32,8 +32,8 @@ public function replace($text, $search, $mask, $mod = "u") {
 	$txt = $this->secure($text);
 	$rep = STR::replace($mask, $search, "\$1\$2\$3");
 	$fnd = PRG::quote($search);
+	$arr = STR::split($txt, "<p>");
 
-	$arr = $this->split($txt);
 	$fnc = $this->getFunc($fnd);
 	$out = "";
 
@@ -81,12 +81,6 @@ private function repXX($txt, $fnd, $rep) {
 // ***********************************************************
 private function doPreg($txt, $fnd, $rep) {
 	return PRG::replace1($txt, $fnd, $rep, $this->mod);
-}
-
-private function split($text) {
-	$txt = STR::replace($text, "<p>", $this->sep."<p>");
-	$arr = STR::split($txt, $this->sep);
-	return $arr;
 }
 
 private function getFunc($fnd) {

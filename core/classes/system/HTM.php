@@ -45,7 +45,7 @@ public static function button($lnk, $cap, $trg = "_self") {
 	return self::href($lnk, $btn, $trg);
 }
 
-public static function href($lnk, $cap, $trg = "") {
+public static function href($lnk, $cap, $trg = "_blank") {
 	if (! $trg) return "<a href='$lnk'>$cap</a>";
 	return "<a href='$lnk' target='trg'>$cap</a>";
 }

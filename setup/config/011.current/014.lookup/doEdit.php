@@ -1,12 +1,9 @@
 <?php
 
-incCls("editor/iniMgr.php");
+incCls("editor/ediMgr.php");
 
 // ***********************************************************
-// read and write data
-// ***********************************************************
-$ini = new iniMgr("LOC_CFG/lookup.def");
-$fil = $ini->menu("lookup", "Lookup", "default.ini");
-$xxx = $ini->show($fil);
+$edi = new ediMgr();
+$edi->edit("lookup");
 
 ?>

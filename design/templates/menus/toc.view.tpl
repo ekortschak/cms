@@ -39,21 +39,21 @@ display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>
 # ***********************************************************
 [link.root]
 <div <!SEC:qid!> class="<!SEC:cls!>" style="<!SEC:stl!>"> _
-<!SEC:link!> _
+<!SEC:link!>
 </div>
 
 # ***********************************************************
 # menu folders
 # ***********************************************************
 [link.both]
-<div <!SEC:qid!> class="dir  <!SEC:cls!>" style="<!SEC:stl!>"> _
-<!SEC:link!> _
+<div <!SEC:qid!> class="dir <!SEC:cls!>" style="<!SEC:stl!>"> _
+<!SEC:link!>_
 </div>
 
 [link.menu]
-<div <!SEC:qid!> class="dir  <!SEC:cls!>" style="<!SEC:stl!>"> _
+<div <!SEC:qid!> class="dir <!SEC:cls!>" style="<!SEC:stl!>"> _
 <a href="javascript:toggleDiv('<!VAR:pfx!>', '<!VAR:index!>');"> _
-<!VAR:title!> _
+<!VAR:title!>
 </a> _
 </div>
 

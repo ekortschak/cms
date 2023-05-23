@@ -12,7 +12,7 @@ info = no info provided
 </div>
 
 [debug]
-<div class="scroll" style="height: 175px; border: 1px solid lightgrey; resize: vertical;">
+<div class="scroll" style="height: 175px; border: 1px solid OUTLINE; resize: vertical;">
 <u><i><!VAR:info!></i></u>
 <!SEC:main!>
 </div>
@@ -21,7 +21,7 @@ info = no info provided
 # helper sections
 # ***********************************************************
 [qid]
-id="<!VAR:pfx!>[<!VAR:index!>]" name="<!VAR:pfx!>_<!VAR:index!>"
+id="<!VAR:pfx!>[<!VAR:index!>]" name="<!VAR:pfx!>.<!VAR:index!>"
 
 [cls]
 lev<!VAR:level!>

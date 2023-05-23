@@ -22,11 +22,11 @@ function __construct() {}
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show($sec = "main") {
+public function edit() {
 	incCls("editor/dicEdit.php");
 
 	$dic = new dicEdit();
-	$dic->show($this->fil);
+	$dic->edit($this->file);
 }
 
 // ***********************************************************

@@ -16,19 +16,18 @@ if (! $prm) return incMod("body/login.php");
 // ***********************************************************
 // retrieving page info
 // ***********************************************************
-$inc = PGE::getIncFile();
-
-$fil = FSO::join(LOC_MOD, "body", $inc);
 $pge = ENV::getPage();
+$inc = PGE::incFile();
+$fil = FSO::join(LOC_MOD, "body", $inc);
 
 $htm = new tpl();
 $htm->load("modules/page.tpl");
-$htm->setVar("banner",  APP::gcRec($pge, "banner"));
-$htm->setVar("help",    APP::gcSys($pge, "help"));
-$htm->setVar("head",    APP::gcSys($pge, "head"));
-$htm->setVar("page",    APP::gcMap($fil));
-$htm->setVar("tail",    APP::gcSys($pge, "tail"));
-$htm->setVar("trailer", APP::gcRec($pge, "trailer"));
+$htm->setX("banner",  APP::gcRec($pge, "banner"));
+$htm->setX("help",    APP::gcSys($pge, "help"));
+$htm->setX("head",    APP::gcSys($pge, "head"));
+$htm->setX("page",    APP::gcMap($fil));
+$htm->setX("tail",    APP::gcSys($pge, "tail"));
+$htm->setX("trailer", APP::gcRec($pge, "trailer"));
 
 $out = $htm->gc();
 

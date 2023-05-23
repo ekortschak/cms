@@ -1,0 +1,43 @@
+
+/* ******************************************************** */
+/* horizontal panels */
+/* ******************************************************** */
+.modMenu {
+	z-index: 99;
+	position: fixed;
+	background-image: url("img/banner.png");
+	background-color: grey;
+	background-size: cover;
+
+	top:	0px;
+	left:   W_TABS;
+	height: calc(H_BANNER + H_MENU);
+	width:  W_BODY;
+
+	overflow: visible;
+	border: 0px solid navy;
+
+	color: FC_MENU;
+	vertical-align: bottom;
+}
+
+/* ******************************************************** */
+/* vertical panels */
+/* ******************************************************** */
+.modBody {
+	top:	calc(H_BANNER + 15px);
+	left:   W_TABS;
+	height: calc(100% - H_BANNER - H_MENU - 15px);
+	width:  W_BODY;
+}
+
+.topMenu {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+
+	background: rgb(15, 0, 100, 0.2);
+	background: transparent;
+
+	font-weight: bold;
+}

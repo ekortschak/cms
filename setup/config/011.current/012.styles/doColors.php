@@ -6,17 +6,19 @@
 incCls("menus/dropBox.php");
 
 $box = new dropBox("menu");
-$ful = $box->files(LOC_CLR, "color.set", COLORS.".ini");
+$rel = $box->files(LOC_CLR, "color.set", COLORS.".ini");
 $xxx = $box->show();
 
-HTW::tag("file = ".APP::relPath($ful), "hint");
+$ful = APP::file($rel);
+$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+HTW::tag("file = $ful", "hint");
 
 // ***********************************************************
 // write data
 // ***********************************************************
 if (ENV::getPost("colEdit")) {
 	$arr = $_POST; unset($arr["colEdit"]);
-	$txt = file_get_contents($ful);
+	$txt = file_get_contents($rel);
 
 	foreach ($arr as $key => $val) {
 		$itm = STR::between($txt, $key, "\n");
@@ -25,7 +27,7 @@ if (ENV::getPost("colEdit")) {
 		$rep = str_pad($key, 8);
 		$txt = PRG::replace($txt, "$key(\s*?)$itm", "$rep = $val");
 	}
-	$xxx = APP::write($ful, $txt);
+	$xxx = APP::write($rel, $txt);
 }
 
 // ***********************************************************
@@ -35,7 +37,7 @@ $tpl = new tpl();
 $tpl->load("editor/cssColors.tpl");
 $out = "";
 
-$ini = new ini($ful);
+$ini = new ini($rel);
 $arr = $ini->getSecs();
 
 foreach ($arr as $key => $val) {

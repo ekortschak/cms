@@ -5,7 +5,6 @@ usr.account = Benutzer
 usr.accounts = Benutzernamen
 usr.chg = Aktuellen Benutzer ändern
 usr.create = Neuen Benutzer anlegen
-usr.current = Sie sind derzeit angemeldet als "<b>CUR_USER</b>".
 usr.fail = Keine passenden User
 usr.group = Gruppe
 usr.groups = Gruppen

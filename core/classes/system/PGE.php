@@ -3,8 +3,11 @@
 // INFO
 // ***********************************************************
 page related functionality
-
 */
+
+incCls("menus/tabsets.php");
+incCls("menus/topics.php");
+incCls("menus/tabs.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -16,6 +19,7 @@ class PGE {
 
 	private static $tpc = "";  // current topic
 	private static $pge = "";  // current page props
+
 
 public static function init() {
 	$idx = APP_IDX;
@@ -52,7 +56,7 @@ public static function get($key, $default = false) {
 }
 
 // ***********************************************************
-public static function getIncFile() {
+public static function incFile() {
 	$act = self::get("props.typ", "include");
 
 	$out = "$act.php";
@@ -79,6 +83,37 @@ public static function getIncFile() {
 			return "collect.xsite.php";
 	}
 	return "invalid.php";
+}
+
+// ***********************************************************
+// tab related methods
+// ***********************************************************
+public static function tabsets() {
+#	return CFG::getValues("tabsets", APP_CALL);
+
+	$tbs = new tabsets();
+	return $tbs->getTabs(APP_CALL);
+}
+public static function tabsetsVis() {
+	$tbs = new tabsets();
+	return $tbs->visTabs(APP_CALL);
+}
+public static function tabsetsVerify($set, $tab) {
+	$tbs = new tabsets();
+	return $tbs->verify($set, $tab);
+}
+
+public static function topics() {
+	$tab = new topics();
+	return $tab->getTopics();
+}
+public static function topicsVerify($tab, $std) {
+	$arr = self::topics($tab);
+
+	$std = FSO::join($tab, $std);
+	$chk = VEC::get($arr, $std, NV); if ($chk === NV)
+	$std = array_key_first($arr);
+	return $std;
 }
 
 // ***********************************************************
@@ -132,29 +167,31 @@ private static function getPage($tab) {
 }
 
 private static function langProp($prop) {
-	$out = self::get(CUR_LANG.".$prop"); if ($out) return $out;
-	$out = self::get("xx.$prop");        if ($out) return $out;
-	$out = self::get(GEN_LANG.".$prop"); if ($out) return $out;
-	return self::get($prop);
+	foreach (LNG::getRel() as $lng) {
+		$out = self::get("$lng.$prop"); if ($out) return $out;
+	}
+	return self::get($prop, false);
 }
 
-
 // ***********************************************************
-// common
+// common ini related tasks
 // ***********************************************************
+public static function getType($fso) {
+	return self::getAny($fso, "getType", "inc");
+}
 public static function getTitle($fso = CUR_PAGE) {
-	$ini = new ini($fso);
-	return $ini->getHead();
+	return self::getAny($fso, "getHead");
 }
-
 public static function getUID($fso) {
-	$ini = new ini($fso);
-	return $ini->getUID();
+	return self::getAny($fso, "getUID");
+}
+public static function getValues($fso, $sec = "*") {
+	return self::getAny($fso, "getValues", $sec);
 }
 
-protected static function getValues($fso, $sec = "*") {
+private static function getAny($fso, $fnc, $prm = false) {
 	$ini = new ini($fso);
-	return $ini->getValues($sec);
+	return $ini->$fnc($prm);
 }
 
 // ***********************************************************

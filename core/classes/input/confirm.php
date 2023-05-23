@@ -86,7 +86,7 @@ public function gc($sec = "main") {
 // ***********************************************************
 public function act() {
 	$vgl = ENV::getPost("oid");	    if (! $vgl) return false;
-	$act = ENV::getPost("cnf_act"); if (! $act) return false;
+	$act = ENV::getPost("cnf.act"); if (! $act) return false;
 	return $this->val;
 }
 public function checked() {

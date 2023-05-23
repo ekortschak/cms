@@ -5,32 +5,29 @@ if (VMODE != "seo") return;
 /* ***********************************************************
 // INFO
 // ***********************************************************
-web site editor, used to manage meta information
-* no public methods
+see parent
 */
-
-incCls("editor/iniWriter.php");
 
 new saveSeo();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class saveSeo {
+class saveSeo extends saveMany {
 
 function __construct() {
-	$this->exec();
+	parent::__construct();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-private function exec() {
+protected function exec() {
 	$dir = ENV::getPage();
 
-	$act = ENV::getPost("meta.act"); if (! $act) return;
-	$dat = ENV::getPost("data");
-	$oid = ENV::getPost("oid");
+	$act = $this->get("meta.act"); if (! $act) return;
+	$dat = $this->get("data");
+	$oid = $this->get("oid");
 
 	$wht = OID::get($oid, "what");   if (! $wht) return;
 
@@ -38,7 +35,8 @@ private function exec() {
 	$dat = STR::replace($dat, "\n", "_\n");
 	$lng = CUR_LANG;
 
-	$ini = new iniWriter($dir);
+	$ini = new iniWriter();
+	$ini->read($dir);
 	$ini->set("$lng.$wht", trim($dat));
 	$ini->save();
 }

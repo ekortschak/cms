@@ -21,11 +21,8 @@ done  = Sie sind (nun) abgemeldet!
 <h4><!DIC:head!></h4>
 
 <form method="post" action="?">
-
-	<input type="hidden" name="crdu" value="www" />
-	<input type="hidden" name="crdp" value="none" />
+<!SEC:oid!>
 	<input type="submit" name="B1" value="<!DIC:leave!>" />
-
 </form>
 
 # ***********************************************************

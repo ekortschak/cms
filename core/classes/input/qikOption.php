@@ -16,6 +16,7 @@ see parent class
 // ***********************************************************
 class qikOption extends tpl {
 	private $lst = array();
+	private $forget = false;
 
 function __construct() {
 	parent::__construct();
@@ -25,7 +26,13 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
+public function forget($value = true) {
+	$this->forget = (bool) $value;
+}
+
 public function getVal($key, $value = 0) {
+	if ($this->forget) ENV::set($key, (bool) $value);
+
 	$xxx = ENV::setIf($key, (bool) $value);
 	$val = ENV::get($key);
 	$this->lst[$key] = $val;

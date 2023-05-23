@@ -2,14 +2,14 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-used to associate tabs with tabsets
+used to associate tabs with tabsetss
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("menus/tabset.php");
+incCls("menus/tabsets.php");
 
-$tbs = new tabset();
+$tbs = new tabsets();
 $arr = $tbs->getTabs($set);
 
 */
@@ -20,7 +20,7 @@ incCls("files/code.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tabset extends iniTab {
+class tabsets extends iniTab {
 	private $tabs = array();
 
 function __construct() {
@@ -34,12 +34,12 @@ public function getProps($set = NV) {
 	return $this->getValues($set);
 }
 
-public function getTabs($set = APP_CALL, $all = false) {
-	$arr = $this->getProps($set); $out = array();
+public function getTabs($set = APP_CALL) {
+	$arr = $this->getValues($set); $out = array();
 
 	foreach ($arr as $tab => $usage) {
-		if (STR::contains($usage, "local")) $usage = IS_LOCAL;
-		if (! $all) if (! (bool) $usage) continue;
+		if (STR::contains($usage, "local"))
+		if (! IS_LOCAL) continue;
 
 		$itm = new iniTab($tab);
 		$tit = $itm->getTitle(); if (! $tit) continue;
@@ -49,7 +49,7 @@ public function getTabs($set = APP_CALL, $all = false) {
 }
 
 public function visTabs($set = APP_CALL) {
-	$arr = $this->getProps($set); $out = array();
+	$arr = $this->getValues($set); $out = array();
 
 	foreach ($arr as $key => $val) {
 		if ($val) $out[$key] = $val;

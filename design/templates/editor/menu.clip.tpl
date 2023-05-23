@@ -19,10 +19,12 @@ sure     = Sind Sie sicher?
 [main]
 # ***********************************************************
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:copy!>
 </form>
 
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:paste!>
 </form>
 
@@ -35,12 +37,12 @@ sure     = Sind Sie sicher?
 <table>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.cut!></td>
-		<td><button name="clip_act" value="cut"><img src="LOC_ICO/edit/cut.png" /></button></td>
+		<td><button name="clip.act" value="cut"><img src="LOC_ICO/edit/cut.png" /></button></td>
 	</tr>
 	<tr><td colspan="100%" height=2></td></tr>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.cpy!></td>
-		<td><button name="clip_act" value="copy"><img src="LOC_ICO/edit/copy.png" /></button></td>
+		<td><button name="clip.act" value="copy"><img src="LOC_ICO/edit/copy.png" /></button></td>
 	</tr>
 </table>
 
@@ -50,10 +52,10 @@ sure     = Sind Sie sicher?
 <table>
 	<tr>
 		<td width=250><!VAR:box!></td>
-		<td><button name="clip_act" value="paste"><img src="LOC_ICO/edit/paste.png" /></button></td>
+		<td><button name="clip.act" value="paste"><img src="LOC_ICO/edit/paste.png" /></button></td>
 	</tr>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:clip.del!></td>
-		<td><button name="clip_act" value="del">BOOL_NO</button></td>
+		<td><button name="clip.act" value="del">BOOL_NO</button></td>
 	</tr>
 </table>

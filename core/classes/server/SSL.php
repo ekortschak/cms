@@ -55,7 +55,9 @@ public static function md5($text = "kor_cms") {
 }
 
 public static function isValid($md5) {
-	$chk = substr($md5, -6); if (IS_LOCAL) return true; elseif (! $chk) return false;
+	if (IS_LOCAL) return true; $chk = substr($md5, -6);
+	if (! $chk) return false;
+
 	$now = self::getStamp();
 	$dif = $now - $chk;
 	return ($dif < self::$timeout);

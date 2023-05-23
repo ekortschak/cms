@@ -5,11 +5,9 @@ if (VMODE != "pedit") return;
 /* ***********************************************************
 // INFO
 // ***********************************************************
-web site editor, used to create and manage files
-* no public methods
+see parent
 */
 
-incCls("editor/iniWriter.php");
 incCls("editor/tidy.php");
 
 new saveFile();
@@ -17,27 +15,32 @@ new saveFile();
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class saveFile {
+class saveFile extends saveMany {
 
 function __construct() {
+	$this->oid = ENV::getPost("oid");
 	$this->exec();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-private function exec() {
-	$dir = ENV::getPage();
+protected function exec() {
+	$act = $this->get("file.act"); if (! $act) return;
 
-	if ($this->saveFile())     return;
-	if ($this->dropFile($dir)) return;
-	if ($this->picProps($dir)) return;
+	if ($this->saveFile($act)) return;
+	if ($this->dropFile($act)) return;
+	if ($this->restore($act))  return;
+	if ($this->backup($act))   return;
 }
 
-private function saveFile() {
-	$fil = ENV::getPost("filName"); if (! $fil) return false;
-	$txt = ENV::getPost("content"); if (! $txt) return false;
-	$old = ENV::getPost("orgName");	if ($fil != $old) FSO::kill($old);
+private function saveFile($act) {
+	if ($act != "save") return false;
+	$txt = $this->get("content");  if (! $txt) return false;
+	$old = $this->get("orgName");  if (! $old) return false;
+	$fil = $this->get("filName");  if (! $fil) $fil = $old;
+
+	if ($fil != $old) FSO::kill($old);
 
 	$tdy = new tidy();
 	$txt = $tdy->get($txt);
@@ -46,34 +49,30 @@ private function saveFile() {
 	return true;
 }
 
-private function dropFile($loc) {
-	$act = ENV::getParm("file_act"); if ($act != "drop") return false;
-	$fil = ENV::getParm("fil"); if (! $fil) return false;
-	$xxx = FSO::kill($fil);
+private function dropFile($act) {
+	if ($act != "drop") return false;
+	$fil = $this->get("fil"); if (! $fil) return false;
+	FSO::kill($fil);
 	return true;
 }
 
-// ***********************************************************
-// pic Opts
-// ***********************************************************
-private function picProps($dir) { // modify UID and title
-	$act = ENV::getPost("pic_act"); if (! $act) return false;
-	$new = ENV::getPost("pic_new"); if (! $new) return false;
-	$arr = LNG::get();
+private function restore($act) {
+	if ($act != "restore") return false;
+	$fil = $this->get("fil"); if (! $fil) return false;
 
-	FSO::rename($act, $new);
+	$dir = APP::arcDir(ARCHIVE, "sync");
+	$ful = FSO::join($dir, $fil);
+	$xxx = FSO::copy($ful, $fil);
+	return true;
+}
 
-	$uid = basename($new);
-	$uid = str_replace(" ", "_", $uid);
-	$xxx = ENV::setPage($uid);
+private function backup($act) {
+	if ($act != "backup") return false;
+	$fil = $this->get("fil"); if (! $fil) return false;
 
-	$ini = new iniWriter($dir);
-	$ini->set("props.uid", $uid);
-
-	foreach ($arr as $lng) {
-		$ini->set("$lng.title", $new);
-	}
-	$ini->save();
+	$dir = APP::arcDir(ARCHIVE, "sync");
+	$ful = FSO::join($dir, $fil);
+	$xxx = FSO::copy($fil, $ful);
 	return true;
 }
 

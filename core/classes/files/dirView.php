@@ -32,7 +32,9 @@ class dirView extends tpl {
 // ***********************************************************
 function __construct() {
 	parent::__construct();
+
 	$this->load("modules/fview.gallery.tpl");
+	$this->register();
 
 	$this->set("title", "No title");
 	$this->set("visOnly", true);

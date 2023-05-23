@@ -28,7 +28,7 @@ function __construct() {}
 // methods
 // ***********************************************************
 public function exec($cmd, $desc = NV) {
-	if ($desc == NV) $desc = $cmd; if (! $cmd) return;
+	if ($desc === NV) $desc = $cmd; if (! $cmd) return;
 
 	$cmd = escapeshellcmd($cmd); $ret = "";
 	$this->dat[$desc] = array();

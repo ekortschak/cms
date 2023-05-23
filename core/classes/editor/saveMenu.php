@@ -5,34 +5,34 @@ if (VMODE != "medit") return;
 /* ***********************************************************
 // INFO
 // ***********************************************************
-web site editor, used to create and manage menu items
-* no public methods
+see parent
 */
 
-incCls("editor/iniWriter.php");
-incCls("other/uids.php");
+incCls("editor/tabEdit.php");
 
 new saveMenu();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class saveMenu {
+class saveMenu extends saveMany {
 
 function __construct() {
-	$this->exec();
+	parent::__construct();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-private function exec() {
-	$dir = ENV::getPage();
-	$act = ENV::get("btn.menu");
+protected function exec() {
+//	$dir = CUR_PAGE; # fails because not yet set
+	$dir = ENV::getPage(); if (! $dir) return;
+	$act = $this->env("btn.menu");
 
 	switch ($act) {
 		case "F": return $this->fileOpts($dir);
 		case "U": return $this->userOpts($dir);
+#		case "A": // effected by module body/upload
 
 		case "D": $this->nodeOpts($dir); break;
 		case "P": $this->pageOpts($dir); break;
@@ -47,7 +47,7 @@ private function exec() {
 // node Opts
 // ***********************************************************
 private function nodeOpts($dir) {
-	$cmd = ENV::getPost("node_act"); if (! $cmd) return;
+	$cmd = $this->get("node.act"); if (! $cmd) return;
 
 	switch (STR::left($cmd)) {
 		case "ren": return $this->nodeRename($dir); // rename directory
@@ -62,7 +62,7 @@ private function nodeOpts($dir) {
 
 // ***********************************************************
 private function nodeRename($dir) { // rename directory
-	$dst = ENV::getPost("ren_dir"); if (! $dst) return;
+	$dst = $this->get("ren.dir"); if (! $dst) return;
 	$par = dirname($dir);
 	$dst = "$par/$dst";
 
@@ -106,23 +106,12 @@ private function nodeIn($dir) { // move in in hierarchy
 // acting on whole tree
 // ***********************************************************
 private function nodeCheck() { // add UID to page.ini recursively
-	$dir = ENV::getPost("root_dir");
-	$this->checkUIDs($dir);
-}
-
-public function checkUIDs($dir) {
-	$arr = FSO::dtree($dir); unset($arr[0]);
-	$ids = new uids();
+	$arr = FSO::dtree(TAB_HOME); unset($arr[0]);
 
 	foreach ($arr as $dir => $nam) {
-		$ini = new iniWriter("LOC_CFG/page.def");
+		$ini = new iniWriter();
 		$ini->read($dir);
-
-		$uid = $ini->getUID(); // make sure UID is unique
-		$chk = $ids->getUID($uid); if ($uid == $chk) continue;
-
-		$ini->set("props.uid", $chk);
-		$ini->save();
+		$ini->verifyUID();
 	}
 	MSG::add("Check UIDs - OK");
 }
@@ -131,8 +120,8 @@ public function checkUIDs($dir) {
 // acting on subnodes
 // ***********************************************************
 private function nodeAdd($dir) {
-	$dst = ENV::getPost("sub_dir"); if (! $dst) return;
-	$ovr = ENV::get("opt.overwrite");
+	$dst = $this->get("sub.dir"); if (! $dst) return;
+	$ovr = $this->env("opt.overwrite");
 	$dst = STR::toArray($dst);
 
 	foreach ($dst as $sub) {
@@ -145,10 +134,10 @@ private function nodeAdd($dir) {
 // ***********************************************************
 // sorting entries
 // ***********************************************************
-private function sortOpts($dir) { // sort a node
-	$cmd = ENV::getPost("sort_act"); if (! $cmd) return;
-	$lst = ENV::getPost("slist");    $cnt = 10; // start at #
-	$lst = VEC::explode($lst, ";");  $inc =  1;
+private function sortOpts($dir) { // sort node entries
+	$cmd = $this->get("sort.act");  if (! $cmd) return;
+	$lst = $this->get("sort.list"); $cnt = 10; // start at #
+	$lst = VEC::explode($lst, ";"); $inc =  1;
 
 	foreach ($lst as $itm) {
 		$itm = basename($itm); if (! $itm) continue;
@@ -166,12 +155,12 @@ private function sortOpts($dir) { // sort a node
 // file Opts
 // ***********************************************************
 private function fileOpts($dir) {
-	$cmd = ENV::getPost("file_act"); if (! $cmd)
-	$cmd = ENV::getParm("file_act"); if (! $cmd) return;
+	$cmd = $this->get("file.act"); if (! $cmd) return;
 
 	switch(STR::left($cmd)) {
 		case "ini": return $this->fileAddIni($dir); // add page.ini
 		case "sys": return $this->fileAddSys($dir); // add language files, e.g. de.htm
+		case "prj": return $this->fileAddPrj($dir); // add project file
 		case "any": return $this->fileAddAny($dir); // add any new file
 		case "dro": return $this->fileDelete($dir); // delete a file
 		case "hid": return $this->fileToggle($dir); // hide and unhide a file
@@ -180,8 +169,8 @@ private function fileOpts($dir) {
 
 // ***********************************************************
 private function fileAddIni($dir) { // add page.ini (recursively)
-	$all = ENV::getPost("ini_rec", false);
-	$ovr = ENV::get("opt.overwrite");
+	$all = $this->get("ini.rec", false);
+	$ovr = $this->env("opt.overwrite");
 	$tab = ENV::getTopDir();
 
 	switch ($all) {
@@ -194,10 +183,10 @@ private function fileAddIni($dir) { // add page.ini (recursively)
 }
 
 private function fileAddSys($dir) { // add empty language file, e.g. de.htm
-	$nam = ENV::get("sys.file");
-	$lng = ENV::get("sys.lang");
-	$ext = ENV::get("sys.ext");
-	$ovr = ENV::get("opt.overwrite");
+	$nam = $this->env("sys.file");
+	$lng = $this->env("sys.lang");
+	$ext = $this->env("sys.ext");
+	$ovr = $this->env("opt.overwrite");
 
 	$fil = FSO::join($dir, "$nam.$lng.$ext");
 	$txt = ""; if ($ext == "php") $txt = "<?php\n?>";
@@ -205,20 +194,30 @@ private function fileAddSys($dir) { // add empty language file, e.g. de.htm
 	APP::writeTell($fil, $txt, $ovr);
 }
 
+private function fileAddPrj($dir) { // add a project file
+	$src = $this->env("prj.file");
+	$ovr = $this->env("opt.overwrite");
+
+	$fil = FSO::join($dir, basename($src));
+	$txt = APP::read($src);
+
+	APP::writeTell($fil, $txt, $ovr);
+}
+
 private function fileAddAny($dir) { // create any file
-	$nam = ENV::getPost("any_name");
-	$ovr = ENV::get("opt.overwrite");
+	$nam = $this->get("any.name");
+	$ovr = $this->env("opt.overwrite");
 	$fil = FSO::join($dir, $nam);
 	$erg = APP::writeTell($fil, "", $ovr);
 }
 
 private function fileToggle($dir) { // toggle hidden files
-	$fil = ENV::getParm("fil"); if (! $fil) return;
+	$fil = $this->get("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
 	$xxx = FSO::toggleVis($fil);
 }
 private function fileDelete($dir) { // delete a files
-	$fil = ENV::getParm("fil"); if (! $fil) return;
+	$fil = $this->get("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
 	$erg = FSO::kill($fil);
 }
@@ -233,34 +232,30 @@ private function pageOpts($dir) {
 
 // ***********************************************************
 private function pageProps($dir) { // change uid, display type
-	$cmd = ENV::getPost("props"); if (! $cmd) return false;
+	$cmd = $this->get("props"); if (! $cmd) return false;
 	$typ = STR::left($cmd["typ"]);
 
-	$tpl = "LOC_CFG/page.def"; if ($typ != "inc")
-	$tpl = "LOC_CFG/page.$typ.def";
-
-	$ini = new iniWriter($tpl);
+	$ini = new iniWriter($typ);
 	$ini->read($dir);
 	$ini->savePost();
+	$ini->setPage();
 
-	ENV::setPage($ini->getUID());
 	return true;
 }
 
 private function pageDefault($dir) { // mark node as default
-	$cmd = ENV::getPost("default"); if (! $cmd) return false;
+	$cmd = $this->get("default"); if (! $cmd) return false;
+	$tpc = ENV::getTopDir();
+	$tpl = FSO::join($tpc, "tab.ini");
 
-	$ini = new iniWriter($dir); // update page.ini - if necessary
+	$ini = new iniWriter(); // update page.ini - if necessary
+	$xxx = $ini->read($dir);
 	$uid = $ini->getUID();
 	$ini->save();
 
-	$tpc = ENV::getTopDir();
-	$fil = FSO::join($tpc, "tab.ini");
-
-	$ini = new iniWriter("LOC_CFG/tab.def"); // update tab.ini
-	$ini->read($fil);
-	$ini->set("props.std", $uid);
-	$ini->save();
+	$edt = new tabEdit($tpl); // update tab.ini
+	$edt->set("props.std", $uid);
+	$edt->save();
 
 	return true;
 }
@@ -269,10 +264,10 @@ private function pageDefault($dir) { // mark node as default
 // user Opts
 // ***********************************************************
 private function userOpts($dir) {
-	$chk = ENV::getPost("perms_act"); if (! $chk) return;
-	$ful = FSO::join($dir, "perms.ini");
+	$chk = $this->get("perms.act"); if (! $chk) return;
 
-	$arr = $_POST; unset($arr["perms_act"]);
+	$ful = FSO::join($dir, "perms.ini");
+	$arr = OID::getLast(); unset($arr["perms_act"]);
 	$out = array();
 
 	foreach ($arr as $key => $val) {
@@ -280,10 +275,49 @@ private function userOpts($dir) {
 	}
 	if (! $out) FSO::kill($ful);
 	else {
-		$ini = new iniWriter($ful);
+		$ini = new iniWriter();
+		$ini->read($ful);
 		$ini->replace("perms", $out);
 		$ini->save();
 	}
+}
+
+// ***********************************************************
+// clipboard options
+// ***********************************************************
+private function clipOpts($cur) {
+	$chk = $this->get("clip.act"); if (! $chk) return false;
+
+	switch (STR::left($chk)) {
+		case "cop": $this->clipCopy ($cur); break; // copy to clipboard
+		case "cut": $this->clipMove ($cur); break; // move to clipboard
+		case "pas": $this->clipPaste($cur); break; // restore as menu item
+		case "del": $this->clipDrop (    ); break; // drop from clipboard
+	}
+	return true;
+}
+
+private function clipCopy($cur) { // copy to clipboard
+	$dir = APP::tempDir("clipboard");
+	return FSO::copyDir($cur, $dir);
+}
+
+private function clipMove($cur) { // move to clipboard
+	$dir = APP::tempDir("clipboard");
+	$dst = FSO::join($dir, basename($cur));
+	$xxx = ENV::setPage(dirname($cur));
+	return FSO::mvDir($cur, $dst);
+}
+
+private function clipPaste($cur) { // copy to project
+	$src = $this->get("clip.src");
+	$dst = FSO::join($cur, basename($src));
+	return FSO::mvDir($src, $dst);
+}
+
+private function clipDrop() { // drop from clipboard
+	$src = $this->get("clip.src");
+	return FSO::rmDir($src);
 }
 
 // ***********************************************************
@@ -293,25 +327,10 @@ private function saveStdIni($dir, $ovr = false, $uid = NV) { // rewrite ini-file
 	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
 	if ($uid === NV) $uid = basename($dir);
 
-	$ini = new iniWriter("LOC_CFG/page.def");
-	$ini->set("props.uid", $uid);
+	$ini = new iniWriter("inc");
 	$ini->read($fil);
+	$ini->setIf("props.uid", $uid);
 	$ini->save($fil);
-}
-
-// ***********************************************************
-// clipboard Opts
-// ***********************************************************
-private function clipOpts($dir) {
-	$chk = ENV::getPost("clip_act"); if (! $chk) return;
-
-	if ($chk == "cut") {
-		ENV::setPage(dirname($dir));
-	}
-	incCls("editor/clipBoard.php");
-
-	$clp = new clipBoard();
-	$clp->exec($dir);
 }
 
 // ***********************************************************

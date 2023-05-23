@@ -52,7 +52,7 @@ public static function init($dir = TAB_HOME) {
 // ***********************************************************
 public static function readTree($dir = NV) {
 	if (self::import()) return;
-	if ($dir == NV) $dir = self::$dir;
+	if ($dir === NV) $dir = self::$dir;
 
 	$dir = APP::dir($dir);
 	$drs = FSO::dtree($dir, ! IS_LOCAL);
@@ -98,7 +98,7 @@ private static function setLoc($index = NV) {
 	$loc = self::getIndex($index);
 	$loc = self::chkLoc($loc);
 
-	ENV::set("pge.".TAB_HOME, $loc);
+	ENV::setPage($loc);
 	PGE::load($loc);
 }
 
@@ -145,8 +145,7 @@ public static function getHead($index = NV) {
 }
 public static function getLevel($idx) {
 	$idx = STR::after($idx, self::$dir);
-	$out = STR::count($idx, DIR_SEP) + 1;
-	return $out;
+	return STR::count($idx, DIR_SEP) + 1;
 }
 
 // ***********************************************************
@@ -196,7 +195,6 @@ private static function readProps($dir) { // single page info
 
 private static function getMType($dir, $typ, $lev) {
 	if (self::isCollection($typ)) return "file";
-	if ($lev < 2) return "root";
 
 	$fld = (bool) APP::folders($dir, ! IS_LOCAL);
 	$fil = (bool) APP::find($dir);

@@ -34,6 +34,8 @@ rows = 7
 <h4><!DIC:head!></h4>
 
 <form id="inlineEdit" method="post" action="?">
+<!SEC:oid!>
+
 	<table>
 		<tr>
 			<td class="selHead"><!DIC:step!> 1:</td>
@@ -51,7 +53,7 @@ rows = 7
 		</tr><tr>
 			<td class="selHead"><!DIC:step!> 4:</td>
 			<td class="selData"><!DIC:xlate!>
-				<input type="submit" name="act_xlate" value="<!DIC:apply!>" />
+				<input type="submit" name="act.xlate" value="<!DIC:apply!>" />
 			</td>
 		</tr><tr>
 			<td class="selHead"><!DIC:step!> 5:</td>

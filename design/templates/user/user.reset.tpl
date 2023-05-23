@@ -53,6 +53,7 @@ mis   = password mismatch
 <!VAR:uid!>
 
 <form method="post" action="?vmode=login&btn.usr=R">
+<!SEC:oid!>
 
 	<table>
 		<tr>

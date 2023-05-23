@@ -1,46 +1,29 @@
 <?php
 
-incCls("menus/dropBox.php");
-incCls("input/confirm.php");
-incCls("editor/iniWriter.php");
+incCls("editor/usrEdit.php");
 
 // ***********************************************************
 // get ini vals
 // ***********************************************************
-$fil = "config/users.ini";
+$mgr = new usrEdit();
+$mgr->setScope("R");
 
-$ini = new iniWriter($fil);
-$cnf = new confirm();
-
-if ($cnf->act()) {
-	$ini->dropSec(ENV::get("grp.drop"));
-	$ini->save();
-}
-
-$gps = $ini->getSecs();
-
-unset($gps["admin"]);
-unset($gps["user"]);
-
-if (! $gps) {
-	return MSG::now("no.grps.edit");
-}
+if (! $mgr->cnfGroup("grp.drop")) return;
 
 // ***********************************************************
 // show choices
 // ***********************************************************
-$box = new dropBox();
-$grp = $box->getKey("group", $gps); $acs = $ini->getKeys($grp);
-$arr = $ini->getValues($grp);
+$grp = $mgr->get("group");
+$arr = $mgr->getValues($grp);
 $cnt = count($arr);
 
 MSG::now("grp.count", $cnt);
 ENV::set("grp.drop", $grp);
 
 // ***********************************************************
-// ask for confirmation
+// check and act
 // ***********************************************************
-$cnf->dic("grp.drop", $grp);
-$cnf->show();
+// TODO: action too late for display
+$mgr->grpDrop($grp);
 
 ?>

@@ -170,7 +170,7 @@ public static function gcRec($dir, $snip) { // get content recursively
 // retrieving non system content
 // ***********************************************************
 public static function gcMap($fso) {
-	$out = self::gcSys($fso); if ($out == NV) // usually body/include.php
+	$out = self::gcSys($fso); if ($out === NV) // usually body/include.php
 	$out = self::gcFile("LOC_MOD/sitemap.php");
 	return $out;
 }
@@ -229,7 +229,7 @@ public static function lookup($txt) {
 	if (VMODE    != "view")      return $txt;
 	if (! ENV::get("lookup"))    return $txt;
 
-	$cls = CFG::getVar("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
+	$cls = CFG::getVal("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");
 

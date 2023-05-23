@@ -17,7 +17,6 @@ $ptk->watch("cnf.act", true);
 if ($ptk->get("sel_name")) {
 	// do whatever needs to be done
 }
-
 */
 
 // ***********************************************************

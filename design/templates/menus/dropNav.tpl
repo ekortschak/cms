@@ -32,7 +32,7 @@ class = dropMenu
 <div class="dropdown">
 <div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!VAR:links!></div>
-</div>
+</div> &ensp;
 
 # ***********************************************************
 # navigation buttons

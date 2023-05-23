@@ -29,7 +29,7 @@ function __construct($file = "") {
 // setting & retrieving info
 // ***********************************************************
 public function getContent() {
-	$this->txt = file_get_contents($this->fil);
+	$this->txt = file_get_contents($this->file);
 	return $this->txt;
 }
 
@@ -45,7 +45,7 @@ public function getLink($after = "", $mode = "view") {
 }
 
 public function save() {
-	if ($file == NV) $file = $this->file;
+	if ($file === NV) $file = $this->file;
 	return file_get_contents($file);
 }
 

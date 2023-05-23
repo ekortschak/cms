@@ -12,7 +12,7 @@ include_once "include/load.min.php";
 include_once "include/load.more.php";
 
 // ***********************************************************
-// need to login
+// require login
 // ***********************************************************
 requireAdmin();
 

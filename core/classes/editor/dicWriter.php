@@ -62,7 +62,7 @@ public function modify($lang, $key, $value) {
 	$sec = "dic.$lang";
 	$xxx = $this->set("$sec.$key", $value);
 	$xxx = DIC::set($key, $value, $lang);
-	return $this->save($this->fil, $sec, $lang);
+	return $this->save($this->file, $sec, $lang);
 }
 
 // ***********************************************************
@@ -83,7 +83,7 @@ private function save($ful, $sec, $lang) {
 // ***********************************************************
 private function checkFile($fil) {
 	$chk = APP::file($fil); if (! $chk) return false;
-	$this->fil = $fil;
+	$this->file = $fil;
 	return $fil;
 }
 

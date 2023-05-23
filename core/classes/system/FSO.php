@@ -96,10 +96,12 @@ public static function permit($fso, $mod = FS_PERMS) {
 // folders
 // ***********************************************************
 public static function folders($dir = APP_DIR, $visOnly = true) {
-	if (! is_dir($dir)) return array();
-
-	$hdl = opendir($dir); if (! $hdl) return array();
 	$out = array();
+
+	if (! is_dir($dir)) $dir = self::findDir($dir);
+	if (! is_dir($dir)) return $out;
+
+	$hdl = opendir($dir); if (! $hdl) return $out;
 
 	while (false !== ($itm = readdir($hdl))) {
 		if (STR::begins($itm, "." )) continue; if ($visOnly)
@@ -110,6 +112,19 @@ public static function folders($dir = APP_DIR, $visOnly = true) {
 	}
 	closedir($hdl);
 	return VEC::sort($out, "ksort");
+}
+
+public static function findDir($dir) {
+	if (! STR::contains($dir, "*")) return $dir;
+
+	$par = dirname($dir);
+	$fnd = STR::after(basename($dir), "*");
+	$arr = glob("$par/*", GLOB_ONLYDIR);
+
+	foreach ($arr as $itm) {
+		if (STR::ends($itm, $fnd)) return $itm;
+	}
+	return $dir;
 }
 
 // ***********************************************************
@@ -189,8 +204,7 @@ public static function backup($file) {
 }
 
 public static function copy($src, $dst) { // copy a file
-	$src = APP::file($src);
-	if (! is_file($src)) MSG::add($src, "non existent");
+	$src = APP::file($src); if (! is_file($src)) return false;
 	$dir = self::force(dirname($dst)); copy($src, $dst);
 	$xxx = self::permit($dst); if (is_file($dst)) return true;
 	return ERR::assist("file", "no.write", $dst);

@@ -3,13 +3,11 @@
 if (TAB_TYPE != "sel") return;
 
 incCls("menus/dropBox.php");
-incCls("menus/tabs.php");
 
 // ***********************************************************
 // collect data
 // ***********************************************************
-$tab = new tabs();
-$arr = $tab->getTopics();
+$arr = PGE::topics();
 
 foreach ($arr as $key => $val) { // mark hidden topics
 	if (STR::contains($key, "~")) $arr[$key] = "# $val";

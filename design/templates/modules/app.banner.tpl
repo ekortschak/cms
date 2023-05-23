@@ -1,20 +1,18 @@
 [main]
-<div align="center" style="padding: 10px 0px;">
+<style>
 
-<a href="?pge=start">
-	<!SEC:logo!>
-	<!SEC:banner!>
-</a>
+.banHead {
+	padding: 27px 15px 0px;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	text-align: right;
+	text-shadow: 1px 1px 1px black;
+	vertical-align: bottom;
+}
 
+</style>
+
+<div class="banHead">
+	<!VAR:title!>
 </div>
-
-# ***********************************************************
-[logo]
-# ***********************************************************
-<img src="img/logo.png" /> &nbsp;
-
-[banner]
-<img src="img/banner.en.png" />
-
-[banner.de]
-<img src="img/banner.de.png" />

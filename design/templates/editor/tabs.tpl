@@ -7,6 +7,8 @@ create = Neuen Tab anlegen
 
 [main]
 <form method="post" action="?">
+<!SEC:oid!>
+
     <table>
 		<tr>
 			<td class="selHead" width="100"><!DIC:create!> </td>

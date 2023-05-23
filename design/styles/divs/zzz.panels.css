@@ -2,58 +2,44 @@
 /* ******************************************************** */
 /* horizontal panels */
 /* ******************************************************** */
-.banner {
-	z-index: 70;
-	position: fixed;
-	top: 0px;
-	left:   W_TABS;
-	height: H_BANNER;
-	width:  W_BODY;
-
-	background: BC_PAGE;
-	white-space: nowrap;
-
-	vertical-align: center;
-}
-
 .modMenu {
 	z-index: 99;
 	position: fixed;
-	top:	H_BANNER;
+#	background-color: grey;
+	background-image: url("img/banner.png");
+	background-size: cover;
+
+	top:	0px;
 	left:   W_TABS;
-	height: H_MENU;
+	height: calc(H_BANNER + H_MENU);
 	width:  W_BODY;
 
+	overflow: visible;
+	border: 0px solid navy;
+
 	color: FC_MENU;
-	color: black;
-	background: BC_MENU;
-	border: 1px solid navy;
-	border-width: 1px 0px;
+	vertical-align: bottom;
 }
 
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */
-.modTabs {
-	top: 0px;
-	left: 0px;
-	min-height: 100%;
-	min-width: 50px;
-	max-width: 50px;
-}
-
 .modBody {
-	top:	calc(H_BANNER + H_MENU + 15px);
+	top:	calc(H_BANNER + 15px);
 	left:   W_TABS;
 	height: calc(100% - H_BANNER - H_MENU - 15px);
 	width:  W_BODY;
 }
 
 .modOpts {
+	z-index: 1;
+	overflow: auto;
 	position: fixed;
-	top:	0px;
-	left:   calc(W_TABS + W_BODY);
-	width:  calc(100% - W_BODY - W_TABS);
-	min-width: 150px;
+	left: calc(W_TABS + W_BODY);
+	width: calc(100% - W_TABS - W_BODY);
+	min-width: 300px;
 	height: 100%;
+
+	color: FC_OPTS;
+	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
 }

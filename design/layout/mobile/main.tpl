@@ -1,2 +1,5 @@
 [include]
-LOC_LAY/default/main.tpl
+LOC_LAY/divs/main.tpl
+
+[vars]
+height = 49

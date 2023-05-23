@@ -57,7 +57,7 @@ public function setTemplate($file) {
 
 // ***********************************************************
 public function write($file = NV) {
-	if ($file == NV) $file = $this->file;
+	if ($file === NV) $file = $this->file;
 
 	$out = array();
 	$hed = "No Headers!"; if ($this->heds) $hed = implode($this->sep, $this->heds);

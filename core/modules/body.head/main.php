@@ -16,3 +16,4 @@ switch (STR::left($typ)) {
 include APP::getInc(__DIR__, "$inc.php");
 
 ?>
+asfadfa

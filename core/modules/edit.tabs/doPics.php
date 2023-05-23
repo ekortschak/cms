@@ -32,6 +32,7 @@ $sec = "add.png"; if ($fil) $sec = "del.png";
 
 $tpl = new tpl();
 $tpl->load("editor/menu.tab.tpl");
+$tpl->register();
 $tpl->set("file", $fil);
 $tpl->show("png.info");
 $tpl->show($sec);

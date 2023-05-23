@@ -17,7 +17,7 @@ cls = cb
 [main]
 # ***********************************************************
 <form method="post" action="?">
-	<input type="hidden" name="oid" value="<!VAR:oid!>">
+<!SEC:oid!>
 
 <table width=350 border=0>
     <!VAR:body!>

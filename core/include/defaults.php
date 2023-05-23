@@ -3,7 +3,7 @@
 // project
 CFG::set("PRJ_TITLE",  "Free CMS");
 CFG::set("VMODE",      "view");
-CFG::set("ERR_SHOW",   1);
+CFG::set("ERR_SHOW",   0);
 
 CFG::set("LAYOUT",     "default");
 CFG::set("COLORS",     "default");
@@ -12,11 +12,12 @@ CFG::set("EDITOR",     "default");
 CFG::set("LANGUAGES",  "en");
 CFG::set("GEN_LANG",   "en");
 CFG::set("DATE_FMT",   "Y/m/d");
-CFG::set("TIMEZONE",   "Europe/Vienna");
+CFG::set("TIMEZONE",   NET::geoTime());
 
 // security
 CFG::set("WWW_USER",   "www-data");
 CFG::set("SECRET",     "anystring");
+
 CFG::set("TIMEOUT",    15);
 
 // database
@@ -39,7 +40,6 @@ CFG::set("NOREPLY",    "nobody@home");
 
 CFG::set("FTP_MODE",   "none");
 
-CFG::set("CSS_URL",    "x.css.php");
 CFG::set("CMS_URL",    "/cms");
 CFG::set("CK4_URL",    "https://cdn.ckeditor.com/4.16.0/standard");
 CFG::set("CK5_URL",    "https://cdn.ckeditor.com/ckeditor5/24.0.0/classic");

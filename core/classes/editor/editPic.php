@@ -27,9 +27,9 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show($sec = "main") {
-	$this->showCR( $this->fil);
-	$this->showPic($this->fil);
+public function edit() {
+	$this->showCR( $this->file);
+	$this->showPic($this->file);
 }
 
 // ***********************************************************

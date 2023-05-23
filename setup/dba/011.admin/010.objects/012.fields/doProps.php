@@ -1,81 +1,10 @@
 <?php
 
-incCls("menus/dropDbo.php");
-incCls("editor/iniEdit.php");
-incCls("dbase/dbInfo.php");
+incCls("editor/dboEdit.php");
 
 // ***********************************************************
-// show menu
-// ***********************************************************
-$box = new dropDbo();
-$dbs = $box->getDbase();
-$tbl = $box->getTable($dbs);
-$fld = $box->getField($dbs, $tbl);
-$xxx = $box->show();
-
-$dbi = new dbInfo($dbs, $tbl);
-$inf = $dbi->fldProps($tbl, $fld);
-
-$inf["default"] = $inf["fstd"];
-
-// ***********************************************************
-// read field props
-// ***********************************************************
-$ini = new ini("LOC_CFG/db.fields.def");
-$arr = $ini->getSecs($ini);
-$lng = CUR_LANG;
-
-$typ = $inf["dtype"];
-$inp = "";
-
-// ***********************************************************
-HTW::xtag("props");
-// ***********************************************************
-$sel = new iniEdit();
-$sel->hidden("dbo", "dboEdit");
-$sel->hidden("dbs", "$dbs");
-$sel->hidden("fld", "$tbl.$fld");
-$sel->hidden("chk", "fcProps");
-
-foreach ($arr as $prp) {
-	$dat = $ini->getValues($prp);
-	$typ = $inf["dtype"];
-
-	$cap = VEC::lng(CUR_LANG, $dat, "head", $prp);
-	$vls = VEC::get($dat, "values");
-	$hnt = VEC::get($dat, "hint");
-
-	if ($prp == "input") {
-		$sel->ronly("fld.type", $typ);
-
-		if (STR::contains(".mem.cur.", $typ)) continue;
-	}
-	if ($prp == "mask") {
-		if (STR::contains(".mem.", $typ)) continue;
-	}
-	$sel->addInput("prop[$prp]", $vls, "");
-	$sel->setProp("title", $cap);
-	$sel->setProp("hint", $hnt);
-}
-$sel->show();
-
-// ***********************************************************
-HTW::xtag("lang.props");
-// ***********************************************************
-$sel = new iniEdit();
-$sel->hidden("dbo", "dboEdit");
-$sel->hidden("dbs", "$dbs");
-$sel->hidden("fld", "$tbl.$fld");
-$sel->hidden("chk", "flProps");
-
-foreach (LNG::get() as $lng) {
-	$tit = VEC::lng($lng, $inf, "head", $fld);
-	$flg = HTM::flag($lng);
-
-	$sel->input("head[$lng]", $tit);
-	$sel->setProp("title", $flg);
-}
-$sel->show();
+$sel = new dboEdit("f");
+$sel->edit();
 
 ?>
 

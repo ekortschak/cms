@@ -43,7 +43,9 @@ rows = 40
 # ***********************************************************
 <!SEC:toolbar!>
 
-<form id="inlineEdit" method="post" action="?file_act=save">
+<form id="inlineEdit" method="post" action="?file.act=save">
+<!SEC:oid!>
+
 <div id="divEdit" class="cold" tabindex=0 contenteditable="true" spellcheck="false"
 	onfocus="this.className='hot';"
 	onblur="this.className='cold';"><!VAR:content!>

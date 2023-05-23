@@ -14,7 +14,7 @@ cols = 69
 [main]
 # ***********************************************************
 <form method="post" action="?" enctype="multipart/form-data">
-	<input type="hidden" name="oid" value="<!VAR:oid!>" />
+<!SEC:oid!>
 
 	<div class="flex flexbottom">
 		<div><!SEC:data!></div>

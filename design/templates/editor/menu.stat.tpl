@@ -22,6 +22,8 @@ mnu.thaw = Auftauen
 <h4><!DIC:mnu.state!></h4>
 
 <form method="post" action="?">
+<!SEC:oid!>
+
 <table>
 <!SEC:act!>
 </table>
@@ -35,13 +37,13 @@ mnu.thaw = Auftauen
 [act.freeze]
 	<tr>
 		<td width=150 style="vertical-align: middle;"><!DIC:mnu.struct!></td>
-		<td><button name="mnu_stat" value=1><!DIC:mnu.freeze!></td>
+		<td><button name="mnu.stat" value=1><!DIC:mnu.freeze!></td>
 	</tr>
 
 [act.thaw]
 	<tr>
 		<td width=150 style="vertical-align: middle;"><!DIC:mnu.struct!></td>
-		<td><button name="mnu_stat" value=1><!DIC:mnu.thaw!></td>
+		<td><button name="mnu.stat" value=1><!DIC:mnu.thaw!></td>
 	</tr>
 
 # ***********************************************************
@@ -50,12 +52,12 @@ mnu.thaw = Auftauen
 [info]
 <h4>Static menus</h4>
 
-<p>Static menus can speed up page rendering significantly.<br>
+<p>Static menus can speed up initial page rendering significantly.<br>
 <red>Changes apply to all languages.</red></p>
 
 [info.de]
 <h4>Statisches Menü</h4>
 
-<p>Statische Menüs können den Seitenaufbau erheblich beschleunigen.<br>
+<p>Statische Menüs können den erstmaligen Seitenaufbau erheblich beschleunigen.<br>
 <red>Änderungen betreffen alle Sprachen.</red></p>
 

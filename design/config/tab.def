@@ -9,9 +9,9 @@ std = Startthema
 # general properties
 [props]
 typ = root:=single topic|select:=multiple topics
-std =
+std = folders:TAB_HOME
 
 # language specific properties
-[curlang]
+[anylang]
 title = DIR_NAME
 

@@ -36,7 +36,7 @@ public function getKey($qid, $data, $selected = false) {
 }
 
 protected function getSel($qid, $data, $sel) {
-	$sel = ENV::get($qid, $sel);
+	$sel = ENV::find($qid, $sel);
 
 	if (! is_numeric($sel))
 	return parent::getSel($qid, $data, $sel);

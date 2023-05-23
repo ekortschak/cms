@@ -48,14 +48,14 @@ public function gc($dummy = false) {
 
         $this->set("key", $key);
         $this->set("selected", $sel);
-        $this->set("value", $val);
+        $this->set("option", $val);
 
-        $opt.= $this->getSection("input.cmbitem");
+        $opt.= $this->getSection("item");
     }
 	if (! $opt) return $this->getSection("empty");
 
-	$xxx = $this->set("items", $opt);
-    return $this->getSection("input.cmb");
+	$xxx = $this->set("options", $opt);
+    return $this->getSection();
 }
 
 // ***********************************************************

@@ -82,7 +82,7 @@ public function getVal($qid, $data, $selected = false) {
 }
 
 public function getKey($qid, $data, $selected = false) {
-	if (! $data) return; # $data = array();
+	if (! $data) return;
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $this->getSel($qid, $data, $selected);
@@ -92,37 +92,23 @@ public function getKey($qid, $data, $selected = false) {
 	$this->data[$qid]["dat"] = $data;
 	$this->data[$qid]["sel"] = $sel;
 	$this->data[$qid]["cur"] = $cur;
+	$this->data[$qid]["typ"] = "cmb";
 
-	$this->setType($qid, "cmb");
 	return $sel;
-}
-
-public function setType($qid, $type) {
-#	$chk = ".table.combo.inline.icon.beam.topic.menu.button.";
-	$this->data[$qid]["typ"] = $type;
 }
 
 // ***********************************************************
 protected function getSel($qid, $data, $sel) {
-	$key = ENV::getParm($qid); if (! $key)
-	$key = ENV::get($qid, $sel);
+	$key = ENV::find($qid, $sel);
+
+	if ($qid == "pic.file") { // TODO: remove this compromise in favour of editing
+		$key = basename($key);
+	}
 	$key = VEC::find($data, $key);
 
 	if (! $key)
 	return ENV::set($qid, array_key_first($data));
 	return ENV::set($qid, $key);
-}
-
-// ***********************************************************
-public function getInput($qid, $value) {
-	$sel = ENV::get($qid, $value);
-
-	$this->data[$qid]["cap"] = DIC::getPfx("unq", $qid);
-	$this->data[$qid]["dat"] = array($sel => $sel);
-	$this->data[$qid]["sel"] = $sel;
-	$this->data[$qid]["cur"] = $sel;
-	$this->data[$qid]["typ"] = "txt";
-	return $sel;
 }
 
 // ***********************************************************
@@ -175,32 +161,39 @@ public function gc($sec = "main") {
 }
 
 // ***********************************************************
-protected function collect($type) {
+protected function collect($sec) {
     $out = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
-		extract ($vls); if ($typ != "cmb") continue;
+		extract ($vls);
 
-		$this->set("parm", $unq); $tmp = ""; $cnt = 0;
+		$this->set("parm", $unq);
 		$this->set("uniq", DIC::getPfx("unq", $unq));
 		$this->set("current", $cur);
 
-		foreach ($dat as $key => $val) { // links
-			$this->set("value",   $key); $cnt++;
-			$this->set("caption", $val);
-
-#			if ($key == $sel) continue;
-			$tmp.= $this->getSection("link");
+		switch ($vls["typ"]) {
+			case "cmb": $out.= $this->getCombo($sec, $dat); break;
 		}
-
-		$sec = "$type.box"; if ($cnt < 2)
-		$sec = "$type.one"; if ($cnt < 1)
-		$sec = "empty";
-
-		$xxx = $this->set("links", $tmp);
-		$out.= $this->getSection($sec);
     }
     return $out;
+}
+
+protected function getCombo($sec, $dat) {
+	$out = ""; $cnt = count($dat);
+
+	foreach ($dat as $key => $val) { // links
+		$this->set("value",   $key);
+		$this->set("caption", $val);
+
+		$out.= $this->getSection("link");
+	}
+	$sec = "$sec.box"; if ($cnt < 2)
+	$sec = "$sec.one"; if ($cnt < 1)
+	$sec = "empty";
+
+	$this->set("links", $out);
+
+	return $this->getSection($sec);
 }
 
 // ***********************************************************

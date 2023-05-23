@@ -5,7 +5,7 @@ LOC_TPL/modules/fview.gallery.tpl
 [main]
 # ***********************************************************
 <form method="post" action="?">
-	<input type="hidden" name="opt_act" value="upload" />
+<!SEC:oid!>
 <!SEC:addNode!>
 <!SEC:perms!>
 </form>
@@ -14,5 +14,6 @@ LOC_TPL/modules/fview.gallery.tpl
 <!SEC:files!>
 
 <form method="post" action="?" enctype="multipart/form-data">
+<!SEC:oid!>
 <!SEC:append!>
 </form>

@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-
 $dir = strtr(dirname(__DIR__), DIRECTORY_SEPARATOR, "/");
 $fbk = $par = $dir;
 

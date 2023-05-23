@@ -1,5 +1,7 @@
 <?php
 
+TMR::total("total");
+
 if (! IS_LOCAL) return; $arr = TMR::get();
 if (! $arr) return;
 

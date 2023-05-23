@@ -17,7 +17,6 @@ $act = $sel->show();
 */
 
 incCls("input/selItems.php");
-incCls("input/ptracker.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -72,7 +71,13 @@ public function text($uid, $value = "") {
 }
 
 // ***********************************************************
-public function hidden($uid, $value) { // hidden values
+public function hide($uid, $value = 1) { // hidden values
+	return OID::set($this->oid, $uid, $value);
+	return $this->itm->addInput("hid", $uid, $value);
+}
+
+public function hidden($uid, $value = 1) { // hidden values
+	return OID::set($this->oid, $uid, $value);
 	return $this->itm->addInput("hid", $uid, $value);
 }
 
@@ -105,7 +110,7 @@ public function combo($uid, $vls, $sel = NV) { // combo
 	return $this->itm->addCombo("cmb", $uid, $vls, $sel);
 }
 public function range($uid, $sel, $min = 0, $max = 100) { // slider
-	$vls = range($min, $max);
+	$vls = VEC::range($min, $max);
 	return $this->itm->addCombo("rng", $uid, $vls, $sel);
 }
 
@@ -179,7 +184,7 @@ public function xShow($sec = "main") {
 public function show($sec = "main") {
 	$htm = $this->gc($sec); echo $htm;
 	$out = $this->act();
-	$xxx = $this->reset();
+	$xxx = $this->register();
 	return $out;
 }
 

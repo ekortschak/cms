@@ -35,14 +35,10 @@ title = PRJ_TITLE
 # last to execute
 # ***********************************************************
 [styles]
-<link rel="StyleSheet" href="CSS_URL?layout=LAYOUT" type="text/css" />
+<link rel="StyleSheet" href="x.css.php?layout=LAYOUT" type="text/css" />
 <!MOD:zzz.styles!>
 
 [scripts]
-<script>
-	window.location = "\#vANCHOR";
-</script>
-
 <!MOD:zzz.scripts!>
 
 
@@ -61,12 +57,10 @@ title = PRJ_TITLE
 # horizontal panels
 # ***********************************************************
 [banner] <!-- banner -->
-<!MOD:app.banner!>
+#<!MOD:app.banner!>
+#<!MOD:menu!>
 
-[menu] <!-- menu -->
-<!MOD:menu!>
-
-[trailer] <!-- banner -->
+[trailer] <!-- trailer -->
 <!MOD:app.status!>
 
 # ***********************************************************
@@ -93,9 +87,9 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
-<div style="padding: 15px 40px; font-size: 4pt;">
-	<a class="std" href="config.php">&nbsp;</a>
-</div>
+#<div style="padding: 15px 40px; font-size: 4pt;">
+#	<a class="std" href="config.php">&nbsp;</a>
+#</div>
 
 # ***********************************************************
 [body] <!-- body -->

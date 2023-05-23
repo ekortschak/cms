@@ -15,6 +15,7 @@ incCls("system/ENV.php");
 $var = ENV::get($idx, $default); // session var
 $var = ENV::getPost($idx, $default); // post var
 $var = ENV::getParm($idx, $default); // get var
+$var = ENV::find($idx, $default);
 */
 
 ENV::init();
@@ -71,8 +72,8 @@ public static function getPage() {
 
 public static function getTopDir() {
 	$idx = APP_IDX;
-	$tab = self::get("tab_$idx");
-	return self::get("tpc_$tab");
+	$tab = self::get("tab.$idx");
+	return self::get("tpc.$tab");
 }
 
 // ***********************************************************
@@ -93,6 +94,13 @@ public static function getParm($key, $default = false) {
 public static function setParm($key, $value) {
 	$key = SSV::norm($key);
 	$_GET[$key] = $value;
+}
+
+// ***********************************************************
+public static function find($key, $default = false) {
+	$out = ENV::getPost($key, NV); if ($out !== NV) return $out;
+	$out = ENV::getParm($key, NV); if ($out !== NV) return $out;
+	return ENV::get($key, $default);
 }
 
 // ***********************************************************

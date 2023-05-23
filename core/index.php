@@ -1,5 +1,7 @@
 <?php
 
+# ob_start();
+
 // ***********************************************************
 // deny editing
 // ***********************************************************
@@ -20,6 +22,8 @@ include_once "include/load.err.php";
 include_once "include/load.min.php";
 include_once "include/load.more.php";
 include_once "include/load.ini.php";
+
+# $msg = ob_get_cleanclean();
 
 // ***********************************************************
 // create page

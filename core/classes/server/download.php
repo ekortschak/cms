@@ -52,7 +52,7 @@ private function send($content, $file, $type = NV) {
 	$txt = utf8_encode($txt);
 	$lng = strlen($txt);
 
-	$typ = $type; if ($typ == NV)
+	$typ = $type; if ($typ === NV)
 	$typ = mime_content_type($file);
 
 	header("Pragma: no-cache");

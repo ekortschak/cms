@@ -20,11 +20,11 @@ button = <!DIC:ok!>
 # ***********************************************************
 <div style="margin: 12px 0px 7px;"> # tspace
 <form method="post" action="<!VAR:link!>">
+<!SEC:oid!>
 
 	<div class="rh"><!DIC:confirm!></div>
 	<div class="confirm"><!VAR:items!></div>
 	<div class="rf" align="right">
-		<input type="hidden" name="oid" value="<!VAR:oid!>" />
 		<input type="submit" name="cnf.act" value="<!VAR:button!>" />
 	</div>
 </form>

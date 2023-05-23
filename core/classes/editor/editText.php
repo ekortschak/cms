@@ -23,7 +23,7 @@ incCls("editor/tidy.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class editText extends tpl {
-	protected $fil = false;
+	protected $file = false;
 	protected $ful = false;
 
 function __construct() {
@@ -36,9 +36,9 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function edit($file) {
-	$this->ful = $file;
-	$this->fil = APP::relPath($file);
+public function grab($file) {
+	$this->ful  = APP::file($file);
+	$this->file = APP::relPath($file);
 }
 
 public function suit($variant) {
@@ -49,13 +49,16 @@ public function suit($variant) {
 	$this->load($tpl);
 }
 
-public function show($sec = "main") {
+public function edit() {
 	$htm = $this->getContent();
+	$xxx = $this->chkLocal();
 
-	parent::set("file",  $this->fil);
+	OID::set($this->oid, "orgName", $this->file);
+
+	parent::set("file",  $this->file);
 	parent::set("snips", $this->getSnips());
 	parent::set("content", $htm);
-	parent::show($sec);
+	parent::show();
 }
 
 // ***********************************************************
@@ -68,12 +71,13 @@ public function show($sec = "main") {
 // reading info
 // ***********************************************************
 protected function getContent() {
-	$out = APP::read($this->fil);
+	$out = APP::read($this->file);
 	$rws = STR::count($out, "\n") + 3;
 	$rws = CHK::range($rws, 35, 7);
 
 	$tdy = new tidy();
 	$out = $tdy->phpSecure($out);
+	$out = $tdy->tplSecure($out);
 
 	$this->set("rows", $rws);
 	return $out;
@@ -87,6 +91,13 @@ protected function getSnips() {
 	$box = new dropBox("script");
 	$box->getCode("snip", $arr);
 	return $box->gc();
+}
+
+protected function chkLocal() {
+	$ful = APP::file($this->file);
+	$chk = STR::contains($ful, APP_FBK); if (! $chk) return;
+	$this->copy("drop.cms", "drop.file");
+	$this->copy("save.cms", "save.file");
 }
 
 // ***********************************************************

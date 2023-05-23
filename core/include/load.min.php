@@ -17,13 +17,12 @@ incCls("system/FSO.php"); // basic dir functions
 incCls("system/APP.php"); // app specific functions
 incCls("system/CHK.php"); // basic validation functions
 
-incCls("server/SSL.php"); // string encryption
-
 // ***********************************************************
 // set environment
 // ***********************************************************
 incFnc("constants.php");  // set preliminary constants
 
+incCls("server/NET.php"); // net info
 incCls("system/CFG.php"); // prepare constants
 incCls("system/SSV.php"); // session vars
 incCls("system/ENV.php"); // session & env vars

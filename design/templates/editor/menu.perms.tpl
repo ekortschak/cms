@@ -23,6 +23,8 @@ deny = verweigern
 
 [data]
 <form method="post" action="?">
+<!SEC:oid!>
+
 	<table>
 		<tr class="rh">
 			<th><!DIC:user!></th>
@@ -62,7 +64,7 @@ deny = verweigern
 <small>
 <table>
 	<tr>
-		<td><sup>1</sup></td> <td>Grant access</td>
+		<td><sup>1</sup></td> <td>Grant access for current folder and subfolders</td>
 	</tr>
 	<tr>
 		<td><sup>2</sup></td> <td>Inherit permissions from parent folders</td>
@@ -76,7 +78,7 @@ deny = verweigern
 <small>
 <table>
 	<tr>
-		<td><sup>1</sup></td> <td>Zugriff gestatten</td>
+		<td><sup>1</sup></td> <td>Zugriff für aktuellen Ordner und Unterordner gestatten</td>
 	</tr>
 	<tr>
 		<td><sup>2</sup></td> <td>Zugriff von übergeordneten Ordnern übernehmen</td>

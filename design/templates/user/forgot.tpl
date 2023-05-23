@@ -31,6 +31,7 @@ nomail  = Mailing ist deaktiviert.
 <h4><!DIC:head!></h4>
 
 <form method="post" action="?vmode=login&btn.usr=F">
+<!SEC:oid!>
 
 	<table>
 		<tr>

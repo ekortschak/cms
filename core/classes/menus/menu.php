@@ -51,7 +51,10 @@ public function gc($sec = "main") {
 
 	foreach ($this->top as $dir => $inf) {
 		$sub = $this->getEntries($dir);
-		$box = "item"; if (! $sub) $box = "empty";
+
+		$box = "item";  if (! $sub)
+		$box = "empty"; if (VMODE != "view")
+		$box = "edit";
 
 		$this->set("class", $this->getClass($inf["fpath"]));
 		$this->set("entry", $sub);

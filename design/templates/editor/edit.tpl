@@ -17,26 +17,20 @@ placeholder =
 # ***********************************************************
 [submit]
 # ***********************************************************
-<div style="text-align: right; margin: 5px 0px;">
-	<a href="?file_act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">
-		<button>BOOL_NO</button>
-	</a>
-
-	<input type="hidden" name="orgName" value="<!VAR:file!>" />
+<div class="toolbar flex" style="margin: 3px 0px 12px;">
+<div><!SEC:restore!></div>
+<div><!SEC:drop.file!></div>
+<div>
 	<input type="text" name="filName" value="<!VAR:file!>" class="filename" />
-
-	<button name="file_act" value="save" onclick="exSubmit();">
-		<img src="LOC_ICO/buttons/save.png" />
-	</button>
+<!SEC:save.file!>
+</div>
 </div>
 
 # ***********************************************************
 [submit.simple]
 # ***********************************************************
-<div style="text-align: right; margin: 5px 0px;">
-	<input type="hidden" name="filName" value="<!VAR:file!>" />
-
-	<button name="file_act" value="save" onclick="exSubmit();">
+<divstyle="text-align: right; margin: 5px 0px;">
+	<button name="file.act" value="save" onclick="exSubmit();">
 		<img src="LOC_ICO/buttons/save.png" />
 	</button>
 </div>
@@ -48,3 +42,32 @@ placeholder =
 placeholder="<!VAR:placeholder!>" tabindex=0 _
 autocomplete="off" autocorrect="off" autocapitalize="off" _
 spellcheck="false"><!VAR:content!></textarea>
+
+# ***********************************************************
+# other
+# ***********************************************************
+[restore]
+	<a href="?file.act=backup&fil=<!VAR:file!>">
+		<img class="btn" src="LOC_ICO/buttons/backup.png" />
+	</a>
+	<a href="?file.act=restore&fil=<!VAR:file!>">
+		<img class="btn" src="LOC_ICO/buttons/restore.png" />
+	</a>
+
+[drop.file]
+	<a href="?file.act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">
+		<label>BOOL_NO</label>
+	</a>
+
+[drop.cms]
+	<label class="blue"><grey>&cross;</grey> CMS</label>
+
+[save.file]
+	<button name="file.act" value="save" onclick="exSubmit();">
+		<img src="LOC_ICO/buttons/save.png" />
+	</button>
+
+[save.cms]
+	<button name="file.act" value="save"  onclick="exSubmit();">
+		<img src="LOC_ICO/buttons/add.png" />
+	</button>

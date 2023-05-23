@@ -2,13 +2,16 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
+used to manage file editing in given directory
+
+
 Info für FireFox
+----------------
 #You can change the view Page Source configuration by following these steps:
 #Visit about:config in your Firefox web browser.
 #Paste view_source.editor.external into the search bar and change the value from false to true by double-clicking on it.
 #Paste view_source.editor.path into the search bar and right-click on the value to modify it. A dialogue box will appear. Set the path to your desired editor (/usr/bin/gedit for Gedit) and click OK.
 #Now use Ctrl+U or Page Source to open the editor.
-
 
 // ***********************************************************
 // HOW TO USE
@@ -16,35 +19,59 @@ Info für FireFox
 incCls("editor/ediMgr.php");
 
 $edi = new ediMgr();
-$edi->read($fil);
-$edi->show($tool);
+$edi->edit($dir);
 */
+
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class ediMgr {
-	private $typ = "text";
-	private $edt = array();
-	private $fil = false;
+	private $fonly = false;
 
-function __construct() {}
-
-// ***********************************************************
-// methods
-// ***********************************************************
-public function read($file) {
-	$this->fil = $file;
-	$this->typ = $this->findType($this->fil);
-	$this->edt = $this->findList($this->typ);
+function __construct($filesOnly = false) {
+	$this->fonly = (bool) $filesOnly;
 }
 
-public function getType()    { return $this->typ; }
-public function getEditors() { return $this->edt; }
+// ***********************************************************
+// display
+// ***********************************************************
+public function edit($dir)   {
+	$old = $dir;
+
+	$box = new dropBox("menu"); if (! $this->fonly)
+	$dir = $box->folders($dir); if (! $dir) $dir = $old;
+	$ful = $box->files($dir);
+
+	$typ = $this->findType($ful);
+	$eds = $this->findList($typ);
+
+	$typ = $box->getKey("pic.editor", $eds);
+	$xxx = $box->show();
+
+	$cls = $this->findClass($typ);
+	incCls("editor/$cls.php");
+
+	$edt = new $cls();
+	$edt->suit($typ);
+	$edt->grab($ful);
+	$edt->edit();
+}
 
 // ***********************************************************
-// methods
+// retrieving options
 // ***********************************************************
+private function findList($typ) {
+	if ($typ == "code") return $this->getArr("code,xtern,text");
+	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5,code");
+	if ($typ == "ini")  return $this->getArr("ini,text");
+	if ($typ == "dic")  return $this->getArr("dic,text");
+	if ($typ == "pic")  return $this->getArr("pic");
+
+	return array("text" => "text");
+}
+
 private function findType($file) {
 	$ext = FSO::ext($file, true); $ext = ".$ext.";
 
@@ -53,6 +80,7 @@ private function findType($file) {
 	if (STR::contains(".dic.",         $ext)) return "dic";
 	if (STR::contains(".css.",         $ext)) return "css";
 	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
+	if (STR::contains(".ico.",         $ext)) return "pic";
 
 	if (STR::contains(".htm.", $ext)) {
 #		$htm = APP::read($file);
@@ -62,38 +90,10 @@ private function findType($file) {
 	return "text";
 }
 
-private function findList($typ) {
-	if ($typ == "code") return $this->getArr("code,xtern,text");
-	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5,code");
-	if ($typ == "ini")  return $this->getArr("ini,text");
-	if ($typ == "dic")  return $this->getArr("dic,text");
-	return array();
-}
-
-// ***********************************************************
-// display
-// ***********************************************************
-public function show($tool = NV) {
-	if ($tool == NV) $tool = key($this->edt);
-	if (! $tool) $tool = "text";
-
-	if ($tool == "ini")   return $this->showCom("editIni");
-	if ($tool == "dic")   return $this->showCom("editDic");
-	if ($tool == "css")   return $this->showCss("editCss");
-	if ($tool == "xtern") return $this->showCom("editXtern", $tool);
-	if ($tool == "pic")   return $this->showCom("editPic",   $tool);
-
-	return $this->showCom("editText",  $tool);
-}
-
-// ***********************************************************
-public function showCom($cls, $tool = "text") {
-	incCls("editor/$cls.php");
-
-	$edt = new $cls();
-	$edt->edit($this->fil);
-	$edt->suit($tool);
-	$edt->show();
+private function findClass($typ) {
+	$cls = "edit".ucfirst($typ);
+	$chk = APP::file("LOC_CLS/editor/$cls.php"); if ($chk) return $cls;
+	return "editText";
 }
 
 // ***********************************************************
@@ -102,9 +102,10 @@ public function showCom($cls, $tool = "text") {
 private function getArr($items) {
 	$out = array(); $arr = STR::toArray($items);
 	$dat = array(
-		"html"  => "Intern", "ini" => "Ini-Editor", "text" => "Text",
-		"code"  => "Code",   "dic" => "Dic-Editor", "ck4"  => "CK-Editor 4.x",
+		"code"  => "Code",   "ini" => "Ini-Editor",
+		"html"  => "Intern", "dic" => "Dic-Editor", "ck4"  => "CK-Editor 4.x",
 		"xtern" => "Extern", "css" => "Css-Editor", "ck5"  => "CK-Editor 5.x",
+		"text"  => "Text",   "pic" => "Pic-Editor",
 	);
 	foreach ($arr as $key) {
 		$out[$key] = $dat[$key];

@@ -11,6 +11,7 @@ useme = Ja/Nein
 [main]
 # ***********************************************************
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:start!>
 </form>
 
@@ -21,7 +22,7 @@ useme = Ja/Nein
 	<tr>
 		<td class="selHead"><!DIC:start!></td>
 		<td class="selData" width=355><input type="checkbox" name="overwrite" value="1" <!VAR:value!> />&nbsp; <!DIC:useme!></td>
-		<td><button name="page_act" value="std">OK</button></td>
+		<td><button name="page.act" value="std">OK</button></td>
 	</tr>
 </table>
 

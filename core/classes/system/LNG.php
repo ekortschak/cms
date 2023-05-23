@@ -41,11 +41,8 @@ public static function getRel($blank = false) {
 public static function isCurrent($file) {
 	$fil = basename($file); $lng = CUR_LANG;
 
-	if (STR::begins($fil, "$lng.")) return true;
-	if (STR::begins($fil, "xx."))   return true;
-
-	if (STR::contains($fil, ".$lng.")) return true;
-	if (STR::contains($fil, ".xx."))   return true;
+	if (STR::contains(".$fil", ".$lng.")) return true;
+	if (STR::contains(".$fil", ".xx."))   return true;
 	return false;
 }
 

@@ -24,6 +24,7 @@ done = Ihr Benutzerkonto wurde gelöscht!
 <h4><!DIC:ask!></h4>
 
 <form method="post" action="?vmode=login&btn.usr=D">
+<!SEC:oid!>
 
 	<table>
 		<tr>

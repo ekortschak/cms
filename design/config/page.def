@@ -9,7 +9,9 @@ keys = Keywords
 desc = Description
 pbreak = Page break
 
-ext = File type
+ext = File extensions
+max_files = Concurrent uploads
+max_size = Max. size
 
 [dic.de]
 uid = UID
@@ -22,17 +24,23 @@ keys = Schlüsselwörter
 desc = Beschreibung
 pbreak = Seitenvorschub
 
-ext = Dateityp
+ext = Dateitypen
+max_files = Gleichzeitige Uploads
+max_size = Max. Dateigröße
 
 
+# ***********************************************************
 # general properties
+# ***********************************************************
 [props]
 uid = GET_UID
 typ = NODE_TYPES
 noprint = 0|1
 
+# ***********************************************************
 # language specific properties
-[curlang]
+# ***********************************************************
+[anylang]
 title = GET_TITLE
 head =
 keys =

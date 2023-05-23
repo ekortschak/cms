@@ -15,6 +15,7 @@ $sts = (FSO::isHidden(CUR_PAGE)) ? "on" : "off";
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/menu.folders.tpl");
+$tpl->register();
 $tpl->set("curloc", CUR_PAGE);
 $tpl->set("curdir", basename(CUR_PAGE));
 $tpl->set("bulb", $sts);

@@ -35,6 +35,7 @@ result =
 </div>
 
 <form method="post" action="?">
+<!SEC:oid!>
 <!VAR:range!>
 
 	<input type="text" name="search" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />

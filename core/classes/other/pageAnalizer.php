@@ -41,28 +41,28 @@ public function show($page, $what) {
 
 // ***********************************************************
 private function showHRef($htm) {
-	$arr = STR::split($htm, "<a", "</a>"); sort($arr);
+	$arr = STR::find($htm, "<a", "</a>"); sort($arr);
 	$this->showLinks($arr, 'href="');
 }
 private function showStyles($htm) {
-	$arr = STR::split($htm, "<link", ">");
+	$arr = STR::find($htm, "<link", ">");
 	$this->showLinks($arr, 'href="');
 	$this->showTag($htm, "style");
 }
 
 // ***********************************************************
 private function showMedia($htm) {
-	$arr = STR::split($htm, "<embed", "</embed>"); sort($arr);
+	$arr = STR::find($htm, "<embed", "</embed>"); sort($arr);
 	$this->showLinks($arr, 'src="');
 }
 private function showPics($htm) {
-	$arr = STR::split($htm, "<img", ">"); sort($arr);
+	$arr = STR::find($htm, "<img", ">"); sort($arr);
 	$this->showLinks($arr, 'src="');
 }
 
 // ***********************************************************
 private function showScripts($htm) {
-	$arr = STR::split($htm, "src=", ".js");
+	$arr = STR::find($htm, "src=", ".js");
 	$this->showLinks($arr);
 	$this->showTag($htm, "script");
 }
@@ -74,7 +74,7 @@ private function showNoScript($htm) {
 // auxilliary methods
 // ***********************************************************
 private function showTag($htm, $tag) {
-	$arr = STR::split($htm, "<$tag>", "</$tag>"); if (! $arr) return;
+	$arr = STR::find($htm, "<$tag>", "</$tag>"); if (! $arr) return;
 
 	foreach ($arr as $itm) {
 		$txt = htmlspecialchars($itm);

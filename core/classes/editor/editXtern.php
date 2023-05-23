@@ -35,13 +35,13 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show($sec = "main") {
-	$htm = APP::read($this->fil);
+public function edit() {
+	$htm = APP::read($this->file);
 
 	parent::set("path", $this->dir);
-	parent::set("file", $this->fil);
+	parent::set("file", $this->file);
 	parent::set("content", $htm);
-	parent::show($sec);
+	parent::show();
 }
 
 // ***********************************************************
@@ -50,8 +50,8 @@ public function show($sec = "main") {
 protected function exec() {
 	$act = ENV::getParm("edit"); if (! $act) return;
 
-	if ($act == "provide") return $this->provide($this->fil);
-	if ($act == "update")  return $this->update( $this->fil);
+	if ($act == "provide") return $this->provide($this->file);
+	if ($act == "update")  return $this->update( $this->file);
 	if ($act == "clear")   return $this->clear();
 }
 
@@ -59,11 +59,11 @@ protected function exec() {
 private function provide($file) {
 	if (! is_file($file)) return;
 
-	$ini = new iniWriter("LOC_CFG/xedit.def");
+	$ini = new iniWriter("xedit.def");
 	$ini->read($this->cfg);
 	$ini->set("props.file", $file);
 	$ini->set("props.time", time());
-	$ini->save($this->cfg);
+	$ini->save();
 
 	FSO::copy($file, $this->ext);
 }

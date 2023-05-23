@@ -25,7 +25,6 @@ incFnc("load.save.php");
 // read page file system - if needed
 // ***********************************************************
 incCls("menus/PFS.php");   // load menu builder
-
 PFS::init();
 
 // ***********************************************************

@@ -30,7 +30,7 @@ small {
 kbd {
 	display: inline-block;
 	background: #EEE;
-	border: 1px solid black;
+	border: 1px solid grey;
 	border-radius: 7px;
 	padding: 1px 5px;
 	min-width: 12px;

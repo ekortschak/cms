@@ -12,82 +12,77 @@ $snc->setDevice($dev);
 $snc->restore();
 */
 
+incCls("server/sync.php");
 incCls("menus/dropBox.php");
-incCls("server/syncArc.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class syncBack extends syncArc {
+class syncBack extends sync {
 
-function __construct() {
-	parent::__construct();
+function __construct($dev) {
+	parent::__construct($dev);
 
 	$this->load("modules/xfer.backup.tpl");
+
+	$this->setVisOnly(false);
+	$this->setTarget(APP_DIR);
+	$this->trgHost = APP_DIR;
 }
 
 // ***********************************************************
 // run jobs (restore mode)
 // ***********************************************************
+public function syncBack() {
+	$dir = APP::arcDir($this->dev, "sync");
+	if (! is_dir($dir)) return MSG::now("sync.none", $dir);
+
+	$this->source($dir);
+	$this->run("syncBack");
+}
+
+// ***********************************************************
 public function restore() {
-	$vrs = $this->getBackups();
+	$vrs = $this->getVersions("bkp");
 	if (! $vrs) return MSG::now("restore.none");
 
 	$box = new dropBox("menu");
-	$dst = $box->getKey("as of", $vrs);
+	$dir = $box->getKey("as of", $vrs);
 	$mnu = $box->gc();
 
-	$this->setTarget($dst);
-	$this->revertFlow();
+	$this->source($dir);
 	$this->set("choices", $mnu);
 	$this->run("restore");
 }
 
 // ***********************************************************
-public function syncBack($version = NV) {
-	$dst = $this->get("target");
-	if (! is_dir($dst)) return MSG::now("sync.none", $dst);
+public function revert() {
+	$vrs = $this->getVersions("ver");
+	if (! $vrs) return MSG::now("versions.none");
 
-	$this->revertFlow();
-	$this->run("syncBack");
+	$box = new dropBox("menu"); // inline ?
+	$dir = $box->getKey("as of", $vrs);
+	$mnu = $box->gc();
+
+	$this->source($dir);
+	$this->set("choices", $mnu);
+	$this->run("revert");
 }
 
 // ***********************************************************
-public function revert($version = NV) {
-	$vrs = $this->getVersions();
-	if (! $vrs) return MSG::now("versions.none");
-
-	$box = new dropBox("inline");
-	$dst = $box->getKey("as of", $vrs);
-	$vrs = $box->gc();
-
-	$this->set("head", $vrs);
-	$this->setTarget($dst);
-	$this->revertFlow();
-	$this->run("revert");
+// find available versions
+// ***********************************************************
+protected function getVersions($typ) {
+	$dir = APP::arcDir($this->dev, $typ);
+	return FSO::folders($dir);
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function revertFlow() {
-	$src = $this->get("source");
-	$dst = $this->get("target");
-
-	$this->set("source", $dst);
-	$this->set("target", $src);
-}
-
-// ***********************************************************
-protected function getBackups() {
-	$dir = APP::arcDir($this->dev, "bkp");
-	return FSO::folders($dir);
-}
-
-// ***********************************************************
-protected function getVersions() {
-	$dir = APP::arcDir($this->dev, "ver");
-	return FSO::folders($dir);
+protected function source($dir) {
+	$this->setSource($dir);
+	$this->srcHost = $dir;
 }
 
 // ***********************************************************

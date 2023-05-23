@@ -15,5 +15,6 @@ not.editable = Datei ist nicht zum Bearbeiten vorgesehen!
 <embed id="pic" src="<!VAR:file!>" width="100%" height=500 />
 
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:submit!>
 </form>

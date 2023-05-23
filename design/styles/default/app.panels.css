@@ -19,17 +19,14 @@ body {
 	height: 100%;
 
 	hyphens: auto;
-	font: F_SIZE normal normal Arial, DejaVu Sans;
+	font: F_SIZE normal normal;
+	font-family: Arial, sans-serif;
 	color: FC_BODY;
 	background: BC_BODY no-repeat right top;
 
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
-}
-body.print {
-	padding: 25px 20px 35px;
-	width: calc(100% - 40px);
 }
 
 /* ******************************************************** */

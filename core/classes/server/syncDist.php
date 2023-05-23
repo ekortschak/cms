@@ -18,20 +18,11 @@ incCls("server/syncUp.php");
 // ***********************************************************
 class syncDist extends syncUp {
 
-function __construct() {
-	parent::__construct();
-}
+function __construct($inifile) {
+	parent::__construct($inifile);
 
-// ***********************************************************
-// find versions
-// ***********************************************************
-protected function correct($ver) {
-	$ver = STR::replace($ver, "/tools", "/kor"); // force to cms
-	return STR::replace($ver, APP_NAME, "cms" ); // force to cms
-}
-
-protected function getCms() {
-	return APP_FBK; // force to cms
+	$this->setSource(APP_FBK);
+	$this->srcHost = APP_FBK;
 }
 
 // ***********************************************************

@@ -95,7 +95,9 @@ public function gc($sec = "main") {
 	$htm = $this->solveLinks($htm, "src='");
 	$htm = $this->solveLinks($htm, 'href="');
 	$htm = $this->solveLinks($htm, "href='");
+
 	$htm = $this->cleanChars($htm);
+	$htm = $this->unescape($htm);
 
 	$htm = STR::replace($htm, "ANCHOR", ANCHOR);
 	return STR::dropSpaces($htm);
@@ -118,8 +120,8 @@ private function solveLinks($htm, $sep) {
 public static function makeUrl($fso) { // convert file to url
 	if (FSO::isUrl($fso)) return ""; if (! $fso) return "";
 
-	if (STR::begins($fso, ".".DIR_SEP)) { // e.g. local pics
-		$fil = substr($fso, 2);
+	if (STR::begins($fso, "./")) { // e.g. local pics
+		$fil = STR::after($fso, "./");
 		return FSO::join(CUR_PAGE, $fil);
 	}
 	$ful = APP::file($fso);
@@ -129,6 +131,12 @@ public static function makeUrl($fso) { // convert file to url
 	if (STR::begins($ful, APP_FBK))  return FSO::join(CMS_URL, $rel);
 	if (STR::begins($ful, SRV_ROOT)) return FSO::join(SRV_ROOT, $rel);
 	return $fso;
+}
+
+// ***********************************************************
+private function unescape($code) {
+	$out = STR::replace($code, "<|", "<!");
+	return $out;
 }
 
 // ***********************************************************

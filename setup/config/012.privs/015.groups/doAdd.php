@@ -1,38 +1,28 @@
 <?php
 
-incCls("menus/dropBox.php");
 incCls("input/selector.php");
-incCls("input/confirm.php");
-incCls("editor/iniWriter.php");
+incCls("editor/usrEdit.php");
 
 // ***********************************************************
-// show menu
+// show editor
 // ***********************************************************
 $sel = new selector();
 $grp = $sel->input("grp.name", "new_group");
+$usr = $sel->input("usr.account");
+$pwd = $sel->pwd("usr.pwd");
+$agn = $sel->pwd("usr.pwd2");
 $act = $sel->show();
 
-if (! CHK::user($grp)) {
-	MSG::now("grp.bad");
-	return;
-}
-
 // ***********************************************************
-// ask for confirmation
+// check and act
 // ***********************************************************
-$cnf = new confirm();
-$cnf->dic("grp.addx", $grp);
-$cnf->show();
+$mgr = new usrEdit();
 
-if (! $cnf->act()) return;
+if (! $mgr->chkGroup($grp)) return;
+if (! $mgr->chkUser($usr)) return;
+if (! $mgr->chkPwd($pwd, $agn)) return;
 
-// ***********************************************************
-// store info
-// ***********************************************************
-$fil = "config/users.ini";
-
-$ini = new iniWriter($fil);
-$ini->addSec($grp);
-$ini->save();
+$mgr->cnfGroup("grp.addx");
+$mgr->grpAdd($grp, $usr, $pwd);
 
 ?>

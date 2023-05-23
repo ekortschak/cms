@@ -200,7 +200,7 @@ protected function embrace($lup, $key) { // eliminates the risk of double
 
 // ***********************************************************
 protected function insLFs($txt, $sep) {
-	if ($sep == NV) return $txt;
+	if ($sep === NV) return $txt;
 
 	$txt = PRG::replace($txt, "$sep\s($sep+)", $sep);
 	$txt = STR::trim($txt, $sep);

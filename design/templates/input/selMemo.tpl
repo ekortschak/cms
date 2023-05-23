@@ -7,4 +7,4 @@ rows = 5
 
 
 [sec.tar]
-<!SEC:inp.tar!>
+<!SEC:input.tar!>

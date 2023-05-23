@@ -1,16 +1,14 @@
+
 <?php
 
-$lgo = APP::file("img/logo.png");
-$bnr = APP::file("img/banner.png");
+$mot = CFG::getConst("PRJ_MOTTO", "");
 
 // ***********************************************************
 // show banner
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("modules/app.banner.tpl");
-
-if (! $lgo) $tpl->clearSec("logo");
-if (! $bnr) $tpl->clearSec("banner");
+$tpl->set("title", $mot);
 
 $tpl->show();
 

@@ -8,9 +8,11 @@ used for synchronizing fs via http
 // HOW TO USE
 // ***********************************************************
 $htp = new http();
-$erg = $htp->query($dir, $act);
+$erg = $htp->query($act, $dir);
 
 */
+
+incCls("server/SSL.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -18,79 +20,49 @@ $erg = $htp->query($dir, $act);
 class http {
 	private $url = "";
 
-function __construct($url) {
-	$this->url = "https://$url/x.sync.php";
+function __construct($server, $pcl = "https") {
+	$this->url = "$pcl://$server/x.sync.php";
 }
 
 // ***********************************************************
-public function query($dir, $act) {
+// querying remote server
+// ***********************************************************
+public function query($act, $dir = ".") {
 	$cmd = $this->getUrl($act, $dir);
-	return $this->getPage($cmd);
+	return NET::read($cmd);
 }
 
 // ***********************************************************
-public function getUrl($act, $fso) {
+public function getUrl($act, $fso = ".") { // create acceptable command
 	$tim = date("YmdGis"); if (is_file($fso))
 	$tim = filemtime($fso);
 	$prm = "w:=$act &f:=$fso &t:=$tim";
 
-	$md5 = SSL::md5($fso); // uses SECRET
+	$md5 = SSL::md5($fso); // uses SECRET from config.ini
 	$prm = SSL::encrypt($prm." &c:=$md5");
 	return $this->url."?p=$prm";
 }
 
-// ***********************************************************
-private function getPage($cmd) {
- // get data from server
-	$out = file_get_contents($cmd);
-	$out = $this->getNewFmt($out); if (! is_array($out))
-	$out = $this->getOldFmt($out);
-	
-	foreach ($out as $key => $val) {
-		if (STR::begins($val, "ERROR")) {
-			MSG::now($val);
-			unset($out[$key]);
-			continue;
-		}
-		$out[$key] = trim($val);
-	}
-	return $out;
-}
+public function upload($fso) {
+	$cmd = $this->getUrl("cpf", $fso);
 
-private function getNewFmt($out) {
-	if (! STR::contains($out, "<body>")) return $out;
+	$fil = APP::file($fso); if (! $fil) return false;
+	$fil = curl_file_create($fil);
+	$con = curl_init();
 
-	$out = STR::between($out, "<pre>", "</pre>");
-	return STR::split($out, "\n");
-}
-
-private function getOldFmt($out) {
-	$out = STR::before($out, "<hr>");
-	$out = STR::split($out, "\n");
-	
-	foreach ($out as $key => $val) {
-		$val = STR::utf8decode($val); 
-		
-		switch ($key) {
-			case 0:  $dir = $val; break;
-			default: $val = STR::replace($val, $dir, "");
-		}
-		$out[$key] = $val;
-	}
-	return $out;
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private function sslInfo() {
-	$arr = array( // cheating on ssl
-		"ssl" => array(
-			"verify_peer"      => false,
-			"verify_peer_name" => false
-		)
+	$dat = array(
+		'file_contents' => $fil,
+		'extra_info' => '123456'
 	);
-	return stream_context_create($arr);
+	curl_setopt($con, CURLOPT_URL, $cmd);
+	curl_setopt($con, CURLOPT_POST, 1);
+	curl_setopt($con, CURLOPT_POSTFIELDS, $dat);
+	curl_setopt($con, CURLOPT_RETURNTRANSFER, 1);
+
+	$res = curl_exec($con);
+	curl_close($con);
+
+	return $res;
 }
 
 // ***********************************************************

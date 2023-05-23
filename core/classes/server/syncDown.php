@@ -23,23 +23,22 @@ incCls("server/syncServer.php");
 // ***********************************************************
 class syncDown extends syncServer {
 
-function __construct() {
-	parent::__construct();
+function __construct($inifile) {
+	parent::__construct(false);
 
 	$this->load("modules/xfer.syncDown.tpl");
+	$this->read($inifile);
+
+	$this->setSource(APP_DIR);
+	$this->setTarget(APP_DIR);
+
+	$this->srcHost = $this->get("web.url", "???");
+	$this->trgHost = APP_DIR;
+
+	$this->srcVer = $this->srvVersion();
 }
 
 // ***********************************************************
-public function read($inifile) {
-	parent::read($inifile);
-
-	$srv = $this->get("web.url", "???");
-
-	$this->setSource($this->get("web.url", "???"));
-	$this->setTarget(APP_DIR);
-}
-
-//// ***********************************************************
 // run jobs
 // ***********************************************************
 public function upgrade() {
@@ -48,8 +47,8 @@ public function upgrade() {
 
 // **********************************************************
 protected function getTree($src, $dst) {
-	$src = $this->FSremote();    if (! $src) return false; // remote
-	$dst = $this->FSlocal($dst); if (! $dst) return false; // local files
+	$src = $this->srvFiles();
+	$dst = $this->lclFiles($dst);
 	$out = $this->getNewer($src, $dst);
 
 	$out = $this->chkProtect($out);
@@ -59,24 +58,18 @@ protected function getTree($src, $dst) {
 }
 
 // ***********************************************************
-// auxilliary methods
-// ***********************************************************
-protected function srcName($fso, $act = false) {
-	$rut = $this->get("ftp.froot"); if (STR::begins($fso, $rut)) return $fso;
-	return FSO::join($rut, $fso);
-}
-
-protected function srcVersion() {
-	return $this->remoteVersion();
-}
-
-// ***********************************************************
 // overwrite file actions
 // ***********************************************************
-protected function do_copy($src, $dst) { // single file op
-	if ($this->ftp) { // single file op
-		return $this->ftp->save($src, $dst);
-	}
+protected function do_copy($fso) { // single file op
+	if ( ! $this->htp) return false;
+
+	$fso = APP::relPath($fso);
+
+	$txt = $this->htp->query("dwn", $fso);
+	$txt = $this->stripInf($txt);
+	$erg = APP::write($fso, $txt);
+
+	return (bool) $erg;
 }
 
 // ***********************************************************

@@ -41,27 +41,26 @@ public static function init() {
 // register an object
 // ***********************************************************
 public static function register($key = NV, $sfx = "'") {
-	if ($key == NV) {
+	if ($key === NV) {
 		$dir = ENV::getPage();
 		$key = "$dir.$sfx.".self::$cnt++;
 	}
 	if (strlen($key) != 32) $key = md5($key);
-
 	return $key;
 }
 
-private static function chkPost($arr, &$vec, $sec) {
-	if (! isset($vec[$sec])) $vec[$sec] = array();
+private static function chkPost($arr, &$vec, $oid) {
+	if (! isset($vec[$oid])) $vec[$oid] = array();
 
 	foreach ($arr as $key => $val) {
-		if ($key == "oid") continue;
-		if (STR::ends($key, "act")) continue;
+		if ($key == "oid") continue; // no need for duplication
+		if (STR::ends($key, "act")) continue; // do not store nav
 
 		if (is_array($val)) {
-			self::chkPost($val, $vec[$sec], $key);
+			self::chkPost($val, $vec[$oid], $key);
 			continue;
 		}
-		$vec[$sec][$key] = trim($val);
+		$vec[$oid][$key] = trim($val);
 	}
 }
 
@@ -73,7 +72,7 @@ public static function get($oid, $key, $default = false) {
 	$idx = STR::between($key,"[", "]");
 	$key = STR::before($key, "[");
 
-	$arr = self::isOid($oid);              if (! $arr) return $default;
+	$arr = self::getValues($oid);          if (! $arr) return $default;
 	$out = VEC::get($arr, $key, $default); if (! $idx) return $out;
 	return VEC::get($out, $idx, $default);
 }
@@ -94,11 +93,6 @@ public static function setIf($oid, $key, $value) {
 	return self::set($oid, $key, $value);
 }
 
-private static function isOid($oid) {
-	if (! $oid) return false;
-	return VEC::get(self::$top, $oid);
-}
-
 // ***********************************************************
 public static function update($oid, $key, $value) {
 	$idx = "$oid.$key";
@@ -110,19 +104,19 @@ public static function update($oid, $key, $value) {
 // ***********************************************************
 public static function getLast($oid = false) {
 	if (! $oid) $oid = ENV::getPost("oid");
-	return self::isOid($oid);
+ 	return self::getValues($oid);
 }
 
 // ***********************************************************
 public static function getValues($oid) {
-	return self::isOid($oid);
+ 	return VEC::get(self::$top, $oid);
 }
 
 // ***********************************************************
 // cleansing
 // ***********************************************************
 public static function forget($oid = NV) {
-	if ($oid == NV) self::$top = array();
+	if ($oid === NV) self::$top = array();
 	else            self::$top[$oid] = array();
 }
 

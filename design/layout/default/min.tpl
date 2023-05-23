@@ -7,7 +7,5 @@
 	<meta http-equiv="expires" content="0" />
 </head>
 
-<body>
-	<pre><!VAR:content!></pre>
-</body>
+<body><pre><!VAR:content!></pre></body>
 </html>

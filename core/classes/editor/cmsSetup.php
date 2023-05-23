@@ -23,9 +23,11 @@ function __construct() {}
 // methods
 // ***********************************************************
 public function reconfig($file, $prj) {
+	$ver = CFG::getVal("config", "app.version", "?");
+
 	$txt = APP::read($file);
 	$txt = STR::replace($txt, "*project*", $prj);
-	$txt = STR::replace($txt, "*version*", CFG::get("config", "app.version", "?"));
+	$txt = STR::replace($txt, "*version*", $ver);
 	APP::write($file, $txt);
 }
 

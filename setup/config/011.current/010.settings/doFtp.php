@@ -6,9 +6,9 @@ incCls("server/ftp.php");
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$ini = new iniMgr("LOC_CFG/ftp.def");
-$ini->getScope(false);
-$ini->show("config/ftp.ini");
+$mgr = new iniMgr("ftp.def");
+$mgr->setScope(false);
+$mgr->edit("config/ftp.ini");
 
 // ***********************************************************
 HTW::xtag("ftp.check");

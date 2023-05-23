@@ -1,56 +1,28 @@
 <?php
 
-incCls("menus/dropBox.php");
-incCls("input/confirm.php");
 incCls("input/selector.php");
-incCls("editor/iniWriter.php");
+incCls("editor/usrEdit.php");
 
 // ***********************************************************
 // get ini vals
 // ***********************************************************
-$fil = "config/users.ini";
-
-$ini = new iniWriter($fil);
-$gps = $ini->getSecs();
-
-if (! $gps) {
-	return MSG::now("no.grps.edit");
-}
+$mgr = new usrEdit();
+$mgr->setScope("U");
 
 // ***********************************************************
-// show menu
+// show editor
 // ***********************************************************
-$box = new dropBox("menu");
-$grp = $box->getKey("group", $gps); $acs = $ini->getKeys($grp);
-$usr = $box->getKey("user", $acs);
-$box->show();
-
 $sel = new selector();
 $pwd = $sel->pwd("usr.pwd");
 $agn = $sel->pwd("usr.pwd2");
 $act = $sel->show();
 
 // ***********************************************************
-// check password
+// check and act
 // ***********************************************************
-if (! CHK::pwd($pwd, $agn)) {
-	MSG::now("pwd.bad");
-	return;
-}
+if (! $mgr->chkPwd($pwd, $agn)) return;
 
-// ***********************************************************
-// ask for confirmation
-// ***********************************************************
-$cnf = new confirm();
-$cnf->dic("usr.change pwd", $usr);
-$cnf->show();
-
-if (! $cnf->act()) return;
-
-// ***********************************************************
-// store info
-// ***********************************************************
-$ini->set("$grp.$usr", md5($pwd));
-$ini->save();
+$mgr->cnfUser("usr.change pwd");
+$mgr->usrEdit($pwd);
 
 ?>

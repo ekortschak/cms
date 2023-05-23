@@ -8,6 +8,7 @@ LOC_TPL/editor/edit.tpl
 <script src="CK4_URL/ckeditor.js"></script>
 
 <form id="inlineEdit" method="post" action="?">
+<!SEC:oid!>
 <!SEC:ctarea!>
 <!SEC:submit!>
 </form>

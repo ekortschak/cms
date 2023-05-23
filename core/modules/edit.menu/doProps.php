@@ -14,25 +14,16 @@ $stc = PFS::isStatic();
 
 $chk = ($fst == $cur) ? "CHECKED" : "";
 
-$sel = new iniEdit();
+$sel = new selector();
 $sel->check("default", $chk);
 $sel->show();
 
 // ***********************************************************
-// detect template
-// ***********************************************************
-$ful = FSO::join($cur, "page.ini");
-
-$ini = new ini($ful);
-$typ = $ini->getType();
-
-$tpl = "LOC_CFG/page.$typ.def"; if (! APP::file($tpl))
-$tpl = "LOC_CFG/page.def";
-
-// ***********************************************************
 HTW::xtag("page.props");
 // ***********************************************************
-$ini = new iniMgr($tpl);
-$ini->show($ful);
+$mgr = new iniMgr();
+$mgr->read($cur);
+$mgr->setScope();
+$mgr->edit();
 
 ?>

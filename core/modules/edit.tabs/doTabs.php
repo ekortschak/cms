@@ -1,21 +1,14 @@
 <?php
 
-incCls("menus/tabset.php");
-
-$set = APP_CALL;
-
-// ***********************************************************
-// collect info
-// ***********************************************************
-$tbs = new tabset();
-$lst = $tbs->getTabs($set, true);
-$vis = $tbs->visTabs($set);
+$lst = PGE::tabsets(APP_CALL, true);
+$vis = PGE::tabsetsVis();
 
 // ***********************************************************
 HTW::xtag("tabs.toggle");
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/tabsets.tpl");
+$tpl->register();
 $dat = "";
 
 foreach ($lst as $tab => $tit) {
@@ -29,7 +22,7 @@ foreach ($lst as $tab => $tit) {
 
 	$dat.= $tpl->getSection("row");
 }
-$tpl->set("tabset", $set);
+$tpl->set("tabset", APP_CALL);
 $tpl->set("items", $dat);
 $tpl->show();
 

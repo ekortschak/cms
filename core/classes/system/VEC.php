@@ -22,7 +22,7 @@ class VEC {
 // ***********************************************************
 public static function range($min, $max) {
 	$data = range($min, $max);
-	return VEC::toAssoc($data);
+	return array_combine($data, $data);
 }
 
 // ***********************************************************
@@ -243,7 +243,6 @@ public static function flip($data) {
 	if (! is_array($data)) return array();
 	return array_flip($data);
 }
-
 
 
 // ***********************************************************

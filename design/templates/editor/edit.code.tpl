@@ -36,7 +36,8 @@ LOC_SCR/inline.js
 # ***********************************************************
 <!SEC:toolbar!>
 
-<form id="inlineEdit" method="post" action="?file_act=save">
+<form id="inlineEdit" method="post" action="?">
+<!SEC:oid!>
 <!SEC:ctarea!>
 <!SEC:submit!>
 </form>

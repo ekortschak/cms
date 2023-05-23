@@ -5,8 +5,7 @@ if (! DB_CON) return;
 /* ***********************************************************
 // INFO
 // ***********************************************************
-dbo editor, used to manage dbo properties
-* no public methods
+see parent
 */
 
 incCls("dbase/dbQuery.php");
@@ -16,40 +15,40 @@ new saveDbo();
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class saveDbo {
+class saveDbo extends saveMany {
 
 function __construct() {
-	$this->exec();
+	parent::__construct();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-private function exec() {
-	$dbo = ENV::getPost("dbo"); if ($dbo != "dboEdit") return;
-	$dbs = ENV::getPost("dbs"); if (! $dbs) return;
-	$act = ENV::getPost("chk");
+protected function exec() {
+	$dbo = $this->get("dbo"); if (  $dbo != "dboEdit") return;
+	$act = $this->get("chk"); if (! $act) return;
+	$dbs = $this->get("dbs"); if (! $dbs) return;
+	$tbl = $this->get("tbl"); if (! $tbl) return;
+	$fld = $this->get("fld");
 
 	switch ($act) {
-		case "tcProps": return $this->tcProps($dbs);
-		case "tlProps": return $this->tlProps($dbs);
-		case "fcProps": return $this->fcProps($dbs);
-		case "flProps": return $this->flProps($dbs);
+		case "tcProps": return $this->tcProps($dbs, $tbl);
+		case "tlProps": return $this->tlProps($dbs, $tbl);
+		case "fcProps": return $this->fcProps($dbs, $fld);
+		case "flProps": return $this->flProps($dbs, $fld);
 	}
 }
 
 // ***********************************************************
-private function tcProps($dbs) { // common table props
-	$tbl = ENV::getPost("tbl");  if (! $tbl) return;
-	$arr = ENV::getPost("prop"); if (! $arr) return;
+private function tcProps($dbs, $tbl) { // common table props
+	$arr = $this->get("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		self::dboEx($dbs, "tbl", $tbl, $prop, $val);
 	}
 }
-private function tlProps($dbs) { // lang specific table props
-	$tbl = ENV::getPost("tbl");  if (! $tbl) return;
-	$arr = ENV::getPost("head"); if (! $arr) return;
+private function tlProps($dbs, $tbl) { // lang specific table props
+	$arr = $this->get("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		self::dboEx($dbs, "tbl", $tbl, "head.$lang", $val);
@@ -57,17 +56,15 @@ private function tlProps($dbs) { // lang specific table props
 }
 
 // ***********************************************************
-private function fcProps($dbs) { // common field props
-	$fld = ENV::getPost("fld");  if (! $fld) return;
-	$arr = ENV::getPost("prop"); if (! $arr) return;
+private function fcProps($dbs, $fld) { // common field props
+	$arr = $this->get("prop"); if (! $arr) return;
 
 	foreach ($arr as $prop => $val) {
 		self::dboEx($dbs, "fld", $fld, $prop, $val);
 	}
 }
-private function flProps($dbs) { // lang specific field props
-	$fld = ENV::getPost("fld");  if (! $fld) return;
-	$arr = ENV::getPost("head"); if (! $arr) return;
+private function flProps($dbs, $fld) { // lang specific field props
+	$arr = $this->get("head"); if (! $arr) return;
 
 	foreach ($arr as $lang => $val) {
 		self::dboEx($dbs, "fld", $fld, "head.$lang", $val);

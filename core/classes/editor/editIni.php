@@ -11,6 +11,7 @@ see parent class
 */
 
 incCls("editor/editText.php");
+incCls("editor/iniMgr.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -22,14 +23,10 @@ function __construct() {}
 // ***********************************************************
 // methods
 // ***********************************************************
-public function show($sec = "main") {
-	incCls("editor/iniMgr.php");
-
-	$tpl = basename($this->fil);
-	$tpl = STR::replace($tpl, ".ini", ".def");
-
-	$ini = new iniMgr("LOC_CFG/$tpl");
-	$ini->show($this->fil);
+public function edit() {
+	$mgr = new iniMgr();
+	$mgr->read($this->file);
+	$mgr->edit();
 }
 
 // ***********************************************************

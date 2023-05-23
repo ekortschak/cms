@@ -3,10 +3,22 @@
 /* labels */
 /* ******************************************************** */
 label {
-	padding: 2px 10px 2px 7px;
-	background: linear-gradient(snow, lightgrey);
+	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
+	padding: 2px 10px;
+
+	line-height: 23px;
+
+	color: FC_INPUT;
+	background: linear-gradient(snow, lightgrey);
+	font-size: 14px;
+	vertical-align: bottom;
+}
+
+a label {
+	color: FC_BODY;
+	font-weight: normal;
 	cursor: pointer;
 }
 

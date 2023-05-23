@@ -28,7 +28,7 @@ function __construct($fso = TAB_ROOT) {
 // ***********************************************************
 public function getTitle($lng = CUR_LANG) {
 	$out = $this->get("$lng.title"); if ($out) return $out;
-	$out = $this->getDirName();
+	$out = $this->getDir();
 	return ucfirst($out);
 }
 

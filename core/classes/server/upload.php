@@ -18,7 +18,7 @@ $upl->moveAllFiles($destination);
 // ***********************************************************
 class upload {
 	private $overwrite = true;
-	private $maxfiles = 10;         // number of concurrent uploads
+	private $maxfiles = 1;          // number of concurrent uploads
 	private $maxsize = 1500 * 1000; // max size of files to upload
 	private $minsize =   10 * 1000; // min for max file size
 	private $ftypes = "*";          // file type filter
@@ -29,7 +29,7 @@ function __construct() {}
 public function setOverwrite($value = true) {
 	$this->overwrite = (bool) $value;
 }
-public function setMaxFiles($value= 10) {
+public function setMaxFiles($value = 1) {
 	$this->maxfiles = CHK::range($value, 1, 25);
 }
 public function setMaxSize($value = 1500000) {
@@ -52,11 +52,11 @@ public function getFiles($qid = "fload") {
 			"name" => $fil,
 			"type" => $upl["type"][$i],
 			"size" => $upl["size"][$i],
-			"enum" => $upl["error"][$i],
-			"etxt" => $this->chkError($upl["error"][$i]),
 			"tfil" => $upl["tmp_name"][$i],
 			"base" => $inf["filename"],
 			"fext" => $inf["extension"]
+			"enum" => $upl["error"][$i],
+			"etxt" => $this->chkError($upl["error"][$i]),
 		);
 	}
 	return $fls;

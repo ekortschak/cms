@@ -9,6 +9,8 @@ on = auf
 
 [main]
 <form method="post" action="?">
+<!SEC:oid!>
+
 	<table>
 <!VAR:items!>
 		<tr height=10px></tr>

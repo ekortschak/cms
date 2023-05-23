@@ -46,7 +46,7 @@ public function setSubject($text) {
 }
 
 public function setFrom($adr, $replyto = NV) {
-	if ($replyto == NV) $replyto = $adr;
+	if ($replyto === NV) $replyto = $adr;
 
 	$this->set("from",    $this->decode($adr));
 	$this->set("replyto", $this->decode($replyto));

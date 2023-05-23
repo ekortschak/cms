@@ -17,6 +17,7 @@ std.always = Standard-Tab kann nicht ausgeblendet werden!
 <small><b>Info</b>: <!DIC:std.always!></small>
 
 <form method="post" action="?">
+<!SEC:oid!>
 	<input type="hidden" name="tabset" value="<!VAR:tabset!>" />
 
     <table>

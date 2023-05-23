@@ -5,8 +5,9 @@ incCls("editor/iniMgr.php");
 // ***********************************************************
 // read and write data
 // ***********************************************************
-$ini = new iniMgr("LOC_CFG/$fcs.def");
-$ext = $ini->getScope();
-$xxx = $ini->show("config/$fcs.$ext");
+$mgr = new iniMgr("$fcs.def");
+$mgr->read("config/$fcs.ini");
+$mgr->setScope();
+$mgr->edit();
 
 ?>

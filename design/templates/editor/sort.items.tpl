@@ -20,8 +20,10 @@ nodata = Keine sortierbaren Einträge ...
 <small><b>Info</b>: <!DIC:howto!></small>
 
 <form method="post" action="?">
-	<input type="hidden" name="slist" id="slist" />
-	<input type="hidden" name="sparm" value="<!VAR:sparm!>" />
+<!SEC:oid!>
+
+	<input type="hidden" name="sort.list" id="slist" />
+	<input type="hidden" name="sort.parm" value="<!VAR:sparm!>" />
 
 	<div class="flexleft flexbottom">
 		<div>

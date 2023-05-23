@@ -32,7 +32,10 @@ preview  = Vorschau
 # ***********************************************************
 [add]
 <h4><!DIC:new.tab!></h4>
+
 <form action="?" method="post">
+<!SEC:oid!>
+
 <table>
 	<tr>
 		<td width=230><input name="tab.dir" type="text" placeholder="<!DIC:node.new!>" /></td>

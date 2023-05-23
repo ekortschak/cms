@@ -41,7 +41,7 @@ perms = r
 [main]
 # ***********************************************************
 <form method="post" action="?">
-	<!SEC:hidden!>
+<!SEC:oid!>
 
 	<table width="100%">
 		<tr class="rh">
@@ -83,12 +83,6 @@ perms = r
 		</a>
 		<div class="dropbody"><!DIC:to.table!></div>
 	</div>
-
-# ***********************************************************
-[hidden]
-# ***********************************************************
-	<input type="hidden" name="oid" value="<!VAR:oid!>" />
-	<input type="hidden" name="tan" value="<!VAR:tan!>" />
 
 # ***********************************************************
 # Buttons

@@ -5,6 +5,7 @@
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("editor/menu.tab.tpl");
+$tpl->register();
 $tpl->show("add");
 
 ?>

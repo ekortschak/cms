@@ -6,6 +6,8 @@ LOC_TPL/editor/edit.tpl
 [main]
 # ***********************************************************
 <form id="inlineEdit" method="post" action="?">
+<!SEC:oid!>
+
 	<textarea id="content" name="content"><!VAR:content!></textarea>
 	<script src="CK5_URL/ckeditor.js"></script>
 

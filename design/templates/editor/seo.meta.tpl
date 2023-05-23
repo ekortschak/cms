@@ -30,12 +30,12 @@ rows = 4
 # ***********************************************************
 <div class="toolbar">
 
-<form id="inlineEdit" method="post" action="?meta_act=save" style="margin-bottom: 10px;">
-	<input type="hidden" name="oid" value="<!VAR:oid!>">
+<form id="inlineEdit" method="post" action="?meta.act=save" style="margin-bottom: 10px;">
+<!SEC:oid!>
 
 	<div class="flex">
 	<textarea id="content" name="data" cols=<!VAR:cols!> rows=<!VAR:rows!> spellcheck="false" placeholder="<!VAR:what!>"><!VAR:data!></textarea>
-	<input type="submit" name="meta_act" value="OK" style="height:75px; padding: 0px 7px;">
+	<input type="submit" name="meta.act" value="OK" style="height:75px; padding: 0px 7px;">
 	</div>
 </form>
 

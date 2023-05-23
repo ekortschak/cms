@@ -1,20 +1,10 @@
 <?php
 
-incCls("menus/dropBox.php");
 incCls("editor/ediMgr.php");
 
 // ***********************************************************
-$box = new dropBox("menu");
-$dir = $box->folders(LOC_CSS);
-$ful = $box->files($dir);
-$xxx = $box->show();
-
-// ***********************************************************
-// show editor
-// ***********************************************************
 $edi = new ediMgr();
-$edi->read($ful);
-$edi->show();
+$edi->edit(LOC_CSS);
 
 ?>
 

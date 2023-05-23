@@ -25,7 +25,9 @@ $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();
 
-if (! FSO::hasXs($dev)) return;
+if (! FSO::hasXs($dir)) {
+	return MSG::now("no.access");
+}
 
 if ($fnc == "manage") {
 	include APP::getInc(__DIR__, "exManage.php");
@@ -35,8 +37,7 @@ if ($fnc == "manage") {
 // ***********************************************************
 // transfer files
 // ***********************************************************
-$snc = new syncArc();
-$snc->setDevice($dev);
+$snc = new syncArc($dev);
 $snc->$fnc();
 
 ?>

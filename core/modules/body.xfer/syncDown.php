@@ -7,8 +7,7 @@ if (FTP_MODE == "none") {
 incCls("server/syncDown.php");
 
 // ***********************************************************
-$snc = new syncDown();
-$snc->read("config/ftp.ini");
+$snc = new syncDown("config/ftp.ini");
 $snc->upgrade();
 
 ?>

@@ -10,128 +10,93 @@ Used to create lists for input objects for ini Files
 // ***********************************************************
 incCls("forms/iniEdit.php");
 
-$obj = new iniEdit();
-$obj->addInput($prop, $vals, $val);
-$obj->show();
+$edi = new iniEdit($tplfile);
+$edi->read($inifile);
+$edi->addField($prop, $vals, $val);
+$edi->show();
 */
 
-incCls("input/selector.php");
+incCls("editor/iniWriter.php");
+incCls("input/selAuto.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class iniEdit extends selector {
+class iniEdit extends selAuto {
+	private $file = false;
+	private $tpl = false;
 
-function __construct() {
+function __construct($tplfile = false) {
 	parent::__construct();
-	$this->forget($this->oid);
+
+	$this->forget();
+
+	$this->tpl = $tplfile;
+}
+
+public function read($file) {
+	OID::set($this->oid, "edit.file", $file);
+	$this->file = $file;
 }
 
 // ***********************************************************
-// adding selector items
+// show editor
 // ***********************************************************
-public function addInput($fname, $vals, $val) {
-	if ($fname == "props[uid]") {
-		if (PFS::isStatic())
-		return $this->addObj("ronly", $fname, $vals, $val);
-	}
+public function edit() {
+	$fso = $this->file;
+	$tpl = $this->getType($fso);
 
-	if (STR::contains($fname, "[tarea]")) {
-		return $this->addObj("memo", $fname, $vals, $val);
-	}
+	$ini = new iniWriter($tpl);
+	$xxx = $ini->read($fso);
+	$arr = $ini->getSecs();
 
-	if (is_array($vals)) {
-		return $this->addObj("combo", $fname, $vals, $val);
-	}
-	if (STR::contains($fname, "_LANG")) {
-		$arr = LNG::get();
-		return $this->addObj("combo", $fname, $arr, $val);
-	}
-	if ($vals == "rating") {
-		$val = intval($val);
-		return $this->addObj("image", $fname, $val, "rating.png");
-	}
-	if ($vals == "colors") {
-		return $this->addObj("color", $fname, $val);
-	}
-	if (STR::begins($vals, "range:")) {
-		$val = intval($val);
-		$min = STR::between($vals, ":", "-");
-		$max = STR::after($vals, "-");
-		return $this->addObj("range", $fname, $val, $min, $max);
-	}
+	foreach ($arr as $sec => $txt) {
+		if (STR::begins($sec, "dic")) continue;
 
-	if (STR::begins($vals, "folders:")) {
-		$arr = $this->getFolders($vals);
-		return $this->addObj("combo", $fname, $arr, $val);
-	}
-	if (STR::begins($vals, "files:")) {
-		$arr = $this->getFiles($vals);
-		return $this->addObj("combo", $fname, $arr, $val);
-	}
-	if (STR::begins($vals, "inifile:")) {
-		$arr = $this->iniFiles($vals);
-		return $this->addObj("combo", $fname, $arr, $val);
-	}
+		$this->section("[$sec]");
+		$typ = $ini->fldType($sec);
 
-	if ($vals == "0|1") {
-		return $this->addObj("check", $fname, $val);
-	}
-	if ($vals == "1|0") {
-		return $this->addObj("check", $fname, $val);
-	}
+		if ($typ == "tarea") { // memo sections
+			$val = $this->getSec($sec);
+			$this->addField($sec."[tarea]", $val, 15);
+		}
+		else { // key = value sections
+			$arr = $ini->getValues($sec);
 
-	if (STR::contains($vals, "|")) { // standard combos
-		$arr = STR::toAssoc($vals);
-		return $this->addObj("combo", $fname, $arr, $val);
-	}
+			foreach ($arr as $key => $val) {
+				$qid = $sec."[$key]";
+				$vls = $ini->getChoice("$sec.$key");
+				$val = $ini->chkValue($val, $sec);
 
-	return $this->addObj("input", $fname, $val);
+				$this->addField($qid, $vls, $val);
+			}
+		}
+	}
+	$this->show();
 }
 
 // ***********************************************************
-private function addObj($typ, $qid, $prm1, $prm2 = "", $prm3 = "") {
-	$cap = STR::afterX($qid, "@"); if (STR::contains($qid, "["))
-	$cap = STR::between($qid, "[", "]");
-	$cap = DIC::get($cap);
-
-	$this->$typ($qid, $prm1, $prm2, $prm3);
-	$this->setProp("title", $cap);
-	return true;
-}
-
+// auxilliary methods
 // ***********************************************************
-// additional input
-// ***********************************************************
-public function memo($caption, $value = "", $rows = 4) { // text area colspan 100%
-	$out = $this->itm->inpMemo("tar", $caption, $value);
-	$xxx = $this->itm->set("rows", $rows);
-	return $out;
-}
+private function getType($fil) {
+	if ($this->tpl) return $this->tpl;
 
-// ***********************************************************
-// handling arrays
-// ***********************************************************
-private function getFolders($dir) {
-	$dir = STR::after($dir, ":"); if (! $dir) return array();
-	return APP::folders($dir);
-}
-private function getFiles($dir) {
-	$dir = STR::after($dir, ":"); if (! $dir) return array();
-	return APP::files($dir);
-}
-private function iniFiles($dir) {
-	$dir = STR::after($dir, ":"); if (! $dir) return array();
-	$arr = APP::files($dir);
-	$out = array();
-
-	foreach ($arr as $fil => $nam) {
-		$key = STR::clear($nam, ".ini");
-		$out[$key] = $key;
+	if (STR::ends($fil, "page.ini")) {
+		return PGE::getType($fil);
 	}
-	return $out;
-}
+	if (STR::ends($fil, ".ini")) {
+		$nam = basename($fil);
+		$out = STR::replace($nam, ".ini", ".def");
+		$out = FSO::join(LOC_CFG, $out);
 
+		if (APP::file($out)) return $out;
+	}
+	if (APP::file($fil)) {
+		$ini = new ini($fil);
+		$out = $ini->getType(NV); if ($out !== NV) return $out;
+	}
+	return NV;
+}
 
 // ***********************************************************
 } // END OF CLASS

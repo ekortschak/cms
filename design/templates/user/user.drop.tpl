@@ -25,6 +25,7 @@ done = Ihr Benutzerkonto wurde gelöscht!
 
 <div>
 <form method="post" action="?vmode=login&btn.usr=D">
+<!SEC:oid!>
 
 	<table>
 		<tr>

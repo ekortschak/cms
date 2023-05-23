@@ -68,7 +68,7 @@ public static function get($key, $default = false, $div = "env") {
 	return      self::$dat[$div][$key];
 }
 
-public static function getData($div = "env") {
+public static function getValues($div = "env") {
 	return self::$dat[$div];
 }
 
@@ -89,7 +89,7 @@ public static function wipe($div = "env") {
 // other methods
 // ***********************************************************
 public static function norm($key) {
-#	$key = STR::norm($key); 
+#	$key = STR::norm($key);
 	$clr = str_split(".,: ");
 	$key = str_replace($clr, "_", $key);
 #	$key = strtolower($key);

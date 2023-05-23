@@ -30,8 +30,8 @@ incCls("input/selMemo.php");
 // ***********************************************************
 class selItems extends objects {
 	private $itm = array();
-	private $cur = "";   // last added item
 	private $dic = true; // allow translations
+	private $cur = "";   // last added item
 
 function __construct() {
 	parent::__construct();
@@ -55,7 +55,7 @@ protected function setOidVal($key, $val) {
 }
 
 // ***********************************************************
-// wrapper for text fields
+// wrapper for text fields of all kinds
 // ***********************************************************
 private function inpTBox($class, $type, $uid, $value = "") {
 	$this->setOidVal($uid, $value);
@@ -86,7 +86,7 @@ public function addImage($type, $uid, $value = "") {
 // wrapper for multiple choice fields
 // ***********************************************************
 private function inpDBox($class, $type, $uid, $vls, $sel = NV) {
-	if ($sel == NV) $sel = key($vls);
+	if ($sel === NV) $sel = key($vls);
 
 	$inp = new $class($this->oid);
 	$inp->setProps($this->vls, $this->dic);
@@ -102,7 +102,7 @@ public function addCombo($type, $uid, $vls, $sel = NV) {
 	return $this->inpDBox("selCombo", $type, $uid, $vls, $sel);
 }
 public function addMulti($type, $uid, $vls, $sel = NV) {
-	if ($sel == true) {
+	if ($sel === true) {
 		$sel = array();
 
 		foreach ($vls as $key => $val) {
@@ -131,11 +131,6 @@ public function inpMemo($type, $uid, $value = "") {
 
 	$this->add($uid, $inp);
 	return $inp->getValue($value);
-}
-
-// ***********************************************************
-public function addGlue($caption, $value) {
-	$this->itm->addInput("glu", $caption, $value);
 }
 
 // ***********************************************************
@@ -173,10 +168,6 @@ public function toROnly() {
 			$inp->setType("txt");
 		}
 	}
-}
-
-public function clearSec($sec) {
-	$sel->clearSec($sec);
 }
 
 // ***********************************************************

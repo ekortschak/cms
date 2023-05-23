@@ -37,10 +37,19 @@ $ext = array(
 $box = new dropBox("button");
 $box->hideDesc();
 $box->getKey("sys.file", $fls, "page");
-$box->getKey("sys.lang", $lgs, "xx");
+$box->getKey("sys.lang", $lgs);
 $box->getKey("sys.ext",  $ext);
 
 $drp = $box->gc();
+
+// ***********************************************************
+// show sys file boxes
+// ***********************************************************
+$box = new dropBox("button");
+$box->hideDesc();
+$box->files("design/project", "prj.file");
+
+$prj = $box->gc();
 
 // ***********************************************************
 // show list
@@ -48,6 +57,7 @@ $drp = $box->gc();
 $tpl = new dirView();
 $tpl->load("editor/menu.files.tpl");
 $tpl->set("choice", $drp);
+$tpl->set("pfiles", $prj);
 $tpl->set("curloc", CUR_PAGE);
 $tpl->set("visOnly", false);
 $tpl->set("overwrite", $ovr);
@@ -55,4 +65,3 @@ $tpl->readTree(CUR_PAGE);
 $tpl->show();
 
 ?>
-

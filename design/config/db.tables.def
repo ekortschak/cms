@@ -12,7 +12,7 @@ manual = Manuelle Eingabe
 
 
 [fields]
-head = <!DIC:display!>
+head = <!DIC:fields!>x
 value =
 values =
 default = *

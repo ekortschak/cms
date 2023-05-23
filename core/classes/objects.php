@@ -42,6 +42,7 @@ public function merge($arr, $pfx = false) { // requires assoc array
 // ***********************************************************
 public function set($key, $val) {
     $key = STR::norm($key); if (! $key) return false;
+    $val = trim($val);
 
     if ($val === NV) {
 		unset($this->vls[$key]);
@@ -79,7 +80,7 @@ public function get($key, $default = "") {
 }
 
 // ***********************************************************
-public function lng($key, $default = "xxx") {
+public function lng($key, $default = false) {
 	$lng = CUR_LANG; $gen = GEN_LANG;
 	$try = "$key.$lng";	$out = $this->get($try, NV); if ($out !== NV) return $out;
 	$try = "$lng.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;

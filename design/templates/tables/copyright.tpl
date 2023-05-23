@@ -5,7 +5,7 @@ LOC_TPL/tables/recEdit.tpl
 [main]
 # ***********************************************************
 <form method="post" action="?">
-<!SEC:hidden!>
+<!SEC:oid!>
 
 <table>
 	<tr>

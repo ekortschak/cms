@@ -9,10 +9,11 @@ simple ini editor
 // ***********************************************************
 incCls("editor/iniMgr.php");
 
-$obj = new iniMgr($tplfile);
-$fil = $ini->getFile($dir, $caption);
-$ext = $ini->getScope();
-$xxx = $ini->show($fil);
+$mgr = new iniMgr($tplfile);
+$mgr->read(inifile);
+$mgr->setFile($dir, $caption);
+$mgr->setScope();
+$mgr->edit();
 */
 
 incCls("editor/iniWriter.php");
@@ -22,25 +23,29 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class iniMgr extends iniDef {
+class iniMgr extends objects {
+	private $file = false;
+	private $tpl = false;
 
-function __construct($tplfile) {
-	parent::__construct($tplfile);
+function __construct($tplfile = false) {
+	$this->tpl = $tplfile;
+}
 
-	$this->register(NV, $tplfile);
+public function read($file) {
+	$this->file = $file;
 }
 
 // ***********************************************************
-// show selector
+// show banner
 // ***********************************************************
-public function getFile($dir, $caption, $selected = false) {
+public function setFile($dir, $caption, $selected = false) {
 	$box = new dropBox("menu");
 	$rel = $box->files($dir, $caption, $selected);
 	$xxx = $box->show($rel);
-	return $rel;
+	$this->read($rel);
 }
 
-public function getScope($host = true) {
+public function setScope($host = true) {
 	$arr = array();
 	$arr["ini"] = "Localhost"; if ($host)
 	$arr["srv"] = "Server";
@@ -49,80 +54,34 @@ public function getScope($host = true) {
 	$ext = $box->getKey("scope", $arr);
 	$box->show();
 
-	return $ext;
-}
-
-public function show($file = NV) {
-	if ($file == NV) $rel = $this->file;
-	else {
-		$rel = APP::relPath($file);
-		$this->save($rel);
-	}
-	$ful = APP::file($rel);
-	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
-	HTW::tag("file = $ful", "hint");
-
-	if ($file != NV) $this->read($rel);
-	$this->showForm();
+	$fil = STR::replace($this->file, ".ini", ".$ext");
+	$this->read($fil);
 }
 
 // ***********************************************************
-// rewriting content
+// show form
 // ***********************************************************
-public function save($ful) {
-	$ini = new iniWriter($ful);
-	$ini->savePost();
-}
+public function edit() {
+	$fil = $this->file; if (! $fil) return;
+	$tpl = $this->tpl;
 
-// ***********************************************************
-// display input fields by sections
-// ***********************************************************
-private function showForm() {
-	$sel = new iniEdit(); $lgs = LANGUAGES;
-	$sel->register($this->oid);
-	$sel->forget();
+	$this->showPath($fil);
 
-	foreach ($this->sec as $sec => $txt) {
-		if (STR::begins($sec, "dic")) continue;
-
-		$inf = "[$sec]"; if (STR::contains(".$lgs.", ".$sec."))
-		$inf = HTM::flag($sec);
-		$sel->section($inf);
-
-		$typ = $this->getSecType($sec);
-
-		if ($typ == "tarea") { // memo sections
-			$val = $this->getSec($sec);
-			$sel->addInput($sec."[tarea]", $val, 15);
-		}
-		else { // key = value sections
-			$arr = $this->getValues($sec);
-
-			foreach ($arr as $key => $val) {
-				if (! $this->isKey("$sec.$key")) continue;
-
-				$qid = $sec."[$key]";
-				$vls = $this->getChoice("$sec.$key");
-				$val = $this->chkValue($val, $sec);
-
-				$sel->addInput($qid, $vls, $val);
-			}
-		}
-	}
-	$sel->show();
+	$edi = new iniEdit($tpl);
+	$edi->read($fil);
+	$edi->edit();
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function prepare() {
-	$uid = $this->getUID();
-	$tit = $this->getTitle();
-	$hed = $this->getHead(); if ($tit == $hed) $hed = "";
+private function showPath($fil) {
+	$ful = $fil; if ( ! STR::ends($fil, ".ini"))
+	$ful = FSO::join($fil, "page.ini");
+	$ful = APP::file($ful);
+	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
 
-	$this->set("UID",   $uid);
-	$this->set("TITLE", $tit);
-	$this->set("HEAD",  $hed);
+	HTW::tag("file = $ful", "hint");
 }
 
 // ***********************************************************

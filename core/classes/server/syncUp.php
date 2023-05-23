@@ -8,37 +8,37 @@ Designed to sync local project to server ...
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$snc = new syncUp();
-$snc->read("ftp.ini");
+$snc = new syncUp("ftp.ini");
 $snc->publish();
 */
 
 incCls("server/syncServer.php");
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class syncUp extends syncServer {
 
-function __construct() {
-	parent::__construct();
+function __construct($inifile) {
+	parent::__construct(false);
 
 	$this->load("modules/xfer.syncUp.tpl");
-}
+	$this->read($inifile);
 
-// ***********************************************************
-public function read($inifile) {
-	parent::read($inifile);
+	$this->setSource(APP_DIR);
+	$this->setTarget($this->get("ftp.froot", "???"));
 
-	$srv = $this->get("web.url", "???");
-	$this->setTarget($srv);
+	$this->srcHost = APP_DIR;
+	$this->trgHost = $this->get("web.url", "???");
+
+	$this->trgVer = $this->srvVersion();
 }
 
 // ***********************************************************
 // run jobs
 // ***********************************************************
 public function publish() {
-	$this->getVersions();
 	parent::run();
 }
 
@@ -48,8 +48,8 @@ public function publish() {
 protected function getTree($src, $dst) {
 	if ($this->err) return;
 
-	$src = $this->FSlocal($src); if (! $src) return; // local files
-	$dst = $this->FSremote();    if (! $dst) return; // remote
+	$src = $this->lclFiles($src);
+	$dst = $this->srvFiles();
 	$out = $this->getNewer($src, $dst);
 
 	$out = $this->chkProtect($out);
@@ -80,104 +80,17 @@ protected function aggregate($data) { // prepare for webexec(), reducing pay loa
 	return $out;
 }
 
-// ***********************************************************
-// overwrite file actions
-// ***********************************************************
-protected function do_copy($src, $dst) { // single file op
-	if ($this->ftp) return $this->ftp->remote_put($src, $dst);
-	if ($this->crl) return $this->crl->upload($src);
-}
+// **********************************************************
+// overruled methods
+// **********************************************************
+protected function manage($act, $fso) {
+	if (! $this->htp) return;
 
-// ***********************************************************
-protected function do_mkDir($lst) {
-	if ($this->htp) { // bulk operation
-		$out = $this->htp->query($lst, "mkd");
-		return intval($out);
+	switch ($act) {
+		case "cpf":	$out = $this->htp->upload($fso); break;
+		default:    $out = $this->htp->query($act, $fso);
 	}
-	if ($this->ftp) { // single file op
-		return $this->ftp->remote_mkDir($lst);
-	}
-}
-
-// ***********************************************************
-protected function do_ren($lst) {
-	if ($this->htp) { // bulk operation
-		$out = $this->htp->query($lst, "ren");
-		return intval($out);
-	}
-	$prp = explode("|", $lst); if (count($prp) < 3) return false;
-	$old = $this->dstName($prp[2]);
-	$new = $this->dstName($prp[1]);
-
-	if ($this->ftp) { // single file op
-		return $this->ftp->remote_rename($old, $new);
-	}
-}
-
-// ***********************************************************
-protected function do_rmDir($lst) {
-	if ($this->htp) { // bulk operation
-		$out = $this->htp->query($lst, "rmd");
-		return intval($out);
-	}
-	if ($this->ftp) { // single file op
-		return $this->ftp->remote_rmDir($lst);
-	}
-}
-
-// ***********************************************************
-protected function do_kill($lst) {
-	if ($this->htp) { // bulk operation
-		$out = $this->htp->query($lst, "dpf");
-		return intval($out);
-	}
-	if ($this->ftp) { // single file op
-		return $this->ftp->remote_del($lst);
-	}
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-protected function dstName($fso, $act = false) {
-	$chk = STR::contains(".cpf.", ".$act."); if (! $chk) return $fso;
-	$pfx = $this->get("ftp.froot"); if (STR::begins($fso, $pfx)) return $fso;
-	return FSO::join($pfx, $fso);
-}
-
-protected function dstVersion() {
-	return $this->remoteVersion();
-}
-
-// ***********************************************************
-// find local (distributable) versions
-// ***********************************************************
-protected function getVersions() {
-	$ver = APP::arcDir(ARCHIVE, "ver");
-	$ver = $this->correct($ver);
-	$cms = $this->getCms();
-
-	$arr = array($cms => "Current state");
-	$drs = FSO::folders($ver);
-
-	foreach ($drs as $key => $val) {
-		$arr[$key] = "Version $val";
-	}
-	$box = new dropBox("menu");
-	$src = $box->getKey("sync.src", $arr);
-	$mnu = $box->gc();
-
-	$this->set("choices", $mnu);
-	$this->setSource($src);
-}
-
-// ***********************************************************
-protected function correct($ver) {
-	return $ver;
-}
-
-protected function getCms() {
-	return APP_DIR;
+	return $this->stripInf($out);
 }
 
 // ***********************************************************

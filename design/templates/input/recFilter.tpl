@@ -18,7 +18,7 @@ equal = &sime;
 <h5><!DIC:filter!></h5>
 
 <form method="post" action="?" style="padding: 0px; margin: 0px;">
-	<input type="hidden" name="oid" value="<!VAR:oid!>" />
+<!SEC:oid!>
 
 	<div class="flex flexbottom">
 		<div><!SEC:data!></div>

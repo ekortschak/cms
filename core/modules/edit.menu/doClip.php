@@ -5,21 +5,20 @@ if (PFS::isStatic()) {
 }
 
 // ***********************************************************
-incCls("editor/clipBoard.php");
-
-$clp = new clipBoard();
-$arr = $clp->getList();
+$dir = APP::tempDir("clipboard");
+$arr = FSO::folders($dir);
 
 // ***********************************************************
 // show elements in clipboard
 // ***********************************************************
 incCls("input/combo.php");
 
-$cmb = new combo("clip");
+$cmb = new combo("clip.src");
 $cmb->setData($arr);
 $obj = $cmb->gc();
 
 $tpl = new tpl();
+$tpl->register();
 $tpl->load("editor/menu.clip.tpl");
 $tpl->set("curloc", CUR_PAGE);
 $tpl->set("box", $obj);

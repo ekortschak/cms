@@ -44,14 +44,17 @@ bulb = on
 [main]
 # ***********************************************************
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:nodes!>
 </form>
 
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:creates!>
 </form>
 
 <form method="post" action="?">
+<!SEC:oid!>
 <!SEC:chknodes!>
 </form>
 
@@ -67,19 +70,19 @@ bulb = on
 <table>
 	<tr>
 		<td width=250><input name="ren.dir" type="text" value="<!VAR:curdir!>" /></td>
-		<td><button name="node_act" value="ren"><!DIC:rename!></button></td>
+		<td><button name="node.act" value="ren"><!DIC:rename!></button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
 		<td style="vertical-align: middle;"><!DIC:node.drop!></td>
-		<td><button name="node_act" value="drop" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</button></td>
+		<td><button name="node.act" value="drop" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
 		<td style="vertical-align: middle;"><!DIC:node.hide!></td>
-		<td><button name="node_act" value="hide"><img src="LOC_ICO/menu/bulb_<!VAR:bulb!>.gif" /></button></td>
+		<td><button name="node.act" value="hide"><img src="LOC_ICO/menu/bulb_<!VAR:bulb!>.gif" /></button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
@@ -92,8 +95,8 @@ bulb = on
 </table>
 
 [nodes.move]
-	<button name="node_act" value="out"><b>↖</b></button>
-	<button name="node_act" value="min"><b>↘</b></button>
+	<button name="node.act" value="out"><b>↖</b></button>
+	<button name="node.act" value="min"><b>↘</b></button>
 
 [nodes.top]
 	<!DIC:node.top!>
@@ -103,18 +106,17 @@ bulb = on
 <table>
 	<tr>
 		<td width=250><input name="sub.dir" type="text" placeholder="<!DIC:node.new!>" /></td>
-		<td><button name="node_act" value="sub"><!DIC:create!></button></td>
+		<td><button name="node.act" value="sub"><!DIC:create!></button></td>
 	</tr>
 </table>
 
 [chknodes]
 <h4><!DIC:dir.all!></h4>
-<input name="root.dir" type="hidden" value="TAB_HOME">
 
 <table>
 	<tr>
 		<td width=250 style="vertical-align: middle;"><!DIC:chk.UIDs!></td>
-		<td><button name="node_act" value="uid"><!DIC:check!></button></td>
+		<td><button name="node.act" value="uid"><!DIC:check!></button></td>
 	</tr>
 </table>
 
