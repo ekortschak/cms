@@ -1,7 +1,7 @@
 <?php
 
 $ext = PGE::get("props.ext", "pics");
-$dir = PGE::get("props.path", CUR_PAGE);
+$dir = PGE::get("props.path", PGE::$dir);
 $srt = PGE::get("props.sort");
 
 $arr = FSO::files($dir);

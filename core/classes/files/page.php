@@ -86,7 +86,6 @@ public function gc($sec = "main") {
 
 	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
-		$xxx = APP::lock(false);
 		$val = APP::gcFile($fil);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);
@@ -122,7 +121,7 @@ public static function makeUrl($fso) { // convert file to url
 
 	if (STR::begins($fso, "./")) { // e.g. local pics
 		$fil = STR::after($fso, "./");
-		return FSO::join(CUR_PAGE, $fil);
+		return FSO::join(PGE::$dir, $fil);
 	}
 	$ful = APP::file($fso);
 	$rel = APP::relPath($ful);

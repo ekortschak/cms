@@ -13,6 +13,8 @@ incCls("menus/tabs.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class PGE {
+	public static $dir = false;
+
 	private static $sets = ""; // tabsets
 	private static $tabs = ""; // tabs
 	private static $tpcs = ""; // topics
@@ -45,7 +47,7 @@ public static function init() {
 // handling page props
 // ***********************************************************
 public static function load($dir) {
-	CFG::set("CUR_PAGE", $dir);
+	self::$dir = $dir;
 
 	$ini = new ini($dir);
 	self::$pge = $ini->getValues();
@@ -83,6 +85,14 @@ public static function incFile() {
 			return "collect.xsite.php";
 	}
 	return "invalid.php";
+}
+
+public static function isCurrent($dir) {
+	return ($dir == self::$dir);
+}
+
+public static function restore() {
+ 	ENV::setPage(self::$dir);
 }
 
 // ***********************************************************
@@ -176,20 +186,21 @@ private static function langProp($prop) {
 // ***********************************************************
 // common ini related tasks
 // ***********************************************************
-public static function getType($fso) {
+public static function getType($fso = false) {
 	return self::getAny($fso, "getType", "inc");
 }
-public static function getTitle($fso = CUR_PAGE) {
+public static function getTitle($fso = false) {
 	return self::getAny($fso, "getHead");
 }
-public static function getUID($fso) {
+public static function getUID($fso = false) {
 	return self::getAny($fso, "getUID");
 }
-public static function getValues($fso, $sec = "*") {
+public static function getValues($fso = false, $sec = "*") {
 	return self::getAny($fso, "getValues", $sec);
 }
 
 private static function getAny($fso, $fnc, $prm = false) {
+	if (! $fso) $fso = self::$dir;
 	$ini = new ini($fso);
 	return $ini->$fnc($prm);
 }

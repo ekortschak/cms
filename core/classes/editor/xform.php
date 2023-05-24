@@ -41,7 +41,7 @@ public function pages($pfs) {
 		if ($this->dbg) if ($cnt++ >= $this->dbg) break;
 		$this->doPage($dir, $inf); // will change current page
 	}
-	ENV::setPage(CUR_PAGE); // restore current page
+	PGE::restore(); // restore current page
 	ENV::set("output", "");
 
 	self::writeCss();

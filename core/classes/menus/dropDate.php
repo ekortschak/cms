@@ -27,7 +27,7 @@ function __construct($suit = "menu") {
 // ***********************************************************
 // overruled methods
 // ***********************************************************
-public function getDate($qid = "pick.date", $selected = false) {
+public function getYmd($qid = "pick.date", $selected = false) {
 	$sel = DAT::get($selected);
 	$sel = $this->getSelected($qid, $sel);
 	$dat = DAT::split($sel);
@@ -41,6 +41,8 @@ public function getDate($qid = "pick.date", $selected = false) {
 
 	$this->setNav($dat);
 	$this->set("dparm", $qid);
+
+	return $dat;
 }
 
 protected function getSelected($qid, $sel) {
@@ -90,7 +92,7 @@ protected function setNav($date) {
 
 // ***********************************************************
 protected function collect($sec) {
-    $out = "";
+    $out = $cal = "";
 
     foreach ($this->data as $unq => $vls) { // boxes
 		extract ($vls);
@@ -102,9 +104,10 @@ protected function collect($sec) {
 		switch ($vls["typ"]) {
 			case "cmb": $out.= $this->getCombo($sec, $dat); break;
 			case "mon":	$out.= $this->monCombo(); break;
-			case "day":	$out.= $this->dayCombo(); break;
+			case "day":	$cal = $this->dayCombo(); break;
 		}
     }
+    $this->set("cal", $cal);
     return $out;
 }
 
@@ -150,7 +153,7 @@ protected function dayCombo() {
 	}
 	$this->set("links", $out);
 
-	return $this->getSection("combo.day");
+	return $this->getSection("table.day");
 }
 
 // ***********************************************************

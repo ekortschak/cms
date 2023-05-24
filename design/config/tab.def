@@ -8,7 +8,7 @@ std = Startthema
 
 # general properties
 [props]
-typ = root:=single topic|select:=multiple topics
+typ = root:=single topic|select:=multiple topics|diary:=diary
 std = folders:TAB_HOME
 
 # language specific properties

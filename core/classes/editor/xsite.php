@@ -58,7 +58,7 @@ public function read($dir) {
 	$this->stripNotes();
 
  // restore current page
- 	ENV::setPage(CUR_PAGE);
+	PGE::restore();
 }
 
 // ***********************************************************

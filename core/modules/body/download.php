@@ -1,7 +1,7 @@
 <?php
 
 $ext = PGE::get("props.ext", "pdf, txt, doc, docx");
-$dox = PGE::get("props.path", CUR_PAGE);
+$dox = PGE::get("props.path", PGE::$dir);
 $srt = PGE::get("props.sort");
 
 // ***********************************************************

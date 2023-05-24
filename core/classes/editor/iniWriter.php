@@ -141,11 +141,6 @@ public function save($file = NV) {
 // ***********************************************************
 // methods for proper navigation
 // ***********************************************************
-public function setPage($uid = NV) {
-	if ($uid === NV) $uid = $this->getUID();
-	ENV::setPage($uid);
-}
-
 public function verifyUID() {
 	$ids = new uids(); // make sure UID is unique
 	$uid = $this->getUID();

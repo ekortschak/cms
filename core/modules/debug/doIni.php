@@ -1,6 +1,6 @@
 <?php
 
-$ful = FSO::join(CUR_PAGE, "page.ini");
+$ful = FSO::join(PGE::$dir, "page.ini");
 $txt = APP::read($ful);
 
 incCls("other/tutorial.php");

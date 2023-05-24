@@ -42,7 +42,8 @@ public function merge($arr, $pfx = false) { // requires assoc array
 // ***********************************************************
 public function set($key, $val) {
     $key = STR::norm($key); if (! $key) return false;
-    $val = trim($val);
+# TODO: why suddenly => test with gim - Schöpfer
+#    $val = trim($val);
 
     if ($val === NV) {
 		unset($this->vls[$key]);

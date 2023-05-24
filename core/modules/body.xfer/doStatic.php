@@ -37,7 +37,7 @@ $msg = DIC::get("static.create");
 
 $cnf = new confirm();
 $cnf->head($msg);
-$cnf->dic("from", CUR_PAGE);
+$cnf->dic("from", PGE::$dir);
 $cnf->add("&rarr; $dst");
 $cnf->add("<hr>");
 $cnf->add($prv);

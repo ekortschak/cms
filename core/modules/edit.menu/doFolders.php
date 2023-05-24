@@ -4,11 +4,13 @@ if (PFS::isStatic()) {
 	return MSG::now("mnu.static");
 }
 
+$loc = PGE::$dir;
+
 // ***********************************************************
 // set state
 // ***********************************************************
-$lev =  PFS::getLevel(CUR_PAGE);
-$sts = (FSO::isHidden(CUR_PAGE)) ? "on" : "off";
+$lev =  PFS::getLevel($loc);
+$sts = (FSO::isHidden($loc)) ? "on" : "off";
 
 // ***********************************************************
 // show options
@@ -16,8 +18,8 @@ $sts = (FSO::isHidden(CUR_PAGE)) ? "on" : "off";
 $tpl = new tpl();
 $tpl->load("editor/menu.folders.tpl");
 $tpl->register();
-$tpl->set("curloc", CUR_PAGE);
-$tpl->set("curdir", basename(CUR_PAGE));
+$tpl->set("curloc", $loc);
+$tpl->set("curdir", basename($loc));
 $tpl->set("bulb", $sts);
 
 if ($lev < 2) {

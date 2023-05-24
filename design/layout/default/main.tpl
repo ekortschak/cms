@@ -60,7 +60,7 @@ title = PRJ_TITLE
 #<!MOD:app.banner!>
 #<!MOD:menu!>
 
-[trailer] <!-- trailer -->
+[status] <!-- status -->
 <!MOD:app.status!>
 
 # ***********************************************************
@@ -74,11 +74,7 @@ title = PRJ_TITLE
 # ***********************************************************
 [toc] <!-- toc -->
 <div class="container conToc" id="maindow">
-<!MOD:toc.banner!>
-<!MOD:toc.topics!>
-<!MOD:toc.current!>
 <!MOD:toc!>
-<!MOD:toc.status!>
 </div>
 
 <div class="container">

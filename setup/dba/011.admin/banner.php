@@ -12,6 +12,6 @@ $tpl->load("user/login.tpl");
 $tpl->show($sec);
 
 // ***********************************************************
-APP::lock(true);
+ENV::set("blockme", true);
 
 ?>

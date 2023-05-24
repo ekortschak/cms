@@ -7,13 +7,15 @@ if (! FS_ADMIN) {
 
 incCls("editor/ediMgr.php");
 
+$loc = PGE::$dir;
+
 // ***********************************************************
 // show title
 // ***********************************************************
-$fil = APP::find(CUR_PAGE);
+$fil = APP::find($loc);
 $tit = PGE::getTitle();
 $std = ENV::get("pic.file");
-$std = FSO::join(CUR_PAGE, $std);
+$std = FSO::join($loc, $std);
 
 HTW::tag($tit, "h3");
 
@@ -21,6 +23,6 @@ HTW::tag($tit, "h3");
 // find relevant editors
 // ***********************************************************
 $edi = new ediMgr(true);
-$edi->edit(CUR_PAGE);
+$edi->edit($loc);
 
 ?>

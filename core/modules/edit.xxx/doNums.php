@@ -10,7 +10,7 @@ HTW::xtag("nums.conv");
 // ***********************************************************
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->ronly("dir", CUR_PAGE);
+$dir = $sel->ronly("dir", PGE::$dir);
 $act = $sel->show();
 
 // ***********************************************************

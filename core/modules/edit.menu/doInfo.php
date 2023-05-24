@@ -2,7 +2,7 @@
 
 <?php
 
-$arr = PFS::mnuInfo(CUR_PAGE);
+$arr = PFS::mnuInfo(PGE::$dir);
 
 // ***********************************************************
 incCls("tables/htm_table.php");

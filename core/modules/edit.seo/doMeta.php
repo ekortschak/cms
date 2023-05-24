@@ -5,7 +5,7 @@ $oid = OID::register();
 
 OID::set($oid, "what", $wht);
 
-$ini = new ini(CUR_PAGE);
+$ini = new ini(PGE::$dir);
 $dat = $ini->get("$lng.$wht");
 
 // ***********************************************************

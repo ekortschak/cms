@@ -25,7 +25,6 @@ function __construct() {
 // methods
 // ***********************************************************
 protected function exec() {
-//	$dir = CUR_PAGE; # fails because not yet set
 	$dir = ENV::getPage(); if (! $dir) return;
 	$act = $this->env("btn.menu");
 
@@ -223,7 +222,7 @@ private function fileDelete($dir) { // delete a files
 }
 
 // ***********************************************************
-// ini Opts
+// ini opts
 // ***********************************************************
 private function pageOpts($dir) {
 	if ($this->pageDefault($dir)) return; // set startup page
@@ -238,8 +237,8 @@ private function pageProps($dir) { // change uid, display type
 	$ini = new iniWriter($typ);
 	$ini->read($dir);
 	$ini->savePost();
-	$ini->setPage();
 
+	ENV::setPage($ini->getUID());
 	return true;
 }
 

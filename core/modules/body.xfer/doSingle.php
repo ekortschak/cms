@@ -4,6 +4,8 @@ incCls("input/qikOption.php");
 incCls("input/confirm.php");
 incCls("editor/QED.php");
 
+$loc = PGE::$dir;
+
 // ***********************************************************
 // show info
 // ***********************************************************
@@ -14,10 +16,10 @@ $tpl->show("info");
 // ***********************************************************
 // read ini
 // ***********************************************************
-$ini = new ini(CUR_PAGE);
+$ini = new ini($loc);
 $pbr = $ini->get(CUR_LANG.".pbreak");
 
-$top = ENV::get("xsite.top", CUR_PAGE);
+$top = ENV::get("xsite.top", $loc);
 $cur = ENV::get("xsite.cur");
 
 $hpb = QED::hasPbr(); // pbreaks inside doc?
@@ -47,11 +49,12 @@ $cnf->show();
 // ***********************************************************
 // react to quick edit options
 // ***********************************************************
-if ($cur == CUR_PAGE) {
+if (PGE::isCurrent($cur)) {
 	if (ENV::get("opt.starthere")) {
-		ENV::set("xsite.top", CUR_PAGE); $top = CUR_PAGE;
+		ENV::set("xsite.top", $loc); $top = $loc;
 	}
-	elseif ($top == CUR_PAGE) {
+	elseif ($top == $loc) {
+dbg("why here?");
 		ENV::set("xsite.top", TAB_HOME); $top = TAB_HOME;
 	}
 
@@ -65,13 +68,13 @@ if ($cur == CUR_PAGE) {
 	}
 }
 
-$chk = ($top == CUR_PAGE);
+$chk = ($top == $loc);
 
 // ***********************************************************
 // offer quick edit options
 // ***********************************************************
 HTW::xtag("qik.edit");
-ENV::set("xsite.cur", CUR_PAGE);
+ENV::set("xsite.cur", $loc);
 
 $qik = new qikOption();
 $qik->forget();

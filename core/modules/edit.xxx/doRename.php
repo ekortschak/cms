@@ -12,7 +12,7 @@ $lng = CUR_LANG;
 
 $sel = new selector();
 $oid = $sel->register("search.xxx");
-$dir = $sel->input("dir", CUR_PAGE);
+$dir = $sel->input("dir", PGE::$dir);
 $fnd = $sel->input("find", "$lng.htm");
 $ren = $sel->input("rename", "$lng.htm");
 $act = $sel->show();

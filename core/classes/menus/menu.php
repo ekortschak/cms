@@ -84,7 +84,7 @@ private function getItem($sec, $inf) {
 }
 
 private function getClass($dir) {
-	if (STR::begins(CUR_PAGE, $dir)) return "active";
+	if (STR::begins(PGE::$dir, $dir)) return "active";
 	return "std";
 }
 

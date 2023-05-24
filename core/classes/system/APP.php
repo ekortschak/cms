@@ -243,10 +243,6 @@ public static function isView() {
 	return false;
 }
 
-public static function lock($value = false) {
-	ENV::set("blockme", $value);
-}
-
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

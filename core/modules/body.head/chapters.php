@@ -1,7 +1,7 @@
 <?php
 # used for directories with multiple numbered html files
 
-$arr = APP::files(CUR_PAGE, "*.htm");
+$arr = APP::files(PGE::$dir, "*.htm");
 $cnt = 1;
 
 if (count($arr) < 1) {

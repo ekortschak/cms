@@ -1,6 +1,6 @@
 <?php
 
-$arr = FSO::files(CUR_PAGE, "snip*");
+$arr = FSO::files(PGE::$dir, "snip*");
 $lst = array();
 
 foreach ($arr as $fil => $nam) {

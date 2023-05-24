@@ -13,7 +13,7 @@ $ini = new ini("config/upload.ini");
 $ext = $ini->get("props.ext", "*");
 $max = $ini->get("props.max_size", 2000);
 $ovr = $ini->get("props.overwrite", 0);
-$dst = $ini->get("props.path", CUR_PAGE);
+$dst = $ini->get("props.path", PGE::$dir);
 
 // ***********************************************************
 // react to previous commands

@@ -9,7 +9,7 @@ $tab = new iniTab(TAB_PATH);
 $fst = $tab->get("props.std");
 
 $fst = PFS::getIndex($fst);     // index of default page
-$cur = PFS::getIndex(CUR_PAGE); // index of current page
+$cur = PFS::getIndex(PGE::$dir); // index of current page
 $stc = PFS::isStatic();
 
 $chk = ($fst == $cur) ? "CHECKED" : "";

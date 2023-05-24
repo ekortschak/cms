@@ -1,7 +1,9 @@
 <?php
 
+$loc = ENV::getPage();
+
 $typ = PGE::get("props.typ");
-$tit = PGE::getTitle();
+$tit = PGE::getTitle($loc);
 
 HTW::tag($tit, "h3");
 
@@ -16,4 +18,4 @@ switch (STR::left($typ)) {
 include APP::getInc(__DIR__, "$inc.php");
 
 ?>
-asfadfa
+

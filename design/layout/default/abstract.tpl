@@ -5,10 +5,7 @@ LOC_LAY/LAYOUT/main.tpl
 [toc] <!-- toc.abstract -->
 # ***********************************************************
 <div class="container conToc" id="maindow">
-<!MOD:toc.banner!>
-<!MOD:toc.topics!>
-<!MOD:toc.current!>
-<!MOD:toc.status!>
+<!MOD:toc.abstract!>
 
 <div align="right">
 <a href="?vmode=view"><img src="LOC_ICO/buttons/view.png" /></a>

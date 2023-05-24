@@ -30,8 +30,8 @@ LOC_TPL/msgs/sitemap.tpl
 
 [tail]
 <div><!VAR:tail!></div>
-[
-trailer]
+
+[trailer]
 <div><!VAR:trailer!></div>
 
 # ***********************************************************

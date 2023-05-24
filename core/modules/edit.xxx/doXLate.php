@@ -1,7 +1,7 @@
 <?php
 
 $act = ENV::getPost("act_xlate");
-$src = APP::find(CUR_PAGE);
+$src = APP::find(PGE::$dir);
 
 incCls("editor/xlate.php");
 incCls("editor/xlator.php");

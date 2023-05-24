@@ -8,7 +8,7 @@ $arr = $ini->getValues("user");
 $arr = VEC::sort($arr);
 
 $ini = new code();
-$xxx = $ini->readPath(CUR_PAGE);
+$xxx = $ini->readPath(PGE::$dir);
 $prm = $ini->getValues("perms");
 
 // ***********************************************************

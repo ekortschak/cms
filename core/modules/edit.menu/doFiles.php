@@ -4,6 +4,8 @@ incCls("input/qikOption.php");
 incCls("menus/dropBox.php");
 incCls("files/dirView.php");
 
+$loc = PGE::$dir;
+
 // ***********************************************************
 // get options
 // ***********************************************************
@@ -56,12 +58,14 @@ $prj = $box->gc();
 // ***********************************************************
 $tpl = new dirView();
 $tpl->load("editor/menu.files.tpl");
+
 $tpl->set("choice", $drp);
 $tpl->set("pfiles", $prj);
-$tpl->set("curloc", CUR_PAGE);
+$tpl->set("curloc", $loc);
 $tpl->set("visOnly", false);
 $tpl->set("overwrite", $ovr);
-$tpl->readTree(CUR_PAGE);
+
+$tpl->readTree($loc);
 $tpl->show();
 
 ?>

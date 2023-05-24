@@ -9,16 +9,17 @@ incCls("dbase/recEdit.php");
 HTW::xtag("Feedback", "h3");
 // ***********************************************************
 $dbe = new recEdit("default", "feedback");
+$loc = PGE::$dir;
 
 $dbe->setDefault("topic", "content");
 $dbe->setDefault("page",   PGE::getTitle());
 $dbe->setDefault("owner",  CUR_USER);
-$dbe->setDefault("link",   CUR_PAGE);
+$dbe->setDefault("link",   $loc);
 $dbe->setDefault("rating", 0);
 
 $dbe->hide("topic, tstamp, owner, page, link");
 
-$dbe->findRec("owner='CUR_USER' AND link='CUR_PAGE' AND topic='content'");
+$dbe->findRec("owner='CUR_USER' AND link='$loc' AND topic='content'");
 $dbe->show();
 
 ?>

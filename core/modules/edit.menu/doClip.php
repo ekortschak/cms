@@ -20,7 +20,7 @@ $obj = $cmb->gc();
 $tpl = new tpl();
 $tpl->register();
 $tpl->load("editor/menu.clip.tpl");
-$tpl->set("curloc", CUR_PAGE);
+$tpl->set("curloc", PGE::$dir);
 $tpl->set("box", $obj);
 $tpl->show();
 

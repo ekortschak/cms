@@ -2,7 +2,8 @@
 
 if (STR::begins(VMODE, "x")) return;
 
-$arr = FSO::folders(CUR_PAGE);
+$loc = PGE::$dir;
+$arr = FSO::folders($loc);
 $out = "";
 
 // ***********************************************************
@@ -12,7 +13,7 @@ $tpl = new tpl();
 $tpl->load("msgs/sitemap.tpl");
 
 if (! $arr) {
-	$fil = APP::find(CUR_PAGE);
+	$fil = APP::find($loc);
 	$sec = ($fil) ? "empty" : "notyet";
 	return $tpl->show($sec);
 }

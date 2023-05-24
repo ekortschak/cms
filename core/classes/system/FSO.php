@@ -267,7 +267,7 @@ public function dropEmpty($dir) {
 // ***********************************************************
 // methods for menus
 // ***********************************************************
-public static function parents($dir = CUR_PAGE) {
+public static function parents($dir) {
 	if (  is_file($dir)) $dir = dirname($dir);
 	if (! is_dir ($dir)) $dir = APP::dir($dir);
 	if (! is_dir ($dir)) return array();
