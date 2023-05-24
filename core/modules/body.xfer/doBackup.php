@@ -6,8 +6,10 @@ incCls("server/syncArc.php");
 // ***********************************************************
 // read options
 // ***********************************************************
-$ini = new ini("config/backup.ini");
-$dev = $ini->getValues("local");
+$set = "local"; if (! IS_LOCAL)
+$set = "server";
+
+$dev = CFG::getValues("backup", $set);
 $dev = VEC::flip($dev);
 
 $act = array(

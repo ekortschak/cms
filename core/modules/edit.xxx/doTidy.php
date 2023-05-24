@@ -2,7 +2,7 @@
 
 incCls("menus/dropBox.php");
 incCls("input/selector.php");
-incCls("editor/tidy.php");
+incCls("editor/tidyPage.php");
 
 HTW::xtag("code.tidy");
 
@@ -20,7 +20,7 @@ $arr = FSO::ftree($dir, "*.$lng.*");
 // ***********************************************************
 // find & sweep files
 // ***********************************************************
-$tdy = new tidy();
+$tdy = new tidyPage();
 
 foreach ($arr as $ful => $nam) {
 	$htm = APP::read($ful);

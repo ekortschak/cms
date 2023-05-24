@@ -218,7 +218,8 @@ public function beautify($msg) {
 }
 
 private function doLFs($msg, $set) {
-	$set = explode(".", $set);
+	$set = STR::slice($set, ".");
+
 	foreach ($set as $key) {
 		if (! $key) continue;
 		$msg = str_replace($key, "<br><b>$key</b>", $msg);
@@ -227,7 +228,7 @@ private function doLFs($msg, $set) {
 }
 
 private function doKeys($msg) { // reserved words
-	$rwd = explode(".", "TABLE.EXISTS.PRIMARY.KEY"
+	$rwd = STR::slice("TABLE.EXISTS.PRIMARY.KEY"
 		. "DISTINCT.ASC.DESC.UNION.JOIN.INNER.OUTER.ON."
 		. "NOT.LIKE.IN.BETWEEN.AND.OR.XOR.TRUE.FALSE.NULL."
 		. "LEFT.MID.RIGHT.SUBSTRING.TRIM.LOWER.UPPER.FORMAT.REVERSE.LOCATE.INSTR.LENGTH.REPEAT.CONCAT_WS.CONCAT."
@@ -235,7 +236,7 @@ private function doKeys($msg) { // reserved words
 		. "POW.SQRT.ROUND.CEILING.FLOOR.RAND.LN.LOG.CHAR.ORD."
 		. "ALL.AS.IS.IF.TO.AFTER"
 		. "SUM.COUNT.AVG.STD.MAX.MIN.FIRST.LAST."
-		. "CRC32.MD5.SHA1.SHA2");
+		. "CRC32.MD5.SHA1.SHA2", ".");
 
 	foreach ($rwd as $key) {
 		if (! $key) continue;
@@ -243,7 +244,7 @@ private function doKeys($msg) { // reserved words
 	}
 	return $msg;
 }
-//	$ops = explode(" ", " <> != <= >= && || < > ! = ^ & | ( ) , . ; + - * /");
+//	$ops = STR::slice(" <> != <= >= && || < > ! = ^ & | ( ) , . ; + - * /", " ");
 
 // ***********************************************************
 } // END OF CLASS

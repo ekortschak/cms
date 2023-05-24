@@ -62,12 +62,12 @@ private function findNone($what) { // $what => -str1|str2|str3
 	return (! $this->findAny($fnd));
 }
 private function findAny($what) { // $what => str1|str2|str3
-	$fnd = explode($this->sep, $what);
+	$fnd = STR::slice($what, $this->sep);
 	$cnt = $this->word($fnd);
 	return ($cnt > 0);
 }
 private function findAll($what) { // $what => str1+str2+str3
-	$fnd = explode("+", $what); $anz = count($fnd);
+	$fnd = STR::slice($what, "+"); $anz = count($fnd);
 	$cnt = $this->word($fnd);
 	return ($cnt == $anz);
 }
@@ -102,7 +102,7 @@ private function split($what) {
 	foreach ($qts as $key => $itm) {
 		$lst = str_replace("'$itm'", "@q$key", $lst);
 	}
-	$lst = explode(" ", $lst);
+	$lst = STR::slice($lst, " ");
 	$out = array();
 
 	foreach ($lst as $sub) {
@@ -127,7 +127,7 @@ private function checkString($txt) {
 }
 
 private static function markit(&$haystack, $find, $idx) {
-	$lst = count(explode("^", $find));
+	$lst = substr_count($find, "^");
 	$rep = "<mark$idx>$1</mark$idx>";
 
 	if ($lst > 2) $rep = "$1<mark>$2</mark>$3"; else

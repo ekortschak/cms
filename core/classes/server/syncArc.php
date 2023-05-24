@@ -26,7 +26,6 @@ function __construct($dev) {
 
 	$this->setVisOnly(false);
 	$this->setSource(APP_DIR);
-	$this->srcHost = APP_DIR;
 }
 
 // ***********************************************************
@@ -54,7 +53,6 @@ public function version() {
 // ***********************************************************
 protected function common($dir, $sec) {
 	$this->setTarget($dir);
-	$this->trgHost = $dir;
 	$this->run($sec);
 }
 

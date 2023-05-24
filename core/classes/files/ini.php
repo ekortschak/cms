@@ -101,7 +101,7 @@ public function getUID() {
 	$tit = $this->get(GEN_LANG.".title"); if (! $tit) $tit = "GET_TITLE";
 
 	if ($tit != "GET_TITLE") {
-		$arr = explode(" ", $tit); $out = "";
+		$arr = STR::slice($tit, " "); $out = "";
 
 		foreach ($arr as $itm) {
 			$out.= ucFirst($itm);

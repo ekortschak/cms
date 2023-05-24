@@ -1,12 +1,10 @@
-<p>Schwerer Fehler: beim Download können derzeit Dateien verschwinden. Problem noch nicht behoben.</p>
-
-
 <?php
-return;
 
-if (FTP_MODE == "none") {
-	return MSG::now("ftp.disabled");
+if (! IS_LOCAL) {
+	return MSG::now("edit.deny");
 }
+
+return MSG::now("Feature currently disabled ...");
 
 incCls("server/syncCms.php");
 

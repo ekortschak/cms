@@ -88,7 +88,7 @@ private function tabSort() {
 	$lst = $this->get("sort.list"); if (! $lst) return;
 	$set = $this->get("sort.parm");
 
-	$lst = VEC::explode($lst, ";");
+	$lst = STR::slice($lst, ";");
 
 	$edt = new tabEdit("config/tabsets.ini");
 	$vls = $edt->getValues($set);

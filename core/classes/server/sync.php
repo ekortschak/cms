@@ -38,13 +38,8 @@ class sync extends tpl {
 
 	protected $dev = "";		// backup media root path
 
-	protected $srcHost = false;
 	protected $srcPath = false;
-	protected $srcVer  = false;
-
-	protected $trgHost = false;
 	protected $trgPath = false;
-	protected $trgVer  = false;
 
 
 function __construct($dev) {
@@ -60,11 +55,15 @@ function __construct($dev) {
 // ***********************************************************
 public function setSource($dir) {
 	$this->srcPath = $this->chkPath($dir);
-	$this->srcVer  = $this->getVersion($dir);
+
+	$this->set("vsrc", $this->getVersion($dir));
+	$this->set("source", $this->getPath($dir));
 }
 public function setTarget($dir) {
 	$this->trgPath = $this->chkPath($dir);
-	$this->trgVer  = $this->getVersion($dir);
+
+	$this->set("vtrg", $this->getVersion($dir));
+	$this->set("target", $this->getPath($dir));
 }
 
 // ***********************************************************
@@ -87,14 +86,20 @@ protected function srcName($fso)  {
 	if (STR::begins($fso, $this->srcPath)) return $fso;
 	return FSO::join($this->srcPath, $fso);
 }
-
-// ***********************************************************
 protected function dstName($fso, $act = false) {
 	if (STR::begins($fso, $this->trgPath)) return $fso;
 	return FSO::join($this->trgPath, $fso);
 }
 
 // ***********************************************************
+protected function getPath($dir) {
+	$app = APP_NAME; if ($app = "cms_dist") $app = "cms";
+	$chk = array($app, "cms.archive");
+
+	$pro = STR::before($dir, $chk);
+	return STR::replace($dir, $pro, "~/");
+}
+
 protected function getVersion($dir) {
 	if (! $dir) return "?";
 	$fil = FSO::join($dir, "config/config.ini");
@@ -122,9 +127,6 @@ protected function run($info = "info") {
 
 // **********************************************************
 protected function confirm($info) {
-	$this->set("source", $this->srcHost); $this->set("vsrc", $this->srcVer);
-	$this->set("target", $this->trgHost); $this->set("vdst", $this->trgVer);
-
 	$this->show($info);
 	$this->show();
 }
@@ -258,7 +260,7 @@ protected function lclFiles($dir) {
 }
 
 protected function conv($txt) {
-	$arr = explode("\n", $txt); $out = array();
+	$arr = STR::slice($txt); $out = array();
 	return $arr;
 
 	foreach ($arr as $itm) {
@@ -343,7 +345,7 @@ protected function chkAction($act, $fso) {
 // executing modifications
 // ***********************************************************
 protected function do_ren($fso) {
-	$prp = explode("|", $fso); if (count($prp) < 3) return false;
+	$prp = STR::slice($fso, "|"); if (count($prp) < 3) return false;
 	$old = $this->dstName($prp[2]);
 	$new = $this->dstName($prp[1]);
 
@@ -397,7 +399,7 @@ protected function chkCount($arr) {
 // ***********************************************************
 protected function split($itm, $pfx) {
 	$itm = strip_tags(trim($itm));
-	$itm = explode(";", $itm); if (count($itm) < 4) return false;
+	$itm = STR::slice($itm, ";"); if (count($itm) < 4) return false;
 	$fso = $itm[3];
 
 	return array(

@@ -136,7 +136,7 @@ private function nodeAdd($dir) {
 private function sortOpts($dir) { // sort node entries
 	$cmd = $this->get("sort.act");  if (! $cmd) return;
 	$lst = $this->get("sort.list"); $cnt = 10; // start at #
-	$lst = VEC::explode($lst, ";"); $inc =  1;
+	$lst = STR::slice($lst, ";"); $inc =  1;
 
 	foreach ($lst as $itm) {
 		$itm = basename($itm); if (! $itm) continue;

@@ -43,6 +43,9 @@ public function getUrl($act, $fso = ".") { // create acceptable command
 	return $this->url."?p=$prm";
 }
 
+// ***********************************************************
+// cURL upload
+// ***********************************************************
 public function upload($fso) {
 	$cmd = $this->getUrl("cpf", $fso);
 

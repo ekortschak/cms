@@ -90,7 +90,7 @@ protected function incFiles($txt) {
 	$inc = STR::between($txt, "[include]", "[");
 
 	if (! $inc) return;
-	$arr = VEC::explode($inc, "\n");
+	$arr = STR::slice($inc);
 
 	foreach ($arr as $fil) {
 		$this->read($fil);
@@ -99,7 +99,7 @@ protected function incFiles($txt) {
 
 protected function regFiles($txt) { // register scripts
 	$reg = STR::between($txt, "[register]", "["); if (! $reg) return;
-	$arr = VEC::explode($reg, "\n");
+	$arr = STR::slice($reg);
 
 	foreach ($arr as $fil) {
 		$ext = FSO::ext($fil);
@@ -197,7 +197,7 @@ protected function setProps($file) {
 // ***********************************************************
 protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 	$arr = $txt; if (! is_array($txt))
-	$arr = explode($lfd, $pfx.$txt); $out = array();
+	$arr = STR::slice($pfx.$txt, $lfd); $out = array();
 
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;

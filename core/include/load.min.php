@@ -11,7 +11,6 @@ require_once("funcs.php");
 incCls("system/TMR.php"); // start timer
 
 incCls("system/STR.php"); // basic string functions
-incCls("system/LNG.php"); // language support
 incCls("system/VEC.php"); // basic array functions
 incCls("system/FSO.php"); // basic dir functions
 incCls("system/APP.php"); // app specific functions
@@ -27,6 +26,8 @@ incCls("system/CFG.php"); // prepare constants
 incCls("system/SSV.php"); // session vars
 incCls("system/ENV.php"); // session & env vars
 incCls("system/OID.php"); // object IDs
+
+incCls("system/LNG.php"); // language support
 
 // ***********************************************************
 // debugging tools

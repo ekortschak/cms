@@ -25,7 +25,7 @@ class APP {
 
 public static function init() {
 	$pfd = get_include_path();
-	$arr = explode(PATH_SEPARATOR, $pfd);
+	$arr = STR::slice($pfd, PATH_SEPARATOR);
 	$arr = preg_filter('/$/', "/", $arr);
 
 	self::$fbk = $arr;
@@ -41,6 +41,7 @@ public static function relPath($fso) {
 	foreach (self::$fbk as $dir) {
 		$out = STR::after($fso, $dir); if ($out) return $out;
 	}
+	$out = STR::after($fso, SRV_ROOT); if ($out) return $out;
 	return $fso;
 }
 
@@ -83,7 +84,7 @@ public static function folders($dir) {
 
 public static function files($dir, $pattern = "*") {
 	$dir = self::relPath($dir); $out = array();
-	$ext = VEC::explode($pattern, ",");
+	$ext = STR::slice($pattern, ",");
 
 	foreach (self::$fbk as $loc) { // add files from app and fbk folders
 		foreach ($ext as $ptn) {

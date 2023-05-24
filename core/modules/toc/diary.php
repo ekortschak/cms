@@ -22,7 +22,6 @@ dbg($dir, "dir");
 #if (is_dir($src))
 #FSO::mvDir($src, $dir);
 
-#dbg($src, "src");
 
 
 ENV::setPage($dir);

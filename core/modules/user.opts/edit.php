@@ -1,8 +1,8 @@
 <?php
 
 $edt = false;
-$edt = ($edt || VEC::get($cfg, "eopts.pedit"));
-$edt = ($edt || VEC::get($cfg, "eopts.medit"));
+$edt = ($edt || CFG::mod("eopts.pedit"));
+$edt = ($edt || CFG::mod("eopts.medit"));
 
 if (! $edt) return;
 
@@ -16,15 +16,16 @@ if (! is_file("x.edit.php")) {
 	$tpl->clearSec("edit");
 	$tpl->clearSec("xfer");
 }
+if (! is_file("x.sync.php")) {
+	$tpl->clearSec("xfer");
+}
 if (! is_file("debug.php")) {
 	$tpl->clearSec("debug");
 }
 
 if (! IS_LOCAL) {
-	$tpl->clearSec("xfer");
 	$tpl->clearSec("debug");
 }
-
 if (APP_NAME != "cms") {
 	$tpl->clearSec("config.cms");
 }
@@ -39,20 +40,20 @@ switch (APP_CALL) {
 // ***********************************************************
 // editing
 // ***********************************************************
-if (! VEC::get($cfg, "eopts.pedit")) $tpl->clearSec("pedit");
-if (! VEC::get($cfg, "eopts.xedit")) $tpl->clearSec("xedit");
-if (! VEC::get($cfg, "eopts.medit")) $tpl->clearSec("medit");
-if (! VEC::get($cfg, "eopts.seo"))   $tpl->clearSec("seo");
-if (! VEC::get($cfg, "eopts.xfer"))  $tpl->clearSec("xfer");
-if (! VEC::get($cfg, "eopts.debug")) $tpl->clearSec("debug");
+if (! CFG::mod("eopts.pedit")) $tpl->clearSec("pedit");
+if (! CFG::mod("eopts.xedit")) $tpl->clearSec("xedit");
+if (! CFG::mod("eopts.medit")) $tpl->clearSec("medit");
+if (! CFG::mod("eopts.seo"))   $tpl->clearSec("seo");
+if (! CFG::mod("eopts.xfer"))  $tpl->clearSec("xfer");
+if (! CFG::mod("eopts.debug")) $tpl->clearSec("debug");
 
 $tpl->show("edit");
 
 // ***********************************************************
 // setup
 // ***********************************************************
-if (! VEC::get($cfg, "setup.show")) $tpl->clearSec("admin");
-if (! VEC::get($cfg, "setup.edit")) $tpl->clearSec("pedit");
+if (! CFG::mod("setup.show")) $tpl->clearSec("admin");
+if (! CFG::mod("setup.edit")) $tpl->clearSec("pedit");
 
 $tpl->show("admin");
 

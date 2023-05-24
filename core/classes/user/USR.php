@@ -15,9 +15,6 @@ class USR {
 	private static $dat = array();
 
 public static function init() {
-	CFG::set("STD_LANG", current(STR::toArray(LANGUAGES)));
-	CFG::set("CUR_LANG", ENV::get("lang", STD_LANG));
-
 	$usr = ENV::get("crdu", "www");
 	$pwd = ENV::get("crdp", "www");	$mod = VMODE;
 	self::read();

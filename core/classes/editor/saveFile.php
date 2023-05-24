@@ -8,7 +8,7 @@ if (VMODE != "pedit") return;
 see parent
 */
 
-incCls("editor/tidy.php");
+incCls("editor/tidyPage.php");
 
 new saveFile();
 
@@ -42,7 +42,7 @@ private function saveFile($act) {
 
 	if ($fil != $old) FSO::kill($old);
 
-	$tdy = new tidy();
+	$tdy = new tidyPage();
 	$txt = $tdy->get($txt);
 
 	APP::write($fil, $txt);

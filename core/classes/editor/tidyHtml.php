@@ -7,9 +7,9 @@ used for cleaning up html code after editing.
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/tidyhtml.php");
+incCls("input/tidyHtml.php");
 
-$tdy = new tidyhtml();
+$tdy = new tidyHtml();
 $tdy->get($htm);
 
 */
@@ -17,7 +17,7 @@ $tdy->get($htm);
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tidyhtml {
+class tidyHtml {
 	private $php = array();
 	private $dat = array();
 	private $hst = array();

@@ -1,8 +1,6 @@
-# password for www will be ignored
-# format: user = md5(pwd)
-
 [admin]
 powerman = 0d79e7792fc2e937b59b0e6312791e90
+hubert = 29b2da5ab9f531c57dca97e214033413
 
 [user]
 www = a95c530a7af5f492a74499e70578d150

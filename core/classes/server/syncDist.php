@@ -22,7 +22,6 @@ function __construct($inifile) {
 	parent::__construct($inifile);
 
 	$this->setSource(APP_FBK);
-	$this->srcHost = APP_FBK;
 }
 
 // ***********************************************************

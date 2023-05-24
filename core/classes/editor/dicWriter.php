@@ -103,7 +103,7 @@ protected function sections($txt) {
 // ***********************************************************
 protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 	$arr = $txt; if (! is_array($txt))
-	$arr = explode($lfd, $pfx.$txt); $out = array();
+	$arr = STR::slice($pfx.$txt, $lfd); $out = array();
 
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;

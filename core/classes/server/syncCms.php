@@ -23,7 +23,6 @@ function __construct($inifile) {
 	$this->load("modules/xfer.cms.tpl");
 
 	$this->setTarget(APP_FBK);
-	$this->trgHost = APP_FBK;
 }
 // ***********************************************************
 } // END OF CLASS

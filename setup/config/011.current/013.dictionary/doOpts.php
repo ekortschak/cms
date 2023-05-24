@@ -36,7 +36,7 @@ function reWrite() {
 
  	foreach ($fls as $fil => $nam) {
 		$txt = APP::read($fil);
-		$arr = explode("\n", $txt); sort($arr);
+		$arr = STR::slice($txt); sort($arr);
 		$out = array();
 
 		foreach ($arr as $lin) {

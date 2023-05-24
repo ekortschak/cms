@@ -7,19 +7,19 @@ used for cleaning up html code for editing.
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/tidy.php");
+incCls("input/tidyPage.php");
 
-$tdy = new tidy();
+$tdy = new tidyPage();
 $tdy->get($htm);
 
 */
 
-incCls("editor/tidyhtml.php");
+incCls("editor/tidyHtml.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tidy {
+class tidyPage {
 
 function __construct() {}
 
@@ -43,7 +43,7 @@ public function get($htm) {
 // html methods
 // ***********************************************************
 private function restruct($txt) {
-	$tdy = new tidyhtml();
+	$tdy = new tidyHtml();
 	return $tdy->get($txt);
 }
 
@@ -73,7 +73,7 @@ private function addLFs($txt) {
 	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6"; // tripple lf
 
 	foreach ($arr as $tgs) {
- 		$its = explode(".", $tgs);
+ 		$its = STR::slice($tgs, ".");
  		$cnt++;
 
 		foreach ($its as $fnd) {

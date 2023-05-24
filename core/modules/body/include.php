@@ -5,7 +5,7 @@ $pge = ENV::getPage();
 // ***********************************************************
 $txt = APP::gcSys($pge);
 $txt = APP::lookup($txt);
-$txt = ACR::tidy($txt);
+$txt = ACR::clean($txt);
 
 // ***********************************************************
 if (VMODE == "view") {

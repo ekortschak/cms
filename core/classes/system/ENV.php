@@ -108,6 +108,7 @@ public static function find($key, $default = false) {
 // ***********************************************************
 public static function seal() { // TODO: xfer to CFG
 	$mod = self::get("vmode", "view");
+	$lng = self::get("lang", STD_LANG);
 
 	switch ($mod) {
 		case "csv": $dst = "csv"; break; // retrieve data only
@@ -116,6 +117,7 @@ public static function seal() { // TODO: xfer to CFG
 	}
 	CFG::set("VMODE", $mod);
 	CFG::set("CUR_DEST", $dst);
+	CFG::set("CUR_LANG", $lng);
 }
 
 public static function dbState($sec = "main") { // tpl section

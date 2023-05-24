@@ -32,9 +32,10 @@ public function setValue($value = false) {
 }
 
 private function totime($date) {
-	$dat = str_replace("/", "-", $date);
-	$dat = str_replace(".", "-", $date);
-	$dat = explode("-", $dat);
+	$dat = $date;
+	$dat = STR::replace($dat, "/", "-");
+	$dat = STR::replace($dat, ".", "-");
+	$dat = STR::slice($dat, "-");
 
 	if (count($dat) < 2) return $date;
 	if (count($dat) < 3) $dat[] = date("Y");

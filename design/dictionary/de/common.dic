@@ -7,6 +7,7 @@ ask.sure = Sicher?
 bookmarks = Lesezeichen
 dbg.opts = Debug-Optionen
 dir.empty = Ordner ist leer ...
+edit.deny = Diese Funktion ist dem <b>localhost</b> vorbehalten!
 file.denied = Kein Schreibzugriff
 file.missing = Datei existiert noch nicht
 file.not copied = Datei wurde nicht kopiert

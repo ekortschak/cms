@@ -32,10 +32,8 @@ function __construct($inifile) {
 	$this->setSource(APP_DIR);
 	$this->setTarget(APP_DIR);
 
-	$this->srcHost = $this->get("web.url", "???");
-	$this->trgHost = APP_DIR;
-
-	$this->srcVer = $this->srvVersion();
+	$this->set("source", $this->get("web.url", "???"));
+	$this->set("vsrc", $this->srvVersion());
 }
 
 // ***********************************************************
@@ -64,10 +62,13 @@ protected function do_copy($fso) { // single file op
 	if ( ! $this->htp) return false;
 
 	$fso = APP::relPath($fso);
+	$tmp = "$fso.tmp";
 
 	$txt = $this->htp->query("dwn", $fso);
 	$txt = $this->stripInf($txt);
-	$erg = APP::write($fso, $txt);
+	$erg = APP::write($tmp, $txt);
+
+dbg($tmp);
 
 	return (bool) $erg;
 }

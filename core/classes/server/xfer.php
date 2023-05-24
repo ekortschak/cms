@@ -120,7 +120,7 @@ private function do_rmDir($lst) { return $this->exec("rmDir", $lst); }
 private function do_kill ($lst) { return $this->exec("kill",  $lst); }
 
 private function exec($fnc, $lst) {
-	$arr = explode(";", $lst);
+	$arr = STR::slice($lst, ";");
 
 	foreach ($arr as $fso) {
 		if ($fso) FSO::$fnc($fso);
@@ -130,10 +130,10 @@ private function exec($fnc, $lst) {
 
 // ***********************************************************
 private function do_ren($lst) { // rename dirs or files
-	$arr = explode(";", $lst); $cnt = 0;
+	$arr = STR::slice($lst, ";"); $cnt = 0;
 
 	foreach ($arr as $itm) {
-		$prp = explode("|", $itm);      if (count($prp) < 3) continue;
+		$prp = STR::slice($itm, "|");      if (count($prp) < 3) continue;
 		$typ = $prp[0];                 if ($typ != "d") continue;
 
 		$new = $this->chkPath($prp[1]); if (! $new) continue;
@@ -144,7 +144,7 @@ private function do_ren($lst) { // rename dirs or files
 }
 
 private function do_touch($inf) {
-	$arr = explode(";", $lst);
+	$arr = STR::slice($lst, ";");
 
 	foreach ($arr as $itm) {
 		$fso = STR::before($inf, ":"); if (! $fso) continue;

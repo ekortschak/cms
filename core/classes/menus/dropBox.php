@@ -156,7 +156,10 @@ public function gc($sec = "main") {
 	if (! $this->isSec($sec)) $sec = "main";
 	if (! $this->data) $sec = "empty";
 
-	$this->set("items", $this->collect($sec));
+	$out = $this->collect($sec); if (! $out)
+	$out = "&nbsp;";
+
+	$this->set("items", $out);
     return $this->getSection($sec);
 }
 
@@ -187,9 +190,9 @@ protected function getCombo($sec, $dat) {
 
 		$out.= $this->getSection("link");
 	}
-	$sec = "$sec.box"; if ($cnt < 2)
-	$sec = "$sec.one"; if ($cnt < 1)
-	$sec = "empty";
+	$sec = "$sec.box";
+	if ($cnt < 2) $sec = STR::replace($sec, "box", "one");
+	if ($cnt < 1) $sec = "empty";
 
 	$this->set("links", $out);
 

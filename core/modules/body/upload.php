@@ -8,12 +8,10 @@ incCls("input/qikOption.php");
 // ***********************************************************
 // read properties
 // ***********************************************************
-$ini = new ini("config/upload.ini");
-
-$ext = $ini->get("props.ext", "*");
-$max = $ini->get("props.max_size", 2000);
-$ovr = $ini->get("props.overwrite", 0);
-$dst = $ini->get("props.path", PGE::$dir);
+$ext = CFG::getVal("upload", "props.ext", "*");
+$max = CFG::getVal("upload", "props.max_size", 2000);
+$ovr = CFG::getVal("upload", "props.overwrite", 0);
+$dst = CFG::getVal("upload", "props.path", PGE::$dir);
 
 // ***********************************************************
 // react to previous commands

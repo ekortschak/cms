@@ -91,8 +91,8 @@ private function getClass($dir) {
 private function getOS() {
 	$cos = $_SERVER["HTTP_USER_AGENT"];
 
-	$bad = ".chrom.safari.opera.ie.microsoft.";
-	$bad = VEC::explode($bad, ".");
+	$bad = "chrom.safari.opera.ie.microsoft";
+	$bad = STR::slice($bad, ".");
 
 	if (STR::contains($cos, $bad)) return "MS";
 	return "";

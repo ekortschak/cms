@@ -65,7 +65,8 @@ public function addRecipients($recipients ) {
 	}
 }
 public function addRecipient($adr) {
-	$tmp = explode(",", $adr);
+	$tmp = STR::slice($adr, ",");
+
 	if (count($tmp) > 1) {
 		$this->addRecipients($tmp);
 		return;

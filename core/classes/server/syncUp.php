@@ -29,10 +29,8 @@ function __construct($inifile) {
 	$this->setSource(APP_DIR);
 	$this->setTarget($this->get("ftp.froot", "???"));
 
-	$this->srcHost = APP_DIR;
-	$this->trgHost = $this->get("web.url", "???");
-
-	$this->trgVer = $this->srvVersion();
+	$this->set("target", $this->get("web.url", "???"));
+	$this->set("vtrg", $this->srvVersion());
 }
 
 // ***********************************************************

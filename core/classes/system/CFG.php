@@ -44,7 +44,8 @@ private static function fixForced() { // constants set by startup script
 }
 
 private static function fixServer() {
-	self::set("SRV_ROOT", VEC::get($_SERVER, "DOCUMENT_ROOT", NV));
+	self::set("SRV_ROOT", dirname(APP_DIR));
+
 	self::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
 	self::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	self::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
@@ -69,8 +70,8 @@ private static function fixPaths() {
 }
 
 private static function fixLangs() {
-	if (APP_IDX != "config.php") return;
 	self::set("LANGUAGES", "de.en");
+	self::set("STD_LANG", STR::before(LANGUAGES, "."));
 }
 
 // ***********************************************************
@@ -214,6 +215,10 @@ public static function getValues($idx, $pfx = "") {
 public static function getVal($idx, $key, $default = "") {
 	$out = VEC::get(self::$cfg, $idx); if (! $out) return $default;
 	return VEC::get($out, $key, $default);
+}
+
+public static function mod($key) {
+	return self::getVal("mods", $key);
 }
 
 // ***********************************************************

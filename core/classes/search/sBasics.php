@@ -112,6 +112,7 @@ public function getSnips($dir, $what) { // called by preview
 		$txt = $this->prepare($fil);
 		$arr = $this->match($txt, $what); if (! $arr) continue;
 		$out[$fil] = $arr;
+break;
 	}
 	return $out;
 }

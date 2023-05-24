@@ -2,7 +2,7 @@
 <?php
 
 if (! IS_LOCAL) return;
-if (! VEC::get($cfg, "uopts.uinfo")) return;
+if (! CFG::mod("uopts.uinfo")) return;
 
 function getFS() {
 	if (FS_ADMIN) return "admin";

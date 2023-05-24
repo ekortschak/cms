@@ -137,9 +137,7 @@ private static function getTab() {
 	$tab = ENV::get("tab.".APP_IDX); if ($tab) return $tab;
 	$set = basename(APP_IDX);
 
-	$ini = new ini("config/tabsets.ini");
-	$arr = $ini->getValues($set);
-
+	$arr = CFG::getValues("tabsets", $set);
 	$lst = VEC::flip($arr);
 	$tab = VEC::get($lst, "default"); if ($tab) return $tab;
 	return key($arr);

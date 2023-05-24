@@ -17,7 +17,7 @@ $edt->show();
 */
 
 incCls("menus/dropBox.php");
-incCls("editor/tidy.php");
+incCls("editor/tidyPage.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -75,7 +75,7 @@ protected function getContent() {
 	$rws = STR::count($out, "\n") + 3;
 	$rws = CHK::range($rws, 35, 7);
 
-	$tdy = new tidy();
+	$tdy = new tidyPage();
 	$out = $tdy->phpSecure($out);
 	$out = $tdy->tplSecure($out);
 
@@ -84,8 +84,7 @@ protected function getContent() {
 }
 
 protected function getSnips() {
-	$snp = new ini("config/snips.ini");
-	$arr = $snp->getValues("html");
+	$arr = CFG::getValues("snips", "html");
 	$arr = VEC::flip($arr);
 
 	$box = new dropBox("script");

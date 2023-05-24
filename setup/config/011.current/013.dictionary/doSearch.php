@@ -28,7 +28,7 @@ foreach ($arr as $fil => $nam) {
 	$xxx = HTW::tag($lnk, "div");
 
 	echo "<ul>";
-	$lns = explode("\n", $txt);
+	$lns = STR::slice($txt);
 
 	foreach ($lns as $lin) {
 		if (! STR::contains($lin, $fnd)) continue;

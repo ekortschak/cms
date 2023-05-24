@@ -27,7 +27,7 @@ static function init() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public static function tidy($text) {
+public static function clean($text) {
 	$out = $text;
 
 	foreach (self::$lst as $key => $val) {

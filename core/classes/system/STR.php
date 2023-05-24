@@ -246,9 +246,13 @@ public static function mark($haystack, $find) {
 // ***********************************************************
 // search strings
 // ***********************************************************
-public static function split($haystack, $sep) {
-	$txt = str_replace($sep1, self::$sep.$sep, $haystack);
+public static function split($haystack, $sep) { // retains $sep as part of result
+	$txt = str_replace($sep, self::$sep.$sep, $haystack);
 	return explode(self::$sep, $txt);
+}
+
+public static function slice($haystack, $sep = "\n") {
+	return explode($sep, $haystack);
 }
 
 public static function toArray($text, $seps = "std") {
