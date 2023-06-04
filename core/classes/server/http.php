@@ -46,10 +46,11 @@ public function getUrl($act, $fso = ".") { // create acceptable command
 // ***********************************************************
 // cURL upload
 // ***********************************************************
-public function upload($fso) {
+public function upload($fso, $dir = "") {
 	$cmd = $this->getUrl("cpf", $fso);
 
-	$fil = APP::file($fso); if (! $fil) return false;
+	$fil = FSO::join($dir, $fso);
+	$fil = APP::file($fil); if (! $fil) return false;
 	$fil = curl_file_create($fil);
 	$con = curl_init();
 

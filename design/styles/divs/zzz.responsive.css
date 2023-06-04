@@ -1,26 +1,9 @@
-@media only screen and (max-width: 1125px) {
-
-	html {
-		transform: scale(0.95);
-		transform-origin: top left;
-		height: 100vh;
-	}
-	.banner {  position: absolute; }
-	.modmenu { position: absolute; }
-}
-
-@media only screen and (max-width: 1025px) {
-	html { transform: scale(0.85); height: calc(100% / 0.85); }
-}
-@media only screen and (max-width: 925px) {
-	html { transform: scale(0.78); height: calc(100% / 0.78); }
-}
-@media only screen and (max-width: 825px) {
-	html { transform: scale(0.65); height: calc(100% / 0.65); }
-}
-@media only screen and (max-width: 725px) {
-	html { transform: scale(0.55); height: calc(100% / 0.55); }
-}
-@media only screen and (max-width: 625px) {
-	html { transform: scale(0.50); height: calc(100% / 0.50); }
+@media only screen and (max-width: 950px) {
+	html { transform: scale(0.70); height: calc(100% / 0.70); }
+	html { transform: scale(1); height: 100%; }
+	.micon { display: block; }
+	.modToc { display: none; }
+	.modMbar { display: none; }
+	.modBody { left: W_TABS; }
+	.modOpts { left: calc(W_TABS + W_BODY); }
 }

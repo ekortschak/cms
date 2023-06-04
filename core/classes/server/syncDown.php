@@ -33,7 +33,7 @@ function __construct($inifile) {
 	$this->setTarget(APP_DIR);
 
 	$this->set("source", $this->get("web.url", "???"));
-	$this->set("vsrc", $this->srvVersion());
+	$this->set("vsrc",   $this->srvVersion());
 }
 
 // ***********************************************************
@@ -58,7 +58,7 @@ protected function getTree($src, $dst) {
 // ***********************************************************
 // overwrite file actions
 // ***********************************************************
-protected function do_copy($fso) { // single file op
+protected function do_copy($fso, $dummy) { // single file op
 	if ( ! $this->htp) return false;
 
 	$fso = APP::relPath($fso);
@@ -66,11 +66,11 @@ protected function do_copy($fso) { // single file op
 
 	$txt = $this->htp->query("dwn", $fso);
 	$txt = $this->stripInf($txt);
-	$erg = APP::write($tmp, $txt);
 
-dbg($tmp);
+	$erg = APP::write($tmp, $txt); if (! $erg) return false;
+	$xxx = FSO::move($tmp, $fso);
 
-	return (bool) $erg;
+	return true;
 }
 
 // ***********************************************************

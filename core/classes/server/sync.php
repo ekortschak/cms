@@ -56,14 +56,14 @@ function __construct($dev) {
 public function setSource($dir) {
 	$this->srcPath = $this->chkPath($dir);
 
-	$this->set("vsrc", $this->getVersion($dir));
 	$this->set("source", $this->getPath($dir));
+	$this->set("vsrc",   $this->getVersion($dir));
 }
 public function setTarget($dir) {
 	$this->trgPath = $this->chkPath($dir);
 
-	$this->set("vtrg", $this->getVersion($dir));
 	$this->set("target", $this->getPath($dir));
+	$this->set("vtrg",   $this->getVersion($dir));
 }
 
 // ***********************************************************
@@ -260,15 +260,7 @@ protected function lclFiles($dir) {
 }
 
 protected function conv($txt) {
-	$arr = STR::slice($txt); $out = array();
-	return $arr;
-
-	foreach ($arr as $itm) {
-		$key = STR::between($itm, ";;", ";");
-		$val = STR::clear($itm, ";;$key");
-		$out[$key] = $v;
-	}
-	return $out;
+	return STR::slice($txt);
 }
 
 protected function chkErr($arr, $inf) {

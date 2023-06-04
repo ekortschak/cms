@@ -54,19 +54,20 @@ protected function run($info = "info") {
 // run jobs
 // ***********************************************************
 protected function srvFiles() {
-	if ( ! $this->htp) return;
-
-	$out = $this->htp->query("get");
-	$out = $this->stripInf($out);
+	$out = $this->query("get");
 	return $this->conv($out);
 }
 
 protected function srvVersion() {
-	if ( ! $this->htp) return "?";
+	$out = $this->query("ver");
+	return ($out) ? $out : "?.x";
+}
 
-	$out = $this->htp->query("ver");
-	$out = $this->stripInf($out);
-	return ($out) ? $out : "?";
+protected function query($act) {
+	if ( ! $this->htp) return "";
+
+	$out = $this->htp->query($act);
+	return $this->stripInf($out);
 }
 
 // **********************************************************

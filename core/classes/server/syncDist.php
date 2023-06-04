@@ -24,6 +24,19 @@ function __construct($inifile) {
 	$this->setSource(APP_FBK);
 }
 
+// **********************************************************
+// overruled methods
+// **********************************************************
+protected function manage($act, $fso) {
+	if (! $this->htp) return;
+
+	switch ($act) {
+		case "cpf":	$out = $this->htp->upload($fso, $this->srcPath); break;
+		default:    $out = $this->htp->query($act, $fso);
+	}
+	return $this->stripInf($out);
+}
+
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

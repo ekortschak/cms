@@ -15,7 +15,7 @@ inifile = config/ftp.ini
 what = BOOL_NO
 pnew = 1
 vsrc = VERSION
-vdst = VERSION
+vtrg = VERSION
 
 
 # ***********************************************************
@@ -33,7 +33,7 @@ vdst = VERSION
 		</tr>
 		<tr>
 			<td style="padding-left: 0px;"><!DIC:target!></td>
-			<td>v<!VAR:vdst!></td>
+			<td>v<!VAR:vtrg!></td>
 			<td><!SEC:dest!></td>
 		</tr>
 	</table>

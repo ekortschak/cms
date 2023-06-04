@@ -67,6 +67,11 @@ private function send($txt) {
 	die($out);
 }
 
+private function sendFile($fso) {
+	$out = APP::read($fso);
+	return $this->send($out);
+}
+
 // ***********************************************************
 // return a directory tree as d|f;yyyy.mm.dd;;file.ext;md5
 // ***********************************************************

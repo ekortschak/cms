@@ -19,17 +19,8 @@
 	html { transform: scale(0.70); height: calc(100% / 0.70); }
 	html { transform: scale(1); height: 100%; }
 	.micon { display: block; }
-	.modToc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
+#	.modToc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
-	.modBody { left: W_TABS; }
-	.modOpts { left: calc(W_TABS + W_BODY); }
+#	.modBody { left: W_TABS; }
+#	.modOpts { left: calc(W_TABS + W_BODY); }
 }
-
-/*
-@media only screen and (max-width: 975px) {
-	html { transform: scale(0-65); height: calc(100% / 0.65); }
-}
-@media only screen and (max-width: 875px) {
-	html { transform: scale(0.60); height: calc(100% / 0.60); }
-}
-*/
