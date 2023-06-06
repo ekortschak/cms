@@ -4,6 +4,10 @@ if (! IS_LOCAL) {
 	return MSG::now("edit.deny");
 }
 
+if (! IS_LOCAL) {
+	return MSG::now("edit.deny");
+}
+
 incCls("server/syncDown.php");
 
 // ***********************************************************

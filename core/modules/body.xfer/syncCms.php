@@ -9,7 +9,9 @@ if (! IS_LOCAL) {
 incCls("server/syncCms.php");
 
 // ***********************************************************
-$snc = new syncCms("config/ftp_cms.ini");
+$fil = FSO::join(APP_FBK, "config", "ftp.ini");
+
+$snc = new syncCms($fil);
 $snc->upgrade();
 
 ?>

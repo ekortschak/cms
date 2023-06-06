@@ -2,6 +2,7 @@
 Verses = Bibelverse
 ask.sure = Sure?
 dbg.opts = Debug-Options
+cms.dist = You may want to use the <a href="/www/cms_dist">replicator</a> instead.
 dir.empty = Folder is empty ...
 edit.deny = This feature is reserved fot the <b>localhost</b>!
 file.denied = No write acces

@@ -164,11 +164,11 @@ private function fix($css) {
 private function cleanUrls($css, $sep1, $sep2) {
 	$css = STR::replace($css, "'", '"');
 	$arr = STR::find($css, $sep1, $sep2);
+	$cms = basename(APP_FBK);
 
 	foreach ($arr as $fil) {
-		$ful = self::url($fil); if (! STR::begins($ful, "/cms"))
+		$ful = self::url($fil); if (! STR::begins($ful, "/$cms"))
 		$ful = ltrim($ful, DIR_SEP);
-#echo "$ful\n";
 		$css = STR::replace($css, $fil, $ful);
 	}
 	return $css;

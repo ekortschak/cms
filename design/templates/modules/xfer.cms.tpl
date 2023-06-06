@@ -10,7 +10,7 @@ xfer.sync.tpl
 <p>This feature will replace your current CMS by its newest version.<br>
 This may induce problems.</p>
 
-<p><msg>Make sure to backup your current CMS prior to the update!</msg></p>
+<!SEC:backup.1st!>
 
 
 # ***********************************************************
@@ -21,4 +21,4 @@ This may induce problems.</p>
 <p>Diese Funktion ersetzt das aktuelle CMS durch die neueste Version.<br>
 Dadurch kann es zu Problemen kommen.</p>
 
-<p><msg>Sichern Sie vor dem Update das aktuelle CMS!</msg></p>
+<!SEC:backup.1st!>
