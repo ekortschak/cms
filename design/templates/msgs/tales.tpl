@@ -1,6 +1,6 @@
 
 [vars]
-url = CMS_URL/config.php?pge=tabs
+url = config.php?pge=tabs
 
 # ***********************************************************
 [not.native]

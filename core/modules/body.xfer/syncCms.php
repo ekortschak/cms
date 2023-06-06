@@ -1,10 +1,10 @@
 <?php
 
+#return MSG::now("Feature currently disabled ...");
+
 if (! IS_LOCAL) {
 	return MSG::now("edit.deny");
 }
-
-return MSG::now("Feature currently disabled ...");
 
 incCls("server/syncCms.php");
 

@@ -13,10 +13,11 @@ NET::init();
 // ***********************************************************
 class NET {
 	private static $con = false;
+	private static $geo = false;
 
 public static function init() {
-    self::$con = @fsockopen("www.google.com", 80);
-    if (self::$con) fclose(self::$con);
+    self::$con = @fsockopen("www.google.com", 80); if (self::$con) fclose(self::$con);
+	self::$geo = self::geoData();
 }
 
 // ***********************************************************
@@ -52,7 +53,10 @@ private static function redirect($url) {
 // ***********************************************************
 // geoDataation
 // ***********************************************************
-public static function geoData() {
+private static function geoData() {
+return;
+	if (! self::$con) return;
+
 	$out = file_get_contents("http://www.geoplugin.net/php.gp?ip=".USER_IP);
 	$out = unserialize($out);
 	return $out;
@@ -73,8 +77,9 @@ public static function geoAcc() {
 	return 5;
 }
 
-public static function geoInfo($what) {
-	return VEC::get(self::geoData(), "geoplugin_$what");
+public static function geoInfo($what, $default = "") {
+	if (! self::$geo) return $default;
+	return VEC::get(self::$geo, "geoplugin_$what");
 }
 
 // ***********************************************************

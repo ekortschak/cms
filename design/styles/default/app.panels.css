@@ -1,109 +1,58 @@
-@charset "UTF-8";
-
-:root {
-	--fcs: 900;
-	--aln: ;
-}
-
 /* ******************************************************** */
-/* css default */
+/* common props */
 /* ******************************************************** */
-html {
- 	background: white;
-	height: 100%;
-}
-
-body {
-	overflow: auto;
-	position: relative;
-	height: 100%;
-
-	hyphens: auto;
-	font: F_SIZE normal normal;
-	font-family: Arial, sans-serif;
-	color: FC_BODY;
-	background: BC_BODY no-repeat right top;
-
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
-}
-
-/* ******************************************************** */
-/* container */
-/* ******************************************************** */
-.container {
-	background: transparent;
-	padding: 0px 20px 35px;
-#	overflow: visible;
-}
-
-.conToc  { padding: 15px 15px 35px }
-.conOpts { padding: 0px 35px 35px; }
-
-.hedBody {
-	position: sticky;
-	top: 0px;
-	background: BC_BODY;
-	padding: 0px 20px;
-	width: calc(W_BODY - 40px);
+[class^="mod"] {
+	float:      left;
+	overflow:   auto;
+	max-height: 100vh;
+	min-height: 100vh;
+	width:      calc(100vw - W_TABS);
 }
 
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */
 .modTabs {
-	overflow: visible;
-	position: fixed;
-	height: 100%;
-	width: W_TABS;
-
-	color: FC_TABS;
-	background: BC_DROP url("CMS_URL/img/tabs/pborder.png") repeat-y right;
+	width:      W_TABS;
+	background: BC_PAGE url("LOC_IMG/tabs/pborder.png") repeat-y right;
 }
 
 .modToc {
-	overflow: auto;
-	position: fixed;
-	left: W_TABS;
-	width: W_TOC;
-	height: 100%;
-
-	color: FC_TOC;
+	width:      W_TOC;
+	color:      FC_TOC;
 	background: BC_TOC;
 }
 
 .modMbar {
-	overflow: hidden;
-	position: fixed;
-	left: calc(W_TABS + W_TOC);
-	width: W_MBAR;
-	height: 100%;
-
-	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
+	width:      W_MBAR;
+	background: transparent url("LOC_IMG/mbar/spirals.png") repeat-y;
 }
 
 .modBody {
-	z-index: 5;
-	overflow: auto;
-	position: fixed;
-	left: calc(W_TABS + W_TOC + W_MBAR);
-	width: W_BODY;
-	height: 100%;
-
-	font-size: F_BODY;
-	color: FC_BODY;
+	width:      W_BODY;
+	font-size:  F_BODY;
+	color:      FC_BODY;
 	background: BC_BODY;
 }
-.modOpts {
-	z-index: 1;
-	overflow: auto;
-	position: fixed;
-	left: calc(W_TABS + W_TOC + W_MBAR + W_BODY);
-	width: calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY);
-	min-width: 300px;
-	height: 100%;
 
-	color: FC_OPTS;
-	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
+.modBord {
+	width:      10px;
+	background: url("LOC_IMG/opts/pborder.png") repeat-y;
+}
+
+.modOpts {
+	width:      calc(100vw - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
+	color:      FC_OPTS;
+}
+
+/* ******************************************************** */
+/* horizontal panels */
+/* ******************************************************** */
+.joker {
+	overflow:   auto;
+	display:    none;
+	padding:    0px 15px;
+	height:     25px;
+	width:      100vw;
+	background: BC_TABS;
 }

@@ -28,6 +28,18 @@ protected function exec() {
 	$ini = new iniWriter();
 	$ini->read($fil);
 	$ini->savePost();
+
+	$this->update($fil);
+}
+
+private function update($fil) {
+	if (! STR::contains($fil, "mods.ini")) return;
+
+	foreach ($_POST as $sec => $lst) {
+		foreach ($lst as $key => $val) {
+			CFG::setVal("mods", "$sec.$key", $val);
+		}
+	}
 }
 
 // ***********************************************************

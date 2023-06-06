@@ -16,8 +16,9 @@ incCls("menus/buttons.php");
 $nav = new buttons("anyID", "A", __DIR__);
 $nav->add("A", "incA");
 $nav->add("B", "incB");
-$nav->align("L" | "C" | "R");
 $nav->add("C", "incC");
+$nav->space();
+$nav->link("X", "caption", "href");
 $nav->show();
 
 */

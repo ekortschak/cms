@@ -22,11 +22,11 @@
 	display: none;
 }
 
-.ibar {
+.miconbar {
   width: 15px;
   height: 3px;
-  background-color: BC_TOC;
-  margin: 2px 0px 1px;
+  background-color: FC_TOC;
+  margin: 2px 0px;
 }
 
 /* ******************************************************** */

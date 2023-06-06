@@ -94,8 +94,12 @@ public static function getData($index = false) {
 // ***********************************************************
 // handling location
 // ***********************************************************
-private static function setLoc($index = NV) {
-	$loc = self::getIndex($index);
+private static function setLoc($key = NV) {
+	switch (ENV::getParm("pfs.nav")) {
+		case "prev": $key = self::getNext(-1); break;
+		case "next": $key = self::getNext(+1); break;
+	}
+	$loc = self::getIndex($key);
 	$loc = self::chkLoc($loc);
 
 	ENV::setPage($loc);
@@ -157,6 +161,12 @@ public static function getIndex($key) { // dir, uid or num index expected !
 	$out = VEC::get(self::$uid, $key); if ($out) return $out;
 	$out = VEC::get(self::$dat, $key); if ($out) return $key;
 	return false;
+}
+
+private static function getNext($inc) {
+	$key = ENV::getPage(); $chk = array_flip(self::$idx);
+	$idx = VEC::get($chk, $key, 0);
+	return CHK::range($idx += $inc, 0, count(self::$idx) - 1);
 }
 
 // ***********************************************************

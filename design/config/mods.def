@@ -15,8 +15,8 @@ man   = Manual
 seo   = SEO
 fback = Feedback
 
-show = Show
-edit = Edit
+show  = Show
+edit  = Edit
 
 [dic.de]
 csv = CSV download
@@ -35,8 +35,8 @@ man   = Handbuch
 seo   = SE-Optimierung
 fback = Feedback
 
-show = Anzeigen
-edit = Bearbeiten
+show  = Anzeigen
+edit  = Bearbeiten
 
 
 [tabs]

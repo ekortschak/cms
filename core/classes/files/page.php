@@ -123,13 +123,7 @@ public static function makeUrl($fso) { // convert file to url
 		$fil = STR::after($fso, "./");
 		return FSO::join(PGE::$dir, $fil);
 	}
-	$ful = APP::file($fso);
-	$rel = APP::relPath($ful);
-
-	if (STR::begins($ful, APP_DIR))  return $rel;
-	if (STR::begins($ful, APP_FBK))  return FSO::join(CMS_URL, $rel);
-	if (STR::begins($ful, SRV_ROOT)) return FSO::join(SRV_ROOT, $rel);
-	return $fso;
+	return APP::url($fso);
 }
 
 // ***********************************************************

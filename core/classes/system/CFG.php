@@ -89,7 +89,7 @@ public static function readCfg() {
 public static function readCss() {
 	self::read("LOC_CLR/default.ini");
 	self::read("LOC_CLR/COLORS.ini");
-	self::read("LOC_LAY/LAYOUT.ini");
+	self::read("LOC_DIM/LAYOUT.ini");
 }
 
 // ***********************************************************
@@ -117,7 +117,6 @@ private static function load($fil) {
 
 	$arr = file($fil); $sec = "";
 	$idx = FSO::name($fil);
-	$vls = array();
 
 	foreach ($arr as $lin) { // process lines
 		$lin = STR::dropComments($lin);
@@ -129,7 +128,7 @@ private static function load($fil) {
 		$val = STR::after($lin, "=");
 
 		if ($key != strtoupper($key)) { // no valid constant name
-			self::$cfg[$idx]["$sec.$key"] = $val;
+			self::setVal($idx, "$sec.$key", $val);
 		}
 		else {
 			self::$vls[$key] = self::insert($val);
@@ -138,7 +137,7 @@ private static function load($fil) {
 }
 
 // ***********************************************************
-// setting and retrieving values
+// setting values
 // ***********************************************************
 public static function set($key, $value) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
@@ -155,12 +154,8 @@ public static function setIf($key) {
 	self::set($key, $val);
 }
 
-// ***********************************************************
-// retrieving categories
-// ***********************************************************
-public static function groups() {
-	$arr = get_defined_constants(true);
-	return VEC::keys($arr);
+public static function setVal($idx, $key, $val) {
+	self::$cfg[$idx][$key] = $val;
 }
 
 // ***********************************************************
@@ -175,6 +170,20 @@ public static function insert($out) {
 		$out = preg_replace("~\b$key\b~", $val, $out);
 	}
 	return $out;
+}
+
+// ***********************************************************
+// retrieving categories
+// ***********************************************************
+public static function groups() {
+	$arr = get_defined_constants(true);
+	return VEC::keys($arr);
+}
+
+// ***********************************************************
+// retrieving module state
+// ***********************************************************
+public static function getState($cat) {
 }
 
 // ***********************************************************

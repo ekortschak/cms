@@ -6,10 +6,10 @@ LOC_TPL/menus/dropBox.tpl
 [main] # static info
 # ***********************************************************
 <div>
-<div class="micon">
-	<div class="ibar"></div>
-	<div class="ibar"></div>
-	<div class="ibar"></div>
+<div class="micon">xxx
+	<div class="miconbar"></div>
+	<div class="miconbar"></div>
+	<div class="miconbar"></div>
 </div>
 <!VAR:items!>
 </div> &ensp;

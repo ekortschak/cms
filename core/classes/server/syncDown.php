@@ -57,15 +57,22 @@ protected function getTree($src, $dst) {
 
 // ***********************************************************
 // overwrite file actions
-// ***********************************************************
-protected function do_copy($fso, $dummy) { // single file op
-	if ( ! $this->htp) return false;
+// **********************************************************
+protected function manage($act, $fso) {
+	switch ($act) {
+		case "cpf": return $this->do_down($fso); break;
+	}
+	return parent::manage($act, $fso);
+}
 
-	$fso = APP::relPath($fso);
-	$tmp = "$fso.tmp";
+// ***********************************************************
+protected function do_down($fso) { // single file op
+	if ( ! $this->htp) return false;
 
 	$txt = $this->htp->query("dwn", $fso);
 	$txt = $this->stripInf($txt);
+	$fso = $this->trgName($fso);
+	$tmp = "$fso.tmp";
 
 	$erg = APP::write($tmp, $txt); if (! $erg) return false;
 	$xxx = FSO::move($tmp, $fso);

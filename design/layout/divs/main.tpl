@@ -6,10 +6,14 @@ height = 151
 
 [layout] <!-- layout.divs -->
 <body>
-	<div class="modTabs"><!SEC:tabs!>  </div>
-	<div class="modMenu"><!SEC:menu!>  </div>
-	<div class="modBody"><!SEC:body!>  </div>
-	<div class="modOpts"><!SEC:opts!>  </div>
+	<div class="modTabs"><!SEC:tabs!></div>
+	<div class="colMain">
+		<div class="horMenu"><!SEC:menu!> </div>
+		<div class="joker"  ><!SEC:joker!></div>
+		<div class="modBody"><!SEC:body!> </div>
+	</div>
+	<div class="modBord"><!SEC:bord!></div>
+	<div class="modOpts"><!SEC:opts!></div>
 </body>
 
 
@@ -17,11 +21,8 @@ height = 151
 # horizontal panels
 # ***********************************************************
 [menu]
-<div style="min-height: <!VAR:height!>px;">
-<!MOD:app.banner!>
-</div>
 <!MOD:menu!>
 
 # ***********************************************************
-[toc] <!-- toc -->
+[toc]  <!-- toc -->
 [mbar] <!-- middle bar -->

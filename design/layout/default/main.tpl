@@ -46,22 +46,26 @@ title = PRJ_TITLE
 [layout] <!-- layout -->
 # ***********************************************************
 <body>
+	<div class="joker"  ><!SEC:joker!></div>
 	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="modToc" id="modToc"> <!SEC:toc!> </div>
+	<div class="modToc" ><!SEC:toc!> </div>
 	<div class="modMbar"><!SEC:mbar!></div>
 	<div class="modBody"><!SEC:body!></div>
+	<div class="modBord"><!SEC:bord!></div>
 	<div class="modOpts"><!SEC:opts!></div>
 </body>
 
 # ***********************************************************
 # horizontal panels
 # ***********************************************************
-[banner] <!-- banner -->
-#<!MOD:app.banner!>
+[joker] <!-- escape for small viewports -->
+<!MOD:css.joker!>
+
+[menu] <!-- banner -->
 #<!MOD:menu!>
 
 [status] <!-- status -->
-<!MOD:app.status!>
+#<!MOD:app.status!>
 
 # ***********************************************************
 # vertical panels
@@ -83,13 +87,10 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
-#<div style="padding: 15px 40px; font-size: 4pt;">
-#	<a class="std" href="config.php">&nbsp;</a>
-#</div>
 
 # ***********************************************************
 [body] <!-- body -->
-<div class="hedBody">
+<div class="conHead">
 <!MOD:body.head!>
 </div>
 
@@ -97,6 +98,9 @@ title = PRJ_TITLE
 <!MOD:body.feedback!>
 <!MOD:body!>
 </div>
+
+# ***********************************************************
+[bord] <!-- border right -->
 
 # ***********************************************************
 [opts] <!-- opts -->

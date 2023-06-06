@@ -34,13 +34,14 @@ public static function join() {
 
 public static function norm($fso) { // $fso => dir or file
 	if (! $fso) return "";
-    $sep = DIR_SEP; if (self::isUrl($fso)) return $fso;
+    if (self::isUrl($fso)) return $fso;
 
+    $sep = DIR_SEP;
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
 	$fso = rtrim($fso, $sep);
 
-	$fso = STR::replace($fso, "..", ".");
-	$fso = STR::replace($fso, "$sep.", $sep);
+#	$fso = STR::replace($fso, "..", ".");
+#	$fso = STR::replace($fso, "$sep.", $sep);
 	$fso = preg_replace("~($sep+)~", $sep, $fso);
 	return $fso;
 }
@@ -54,12 +55,12 @@ public static function level($fso) {
 }
 
 // ***********************************************************
-public static function force($dir, $mod = FS_PERMS) {
+public static function force($dir, $mod = 0775) {
 	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
 	$chk = self::trim($dir); if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
-	$xxx = self::permit($dir, $mod);
+	self::permit($dir, $mod);
 
 	return ($erg) ? $dir : false;
 }
@@ -84,8 +85,9 @@ public static function hasXs($fso, $tell = true) {
 	return false;
 }
 
-public static function permit($fso, $mod = FS_PERMS) {
+public static function permit($fso, $mod = 0775) {
 	if (! IS_LOCAL) return;
+// TODO: not setting correct permissions
 
 	@chown($fso, WWW_USER);
 	@chgrp($fso, WWW_USER);
@@ -131,9 +133,8 @@ public static function findDir($dir) {
 // working on folders
 // ***********************************************************
 public static function copyDir($src, $dst) {
-	$fso = self::fTree($src); if (! $fso) return;
-	$dir = self::join ($dst, basename($src));
-	$dst = self::force($dir); $cnt = 0;
+	$fso = self::fTree($src); if (! $fso) return; $cnt = 0;
+	$xxx = self::force($dst);
 
 	foreach ($fso as $fil => $nam) {
 		$new = STR::after($fil, $src);
@@ -205,16 +206,16 @@ public static function backup($file) {
 
 public static function copy($src, $dst) { // copy a file
 	$src = APP::file($src); if (! is_file($src)) return false;
-	$dir = self::force(dirname($dst)); copy($src, $dst);
-	$xxx = self::permit($dst); if (is_file($dst)) return true;
+	$dir = self::force(dirname($dst));
+	copy($src, $dst); if (is_file($dst)) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
 
 public static function move($old, $new) { // rename a file
 	if (! is_file($old)) return false;
-	$dir = self::force(dirname($new)); rename($old, $new);
-	$xxx = self::permit($new); if (is_file($new)) return true;
-	return ERR::assist("file", "no.copy", $new);
+	$dir = self::force(dirname($new));
+	rename($old, $new); if (is_file($new)) return true;
+	return ERR::assist("file", "no.write", $new);
 }
 
 public static function kill($file) { // delete a file

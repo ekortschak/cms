@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+/* ******************************************************** */
+/* css default */
+/* ******************************************************** */
+html {
+ 	background: white;
+	height:     100vh;
+}
+
+body {
+	overflow: auto;
+	position: relative;
+	height:   100vh;
+
+	font-family: Arial, sans-serif;
+	font-size:   F_SIZE;
+	font-weight: normal;
+	hyphens:     auto;
+
+	color:      FC_BODY;
+	background: BC_PAGE no-repeat right top;
+
+	margin:  0px;
+	padding: 0px;
+	border:  0px;
+}
+
+/* ******************************************************** */
+/* container */
+/* ******************************************************** */
+.container {
+	background: transparent;
+	padding:    0px 20px 35px;
+}
+
+.conToc  { padding: 15px 15px 35px; }
+.conBody { padding: 15px 20px 35px; }
+.conOpts { padding:  0px 20px 35px; }
+
+.conHead {
+	position:   sticky;
+	top:        0px;
+	background: BC_BODY;
+	padding:    0px 20px 0px;
+	width:      100%;
+}

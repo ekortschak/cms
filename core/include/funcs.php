@@ -10,9 +10,12 @@ define("LOC_DIC", "design/dictionary");
 define("LOC_LAY", "design/layout");
 define("LOC_CSS", "design/styles");
 define("LOC_CFG", "design/config");
-define("LOC_CLR", "design/colors");
+define("LOC_CLR", "design/css.colors");
+define("LOC_DIM", "design/css.dims");
 define("LOC_TPL", "design/templates");
 define("LOC_BTN", "design/buttons");
+
+define("LOC_IMG", "img");
 
 // ***********************************************************
 // find files or default to fallback dir

@@ -61,6 +61,7 @@ protected function getContent($file) {
 	$txt = APP::read($file); if (! $txt) return "";
 	$txt = STR::dropComments($txt);
 	$txt = STR::dropSpaces($txt);
+	$txt = STR::clear($txt, "\r");
 	return STR::replace($txt, "\#", "#");
 }
 

@@ -114,15 +114,12 @@ private function writeCss() {
 // ***********************************************************
 private function deRefSrc($txt, $sep1, $sep2) {
 	$arr = STR::find($txt, $sep1, $sep2);
-	$rut = CMS_URL.DIR_SEP;
 	$res = DIR_SEP."res";
 
 	foreach ($arr as $lnk) {
-		$dst = STR::clear($lnk, $rut);
 		$dst = FSO::join($this->dir, "res", $dst);
-dbg("CHECK ME");
-		$url = STR::from($dst, $res);
-		$url = ltrim($url, DIR_SEP);
+dbg("TODO: CHECK ME");
+		$url = ltrim($dst, DIR_SEP);
 		$txt = STR::replace($txt, $lnk, $url);
 
 		if (! is_file($dst)) FSO::copy($lnk, $dst);

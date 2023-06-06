@@ -2,7 +2,7 @@
 <style>
 
 .banHead {
-	padding: 18px 15px 0px;
+	padding: 18px 25px 8px;
 	font-size: 24px;
 	font-weight: bold;
 	color: white;

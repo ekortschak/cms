@@ -21,8 +21,6 @@ refbox:hover refbody, .refbox:hover refbody, .refbox:hover .refbody, refbox:hove
 refbody, .refbody {
 	display: none;
 	position: absolute;
-#	position: float;
-#	right: var(--aln);
 
 	background: BC_HINT;
 	border: 1px solid OUTLINE;

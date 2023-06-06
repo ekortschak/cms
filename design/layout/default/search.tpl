@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/default/main.tpl
+LOC_LAY/LAYOUT/main.tpl
 
 
 [toc]

@@ -34,10 +34,7 @@
 	margin: 0px;
 	padding: 0px;
 
-#	background: BC_MENU;
 	background: rgb(15, 0, 100, 0.5);
-
-#	font-size: 1.1em;
 	font-weight: bold;
 }
 
@@ -69,7 +66,7 @@
 	display: inline-block;
 	border-radius: 10px 10px 0px 0px;
 	padding: 7px 12px;
-	height: H_MENU;
+	height: 26px;
 }
 
 /* ******************************************************** */

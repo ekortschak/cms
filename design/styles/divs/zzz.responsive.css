@@ -1,9 +1,27 @@
-@media only screen and (max-width: 950px) {
-	html { transform: scale(0.70); height: calc(100% / 0.70); }
-	html { transform: scale(1); height: 100%; }
-	.micon { display: block; }
-	.modToc { display: none; }
-	.modMbar { display: none; }
-	.modBody { left: W_TABS; }
-	.modOpts { left: calc(W_TABS + W_BODY); }
+/* ********************************************************
+@media only screen and (orientation: landscape)
+@media only screen and (min-width: 600px)
+
+******************************************************** */
+
+@media only screen and (max-width: 1350px) {
+	.modOpts {
+		width: calc(100vw - W_TABS - W_BODY - 10px);
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.colMain { width: calc(W_BODY * 0.85); }
+	.modOpts {
+		width: calc(100vw - W_TABS - W_BODY * 0.85 - 10px);
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	.colMain { width: 100vw; }
+	.modTabs { display: none; }
+	.modBord { display: none; }
+	.modOpts { display: none; }
+
+	.joker { display: block; }
 }

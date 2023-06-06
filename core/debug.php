@@ -18,7 +18,7 @@ include_once "core/include/load.more.php";
 #requireAdmin();
 
 // ***********************************************************
-incFnc("pagemaker.php");
+# incFnc("pagemaker.php");
 
 ?>
 <hr>

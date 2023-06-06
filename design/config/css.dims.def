@@ -8,7 +8,6 @@ w_body = Width
 w_toc = Width TOC
 w_tabs = Width Tabs
 w_mbar = Width Middle Bar
-h_banner = Height Banner
 h_menu = Height Menu
 outline = Outline color
 
@@ -22,7 +21,6 @@ w_body = Breite Textausgabe
 w_toc = Breite Inhaltsverz.
 w_tabs = Breite Tabs
 w_mbar = Breite Mittelsteg
-h_banner = Höhe Banner
 h_menu = Höhe Menü
 outline = Linienfarbe
 
@@ -32,7 +30,6 @@ F_BODY = 12pt
 F_SIZE = 12pt
 
 [panels]
-H_BANNER = 165px
 H_MENU = 36px
 
 W_TABS = 45px

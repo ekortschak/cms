@@ -14,7 +14,8 @@ Handles button
 incCls("input/button.php");
 
 $btn = new button();
-$btn->show($button_name);
+$btn->read($ini);
+$btn->show();
 
 */
 

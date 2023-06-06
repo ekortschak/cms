@@ -15,8 +15,9 @@ $sek = CFG::mod("tabs.search", 1);
 $nav = new tabs();
 
 switch (VMODE) {
-	case "search": $nav->copy("return", "search"); break;
-	case "tedit":  $nav->copy("tview",  "tedit");  break;
+	case "search": $nav->copy("search.return", "search"); break;
+	case "tedit":  $nav->copy("return", "tedit");  break;
+	case "opts":   $nav->copy("return", "opts");   break;
 }
 if (! $sek) $nav->clearSec("search");
 if (! $edt) $nav->clearSec("tedit");

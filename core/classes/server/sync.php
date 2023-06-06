@@ -86,7 +86,7 @@ protected function srcName($fso)  {
 	if (STR::begins($fso, $this->srcPath)) return $fso;
 	return FSO::join($this->srcPath, $fso);
 }
-protected function dstName($fso, $act = false) {
+protected function trgName($fso, $act = false) {
 	if (STR::begins($fso, $this->trgPath)) return $fso;
 	return FSO::join($this->trgPath, $fso);
 }
@@ -160,7 +160,7 @@ TMR::punch("exec.done");
 // **********************************************************
 protected function manage($act, $fso) {
 	$src = $this->srcName($fso, $act);
-	$dst = $this->dstName($fso, $act);
+	$dst = $this->trgName($fso, $act);
 
 	switch ($act) {
 		case "ren": return $this->do_ren($fso);
@@ -338,8 +338,8 @@ protected function chkAction($act, $fso) {
 // ***********************************************************
 protected function do_ren($fso) {
 	$prp = STR::slice($fso, "|"); if (count($prp) < 3) return false;
-	$old = $this->dstName($prp[2]);
-	$new = $this->dstName($prp[1]);
+	$old = $this->trgName($prp[2]);
+	$new = $this->trgName($prp[1]);
 
 	return (bool) FSO::rename($old, $new);
 }

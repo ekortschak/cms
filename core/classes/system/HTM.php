@@ -45,9 +45,9 @@ public static function button($lnk, $cap, $trg = "_self") {
 	return self::href($lnk, $btn, $trg);
 }
 
-public static function href($lnk, $cap, $trg = "_blank") {
-	if (! $trg) return "<a href='$lnk'>$cap</a>";
-	return "<a href='$lnk' target='trg'>$cap</a>";
+public static function icon($ico, $alt = "") {
+	$img = "LOC_ICO/$ico";
+	return "<img src='$img' alt='$alt'>";
 }
 
 public static function flag($lng) {
@@ -55,16 +55,15 @@ public static function flag($lng) {
 	return "<img src='$img' class='flag' alt='$lng'>";
 }
 
+public static function href($lnk, $cap, $trg = "_blank") {
+	if (! $trg) return "<a href='$lnk'>$cap</a>";
+	return "<a href='$lnk' target='trg'>$cap</a>";
+}
+
 
 public static function vspace($size) {
 	$siz = intval($size);
 	return "<div style='margin-top: ".$siz."px;'></div>";
-}
-
-public static function def($key, $val) {
-	$out = self::tag($key, "dt");
-	$out.= self::tag($val, "dd");
-	return $out;
 }
 
 // ***********************************************************

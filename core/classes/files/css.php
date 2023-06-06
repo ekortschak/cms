@@ -52,11 +52,11 @@ private function getCss() {
 	$css = "";
 
 	foreach ($arr as $file) {
-		$css.= APP::read($file);
+		$itm = APP::read($file);
+		$itm = $this->fix($itm);
+		$css.= $itm;
 	}
 #	$css = $this->compress($css);
-	$css = $this->cleanUrls($css, 'url("', '"');
-	$css = $this->cleanUrls($css, "url(",  ")");
 	return $css;
 }
 
@@ -77,11 +77,10 @@ private function saveRes($css) {
 	$arr = STR::find($css, 'url("', '"');
 
 	foreach ($arr as $res) {
-		$src = STR::after($res, CMS_URL);
-		$dst = FSO::join($this->dir, $src);
+		$dst = FSO::join($this->dir, $res);
 		$css = STR::replace($css, $res, $dst);
 
-		FSO::copy($src, $dst);
+		FSO::copy($res, $dst);
 	}
 	return $css;
 }
@@ -148,24 +147,36 @@ private function compress($css) {
 	$arr = str_split(":;,{()}-+"); // syntax chars
 
 	foreach ($arr as $chr) {
-		$css = str_replace("$chr ", $chr, $css);
-		$css = str_replace(" $chr", $chr, $css);
+		$css = STR::replace($css, "$chr ", $chr);
+		$css = STR::replace($css, " $chr", $chr);
 	}
-	$css = str_replace("'", '"', $css);
 	return trim($css);
 }
 
 // ***********************************************************
-// remove paths outside localhost
+// fix url issues
 // ***********************************************************
-private function cleanUrls($str, $sep1, $sep2) {
-	$arr = STR::find($str, $sep1, $sep2);
+private function fix($css) {
+	$css = $this->cleanUrls($css, 'url("', '"');
+	return $css;
+}
+
+private function cleanUrls($css, $sep1, $sep2) {
+	$css = STR::replace($css, "'", '"');
+	$arr = STR::find($css, $sep1, $sep2);
 
 	foreach ($arr as $fil) {
-		$ful = STR::clear($fil, APP_DIR);
-		$str = str_replace($fil, $ful, $str);
+		$ful = self::url($fil); if (! STR::begins($ful, "/cms"))
+		$ful = ltrim($ful, DIR_SEP);
+#echo "$ful\n";
+		$css = STR::replace($css, $fil, $ful);
 	}
-	return $str;
+	return $css;
+}
+
+private static function url($fso) {
+	if (STR::begins($fso, "LOC_")) return FSO::join(CMS_URL, $fso);
+	return APP::url($fso);
 }
 
 // ***********************************************************

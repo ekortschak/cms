@@ -1,6 +1,8 @@
 <?php
 
 incCls("menus/dropDate.php");
+incCls("input/button.php");
+incCls("editor/iniWriter.php");
 
 // ***********************************************************
 $box = new dropDate();
@@ -9,29 +11,24 @@ $xxx = $box->show();
 
 // ***********************************************************
 $dir = FSO::join(TAB_HOME, $dat);
-dbg($dir, "dir");
+$xxx = ENV::setPage($dir);
 
-#$yir = ENV::get("pick.date.year");
-#$mon = ENV::get("pick.date.mon");
-#$day = substr($dat, 8, 2);
+if (is_dir($dir)) return;
 
-#$old = $yir."_".$mon."_".$day;
+// ***********************************************************
+if (ENV::getParm("diary.act") == "add") {
+	$cms = rtrim(APP_FBK, DIR_SEP);
 
-#$src = FSO::join(TAB_HOME, $yir, $mon, $old);
+	FSO::copyDir("$cms/design/setup/diary", $dir);
 
-#if (is_dir($src))
-#FSO::mvDir($src, $dir);
+	$ini = new iniWriter();
+	$ini->read($dir);
+	$ini->set("props.uid", $dat);
+	$ini->save();
 
+	return;
+}
 
-
-ENV::setPage($dir);
-
-#$yrs = FSO::folders(TAB_HOME);
-#$yrs = VEC::sort($yrs, "krsort");
-#$yir = $box->getKey("year", $yrs);
-
-#$mns = FSO::folders($yir);
-#$mns = VEC::sort($mns, "krsort");
-#$mon = $box->getKey("month", $mns);
+HTW::href("?diary.act=add", "Create page", "_self");
 
 ?>

@@ -3,8 +3,8 @@
 /* ******************************************************** */
 dbg, err, msg, code, php, .confirm {
 	z-index: 85;
-	color: FC_PAGE;
-	background: BC_PAGE;
+	color: FC_TOC;
+	background: BC_TBACK;
 
 	vertical-align: middle;
 	display: inline-block;

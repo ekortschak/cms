@@ -1,26 +1,48 @@
-@media only screen and (max-width: 1300px) {
+/* ********************************************************
+@media only screen and (orientation: landscape)
+@media only screen and (min-width: 600px)
 
-	html {
-		transform: scale(0.95);
-		transform-origin: top left;
-		height: calc(100% / 0.95);
+******************************************************** */
+
+@media only screen and (max-width: 1500px) {
+	.modToc  { width: 250px; }
+	.modOpts {
+		width: calc(100vw - W_TABS - 250px - W_MBAR - W_BODY - 10px);
 	}
-	.banner {  position: absolute; }
-	.modmenu { position: absolute; }
 }
 
-@media only screen and (max-width: 1275px) {
-	html { transform: scale(0.85); height: calc(100% / 0.85); }
-}
-@media only screen and (max-width: 1175px) {
-	html { transform: scale(0.78); height: calc(100% / 0.78); }
-}
-@media only screen and (max-width: 950px) {
-	html { transform: scale(0.70); height: calc(100% / 0.70); }
-	html { transform: scale(1); height: 100%; }
-	.micon { display: block; }
-#	.modToc { width: calc(W_BODY - 200px); max-width: 75%; border-right: 1px solid OUTLINE; }
+@media only screen and (max-width: 1350px) {
+	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
-#	.modBody { left: W_TABS; }
-#	.modOpts { left: calc(W_TABS + W_BODY); }
+	.modOpts {
+		width: calc(100vw - W_TABS - 250px - W_BODY - 10px);
+	}
+}
+
+@media only screen and (max-width: 1250px) {
+	.modBody { width: calc(W_BODY * 0.85); }
+	.modOpts {
+		width: calc(100vw - W_TABS - 250px - W_BODY * 0.85 - 10px);
+	}
+}
+
+@media only screen and (min-width: 1100px) {
+	.joker { display: none; }
+}
+
+@media only screen and (max-width: 1100px) {
+	[class^="mod"] {
+		position: absolute;
+		height:   calc(100vh - 25px);
+		width:    100vw;
+		left:     0px;
+		top:      25px;
+	}
+
+	.modTabs { display: none; }
+	.modBord { display: none; }
+
+	.modBody { z-index: 5; }
+
+	.joker { display: block; }
 }

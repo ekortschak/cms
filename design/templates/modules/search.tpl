@@ -28,11 +28,7 @@ result =
 # ***********************************************************
 [main]
 # ***********************************************************
-<!SEC:nav.toc!>
-
-<div style="margin: -15px 0px 12px;">
-	<h3><!DIC:search!></h3>
-</div>
+<!SEC:heading!>
 
 <form method="post" action="?">
 <!SEC:oid!>
@@ -48,6 +44,13 @@ result =
 <h4><!DIC:result!></h4>
 <!VAR:result!>
 
+# ***********************************************************
+[heading]
+# ***********************************************************
+<div class="flex">
+	<div><h3  class="top"><!DIC:search!></h3></div>
+	<div><!SEC:nav.toc!></div>
+</div>
 
 # ***********************************************************
 [result]
@@ -55,9 +58,7 @@ result =
 <!VAR:items!>
 
 [nav.toc]
-<div style="float: right;">
-	<a href="?vmode=view"><button class="icon"><img src="LOC_ICO/buttons/view.png" align="right" /></button></a>
-</div>
+<a href="?vmode=view"><button class="icon"><img src="LOC_ICO/buttons/view.png" align="right" /></a>
 
 [topic]
 <div style="white-space: nowrap;"><h5><!VAR:topic!></h5></div>

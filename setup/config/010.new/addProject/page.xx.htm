@@ -6,77 +6,26 @@ incCls("editor/cmsSetup.php");
 // ***********************************************************
 $sel = new selector();
 $prj = $sel->input("prj.new", "new_project");
+$tpc = $sel->input("prj.home", "home");
 $act = $sel->show();
 
-// ***********************************************************
-// define dirs
-// ***********************************************************
-$app = rtrim(APP_DIR, DIR_SEP);
-$cms = rtrim(APP_FBK, DIR_SEP);
-$top = dirname($app);
-
-$dir = FSO::join($top, $prj);
-$pgs = FSO::join($dir, "pages");
-$hme = FSO::join($pgs, "home");
-$fst = FSO::join($hme, "1stpage");
-
-$url = STR::after($dir, SRV_ROOT);
-$url.= "?vmode=view";
+if (! $act) return;
 
 // ***********************************************************
 // To go or not to go
 // ***********************************************************
-if ($prj == "new_project") $prj = false;
-
-if (! $prj) {
+if ($prj == "new_project") {
 	return MSG::now("prj.specify");
 }
-if (is_dir($dir)) {
-	MSG::now("prj.exists");
-	echo "<a href='$url' target='newprj'>Show project</a>";
-#	return;
-}
-
-if (! $act) return;
-
-FSO::force($dir);
-FSO::force($pgs);
-FSO::force($hme);
 
 // ***********************************************************
-// copy files from CMS
+// create project
 // ***********************************************************
-FSO::copy("$cms/index.php",  "$dir/index.php");
-FSO::copy("$cms/config.php", "$dir/config.php");
-FSO::copy("$cms/x.edit.php", "$dir/x.edit.php");
-FSO::copy("$cms/x.sync.php", "$dir/x.sync.php");
-FSO::copy("$cms/x.css.php",  "$dir/x.css.php");
-FSO::copy("$cms/robots.txt", "$dir/robots.txt");
+$top = dirname(APP_DIR);
+$dir = FSO::join($top, $prj);
 
-FSO::copyDir("$cms/design/setup/config", $dir);
-
-// ***********************************************************
-// modify config.ini
-// ***********************************************************
-$obj = new cmsSetup();
-$obj->reconfig("$dir/config/config.ini", $prj);
-
-// ***********************************************************
-// create first page (= howto)
-// ***********************************************************
-APP::write("$hme/tab.ini",  $obj->getTabIni($prj));
-APP::write("$hme/page.ini", $obj->getIni("home"));
-
-$tpl = "$cms/design/setup";
-
-FSO::copy("$tpl/first.ini",   "$fst/page.ini");
-FSO::copy("$tpl/page.de.htm", "$fst/page.de.htm");
-FSO::copy("$tpl/page.xx.htm", "$fst/page.xx.htm");
-
-// ***********************************************************
-// offer links
-// ***********************************************************
-echo "<a href='$url' target='newprj'>Show project</a>";
+$obj = new cmsSetup($dir);
+$obj->addProj($dir, $prj, $tpc);
 
 ?>
 

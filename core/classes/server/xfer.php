@@ -99,7 +99,7 @@ private function getEntry($fso, $root) {
 	$dir = FSO::norm($root);
 	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 
-	if (  is_dir($fso))  return "d;1;;$itm;1\n";
+	if (  is_dir ($fso)) return "d;1;;$itm;1\n";
 	if (! is_file($fso)) return "";
 
 	$dat = filemtime($fso); if (filesize($fso) < 1) $dat = 0;

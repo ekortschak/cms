@@ -10,7 +10,6 @@ options  = Options
 cur.pic  = Current Image
 no.file  = No pic available
 cur.file = Location
-preview  = Preview
 
 [dic.de]
 new.tab  = Tab hinzufügen
@@ -24,7 +23,6 @@ options  = Optionen
 cur.pic  = Aktuelles Bild
 no.file  = Keine Bilder vorhanden
 cur.file = Dateiname
-preview  = Vorschau
 
 
 # ***********************************************************

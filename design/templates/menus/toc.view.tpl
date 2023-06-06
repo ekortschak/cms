@@ -26,7 +26,7 @@ grey =
 #<a href="javascript:load('<!VAR:plink!>');"><!VAR:title!></a>
 
 [qid]
-id="q[<!VAR:index!>]" name="q_<!VAR:index!>""
+id="q[<!VAR:index!>]"
 
 [cls]
 lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>

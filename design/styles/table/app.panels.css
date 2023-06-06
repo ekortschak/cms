@@ -21,7 +21,7 @@ body {
 	border: 0px;
 }
 body.print {
-	max-width: 950px;
+	max-width: 950px; /* A4 */
 	margin: 25px 20px 35px;
 }
 
@@ -31,9 +31,8 @@ body.print {
 .modTabs {
 	overflow: hidden;
 	color: FC_TABS;
-	background: BC_TABS url("CMS_URL/img/tabs/pborder.png") repeat-y right;
-	min-width: W_TABS;
-	max-width: W_TABS;
+	background: BC_TABS url("LOC_IMG/tabs/pborder.png") repeat-y right;
+	width: W_TABS;
 	padding: 7px 0px 20px;
 }
 
@@ -41,31 +40,29 @@ body.print {
 	overflow: auto;
 	color: FC_TOC;
 	background: BC_TOC;
-	min-width: W_TOC;
-	max-width: W_TOC;
+	width: W_TOC;
 	padding: 15px 15px 35px;
 }
 
 .modMbar {
 	overflow: hidden;
-	background: url("CMS_URL/img/mbar/spirals.png") repeat-y;
-	min-width: W_MBAR;
-	max-width: W_MBAR;
+	background: url("LOC_IMG/mbar/spirals.png") repeat-y;
+	width: W_MBAR;
 }
 
 .modBody {
 	font-size: F_BODY;
 	color: FC_BODY;
-	background: BC_BODY;
-	min-width: W_BODY;
-	max-width: W_BODY;
+	width: W_BODY;
 	padding: 15px 15px 35px;
+
+	background: BC_BODY url("LOC_IMG/opts/pborder.png") repeat-y right;
 }
 .modOpts {
 	overflow: auto;
 	color: FC_OPTS;
-	background: BC_OPTS url("CMS_URL/img/opts/pborder.png") repeat-y;
+	background: BC_OPTS;
 
-	width: 100%;
+	width: calc(100% - W_TABS - W_MBAR - W_BODY);
 	padding: 0px 25px 15px 35px;
 }

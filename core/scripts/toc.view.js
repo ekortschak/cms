@@ -1,4 +1,3 @@
-
 function load(ref) {
 	obj = document.getElementById("scView");
 	url = "?pge=" + ref;
@@ -30,16 +29,11 @@ function toggleDiv(pfx, qid) {
     }
 
     do { qid++;
-		nam = pfx + '_' + qid;
-		cur = document.getElementsByName(nam);
-		cur = cur[0];
-
-		if (typeof cur !== "object") break;
+		fnd = pfx + "[" + qid + "]";
+		cur = document.getElementById(fnd); if (typeof cur !== "object") break;
 
 		cls = cur.className;
-		lev = getLevel(cls);
-
-		if (lev <= vgl) break;
+		lev = getLevel(cls); if (lev <= vgl) break;
 
      // whether closed or opened: subfolders will always be shown as closed
 		cur.style = "background-position-y: top;";

@@ -12,6 +12,7 @@ CFG::set("EDITOR",     "default");
 CFG::set("LANGUAGES",  "en");
 CFG::set("GEN_LANG",   "en");
 CFG::set("DATE_FMT",   "Y/m/d");
+
 CFG::set("TIMEZONE",   NET::geoTime());
 
 // security

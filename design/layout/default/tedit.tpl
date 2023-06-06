@@ -11,7 +11,7 @@ vtabs = Registerkarten (Tabs)
 [toc.de] <!-- toc.tedit -->
 # ***********************************************************
 <div class="container conToc">
-<h3>Tabs</h3>
+<h3 class="top">Tabs</h3>
 <h4>Anleitung</h4>
 <ul>
 <li>Tab auswählen</li>

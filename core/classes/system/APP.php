@@ -129,6 +129,14 @@ public static function file($file) { // find file in extended fs
 	return false;
 }
 
+public static function url($fso) {
+	$ful = self::file($fso);
+	$ful = STR::clear($ful, APP_DIR);
+	$ful = STR::replace($ful, APP_FBK, CMS_URL);
+	$ful = STR::clear($ful, SRV_ROOT);
+	return $ful;
+}
+
 // ***********************************************************
 public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 	$fil = self::file($dir); if ($fil) return $fil;
@@ -189,10 +197,7 @@ public static function gcFile($fil) {
 // ***********************************************************
 public static function read($file) { // read any text
 	$ful = self::file($file); if (! $ful) return "";
-	$out = file_get_contents($ful);
-	$out = STR::replace($out, "\r", "");
-#	$out = STR::replace($out, "\n", "\r\n");
-	return $out;
+	return file_get_contents($ful);
 }
 
 public static function append($file, $data) {

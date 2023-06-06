@@ -78,9 +78,6 @@ public static function href($lnk, $cap, $trg = "") {
 public static function vspace($size) {
 	echo HTM::vspace($size);
 }
-public static function def($key, $val) {
-	echo HTM::def($key, $val);
-}
 
 // ***********************************************************
 // images
