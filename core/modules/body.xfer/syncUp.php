@@ -15,4 +15,3 @@ $snc = new syncUp("config/ftp.ini");
 $snc->publish();
 
 ?>
-

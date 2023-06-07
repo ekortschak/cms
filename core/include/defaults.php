@@ -17,8 +17,6 @@ CFG::set("TIMEZONE",   NET::geoTime());
 
 // security
 CFG::set("WWW_USER",   "www-data");
-CFG::set("SECRET",     "anystring");
-
 CFG::set("TIMEOUT",    15);
 
 // database

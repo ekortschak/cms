@@ -175,8 +175,13 @@ private function cleanUrls($css, $sep1, $sep2) {
 }
 
 private static function url($fso) {
-	if (STR::begins($fso, "LOC_")) return FSO::join(CMS_URL, $fso);
-	return APP::url($fso);
+	$fil = APP::file($fso);
+
+	if (STR::begins($fil, APP_FBK)) {
+		$out = STR::replace($fil, APP_FBK, CMS_URL);
+		return STR::clear($out, SRV_ROOT);
+	}
+	return APP::relPath($fil);
 }
 
 // ***********************************************************

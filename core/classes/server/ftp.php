@@ -8,7 +8,6 @@ used for uploading files to server via ftp
 // HOW TO USE
 // ***********************************************************
 $ftp = new ftp();
-$ftp->merge($prp); if (! $ftp->test()) return;
 
 $ftp->connect();
 $ftp->remote_mkdir($dir);
@@ -142,6 +141,21 @@ public function save($src, $dst) {
 	return $erg;
 }
 
+// ***********************************************************
+// testing settings
+// ***********************************************************
+public function test() {
+	$con = $this->connect(); $this->disconnect();
+	$sts = ($con) ? BOOL_YES : BOOL_NO;
+
+	$rst = ENV::getParm("ftp"); if ($rst == "reset") ENV::set("xfer", NV);
+
+	$tpl = new tpl();
+	$tpl->load("msgs/ftp.tpl");
+	$tpl->set("inifile", $this->get("inifile"));
+	$tpl->set("ftpstate", $sts);
+	$tpl->show("test.rep");
+}
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

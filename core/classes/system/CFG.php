@@ -95,20 +95,11 @@ public static function readCss() {
 // ***********************************************************
 public static function read($file) {
 	$fil = self::insert($file); // resolve constants in file names
-	$fil = APP::file($fil);
+	$fil = APP::file($fil); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
-
-	if (! $fil) {
-		if (! stripos($file, "config.ini")) return;
-		die("Config file '$file' not found!");
-	};
 
 	self::load($fil); if (! IS_LOCAL)
 	self::load($srv);
-
-	foreach (self::$vls as $key => $val) {
-		self::set($key, $val);
-	}
 }
 
 // ***********************************************************
@@ -130,8 +121,8 @@ private static function load($fil) {
 		if ($key != strtoupper($key)) { // no valid constant name
 			self::setVal($idx, "$sec.$key", $val);
 		}
-		else {
-			self::$vls[$key] = self::insert($val);
+		else { // valid constant definition
+			self::set($key, $val);
 		}
 	}
 }
@@ -141,10 +132,12 @@ private static function load($fil) {
 // ***********************************************************
 public static function set($key, $value) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
-	$val = trim($value); self::$dat[$key] = $val;
+	$val = trim(self::insert($value));
 
 	if ($val === "false") $val = false;
 	if ($val === "true")  $val = true;
+
+	self::$dat[$key] = $val;
 	define($key, $val);
 }
 
@@ -203,7 +196,6 @@ public static function getConsts($sec = "user") {
 	$out["DB_FILE"]  = "*****"; // hide critical info
 	$out["DB_PASS"]  = "*****";
 	$out["CUR_PASS"] = "*****";
-	$out["SECRET"]   = "*****";
 
 	return $out;
 }

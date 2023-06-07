@@ -11,7 +11,6 @@ debugging = Debugging
 languages = Languages
 gen_lang = Fallback language
 colors = Colors
-secret = Encryption key
 timeout = Timeout
 www_user = Local user
 cms_url = CMS-Url
@@ -30,7 +29,6 @@ debugging = Fehlersuche
 languages = Sprachen
 gen_lang = Ersatzsprache
 colors = Farben
-secret = Schlüssel
 timeout = Timeout
 www_user = Lokaler Benutzer
 cms_url = CMS-Url
@@ -49,7 +47,6 @@ COLORS = inifile:LOC_CLR
 EDITOR = default|ck4|ck5
 
 [security]
-SECRET = anystring
 TIMEOUT = range: 15-180
 
 [environment]

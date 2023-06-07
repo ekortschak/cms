@@ -56,11 +56,6 @@ private static function chkUser($grp, $usr, $pwd) {
 	return ($chk == $pwd);
 }
 
-public static function md5($grp, $usr) {
-	$pwd = VEC::get(self::$dat, "$grp.$usr"); if (! $pwd) return false;
-	return md5(SECRET.".$grp.$usr.$pwd");
-}
-
 // ***********************************************************
 // reading config files
 // ***********************************************************

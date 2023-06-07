@@ -7,6 +7,7 @@ incCls("server/ftp.php");
 // read and write data
 // ***********************************************************
 $mgr = new iniMgr("ftp.def");
+$mgr->read("config/ftp.ini");
 $mgr->setScope(false);
 $mgr->edit("config/ftp.ini");
 

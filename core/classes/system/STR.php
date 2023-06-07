@@ -207,7 +207,7 @@ public static function trim($text, $chars = "") {
 // ***********************************************************
 // replacing substrings
 // ***********************************************************
-public static function replace($haystack, $find, $rep, $case = true) {
+public static function replace($haystack, $find, $rep = "", $case = true) {
 	if ($case)
 	return str_replace ($find, $rep, $haystack);
 	return str_ireplace($find, $rep, $haystack);
