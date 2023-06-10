@@ -5,12 +5,12 @@
 /* ******************************************************** */
 html {
 	background: BC_BODY;
-	height: 100%;
+	height: 100vh;
 }
 
 body {
 	position: relative;
-	height: 100%;
+	height: 100vh;
 
 	font: F_SIZE normal normal Arial, DejaVu Sans;
 	color: FC_BODY;
@@ -63,6 +63,6 @@ body.print {
 	color: FC_OPTS;
 	background: BC_OPTS;
 
-	width: calc(100% - W_TABS - W_MBAR - W_BODY);
+	width: calc(100vw - W_TABS - W_MBAR - W_BODY);
 	padding: 0px 25px 15px 35px;
 }

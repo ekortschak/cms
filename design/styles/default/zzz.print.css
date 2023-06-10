@@ -12,7 +12,7 @@
 body.print {
 	margin: 0px;
 	padding: 25px 20px 35px;
-	width: calc(100% - 40px);
+	width: calc(100vw - 40px);
 }
 
 h1, h2 {

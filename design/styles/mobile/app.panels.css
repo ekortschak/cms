@@ -18,8 +18,9 @@
 	background-image: url("img/banner.png");
 	background-size: cover;
 
-	height: H_MENU;
-	width:  100%;
+	height:     H_MENU;
+	width:      W_BODY;
+	min-width:  320px;
 
 	overflow: visible;
 	border: 0px solid navy;
@@ -28,10 +29,11 @@
 }
 
 .modBody {
-	float:    top;
-	overflow: auto;
-	height:   calc(100vh - H_MENU);
-	width:    100%;
+	float:      top;
+	overflow:   auto;
+	height:     calc(100vh - H_MENU);
+	width:      W_BODY;
+	min-width:  320px;
 
 	background: BC_BODY;
 }
@@ -41,7 +43,8 @@
 	display:    none;
 	padding:    0px 15px;
 	height:     25px;
-	width:      100vw;
+	min-width:  320px;
+	width:      W_BODY;
 	background: BC_TABS;
 }
 
@@ -50,7 +53,6 @@
 /* ******************************************************** */
 .modTabs {
 	float:      left;
-	width:      W_TABS;
 	height:     100vh;
 	background: BC_PAGE url("LOC_IMG/tabs/pborder.png") repeat-y right;
 }
@@ -65,7 +67,14 @@
 .modOpts {
 	float:    left;
 	height:   100vh;
-	width:    calc(100vw - W_TABS - W_BODY - 10px);
 	left:     calc(W_TABS + W_BODY);
+	width:    calc(100vw - W_TABS - W_BODY - 10px);
 	top:      0px;
+}
+
+/* ******************************************************** */
+/* horizontal panels */
+/* ******************************************************** */
+.topMenu {
+	background: transparent;
 }

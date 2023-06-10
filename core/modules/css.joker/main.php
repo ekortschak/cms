@@ -32,7 +32,7 @@ switch (LAYOUT) {
 $tpl = new tpl();
 $tpl->load("modules/css.joker.tpl");
 $tpl->set("topics", $tbs); if (! $lyt)
-$tpl->clearSec("grp1");
+$tpl->clearSec("menu");
 $tpl->show();
 
 ?>

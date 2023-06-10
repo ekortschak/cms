@@ -57,7 +57,7 @@ public function gc($sec = "main") {
 		$box = "edit";
 
 		$this->set("class", $this->getClass($inf["fpath"]));
-		$this->set("entry", $sub);
+		$this->set("subitems", $sub);
 
 		$its.= $this->getItem($box, $inf);
 	}
@@ -72,7 +72,7 @@ private function getEntries($top) {
 	$dat = VEC::get($this->dat, $top); if (! $dat) return "";
 	$out = "";
 	foreach ($dat as $key => $inf) {
-		$out.= $this->getItem("entry", $inf);
+		$out.= $this->getItem("subItem", $inf);
 	}
 	return $out;
 }

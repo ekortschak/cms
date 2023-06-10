@@ -98,8 +98,9 @@ public static function read($file) {
 	$fil = APP::file($fil); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
 
-	self::load($fil); if (! IS_LOCAL)
+	if (! IS_LOCAL)
 	self::load($srv);
+	self::load($fil);
 }
 
 // ***********************************************************

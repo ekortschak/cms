@@ -38,7 +38,7 @@ placeholder =
 # ***********************************************************
 [ctarea]
 # ***********************************************************
-<textarea id="content" name="content" class="max" rows="<!VAR:rows!>" _
+<textarea id="content" name="content" class="max"
 placeholder="<!VAR:placeholder!>" tabindex=0 _
 autocomplete="off" autocorrect="off" autocapitalize="off" _
 spellcheck="false"><!VAR:content!></textarea>

@@ -124,7 +124,7 @@ public function getStmt($stmt = "sel.all") { // $stmt => section.key
 	return $sql;
 }
 
-protected function chkSql($sql) {
+protected function chkStmt($sql) {
 	if (STR::contains($sql, "dbobjs")) return $sql;
 
 	$out = $sql;

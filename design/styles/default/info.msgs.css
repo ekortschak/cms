@@ -8,7 +8,7 @@ dbg, err, msg, code, php, .confirm {
 
 	vertical-align: middle;
 	display: inline-block;
-	max-width: W_BODY;
+	max-width: 100%;
 
 	border: 1px solid OUTLINE;
 	border-radius: 10px;

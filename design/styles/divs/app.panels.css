@@ -19,7 +19,7 @@
 	background-size: cover;
 
 	height: H_MENU;
-	width:  100%;
+	width:  100vw;
 
 	overflow: visible;
 	border: 0px solid navy;
@@ -31,7 +31,7 @@
 	float:    top;
 	overflow: auto;
 	height:   calc(100vh - H_MENU);
-	width:    100%;
+	width:    W_BODY;
 
 	background: BC_BODY;
 }

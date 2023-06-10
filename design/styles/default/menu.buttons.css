@@ -33,8 +33,8 @@
 /* buttons in toolbars*/
 /* ******************************************************** */
 button.icon {
-	min-height: 25px;
-	min-width: 30px;
+	min-height: H_LINE;
+	min-width: W_MIN;
 	padding: 0px 7px;
 }
 button.rose, .rose {

@@ -30,7 +30,7 @@
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	padding: 3px 7px;
 
-	max-height: 375px;
+	max-height: 50vh;
 	min-width: 160px;
 	overflow: auto;
 	overscroll-behavior: none;

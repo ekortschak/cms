@@ -26,9 +26,10 @@ target = _self
 </a>
 
 [button.tip]
-<div class="dropdown"><!SEC:button!>
-<div class="dropbody"><!VAR:tip!></div>
-</div>
+<!SEC:button!>
+#<div class="dropdown"><!SEC:button!>
+#<div class="dropbody"><!VAR:tip!></div>
+#</div>
 
 [pic]
 <img src="<!VAR:pic!>" />

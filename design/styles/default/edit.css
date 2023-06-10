@@ -25,19 +25,15 @@
 /* ******************************************************** */
 /* preview window and frame */
 /* ******************************************************** */
-.cold {
+.cold, .hot {
 	overflow: auto;
 	border: 1px solid OUTLINE;
 	border-radius: 15px;
 	padding: 7px 15px 25px;
 	min-height: 25px;
-	max-height: 500px;
+	max-height: 75vh;
 }
+
 .hot {
-	overflow: auto;
 	border: 1px solid red;
-	border-radius: 15px;
-	padding: 7px 15px 25px;
-	min-height: 25px;
-	max-height: 500px;
 }

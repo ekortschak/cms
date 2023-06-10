@@ -23,7 +23,7 @@ sep = &emsp;
 [input.one]
 # ***********************************************************
 <input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>">
-<div class="ronly"><!VAR:option!></div>
+<label class="ronly"><!VAR:option!></label>
 
 
 # ***********************************************************
@@ -41,4 +41,4 @@ sep = &emsp;
 <small><!VAR:min!> - <!VAR:max!></small>
 
 [empty]
-<div class="ronly">No data ...</div>
+<label class="ronly">No data ...</label>

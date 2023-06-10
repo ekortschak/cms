@@ -31,11 +31,13 @@ F_SIZE = 12pt
 
 [panels]
 H_MENU = 36px
+H_LINE = 1.5em
 
 W_TABS = 45px
 W_TOC = 300px
 W_MBAR = 70px
 W_BODY = 695px
+W_MIN  = 30px
 
 [borders]
 OUTLINE = \#AAA

@@ -2,7 +2,7 @@
 # ***********************************************************
 [main]
 # ***********************************************************
-<div class="topMenu flexleft">
+<div class="topMenu">
 <!VAR:items!>
 </div>
 
@@ -11,23 +11,28 @@
 # ***********************************************************
 <div class="topItem">
 	<div class="topText <!VAR:class!>"><!VAR:text!></div>
-	<div class="topList"><!VAR:entry!></div>
+	<div class="topList"><!VAR:subitems!></div>
 </div>
 
 [edit]
 <div class="topItem">
-	<div class="topText <!VAR:class!>"><a href="?pge=<!VAR:link!>"><!VAR:text!></a></div>
-	<div class="topList"><!VAR:entry!></div>
+	<!SEC:topItem!>
+	<div class="topList"><!VAR:subitems!></div>
 </div>
 
 # ***********************************************************
 [empty]
 # ***********************************************************
 <div class="topItem">
-	<div class="topText <!VAR:class!>"><a href="?pge=<!VAR:link!>"><!VAR:text!></a></div>
+	<!SEC:topItem!>
 </div>
 
 # ***********************************************************
-[entry]
+[topItem]
+# ***********************************************************
+<div class="topText <!VAR:class!>"><a href="?pge=<!VAR:link!>"><!VAR:text!></a></div>
+
+# ***********************************************************
+[subItem]
 # ***********************************************************
 	<a href="?pge=<!VAR:link!>"><!VAR:text!></a>

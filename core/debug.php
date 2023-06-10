@@ -14,11 +14,11 @@ include_once "core/include/load.min.php";
 include_once "core/include/load.more.php";
 
 // ***********************************************************
-#if (! IS_LOCAL) die("Thanks for stopping by ...");
-#requireAdmin();
+if (! IS_LOCAL) die("Thanks for stopping by ...");
+requireAdmin();
 
 // ***********************************************************
-# incFnc("pagemaker.php");
+ incFnc("pagemaker.php");
 
 ?>
 <hr>

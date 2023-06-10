@@ -104,7 +104,7 @@ public function getRecs($stmt = "sel.sel", $mds = "a") {
 
 	$xxx = $this->setLimit(99);
 	$sql = $this->getStmt($stmt); if (! $sql) return array();
-	$sql = $this->chkSql($sql);
+	$sql = $this->chkStmt($sql);
 
 	return $this->dbo->fetch($sql, $mds);
 }
@@ -114,7 +114,7 @@ public function get1st($stmt = "sel.sel", $mds = "a") {
 
 	$xxx = $this->setLimit(1);
     $sql = $this->getStmt($stmt); if (! $sql) return array();
-	$sql = $this->chkSql($sql);
+	$sql = $this->chkStmt($sql);
 
 	return $this->dbo->fetch1st($sql, $mds);
 }

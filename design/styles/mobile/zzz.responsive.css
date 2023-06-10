@@ -1,28 +1,21 @@
-/* ********************************************************
-@media only screen and (orientation: landscape)
-@media only screen and (min-width: 600px)
 
-******************************************************** */
+@media only screen and (max-width: 1000px) {
+	.horMenu, .colMain, .modBody { width:   100%; }
+	.modTabs, .modBord, .modOpts { display: none; }
 
-@media only screen and (max-width: 900px) {
-	.colMain { width: calc(W_BODY * 0.85); }
-	.modOpts {
-		width: calc(100vw - W_TABS - W_BODY * 0.85 - 10px);
+	.joker {
+		width:     100%;
+		max-width: 100%;
+ 		display:   block;
 	}
 }
 
-@media only screen and (max-width: 830px) {
-	.colMain { width: calc(W_BODY * 0.75); }
-	.modOpts {
-		width: calc(100vw - W_TABS - W_BODY * 0.75 - 10px);
+@media only screen and (orientation: portrait) and (min-width: 1001px) {
+	body {
+#		font-size: 2em;
+#		background: orange;
+#		transform: scale(2);
 	}
+
 }
 
-@media only screen and (max-width: 750px) {
-	.colMain { width: 100vw; }
-	.modTabs { display: none; }
-	.modBord { display: none; }
-	.modOpts { display: none; }
-
-	.joker { display: block; }
-}

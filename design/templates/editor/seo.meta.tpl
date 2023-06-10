@@ -11,8 +11,6 @@ ed.dsc = Meta-Beschreibung
 
 [vars]
 sep = ,
-cols = 83
-rows = 4
 
 # ***********************************************************
 [main]
@@ -34,8 +32,8 @@ rows = 4
 <!SEC:oid!>
 
 	<div class="flex">
-	<textarea id="content" name="data" cols=<!VAR:cols!> rows=<!VAR:rows!> spellcheck="false" placeholder="<!VAR:what!>"><!VAR:data!></textarea>
-	<input type="submit" name="meta.act" value="OK" style="height:75px; padding: 0px 7px;">
+	<textarea id="content" name="data" class="toolbar" spellcheck="false" placeholder="<!VAR:what!>" style="background-color: white;"><!VAR:data!></textarea>
+	<input type="submit" name="meta.act" value="OK" style="height:7rem; padding: 0px 7px;">
 	</div>
 </form>
 

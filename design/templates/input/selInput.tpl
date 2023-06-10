@@ -11,8 +11,7 @@ select = Datei(en) wählen
 
 [vars]
 max = 15000
-cols = 50
-rows = 5
+rows = 4
 sep = <br>
 type = */*
 
@@ -70,14 +69,14 @@ type = */*
 # ***********************************************************
 [input.tar]
 # ***********************************************************
-<textarea name="<!VAR:fname!>" cols="<!VAR:cols!>" rows=<!VAR:rows!>
+<textarea name="<!VAR:fname!>" style="wdith: <!VAR:rows!>em;"
 	autocomplete="off" autocorrect="off" autocapitalize="off"
 	spellcheck="false"><!VAR:curVal!></textarea>
 
 # ***********************************************************
 [input.ron] # read only information
 # ***********************************************************
-<div class="ronly"><!VAR:curVal!></div>
+<label class="ronly"><!VAR:curVal!></kabek>
 <!SEC:info!>
 
 [input.inf] # any comment
@@ -97,15 +96,6 @@ type = */*
 <input type="checkbox" name="<!VAR:fname!>" value=1 id="<!VAR:fname!>" <!VAR:checked!> />
 <small style="position: absolute; top: 4px; display: inline-block;"><!VAR:choice!></small>
 </div>
-
-# ***********************************************************
-[input.chk.custom]
-# ***********************************************************
-<label class="cb">
-<input type="hidden"   name="<!VAR:fname!>" value=0 />
-<input type="checkbox" name="<!VAR:fname!>" value=1 id="<!VAR:fname!>" <!VAR:checked!> />
-<span class="checkmark">
-</label>
 
 # ***********************************************************
 [input.upl]

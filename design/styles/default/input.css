@@ -16,11 +16,10 @@ input, select, button, .dmbtn {
 	padding: 0px 5px;
 	overflow: auto;
 
-	height: 22px;
+	min-height: H_LINE;
 
 	color: FC_INPUT;
 	background: BC_INPUT;
-	font-size: 14px;
 	vertical-align: bottom;
 }
 
@@ -34,11 +33,9 @@ button {
 	background: linear-gradient(snow, lightgrey);
 	padding: 0px 15px;
 	cursor: pointer;
-	height: 24px;
 }
 
-input[type='button']
-{
+input[type='button'] {
 	background: linear-gradient(snow, lightgrey);
 	padding: 0px 15px;
 	cursor: pointer;
@@ -46,7 +43,7 @@ input[type='button']
 
 button {
 	padding: 0px 9px;
-	min-width: 40px;
+	min-width: W_MIN;
 }
 
 /* ******************************************************** */
@@ -59,7 +56,6 @@ input[type='file'] {}
 input[type='color'] { /* color input */
 	padding: 0px;
 	border: 0px;
-	height: 24px;
 }
 
 /* ******************************************************** */
@@ -67,58 +63,8 @@ input[type='color'] { /* color input */
 /* ******************************************************** */
 input[type='checkbox'],
 input[type='radio'] {
+	vertical-align: middle;
 	margin-right: 5px;
-}
-
-.cb {
-	display: block;
-	position: relative;
-	border: 0px;
-	border-radius: 5px;
-	padding-left: 30px;
-	height: 21px;
-
-	background: transparent;
-
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-.cb input {
-	position: absolute;
-	opacity: 0;
-	height: 0;
-	width: 0;
-}
-
-.checkmark {
-	position: absolute;
-	border: 1px solid OUTLINE;
-	border-radius: 5px;
-	top: 0;
-	left: 0;
-	height: 19px;
-	width: 50px;
-	background: BC_DROP;
-#	font-size: 0.8em;
-	text-align: center;
-}
-
-.checkmark:after {
-	color: black;
-	content: "no";
-}
-
-.container input:checked ~ .checkmark:after {
-	color: white;
-	content: "yes";
-}
-.cb input:checked ~ .checkmark {
-	border: 1px solid forestgreen;
-	background-color: forestgreen;
 }
 
 /* ******************************************************** */
@@ -127,7 +73,6 @@ input[type='radio'] {
 select {
 	background: BC_DROP url("LOC_ICO/input/combodown.png") no-repeat right;
 	min-width: 105px;
-	height: 24px;
 	cursor: pointer;
 
 	padding-right: 15px;
@@ -138,29 +83,29 @@ select {
 	-webkit-appearance: none;
 }
 
-option {
-	line-height: 14px;
-	max-height: 14px;
-	padding: 0px;
-}
-
 /* ******************************************************** */
 /* textareas  */
 /* ******************************************************** */
 textarea {
-	background: BC_BODY;
-	min-width: 350px;
-	min-height: 85px;
+	background-color: white;
+	min-width: 0.35vw;
+	min-height: 0.05vh;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 5px 2px 5px 7px;
 
+	width: 35rem;
+	height: 7rem;
+
 	overflow: auto;
 }
 
+textarea.toolbar {
+	width: calc(100% - 45px);
+	height: 7rem;
+}
+
 textarea.max {
-	display: block;
-	position: relative;
 	width: calc(100% - 10px);
 }
 
@@ -173,18 +118,4 @@ textarea.max {
 	padding: 0px 7px;
 	vertical-align: middle;
 	font-size: 0.85em;
-}
-
-.ronly { /* data */
-	border: 1px solid cadetblue;
-	border-radius: 5px;
-	padding: 0px 5px;
-
-	min-width: 150px;
-	min-height: 22px;
-	line-height: 22px;
-
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 0.9em;
 }

@@ -8,7 +8,6 @@
 	color: white;
 	text-align: right;
 	text-shadow: 1px 1px 1px black;
-	vertical-align: bottom;
 }
 
 </style>

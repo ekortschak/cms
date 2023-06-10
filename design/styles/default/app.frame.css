@@ -10,17 +10,17 @@
 html {
  	background: white;
 	height:     100vh;
+
+	font-family: Arial, sans-serif;
+	font-size:   F_SIZE;
+	font-weight: normal;
+	hyphens:     auto;
 }
 
 body {
 	overflow: auto;
 	position: relative;
 	height:   100vh;
-
-	font-family: Arial, sans-serif;
-	font-size:   F_SIZE;
-	font-weight: normal;
-	hyphens:     auto;
 
 	color:      FC_BODY;
 	background: BC_PAGE no-repeat right top;

@@ -9,7 +9,7 @@
 }
 
 .pre {
-	max-height: 150px;
+	max-height: 15rem;
 	overflow: auto;
 	font-family: monospace;
 	font-size: 0.75em;
