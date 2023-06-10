@@ -176,8 +176,6 @@ private function cleanUrls($css, $sep1, $sep2) {
 
 private static function url($fso) {
 	$fil = APP::file($fso);
-echo CMS_URL."\n";
-echo "$fil\n";
 
 	if (STR::begins($fil, APP_FBK)) {
 		$out = STR::replace($fil, APP_FBK, CMS_URL);

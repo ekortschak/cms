@@ -37,7 +37,7 @@ W_TABS = 45px
 W_TOC = 300px
 W_MBAR = 70px
 W_BODY = 695px
-W_MIN  = 30px
+W_MIN  = 250px
 
 [borders]
 OUTLINE = \#AAA

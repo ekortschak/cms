@@ -43,7 +43,7 @@ input[type='button'] {
 
 button {
 	padding: 0px 9px;
-	min-width: W_MIN;
+	min-width: 30px;
 }
 
 /* ******************************************************** */

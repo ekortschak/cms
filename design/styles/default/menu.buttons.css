@@ -34,7 +34,7 @@
 /* ******************************************************** */
 button.icon {
 	min-height: H_LINE;
-	min-width: W_MIN;
+	min-width: 30px;
 	padding: 0px 7px;
 }
 button.rose, .rose {

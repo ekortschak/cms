@@ -30,6 +30,7 @@
 
 .modBody {
 	width:      W_BODY;
+	min-width:  W_MIN;
 	font-size:  F_BODY;
 	color:      FC_BODY;
 	background: BC_BODY;

@@ -1,15 +1,17 @@
-
 @media only screen and (max-width: 1000px) {
-	.horMenu, .colMain, .modBody { width:   100%; }
-	.modTabs, .modBord, .modOpts { display: none; }
+	.modTabs, .modBord, .modOpts { width: 0px; min-width: 0px; display: none; }
+	.colMain, .modBody, .joker { width: 100vw; }
+
+	.modBody {
+#		background-color: orange;
+	}
 
 	.joker {
-		width:     100%;
-		max-width: 100%;
  		display:   block;
 	}
 }
 
+/*
 @media only screen and (orientation: portrait) and (min-width: 1001px) {
 	body {
 #		font-size: 2em;
@@ -18,4 +20,5 @@
 	}
 
 }
+*/
 

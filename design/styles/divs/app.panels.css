@@ -19,7 +19,7 @@
 	background-size: cover;
 
 	height: H_MENU;
-	width:  100vw;
+	width:  100%;
 
 	overflow: visible;
 	border: 0px solid navy;
@@ -42,7 +42,7 @@
 	display:    none;
 	padding:    0px 15px;
 	height:     25px;
-	width:      100vw;
+	width:      100%;
 	background: BC_TABS;
 }
 
