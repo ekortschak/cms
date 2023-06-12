@@ -17,6 +17,7 @@ input, select, button, .dmbtn {
 	overflow: auto;
 
 	min-height: H_LINE;
+	min-width: 3em;
 
 	color: FC_INPUT;
 	background: BC_INPUT;
@@ -31,19 +32,19 @@ input[type='reset'],
 input[type='button'],
 button {
 	background: linear-gradient(snow, lightgrey);
-	padding: 0px 15px;
+	padding: 0px 1em;
 	cursor: pointer;
 }
 
 input[type='button'] {
 	background: linear-gradient(snow, lightgrey);
-	padding: 0px 15px;
+	padding: 0px 1em;
 	cursor: pointer;
 }
 
 button {
-	padding: 0px 9px;
-	min-width: 30px;
+	padding: 0px 1em;
+	min-width: 3em;
 }
 
 /* ******************************************************** */
@@ -56,6 +57,7 @@ input[type='file'] {}
 input[type='color'] { /* color input */
 	padding: 0px;
 	border: 0px;
+	height: H_LINE;
 }
 
 /* ******************************************************** */
@@ -63,8 +65,8 @@ input[type='color'] { /* color input */
 /* ******************************************************** */
 input[type='checkbox'],
 input[type='radio'] {
-	vertical-align: middle;
-	margin-right: 5px;
+	margin-right: 0.5em;
+	min-width: 1em;
 }
 
 /* ******************************************************** */
@@ -72,10 +74,10 @@ input[type='radio'] {
 /* ******************************************************** */
 select {
 	background: BC_DROP url("LOC_ICO/input/combodown.png") no-repeat right;
-	min-width: 105px;
+	min-width: 0.2vw;
 	cursor: pointer;
 
-	padding-right: 15px;
+	padding: 3px 2em 3px 5px;
 	font-family: inherit;
 
 	appearance: none;
@@ -100,13 +102,8 @@ textarea {
 	overflow: auto;
 }
 
-textarea.toolbar {
-	width: calc(100% - 45px);
-	height: 7rem;
-}
-
 textarea.max {
-	width: calc(100% - 10px);
+	width: 100%;
 }
 
 /* ******************************************************** */

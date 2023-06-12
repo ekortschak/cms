@@ -58,7 +58,7 @@ result =
 <!VAR:items!>
 
 [nav.toc]
-<a href="?vmode=view"><button class="icon"><img src="LOC_ICO/buttons/view.png" align="right" /></a>
+<a href="?vmode=view"><button><img src="LOC_ICO/buttons/view.png" align="right" /></a>
 
 [topic]
 <div style="white-space: nowrap;"><h5><!VAR:topic!></h5></div>
@@ -75,12 +75,12 @@ result =
 [prv.goto]
 <div style="float: right;">
 	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
-		<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View"></button>
+		<button><img src="LOC_ICO/buttons/view.png" alt="View"></button>
 	</a>
 </div>
 <div style="float: right; margin-right: 5px;">
 	<a href="?search.reset=1">
-		<button class="icon">BOOL_NO</button>
+		<button>BOOL_NO</button>
 	</a>
 </div>
 

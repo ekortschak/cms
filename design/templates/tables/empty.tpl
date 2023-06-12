@@ -36,7 +36,7 @@ recNew = Neuen Datensatz anlegen
 <div style="padding: 0px 15px;">
 	<div class="dropdown">
 		<a href="?oid=<!VAR:oid!>&rec=-1">
-			<button class="icon"><img src="LOC_ICO/buttons/file.png" /></button>
+			<button><img src="LOC_ICO/buttons/file.png" /></button>
 		</a>
 		<div class="dropbody"><!DIC:recNew!></div>
 	</div>

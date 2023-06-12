@@ -70,7 +70,6 @@ public function read($btn) {
 	$this->set("target",  $this->get("props.trg"));
 	$this->set("caption", $this->lng("caption")); if ($tip)
 	$this->set("tip",     $this->lng("tooltip"));
-	$this->set("class",  "icon");
 }
 
 // ***********************************************************

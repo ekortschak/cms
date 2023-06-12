@@ -32,7 +32,8 @@ sep = ,
 <!SEC:oid!>
 
 	<div class="flex">
-	<textarea id="content" name="data" class="toolbar" spellcheck="false" placeholder="<!VAR:what!>" style="background-color: white;"><!VAR:data!></textarea>
+	<textarea id="content" name="data" spellcheck="false" placeholder="<!VAR:what!>" _
+		style="width: calc(100% - 45px); height: 7rem; background-color: white;"><!VAR:data!></textarea>
 	<input type="submit" name="meta.act" value="OK" style="height:7rem; padding: 0px 7px;">
 	</div>
 </form>

@@ -12,7 +12,7 @@ $dat = $ini->get("$lng.$wht");
 // show editor
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/seo.meta.tpl");
+$tpl->load("editor/edit.meta.tpl");
 $tpl->copy("hint.$wht", "hint");
 $tpl->set("oid",  $oid);
 $tpl->set("data", $dat);

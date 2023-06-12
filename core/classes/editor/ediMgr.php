@@ -37,13 +37,18 @@ function __construct($filesOnly = false) {
 // ***********************************************************
 // display
 // ***********************************************************
-public function edit($dir)   {
-	$old = $dir;
+public function edit($dir, $files = false)   {
+	$old = $ful = $dir;
 
 	$box = new dropBox("menu"); if (! $this->fonly)
-	$dir = $box->folders($dir); if (! $dir) $dir = $old;
-	$ful = $box->files($dir);
 
+	if (is_dir($dir)) {
+		$dir = $box->folders($dir); if (! $dir) $dir = $old;
+		$ful = $box->files($dir);
+	}
+	elseif ($files) {
+		$ful = $box->getKey("pic.file", $files, $dir);
+	}
 	$typ = $this->findType($ful);
 	$eds = $this->findList($typ);
 
@@ -82,7 +87,7 @@ private function findType($file) {
 	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
 	if (STR::contains(".ico.",         $ext)) return "pic";
 
-	if (STR::contains(".htm.", $ext)) {
+	if (STR::contains(".htm.html.", $ext)) {
 #		$htm = APP::read($file);
 #		if (STR::contains($htm, "<?php")) return "code";
 		return "html";
