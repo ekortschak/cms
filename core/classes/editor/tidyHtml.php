@@ -28,6 +28,7 @@ function __construct() {}
 // retrieving modified text
 // ***********************************************************
 public function get($htm) {
+#	return $htm;
 	$htm = $this->securePhp($htm);
 	$htm = $this->badTags($htm);
 	$arr = $this->prepare($htm);
@@ -40,9 +41,11 @@ public function get($htm) {
 // preparing html code for analysis
 // ***********************************************************
 private function prepare($txt) {
-	$sep = "¬¬¬";
-	$txt = PRG::replace($txt, "<([A-Za-z]+)\b", "$sep+|$1:<$1");
-	$txt = PRG::replace($txt, "</([A-Za-z]+)>", "$sep-|$1:");
+	$sep = "¬¬¬"; $lst = "[A-Za-z0-9]";
+	$txt = PRG::replace($txt,  "(\s+)", " ");
+	$txt = PRG::replace($txt,  "<($lst*?) ", "$sep+|$1:<$1 " ); // mark html tags
+	$txt = PRG::replace($txt,  "<($lst*?)>", "$sep+|$1:<$1>" ); // mark html tags
+	$txt = PRG::replace($txt, "</($lst*?)>", "$sep-|$1:");     // mark end tags
 	$txt = trim($txt);
 
 	if (! STR::begins($txt, $sep)) $txt = "$sep+p:<p>$txt";
@@ -68,20 +71,28 @@ private function analize($arr) {
 	$this->hst = array("@q@");
 
 	foreach ($arr as $itm) {
-		$act = STR::before( $itm, "|", false);      if (! $act) continue;
+		if (! $itm) continue;
+		$act = STR::before( $itm, "|",      false); if (! $act) continue;
 		$tag = STR::between($itm, "|", ":", false); if (! $tag) continue;
 		$txt = STR::after(  $itm,      ":", false);
 
 		$typ = $this->getType($tag);
 
 		if ($act == "+") {
-			if ($typ == "s") { $this->append($txt);       continue; }
-			if ($typ == "n") { $this->append($txt, $tag); continue; }
-			if ($typ == "p") { $this->doPgfs($txt, $tag); continue; }
-			$this->doFmts($txt, $tag); continue;
+			switch ($typ) {
+				case "s": $this->append($txt);       break;
+				case "n": $this->append($txt, $tag); break;
+				case "p": $this->doPgfs($txt, $tag); break;
+				default:  $this->doFmts($txt, $tag);
+			}
+			continue;
 		}
 		$this->close($tag);
-		$this->append($txt);
+
+		switch ($typ) {
+#			case "p": $this->chkPgf($txt, $tag); break;
+#			default:  $this->append($txt);
+		}
 	}
 	$this->close("all");
 
@@ -97,37 +108,36 @@ private function append($txt, $tag = false) {
 }
 
 private function doPgfs($txt, $tag = false) {
-	$this->close($tag); // close char tags
+	$this->close($tag); // no nesting, close char tags
 	$this->append($txt, $tag);
+}
+
+private function chkPgf($txt, $tag = false) {
+	$txt = trim($txt);
+	if ($txt) $this->dat[] = "<$tag>$txt</$tag>";
 }
 
 private function doFmts($txt, $tag = false) {
 	if ($this->isOpen($tag)) { // avoid duplicate tags
-		$this->append(STR::after($txt, ">"));
-		return;
+		$txt = STR::after($txt, ">");
 	}
 	$this->append($txt, $tag);
 }
 
-private function pop($tag) {
-	if (! $this->isOpen($tag)) return "";
-	$out = "";
-
-	while ($this->hst) {
-		$itm = array_pop($this->hst);
-		if ($itm == "@q@") break; if ($itm) $out.= "</$itm>";
-		if ($itm ==  $tag) break;
-	}
-	return $out;
-}
-
 private function close($tag) {
 	if (! $this->isOpen($tag)) return;
-	$cls = $this->pop($tag);
-	$this->append($cls);
+
+	while ($this->hst) {
+		$itm = array_pop($this->hst); if (! $itm) continue;
+		$typ = $this->getType($tag);  if ($typ == "s") continue;
+
+		if ($itm == "@q@") break; $this->dat[] = "</$itm>";
+		if ($itm ==  $tag) break;
+	}
 }
 
 private function isOpen($tag) {
+	if ($tag == "all") return true;
 	return in_array($tag, $this->hst);
 }
 

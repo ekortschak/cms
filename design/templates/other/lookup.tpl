@@ -13,6 +13,9 @@ color = FC_BODY
 <refbody><b><!VAR:key!></b><br><!VAR:info!></refbody>
 </refbox><nolf>
 
+[xsite]
+<!VAR:caption!><nolf>
+
 [doc]
 <!VAR:caption!> {dt: <!VAR:info!>}<nolf>
 

@@ -82,7 +82,8 @@ public function hidden($uid, $value = 1) { // hidden values
 }
 
 // ***********************************************************
-public function date($uid, $value) {
+public function date($uid, $value = false) {
+	if ($value) $value = DAT::now();
 	return $this->itm->addDate("dat", $uid, $value);
 }
 

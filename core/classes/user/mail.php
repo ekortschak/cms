@@ -80,6 +80,7 @@ public function addRecipient($adr) {
 // ***********************************************************
 public function setMsg($msg) {
 	$this->setSec("message", $msg);
+	$this->set("message", $msg);
 }
 public function addMsg($msg) {
 	$old = $this->getSec("message"); $old = trim($old); if ($old) $old.= "\n";

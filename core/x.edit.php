@@ -1,6 +1,7 @@
 <?php
 
-#if (! defined("LAYOUT")) define("LAYOUT", "default");
+# if (! defined("LAYOUT")) define("LAYOUT", "default");
+# if (! defined("VMODE"))  define("VMODE",  "pedit");
 
 // ***********************************************************
 // load essential modules

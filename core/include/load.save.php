@@ -1,6 +1,7 @@
 <?php
 
-CFG::set("ARCHIVE", SRV_ROOT); // if not yet set
+$arc = CFG::getVal("backup", "local.archive", SRV_ROOT);
+CFG::set("ARCHIVE", $arc); // if not yet set
 
 // ***********************************************************
 incCls("editor/saveMany.php");

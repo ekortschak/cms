@@ -30,12 +30,23 @@ public function get($htm) {
 	$htm = $this->restruct($htm);
 
 	$htm = $this->sweep($htm);
-	$htm = $this->phpRestore($htm);
-	$htm = $this->tplRestore($htm);
+	$htm = $this->restore($htm);
 
 	if (! $htm) {
 		$htm = "<p>¶</p>";
 	}
+	return $htm;
+}
+
+public function secure($htm) {
+	$htm = $this->phpSecure($htm);
+	$htm = $this->tplSecure($htm);
+	return $htm;
+}
+
+public function restore($htm) {
+	$htm = $this->phpRestore($htm);
+	$htm = $this->tplRestore($htm);
 	return $htm;
 }
 
@@ -95,8 +106,8 @@ private function addLF($txt, $fnd, $cnt = 1) {
 // clean up html code
 // ***********************************************************
 private function cleanTags($txt) { // rearrange blanks around tags
-	$txt = PRG::replace($txt, "<([A-Za-z]+)> ", " <$1>");
-	$txt = PRG::replace($txt, " </[A-Za-z]>", "</$1> ");
+	$txt = PRG::replace($txt, "<([A-Za-z]+)>(\s+)", " <$1>");
+	$txt = PRG::replace($txt, "(\s+)</([A-Za-z0-9]*?)>", "</$2> ");
 	return $txt;
 }
 
@@ -149,7 +160,7 @@ private function clearBr($txt) {
 // ***********************************************************
 // php methods
 // ***********************************************************
-public function phpSecure($txt) { // do not act outside of php code
+private function phpSecure($txt) { // do not act outside of php code
 	$arr = STR::find($txt, "<?php", "?>", false); if (! $arr) return $txt;
 
 	$txt = STR::replace($txt, "<?php ",  "<php>");
@@ -168,7 +179,7 @@ public function phpSecure($txt) { // do not act outside of php code
 	return $txt;
 }
 
-public function phpRestore($txt) { // do not act outside of php code
+private function phpRestore($txt) { // do not act outside of php code
 	$arr = STR::find($txt, "<php>", "</php>", false); if (! $arr) return $txt;
 
 	$txt = STR::replace($txt, "<php>", "<?php ");
@@ -187,12 +198,12 @@ public function phpRestore($txt) { // do not act outside of php code
 // ***********************************************************
 // tpl methods
 // ***********************************************************
-public function tplSecure($txt) {
+private function tplSecure($txt) {
 	$txt = STR::replace($txt, "<!", "<|");
 	return $txt;
 }
 
-public function tplRestore($txt) {
+private function tplRestore($txt) {
 	$txt = STR::replace($txt, "<|", "<!");
 	return $txt;
 }

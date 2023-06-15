@@ -54,7 +54,7 @@ public function addItem($item, $props = array()) {
 // ***********************************************************
 public function isItem($item) {
 	if (is_numeric($item))
-	return CHK::range($item, 0, $this->cnt - 1);
+	return CHK::range($item, $this->cnt - 1);
 	return in_array($item, $this->col);
 }
 

@@ -14,8 +14,8 @@
 	z-index: 99;
 	float: top;
 
-#	background-color: grey;
-	background-image: url("img/banner.png");
+	background-color: white;
+	background-image: url("img/banner.jpg");
 	background-size: cover;
 
 	height: H_MENU;

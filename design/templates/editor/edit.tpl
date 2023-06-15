@@ -12,6 +12,7 @@ apply = Speichern
 
 [vars]
 placeholder =
+rows = 7
 
 
 # ***********************************************************
@@ -38,7 +39,7 @@ placeholder =
 # ***********************************************************
 [ctarea]
 # ***********************************************************
-<textarea id="content" name="content" class="max"
+<textarea id="content" name="content" class="max" style="min-height: <!VAR:rows!>rem;"
 placeholder="<!VAR:placeholder!>" tabindex=0 _
 autocomplete="off" autocorrect="off" autocapitalize="off" _
 spellcheck="false"><!VAR:content!></textarea>

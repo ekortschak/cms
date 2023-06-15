@@ -64,7 +64,7 @@ public function read($dir) {
 // ***********************************************************
 // display output
 // ***********************************************************
-public function show() {
+public function show($sec = "dummy") {
 	echo $this->getToc();
 	echo $this->dat;
 	echo $this->getNotes();
@@ -78,6 +78,9 @@ private function doPage($inf, $dir) {
 	$ftr = APP::gcSys($dir, "tail"); if ($ftr) $ftr = HTM::tag($ftr, "div");
 	$txt = APP::gcSys($dir, "page");
 
+	$txt = APP::lookup($txt);
+	$txt = ACR::clean($txt);
+
 	$txt = $this->cnvHeads($txt);
 	$tit = $this->getTitle($inf);
 
@@ -85,9 +88,9 @@ private function doPage($inf, $dir) {
 	$pic = APP::file("$dir/pic.png"); if ($pic)
 	$pic = $this->getSection("pic");
 
-	$this->setX("head", $hed);
+	$this->setX("head", $tit.$hed);
 	$this->setX("pic",  $pic);
-	$this->setX("text", $tit.$txt);
+	$this->setX("text", $txt);
 	$this->setX("tail", $ftr);
 
 	$this->dat[] = parent::gc();

@@ -22,6 +22,7 @@ class http {
 
 function __construct($server, $pcl = "https") {
 	$this->url = "$pcl://$server/x.sync.php";
+dbg($this->url);
 }
 
 // ***********************************************************

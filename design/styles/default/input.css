@@ -36,23 +36,17 @@ button {
 	cursor: pointer;
 }
 
-input[type='button'] {
-	background: linear-gradient(snow, lightgrey);
-	padding: 0px 1em;
-	cursor: pointer;
-}
-
 button {
-	padding: 0px 1em;
+	padding: 0px 0.3em;
 	min-width: 3em;
 }
 
 /* ******************************************************** */
 /* common input */
 /* ******************************************************** */
-input[type='text'] {}
-input[type='datetime-local'] {}
 input[type='file'] {}
+input[type='text'] {}
+input[type='date'] { padding: 0px 2px; }
 
 input[type='color'] { /* color input */
 	padding: 0px;

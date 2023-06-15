@@ -40,15 +40,17 @@ function __construct($filesOnly = false) {
 public function edit($dir, $files = false)   {
 	$old = $ful = $dir;
 
-	$box = new dropBox("menu"); if (! $this->fonly)
+	$box = new dropBox("menu");
 
 	if (is_dir($dir)) {
+		if (! $this->fonly)
 		$dir = $box->folders($dir); if (! $dir) $dir = $old;
 		$ful = $box->files($dir);
 	}
 	elseif ($files) {
 		$ful = $box->getKey("pic.file", $files, $dir);
 	}
+
 	$typ = $this->findType($ful);
 	$eds = $this->findList($typ);
 

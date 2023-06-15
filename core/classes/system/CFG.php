@@ -29,6 +29,8 @@ public static function init() {
 	self::fixLangs();  // defined languages
 
 	self::readCfg();
+
+	self::roundup();
 }
 
 // ***********************************************************
@@ -73,6 +75,15 @@ private static function fixLangs() {
 	self::set("LANGUAGES", "de.en");
 	self::set("STD_LANG", STR::before(LANGUAGES, "."));
 }
+
+private static function roundUp() {
+	$sec = (IS_LOCAL) ? "local" : "remote";
+
+	$arc = self::getVal("backup", "$sec.archive"); if (! $arc)
+	$arc = self::getVal("backup", "local.archive", SRV_ROOT);
+	self::set("ARCHIVE", $arc); // if not yet set
+}
+
 
 // ***********************************************************
 // reading config files

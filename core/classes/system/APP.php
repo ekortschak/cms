@@ -232,9 +232,12 @@ public static function writeTell($file, $content, $overwrite = true) {
 // ***********************************************************
 public static function lookup($txt) {
 	if (APP_CALL != "index.php") return $txt;
-	if (VMODE    != "view")      return $txt;
 	if (! ENV::get("lookup"))    return $txt;
 
+	switch (VMODE) {
+		case "view": case "xfer": break;
+		default: return $txt;
+	}
 	$cls = CFG::getVal("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");

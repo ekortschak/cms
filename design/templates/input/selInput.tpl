@@ -69,7 +69,7 @@ type = */*
 # ***********************************************************
 [input.tar]
 # ***********************************************************
-<textarea name="<!VAR:fname!>" style="wdith: <!VAR:rows!>em;"
+<textarea name="<!VAR:fname!>" rows=<!VAR:rows!>
 	autocomplete="off" autocorrect="off" autocapitalize="off"
 	spellcheck="false"><!VAR:curVal!></textarea>
 

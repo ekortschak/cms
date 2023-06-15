@@ -27,8 +27,8 @@ public static function make($year, $mon, $day) {
 // ***********************************************************
 public static function years($coming = 1, $past = 5) {
 	$cur = date("Y");
-	$max = CHK::range($coming, 0, 5); self::$maxYear = $cur + $max;
-	$min = CHK::range($past,   0, 7); self::$minYear = $cur - $min;
+	$max = CHK::range($coming, 5); self::$maxYear = $cur + $max;
+	$min = CHK::range($past,   7); self::$minYear = $cur - $min;
 
 	return VEC::range(self::$maxYear, self::$minYear);
 }

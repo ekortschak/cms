@@ -36,6 +36,9 @@ function __construct() {
 
 	if (CUR_LANG == "de") $this->len = 3;
 
+	switch (VMODE) {
+		case "xfer": $this->tpl = "xsite"; break;
+	}
 	$this->load("other/lookup.tpl");
 	$this->readRef();
 }
@@ -71,6 +74,15 @@ protected function getProp($set, $prop, $default) {
 	return VEC::get($prp, $prop, $default);
 }
 
+protected function getMask($set) {
+	return $this->getProp($set, "tplsec", $this->tpl);
+}
+
+public function setTpl($tpl) {
+	if (! $this->isSec($tpl)) return;
+	$this->tpl = $tpl;
+}
+
 // ***********************************************************
 // handling lookup strings
 // ***********************************************************
@@ -79,8 +91,9 @@ public function insert($txt) {
 
 	foreach ($this->dat as $set => $lst) { // work through all sources
 		$sep = $this->getProp($set, "token",  $this->sep);
-		$sec = $this->getProp($set, "tplsec", $this->tpl);
 		$col = $this->getProp($set, "color",  $this->col);
+		$sec = $this->getMask($set);
+
 		$xxx = $this->set("color", $col);
 
 		$arr = $this->find($txt, $set); // find previously marked items

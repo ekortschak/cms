@@ -55,9 +55,13 @@ public function edit() {
 
 	OID::set($this->oid, "orgName", $this->file);
 
+	$rws = STR::count($htm, "\n") + 30;
+	$rws = CHK::range($rws, 30, 7);
+
 	parent::set("file",  $this->file);
 	parent::set("snips", $this->getSnips());
 	parent::set("content", $htm);
+	parent::set("rows", $rws);
 	parent::show();
 }
 
@@ -72,14 +76,9 @@ public function edit() {
 // ***********************************************************
 protected function getContent() {
 	$out = APP::read($this->file);
-	$rws = STR::count($out, "\n") + 3;
-	$rws = CHK::range($rws, 35, 7);
 
 	$tdy = new tidyPage();
-	$out = $tdy->phpSecure($out);
-	$out = $tdy->tplSecure($out);
-
-	$this->set("rows", $rws);
+	$out = $tdy->secure($out);
 	return $out;
 }
 
