@@ -5,7 +5,7 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // find tabs
 // ***********************************************************
-$arr = CFG::getValues("tabsets", APP_CALL);
+$arr = CFG::getValues("tabsets:".APP_CALL);
 $tbs = array();
 
 foreach ($arr as $tab => $prp) {
@@ -13,7 +13,7 @@ foreach ($arr as $tab => $prp) {
 	$tbs[$tab] = PGE::getTitle($ini);
 }
 
-$box = new dropBox();
+$box = new dropBox("button");
 $xxx = $box->hideDesc();
 $tab = $box->getKey("tab", $tbs);
 $tbs = $box->gc();

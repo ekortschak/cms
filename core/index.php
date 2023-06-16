@@ -1,15 +1,16 @@
 <?php
 
-# ob_start();
+if (! isset($local)) {
+	$local = false;
+}
 
 // ***********************************************************
 // deny editing
 // ***********************************************************
 if (isset(  $_GET["vmode"])) {
 	switch ($_GET["vmode"]) {
-		case "search": break;
-		case "xfer":   break;
-#		default: define("VMODE", "view");
+		case "search": case "xfer": break;
+		default: $_GET["vmode"] = "view";
 	}
 }
 
@@ -21,9 +22,19 @@ include_once "config/fallback.php";
 include_once "include/load.err.php";
 include_once "include/load.min.php";
 include_once "include/load.more.php";
-include_once "include/load.ini.php";
 
-# $msg = ob_get_cleanclean();
+// ***********************************************************
+// check scope
+// ***********************************************************
+if ($local) if (! IS_LOCAL) {
+	die("Thanks for stopping by ...");
+}
+
+// ***********************************************************
+// supply defaults
+// ***********************************************************
+include_once "include/load.ini.php";
+include_once "include/load.std.php";
 
 // ***********************************************************
 // create page

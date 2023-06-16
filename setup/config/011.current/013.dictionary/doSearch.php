@@ -23,7 +23,7 @@ if (! $arr) {
 
 // ***********************************************************
 foreach ($arr as $fil => $nam) {
-	$txt = APP::read($fil); if (! STR::contains($txt, $fnd)) continue;
+	$txt = APP::read($fil); if (STR::misses($txt, $fnd)) continue;
 	$lnk = HTM::href("?btn.dic=E&pic.folder=$dir&pic.file=$dir/$nam'", "$nam");
 	$xxx = HTW::tag($lnk, "div");
 
@@ -31,7 +31,7 @@ foreach ($arr as $fil => $nam) {
 	$lns = STR::slice($txt);
 
 	foreach ($lns as $lin) {
-		if (! STR::contains($lin, $fnd)) continue;
+		if (STR::misses($lin, $fnd)) continue;
 		HTW::tag($lin, "li");
 	}
 	echo "</ul>";

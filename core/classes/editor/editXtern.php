@@ -25,7 +25,7 @@ function __construct() {
 	parent::__construct();
 
 	$this->load("editor/edit.xtern.tpl");
-	$this->dir = APP::tempDir("curedit");
+	$this->dir = LOC::tempDir("curedit");
 
 	$lng = CUR_LANG;
 	$this->ext = FSO::join($this->dir, "curEdit.$lng.php");

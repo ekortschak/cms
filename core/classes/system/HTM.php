@@ -29,7 +29,7 @@ public static function tag($text, $tag = "h4") {
 
 public static function xtag($text, $tag = "h4") {
 	$out = DIC::getPfx("tag", $text);
-	return self::tag($out, $tag);
+	return HTM::tag($out, $tag);
 }
 
 public static function lf($tag = "hr") {
@@ -41,8 +41,8 @@ public static function lf($tag = "hr") {
 // standard tags
 // ***********************************************************
 public static function button($lnk, $cap, $trg = "_self") {
-	$btn = self::tag($cap, "button");
-	return self::href($lnk, $btn, $trg);
+	$btn = HTM::tag($cap, "button");
+	return HTM::href($lnk, $btn, $trg);
 }
 
 public static function icon($ico, $alt = "") {

@@ -23,7 +23,7 @@
 	width:  100%;
 	min-width: 600px;
 
-	overflow: hidden;
+	overflow: visible;
 	border: 0px solid navy;
 
 	color: FC_MENU;

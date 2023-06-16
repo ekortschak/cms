@@ -20,8 +20,8 @@ class CHK {
 
 public static function range($val, $max, $min = 0) {
 	if ($min > $max) { $tmp = $max; $max = $min; $min = $tmp; }
-	$val = self::min($val, $min);
-	return self::max($val, $max);
+	$val = CHK::min($val, $min);
+	return CHK::max($val, $max);
 }
 public static function min($val, $min) {
     return ($val < $min) ? $min : $val;

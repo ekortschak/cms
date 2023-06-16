@@ -26,7 +26,7 @@ class ssl {
 	private static $timeout = 2500;
 
 public static function init() {
-	self::$len = openssl_cipher_iv_length(self::$met);
+	SSL::$len = openssl_cipher_iv_length(SSL::$met);
 }
 
 // ***********************************************************
@@ -34,23 +34,23 @@ public static function init() {
 // ***********************************************************
 public static function encrypt($data) {
 #	$ivc = openssl_random_pseudo_bytes($len);
-#	$ivc = random_bytes(self::$len);
-	$ivc = substr(self::$key, 0, 16);
-    $out = openssl_encrypt($data, self::$met, self::$key, 0, $ivc);
-    return base64_encode($out.self::$sep.$ivc);
+#	$ivc = random_bytes(SSL::$len);
+	$ivc = substr(SSL::$key, 0, 16);
+    $out = openssl_encrypt($data, SSL::$met, SSL::$key, 0, $ivc);
+    return base64_encode($out.SSL::$sep.$ivc);
 }
 
 public static function decrypt($data) {
     $dat = base64_decode($data);
-    $out = STR::before($dat, self::$sep);
-    $ivc = STR::after($dat, self::$sep, false);
-    return openssl_decrypt($out, self::$met, self::$key, 0, $ivc);
+    $out = STR::before($dat, SSL::$sep);
+    $ivc = STR::after($dat, SSL::$sep, false);
+    return openssl_decrypt($out, SSL::$met, SSL::$key, 0, $ivc);
 }
 
 
 public static function md5($text = "kor_cms") {
-	$now = self::getStamp();
-	$key = CFG::getVal("xfer", "upload.masterkey");
+	$now = SSL::getStamp();
+	$key = CFG::getVal("xfer:upload.masterkey");
 	$out = md5("$key.$text.".date("Ym!d", $now));
 	return str_pad($now, 32, $out,  STR_PAD_LEFT);
 }
@@ -59,9 +59,9 @@ public static function isValid($md5) {
 	if (IS_LOCAL) return true; $chk = substr($md5, -6);
 	if (! $chk) return false;
 
-	$now = self::getStamp();
+	$now = SSL::getStamp();
 	$dif = $now - $chk;
-	return ($dif < self::$timeout);
+	return ($dif < SSL::$timeout);
 }
 
 private static function getStamp() {

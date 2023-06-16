@@ -20,7 +20,7 @@ if ($arr) {
 // ***********************************************************
 HTW::xtag("bkp.manage");
 // ***********************************************************
-$dir = APP::arcDir($dev, "bkp");
+$dir = LOC::arcDir("bkp");
 $arr = FSO::folders($dir);
 $arr = VEC::sort($arr, "krsort"); // latest first
 

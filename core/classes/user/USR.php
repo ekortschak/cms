@@ -16,23 +16,21 @@ class USR {
 
 public static function init() {
 	$usr = ENV::get("crdu", "www");
-	$pwd = ENV::get("crdp", "www");	$mod = VMODE;
-	self::read();
+	$pwd = ENV::get("crdp", "www");
+	USR::read();
 
-	if (! self::isUser($usr, $pwd)) {
+	if (! USR::isUser($usr, $pwd)) {
 		$mod = "logout";
 		$usr = "www"; $pwd = "www";
 	}
 	CFG::set("CUR_USER", $usr);
 	CFG::set("CUR_PASS", $pwd);
 
-	CFG::set("FS_LOGIN", self::isUser());
-	CFG::set("FS_ADMIN", self::isAdmin());
+	CFG::set("FS_LOGIN", USR::isUser());
+	CFG::set("FS_ADMIN", USR::isAdmin());
 
 	ENV::set("crdu", $usr);
 	ENV::set("crdp", $pwd);
-
-	if (STR::begins($mod, "log")) ENV::set("vmode", "view");
 }
 
 // ***********************************************************
@@ -40,17 +38,17 @@ public static function init() {
 // ***********************************************************
 public static function isAdmin($usr = CUR_USER, $pwd = CUR_PASS) {
 	if (IS_LOCAL) return true;
-	return self::chkUser("admin", $usr, $pwd);
+	return USR::chkUser("admin", $usr, $pwd);
 }
 public static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	if ($usr == "www") return true;
 
-	$out = self::chkUser("user",  $usr, $pwd); if ($out) return true;
-	return self::chkUser("admin", $usr, $pwd);
+	$out = USR::chkUser("user",  $usr, $pwd); if ($out) return true;
+	return USR::chkUser("admin", $usr, $pwd);
 }
 
 private static function chkUser($grp, $usr, $pwd) {
-	$chk = VEC::get(self::$dat, "$grp.$usr"); if (! $chk) return false;
+	$chk = VEC::get(USR::$dat, "$grp.$usr"); if (! $chk) return false;
 	$chk = STR::maskPwd($chk);
 	$pwd = STR::maskPwd($pwd);
 	return ($chk == $pwd);
@@ -67,12 +65,12 @@ private static function read($fil = "config/users.ini") {
 		$lin = STR::dropComments($lin);
 
 		if (   STR::contains($lin, "[")) $grp = STR::between($lin, "[", "]");
-		if ( ! STR::contains($lin, "=")) continue;
+		if ( STR::misses($lin, "=")) continue;
 
 		$usr = STR::before($lin, "=");
 		$pwd = STR::after($lin, "=");
 
-		self::$dat["$grp.$usr"] = $pwd;
+		USR::$dat["$grp.$usr"] = $pwd;
 	}
 }
 

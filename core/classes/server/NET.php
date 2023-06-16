@@ -16,15 +16,15 @@ class NET {
 	private static $geo = false;
 
 public static function init() {
-    self::$con = @fsockopen("www.google.com", 80); if (self::$con) fclose(self::$con);
-	self::$geo = self::geoData();
+    NET::$con = @fsockopen("www.google.com", 80); if (NET::$con) fclose(NET::$con);
+	NET::$geo = NET::geoData();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
 public static function isCon() {
-	return (bool) self::$con;
+	return (bool) NET::$con;
 }
 
 // ***********************************************************
@@ -47,20 +47,20 @@ public static function read($url) {
 // ***********************************************************
 private static function geoData() {
 return;
-	if (! self::$con) return;
+	if (! NET::$con) return;
 
 	$out = file_get_contents("http://www.geoplugin.net/php.gp?ip=".USER_IP);
 	$out = unserialize($out);
 	return $out;
 }
 
-public static function geoCountry() { return self::geoInfo("countryCode"); }
-public static function geoTime()    { return self::geoInfo("locationAccuracyRadius"); }
-public static function geoLat()     { return self::geoInfo("latitude"); }
-public static function geoLong()    { return self::geoInfo("longitude"); }
+public static function geoCountry() { return NET::geoInfo("countryCode"); }
+public static function geoTime()    { return NET::geoInfo("locationAccuracyRadius"); }
+public static function geoLat()     { return NET::geoInfo("latitude"); }
+public static function geoLong()    { return NET::geoInfo("longitude"); }
 
 public static function geoAcc() {
-	$out = self::geoInfo("locationAccuracyRadius");
+	$out = NET::geoInfo("locationAccuracyRadius");
 
 	if ($out <=  15) return 1;
 	if ($out <=  25) return 2;
@@ -70,8 +70,8 @@ public static function geoAcc() {
 }
 
 public static function geoInfo($what, $default = "") {
-	if (! self::$geo) return $default;
-	return VEC::get(self::$geo, "geoplugin_$what");
+	if (! NET::$geo) return $default;
+	return VEC::get(NET::$geo, "geoplugin_$what");
 }
 
 // ***********************************************************

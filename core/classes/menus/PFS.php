@@ -32,34 +32,34 @@ class PFS extends objects {
 
 
 public static function init($dir = TAB_HOME) {
-	self::$dir = $dir;
-	self::$fil = FSO::join("static", $dir, "pfs.stat");
-	self::$dat = self::$uid = self::$idx = array();
-	self::$cnt = 1;
+	PFS::$dir = $dir;
+	PFS::$fil = FSO::join("static", $dir, "pfs.stat");
+	PFS::$dat = PFS::$uid = PFS::$idx = array();
+	PFS::$cnt = 1;
 
-	if (! self::getLast()) {
-		self::readTree($dir);
+	if (! PFS::getLast()) {
+		PFS::readTree($dir);
 
-		SSV::set("data", self::getData(), "pfs");
+		SSV::set("data", PFS::getData(), "pfs");
 		SSV::set("topic", TAB_PATH, "pfs");
 		SSV::set("reload", 0, "pfs");
 	}
-	self::setLoc();
+	PFS::setLoc();
 }
 
 // ***********************************************************
 // reading fs tree - ini files
 // ***********************************************************
 public static function readTree($dir = NV) {
-	if (self::import()) return;
-	if ($dir === NV) $dir = self::$dir;
+	if (PFS::import()) return;
+	if ($dir === NV) $dir = PFS::$dir;
 
 	$dir = APP::dir($dir);
 	$drs = FSO::dtree($dir, ! IS_LOCAL);
 	$drs[$dir] = $dir;
 
 	foreach ($drs as $dir => $nam) {
-		self::readProps($dir);
+		PFS::readProps($dir);
 	}
 }
 
@@ -72,22 +72,22 @@ private static function getLast() {
 	$tpc = SSV::get("topic", TAB_PATH, "pfs"); if ($tpc != TAB_PATH) return false;
 	$arr = SSV::get("data", array(),   "pfs"); if (! $arr) return false;
 
-	self::$dat = $arr["dat"];
-	self::$uid = $arr["uid"];
-	self::$idx = $arr["idx"];
+	PFS::$dat = $arr["dat"];
+	PFS::$uid = $arr["uid"];
+	PFS::$idx = $arr["idx"];
 	return true;
 }
 
 // ***********************************************************
 public static function getData($index = false) {
-	if ($index == "dat") return self::$dat;
-	if ($index == "uid") return self::$uid;
-	if ($index == "idx") return self::$idx; if ($index) return array();
+	if ($index == "dat") return PFS::$dat;
+	if ($index == "uid") return PFS::$uid;
+	if ($index == "idx") return PFS::$idx; if ($index) return array();
 
 	return array(
-		"dat" => self::$dat,
-		"uid" => self::$uid,
-		"idx" => self::$idx
+		"dat" => PFS::$dat,
+		"uid" => PFS::$uid,
+		"idx" => PFS::$idx
 	);
 }
 
@@ -96,11 +96,11 @@ public static function getData($index = false) {
 // ***********************************************************
 private static function setLoc($key = NV) {
 	switch (ENV::getParm("pfs.nav")) {
-		case "prev": $key = self::getNext(-1); break;
-		case "next": $key = self::getNext(+1); break;
+		case "prev": $key = PFS::getNext(-1); break;
+		case "next": $key = PFS::getNext(+1); break;
 	}
-	$loc = self::getIndex($key);
-	$loc = self::chkLoc($loc);
+	$loc = PFS::getIndex($key);
+	$loc = PFS::chkLoc($loc);
 
 	ENV::setPage($loc);
 	PGE::load($loc);
@@ -120,14 +120,14 @@ private static function chkLoc($dir) {
 // retrieving info
 // ***********************************************************
 public static function getRoot() {
-	return self::getPath(self::$dir);
+	return PFS::getPath(PFS::$dir);
 }
 public static function getPath($index = NV) {
-	return self::getProp($index, "fpath");
+	return PFS::getProp($index, "fpath");
 }
 public static function getLink($index = NV) {
-	$out = self::getProp($index, "props.uid"); if ($out) return $out;
-	return self::getPath($index);
+	$out = PFS::getProp($index, "props.uid"); if ($out) return $out;
+	return PFS::getPath($index);
 }
 
 private static function isCollection($typ) {
@@ -137,18 +137,18 @@ private static function isCollection($typ) {
 
 // ***********************************************************
 public static function getType($index = NV) {
-	return self::getProp($index, "props.typ", "inc");
+	return PFS::getProp($index, "props.typ", "inc");
 }
 public static function getTitle($index = NV) {
 	$lng = CUR_LANG;
-	$out = self::getProp($index, CUR_LANG.".title", false); if ($out) return $out;
-	return self::getProp($index, GEN_LANG.".title", ucfirst(basename($index)));
+	$out = PFS::getProp($index, CUR_LANG.".title", false); if ($out) return $out;
+	return PFS::getProp($index, GEN_LANG.".title", ucfirst(basename($index)));
 }
 public static function getHead($index = NV) {
-	return self::getProp($index, "head", $index);
+	return PFS::getProp($index, "head", $index);
 }
 public static function getLevel($idx) {
-	$idx = STR::after($idx, self::$dir);
+	$idx = STR::after($idx, PFS::$dir);
 	return STR::count($idx, DIR_SEP) + 1;
 }
 
@@ -157,16 +157,16 @@ public static function getIndex($key) { // dir, uid or num index expected !
 	if ($key === NV) $key = ENV::getPage();
 	if ($key === false) return false;
 
-	$out = VEC::get(self::$idx, $key); if ($out) return $out;
-	$out = VEC::get(self::$uid, $key); if ($out) return $out;
-	$out = VEC::get(self::$dat, $key); if ($out) return $key;
+	$out = VEC::get(PFS::$idx, $key); if ($out) return $out;
+	$out = VEC::get(PFS::$uid, $key); if ($out) return $out;
+	$out = VEC::get(PFS::$dat, $key); if ($out) return $key;
 	return false;
 }
 
 private static function getNext($inc) {
-	$key = ENV::getPage(); $chk = array_flip(self::$idx);
+	$key = ENV::getPage(); $chk = array_flip(PFS::$idx);
 	$idx = VEC::get($chk, $key, 0);
-	return CHK::range($idx += $inc, 0, count(self::$idx) - 1);
+	return CHK::range($idx += $inc, 0, count(PFS::$idx) - 1);
 }
 
 // ***********************************************************
@@ -174,7 +174,7 @@ private static function getNext($inc) {
 // ***********************************************************
 private static function readProps($dir) { // single page info
 	$dir = APP::dir($dir); if (! is_dir($dir)) return false;
-	$idx = self::norm($dir);
+	$idx = PFS::norm($dir);
 
 	$ini = new ini($dir);
 	$inf = $ini->getValues();
@@ -182,29 +182,29 @@ private static function readProps($dir) { // single page info
 	$uid = $ini->getUID();
 	$typ = $ini->getType();
 
-	$lev = self::getLevel($idx);
-	$nxt = self::getMType($idx, $typ, $lev);
+	$lev = PFS::getLevel($idx);
+	$nxt = PFS::getMType($idx, $typ, $lev);
 
-	self::setPropVal($idx, "title", $tit);
-	self::setPropVal($idx, "head",  "");
-	self::setPropVal($idx, "uid",   $uid);
-	self::setPropVal($idx, "index", self::$cnt);
-	self::setPropVal($idx, "level", $lev);
-	self::setPropVal($idx, "mtype", $nxt);
-	self::setPropVal($idx, "fpath", $idx);
-	self::setPropVal($idx, "sname", self::getStatID()); // for static output
+	PFS::setPropVal($idx, "title", $tit);
+	PFS::setPropVal($idx, "head",  "");
+	PFS::setPropVal($idx, "uid",   $uid);
+	PFS::setPropVal($idx, "index", PFS::$cnt);
+	PFS::setPropVal($idx, "level", $lev);
+	PFS::setPropVal($idx, "mtype", $nxt);
+	PFS::setPropVal($idx, "fpath", $idx);
+	PFS::setPropVal($idx, "sname", PFS::getStatID()); // for static output
 
 	foreach ($inf as $key => $val) {
-		self::setPropVal($idx, $key, $val);
+		PFS::setPropVal($idx, $key, $val);
 	}
-	self::$idx[] = $idx;
-	self::$uid[$uid] = $idx;
+	PFS::$idx[] = $idx;
+	PFS::$uid[$uid] = $idx;
 
-	return (! self::isCollection($typ));
+	return (! PFS::isCollection($typ));
 }
 
 private static function getMType($dir, $typ, $lev) {
-	if (self::isCollection($typ)) return "file";
+	if (PFS::isCollection($typ)) return "file";
 
 	$fld = (bool) APP::folders($dir, ! IS_LOCAL);
 	$fil = (bool) APP::find($dir);
@@ -217,28 +217,28 @@ private static function getMType($dir, $typ, $lev) {
 
 // ***********************************************************
 public static function setProp($index, $key, $value) {
-	$idx = self::getIndex($index); if (! $idx) return;
-	self::setPropVal($idx, $key, $value);
+	$idx = PFS::getIndex($index); if (! $idx) return;
+	PFS::setPropVal($idx, $key, $value);
 }
 private static function setPropVal($idx, $key, $value) {
-	self::$dat[$idx][$key] = $value;
+	PFS::$dat[$idx][$key] = $value;
 }
 
 // ***********************************************************
 private static function getProp($index, $key, $default = false) {
-	$idx = self::getIndex($index); if (! $idx) return $default;
-	$arr = VEC::get(self::$dat, $idx); if (! $arr) return $default;
+	$idx = PFS::getIndex($index); if (! $idx) return $default;
+	$arr = VEC::get(PFS::$dat, $idx); if (! $arr) return $default;
 	return VEC::get($arr, $key, $default);
 }
 
 private static function getPropVal($idx, $key, $default) {
-	if (! isset(self::$dat[$idx][$key])) return $default;
-	return self::$dat[$idx][$key];
+	if (! isset(PFS::$dat[$idx][$key])) return $default;
+	return PFS::$dat[$idx][$key];
 }
 
 // ***********************************************************
 public static function count() {
-	return count(self::$dat);
+	return count(PFS::$dat);
 }
 
 private static function norm($dir) {
@@ -250,10 +250,10 @@ private static function norm($dir) {
 // menu node info
 // ***********************************************************
 public static function getMenu($depth = 99) {
-	$out = array(); $max = count(self::$uid);
+	$out = array(); $max = count(PFS::$uid);
 
 	for ($i = 0; $i < $max; $i++) {
-		$arr = self::mnuInfo($i, $depth); if (! $arr) continue;
+		$arr = PFS::mnuInfo($i, $depth); if (! $arr) continue;
 		$out[] = $arr;
 	}
 	return $out;
@@ -263,21 +263,21 @@ public static function getMenu($depth = 99) {
 public static function mnuInfo($index, $depth = 99) {
 	$dep = CHK::range($depth, 2, 99);
 
-	$idx = self::getIndex($index); if (! $idx)    return array();
-	$lev = self::getLevel($idx); if ($lev > $dep) return array();
-	$typ = self::getType($idx);
+	$idx = PFS::getIndex($index); if (! $idx)    return array();
+	$lev = PFS::getLevel($idx); if ($lev > $dep) return array();
+	$typ = PFS::getType($idx);
 
 	$out = array(
-		"uid"   => self::getProp($idx, "uid"),
-		"title" => self::getTitle($idx),
-		"head"  => self::getHead($idx),
-		"sname" => self::getProp($idx, "sname"),
-		"fpath" => self::getPath($idx),
-		"plink" => self::getLink($idx),
+		"uid"   => PFS::getProp($idx, "uid"),
+		"title" => PFS::getTitle($idx),
+		"head"  => PFS::getHead($idx),
+		"sname" => PFS::getProp($idx, "sname"),
+		"fpath" => PFS::getPath($idx),
+		"plink" => PFS::getLink($idx),
 		"level" => $lev,
 		"dtype" => $typ,
-		"mtype" => self::mnuType($idx, $lev, $typ),
-		"state" => self::refType($idx),
+		"mtype" => PFS::mnuType($idx, $lev, $typ),
+		"state" => PFS::refType($idx),
 	);
 	return $out;
 }
@@ -287,7 +287,7 @@ private static function mnuType($idx, $lev, $typ) {
 	if (VMODE == "view") {
 		if ($typ == "col") return "file";
 	}
-	return self::getProp($idx, "mtype", false);
+	return PFS::getProp($idx, "mtype", false);
 }
 
 private static function refType($idx) {
@@ -300,42 +300,42 @@ private static function refType($idx) {
 // static menues
 // ***********************************************************
 public static function isStatic() {
-	return is_file(self::$fil);
+	return is_file(PFS::$fil);
 }
 
 // ***********************************************************
 public static function toggle() {
-	if (self::isStatic()) return FSO::kill(self::$fil);
-	self::export();
+	if (PFS::isStatic()) return FSO::kill(PFS::$fil);
+	PFS::export();
 }
 
 // ***********************************************************
 private static function export() { // write menu info to stat file
-	APP::write (self::$fil, "<?php");
-	APP::append(self::$fil, "self::\$dat = ".var_export(self::$dat, true).";");
-	APP::append(self::$fil, "self::\$uid = ".var_export(self::$uid, true).";");
-	APP::append(self::$fil, "self::\$idx = ".var_export(self::$idx, true).";");
-	APP::append(self::$fil, "?>");
+	APP::write (PFS::$fil, "<?php");
+	APP::append(PFS::$fil, "PFS::\$dat = ".var_export(PFS::$dat, true).";");
+	APP::append(PFS::$fil, "PFS::\$uid = ".var_export(PFS::$uid, true).";");
+	APP::append(PFS::$fil, "PFS::\$idx = ".var_export(PFS::$idx, true).";");
+	APP::append(PFS::$fil, "?>");
 }
 
 private static function import() {
 	if (  VMODE != "view")  return false;
-	if (! self::isStatic()) return false;
+	if (! PFS::isStatic()) return false;
 
-	include_once self::$fil; // read menu info from stat file
-	return count(self::$dat);
+	include_once PFS::$fil; // read menu info from stat file
+	return count(PFS::$dat);
 }
 
 // ***********************************************************
 private static function getStatID() {
-	return sprintf("p%05d.htm", self::$cnt++);
+	return sprintf("p%05d.htm", PFS::$cnt++);
 }
 
 // ***********************************************************
 // user permissions
 // ***********************************************************
 public static function hasXs($index = NV) {
-	if (! FS_LOGIN) return "r"; $dir = self::getPath($index);
+	if (! FS_LOGIN) return "r"; $dir = PFS::getPath($index);
 
 	$ini = new code();
 	$xxx = $ini->readPath($dir, "perms.ini"); // inherit settings

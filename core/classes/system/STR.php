@@ -9,7 +9,7 @@ handling string tasks
 // ***********************************************************
 incCls("system/STR.php");
 
-$var = self::begins($haystack, $needle);
+$var = STR::begins($haystack, $needle);
 
 */
 
@@ -35,24 +35,24 @@ public static function join() {
 // checking string content
 // ***********************************************************
 public static function begins($haystack, $needle, $start = 0) {
-	$out = self::simplify($haystack, $needle); if (! $needle) return false;
-	$out = substr($out, $start, strlen(self::$sep));
-	return ($out == self::$sep);
+	$out = STR::simplify($haystack, $needle); if (! $needle) return false;
+	$out = substr($out, $start, strlen(STR::$sep));
+	return ($out == STR::$sep);
 }
 public static function ends($haystack, $needle) {
-	$out = self::simplify($haystack, $needle); if (! $needle) return false;
-	$out = substr($out, -strlen(self::$sep));
-	return ($out == self::$sep);
+	$out = STR::simplify($haystack, $needle); if (! $needle) return false;
+	$out = substr($out, -strlen(STR::$sep));
+	return ($out == STR::$sep);
 }
 
 // ***********************************************************
 public static function misses($haystack, $needle) {
-	return (! self::contains($haystack, $needle));
+	return (! STR::contains($haystack, $needle));
 }
 public static function contains($haystack, $needle) {
 	if (! $needle) return false;
-	$out = self::simplify($haystack, $needle);
-	$pos = strpos(self::$lim.$out, self::$sep);
+	$out = STR::simplify($haystack, $needle);
+	$pos = strpos(STR::$lim.$out, STR::$sep);
 	return ($pos > 0);
 }
 
@@ -64,7 +64,7 @@ public static function matches($haystack, $needle) {
 // ***********************************************************
 public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
 	$lst = str_split($lst);
-	return self::contains($text, $lst);
+	return STR::contains($text, $lst);
 }
 
 // ***********************************************************
@@ -73,15 +73,15 @@ public static function hasSpecialChars($text, $lst = ".,;:!?()/\"'<>") {
 public static function find($haystack, $sep1, $sep2, $trim = true) {
 	$out = array(); // searches for distinct substrings between $sep1 and $sep2
 	if (is_array($haystack)) return $haystack;
-	if (self::misses($haystack, $sep1)) return $out;
-	if (self::misses($haystack, $sep2)) return $out;
+	if (STR::misses($haystack, $sep1)) return $out;
+	if (STR::misses($haystack, $sep2)) return $out;
 
 	$arr = explode($sep1, $haystack); unset($arr[0]);
 	if (! $arr) return $out;
 
 	foreach ($arr as $itm) {
 		if (! $itm) continue; // drop anything after $sep2
-		$key = self::before($itm, $sep2, $trim);
+		$key = STR::before($itm, $sep2, $trim);
 		$out[$key] = $key;
 	}
 	return $out;
@@ -91,7 +91,7 @@ public static function find($haystack, $sep1, $sep2, $trim = true) {
 // finding sub strings
 // ***********************************************************
 public static function from($haystack, $needle) {
-	$out = self::after($haystack, $needle); if (! $out) return false;
+	$out = STR::after($haystack, $needle); if (! $out) return false;
 	return $needle.$out;
 }
 
@@ -102,7 +102,7 @@ public static function left($text, $len = 3, $norm = true) {
 	return $txt;
 }
 public static function right($text, $len = 3, $norm = true) {
-	return self::left($text, $len * -1, $norm);
+	return STR::left($text, $len * -1, $norm);
 }
 
 public static function count($haystack, $needle) {
@@ -111,29 +111,29 @@ public static function count($haystack, $needle) {
 
 // ***********************************************************
 public static function beforePunct($haystack) {
-	$out = self::toArray($haystack, "pnc");
+	$out = STR::toArray($haystack, "pnc");
 	return current($out);
 }
 
 public static function before($haystack, $sep = "\n", $trim = true) {
-	$out = self::simplify($haystack, $sep);
-	$out.= self::$sep; $pos = strpos($out, self::$sep);
+	$out = STR::simplify($haystack, $sep);
+	$out.= STR::$sep; $pos = strpos($out, STR::$sep);
 	$out = substr($out, 0, $pos);
 	return ($trim) ? trim($out) : $out;
 }
 
 public static function between($haystack, $sep1 = "(", $sep2 = ")", $trim = true) {
  // $sep2 expected to follow $sep1 before next $sep1
-	$out = self::after($haystack, $sep1, false); if (! $out) return "";
-	return self::before($out, $sep2, $trim);
+	$out = STR::after($haystack, $sep1, false); if (! $out) return "";
+	return STR::before($out, $sep2, $trim);
 }
 
 // ***********************************************************
 public static function afterLast($haystack, $needle = "\n", $trim = true) {
  //	find last $needle or return full string
-	if ( self::misses($haystack, $needle)) return $haystack;
-	$out = self::simplify($haystack, $needle);
-	$out = explode(self::$needle, $out);
+	if ( STR::misses($haystack, $needle)) return $haystack;
+	$out = STR::simplify($haystack, $needle);
+	$out = explode(STR::$needle, $out);
 	$out = end($out);
 	return ($trim) ? trim($out) : $out;
 }
@@ -141,14 +141,14 @@ public static function afterLast($haystack, $needle = "\n", $trim = true) {
 public static function after($haystack, $needle = "\n", $trim = true) {
  //	find first $needle or return nothing
 	if ($haystack == $needle) return "";
-	if ( self::misses($haystack, $needle)) return false;
-	$pos = self::findPos( $haystack, $needle);
+	if ( STR::misses($haystack, $needle)) return false;
+	$pos = STR::findPos( $haystack, $needle);
 	$out = substr($haystack, current($pos) + strlen(key($pos)));
 	return ($trim) ? trim($out) : $out;
 }
 public static function afterX($haystack, $needle = "\n", $trim = true) {
  //	find first $needle or return full string
-	$out = self::after($haystack, $needle, $trim);
+	$out = STR::after($haystack, $needle, $trim);
 	return ($out) ? $out : $haystack;
 }
 
@@ -156,14 +156,14 @@ public static function afterX($haystack, $needle = "\n", $trim = true) {
 // cleaning strings
 // ***********************************************************
 public static function clear($haystack, $substring) {
-	return self::replace($haystack, $substring, "", false);
+	return STR::replace($haystack, $substring, "", false);
 }
 
 public static function clean($haystack, $sep1 = "(", $sep2 = ")") {
  // remove any text between pairs of $sep1 and $sep2
  // $sep2 expected to follow $sep1 before next $sep1
 	$out = $haystack;
-	$arr = self::find($out, $sep1, $sep2);
+	$arr = STR::find($out, $sep1, $sep2);
 
 	foreach ($arr as $val) {
 		$out = str_replace("$sep1$val$sep2", "", $out);
@@ -183,15 +183,15 @@ public static function dropComments($code) {
 
 // ***********************************************************
 public static function dropSpaces($code) {
-	$out = self::trim($code, "_");
-	$out = self::clear($out, "\r");
-	$out = self::replace($out, "_\n", "");    // join lines
-	$out = self::replace($out, "\t ", " ");
-	$out = self::limChar($out, " ");
+	$out = STR::trim($code, "_");
+	$out = STR::clear($out, "\r");
+	$out = STR::replace($out, "_\n", "");    // join lines
+	$out = STR::replace($out, "\t ", " ");
+	$out = STR::limChar($out, " ");
 
-	$out = self::replace($out, "\n ", "\n");  // leading blank
-	$out = self::replace($out, " \n", "\n");  // trailing blank
-	$out = self::limChar($out, "\n", 3);
+	$out = STR::replace($out, "\n ", "\n");  // leading blank
+	$out = STR::replace($out, " \n", "\n");  // trailing blank
+	$out = STR::limChar($out, "\n", 3);
 	return $out;
 }
 
@@ -214,8 +214,8 @@ public static function replace($haystack, $find, $rep = "", $case = true) {
 }
 
 public static function repFirst($haystack, $find, $rep) {
-	$lft = self::before($haystack, $find);
-	$rgt = self::after($haystack, $find);
+	$lft = STR::before($haystack, $find);
+	$rgt = STR::after($haystack, $find);
 	return ($rgt) ? $lft.$rep.$rgt : $lft;
 }
 
@@ -230,7 +230,7 @@ public static function norm($key, $lowercase = false) {
 // ***********************************************************
 public static function markup($haystack, $from, $to) {
 	$out = $haystack;
-	$arr = self::find($out, $from, $to);
+	$arr = STR::find($out, $from, $to);
 
 	foreach ($arr as $itm) {
 		$out = str_replace($itm, "<markp>$itm</markp>", $out);
@@ -247,8 +247,8 @@ public static function mark($haystack, $find) {
 // search strings
 // ***********************************************************
 public static function split($haystack, $sep) { // retains $sep as part of result
-	$txt = str_replace($sep, self::$sep.$sep, $haystack);
-	return explode(self::$sep, $txt);
+	$txt = str_replace($sep, STR::$sep.$sep, $haystack);
+	return explode(STR::$sep, $txt);
 }
 
 public static function slice($haystack, $sep = "\n") {
@@ -263,8 +263,8 @@ public static function toArray($text, $seps = "std") {
 		case "ref": $seps = ";|\n"; break;
 	}
 	$sep = str_split($seps);
-	$txt = str_replace($sep, self::$sep, $text);
-	$arr = explode(self::$sep, $txt);
+	$txt = str_replace($sep, STR::$sep, $text);
+	$arr = explode(STR::$sep, $txt);
 	$out = array();
 
 	foreach ($arr as $val) {
@@ -275,13 +275,13 @@ public static function toArray($text, $seps = "std") {
 }
 
 public static function toAssoc($text, $seps = "ref") {
-	$arr = self::toArray($text, $seps);
-	if ( self::misses($text, ":=")) return array_combine($arr, $arr);
+	$arr = STR::toArray($text, $seps);
+	if ( STR::misses($text, ":=")) return array_combine($arr, $arr);
 	$out = array();
 
 	foreach ($arr as $val) {
-		$key = self::before($val, ":="); if (! $key) continue;
-		$val = self::after($val, ":=");
+		$key = STR::before($val, ":="); if (! $key) continue;
+		$val = STR::after($val, ":=");
 		$out[$key] = $val;
 	}
 	return $out;
@@ -298,7 +298,7 @@ public static function toNumber($val, $fmt = "de") {
 		case "de": $sep = "."; $com = ","; break;
 		default:   $sep = ","; $com = ".";
 	}
-	$out = self::clear($val, $sep);
+	$out = STR::clear($val, $sep);
 	$out = str_replace($com, ".", $out);
 	if (! is_numeric($out)) return 0;
 	return $out;
@@ -331,7 +331,7 @@ public static function conv2utf8($string) {
 
 public static function utf8decode($string) {
 	$out = utf8_decode($string);
-	return self::afterX($out, "?"); // because of utf8_decode();
+	return STR::afterX($out, "?"); // because of utf8_decode();
 }
 
 // ***********************************************************
@@ -342,7 +342,7 @@ private static function simplify($txt, $sep) {
 	if (! is_array($sep)) $sep = array($sep);
 
 	foreach ($sep as $del) { // delimiter
-		$txt = str_ireplace($del, self::$sep, $txt);
+		$txt = str_ireplace($del, STR::$sep, $txt);
 	}
 	return $txt;
 }

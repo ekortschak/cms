@@ -77,7 +77,7 @@ private function getAgent($cap) {
 	$uag = $_SERVER["HTTP_USER_AGENT"];
 	$gut = "Firefox";
 
-	if (! STR::contains($uag, $gut)) return "";
+	if (STR::misses($uag, $gut)) return "";
 	return "_moz";
 }
 

@@ -27,25 +27,25 @@ class TAN {
 	private static $ofs = 15;     // validity intervall in minutes
 
 public static function init() {
-	self::$tan = self::get("prop.dbtan");
+	TAN::$tan = TAN::get("prop.dbtan");
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
 public static function register($dbase, $table, $recid) {
-	self::$tan = md5("tan.$dbase.$table.$recid");
+	TAN::$tan = md5("tan.$dbase.$table.$recid");
 	if ($recid < 1) $recid = -1;
 
 	SSV::clear("tan");
 
-	self::set("prop.dbtan", self::$tan);
-	self::set("prop.valid", self::mkdate());
-	self::set("prop.dbase", $dbase);
-	self::set("prop.table", $table);
-	self::set("prop.recid", $recid);
+	TAN::set("prop.dbtan", TAN::$tan);
+	TAN::set("prop.valid", TAN::mkdate());
+	TAN::set("prop.dbase", $dbase);
+	TAN::set("prop.table", $table);
+	TAN::set("prop.recid", $recid);
 
-	return self::$tan;
+	return TAN::$tan;
 }
 
 public static function close() {
@@ -71,16 +71,16 @@ public static function exec() {
 
 	if (! isset($arr["tan"])) return false;
 
-	if (! self::chkTan($arr["tan"])) return false;
-	if (! self::chkTime()) return ERR::assist("dbase", "tan.outdated", self::$tan);
+	if (! TAN::chkTan($arr["tan"])) return false;
+	if (! TAN::chkTime()) return ERR::assist("dbase", "tan.outdated", TAN::$tan);
 
-	$dbs = self::get("prop.dbase"); if (! $dbs) return false;
-	$tbl = self::get("prop.table"); if (! $tbl) return false;
-	$qid = self::get("prop.recid");
+	$dbs = TAN::get("prop.dbase"); if (! $dbs) return false;
+	$tbl = TAN::get("prop.table"); if (! $tbl) return false;
+	$qid = TAN::get("prop.recid");
 
-	$vls = self::getVals($arr);
-	$erg = self::doQuery($dbs, $tbl, "ID='$qid'", $vls);
-	$xxx = self::close();
+	$vls = TAN::getVals($arr);
+	$erg = TAN::doQuery($dbs, $tbl, "ID='$qid'", $vls);
+	$xxx = TAN::close();
 	return $erg;
 }
 
@@ -115,11 +115,11 @@ private static function doQuery($dbs, $tbl, $flt, $vls) {
 // timestamps
 // ***********************************************************
 private static function mkdate() {
-	return time() + self::$ofs * 60;
+	return time() + TAN::$ofs * 60;
 }
 private static function chkTime() {
 	$now = time();
-	$chk = self::get("prop.valid");
+	$chk = TAN::get("prop.valid");
 	return ($now < $chk);
 }
 
@@ -127,7 +127,7 @@ private static function chkTime() {
 // auxilliary methods
 // ***********************************************************
 private static function chkTan($tan) {
-	$chk = self::get("prop.dbtan");	if (! $chk) return false;
+	$chk = TAN::get("prop.dbtan");	if (! $chk) return false;
 	return ($tan == $chk);
 }
 

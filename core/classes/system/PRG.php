@@ -31,41 +31,41 @@ public static function find($haystack, $needle, $mod = "u") {
 // replace strings
 // ***********************************************************
 public static function replace($text, $search, $replace, $mod = "u") {
-	$fnd = self::xlate($search);
+	$fnd = PRG::xlate($search);
 	return preg_replace("~$fnd~$mod", $replace, $text);
 }
 public static function replace1($text, $search, $replace, $mod = "u") {
-	$fnd = self::xlate($search); // replace first occurrence only
+	$fnd = PRG::xlate($search); // replace first occurrence only
 	return preg_replace("~$fnd~$mod", $replace, $text, 1);
 }
 
 public static function clrBlanks($text) { // whitespace
-	return self::replace($text, "\s+", " ");
+	return PRG::replace($text, "\s+", " ");
 }
 
 // ***********************************************************
 // clear string of whatsoever
 // ***********************************************************
 public static function clear($text, $what, $mod = "u") {
-	return self::replace($text, $what, "", $mod);
+	return PRG::replace($text, $what, "", $mod);
 }
 
 public static function clrTag($text, $tag) { // html tags and content
-	return self::clear($text, "<$tag(.*?)</$tag>");
+	return PRG::clear($text, "<$tag(.*?)</$tag>");
 }
 
 public static function clrDiv($text, $tag) { // html divs and content
-	return self::clear($text, "<div class=\"$tag\"(.*?)</div>");
+	return PRG::clear($text, "<div class=\"$tag\"(.*?)</div>");
 }
 
 public static function clrDigits($text) { // clear leading digits followed by "."
-	return self::clear($text, "\b(\d+)\.");
+	return PRG::clear($text, "\b(\d+)\.");
 }
 
 public static function clrComments($text) {
-	$out = self::clear($text, "\/\*(.*?)\*\/"); // multiline comments
-	$out = self::clear($text, "\/\/(.*?)\n"); // lines starting at //
-	$out = self::clear($text, "#(.*?)\n"); // lines starting at #
+	$out = PRG::clear($text, "\/\*(.*?)\*\/"); // multiline comments
+	$out = PRG::clear($text, "\/\/(.*?)\n"); // lines starting at //
+	$out = PRG::clear($text, "#(.*?)\n"); // lines starting at #
 	return $out;
 }
 

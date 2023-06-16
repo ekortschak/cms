@@ -28,7 +28,7 @@ public static function init() {
 	$arr = STR::slice($pfd, PATH_SEPARATOR);
 	$arr = preg_filter('/$/', "/", $arr);
 
-	self::$fbk = $arr;
+	APP::$fbk = $arr;
 }
 
 // ***********************************************************
@@ -38,7 +38,7 @@ public static function relPath($fso) {
 	$fso = CFG::apply($fso);
 	$fso = FSO::norm($fso);
 
-	foreach (self::$fbk as $dir) {
+	foreach (APP::$fbk as $dir) {
 		$out = STR::after($fso, $dir); if ($out) return $out;
 	}
 	$out = STR::after($fso, SRV_ROOT); if ($out) return $out;
@@ -46,7 +46,7 @@ public static function relPath($fso) {
 }
 
 private static function getFBK($reverse = false) {
-	$out = self::$fbk; if ($reverse)
+	$out = APP::$fbk; if ($reverse)
 	$out = VEC::sort($out, "krsort"); // FBK first
 	return $out;
 }
@@ -54,43 +54,34 @@ private static function getFBK($reverse = false) {
 // ***********************************************************
 // app dirs or files
 // ***********************************************************
-public static function tempDir($dir = "temp", $sub = "") { // always local dirs
-	return self::arcDir(ARCHIVE, $dir, $sub);
-}
-
-public static function arcDir($root, $dir, $sub = "") { // archive
-	return FSO::join($root, "cms.archive", APP_NAME, $dir, $sub);
-}
-
-// ***********************************************************
 public static function getInc($dir, $file) {
 	$inc = FSO::join($dir, $file);
-	return self::relPath($inc);
+	return APP::relPath($inc);
 }
 
 // ***********************************************************
 // fs object lists
 // ***********************************************************
 public static function folders($dir) {
-	$dir = self::relPath($dir); $out = array();
+	$dir = APP::relPath($dir); $out = array();
 
-	foreach (self::$fbk as $loc) { // add dirs from app and fbk folders
+	foreach (APP::$fbk as $loc) { // add dirs from app and fbk folders
 		$ful = FSO::join($loc, $dir);
 		$arr = FSO::folders($ful);
-		self::addFso($arr, $out);
+		APP::addFso($arr, $out);
 	}
 	return $out;
 }
 
 public static function files($dir, $pattern = "*") {
-	$dir = self::relPath($dir); $out = array();
+	$dir = APP::relPath($dir); $out = array();
 	$ext = STR::slice($pattern, ",");
 
-	foreach (self::$fbk as $loc) { // add files from app and fbk folders
+	foreach (APP::$fbk as $loc) { // add files from app and fbk folders
 		foreach ($ext as $ptn) {
 			$ful = FSO::join($loc, $dir);
 			$arr = FSO::files($ful, $ptn);
-			self::addFso($arr, $out);
+			APP::addFso($arr, $out);
 		}
 	}
 	return $out;
@@ -99,7 +90,7 @@ public static function files($dir, $pattern = "*") {
 // ***********************************************************
 private static function addFso($arr, &$out) {
 	foreach ($arr as $fso => $nam) { // APP_DIR to prevail over APP_FBK
-		$fso = self::relPath($fso); if (isset($out[$fso])) continue;
+		$fso = APP::relPath($fso); if (isset($out[$fso])) continue;
 		$out[$fso] = $nam;
 	}
 }
@@ -108,10 +99,10 @@ private static function addFso($arr, &$out) {
 // single fs objects
 // ***********************************************************
 public static function dir($dir) { // find dir in extended fs
-	if (is_dir($dir)) return $dir; $dir = self::relPath($dir);
+	if (is_dir($dir)) return $dir; $dir = APP::relPath($dir);
 	if (! $dir) return false;
 
-	foreach (self::$fbk as $loc) {
+	foreach (APP::$fbk as $loc) {
 		$ful = FSO::join($loc, $dir); if (is_dir($ful)) return $ful;
 	}
 	return false;
@@ -121,16 +112,16 @@ public static function file($file) { // find file in extended fs
 	if (FSO::isUrl($file)) return $file;
 	if (is_file($file))    return $file;
 
-	$fil = self::relPath($file);
+	$fil = APP::relPath($file);
 
-	foreach (self::$fbk as $loc) {
+	foreach (APP::$fbk as $loc) {
 		$ful = FSO::join($loc, $fil); if (is_file($ful)) return $ful;
 	}
 	return false;
 }
 
 public static function url($fso) {
-	$ful = self::file($fso);
+	$ful = APP::file($fso);
 	$ful = STR::clear($ful, APP_DIR);
 	$ful = STR::replace($ful, APP_FBK, CMS_URL);
 	$ful = STR::clear($ful, SRV_ROOT);
@@ -139,7 +130,7 @@ public static function url($fso) {
 
 // ***********************************************************
 public static function find($dir, $snip = "page", $fext = "php, htm, html") {
-	$fil = self::file($dir); if ($fil) return $fil;
+	$fil = APP::file($dir); if ($fil) return $fil;
 
 	$lgs = LNG::getRel(); // find language relevant content
 	$ext = STR::toArray($fext);
@@ -148,7 +139,7 @@ public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 
 	foreach ($lgs as $lng) {
 		foreach ($ext as $ptn) {
-			$ful = self::file("$dir/$snip.$lng.$ptn");
+			$ful = APP::file("$dir/$snip.$lng.$ptn");
 			if (is_file($ful)) return $ful;
 		}
 	}
@@ -161,8 +152,8 @@ public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 public static function gcSys($fso, $snip = "page") {
 	if (ENV::get("blockme")) return "";
 
-	$ful = self::find($fso, $snip);
-	return self::gcFile($ful);;
+	$ful = APP::find($fso, $snip);
+	return APP::gcFile($ful);;
 }
 
 public static function gcRec($dir, $snip) { // get content recursively
@@ -170,7 +161,7 @@ public static function gcRec($dir, $snip) { // get content recursively
 	$out = ""; if ($snip == "trailer") rsort($arr);
 
 	foreach ($arr as $dir) {
-		$out.= self::gcSys($dir, $snip);
+		$out.= APP::gcSys($dir, $snip);
 	}
 	return $out;
 }
@@ -179,14 +170,14 @@ public static function gcRec($dir, $snip) { // get content recursively
 // retrieving non system content
 // ***********************************************************
 public static function gcMap($fso) {
-	$out = self::gcSys($fso); if ($out === NV) // usually body/include.php
-	$out = self::gcFile("LOC_MOD/sitemap.php");
+	$out = APP::gcSys($fso); if ($out === NV) // usually body/include.php
+	$out = APP::gcFile("LOC_MOD/sitemap.php");
 	return $out;
 }
 
 // ***********************************************************
 public static function gcFile($fil) {
-	$ful = self::file($fil); if (! $ful) return "";
+	$ful = APP::file($fil); if (! $ful) return "";
 
 	$xxx = ob_start(); include $ful;
 	return ob_get_clean();
@@ -196,17 +187,17 @@ public static function gcFile($fil) {
 // file ops
 // ***********************************************************
 public static function read($file) { // read any text
-	$ful = self::file($file); if (! $ful) return "";
+	$ful = APP::file($file); if (! $ful) return "";
 	return file_get_contents($ful);
 }
 
 public static function append($file, $data) {
-	return self::writeFile($file, $data, FILE_selfEND);
+	return APP::writeFile($file, $data, FILE_selfEND);
 }
 
 public static function write($file, $data, $overwrite = true) {
 	if (is_file($file)) if (! $overwrite) return false;
-	return self::writeFile($file, $data, false);
+	return APP::writeFile($file, $data, false);
 }
 
 private static function writeFile($file, $data, $overwrite = false) {
@@ -223,7 +214,7 @@ private static function writeFile($file, $data, $overwrite = false) {
 
 public static function writeTell($file, $content, $overwrite = true) {
 	if (is_file($file)) if (! $overwrite) return MSG::add("file.exists", $fil);
-	$erg = self::write($file, $content); if ($erg !== false) return true;
+	$erg = APP::write($file, $content); if ($erg !== false) return true;
 	return ERR::msg("no.write", $file);
 }
 
@@ -238,18 +229,13 @@ public static function lookup($txt) {
 		case "view": case "xfer": break;
 		default: return $txt;
 	}
-	$cls = CFG::getVal("classes", "route.lookup", "lookup"); if (! $cls) return $txt;
+	$cls = CFG::getVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");
 
 	$lup = new $cls();
 	$txt = $lup->insert($txt);
 	return $txt;
-}
-
-public static function isView() {
-	if (VMODE == "view")  return true;
-	return false;
 }
 
 // ***********************************************************

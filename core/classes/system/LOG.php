@@ -20,17 +20,17 @@ class LOG {
 	private static $dir = false;
 
 public static function init() {
-	self::$dir = FSO::join(SRV_ROOT, "_log", APP_NAME);
-	FSO::rmFiles(self::$dir);
+	LOG::$dir = FSO::join(SRV_ROOT, "_log", APP_NAME);
+	FSO::rmFiles(LOG::$dir);
 }
 
 public static function file($file) {
-	return FSO::join(self::$dir, $file);
+	return FSO::join(LOG::$dir, $file);
 }
 
 // ***********************************************************
 public static function write($file, $data, $mode = FILE_APPEND) {
-	$fil = FSO::join(self::$dir, $file);
+	$fil = FSO::join(LOG::$dir, $file);
 	$xxx = APP::write($fil, $data, $mode);
 }
 

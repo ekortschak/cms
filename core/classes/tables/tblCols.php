@@ -111,7 +111,7 @@ public function getInfo($item, $val = NV) {
 private function mask($val, $msk) {
 	if (! $val) return $val;
 	if (is_array($val)) return $val;
-	if (! STR::contains($msk, "%")) return $val;
+	if (STR::misses($msk, "%")) return $val;
 	return sprintf($msk, $val, $val, $val);
 }
 

@@ -3,7 +3,7 @@
 // ***********************************************************
 // get user list from config file
 // ***********************************************************
-$arr = CFG::getValues("users", "user");
+$arr = CFG::getValues("users:user");
 $arr = VEC::sort($arr);
 
 $ini = new code();

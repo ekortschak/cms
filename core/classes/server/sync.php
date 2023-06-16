@@ -36,14 +36,12 @@ class sync extends tpl {
 	protected $newProt = true;  // protect newer files
 	protected $err = false;
 
-	protected $dev = "";		// backup media root path
-
 	protected $srcPath = false;
 	protected $trgPath = false;
 
 
 function __construct($dev) {
-	$this->dev = $dev;
+	LOC::setArchive($dev);
 
 	$this->load("modules/xfer.sync.tpl");
 	$this->register();
@@ -93,12 +91,12 @@ protected function trgName($fso, $act = false) {
 
 // ***********************************************************
 protected function visPath($dir) {
-	if (! $dir) return "xxxxx";
 	$out = CFG::restore($dir); if ($out != $dir) return $out;
+	$arc = LOC::arcDir();
 
-	if (STR::contains($dir, "cms.archive")) {
-		$out = STR::after($dir, "cms.archive/");
-		return "ARCHIVE/$out";
+	if (STR::begins($dir, $arc)) {
+		$out = STR::after($dir, "$arc/");
+		return "~/cms.backup/$out";
 	}
 	return $dir;
 }

@@ -17,8 +17,8 @@ class HTW  {
 	private static $tpl;
 
 public static function init() {
-	self::$tpl = new tpl();
-	self::$tpl->load("other/stdObjs.tpl");
+	HTW::$tpl = new tpl();
+	HTW::$tpl->load("other/stdObjs.tpl");
 }
 
 // ***********************************************************
@@ -42,7 +42,7 @@ public static function snip($file, $head = "") {
 public static function csv($file, $sep = ";") {
 	incCls("tables/csv_table.php");
 
-	$fil = self::getLink($file);
+	$fil = HTW::getLink($file);
 
 	$csv = new csv_table();
 	$csv->load($fil, $sep);
@@ -83,55 +83,55 @@ public static function vspace($size) {
 // images
 // ***********************************************************
 public static function image($file) {
-	self::doImage("img.org", $file);
+	HTW::doImage("img.org", $file);
 }
 public static function img($file) {
-	self::doImage("img.std", $file);
+	HTW::doImage("img.std", $file);
 }
 
 private static function doImage($sec, $link = "") {
-	if (VMODE == "xsite") return self::thumbR($link);
+	if (VMODE == "xsite") return HTW::thumbR($link);
 
-	self::$tpl->set("file", self::getLink($link));
-	self::$tpl->show($sec);
+	HTW::$tpl->set("file", HTW::getLink($link));
+	HTW::$tpl->show($sec);
 }
 
 // ***********************************************************
 public static function thumbR($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumbR", $link, $wid);
+	HTW::doThumb("thumbR", $link, $wid);
 }
 public static function thumbL($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumbL", $link, $wid);
+	HTW::doThumb("thumbL", $link, $wid);
 }
 public static function thumb($link, $wid = 200, $hgt = NV) {
-	self::doThumb("thumb", $link, $wid);
+	HTW::doThumb("thumb", $link, $wid);
 }
 
 private static function doThumb($sec, $link = "", $wid = 200, $hgt = NV) {
-	$lnk = self::getLink($link);
+	$lnk = HTW::getLink($link);
 
-	self::$tpl->set("link", $lnk);
-	self::$tpl->set("wid", $wid);
-	self::$tpl->set("hgt", $hgt);
-	self::$tpl->show($sec);
+	HTW::$tpl->set("link", $lnk);
+	HTW::$tpl->set("wid", $wid);
+	HTW::$tpl->set("hgt", $hgt);
+	HTW::$tpl->show($sec);
 }
 
 // ***********************************************************
 // media
 // ***********************************************************
 public static function mp4($fil, $txt, $hint = "") {
-	self::$tpl->set("link", $fil);
-	self::$tpl->set("text", $txt);
-	self::$tpl->set("hint", $hint);
-	self::$tpl->show("mp4");
+	HTW::$tpl->set("link", $fil);
+	HTW::$tpl->set("text", $txt);
+	HTW::$tpl->set("hint", $hint);
+	HTW::$tpl->show("mp4");
 }
 
 public static function ytube($ytid, $tit, $len = "", $typ = "link") {
 	if (! $ytid) return;
-	self::$tpl->set("ytid", $ytid);
-	self::$tpl->set("title", $tit);
-	self::$tpl->set("len", $len);
-	self::$tpl->show("yt.$typ");
+	HTW::$tpl->set("ytid", $ytid);
+	HTW::$tpl->set("title", $tit);
+	HTW::$tpl->set("len", $len);
+	HTW::$tpl->show("yt.$typ");
 }
 
 // ***********************************************************

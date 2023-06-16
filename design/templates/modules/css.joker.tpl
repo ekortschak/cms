@@ -1,7 +1,7 @@
 [main]
 <div class="flex">
 <!SEC:topics!>
-<!SEC:left!>
+#<!SEC:left!>
 <!SEC:nav!>
 <!SEC:right!>
 </div>
@@ -18,9 +18,7 @@
 </div>
 
 [topics]
-<div>
 <!VAR:topics!>
-</div>
 
 [nav]
 <div>

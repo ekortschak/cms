@@ -1,6 +1,6 @@
 <?php
 
-$sec = ENV::dbState("main");
+$sec = CFG::dbState("main");
 
 // ***********************************************************
 // check for action

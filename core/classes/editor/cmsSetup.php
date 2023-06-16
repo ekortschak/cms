@@ -76,7 +76,7 @@ private function reconfig($dir, $prj, $tpc) {
 // ***********************************************************
 private function wConfig($dir, $prj) {
 	$fil = FSO::join("$dir/config/config.ini");
-	$ver = CFG::getVal("config", "app.version", "?");
+	$ver = CFG::getVal("config:app.version", "?");
 
 	$txt = APP::read($fil);
 	$txt = STR::replace($txt, "*project*", $prj);

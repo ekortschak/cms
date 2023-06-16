@@ -115,7 +115,7 @@ public function filter($val) {
 
 	foreach ($this->data as $row) {
 		$rec = "|".implode("|", $row)."|";
-		if (! STR::contains($rec, $val)) continue;
+		if (STR::misses($rec, $val)) continue;
 		$out[] = array_combine($this->heds, $row);
 	}
 	return $out;

@@ -45,15 +45,15 @@ class DBG {
 // debugging tools
 // ***********************************************************
 public static function text($msg, $info = "dbg") {
-	if (is_object($msg)) return self::obj($msg, $info);
+	if (is_object($msg)) return DBG::obj($msg, $info);
 	if (is_array($msg)) {
 		if (count($msg) > 15) {
 			$msg = array_slice($msg, 0, 15);
 			$msg["+"] = "...";
 		}
-		return self::vector($msg, $info);
+		return DBG::vector($msg, $info);
 	}
-	if (self::$dest == "cl") { // command line
+	if (DBG::$dest == "cl") { // command line
 		echo "$info: $msg\n";
 		return;
 	}
@@ -62,21 +62,21 @@ public static function text($msg, $info = "dbg") {
 }
 public static function html($msg, $info = "htm") { // show html code
 	if (is_array($msg)) {
-		self::vector($msg, $info);
+		DBG::vector($msg, $info);
 		return;
 	}
-	self::text(htmlspecialchars($msg), $info);
+	DBG::text(htmlspecialchars($msg), $info);
 }
 public static function path($msg, $info = "path") { // show path info
 	$msg = str_replace("/",  " / ",  $msg);
-	self::text($msg, $info);
+	DBG::text($msg, $info);
 }
 
 // ***********************************************************
 public static function vector($arr, $info = "arr") {
 	SSV::set($info, $arr, "dbg");
 
-	if (self::$dest == "cl") {
+	if (DBG::$dest == "cl") {
 		$out = print_r($arr, true);
 		$out = str_replace("Array\n", "Array ", $out);
 		$out = trim($out);
@@ -98,27 +98,27 @@ public static function vector($arr, $info = "arr") {
 public static function box($var, $info = "dbg") {
 	if ($var === false) $var = "FALSE";
 
-	if (is_object($var)) self::obj($var, $info); else
-	if (is_array($var))  self::arr($var, $info); else
-	                     self::str($var, $info);
+	if (is_object($var)) DBG::obj($var, $info); else
+	if (is_array($var))  DBG::arr($var, $info); else
+	                     DBG::str($var, $info);
 }
 
 private static function str($msg, $pfx = "str") {
 	$tmp = htmlspecialchars($msg); if ($tmp) $msg = $tmp;
-	self::tooltip($msg, $pfx);
+	DBG::tooltip($msg, $pfx);
 }
 
 private static function obj($obj, $pfx = "obj") {
 	$msg = var_export($obj, true);
-	self::str($msg, $pfx);
+	DBG::str($msg, $pfx);
 }
 
 private static function arr($arr, $pfx = "var") {
-	$num = count($arr); if (self::$max > 0)
-	$arr = array_slice($arr, 0, self::$max);
+	$num = count($arr); if (DBG::$max > 0)
+	$arr = array_slice($arr, 0, DBG::$max);
 	$msg = VEC::xform($arr);
 
-	self::tooltip($msg, "$pfx = $num recs");
+	DBG::tooltip($msg, "$pfx = $num recs");
 }
 
 // ***********************************************************

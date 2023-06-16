@@ -3,6 +3,7 @@
 if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
+include_once("constants.php");  // internal constants
 require_once("funcs.php");
 
 // ***********************************************************
@@ -20,15 +21,13 @@ incCls("system/CHK.php"); // basic validation functions
 // ***********************************************************
 // set environment
 // ***********************************************************
-incFnc("constants.php");  // set preliminary constants
-
-incCls("server/NET.php"); // net info
 incCls("system/CFG.php"); // prepare constants
 incCls("system/SSV.php"); // session vars
 incCls("system/ENV.php"); // session & env vars
 incCls("system/OID.php"); // object IDs
 
-incCls("system/LNG.php"); // language support
+incCls("system/LOC.php"); // basic dir functions
+incCls("server/NET.php"); // net info
 
 // ***********************************************************
 // debugging tools

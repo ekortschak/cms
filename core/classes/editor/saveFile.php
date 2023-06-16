@@ -60,7 +60,7 @@ private function restore($act) {
 	if ($act != "restore") return false;
 	$fil = $this->get("fil"); if (! $fil) return false;
 
-	$dir = APP::arcDir(ARCHIVE, "sync");
+	$dir = LOC::arcDir("sync");
 	$ful = FSO::join($dir, $fil);
 	$xxx = FSO::copy($ful, $fil);
 	return true;
@@ -70,7 +70,7 @@ private function backup($act) {
 	if ($act != "backup") return false;
 	$fil = $this->get("fil"); if (! $fil) return false;
 
-	$dir = APP::arcDir(ARCHIVE, "sync");
+	$dir = LOC::arcDir("sync");
 	$ful = FSO::join($dir, $fil);
 	$xxx = FSO::copy($fil, $ful);
 	return true;

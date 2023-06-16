@@ -183,7 +183,7 @@ public function gc() {
 	$sec = "main"; if ($cnt < 1)
 	$sec = "no.perms";
 
-	if (! STR::contains($this->btn, "t")) $fed->clearSec("buttons");
+	if (STR::misses($this->btn, "t")) $fed->clearSec("buttons");
 	return $fed->gc($sec);
 }
 

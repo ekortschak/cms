@@ -23,67 +23,38 @@ class CFG {
 	private static $vls = array(); // buffer between .ini and .srv vars
 
 public static function init() {
-	self::fixForced(); // constants set before config.ini
-	self::fixServer(); // constants derived from env
-	self::fixPaths();
-	self::fixLangs();  // defined languages
+	CFG::addForced(); // constants set before config.ini
+	CFG::addServer(); // constants derived from env
 
-	self::readCfg();
-
-	self::roundup();
+	CFG::readCfg();   // read inifiles
 }
 
 // ***********************************************************
-// appropriating server environment
+// assessing server environment
 // ***********************************************************
-private static function fixForced() { // constants set by startup script
+private static function addForced() { // constants set by startup script
 	$arr = get_defined_constants(true);
-	$arr = $arr["user"];
 
-	foreach ($arr as $key => $val) {
-		self::$dat[$key] = $val;
+	foreach ($arr["user"] as $key => $val) {
+		CFG::$dat[$key] = $val;
 	}
 }
 
-private static function fixServer() {
-	self::set("SRV_ROOT", dirname(APP_DIR));
+private static function addServer() {
+	CFG::set("SRV_ROOT", dirname(APP_DIR));
 
-	self::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
-	self::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
-	self::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
-	self::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
-	self::set("APP_FILE", VEC::get($_SERVER, "PHP_SELF", "unknown"));
-	self::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
+	CFG::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
+	CFG::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
+	CFG::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
+	CFG::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
+	CFG::set("APP_FILE", VEC::get($_SERVER, "PHP_SELF", "unknown"));
+	CFG::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
 
-	self::set("APP_CALL", self::getCaller(APP_FILE));
-	self::set("APP_IDX",  self::getIndex());
+	CFG::set("APP_CALL", CFG::getCaller(APP_FILE));
+	CFG::set("APP_IDX",  CFG::getIndex());
 
-	self::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
+	CFG::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
 }
-
-private static function fixPaths() {
-	if (! IS_LOCAL) return;
-
-	$ck4 = "/xtools/ck4";
-	$dir = FSO::join(SRV_ROOT, $ck4); if (is_dir($dir)) self::set("CK4_URL", $ck4);
-
-	$ck5 = "/xtools/ck5";
-	$dir = FSO::join(SRV_ROOT, $ck5); if (is_dir($dir)) self::set("CK5_URL", $ck5);
-}
-
-private static function fixLangs() {
-	self::set("LANGUAGES", "de.en");
-	self::set("STD_LANG", STR::before(LANGUAGES, "."));
-}
-
-private static function roundUp() {
-	$sec = (IS_LOCAL) ? "local" : "remote";
-
-	$arc = self::getVal("backup", "$sec.archive"); if (! $arc)
-	$arc = self::getVal("backup", "local.archive", SRV_ROOT);
-	self::set("ARCHIVE", $arc); // if not yet set
-}
-
 
 // ***********************************************************
 // reading config files
@@ -92,26 +63,28 @@ public static function readCfg() {
 	$arr = APP::files("config", "*.ini");
 
 	foreach ($arr as $fil => $nam) {
-		self::read($fil);
+		CFG::read($fil);
 	}
+	CFG::freeze();
 }
 
 // ***********************************************************
 public static function readCss() {
-	self::read("LOC_CLR/default.ini");
-	self::read("LOC_CLR/COLORS.ini");
-	self::read("LOC_DIM/LAYOUT.ini");
+	CFG::read("LOC_CLR/default.ini");
+	CFG::read("LOC_CLR/COLORS.ini");
+	CFG::read("LOC_DIM/LAYOUT.ini");
+
+	CFG::freeze();
 }
 
 // ***********************************************************
-public static function read($file) {
-	$fil = self::apply($file); // resolve constants in file names
+private static function read($file) {
+	$fil = CFG::apply($file); // resolve constants in file names
 	$fil = APP::file($fil); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
 
-	if (! IS_LOCAL)
-	self::load($srv);
-	self::load($fil);
+	CFG::load($fil); if (! IS_LOCAL)
+	CFG::load($srv);
 }
 
 // ***********************************************************
@@ -127,15 +100,17 @@ private static function load($fil) {
 		if (STR::begins($lin, "[")) $sec = STR::between($lin, "[", "]");
 		if (STR::misses($lin, "=")) continue;
 
-		$key = STR::before($lin, "=");
+		$key = STR::before($lin, "="); if (! $key) continue;
 		$val = STR::after($lin, "=");
 
-		if ($key != strtoupper($key)) { // no valid constant name
-			self::setVal($idx, "$sec.$key", $val);
-		}
-		else { // valid constant definition
-			self::set($key, $val);
-		}
+		CFG::setVal("$idx:$sec.$key", $val);
+	}
+}
+
+private static function freeze() {
+	foreach (CFG::$cfg as $idx => $val) {
+		$key = STR::after($idx, "."); if ($key != strtoupper($key)) continue;
+		CFG::set($key, $val); // valid constant definition
 	}
 }
 
@@ -144,23 +119,23 @@ private static function load($fil) {
 // ***********************************************************
 public static function set($key, $value) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
-	$val = trim(self::apply($value));
+	$val = trim(CFG::apply($value));
 
 	if ($val === "false") $val = false;
 	if ($val === "true")  $val = true;
 
-	self::$dat[$key] = $val;
+	CFG::$dat[$key] = $val;
 	define($key, $val);
 }
 
 public static function setIf($key) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
 	$val = VEC::get($_GET, $key);  if (! $val) return;
-	self::set($key, $val);
+	CFG::set($key, $val);
 }
 
-public static function setVal($idx, $key, $val) {
-	self::$cfg[$idx][$key] = $val;
+public static function setVal($idx, $val) {
+	CFG::$cfg[$idx] = $val;
 }
 
 // ***********************************************************
@@ -168,7 +143,7 @@ public static function setVal($idx, $key, $val) {
 // ***********************************************************
 public static function apply($text) {
 	$out = $text; if (! $out) return $out;
-	$arr = self::$dat;
+	$arr = CFG::$dat;
 
 	foreach ($arr as $key => $val) {
 		if (! $key) continue;
@@ -178,10 +153,11 @@ public static function apply($text) {
 	return $out;
 }
 
+// ***********************************************************
 public static function restore($text) {
-	$out = self::contains($text, "APP_FBK");  if ($out) return $out;
-	$out = self::contains($text, "APP_DIR");  if ($out) return $out;
-	$out = self::contains($text, "SRV_ROOT"); if ($out) return $out;
+	$out = CFG::contains($text, "APP_FBK");  if ($out) return $out;
+	$out = CFG::contains($text, "APP_DIR");  if ($out) return $out;
+	$out = CFG::contains($text, "SRV_ROOT"); if ($out) return $out;
 	return $text;
 }
 
@@ -200,9 +176,13 @@ public static function groups() {
 }
 
 // ***********************************************************
-// retrieving module state
+// retrieving db state
 // ***********************************************************
-public static function getState($cat) {
+public static function dbState($sec = "main") { // tpl section
+	if (! DB_MODE)  return "nodb";
+	if (! DB_CON)   return "nocon";
+	if (! DB_LOGIN) return "nouser";
+	return $sec;
 }
 
 // ***********************************************************
@@ -234,18 +214,16 @@ public static function getConst($key, $default = "") {
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
-public static function getValues($idx, $pfx = "") {
-	$arr = VEC::get(self::$cfg, $idx);
-	return VEC::match($arr, $pfx);
+public static function getValues($pfx = "") {
+	return VEC::match(CFG::$cfg, $pfx);
 }
 
-public static function getVal($idx, $key, $default = "") {
-	$out = VEC::get(self::$cfg, $idx); if (! $out) return $default;
-	return VEC::get($out, $key, $default);
+public static function getVal($idx, $default = "") { // $idx - format: file:sec.value
+	return VEC::get(CFG::$cfg, $idx, $default);
 }
 
 public static function mod($key) {
-	return self::getVal("mods", $key);
+	return CFG::getVal("mods:$key");
 }
 
 // ***********************************************************
@@ -258,7 +236,7 @@ private static function getCaller($file) {
 }
 
 private static function getIndex() {
-	if (! STR::contains(APP_FILE, "x.edit")) return APP_FILE;
+	if (STR::misses(APP_FILE, "x.edit")) return APP_FILE;
 	return STR::replace(APP_FILE, "x.edit", "index");
 }
 

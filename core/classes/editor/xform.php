@@ -21,7 +21,7 @@ class xform {
 
 function __construct($cnt = 3) {
 	$this->tab = FSO::join(APP_NAME, basename(TAB_HOME));
-	$this->dir = APP::tempDir("static pages", STR::afterX($this->tab, APP_NAME));
+	$this->dir = LOC::tempDir("static pages", STR::afterX($this->tab, APP_NAME));
 	$this->dbg = $cnt; // number of items handled in debug mode
 
 	$ini = new iniTab(TAB_PATH);
@@ -131,7 +131,7 @@ private function deRefTabs($txt) {
 	$arr = STR::find($txt, "href=\"", "\"");
 
 	foreach ($arr as $lnk) {
-		if (! STR::contains($lnk, "?tab")) continue;
+		if (STR::misses($lnk, "?tab")) continue;
 
 		$dst = FSO::join("...", basename($lnk), "index.htm");
 		$txt = str_replace($lnk, $dst, $txt);

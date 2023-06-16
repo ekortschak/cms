@@ -209,7 +209,7 @@ protected function chkReset() {
 }
 
 protected function getContent($file) {
-	$ext = FSO::ext($file);	if (! STR::contains(".php.htm.", $ext)) return false;
+	$ext = FSO::ext($file);	if (STR::misses(".php.htm.", $ext)) return false;
 	$out = APP::read($file);
 	$out = STR::replace($out, "<?php ", "<php>");
 	$out = STR::replace($out, "?>", "</php>");

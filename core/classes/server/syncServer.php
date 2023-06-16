@@ -79,7 +79,7 @@ protected function chkProtect($arr) {
 
 	foreach ($arr as $act => $itm) {
 		foreach ($itm as $fso) {
-			if (! STR::contains($grd, "\n$fso")) continue;
+			if (STR::misses($grd, "\n$fso")) continue;
 			$arr[$act] = VEC::drop($arr[$act], $fso);
 			$arr["man"][] = $fso;
 		}

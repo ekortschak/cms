@@ -66,7 +66,7 @@ public static function toText($data, $pfx = "") {
 			continue;
 		}
 		$out.= $pfx.$key."\n";
-		$out.= self::toText($val, $pfx."\t");
+		$out.= VEC::toText($val, $pfx."\t");
 	}
 	return $out;
 }
@@ -102,8 +102,8 @@ public static function show($data) {
 // retrieving items
 // ***********************************************************
 public static function lng($lng, $data, $key, $default = false) {
-	$out = self::get($data, "$key.$lng", NV); if ($out !== NV) return $out;
-	return self::get($data,  $key, $default);
+	$out = VEC::get($data, "$key.$lng", NV); if ($out !== NV) return $out;
+	return VEC::get($data,  $key, $default);
 }
 
 public static function get($data, $key, $default = false) {
@@ -122,12 +122,12 @@ public static function indexOf($data, $sel, $default = false) {
 
 public static function find($data, $sel, $default = false) {
 	if (! is_array($data)) return $default;
-	if (self::get($data, $sel)) return $sel;
+	if (VEC::get($data, $sel)) return $sel;
 
 	foreach ($data as $key => $val) {
 		if ($sel === $val) return $key;
 	}
-	return self::getFirst($data);
+	return VEC::getFirst($data);
 }
 
 public static function getFirst($data) {;
@@ -165,7 +165,7 @@ public static function match($data, $pfx = "") {
 // handling arrays
 // ***********************************************************
 public static function append($data, $key, $value, $glue = "") {
-	$val = self::get($data, $key, ""); if ($val == "") $glue = "";
+	$val = VEC::get($data, $key, ""); if ($val == "") $glue = "";
 	$data[$key] = $val.$glue.$value;
 	return $data;
 }
@@ -214,7 +214,7 @@ public static function isKey($data, $key) {
 }
 
 public static function count($data, $key) {
-	$old = self::get($data, $key, 0);
+	$old = VEC::get($data, $key, 0);
 	return $data[$key] = $old + 1;
 }
 
@@ -231,7 +231,7 @@ public static function sortByLen($data) {
 	foreach ($data as $key => $val) {
 		$tmp[$key] = strlen($val);
 	}
-	$tmp = self::sort($tmp, "arsort");
+	$tmp = VEC::sort($tmp, "arsort");
 
 	foreach ($tmp as $key => $val) {
 		$out[$key] = $data[$key];
@@ -250,13 +250,13 @@ public static function flip($data) {
 // ***********************************************************
 public static function filter($data, $crit, $key = false) {
 	$out = array(); if (! $data) return false;
-	$crt = self::getCrit($crit);
+	$crt = VEC::getCrit($crit);
 
 	foreach ($data as $rec) {
-		$vgl = self::implode($rec, "|");
+		$vgl = VEC::implode($rec, "|");
 
 		if ($crt["ign"]) if (  STR::contains($vgl, $crt["ign"])) continue;
-		if ($crt["yes"]) if (! STR::contains($vgl, $crt["yes"])) continue;
+		if ($crt["yes"]) if (STR::misses($vgl, $crt["yes"])) continue;
 
 		if ($key) $out[$rec[$key]] = $rec;
 		else      $out[] = $rec;
@@ -286,7 +286,7 @@ private static function getCrit($lst) {
 }
 
 public static function add($data, $key, $add = 1) {
-	$cur = self::get($data, $key, 0);
+	$cur = VEC::get($data, $key, 0);
 	return $data[$key] = ++$cur;
 }
 

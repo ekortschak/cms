@@ -3,7 +3,7 @@
 incCls("dbase/dbQuery.php");
 
 $md5 = ENV::getPost("code", NV);
-$sec = ENV::dbState("main");
+$sec = CFG::dbState("main");
 
 // ***********************************************************
 // info

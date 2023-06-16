@@ -23,42 +23,42 @@ class MSG {
 	private static $msg = array();
 
 public static function init() {
-	self::reset();
+	MSG::reset();
 }
 
 public static function reset() {
-	self::$msg["msg"] = array();
-	self::$msg["err"] = array();
+	MSG::$msg["msg"] = array();
+	MSG::$msg["err"] = array();
 }
 
 // ***********************************************************
 // store messages
 // ***********************************************************
 public static function add($msg, $prm = NV) {
-	self::store("msg", $msg, $prm);
+	MSG::store("msg", $msg, $prm);
 }
 public static function err($msg, $prm = NV) {
-	self::store("err", $msg, $prm);
+	MSG::store("err", $msg, $prm);
 }
 public static function sql($msg, $sql) { // no translation
 	$txt = "$msg<br>\n$sql";
-	self::$msg["err"][$msg] = $txt;
+	MSG::$msg["err"][$msg] = $txt;
 }
 
 public static function now($msg, $prm = NV) {
-	self::add($msg, $prm);
-	self::show();
+	MSG::add($msg, $prm);
+	MSG::show();
 }
 
 // ***********************************************************
 private static function store($div, $msg, $prm) {
 	$msg = trim($msg); if (! $msg) return;
-	if (isset(self::$msg[$msg])) return;
+	if (isset(MSG::$msg[$msg])) return;
 
-	$prm = self::chkParm($msg, $prm);
+	$prm = MSG::chkParm($msg, $prm);
 	$txt = DIC::get($msg);
 
-	self::$msg[$div][$msg] = $txt.$prm;
+	MSG::$msg[$div][$msg] = $txt.$prm;
 }
 
 private static function chkParm($msg, $prm) {
@@ -72,9 +72,9 @@ private static function chkParm($msg, $prm) {
 // display messages
 // ***********************************************************
 public static function show() {
-	$msg = self::collect("err", "error");
-	$msg.= self::collect("msg", "msgs");
-	$xxx = self::reset();
+	$msg = MSG::collect("err", "error");
+	$msg.= MSG::collect("msg", "msgs");
+	$xxx = MSG::reset();
 	echo $msg;
 }
 
@@ -85,18 +85,18 @@ public static function long($msg) {
 }
 
 public static function startup() {
-	$cnt = count(self::$msg["msg"]);
-	$cnt+= count(self::$msg["err"]); if (! $cnt) return;
+	$cnt = count(MSG::$msg["msg"]);
+	$cnt+= count(MSG::$msg["err"]); if (! $cnt) return;
 
 	HTW::xtag("msg.start", "h3");
-	self::show();
+	MSG::show();
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
 private static function collect($div, $sec) {
-	$arr = VEC::get(self::$msg, $div); if (! $arr) return "";
+	$arr = VEC::get(MSG::$msg, $div); if (! $arr) return "";
 	$out = "";
 
 	$tpl = new tpl();

@@ -33,7 +33,7 @@ function __construct($dev) {
 // run jobs (restore mode)
 // ***********************************************************
 public function syncBack() {
-	$dir = APP::arcDir($this->dev, "sync");
+	$dir = LOC::arcDir("sync");
 	if (! is_dir($dir)) return MSG::now("sync.none", $dir);
 
 	$this->setSource($dir);
@@ -72,7 +72,7 @@ public function revert() {
 // find available versions
 // ***********************************************************
 protected function getVersions($typ) {
-	$dir = APP::arcDir($this->dev, $typ);
+	$dir = LOC::arcDir($typ);
 	return FSO::folders($dir);
 }
 

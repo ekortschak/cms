@@ -30,10 +30,10 @@ public static function init() {}
 // ***********************************************************
 public static function add($key, $file) {
  // make sure file is only added once
-	self::$dat[$key][$file] = $file;
+	REG::$dat[$key][$file] = $file;
 }
 public static function get($key) {
-	return VEC::get(self::$dat, $key, false);
+	return VEC::get(REG::$dat, $key, false);
 }
 
 // ***********************************************************

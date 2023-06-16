@@ -32,19 +32,19 @@ function __construct($dev) {
 // run jobs (backup mode)
 // ***********************************************************
 public function sync() {
-	$dir = APP::arcDir($this->dev, "sync");
+	$dir = LOC::arcDir("sync");
 	$this->common($dir, "sync");
 }
 
 // ***********************************************************
 public function backup() {
-	$dir = APP::arcDir($this->dev, "bkp", date("Y.m.d"));
+	$dir = LOC::arcDir("bkp", date("Y.m.d"));
 	$this->common($dir, "backup");
 }
 
 // ***********************************************************
 public function version() {
-	$dir = APP::arcDir($this->dev, "ver", VERSION);
+	$dir = LOC::arcDir("ver", VERSION);
 	$this->common($dir, "version");
 }
 

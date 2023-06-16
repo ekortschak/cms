@@ -5,7 +5,7 @@ return;
 incCls("menus/dropBox.php");
 
 // ***********************************************************
-$arr = CFG::getValues("bookmarks", "day1"); #if (! $arr) return;
+$arr = CFG::getValues("bookmarks:day1"); #if (! $arr) return;
 $arr = VEC::flip($arr);
 
 // ***********************************************************

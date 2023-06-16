@@ -26,7 +26,7 @@ function __construct() {}
 
 // ***********************************************************
 public function replace($text, $search, $mask, $mod = "u") {
-	if (! STR::contains($text, $search)) return $text;
+	if (STR::misses($text, $search)) return $text;
 	if (! $text) return $text;
 
 	$txt = $this->secure($text);

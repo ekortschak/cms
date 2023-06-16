@@ -84,7 +84,7 @@ private function doPage($inf, $dir) {
 	$txt = $this->cnvHeads($txt);
 	$tit = $this->getTitle($inf);
 
-	$pic = ""; if (! STR::contains($txt, "pic.png"))
+	$pic = ""; if (STR::misses($txt, "pic.png"))
 	$pic = APP::file("$dir/pic.png"); if ($pic)
 	$pic = $this->getSection("pic");
 

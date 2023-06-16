@@ -9,7 +9,7 @@ incCls("server/syncBack.php");
 $set = "local"; if (! IS_LOCAL)
 $set = "server";
 
-$dev = CFG::getValues("backup", $set);
+$dev = CFG::getValues("backup:$set");
 $dev = VEC::flip($dev);
 
 $act = array(

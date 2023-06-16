@@ -8,7 +8,7 @@ include $inc;
 // ***********************************************************
 HTW::xtag("dbo.check objects");
 // ***********************************************************
-$sts = ENV::dbState();
+$sts = CFG::dbState();
 
 if ($sts == "nodb")  return MSG::now("db.missing");
 if ($sts == "nocon") return MSG::now("db.con");

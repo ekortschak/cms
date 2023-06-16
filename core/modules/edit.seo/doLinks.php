@@ -31,7 +31,7 @@ $cnt = 0;
 // find broken links
 // ***********************************************************
 foreach ($arr as $ful => $nam) {
-	$txt = file_get_contents($ful); if (! STR::contains($txt, "href")) continue;
+	$txt = file_get_contents($ful); if (STR::misses($txt, "href")) continue;
 	$lst = STR::find($txt, "href", ">");
 
 	$dir = dirname($ful);

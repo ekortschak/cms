@@ -9,34 +9,50 @@ Just "save as" ...
 // ***********************************************************
 incCls("system/LNG.php");
 
-$fls = LNG::files();
 $lgs = LNG::get();
+$chk = LNG::isCurrent($lang);
+$lng = LNG::find($lang);
+
 */
+
+LNG::init();
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class LNG {
 
+public static function init() {
+	$std = STR::before(LANGUAGES, ".");
+	$lng = ENV::get("lang", $std);
+	$cur = LNG::find($lng);
+
+	CFG::set("STD_LANG", $std);
+	CFG::set("CUR_LANG", $cur);
+}
+
 // ***********************************************************
-// methods
+// retrieving available languages
 // ***********************************************************
 public static function get($lang = CUR_LANG) {
-	return self::getArr("$lang.".LANGUAGES);
+	$lgs = LNG::join($lang, LANGUAGES);
+	return LNG::getArr($lgs);
 }
-
 public static function getGen($lang = CUR_LANG) {
-	return self::getArr("$lang.".CUR_LANG.".".GEN_LANG);
+	$lgs = LNG::join($lang, CUR_LANG, GEN_LANG);
+	return LNG::getArr($lgs);
 }
-
 public static function getOthers() {
-	$out = self::get(); unset($arr[CUR_LANG]);
-	return $out;
+	$lgs = LNG::get(); unset($lgs[CUR_LANG]);
+	return $lgs;
+}
+public static function getRel($blank = false) {
+	$lgs = LNG::join(CUR_LANG, "xx", GEN_LANG);
+	return LNG::getArr($lgs);
 }
 
-public static function getRel($blank = false) {
-	return self::getArr(CUR_LANG.".xx.".GEN_LANG);
-}
+// ***********************************************************
+// verifying language
 // ***********************************************************
 public static function isCurrent($file) {
 	$fil = basename($file); $lng = CUR_LANG;
@@ -49,6 +65,7 @@ public static function isCurrent($file) {
 // ***********************************************************
 public static function find($lang) {
 	$lgs = LANGUAGES; if (! $lang) return GEN_LANG;
+
 	if (STR::contains(".$lgs.", ".$lang.")) return $lang;
 	return GEN_LANG;
 }
@@ -65,6 +82,11 @@ private static function getArr($langs) {
 		$out[$lng] = $lng;
 	}
 	return $out;
+}
+
+private static function join() {
+	$out = implode(".", func_get_args());
+	return ".$out.";
 }
 
 // ***********************************************************

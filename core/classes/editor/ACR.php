@@ -21,7 +21,7 @@ class ACR {
 
 static function init() {
 	$ini = new ini("lookup/acro.ini");
-	self::$lst = $ini->getValues("ref");
+	ACR::$lst = $ini->getValues("ref");
 }
 
 // ***********************************************************
@@ -30,7 +30,7 @@ static function init() {
 public static function clean($text) {
 	$out = $text;
 
-	foreach (self::$lst as $key => $val) {
+	foreach (ACR::$lst as $key => $val) {
 		$fnd = STR::replace($key, ".", ". "); $fnd = trim($fnd);
 		$out = STR::replace($out, $fnd, $key);
 	}

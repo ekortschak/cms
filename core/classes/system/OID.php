@@ -31,10 +31,10 @@ class OID {
 public static function init() {
 	$oid = ENV::getPost("oid", NV);
 
-	self::$vrs = &$_SESSION[APP_IDX]; if (! isset(self::$vrs["oid"])) self::$vrs["oid"] = array();
-	self::$top = &self::$vrs["oid"];  if (! isset(self::$top[$oid ])) self::$top[$oid]  = array();
+	OID::$vrs = &$_SESSION[APP_IDX]; if (! isset(OID::$vrs["oid"])) OID::$vrs["oid"] = array();
+	OID::$top = &OID::$vrs["oid"];  if (! isset(OID::$top[$oid ])) OID::$top[$oid]  = array();
 
-	self::chkPost($_POST, self::$top, $oid);
+	OID::chkPost($_POST, OID::$top, $oid);
 }
 
 // ***********************************************************
@@ -43,7 +43,7 @@ public static function init() {
 public static function register($key = NV, $sfx = "'") {
 	if ($key === NV) {
 		$dir = ENV::getPage();
-		$key = "$dir.$sfx.".self::$cnt++;
+		$key = "$dir.$sfx.".OID::$cnt++;
 	}
 	if (strlen($key) != 32) $key = md5($key);
 	return $key;
@@ -57,7 +57,7 @@ private static function chkPost($arr, &$vec, $oid) {
 		if (STR::ends($key, "act")) continue; // do not store nav
 
 		if (is_array($val)) {
-			self::chkPost($val, $vec[$oid], $key);
+			OID::chkPost($val, $vec[$oid], $key);
 			continue;
 		}
 		$vec[$oid][$key] = trim($val);
@@ -72,7 +72,7 @@ public static function get($oid, $key, $default = false) {
 	$idx = STR::between($key,"[", "]");
 	$key = STR::before($key, "[");
 
-	$arr = self::getValues($oid);          if (! $arr) return $default;
+	$arr = OID::getValues($oid);          if (! $arr) return $default;
 	$out = VEC::get($arr, $key, $default); if (! $idx) return $out;
 	return VEC::get($out, $idx, $default);
 }
@@ -83,14 +83,14 @@ public static function set($oid, $key, $value) {
 	$key = STR::before($key, "[");
 
 	if (! $idx)
-	self::$top[$oid][$key] = $value; else
-	self::$top[$oid][$key][$idx] = $value;
+	OID::$top[$oid][$key] = $value; else
+	OID::$top[$oid][$key][$idx] = $value;
 	return $value;
 }
 
 public static function setIf($oid, $key, $value) {
-	$chk = self::get($oid, $key, NV); if ($chk !== NV) return $chk;
-	return self::set($oid, $key, $value);
+	$chk = OID::get($oid, $key, NV); if ($chk !== NV) return $chk;
+	return OID::set($oid, $key, $value);
 }
 
 // ***********************************************************
@@ -104,20 +104,20 @@ public static function update($oid, $key, $value) {
 // ***********************************************************
 public static function getLast($oid = false) {
 	if (! $oid) $oid = ENV::getPost("oid");
- 	return self::getValues($oid);
+ 	return OID::getValues($oid);
 }
 
 // ***********************************************************
 public static function getValues($oid) {
- 	return VEC::get(self::$top, $oid);
+ 	return VEC::get(OID::$top, $oid);
 }
 
 // ***********************************************************
 // cleansing
 // ***********************************************************
 public static function forget($oid = NV) {
-	if ($oid === NV) self::$top = array();
-	else            self::$top[$oid] = array();
+	if ($oid === NV) OID::$top = array();
+	else            OID::$top[$oid] = array();
 }
 
 // ***********************************************************

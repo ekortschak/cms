@@ -25,10 +25,10 @@ class PGE {
 
 public static function init() {
 	$idx = APP_IDX;
-	$tab = self::getTab();
-	$typ = self::getTabType($tab);
-	$tpc = self::getTopic($tab, $typ);
-	$pge = self::getPage($tpc);
+	$tab = PGE::getTab();
+	$typ = PGE::getTabType($tab);
+	$tpc = PGE::getTopic($tab, $typ);
+	$pge = PGE::getPage($tpc);
 
 	if ($typ != "sel") $tab = $tpc;
 
@@ -47,19 +47,19 @@ public static function init() {
 // handling page props
 // ***********************************************************
 public static function load($dir) {
-	self::$dir = $dir;
+	PGE::$dir = $dir;
 
 	$ini = new ini($dir);
-	self::$pge = $ini->getValues();
+	PGE::$pge = $ini->getValues();
 }
 
 public static function get($key, $default = false) {
-	return VEC::get(self::$pge, $key, $default);
+	return VEC::get(PGE::$pge, $key, $default);
 }
 
 // ***********************************************************
 public static function incFile() {
-	$act = self::get("props.typ", "include");
+	$act = PGE::get("props.typ", "include");
 
 	$out = "$act.php";
 	$ful = FSO::join(LOC_MOD, "body", $out);
@@ -88,18 +88,18 @@ public static function incFile() {
 }
 
 public static function isCurrent($dir) {
-	return ($dir == self::$dir);
+	return ($dir == PGE::$dir);
 }
 
 public static function restore() {
- 	ENV::setPage(self::$dir);
+ 	ENV::setPage(PGE::$dir);
 }
 
 // ***********************************************************
 // tab related methods
 // ***********************************************************
 public static function tabsets() {
-#	return CFG::getValues("tabsets", APP_CALL);
+#	return CFG::getValues("tabsets:".APP_CALL);
 
 	$tbs = new tabsets();
 	return $tbs->getTabs(APP_CALL);
@@ -118,7 +118,7 @@ public static function topics() {
 	return $tab->getTopics();
 }
 public static function topicsVerify($tab, $std) {
-	$arr = self::topics($tab);
+	$arr = PGE::topics($tab);
 
 	$std = FSO::join($tab, $std);
 	$chk = VEC::get($arr, $std, NV); if ($chk === NV)
@@ -137,7 +137,7 @@ private static function getTab() {
 	$tab = ENV::get("tab.".APP_IDX); if ($tab) return $tab;
 	$set = basename(APP_IDX);
 
-	$arr = CFG::getValues("tabsets", $set);
+	$arr = CFG::getValues("tabsets:$set");
 	$lst = VEC::flip($arr);
 	$tab = VEC::get($lst, "default"); if ($tab) return $tab;
 	return key($arr);
@@ -149,7 +149,7 @@ private static function getTabType($tab) {
 	$typ = $ini->getType("root");
 	$std = $ini->get("props.std");
 
-	if ($typ == "sel") self::$tpc = basename($std);
+	if ($typ == "sel") PGE::$tpc = basename($std);
 	return $typ;
 }
 
@@ -159,7 +159,7 @@ private static function getTopic($tab, $typ) {
 	$tpc = ENV::get("tpc.$tab"); if ($tpc) return $tpc;
 
 	if ($typ != "sel") return $tab;
-	return FSO::join($tab, self::$tpc);
+	return FSO::join($tab, PGE::$tpc);
 }
 
 // ***********************************************************
@@ -176,29 +176,29 @@ private static function getPage($tab) {
 
 private static function langProp($prop) {
 	foreach (LNG::getRel() as $lng) {
-		$out = self::get("$lng.$prop"); if ($out) return $out;
+		$out = PGE::get("$lng.$prop"); if ($out) return $out;
 	}
-	return self::get($prop, false);
+	return PGE::get($prop, false);
 }
 
 // ***********************************************************
 // common ini related tasks
 // ***********************************************************
 public static function getType($fso = false) {
-	return self::getAny($fso, "getType", "inc");
+	return PGE::getAny($fso, "getType", "inc");
 }
 public static function getTitle($fso = false) {
-	return self::getAny($fso, "getHead");
+	return PGE::getAny($fso, "getHead");
 }
 public static function getUID($fso = false) {
-	return self::getAny($fso, "getUID");
+	return PGE::getAny($fso, "getUID");
 }
 public static function getValues($fso = false, $sec = "*") {
-	return self::getAny($fso, "getValues", $sec);
+	return PGE::getAny($fso, "getValues", $sec);
 }
 
 private static function getAny($fso, $fnc, $prm = false) {
-	if (! $fso) $fso = self::$dir;
+	if (! $fso) $fso = PGE::$dir;
 	$ini = new ini($fso);
 	return $ini->$fnc($prm);
 }

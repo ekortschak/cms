@@ -78,17 +78,17 @@ public static function mode($value = true) {
 public static function handler($num, $msg, $file, $line) {
 	if (! ERR_SHOW) return; if (! $num) return;
 
-	if (self::suppress()) return; // do not show suppressed errors
-	if (self::$done++) return; // handle only first error
+	if (ERR::suppress()) return; // do not show suppressed errors
+	if (ERR::$done++) return; // handle only first error
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
 	$tpl->set("errID", "$num:$line");
 	$tpl->set("line",   $line);
-	$tpl->set("errNum", self::fmtNum($num, $msg));
-	$tpl->set("errMsg", self::fmtMsg($msg));
-	$tpl->set("file",   self::fmtFName($file));
-	$tpl->set("items",  self::getStack("item"));
+	$tpl->set("errNum", ERR::fmtNum($num, $msg));
+	$tpl->set("errMsg", ERR::fmtMsg($msg));
+	$tpl->set("file",   ERR::fmtFName($file));
+	$tpl->set("items",  ERR::getStack("item"));
 	$tpl->show();
 }
 
@@ -111,7 +111,7 @@ public static function shutDown() {
 
 // ***********************************************************
 public static function state() {
-	return (count(self::$hst) > 0);
+	return (count(ERR::$hst) > 0);
 }
 
 // ***********************************************************
@@ -128,12 +128,12 @@ public static function raise($msg) {
 public static function trace() {
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
-	$tpl->set("items", self::getStack());
+	$tpl->set("items", ERR::getStack());
 	$tpl->show("trace");
 }
 
 private static function getStack($sec = "short") {
-	$arr = self::getList(0, self::$depth); // get list of calling functions
+	$arr = ERR::getList(0, ERR::$depth); // get list of calling functions
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
@@ -143,7 +143,7 @@ private static function getStack($sec = "short") {
 		$xxx = $tpl->merge($itm);
 		$out.= $tpl->getSection($sec);
 	}
-	$md5 = md5($out); if (VEC::get(self::$hst, $md5)) return "";
+	$md5 = md5($out); if (VEC::get(ERR::$hst, $md5)) return "";
 	return trim($out);
 }
 
@@ -151,7 +151,7 @@ private static function getStack($sec = "short") {
 // reading backtrace info into array
 // ***********************************************************
 private static function getList($fst = 0, $cnt = NV) {
-	if ($cnt === NV) $cnt = self::$depth;
+	if ($cnt === NV) $cnt = ERR::$depth;
 
 	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";
@@ -170,8 +170,8 @@ private static function getList($fst = 0, $cnt = NV) {
 
 		if ($fnc == "getBlock") break;
 
-		$itm["file"] = self::fmtFName($fil);
-		$itm["args"] = self::fmtArgs($arg);
+		$itm["file"] = ERR::fmtFName($fil);
+		$itm["args"] = ERR::fmtArgs($arg);
 
 		$out[] = $itm;
 	}
@@ -205,7 +205,7 @@ private static function fmtArgs($arg, $max = 250) {
 	if (! is_array($arg)) return $arg; $lst = array();
 
 	foreach ($arg as $itm) {
-		$lst[] = self::getArg($itm, $max);
+		$lst[] = ERR::getArg($itm, $max);
 	 }
 	$arg = implode("'; '", $lst);
 	$arg = strip_tags($arg); if (strlen($arg) > $max)
@@ -232,7 +232,7 @@ private static function getArg($itm, $max) {
 public static function box() {
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
-	$tpl->merge(self::$err);
+	$tpl->merge(ERR::$err);
 	$tpl->show();
 }
 
@@ -244,7 +244,7 @@ public static function assist($cat, $key, $parm = "") {
 	$tpl->read(FSO::join("design/errors", "$cat.tpl"));
 
 	$tpl->set("parm", $parm);
-	$tpl->merge(self::$err);
+	$tpl->merge(ERR::$err);
 	$tpl->substitute("howto", $key);
 	$tpl->show();
 }

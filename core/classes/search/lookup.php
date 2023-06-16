@@ -153,7 +153,7 @@ public function inject($txt) {
 
 		foreach ($this->dat[$set] as $key => $val) {
 			if (! $key) continue;
-			if (! STR::contains($txt, $key)) continue;
+			if (STR::misses($txt, $key)) continue;
 
 			$rep = $this->embrace($lup, $key);
 

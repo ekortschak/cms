@@ -29,12 +29,12 @@ public static function init() {
 // ***********************************************************
 public static function join() {
 	$out = implode(DIR_SEP, func_get_args());
-	return self::norm($out);
+	return FSO::norm($out);
 }
 
 public static function norm($fso) { // $fso => dir or file
 	if (! $fso) return "";
-    if (self::isUrl($fso)) return $fso;
+    if (FSO::isUrl($fso)) return $fso;
 
     $sep = DIR_SEP;
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
@@ -56,11 +56,11 @@ public static function level($fso) {
 
 // ***********************************************************
 public static function force($dir, $mod = 0775) {
-	$dir = self::norm($dir); if (is_dir($dir)) return $dir;
-	$chk = self::trim($dir); if (strlen($chk) < 1) return false;
+	$dir = FSO::norm($dir); if (is_dir($dir)) return $dir;
+	$chk = FSO::trim($dir); if (strlen($chk) < 1) return false;
 
 	$erg = mkdir($dir, $mod, true); // includes chmod
-	self::permit($dir, $mod);
+	FSO::permit($dir, $mod);
 
 	return ($erg) ? $dir : false;
 }
@@ -69,8 +69,8 @@ public static function rename($old, $new) {
 	if ($old == $new) return;
 
 	if (is_dir($old))
-	return (bool) self::mvDir($old, $new);
-	return (bool) self::move ($old, $new);
+	return (bool) FSO::mvDir($old, $new);
+	return (bool) FSO::move ($old, $new);
 }
 
 // ***********************************************************
@@ -100,7 +100,7 @@ public static function permit($fso, $mod = 0775) {
 public static function folders($dir = APP_DIR, $visOnly = true) {
 	$out = array();
 
-	if (! is_dir($dir)) $dir = self::findDir($dir);
+	if (! is_dir($dir)) $dir = FSO::findDir($dir);
 	if (! is_dir($dir)) return $out;
 
 	$hdl = opendir($dir); if (! $hdl) return $out;
@@ -117,7 +117,7 @@ public static function folders($dir = APP_DIR, $visOnly = true) {
 }
 
 public static function findDir($dir) {
-	if (! STR::contains($dir, "*")) return $dir;
+	if (STR::misses($dir, "*")) return $dir;
 
 	$par = dirname($dir);
 	$fnd = STR::after(basename($dir), "*");
@@ -133,38 +133,38 @@ public static function findDir($dir) {
 // working on folders
 // ***********************************************************
 public static function copyDir($src, $dst) {
-	$fso = self::fTree($src); if (! $fso) return; $cnt = 0;
-	$xxx = self::force($dst);
+	$fso = FSO::fTree($src); if (! $fso) return; $cnt = 0;
+	$xxx = FSO::force($dst);
 
 	foreach ($fso as $fil => $nam) {
 		$new = STR::after($fil, $src);
-		$new = self::join($dst, $new);
-		$cnt+= self::copy($fil, $new);
+		$new = FSO::join($dst, $new);
+		$cnt+= FSO::copy($fil, $new);
 	}
 	return $cnt;
 }
 
 // ***********************************************************
 public static function mvDir($src, $dst) {
-	$arr = self::fTree($src); if (! $arr) return false;
+	$arr = FSO::fTree($src); if (! $arr) return false;
 
 	foreach ($arr as $fso => $nam) {
 		$new = STR::after($fso, $src.DIR_SEP);
-		$new = self::join($dst, $new);
-		$xxx = self::force(dirname($new));
-		$erg = self::move($fso, $new); if (! $erg) return false;
+		$new = FSO::join($dst, $new);
+		$xxx = FSO::force(dirname($new));
+		$erg = FSO::move($fso, $new); if (! $erg) return false;
 	}
-	return self::rmdir($src);
+	return FSO::rmdir($src);
 }
 
 // ***********************************************************
 public static function rmDir($src) {
-	$arr = self::fdTree($src);
+	$arr = FSO::fdTree($src);
 	$arr = VEC::sort($arr, "krsort"); // subdirs first
 
 	foreach ($arr as $fso => $nam) {
 		if (is_dir($fso)) rmdir($fso); else
-		if (is_file($fso)) self::kill($fso);
+		if (is_file($fso)) FSO::kill($fso);
 	}
 	return rmdir($src);
 }
@@ -174,8 +174,8 @@ public static function rmDir($src) {
 // ***********************************************************
 public static function files($dir, $pattern = "*") {
  // collect all files matching $pattern
-	$ptn = self::join($dir, $pattern); $out = array();
-	$ptn = self::norm($ptn);
+	$ptn = FSO::join($dir, $pattern); $out = array();
+	$ptn = FSO::norm($ptn);
 
 	$arr = glob($ptn); if (! $arr) return $out;
 
@@ -187,10 +187,10 @@ public static function files($dir, $pattern = "*") {
 }
 
 public static function rmFiles($dir) {
-	$fls = self::files($dir);
+	$fls = FSO::files($dir);
 
 	foreach ($fls as $fil => $nam) {
-		self::kill($fil, "", 0);
+		FSO::kill($fil, "", 0);
 	}
 }
 
@@ -199,21 +199,21 @@ public static function rmFiles($dir) {
 // ***********************************************************
 public static function backup($file) {
 	if (! is_file($file)) return;
-	$dst = APP::tempDir("edited");
-	$dst = self::join($dst, basename($file));
-	self::copy($file, $dst);
+	$dst = LOC::tempDir("edited");
+	$dst = FSO::join($dst, basename($file));
+	FSO::copy($file, $dst);
 }
 
 public static function copy($src, $dst) { // copy a file
 	$src = APP::file($src); if (! is_file($src)) return false;
-	$dir = self::force(dirname($dst));
+	$dir = FSO::force(dirname($dst));
 	copy($src, $dst); if (is_file($dst)) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
 
 public static function move($old, $new) { // rename a file
 	if (! is_file($old)) return false;
-	$dir = self::force(dirname($new));
+	$dir = FSO::force(dirname($new));
 	rename($old, $new); if (is_file($new)) return true;
 	return ERR::assist("file", "no.write", $new);
 }
@@ -229,11 +229,11 @@ public static function kill($file) { // delete a file
 public static function dtree($dir, $visOnly = true) {
  // list all subfolders of $dir, including symbolic links
 	$dir = APP::dir($dir);                if (! $dir) return array();
-	$arr = self::folders($dir, $visOnly); if (! $arr) return array();
+	$arr = FSO::folders($dir, $visOnly); if (! $arr) return array();
 	$out = $arr;
 
 	foreach ($arr as $dir => $nam) {
-		$lst = self::dtree($dir, $visOnly); if ($lst)
+		$lst = FSO::dtree($dir, $visOnly); if ($lst)
 		$out = array_merge($out, $lst);
 	}
 	return VEC::sort($out);
@@ -241,19 +241,19 @@ public static function dtree($dir, $visOnly = true) {
 
 public static function fTree($dir, $pattern = "*", $incDirs = false) {
  // list all files in $dir recursively, including hidden dirs
-	$drs = self::dtree($dir, false);
-	$out = self::files($dir, $pattern);
+	$drs = FSO::dtree($dir, false);
+	$out = FSO::files($dir, $pattern);
 
 	foreach ($drs as $dir => $nam) {
 		if ($incDirs) $out[$dir] = $nam;
-		$lst = self::files($dir, $pattern); if ($lst)
+		$lst = FSO::files($dir, $pattern); if ($lst)
 		$out = array_merge($out, $lst);
 	}
 	return VEC::sort($out);
 }
 
 public static function fdTree($dir, $pattern = "*") {
-	return self::ftree($dir, $pattern, true);
+	return FSO::ftree($dir, $pattern, true);
 }
 
 public function dropEmpty($dir) {
@@ -286,7 +286,7 @@ public static function parents($dir) {
 
 public static function getPrev($dir) {
 	$par = dirname($dir);
-	$arr = self::folders($par);
+	$arr = FSO::folders($par);
 	$prv = $par;
 
 	foreach ($arr as $key => $val) {
@@ -306,7 +306,7 @@ public static function toggleVis($fso, $value = "toggle") {
 	if (STR::begins($itm, HIDE)) $nam = STR::trim($itm, HIDE);
 	else $nam = HIDE.$itm;
 
-	$new = self::join($par, $nam);
+	$new = FSO::join($par, $nam);
 	rename($fso, $new);
 	return $new;
 }
@@ -337,11 +337,11 @@ public static function name($file) {
 }
 
 public static function filter($files, $ext) {
-	$ext = self::getExts($ext);
+	$ext = FSO::getExts($ext);
 	$out = array(); if (! $files) return $out;
 
 	foreach ($files as $fil => $nam) {
-		if (! self::inExt($fil, $ext)) continue;
+		if (! FSO::inExt($fil, $ext)) continue;
 		$out[$fil] = $nam;
 	}
 	return $out;
@@ -362,7 +362,7 @@ private static function getExts($ext) {
 }
 
 private static function inExt($fil, $arr) {
-	$ext = self::ext($fil, true);
+	$ext = FSO::ext($fil, true);
 	$out = VEC::get($arr, "*" ); if ($out) return true;
 	$out = VEC::get($arr, $ext); if ($out) return true;
 	return false;

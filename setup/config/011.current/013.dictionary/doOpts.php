@@ -40,7 +40,7 @@ function reWrite() {
 		$out = array();
 
 		foreach ($arr as $lin) {
-			if (! STR::contains($lin, "="))  continue;
+			if (STR::misses($lin, "="))  continue;
 
 			if (STR::begins($lin, "prop."))  continue;
 			if (STR::begins($lin, "btn."))   continue;
@@ -73,7 +73,7 @@ function spawn() {
 					$out[] = "[dic.$itm]";
 					continue;
 				}
-				if (! STR::contains($lin, "=")) {
+				if (STR::misses($lin, "=")) {
 					$out[] = $lin;
 					continue;
 				}

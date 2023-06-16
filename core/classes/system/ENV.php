@@ -30,15 +30,14 @@ class ENV {
 // merge environment variables
 // ***********************************************************
 public static function init() {
-	self::mergeArr($_GET);
-	self::mergeArr($_POST);
-	self::seal();
+	ENV::mergeArr($_GET);
+	ENV::mergeArr($_POST);
 }
 
 private static function mergeArr($arr) {
 	foreach ($arr as $key => $val) {
-		if (self::isAction($key)) continue;
-		self::set($key, $val);
+		if (ENV::isAction($key)) continue;
+		ENV::set($key, $val);
 	}
 }
 
@@ -63,17 +62,17 @@ public static function setIf($key, $value) {
 
 // ***********************************************************
 public static function setPage($value) {
-	if (defined("TAB_HOME")) return self::set("pge.".TAB_HOME, $value);
-	self::setParm("pge", $value);
+	if (defined("TAB_HOME")) return ENV::set("pge.".TAB_HOME, $value);
+	ENV::setParm("pge", $value);
 }
 public static function getPage() {
-	return self::get("pge.".TAB_HOME);
+	return ENV::get("pge.".TAB_HOME);
 }
 
 public static function getTopDir() {
 	$idx = APP_IDX;
-	$tab = self::get("tab.$idx");
-	return self::get("tpc.$tab");
+	$tab = ENV::get("tab.$idx");
+	return ENV::get("tpc.$tab");
 }
 
 // ***********************************************************
@@ -101,30 +100,6 @@ public static function find($key, $default = false) {
 	$out = ENV::getPost($key, NV); if ($out !== NV) return $out;
 	$out = ENV::getParm($key, NV); if ($out !== NV) return $out;
 	return ENV::get($key, $default);
-}
-
-// ***********************************************************
-// finalizing constants
-// ***********************************************************
-public static function seal() { // TODO: xfer to CFG
-	$mod = self::get("vmode", "view");
-	$lng = self::get("lang", STD_LANG);
-
-	switch ($mod) {
-		case "csv": $dst = "csv"; break; // retrieve data only
-		case "prn": $dst = "prn"; break; // printing and pdf
-		default:    $dst = "screen";
-	}
-	CFG::set("VMODE", $mod);
-	CFG::set("CUR_DEST", $dst);
-	CFG::set("CUR_LANG", $lng);
-}
-
-public static function dbState($sec = "main") { // tpl section
-	if (! DB_MODE)  return "nodb";
-	if (! DB_CON)   return "nocon";
-	if (! DB_LOGIN) return "nouser";
-	return $sec;
 }
 
 // ***********************************************************

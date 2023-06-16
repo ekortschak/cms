@@ -85,7 +85,7 @@ public function gc($sec = "main") {
     $arr = $this->getModules();
 
 	foreach ($arr as $key => $fil) { // fill in modules
-		$mod = "<!MOD:$key!>"; if (! STR::contains($htm, $mod)) continue;
+		$mod = "<!MOD:$key!>"; if (STR::misses($htm, $mod)) continue;
 		$val = APP::gcFile($fil);
 
 		$htm = str_ireplace($mod, "$val\n", $htm);

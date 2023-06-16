@@ -25,19 +25,19 @@ class TMR {
 	private static $dat = array();
 
 public static function init() {
-	self::$sTime = self::$cTime = microtime(true);
+	TMR::$sTime = TMR::$cTime = microtime(true);
 }
 
 // ***********************************************************
 public static function total($info = NV) { // get total runtime
-	return self::doTime(self::$sTime, $info);
+	return TMR::doTime(TMR::$sTime, $info);
 }
 public static function punch($info = NV) { // get elapsed time
-	return self::doTime(self::$cTime, $info);
+	return TMR::doTime(TMR::$cTime, $info);
 }
 
 public static function get() {
-	return self::$dat;
+	return TMR::$dat;
 }
 
 // ***********************************************************
@@ -47,8 +47,8 @@ private static function doTime($ref, $key = NV) {
 	$cur = microtime(true);
 	$dif = sprintf("%1.3fs", $cur - $ref);
 
-	self::$cTime = $cur;
-	self::$dat[$key] = $dif;
+	TMR::$cTime = $cur;
+	TMR::$dat[$key] = $dif;
 }
 
 // ***********************************************************

@@ -27,7 +27,7 @@ $hpb = QED::hasPbr(); // pbreaks inside doc?
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-$dir = APP::tempDir("single page");
+$dir = LOC::tempDir("single page");
 $fil = FSO::join($dir, "$tit.htm");
 
 $dst = DIC::get("output.screen");

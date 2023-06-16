@@ -24,16 +24,16 @@ class DBS {
 
 
 public static function init() {
-	CFG::set("DB_CON",   self::loadDbs());
-	CFG::set("DB_LOGIN", self::isUser());
-	CFG::set("DB_ADMIN", self::isAdmin());
-	CFG::set("USR_GRPS", self::ugroups());
+	CFG::set("DB_CON",   DBS::loadDbs());
+	CFG::set("DB_LOGIN", DBS::isUser());
+	CFG::set("DB_ADMIN", DBS::isAdmin());
+	CFG::set("USR_GRPS", DBS::ugroups());
 }
 
 // ***********************************************************
 private static function loadDbs() {
-	self::$dbs = new dbInfo();
-	return self::$dbs->getState();
+	DBS::$dbs = new dbInfo();
+	return DBS::$dbs->getState();
 }
 
 // ***********************************************************
@@ -43,15 +43,15 @@ private static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 	if ( ! DB_CON) return false;
 
 	$pwd = STR::maskPwd($pwd);
-	$xxx = self::$dbs->setTable("dbusr");
-	return self::$dbs->isRecord("`uname`='$usr' AND `pwd`='$pwd'");
+	$xxx = DBS::$dbs->setTable("dbusr");
+	return DBS::$dbs->isRecord("`uname`='$usr' AND `pwd`='$pwd'");
 }
 
 private static function isAdmin($usr = CUR_USER)  {
 	if (! DB_LOGIN) return false;
 
-	$xxx = self::$dbs->setTable("dbxs");
-	return self::$dbs->isRecord("cat='usr' AND spec='$usr' AND admin='m'");
+	$xxx = DBS::$dbs->setTable("dbxs");
+	return DBS::$dbs->isRecord("cat='usr' AND spec='$usr' AND admin='m'");
 }
 
 // ***********************************************************
@@ -61,8 +61,8 @@ private static function ugroups($usr = CUR_USER)  {
 	if (  DB_ADMIN) return "admin";
 	if (! DB_LOGIN) return "www";
 
-	$xxx = self::$dbs->setTable("dbxs");
-	$arr = self::$dbs->query("cat='usr' AND spec='$usr'"); if (! $arr) return "www";
+	$xxx = DBS::$dbs->setTable("dbxs");
+	$arr = DBS::$dbs->query("cat='usr' AND spec='$usr'"); if (! $arr) return "www";
 	$out = STR::toArray("www,user");
 
 	foreach ($arr as $key => $val) {

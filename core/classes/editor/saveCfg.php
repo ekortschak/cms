@@ -33,11 +33,11 @@ protected function exec() {
 }
 
 private function update($fil) {
-	if (! STR::contains($fil, "mods.ini")) return;
+	if (STR::misses($fil, "mods.ini")) return;
 
 	foreach ($_POST as $sec => $lst) {
 		foreach ($lst as $key => $val) {
-			CFG::setVal("mods", "$sec.$key", $val);
+			CFG::setVal("mods:$sec.$key", $val);
 		}
 	}
 }

@@ -21,34 +21,34 @@ class DAT {
 
 // ***********************************************************
 public static function make($year, $mon, $day) {
-	return self::get("$year/$mon/$day");
+	return DAT::get("$year/$mon/$day");
 }
 
 // ***********************************************************
 public static function years($coming = 1, $past = 5) {
 	$cur = date("Y");
-	$max = CHK::range($coming, 5); self::$maxYear = $cur + $max;
-	$min = CHK::range($past,   7); self::$minYear = $cur - $min;
+	$max = CHK::range($coming, 5); DAT::$maxYear = $cur + $max;
+	$min = CHK::range($past,   7); DAT::$minYear = $cur - $min;
 
-	return VEC::range(self::$maxYear, self::$minYear);
+	return VEC::range(DAT::$maxYear, DAT::$minYear);
 }
 public static function months() {
 	return VEC::range(1, 12);
 }
 public static function numDays($year, $mon) {
-	$dat = self::toSecs("$year/$mon/1");
+	$dat = DAT::toSecs("$year/$mon/1");
 	$lst = date("t", $dat);
 	return VEC::range(1, $lst);
 }
 
 // ***********************************************************
 public static function checkMax($date) {
-	$max = self::make(self::$maxYear, 12, 31);
-	return self::isPrior($date, $max);
+	$max = DAT::make(DAT::$maxYear, 12, 31);
+	return DAT::isPrior($date, $max);
 }
 public static function checkMin($date) {
-	$min = self::make(self::$minYear, 1, 1);
-	return self::isLater($date, $min);
+	$min = DAT::make(DAT::$minYear, 1, 1);
+	return DAT::isLater($date, $min);
 }
 
 // ***********************************************************
@@ -67,22 +67,22 @@ private static function chkMonth($mon) {
 // ***********************************************************
 public static function prior($date, $comp) {
  // returns earlier of $date and $comp
-	$one = self::toSecs($date); if (! $one) return $comp;
-	$two = self::toSecs($comp); if ($one < $two) return $date;
+	$one = DAT::toSecs($date); if (! $one) return $comp;
+	$two = DAT::toSecs($comp); if ($one < $two) return $date;
 	return $comp;
 }
 
 public static function later($date, $comp) {
  // returns later of $date and $comp
-	return self::earlier($comp, $date);
+	return DAT::earlier($comp, $date);
 }
 public static function isprior($date, $comp) {
  // returns true if $date preceeds $comp
-	return (self::prior($date, $comp) == $date);
+	return (DAT::prior($date, $comp) == $date);
 }
 public static function islater($date, $comp) {
  // returns true if $date is past $comp
-	return self::isprior($comp, $date);
+	return DAT::isprior($comp, $date);
 }
 
 // ***********************************************************
@@ -90,58 +90,58 @@ public static function islater($date, $comp) {
 // ***********************************************************
 public static function now($offset = 0, $format = DATE_FMT) {
  // $offset = number of days from now, e.g. +7, 7 or -7
-	return self::addDays(time(), $offset, $format);
+	return DAT::addDays(time(), $offset, $format);
 }
 public static function calc($date, $offset = 1, $format = DATE_FMT) {
-	$dat = self::toSecs($date);
-	return self::addDays($dat, $offset, $format);
+	$dat = DAT::toSecs($date);
+	return DAT::addDays($dat, $offset, $format);
 }
 
 // ***********************************************************
 private static function addDays($timestamp, $offset, $format = DATE_FMT) {
-	$ofs = $offset * self::$lenDay;
+	$ofs = $offset * DAT::$lenDay;
 	$out = $timestamp + $ofs; if (! $format) return $out;
 	return date($format, $out);
 }
 
 public static function difDays($first, $second) {
  // returns number of days between $first and $second
-	$one = self::toSecs($first);
-	$two = self::toSecs($second);
-	return intval(($one - $two) / self::$lenDay);
+	$one = DAT::toSecs($first);
+	$two = DAT::toSecs($second);
+	return intval(($one - $two) / DAT::$lenDay);
 }
 
 // ***********************************************************
 public static function next($what = "Monday") {
-	return self::find("next week $what");
+	return DAT::find("next week $what");
 }
 public static function last($what = "Monday") {
-	return self::find("last week $what");
+	return DAT::find("last week $what");
 }
 public static function first($what = "Monday", $mon = false, $year = false) {
-	$yir = self::chkYear($year);
-	$mon = self::chkMonth($mon);
-	return self::find("first $what $yir-$mon");
+	$yir = DAT::chkYear($year);
+	$mon = DAT::chkMonth($mon);
+	return DAT::find("first $what $yir-$mon");
 }
 
 public static function firstOfMonth($date) {
-	$yir = self::get($date, "Y");
-	$mon = self::get($date, "m");
-	return self::make($yir, $mon, 1);
+	$yir = DAT::get($date, "Y");
+	$mon = DAT::get($date, "m");
+	return DAT::make($yir, $mon, 1);
 }
 
 public static function firstOfWeek($date) {
-	$wkd = self::weekday($date);
-	return self::calc($date, $wkd * -1 + 1);
+	$wkd = DAT::weekday($date);
+	return DAT::calc($date, $wkd * -1 + 1);
 }
 
 private static function find($what) {
 	$out = strtotime($what);
-	return self::get($out);
+	return DAT::get($out);
 }
 
 public static function weekday($date) {
-	$wkd = self::get($date, "w");
+	$wkd = DAT::get($date, "w");
 	return ($wkd == 0) ? 7 : $wkd;
 }
 
@@ -150,25 +150,25 @@ public static function weekday($date) {
 // ***********************************************************
 public static function split($date) {
 	return array(
-		"y" => intval(self::get($date, "Y")),
-		"m" => intval(self::get($date, "m")),
-		"d" => intval(self::get($date, "d")),
-		"h" => intval(self::get($date, "H")),
-		"n" => intval(self::get($date, "n")),
+		"y" => intval(DAT::get($date, "Y")),
+		"m" => intval(DAT::get($date, "m")),
+		"d" => intval(DAT::get($date, "d")),
+		"h" => intval(DAT::get($date, "H")),
+		"n" => intval(DAT::get($date, "n")),
 	);
 }
 
 public static function get($date = false, $format = DATE_FMT) {
 	$dat = $date; if (! $dat) return date($format);
-	$dat = self::toSecs($dat);
+	$dat = DAT::toSecs($dat);
 	return date($format, $dat);
 }
-public static function long($date) { return self::get($date, DATE_FMT." H:i"); }
-public static function date($date) { return self::get($date, DATE_FMT); }
-public static function time($date) { return self::get($date, "H:i"); }
+public static function long($date) { return DAT::get($date, DATE_FMT." H:i"); }
+public static function date($date) { return DAT::get($date, DATE_FMT); }
+public static function time($date) { return DAT::get($date, "H:i"); }
 
 public static function toSecs($string) { // return time stamp
-	$dat = self::strip($string); if (! $dat) return false;
+	$dat = DAT::strip($string); if (! $dat) return false;
 	if (is_numeric($dat)) return $dat;
 
 	if ($out = strtotime($dat)) return $out; $dat = str_replace(".", "/", $dat);
@@ -185,8 +185,8 @@ public static function sort($arr, $key, $sort = "asc") {
 
 	foreach ($arr as $key => $rec) {
 		$crt = VEC::get($rec, $key); if (! $crt) continue;
-		$crt = self::strip($crt);
-		$crt = self::ymd($crt);
+		$crt = DAT::strip($crt);
+		$crt = DAT::ymd($crt);
 
 		$tmp[$crt][$key] = $rec;
 	}

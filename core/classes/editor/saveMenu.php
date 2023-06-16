@@ -297,12 +297,12 @@ private function clipOpts($cur) {
 }
 
 private function clipCopy($cur) { // copy to clipboard
-	$dir = APP::tempDir("clipboard");
+	$dir = LOC::tempDir("clipboard");
 	return FSO::copyDir($cur, $dir);
 }
 
 private function clipMove($cur) { // move to clipboard
-	$dir = APP::tempDir("clipboard");
+	$dir = LOC::tempDir("clipboard");
 	$dst = FSO::join($dir, basename($cur));
 	$xxx = ENV::setPage(dirname($cur));
 	return FSO::mvDir($cur, $dst);
