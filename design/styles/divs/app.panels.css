@@ -69,7 +69,7 @@
 .modOpts {
 	float:    left;
 	height:   100vh;
-	width:    calc(100vw - W_TABS - W_BODY - 10px);
+	width:    calc(100% - W_TABS - W_BODY - 10px);
 	left:     calc(W_TABS + W_BODY);
 	top:      0px;
 }

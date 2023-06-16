@@ -96,7 +96,7 @@ protected function visPath($dir) {
 
 	if (STR::begins($dir, $arc)) {
 		$out = STR::after($dir, "$arc/");
-		return "~/cms.backup/$out";
+		return "~/cms.archive/$out";
 	}
 	return $dir;
 }

@@ -1,6 +1,6 @@
 @media only screen and (max-width: 1500px) {
 	.modTabs, .modBord, .modOpts { width: 0px; min-width: 0px; display: none; }
-	.colMain, .modBody, .joker { width: 100vw; max-width: 100%; }
+	.colMain, .modBody, .joker { width: 100%; max-width: 100%; }
 
 	.modBody {
 #		background-color: orange;

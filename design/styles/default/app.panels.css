@@ -41,7 +41,7 @@
 }
 
 .modOpts {
-	width:      calc(100vw - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
+	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
 	color:      FC_OPTS;
 }
 

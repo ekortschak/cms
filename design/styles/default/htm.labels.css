@@ -3,7 +3,6 @@
 /* labels */
 /* ******************************************************** */
 label {
-	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: 5px;
 	padding: 3px 10px;
@@ -23,8 +22,8 @@ a label {
 }
 
 label.text {
-	background: transparent none;
 	border: 0px;
+	background: transparent none;
 }
 
 label.red {

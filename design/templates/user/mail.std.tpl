@@ -26,14 +26,14 @@ noMsg   = Es wurde keine Nachricht definiert!
 MIME-Version: 1.0
 X-Mailer: PHP <!VAR:version!>
 Content-type: text.html; charset=iso-8859-1
-<hr class="low">_
+<hr>_
 From: <!VAR:from!>
 To: <!VAR:recipients!>
 Reply-To: <!VAR:replyto!>
-<hr class="low">_
+<hr>_
 Subject: <!VAR:subject!>
 Message: <!VAR:message!>
-<hr class="low">_
+<hr>_
 Total: <!VAR:count!>
 
 <!VAR:msg!></code>

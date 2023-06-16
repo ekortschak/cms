@@ -27,7 +27,7 @@ on = auf
 # ***********************************************************
 <tr style="height: 12px;"></tr>
 <tr class="selSection">
-	<td colspan="100%"><!VAR:title!><hr class="low"></td>
+	<td colspan="100%"><!VAR:title!><hr></td>
 </tr>
 
 # ***********************************************************

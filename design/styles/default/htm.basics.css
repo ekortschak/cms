@@ -39,6 +39,12 @@ blockquote {
 /* ******************************************************** */
 /* separators */
 /* ******************************************************** */
+hr {
+	margin: 7px 0px 3px;
+	height: 1px;
+	background: OUTLINE;
+}
+
 hr.pbr {
 	background-color: transparent;
 	border-top: 1px dashed red;
@@ -47,7 +53,6 @@ hr.pbr {
 hr.search {
 	background-color: transparent;
 	border-top: 2px solid red;
-#	border-bottom: 2px solid maroon;
 }
 
 /* ******************************************************** */
@@ -79,16 +84,6 @@ a.norm {
 /* ******************************************************** */
 sup, sub {
 	font-size: 0.6em;
-}
-
-hr {
-	border: 0px;
-	padding: 0px;
-	height: 1px;
-	background: OUTLINE;
-}
-hr.low {
-	margin: 2px 0px 3px;
 }
 
 /* ******************************************************** */

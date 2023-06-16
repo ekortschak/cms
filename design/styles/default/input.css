@@ -53,8 +53,6 @@ input[type='text'] {}
 input[type='date'] { padding: 0px 2px; }
 
 input[type='color'] { /* color input */
-	padding: 0px;
-	border: 0px;
 	height: H_LINE;
 }
 

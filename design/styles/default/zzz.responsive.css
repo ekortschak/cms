@@ -7,7 +7,7 @@
 @media only screen and (max-width: 1500px) {
 	.modToc  { width: W_MIN; }
 	.modOpts {
-		width: calc(100vw - W_TABS - W_MIN - W_MBAR - W_BODY - 10px);
+		width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px);
 	}
 }
 
@@ -15,14 +15,14 @@
 	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
 	.modOpts {
-		width: calc(100vw - W_TABS - W_MIN - W_BODY - 10px);
+		width: calc(100% - W_TABS - W_MIN - W_BODY - 10px);
 	}
 }
 
 @media only screen and (max-width: 1250px) {
 	.modBody { width: calc(W_BODY * 0.85); }
 	.modOpts {
-		width: calc(100vw - W_TABS - W_MIN - W_BODY * 0.85 - 10px);
+		width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px);
 	}
 }
 
@@ -33,8 +33,8 @@
 @media only screen and (max-width: 1100px) {
 	[class^="mod"] {
 		position: absolute;
-		height:   calc(100vh - 1.5rem);
-		width:    100vw;
+		height:   calc(100% - 1.5rem);
+		width:    100%;
 		left:     0px;
 		top:      25px;
 	}

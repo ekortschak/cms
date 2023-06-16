@@ -138,7 +138,7 @@ askWidth = Bildbreite festlegen
 	<div id="edList" class="dropbody">
 		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
 		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
-		<div><hr class="low" /></div>
+		<div><hr /></div>
 		<div><a href="javascript:addList('dl');"><!DIC:listdef!></a></div>
 	</div>
 </div>

@@ -5,7 +5,7 @@
 /* ******************************************************** */
 html {
 	background: BC_BODY;
-	height: 100vh;
+	height:100vh;
 }
 
 body {
@@ -15,10 +15,6 @@ body {
 	font: F_SIZE normal normal Arial, DejaVu Sans;
 	color: FC_BODY;
 	background: BC_BODY no-repeat right top;
-
-	margin: 0px;
-	padding: 0px;
-	border: 0px;
 }
 body.print {
 	width: 950px;
@@ -64,6 +60,6 @@ body.print {
 	color: FC_OPTS;
 	background: BC_OPTS;
 
-	width: calc(100vw - W_TABS - W_MBAR - W_BODY);
+	width: calc(100% - W_TABS - W_MBAR - W_BODY);
 	padding: 0px 25px 15px 35px;
 }

@@ -59,7 +59,7 @@ refbody, .refbody {
 	z-index: 30;
 	display: none;
 	position: fixed;
-	right: calc(100vw - W_BODY - W_TOC - W_TABS - W_MBAR + 20px);
+	right: calc(100% - W_BODY - W_TOC - W_TABS - W_MBAR + 20px);
 	width: calc(W_BODY * 0.9);
 	max-height: 50vh;
 	overflow: auto;

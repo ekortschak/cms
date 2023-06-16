@@ -13,7 +13,7 @@ div.flexleft {
 	flex-wrap: row wrap;
 }
 
-div.flexbottom {
+div.flexbottomx {
 	display: flex;
 	align-items: flex-end;
 }

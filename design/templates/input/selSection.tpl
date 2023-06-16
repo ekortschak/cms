@@ -11,7 +11,7 @@ info = Subsection title not defined
 [sec.cap] # new subsection
 # ***********************************************************
 <!VAR:info!>
-<hr class="low">
+<hr>
 
 # ***********************************************************
 [sec.spc] # spacer
