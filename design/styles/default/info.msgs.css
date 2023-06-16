@@ -24,7 +24,7 @@ php, code, dbg {
 code {
 	display: block;
 	overflow: auto;
-	min-height: 15px;
+	min-height: 1.1em;
 }
 
 dbg  { color: FC_WARN; }
@@ -81,8 +81,8 @@ trace {
 	background: BC_BODY;
 	border: 1px solid OUTLINE;
 	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+	width: 1.5rem;
+	height: 1.5rem;
 	vertical-align: bottom;
 	text-align: center;
 	font-family: monospace;

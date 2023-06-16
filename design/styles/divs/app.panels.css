@@ -16,12 +16,14 @@
 
 	background-color: white;
 	background-image: url("img/banner.jpg");
+	background-position: center;
 	background-size: cover;
 
 	height: H_MENU;
 	width:  100%;
+	min-width: 600px;
 
-	overflow: visible;
+	overflow: hidden;
 	border: 0px solid navy;
 
 	color: FC_MENU;
@@ -32,17 +34,18 @@
 	overflow: auto;
 	height:   calc(100vh - H_MENU);
 	width:    100%;
+	min-width: 250px;
 
 	background: BC_BODY;
 }
-
 
 .joker {
 	float:      top;
 	display:    none;
 	padding:    0px 15px;
-	height:     25px;
+	min-height: 1.5rem;
 	width:      100%;
+	min-width:  300px;
 	background: BC_TABS;
 }
 

@@ -49,7 +49,7 @@ public function gc($btn = "view") {
 	$sec = "button"; if ($ref) $sec = "button.tip";
 	$out = $tpl->gc($sec);
 	$out = STR::replace($out, "MY_VAL", $this->get("qid", "X"));
-	$out = CFG::insert($out);
+	$out = CFG::apply($out);
 	return $out;
 }
 

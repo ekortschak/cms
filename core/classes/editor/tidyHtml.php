@@ -90,8 +90,8 @@ private function analize($arr) {
 		$this->close($tag);
 
 		switch ($typ) {
-#			case "p": $this->chkPgf($txt, $tag); break;
-#			default:  $this->append($txt);
+			case "p": $this->chkPgf($txt, $tag); break;
+			default:  $this->append($txt);
 		}
 	}
 	$this->close("all");

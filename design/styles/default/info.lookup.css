@@ -29,7 +29,7 @@ refbody, .refbody {
 	padding: 5px 10px 7px;
 
 	max-height: 50vh;
-	min-width: 130px;
+	min-width: 10rem;
 	overflow: auto;
 	overscroll-behavior: none;
 
@@ -60,7 +60,7 @@ refbody, .refbody {
 	display: none;
 	position: fixed;
 	right: calc(100vw - W_BODY - W_TOC - W_TABS - W_MBAR + 20px);
-	width: calc(W_BODY - 75px);
+	width: calc(W_BODY * 0.9);
 	max-height: 50vh;
 	overflow: auto;
 

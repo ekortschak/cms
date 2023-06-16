@@ -131,13 +131,13 @@ private function mail($rec) {
 	$hed = $this->getSection("header");  $sbj = $this->get("subject");
 	$msg = $this->getSection("message"); $frm = $this->get("from");
 
-	if (! $frm) return MSG::add("mail.no sender");
-	if (! $rec) return MSG::add("mail.no recipients");
-	if (! $sbj) return MSG::add("mail.no subject");
-	if (! $msg) return MSG::add("mail.no message");
+	if (! $frm) return MSG::now("mail.no sender");
+	if (! $rec) return MSG::now("mail.no recipients");
+	if (! $sbj) return MSG::now("mail.no subject");
+	if (! $msg) return MSG::now("mail.no message");
 
 	if (! mail($rec, $sbj, "<pre>$msg</pre>", $hed)) {
-		return MSG::add("mail.failed");
+		return ERR::msg("mail.failed");
 	}
 	return true;
 }

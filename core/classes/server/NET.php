@@ -31,23 +31,15 @@ public static function isCon() {
 // reading web pages
 // ***********************************************************
 public static function read($url) {
-	$out = self::get($url); if (! self::isErr($out)) return $out;
-	$url = self::redirect($url);
-	return self::get($url);
-}
-
-private static function get($url) {
-	$con = curl_init($url);
-	$xxx = curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
+	$con = curl_init();
+	$xxx = curl_setopt($con, CURLOPT_HEADER, 0);
+	$xxx = curl_setopt($con, CURLOPT_URL, $url);
+	$xxx = curl_setopt($con, CURLOPT_SSL_VERIFYPEER, 0);
+	$xxx = curl_setopt($con, CURLOPT_SSL_VERIFYHOST, 0);
+	$xxx = curl_setopt($con, CURLOPT_RETURNTRANSFER, 1);
+	$xxx = curl_setopt($con, CURLOPT_FOLLOWLOCATION, 1);
+	$xxx = curl_setopt($con, CURLOPT_USERAGENT, "mozilla");
 	return curl_exec($con);
-}
-
-// ***********************************************************
-private static function redirect($url) {
-	$pcl = STR::before($url, "://");
-	if ($pcl == "http" ) return STR::replace($url, $pcl, "https");
-	if ($pcl == "https") return STR::replace($url, $pcl, "http");
-	return $url;
 }
 
 // ***********************************************************
@@ -63,9 +55,9 @@ return;
 }
 
 public static function geoCountry() { return self::geoInfo("countryCode"); }
-public static function geoTime() {    return self::geoInfo("locationAccuracyRadius"); }
-public static function geoLat() {     return self::geoInfo("latitude"); }
-public static function geoLong() {    return self::geoInfo("longitude"); }
+public static function geoTime()    { return self::geoInfo("locationAccuracyRadius"); }
+public static function geoLat()     { return self::geoInfo("latitude"); }
+public static function geoLong()    { return self::geoInfo("longitude"); }
 
 public static function geoAcc() {
 	$out = self::geoInfo("locationAccuracyRadius");
@@ -85,10 +77,6 @@ public static function geoInfo($what, $default = "") {
 // ***********************************************************
 // debugging
 // ***********************************************************
-public static function debug($url) {
-	echo "<a href='$url' target='debug'>Check Link</a>";
-}
-
 private static function isErr($txt) {
 	$txt = STR::between($txt, "<title>", " ");
 	return (is_numeric($txt));

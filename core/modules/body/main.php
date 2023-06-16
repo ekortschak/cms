@@ -35,7 +35,7 @@ $out = $htm->gc();
 // resolve constants
 // ***********************************************************
 switch (APP_IDX) {
-	case "index.php": $out = CFG::insert($out);
+	case "index.php": $out = CFG::apply($out);
 }
 echo $out;
 

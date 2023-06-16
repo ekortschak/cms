@@ -30,7 +30,7 @@ rows = 7
 # ***********************************************************
 [submit.simple]
 # ***********************************************************
-<divstyle="text-align: right; margin: 5px 0px;">
+<div style="text-align: right; margin: 5px 0px;">
 	<button name="file.act" value="save" onclick="exSubmit();">
 		<img src="LOC_ICO/buttons/save.png" />
 	</button>

@@ -20,11 +20,11 @@
 .selHead {
 	white-space: nowrap;
 	padding: 2px 15px 3px 7px;
-	width: 150px;
+	width: 15rem;
 }
 .selData {
 	padding: 2px 0px 0px;
-	width: 300px;
+	width: 30rem;
 }
 
 /* ******************************************************** */

@@ -56,13 +56,13 @@ function __construct($dev) {
 public function setSource($dir) {
 	$this->srcPath = $this->chkPath($dir);
 
-	$this->set("source", $this->getPath($dir));
+	$this->set("source", $this->visPath($dir));
 	$this->set("vsrc",   $this->getVersion($dir));
 }
 public function setTarget($dir) {
 	$this->trgPath = $this->chkPath($dir);
 
-	$this->set("target", $this->getPath($dir));
+	$this->set("target", $this->visPath($dir));
 	$this->set("vtrg",   $this->getVersion($dir));
 }
 
@@ -92,12 +92,15 @@ protected function trgName($fso, $act = false) {
 }
 
 // ***********************************************************
-protected function getPath($dir) {
-	$app = APP_NAME; if ($app = "cms_dist") $app = "cms";
-	$chk = array($app, "cms.archive");
+protected function visPath($dir) {
+	if (! $dir) return "xxxxx";
+	$out = CFG::restore($dir); if ($out != $dir) return $out;
 
-	$pro = STR::before($dir, $chk);
-	return STR::replace($dir, $pro, "~/");
+	if (STR::contains($dir, "cms.archive")) {
+		$out = STR::after($dir, "cms.archive/");
+		return "ARCHIVE/$out";
+	}
+	return $dir;
 }
 
 protected function getVersion($dir) {
@@ -417,7 +420,7 @@ protected function chkProps($arr) {
 }
 
 protected function chkPath($dir) {
-	$dir = CFG::insert($dir);
+	$dir = CFG::apply($dir);
 	return FSO::norm($dir);
 }
 

@@ -20,7 +20,7 @@ equal = &sime;
 <form method="post" action="?" style="padding: 0px; margin: 0px;">
 <!SEC:oid!>
 
-	<div class="flex flexbottom">
+	<div class="flexbottom">
 		<div><!SEC:data!></div>
 		<div><!SEC:btn.ok!></div>
 	</div>

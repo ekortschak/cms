@@ -1,7 +1,7 @@
 [vars]
 os = ""
 parm = tab
-dir = vertical
+agent =
 
 # ***********************************************************
 [main]
@@ -13,7 +13,7 @@ dir = vertical
 [item]
 <a href="?<!VAR:parm!>=<!VAR:link!>&vmode=<!VAR:mode!>">
 	<div class="vtab <!VAR:class!>">
-		<div class="<!VAR:dir!><!VAR:os!>"><!VAR:text!></div>
+		<div class="vertical<!VAR:agent!>"><!VAR:text!></div>
 	</div>
 </a>
 

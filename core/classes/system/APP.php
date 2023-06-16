@@ -35,7 +35,7 @@ public static function init() {
 // reducing paths to "local" paths
 // ***********************************************************
 public static function relPath($fso) {
-	$fso = CFG::insert($fso);
+	$fso = CFG::apply($fso);
 	$fso = FSO::norm($fso);
 
 	foreach (self::$fbk as $dir) {

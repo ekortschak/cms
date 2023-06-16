@@ -8,7 +8,7 @@
 	border: 1px solid OUTLINE;
 	border-right: 0px;
 	padding: 15px 7px 15px 9px;
-	width: 30px;
+	width: 3em;
 
 	color: FC_TABS;
 	background: BC_TABS;
@@ -20,23 +20,17 @@
 	padding-right: 4px;
 	color: FC_TOC;
 	background: BC_TOC;
-	text-align: right;
 }
 
 .vertical {
+#	writing-mode: vertical-rl;
+#	text-orientation: mixed;
+	writing-mode: tb-rl;
+	transform: rotate(-180deg);
+}
+.vertical_moz {
 	writing-mode: sideways-lr;
 	text-orientation: mixed;
-}
-
-.verticalMS {
-	transform: rotate(90deg);
-
-	-webkit-transform: rotate(-90deg); 	/* Safari */
-	-ms-transform: rotate(-90deg); 		/* IE */
-	-o-transform: rotate(-90deg); 		/* Opera */
-
-	/* Internet Explorer */
-	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 .tabicon {
@@ -61,7 +55,6 @@
 	color: FC_DROP;
 	background: BC_DROP;
 	border-radius: 0px;
-#	padding: 7px 20px;
 	text-shadow: 1px 1px 2px grey;
 }
 .regtabs a:hover {

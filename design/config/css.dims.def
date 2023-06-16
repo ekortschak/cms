@@ -26,18 +26,18 @@ outline = Linienfarbe
 
 
 [fonts]
-F_BODY = 12pt
-F_SIZE = 12pt
+F_SIZE = 1rem
+F_BODY = 1rem
 
 [panels]
-H_MENU = 36px
-H_LINE = 1.5em
-
-W_TABS = 45px
-W_TOC = 300px
+W_BODY = 43rem
+W_TABS = 3rem
+W_TOC  = 22rem
 W_MBAR = 70px
-W_BODY = 695px
-W_MIN  = 250px
+H_MENU = 0px
+
+W_MIN  = 15rem
+H_LINE = 1.5rem
 
 [borders]
 OUTLINE = \#AAA

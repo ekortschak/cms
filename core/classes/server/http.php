@@ -22,7 +22,6 @@ class http {
 
 function __construct($server, $pcl = "https") {
 	$this->url = "$pcl://$server/x.sync.php";
-dbg($this->url);
 }
 
 // ***********************************************************
@@ -30,7 +29,9 @@ dbg($this->url);
 // ***********************************************************
 public function query($act, $dir = ".") {
 	$cmd = $this->getUrl($act, $dir);
-	return NET::read($cmd);
+#	$xxx = $this->debug($cmd);
+	$out = NET::read($cmd);
+	return $out;
 }
 
 // ***********************************************************
@@ -49,25 +50,35 @@ public function getUrl($act, $fso = ".") { // create acceptable command
 // ***********************************************************
 public function upload($fso, $dir = "") {
 	$cmd = $this->getUrl("cpf", $fso);
+#	$xxx = $this->debug($cmd);
 
 	$fil = FSO::join($dir, $fso);
 	$fil = APP::file($fil); if (! $fil) return false;
-	$fil = curl_file_create($fil);
 	$con = curl_init();
 
 	$dat = array(
-		'file_contents' => $fil,
+		'file_contents' => curl_file_create($fil),
 		'extra_info' => '123456'
 	);
 	curl_setopt($con, CURLOPT_URL, $cmd);
 	curl_setopt($con, CURLOPT_POST, 1);
 	curl_setopt($con, CURLOPT_POSTFIELDS, $dat);
 	curl_setopt($con, CURLOPT_RETURNTRANSFER, 1);
-
 	$res = curl_exec($con);
+
+	if (curl_errno($con)) {
+		ERR::msg(curl_error($con));
+	}
 	curl_close($con);
 
 	return $res;
+}
+
+// ***********************************************************
+// debugging
+// ***********************************************************
+public static function debug($url) {
+	HTW::href($url, "Check URL request", "dbg");
 }
 
 // ***********************************************************

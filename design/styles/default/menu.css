@@ -6,8 +6,7 @@
 	display: block;
 
 	margin: 0px 0px 2px;
-	border: 1px solid navy;
-	border-width: 1px 0px;
+	border: 1px 0px solid navy;
 	border-radius: 7px;
 
 	color: FC_INFO;

@@ -42,7 +42,7 @@ public function get() { // get style sheet
 // ***********************************************************
 public function gc() { // get code
 	$css = $this->getCss();
-	return CFG::insert($css);
+	return CFG::apply($css);
 }
 
 // ***********************************************************

@@ -33,7 +33,7 @@
 @media only screen and (max-width: 1100px) {
 	[class^="mod"] {
 		position: absolute;
-		height:   calc(100vh - 25px);
+		height:   calc(100vh - 1.5rem);
 		width:    100vw;
 		left:     0px;
 		top:      25px;

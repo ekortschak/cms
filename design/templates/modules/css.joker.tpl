@@ -18,7 +18,7 @@
 </div>
 
 [topics]
-<div style="padding: 4px 0px 0px;">
+<div>
 <!VAR:topics!>
 </div>
 

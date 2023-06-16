@@ -4,13 +4,13 @@
 div.flex {
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap;
+	flex-wrap: row wrap;
 }
 
 div.flexleft {
 	display: flex;
 	justify-content: flex-start;
-	flex-wrap: wrap;
+	flex-wrap: row wrap;
 }
 
 div.flexbottom {

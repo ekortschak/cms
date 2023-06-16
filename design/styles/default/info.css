@@ -32,7 +32,7 @@ kbd {
 	background: #EEE;
 	border: 1px solid grey;
 	border-radius: 7px;
-	padding: 1px 5px;
+	padding: 1px 0.5em;
 	min-width: 12px;
 
 	font-size: 0.75em;

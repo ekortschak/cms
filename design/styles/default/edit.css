@@ -5,7 +5,7 @@
 [draggable] {
 	display: block;
 	margin: 2px 0px;
-	min-width: 250px;
+	min-width: 25rem;
 	text-align: left;
 }
 
@@ -15,7 +15,7 @@
 .filename {
 	text-align: right;
 	padding: 0px 5px;
-	width: 400px;
+	width: 30rem;
 }
 
 .hidden {
@@ -30,7 +30,7 @@
 	border: 1px solid OUTLINE;
 	border-radius: 15px;
 	padding: 7px 15px 25px;
-	min-height: 25px;
+	min-height: 1.5rem;
 	max-height: 75vh;
 }
 

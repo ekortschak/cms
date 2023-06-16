@@ -42,12 +42,12 @@ label.mauve {
 /* ******************************************************** */
 label.upload {
 	white-space: nowrap;
-	width: 300px;
+	width: 20rem;
 }
 
 .ronly { /* data */
 	border: 1px solid cadetblue;
-	width: 150px;
+	width: 10rem;
 	background: BC_BODY;
 }
 

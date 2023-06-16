@@ -21,7 +21,13 @@ height = 151
 # horizontal panels
 # ***********************************************************
 [menu]
+<div style="position: relative; height: 100%;">
+<!MOD:banner!>
+
+<div style="position: absolute; bottom: 0px; width: 100%;">
 <!MOD:menu!>
+</div>
+</div>
 
 # ***********************************************************
 [toc]  <!-- toc -->

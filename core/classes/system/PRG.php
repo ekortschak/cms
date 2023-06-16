@@ -31,11 +31,11 @@ public static function find($haystack, $needle, $mod = "u") {
 // replace strings
 // ***********************************************************
 public static function replace($text, $search, $replace, $mod = "u") {
-	$fnd = self::insert($search);
+	$fnd = self::xlate($search);
 	return preg_replace("~$fnd~$mod", $replace, $text);
 }
 public static function replace1($text, $search, $replace, $mod = "u") {
-	$fnd = self::insert($search); // replace first occurrence only
+	$fnd = self::xlate($search); // replace first occurrence only
 	return preg_replace("~$fnd~$mod", $replace, $text, 1);
 }
 
@@ -72,7 +72,7 @@ public static function clrComments($text) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private static function insert($out) {
+private static function xlate($out) {
 	$out = str_replace("@ANY", "(.*?)", $out);
 	$out = str_replace("@NUM", "(\d+)", $out);
 	return $out;

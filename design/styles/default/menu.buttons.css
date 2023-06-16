@@ -23,10 +23,10 @@
 }
 
 .miconbar {
-  width: 15px;
-  height: 3px;
-  background-color: FC_TOC;
-  margin: 2px 0px;
+	width: 15px;
+	height: 3px;
+	background-color: FC_TOC;
+	margin: 2px 0px;
 }
 
 /* ******************************************************** */
@@ -34,7 +34,7 @@
 /* ******************************************************** */
 button.icon {
 	min-height: H_LINE;
-	min-width: 30px;
+	min-width: 2rem;
 	padding: 0px 7px;
 }
 button.rose, .rose {

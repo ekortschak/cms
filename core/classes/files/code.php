@@ -75,7 +75,7 @@ public function getSecs($const = true) {
 	if (! $const) return $this->sec; $out = array();
 
 	foreach ($this->sec as $key => $val) {
-		$out[$key] = CFG::insert($val);
+		$out[$key] = CFG::apply($val);
 	}
 	return $out;
 }
@@ -173,7 +173,7 @@ protected function setVars() { // set vars
 	$arr = $this->split($txt);
 
 	foreach ($arr as $key => $val) {
-		$val = CFG::insert($val);
+		$val = CFG::apply($val);
 		$val = DIC::xlate($val);
 		$this->vrs[$key] = $val;
 	}

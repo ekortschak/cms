@@ -102,7 +102,7 @@ private function run($sql) {
 	if (! $this->dbs) return false;
 	if (! $sql) return false;
 
-	$sql = CFG::insert($sql);
+	$sql = CFG::apply($sql);
 	$res = $this->con->query($sql); if ($res) return $res;
 	$msg = $this->con->error;
 

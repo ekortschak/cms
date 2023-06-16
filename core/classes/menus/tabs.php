@@ -49,7 +49,7 @@ public function gc($sec = "main") {
 		$this->set("mode",  $this->getMode());
 		$this->set("text",  $cap);
 		$this->set("class", $this->getClass($tab));
-		$this->set("dir",   $this->getOrientation($cap));
+		$this->set("agent", $this->getAgent($cap));
 		$this->set("img",   $img);
 
 		$out.= $this->getSection($itm);
@@ -72,9 +72,13 @@ private function getClass($dir) {
 	return "std";
 }
 
-private function getOrientation($cap) {
+private function getAgent($cap) {
 	$chk = strip_tags($cap); if (strlen($chk) < 2) return "";
-	return "vertical";
+	$uag = $_SERVER["HTTP_USER_AGENT"];
+	$gut = "Firefox";
+
+	if (! STR::contains($uag, $gut)) return "";
+	return "_moz";
 }
 
 // ***********************************************************

@@ -6,7 +6,6 @@
 	overflow:   auto;
 	max-height: 100vh;
 	min-height: 100vh;
-	width:      calc(100vw - W_TABS);
 }
 
 /* ******************************************************** */
@@ -53,6 +52,6 @@
 	overflow:   auto;
 	display:    none;
 	padding:    0px 15px;
-	height:     25px;
+	min-height: 1.5rem;
 	background: BC_TABS;
 }

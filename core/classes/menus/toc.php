@@ -60,7 +60,7 @@ public function gc($sec = "main") {
     $this->set("items", $out);
     $out = parent::gc($sec);
 
-	$out = CFG::insert($out);
+	$out = CFG::apply($out);
     return $out;
 }
 

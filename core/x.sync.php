@@ -5,18 +5,12 @@ include_once "config/fallback.php";
 include_once "include/load.err.php";
 include_once "include/load.min.php";
 
-// ***********************************************************
-// determine method
-// ***********************************************************
-$fnc = "xfer"; # if ($_FILES)
-#$fnc = "curl";
-
-incCls("server/$fnc.php");
+incCls("server/xfer.php");
 
 // ***********************************************************
 // return requested data
 // ***********************************************************
-$srv = new $fnc();
+$srv = new xfer();
 $srv->act();
 
 ?>

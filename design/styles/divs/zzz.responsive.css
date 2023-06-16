@@ -1,21 +1,12 @@
-@media only screen and (max-width: 1100px) {
-	.colMain {
-		width: calc(W_BODY * 0.75);
-	}
-	.modOpts {
-		width: calc(100vw - W_TABS - W_BODY * 0.75 - 10px);
-	]
-}
-
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1500px) {
 	.modTabs, .modBord, .modOpts { width: 0px; min-width: 0px; display: none; }
-	.colMain, .modBody, .joker { width: 100vw; }
+	.colMain, .modBody, .joker { width: 100vw; max-width: 100%; }
 
 	.modBody {
 #		background-color: orange;
 	}
 
 	.joker {
- 		display:   block;
+ 		display: block;
 	}
 }

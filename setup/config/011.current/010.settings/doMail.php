@@ -9,7 +9,7 @@ $fcs = "mail";
 include $inc;
 
 // ***********************************************************
-HTW::xtag("mail.check");
+HTW::xtag("mail.test");
 // ***********************************************************
 if (MAILMODE == "none") {
 	return MSG::now("mail.off");

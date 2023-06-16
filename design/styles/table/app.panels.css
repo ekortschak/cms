@@ -21,6 +21,7 @@ body {
 	border: 0px;
 }
 body.print {
+	width: 950px;
 	max-width: 950px; /* A4 */
 	margin: 25px 20px 35px;
 }

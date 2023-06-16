@@ -8,8 +8,9 @@ require_once("funcs.php");
 // ***********************************************************
 // load basic classes (mostly static)
 // ***********************************************************
-incCls("system/TMR.php"); // start timer
+incCls("objects.php");
 
+incCls("system/TMR.php"); // start timer
 incCls("system/STR.php"); // basic string functions
 incCls("system/VEC.php"); // basic array functions
 incCls("system/FSO.php"); // basic dir functions

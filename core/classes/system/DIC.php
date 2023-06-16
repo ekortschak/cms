@@ -117,7 +117,7 @@ private static function find($key, $lng, $default = false) {
 	foreach ($lgs as $lng) {
 		$arr = VEC::get(self::$dat, $lng); if (! $arr) continue;
 		$out = VEC::get($arr, $idx); if ($out)
-		return CFG::insert($out);
+		return CFG::apply($out);
 	}
 	return $default;
 }

@@ -16,12 +16,14 @@
 
 #	background-color: grey;
 	background-image: url("img/banner.png");
+	background-position: center;
 	background-size: cover;
 
 	height: H_MENU;
 	width:  100%;
+	min-width: 600px;
 
-	overflow: visible;
+	overflow: hidden;
 	border: 0px solid navy;
 
 	color: FC_MENU;
@@ -32,6 +34,7 @@
 	overflow: auto;
 	height:   calc(100vh - H_MENU);
 	width:    W_BODY;
+	min-width: 250px;
 
 	background: BC_BODY;
 }
@@ -41,8 +44,9 @@
 	float:      top;
 	display:    none;
 	padding:    0px 15px;
-	height:     25px;
+	min-height: 1.5rem;
 	width:      100%;
+	min-width:  300px;
 	background: BC_TABS;
 }
 

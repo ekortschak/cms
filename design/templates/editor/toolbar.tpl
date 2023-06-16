@@ -80,12 +80,12 @@ askWidth = Bildbreite festlegen
 
 
 [edit]
-<button onclick="doUndo();"><img src="LOC_ICO/edit/undo.png" /></button>
+<button class="icon" onclick="doUndo();"><img src="LOC_ICO/edit/undo.png" /></button>
 
 # *****************************************************************
 [formatting]
 # *****************************************************************
-<div class="dropdown"><button class="rose" onclick="addTag('p');">¶COMBO_DOWN</button>
+<div class="dropdown"><button class="icon rose" onclick="addTag('p');">¶COMBO_DOWN</button>
 	<div id="edHead" class="dropbody">
 		<div><a href="javascript:addTag('p');"><p><!DIC:paragraph!></p></a></div>
 		<hr>
@@ -103,38 +103,38 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [characters]
 # *****************************************************************
-<div class="dropdown"><button onclick="addTag('b');"><b>B</b>COMBO_DOWN</button>
+<div class="dropdown"><button class="icon" onclick="addTag('b');"><b>B</b>COMBO_DOWN</button>
 	<div id="edChar" class="dropbody">
-		<button onclick="addTag('b');"><b>B</b></button>
-		<button onclick="addTag('i');"><i>I</i></button>
-		<button onclick="addTag('u');"><u>U</u></button>
-		<button onclick="addTag('kap');"><kap>Caps</kap></button>
-		<button onclick="addTag('sup');">x<sup>2</sup></button>
-		<button onclick="addTag('sub');">x<sub>2</sub></button>
+		<button class="icon" onclick="addTag('b');"><b>B</b></button>
+		<button class="icon" onclick="addTag('i');"><i>I</i></button>
+		<button class="icon" onclick="addTag('u');"><u>U</u></button>
+		<button class="icon" onclick="addTag('kap');"><kap>Caps</kap></button>
+		<button class="icon" onclick="addTag('sup');">x<sup>2</sup></button>
+		<button class="icon" onclick="addTag('sub');">x<sub>2</sub></button>
 		<br>
-		<button onclick="addTag('red');"><red><b>X</b></red></button>
-		<button onclick="addTag('maroon');"><maroon><b>X</b></maroon></button>
-		<button onclick="addTag('blue');"><blue><b>X</b></blue></button>
-		<button onclick="addTag('green');"><green><b>X</b></green></button>
-		<button onclick="addTag('white');"><white><b>X</b></white></button>
-		<button onclick="addTag('grey');"><grey><b>X</b></grey></button>
-		<button onclick="addTag('dark');"><dark><b>X</b></dark></button>
-		<button onclick="addTag('black');"><black><b>X</b></black></button>
+		<button class="icon" onclick="addTag('red');"><red><b>X</b></red></button>
+		<button class="icon" onclick="addTag('maroon');"><maroon><b>X</b></maroon></button>
+		<button class="icon" onclick="addTag('blue');"><blue><b>X</b></blue></button>
+		<button class="icon" onclick="addTag('green');"><green><b>X</b></green></button>
+		<button class="icon" onclick="addTag('white');"><white><b>X</b></white></button>
+		<button class="icon" onclick="addTag('grey');"><grey><b>X</b></grey></button>
+		<button class="icon" onclick="addTag('dark');"><dark><b>X</b></dark></button>
+		<button class="icon" onclick="addTag('black');"><black><b>X</b></black></button>
 		<hr>
-		<div><a href="javascript:addTag('mark');">  <mark><!DIC:hilite!></mark> </a></div>
-		<div><a href="javascript:addTag('kbd');">   <kbd><!DIC:key!></kbd>      </a></div>
-		<div><a href="javascript:addTag('dfn');">   <dfn><!DIC:dfn!></dfn>      </a></div>
-		<div><a href="javascript:addTag('hint');">  <hint><!DIC:hint!></hint>   </a></div>
-		<div><a href="javascript:addTag('small');"> <small><!DIC:small!></small></a></div>
+		<div><a href="javascript:addTag('mark');"><mark><!DIC:hilite!></mark></a></div>
+		<div><a href="javascript:addTag('kbd');"><kbd><!DIC:key!></kbd></a></div>
+		<div><a href="javascript:addTag('dfn');"><dfn><!DIC:dfn!></dfn></a></div>
+		<div><a href="javascript:addTag('hint');"><hint><!DIC:hint!></hint></a></div>
+		<div><a href="javascript:addTag('small');"><small><!DIC:small!></small></a></div>
 	</div>
 </div>
 
-<button onclick="clrTags();"><img src="LOC_ICO/edit/clear.png" /></button>
+<button class="icon" onclick="clrTags();"><img src="LOC_ICO/edit/clear.png" /></button>
 
 # *****************************************************************
 [listings]
 # *****************************************************************
-<div class="dropdown"><button class="rose"><img src="LOC_ICO/buttons/listing.png" />COMBO_DOWN</button>
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/listing.png" />COMBO_DOWN</button>
 	<div id="edList" class="dropbody">
 		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
 		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
@@ -144,7 +144,7 @@ askWidth = Bildbreite festlegen
 </div>
 
 [tables]
-<div class="dropdown"><button class="rose"><img src="LOC_ICO/buttons/table.png" />COMBO_DOWN</button>
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/table.png" />COMBO_DOWN</button>
 	<div id="tables" class="dropbody">
 		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
 		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
@@ -155,7 +155,7 @@ askWidth = Bildbreite festlegen
 
 [images]
 <div class="dropdown">
-	<button class="rose"><img src="LOC_ICO/buttons/img.png" />COMBO_DOWN</button>
+	<button class="icon rose"><img src="LOC_ICO/buttons/img.png" />COMBO_DOWN</button>
 
 	<div id="edImg" class="dropbody">
 		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
@@ -169,7 +169,7 @@ askWidth = Bildbreite festlegen
 </div>
 
 [addLFs]
-<div class="dropdown"><button onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
+<div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
 	<div id="edLFs" class="dropbody">
 		<div><a href="javascript:insAny('<br>');"><!DIC:lfeed!></a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
@@ -189,7 +189,7 @@ askWidth = Bildbreite festlegen
 [links]
 # *****************************************************************
 <div class="dropdown">
-	<button>🔗COMBO_DOWN</button>
+	<button class="icon">🔗COMBO_DOWN</button>
 
 	<div id="edLink" class="dropbody">
 		<div><a href="javascript:insRef('ax');"><!DIC:linknew!></a></div>
@@ -200,11 +200,11 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [switch.htm]
 # *****************************************************************
-<button onclick="toggleView();">
+<button class="icon" onclick="toggleView();">
 	<img src="LOC_ICO/buttons/edit.toggle.png" alt="Toggle Editor" />
 </button>
 
 [item.view]
 <a href="APP_CALL?vmode=view">
-	<button><img src="LOC_ICO/buttons/view.png" alt="View" /></button>
+	<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View" /></button>
 </a>

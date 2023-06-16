@@ -56,20 +56,22 @@ public function act() {
 
  // single file operations
 	if ($act == "dwn") return $this->sendFile($fso);
-	if ($act == "cpf") return $this->upload  ($fso); // no bulk copying ...
+	if ($act == "cpf") return $this->upload  ($fso);
 	return false;
 }
 
 // ***********************************************************
+// return requested info
+// ***********************************************************
+private function sendFile($fso) {
+	$out = APP::read($fso);
+	return $this->send($out);
+}
+
 private function send($txt) {
 	$out = APP::read("LOC_LAY/default/min.tpl");
 	$out = STR::replace($out, "<!VAR:content!>", $txt);
 	die($out);
-}
-
-private function sendFile($fso) {
-	$out = APP::read($fso);
-	return $this->send($out);
 }
 
 // ***********************************************************
@@ -109,10 +111,11 @@ private function getEntry($fso, $root) {
 }
 
 // ***********************************************************
-// offer a file for download
+// react to upload request
 // ***********************************************************
 private function upload($fso) {
 	$fil = $_FILES['file_contents']['tmp_name'];
+
 	$erg = move_uploaded_file($fil, $fso);
 	$this->send($erg > 0);
 }
@@ -138,7 +141,7 @@ private function do_ren($lst) { // rename dirs or files
 	$arr = STR::slice($lst, ";"); $cnt = 0;
 
 	foreach ($arr as $itm) {
-		$prp = STR::slice($itm, "|");      if (count($prp) < 3) continue;
+		$prp = STR::slice($itm, "|");   if (count($prp) < 3) continue;
 		$typ = $prp[0];                 if ($typ != "d") continue;
 
 		$new = $this->chkPath($prp[1]); if (! $new) continue;
@@ -148,6 +151,7 @@ private function do_ren($lst) { // rename dirs or files
 	$this->send(1);
 }
 
+// ***********************************************************
 private function do_touch($inf) {
 	$arr = STR::slice($lst, ";");
 

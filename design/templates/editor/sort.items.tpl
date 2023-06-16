@@ -25,7 +25,7 @@ nodata = Keine sortierbaren Einträge ...
 	<input type="hidden" name="sort.list" id="slist" />
 	<input type="hidden" name="sort.parm" value="<!VAR:sparm!>" />
 
-	<div class="flexleft flexbottom">
+	<div class="flex flexbottom">
 		<div>
 			<!VAR:items!>
 		</div>

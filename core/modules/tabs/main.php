@@ -26,4 +26,3 @@ $nav->setData(PGE::tabsets());
 $nav->show();
 
 ?>
-

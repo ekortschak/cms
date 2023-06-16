@@ -105,7 +105,7 @@ public static function readCss() {
 
 // ***********************************************************
 public static function read($file) {
-	$fil = self::insert($file); // resolve constants in file names
+	$fil = self::apply($file); // resolve constants in file names
 	$fil = APP::file($fil); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
 
@@ -144,7 +144,7 @@ private static function load($fil) {
 // ***********************************************************
 public static function set($key, $value) {
 	$key = strtoupper(trim($key)); if (defined($key)) return;
-	$val = trim(self::insert($value));
+	$val = trim(self::apply($value));
 
 	if ($val === "false") $val = false;
 	if ($val === "true")  $val = true;
@@ -166,8 +166,9 @@ public static function setVal($idx, $key, $val) {
 // ***********************************************************
 // replacing constants in strings
 // ***********************************************************
-public static function insert($out) {
-	$arr = self::$dat; if (! $out) return $out;
+public static function apply($text) {
+	$out = $text; if (! $out) return $out;
+	$arr = self::$dat;
 
 	foreach ($arr as $key => $val) {
 		if (! $key) continue;
@@ -175,6 +176,19 @@ public static function insert($out) {
 		$out = preg_replace("~\b$key\b~", $val, $out);
 	}
 	return $out;
+}
+
+public static function restore($text) {
+	$out = self::contains($text, "APP_FBK");  if ($out) return $out;
+	$out = self::contains($text, "APP_DIR");  if ($out) return $out;
+	$out = self::contains($text, "SRV_ROOT"); if ($out) return $out;
+	return $text;
+}
+
+private static function contains($text, $var) {
+	$cfg = CFG::getConst($var);
+	if ( ! STR::begins ($text, $cfg)) return false;
+	return STR::replace($text, $cfg, $var);
 }
 
 // ***********************************************************

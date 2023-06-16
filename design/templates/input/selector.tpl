@@ -16,7 +16,7 @@ cols = 69
 <form method="post" action="?" enctype="multipart/form-data">
 <!SEC:oid!>
 
-	<div class="flex flexbottom">
+	<div class="flexbottom">
 		<div><!SEC:data!></div>
 		<div><!SEC:btn.ok!></div>
 	</div>

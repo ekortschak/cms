@@ -69,6 +69,10 @@ public static function isUrl($url) {
 	return ($out < 400);
 }
 
+public static function isMail($email) {
+	return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

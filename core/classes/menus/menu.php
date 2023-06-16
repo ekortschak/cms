@@ -51,10 +51,7 @@ public function gc($sec = "main") {
 
 	foreach ($this->top as $dir => $inf) {
 		$sub = $this->getEntries($dir);
-
-		$box = "item";  if (! $sub)
-		$box = "empty"; if (VMODE != "view")
-		$box = "edit";
+		$box = $this->getBox($sub);
 
 		$this->set("class", $this->getClass($inf["fpath"]));
 		$this->set("subitems", $sub);
@@ -88,14 +85,10 @@ private function getClass($dir) {
 	return "std";
 }
 
-private function getOS() {
-	$cos = $_SERVER["HTTP_USER_AGENT"];
-
-	$bad = "chrom.safari.opera.ie.microsoft";
-	$bad = STR::slice($bad, ".");
-
-	if (STR::contains($cos, $bad)) return "MS";
-	return "";
+private function getBox($sub) {
+	if (! $sub) return "empty";
+	if (VMODE != "view") return "edit";
+	return "item";
 }
 
 // ***********************************************************

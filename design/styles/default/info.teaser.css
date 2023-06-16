@@ -19,7 +19,7 @@
 }
 .fader img {
 	vertical-align: middle;
-	width: 1080px;
+	width: W_BODY;
 	padding: 0px;
 	margin: 0px;
 	margin-top: -25%;
