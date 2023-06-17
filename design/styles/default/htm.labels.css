@@ -40,8 +40,11 @@ label.mauve {
 /* input */
 /* ******************************************************** */
 label.upload {
+	display: inline-block;
 	white-space: nowrap;
-	width: 20rem;
+	height: H_LINE;
+	min-width: 100%;
+	padding: 0px 10px;
 }
 
 .ronly { /* data */

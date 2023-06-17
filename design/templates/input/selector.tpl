@@ -1,14 +1,17 @@
 [dic]
 mandatory = marks mandatory field
 hint = Info
+header = User input required
 
 [dic.de]
 mandatory = markiert Pflichtfelder
 hint = Hinweis
+header = Eingabe erforderlich
 
 
 [vars]
 cols = 69
+header = <!DIC:header!>
 
 # ***********************************************************
 [main]
@@ -16,16 +19,25 @@ cols = 69
 <form method="post" action="?" enctype="multipart/form-data">
 <!SEC:oid!>
 
-	<div class="flexbottom">
-		<div><!SEC:data!></div>
-		<div><!SEC:btn.ok!></div>
-	</div>
+<table width="100%">
+	<!SEC:header!>
+	<!SEC:data!>
+	<!SEC:buttons!>
+</table>
+
 </form>
 
 [data]
-<table>
-<!VAR:items!>
-</table>
+<tr>
+<td class="nopad">
+	<table><!VAR:items!></table>
+</td>
+</tr>
+
+[header]
+
+[header.x]
+<tr class="rh"><th colspan="100%"><!VAR:header!></th></tr>
 
 # ***********************************************************
 [rows]
@@ -65,9 +77,18 @@ cols = 69
 <p><!DIC:no.data!></p>
 
 # ***********************************************************
-[btn.ok]
+[buttons]
 # ***********************************************************
+<tr class="rf" align="right">
+	<td class="nopad" colspan="100%">
+<!SEC:btn.reset!>
+<!SEC:btn.ok!>
+	</td>
+</tr>
+
+
+[btn.ok]
 <input type="submit" name="act" value="OK" />
 
 [btn.reset]
-#<input type="reset" value="Reset" /> &emsp;
+<input type="reset" value="Reset" />

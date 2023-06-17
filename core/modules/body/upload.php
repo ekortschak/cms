@@ -13,6 +13,8 @@ $max = CFG::getVal("upload:props.max_size", 2000);
 $ovr = CFG::getVal("upload:props.overwrite", 0);
 $dst = CFG::getVal("upload:props.path", PGE::$dir);
 
+HTW::tag("dir = $dst", "hint");
+
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
@@ -31,6 +33,7 @@ if ($act) {
 HTW::xtag("settings");
 // ***********************************************************
 $sel = new selector(); // just for information
+$sel->disable();
 $ext = $sel->ronly("upl.types", $ext);
 $cnt = $sel->ronly("upl.count", 5);
 $max = $sel->ronly("upl.size", $max);
@@ -38,23 +41,23 @@ $xxx = $sel->setProp("info", "KB");
 $act = $sel->show();
 
 // ***********************************************************
-// get options
-// ***********************************************************
-$qik = new qikOption();
-$qik->getVal("opt.overwrite", 0);
-$qik->show();
-
-// ***********************************************************
-HTW::xtag("upl.upload");
+// show form
 // ***********************************************************
 REG::add("js", "LOC_SCR/upload.js");
-HTW::tag("dir = $dst", "hint");
 
 $sel = new selector();
+$sel->setHeader(DIC::get("upl.upload"));
 $sel->hide("dest", $dst);
 $sel->set("ext", $ext);
 $sel->set("max", $max * 1000);
 $sel->upload("upl.files");
 $sel->show();
+
+// ***********************************************************
+// get options
+// ***********************************************************
+$qik = new qikOption();
+$qik->getVal("opt.overwrite", 0);
+$qik->show();
 
 ?>

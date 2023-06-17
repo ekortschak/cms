@@ -170,8 +170,17 @@ public function glue($uid, $value) {
 // ***********************************************************
 // handling properties
 // ***********************************************************
+public function setHeader($head) {
+	$this->set("header", $head);
+	$this->copy("header.x", "header");
+}
+
 public function setProp($prop, $value) {
 	$this->itm->setProp($prop, $value);
+}
+
+public function disable() {
+	$this->clearSec("buttons");
 }
 
 // ***********************************************************

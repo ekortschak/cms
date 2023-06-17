@@ -17,7 +17,7 @@ input, select, button, .dmbtn {
 	overflow: auto;
 
 	min-height: H_LINE;
-	min-width: 3em;
+	min-width: 45px;
 
 	color: FC_INPUT;
 	background: BC_INPUT;
@@ -32,17 +32,8 @@ input[type='reset'],
 input[type='button'],
 button {
 	background: linear-gradient(snow, lightgrey);
-	padding: 0px 1em;
+	padding: 0px 10px;
 	cursor: pointer;
-}
-
-button {
-	padding: 0px 1em;
-	min-width: 3em;
-}
-
-button.icon {
-	min-width: 2.5em;
 }
 
 /* ******************************************************** */

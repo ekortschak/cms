@@ -82,14 +82,14 @@ private function findList($typ) {
 private function findType($file) {
 	$ext = FSO::ext($file, true); $ext = ".$ext.";
 
-	if (STR::contains(".php.",         $ext)) return "code";
-	if (STR::contains(".ini.btn.def.", $ext)) return "ini";
-	if (STR::contains(".dic.",         $ext)) return "dic";
-	if (STR::contains(".css.",         $ext)) return "css";
-	if (STR::contains(".png.jpg.gif.", $ext)) return "pic";
-	if (STR::contains(".ico.",         $ext)) return "pic";
+	if (STR::features("php",         $ext)) return "code";
+	if (STR::features("ini.btn.def", $ext)) return "ini";
+	if (STR::features("dic",         $ext)) return "dic";
+	if (STR::features("css",         $ext)) return "css";
+	if (STR::features("png.jpg.gif", $ext)) return "pic";
+	if (STR::features("ico",         $ext)) return "pic";
 
-	if (STR::contains(".htm.html.", $ext)) {
+	if (STR::features("htm.html",    $ext)) {
 #		$htm = APP::read($file);
 #		if (STR::contains($htm, "<?php")) return "code";
 		return "html";

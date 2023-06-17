@@ -24,11 +24,10 @@ class LNG {
 
 public static function init() {
 	$std = STR::before(LANGUAGES, ".");
-	$lng = ENV::get("lang", $std);
-	$cur = LNG::find($lng);
+	$lng = ENV::find("lang", $std);
 
 	CFG::set("STD_LANG", $std);
-	CFG::set("CUR_LANG", $cur);
+	CFG::set("CUR_LANG", $lng);
 }
 
 // ***********************************************************
@@ -54,20 +53,24 @@ public static function getRel($blank = false) {
 // ***********************************************************
 // verifying language
 // ***********************************************************
-public static function isCurrent($file) {
-	$fil = basename($file); $lng = CUR_LANG;
+public static function isLang($lang) {
+	$lgs = LANGUAGES; if (! $lang) return false;
+	return STR::features($lgs, $lang);
+}
 
-	if (STR::contains(".$fil", ".$lng.")) return true;
-	if (STR::contains(".$fil", ".xx."))   return true;
-	return false;
+public static function find($lang) {
+	if (LNG::isLang($lang)) return $lang;
+	if ($lang == "xx") return CUR_LANG;
+	return GEN_LANG;
 }
 
 // ***********************************************************
-public static function find($lang) {
-	$lgs = LANGUAGES; if (! $lang) return GEN_LANG;
+public static function isCurrent($file) {
+	$fil = basename($file); $lng = CUR_LANG;
 
-	if (STR::contains(".$lgs.", ".$lang.")) return $lang;
-	return GEN_LANG;
+	if (STR::features($fil, $lng)) return true;
+	if (STR::features($fil, "xx")) return true;
+	return false;
 }
 
 // ***********************************************************

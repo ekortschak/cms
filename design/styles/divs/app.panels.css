@@ -4,7 +4,7 @@
 	max-height: 100vh;
 	min-height: 100vh;
 	width:      W_BODY;
-	left:       W_TABS;
+	max-width:  100%;
 }
 
 /* ******************************************************** */
@@ -13,31 +13,32 @@
 .horMenu {
 	z-index: 99;
 	float: top;
+	overflow: visible;
 
 	background-color: white;
 	background-image: url("img/banner.jpg");
 	background-position: center;
 	background-size: cover;
 
-	height: H_MENU;
-	width:  100%;
-	min-width: 600px;
+	height:    H_MENU;
+	width:     100%;
+	max-width: 100%;
+	min-width: 300px;
 
-	overflow: visible;
-	border: 0px solid navy;
-
-	color: FC_MENU;
+	color:     FC_MENU;
 }
 
 .modBody {
-	float:    top;
-	overflow: auto;
-	height:   calc(100vh - H_MENU);
-	width:    100%;
-	min-width: 250px;
+	float:     top;
+	overflow:  auto;
+	height:    calc(100vh - H_MENU);
+	width:     100%;
+	min-width: 300px;
+	max-width: 100%;
 
 	background: BC_BODY;
 }
+
 
 .joker {
 	float:      top;
@@ -46,6 +47,7 @@
 	min-height: 1.5rem;
 	width:      100%;
 	min-width:  300px;
+	max-width:  100%;
 	background: BC_TABS;
 }
 

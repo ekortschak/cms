@@ -140,8 +140,8 @@ public function fldProps($table, $field) {
 // ***********************************************************
 private function fldCat($typ) {
 	$typ = $this->fldType($typ);
-	if (STR::contains(".int.dec.key.", ".$typ."))     return "num";
-	if (STR::contains(".dat.dnt.cur.tim.", ".$typ.")) return "dat";
+	if (STR::features("int.dec.key", $typ))     return "num";
+	if (STR::features("dat.dnt.cur.tim", $typ)) return "dat";
 	return $typ;
 }
 

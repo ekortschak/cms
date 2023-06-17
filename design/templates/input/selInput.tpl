@@ -69,7 +69,7 @@ type = */*
 # ***********************************************************
 [input.tar]
 # ***********************************************************
-<textarea name="<!VAR:fname!>" rows=<!VAR:rows!>
+<textarea name="<!VAR:fname!>" width="100%" rows=<!VAR:rows!>
 	autocomplete="off" autocorrect="off" autocapitalize="off"
 	spellcheck="false"><!VAR:curVal!></textarea>
 
@@ -101,5 +101,5 @@ type = */*
 [input.upl]
 # ***********************************************************
 <input type="hidden" name="MAX_FILE_SIZE" value="<!VAR:max!>" />
-<label for="upload" id="label" class="upload"><!DIC:select!></label>
+<label for="upload" id="label" class="upload"><!DIC:select!>COMBO_DOWN</label>
 <input type="file" id="upload" name="fload[]" style="display:none;" accept="<!VAR:type!>" multiple onChange="setCaption();" />

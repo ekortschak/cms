@@ -132,7 +132,7 @@ public static function getLink($index = NV) {
 
 private static function isCollection($typ) {
 	if (VMODE != "view") return false;
-	return (STR::contains(".col.", $typ)); // collections
+	return (STR::features("col", $typ)); // collections
 }
 
 // ***********************************************************

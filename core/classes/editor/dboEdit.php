@@ -149,10 +149,10 @@ private function addFldProp($prp) {
 
 	if ($prp == "input") {
 		$this->ronly("fld.type", $typ);
-		if (STR::contains(".mem.cur.", $typ)) return;
+		if (STR::features("mem.cur", $typ)) return;
 	}
 	if ($prp == "mask") {
-		if (STR::contains(".mem.", $typ)) return;
+		if (STR::features("mem", $typ)) return;
 	}
 	$this->addField("prop[$prp]", $vls, $val);
 	$this->setProp("title", $cap);

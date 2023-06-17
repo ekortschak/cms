@@ -122,7 +122,7 @@ public static function file($file) { // find file in extended fs
 
 public static function url($fso) {
 	$ful = APP::file($fso);
-	$ful = STR::clear($ful, APP_DIR);
+	$ful = STR::clear($ful, APP_DIR.DIR_SEP);
 	$ful = STR::replace($ful, APP_FBK, CMS_URL);
 	$ful = STR::clear($ful, SRV_ROOT);
 	return $ful;

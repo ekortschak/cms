@@ -58,10 +58,7 @@ public static function append($arr, $lang) {
 }
 
 public static function set($key, $value, $lang = CUR_LANG) {
-	$lng = LNG::find($lang);
-	$key = STR::norm($key);
-
-	DIC::$dat[$lng][$key] = $value;
+	DIC::$dat[$lang][$key] = $value;
 }
 
 // ***********************************************************

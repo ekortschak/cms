@@ -87,7 +87,7 @@ protected function getType($typ, $ref) {
 
 // ***********************************************************
 protected function chkType($typ, $fxs) {
-	if (STR::contains(".key.cur.ski.", $typ)) return false; // primary keys, time stamps, fields to skip ...
+	if (STR::features("key.cur.ski", $typ)) return false; // primary keys, time stamps, fields to skip ...
 
 	if ($fxs == "h") return "hid"; // no write access
 	if ($fxs != "w") {

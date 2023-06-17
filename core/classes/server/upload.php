@@ -54,7 +54,7 @@ public function getFiles($qid = "fload") {
 			"size" => $upl["size"][$i],
 			"tfil" => $upl["tmp_name"][$i],
 			"base" => $inf["filename"],
-			"fext" => $inf["extension"]
+			"fext" => $inf["extension"],
 			"enum" => $upl["error"][$i],
 			"etxt" => $this->chkError($upl["error"][$i]),
 		);

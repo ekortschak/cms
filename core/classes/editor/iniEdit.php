@@ -53,7 +53,10 @@ public function edit() {
 	foreach ($arr as $sec => $txt) {
 		if (STR::begins($sec, "dic")) continue;
 
-		$this->section("[$sec]");
+		$tit = "[$sec]"; if (LNG::isLang($sec))
+		$tit = HTM::flag($sec);
+		$this->section($tit);
+
 		$typ = $ini->fldType($sec);
 
 		if ($typ == "tarea") { // memo sections

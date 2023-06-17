@@ -154,15 +154,15 @@ private function getType($tag) {
 // ***********************************************************
 private function mayNest($tag) {
 	$tgs = "div.table.ul.ol";
-	return STR::contains(".$tgs.", ".$tag.");
+	return STR::features($tgs, $tag);
 }
 private function isPgf($tag) { // container tags
 	$tgs = "section.p.h1.h2.h3.h4.h5.h6.dl.li.dd.dt.tr.td.blockquote";
-	return STR::contains(".$tgs.", ".$tag.");
+	return STR::features($tgs, $tag);
 }
 private function isSingle($tag) { // no closing tags
 	$tgs = "hr.br.img.input";
-	return STR::contains(".$tgs.", ".$tag.");
+	return STR::features($tgs, $tag);
 }
 
 // ***********************************************************
