@@ -47,43 +47,23 @@ settings = Einstellungen
 # ***********************************************************
 [config]
 # ***********************************************************
-<h4><!DIC:loc!></h4>
-
-<div>
-<!BTN:view!>
-<!SEC:pedit!>
-<!SEC:xedit!>
-<!SEC:medit!>
-&nbsp;
-<!SEC:xfer!>
-<!SEC:seo!>
-</div>
+<!SEC:edit!>
 
 <h4><!DIC:settings!></h4>
-
 <div>
-<!BTN:config!>
-<!SEC:config.cms!>
+<!BTN:config!> <!SEC:config.cms!>
 </div>
 
 [config.cms]
-<!BTN:xpedit!>
-<!BTN:xmedit!>
+<!BTN:xpedit!> <!BTN:xmedit!>
 
 # ***********************************************************
 [edit]
 # ***********************************************************
 <h4><!DIC:loc!></h4>
-
 <div>
-<!BTN:view!>
-<!SEC:pedit!>
-<!SEC:xedit!>
-<!SEC:medit!>
-&nbsp;
-<!SEC:xfer!>
-<!SEC:seo!>
-&nbsp;
+<!BTN:view!> <!SEC:pedit!> <!SEC:xedit!> <!SEC:medit!> &nbsp;
+<!SEC:xfer!> <!SEC:seo!> &nbsp;
 <!SEC:debug!>
 </div>
 
@@ -108,7 +88,6 @@ settings = Einstellungen
 [admin]
 # ***********************************************************
 <h4><!DIC:settings!></h4>
-
 <div>
 <!BTN:config!>
 </div>
@@ -119,7 +98,6 @@ settings = Einstellungen
 
 [login]
 <!BTN:login!>
-
 [logout]
 <!BTN:logout!>
 

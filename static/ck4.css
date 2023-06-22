@@ -1,0 +1,1426 @@
+/* STATIC FILE for CK4 only: static/ck4.css /*
+
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+ 	margin:     0px;
+	border:     0px;
+ 	padding:    0px;
+
+ 	vertical-align: bottom;
+}
+
+/* ******************************************************** */
+/* css default */
+/* ******************************************************** */
+html, body {
+	height:     100vh;
+	width:      100%;
+}
+
+html {
+ 	background:  white;
+	font-family: Arial, sans-serif;
+	font-size:   1rem;
+	font-weight: normal;
+	hyphens:     auto;
+}
+
+body {
+	overflow:   auto;
+	position:   relative;
+	background: gainsboro;
+	color:      black;
+}
+
+/* ******************************************************** */
+/* container */
+/* ******************************************************** */
+.container {
+	background: transparent;
+	padding:    0px 20px 35px;
+}
+
+.conToc  { padding: 15px 15px 35px; }
+.conBody { padding: 15px 20px 35px; }
+.conOpts { padding:  0px 20px 35px; }
+
+.conHead {
+	position:   sticky;
+	top:        0px;
+	background: white;
+	padding:    0px 20px 0px;
+	width:      100%;
+}
+/* ******************************************************** */
+/* common props */
+/* ******************************************************** */
+[class^="mod"] {
+	float:      left;
+	overflow:   auto;
+	max-height: 100vh;
+	min-height: 100vh;
+}
+
+/* ******************************************************** */
+/* vertical panels */
+/* ******************************************************** */
+.modTabs {
+	width:      3rem;
+	background: gainsboro url("/cms/img/tabs/pborder.png") repeat-y right;
+}
+
+.modToc {
+	width:      22rem;
+	color:      navy;
+	background: whitesmoke;
+}
+
+.modMbar {
+	width:      70px;
+	background: transparent url("/cms/img/mbar/spirals.png") repeat-y;
+}
+
+.modBody {
+	width:      43rem;
+	min-width:  15rem;
+	font-size:  1rem;
+	color:      black;
+	background: white;
+}
+
+.modBord {
+	width:      10px;
+	background: url("/cms/img/opts/pborder.png") repeat-y;
+}
+
+.modOpts {
+	width:      calc(100% - 3rem - 22rem - 70px - 43rem - 10px);
+	color:      black;
+}
+
+/* ******************************************************** */
+/* horizontal panels */
+/* ******************************************************** */
+.joker {
+	overflow:   auto;
+	display:    none;
+	padding:    0px 15px;
+	min-height: 1.5rem;
+	background: #dbe1e9;
+}
+/* ******************************************************** */
+/* classes for common use */
+/* ******************************************************** */
+.nomargin {
+	margin: 0px;
+}
+.nopad {
+	padding: 0px;
+}
+
+.pre {
+	max-height: 15rem;
+	overflow: auto;
+	font-family: monospace;
+	font-size: 0.75em;
+	white-space: pre;
+}
+
+.top {
+	margin-top: 0px;
+}
+
+/* ******************************************************** */
+/* backgrounds */
+/* ******************************************************** */
+.bg {
+	background: whitesmoke;
+	width: 100%;
+	overflow: auto;
+}
+
+.rh {
+	padding: 3px 5px 1px;
+	color: snow;
+	background: #05819C;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.rw	               { color: ; background: snow; }
+.rw:nth-child(odd) { color: ;  background: #F0F0F0;  }
+.rw:hover	       { color: ; background: #E6F0FF; }
+
+.rf {
+	color: ;
+	background: #E9E5E5;
+	vertical-align: middle;
+}
+
+/* ******************************************************** */
+/* borders */
+/* ******************************************************** */
+.round7 {
+	border: 1px solid #AAA;
+	border-radius: 7px;
+}
+
+.scroll {
+	overflow: auto;
+}
+/* ******************************************************** */
+/* flex divs */
+/* ******************************************************** */
+div.flex {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: row wrap;
+}
+
+div.flexleft {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: row wrap;
+}
+
+div.flexbottomx {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+[contenteditable] {
+	outline: 0px solid transparent;
+}
+
+[draggable] {
+	display: block;
+	margin: 2px 0px;
+	min-width: 25rem;
+	text-align: left;
+}
+
+/* ******************************************************** */
+/* editor styles */
+/* ******************************************************** */
+.filename {
+	text-align: right;
+	padding: 0px 5px;
+	width: 21rem;
+}
+
+.hidden {
+	display: none;
+}
+
+/* ******************************************************** */
+/* preview window and frame */
+/* ******************************************************** */
+.cold, .hot {
+	overflow: auto;
+	border: 1px solid #AAA;
+	border-radius: 15px;
+	padding: 7px 15px 25px;
+	min-height: 1.5rem;
+	max-height: 75vh;
+}
+
+.hot {
+	border: 1px solid red;
+}
+/* ******************************************************** */
+/* standard tags */
+/* ******************************************************** */
+h1, h2, h3, h4, h5, h6 {
+	margin: 15px 0px 7px;
+	color: navy;
+}
+h4, hx {
+	border-bottom: 1px solid;
+}
+h5, h6, hy {
+	margin: 5px 0px 3px;
+
+	font-size: 1em;
+	font-weight: normal;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+hx, hy {
+	display: block;
+	font-size: 1em;
+	color: black;
+	margin-bottom: 5px;
+}
+
+p {
+	margin: 3px 0px 7px;
+	text-align: justify;
+}
+
+blockquote {
+	margin: 3px 0px 12px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	padding: 5px 10px;
+}
+
+/* ******************************************************** */
+/* separators */
+/* ******************************************************** */
+hr {
+	margin: 7px 0px 3px;
+	height: 1px;
+	background: #AAA;
+}
+
+hr.pbr {
+	background-color: transparent;
+	border-top: 1px dashed red;
+}
+
+hr.search {
+	background-color: transparent;
+	border-top: 2px solid red;
+}
+
+/* ******************************************************** */
+/* anchors */
+/* ******************************************************** */
+a {
+	color: forestgreen;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:visited {
+#	color: #9FC700;
+}
+
+a.inactive {
+	color: grey;
+	background: ;
+	font-weight: normal;
+}
+
+a.norm {
+	color: inherit;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+/* ******************************************************** */
+/* sup sub */
+/* ******************************************************** */
+sup, sub {
+	font-size: 0.6em;
+}
+
+/* ******************************************************** */
+/* other */
+/* ******************************************************** */
+details {
+	display: inline-block;
+	cursor: pointer;
+}
+details-content {
+	display: inline-block;
+	margin: 0px 18px;
+	padding: 3px 10px 5px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+}
+/* ******************************************************** */
+/* images */
+/* ******************************************************** */
+img {
+	vertical-align: middle;
+}
+
+img.flag {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+
+img.btn {
+	background: linear-gradient(snow, lightgrey);
+	padding: 1px 7px;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+}
+
+img.rgt {
+	text-align: right;
+	padding-left: 25px;
+}
+img.lft {
+	text-align: left;
+	padding-right: 15px;
+}
+
+.thumb {
+	display: inline-block;
+	margin: 0px 5px 3px;
+	width: 110px;
+}
+
+/* ******************************************************** */
+/* collections */
+/* ******************************************************** */
+.collection {
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	max-width: 100%;
+	max-height: 430px;
+	background-position: top;
+	background-size: cover;
+}
+
+/* ******************************************************** */
+/* labels */
+/* ******************************************************** */
+label {
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 3px 10px;
+
+#	height: 1.5rem;
+	line-height: 1.5rem;
+
+	font-size: 0.85em;
+	color: ;
+	background: linear-gradient(snow, lightgrey);
+}
+
+a label {
+	color: black;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+label.text {
+	border: 0px;
+	background: transparent none;
+}
+
+label.red {
+	background: #FFC0CB none;
+}
+label.blue {
+	background: #D2EDEF none;
+}
+label.mauve {
+	background: #EBD2EB none;
+}
+
+/* ******************************************************** */
+/* input */
+/* ******************************************************** */
+label.upload {
+	display: inline-block;
+	white-space: nowrap;
+	height: 1.5rem;
+	min-width: 100%;
+	padding: 0px 10px;
+}
+
+.ronly { /* data */
+	border: 1px solid cadetblue;
+	width: 10rem;
+	background: white;
+}
+
+/* ******************************************************** */
+/* hidden labels for radio buttons */
+/* ******************************************************** */
+label.hidden {
+	background: transparent none;
+}
+
+
+/* ******************************************************** */
+/* listings */
+/* ******************************************************** */
+ul, ol {
+	list-style-position: outside;
+	margin: 7px 0px 12px;
+	padding: 0px 15px;
+}
+ol {
+	padding: 0px 20px;
+}
+
+/* ******************************************************** */
+dl {
+	display: block;
+	border: 1px solid #AAA;
+	border-radius: 10px;
+
+	margin: 7px 0px 12px;
+	padding: 7px 15px 10px;
+}
+
+dt {
+	font-style: italic;
+	color: navy;
+}
+dd {
+	margin: 0px 15px 5px;
+}
+/* ******************************************************** */
+/* table styles */
+/* ******************************************************** */
+table {
+	margin: 0px 0px 1em;
+	border-spacing: 0px;
+	border-collapse: collapse;
+
+	font-size: 1em;
+	font-weight: normal;
+}
+
+/* ******************************************************** */
+/* rows */
+/* ******************************************************** */
+tr {
+	vertical-align: top;
+}
+
+/* ******************************************************** */
+/* cells */
+/* ******************************************************** */
+th {
+	color: snow;
+	background: #05819C;
+	padding: 3px 5px 1px;
+	text-align: left;
+}
+
+td {
+	padding: 0px 5px;
+}
+/* ******************************************************** */
+/* simple color tags */
+/* ******************************************************** */
+white	{ color: white;	 }
+light	{ color: lightgrey;	}
+grey	{ color: grey;   }
+black	{ color: black;  }
+
+red	 { color: red;	 }
+green	{ color: green;	 }
+blue	{ color: navy;	 }
+mauve	{ color: purple; }
+maroon	{ color: maroon; }
+
+/* ******************************************************** */
+/* simple color tags */
+/* ******************************************************** */
+dfn {
+	color: purple;
+}
+
+caps {
+	font-variant: small-caps;
+}
+
+small {
+	font-size: 0.75em;
+}
+
+kbd {
+	display: inline-block;
+	background: #EEE;
+	border: 1px solid grey;
+	border-radius: 7px;
+	padding: 1px 0.5em;
+	min-width: 12px;
+
+	font-size: 0.75em;
+	text-align: center;
+}
+
+fnote {
+	display: inline-block;
+	color: green;
+	text-align: center;
+}
+
+/* ******************************************************** */
+/* highlighting (marker)*/
+/* ******************************************************** */
+markp {
+	background: yellow;
+	padding: 0px 5px;
+}
+
+mark, mark1, mark2, mark3, mark4, mark5 {
+#	background: gold;
+	border: 1px solid orange;
+	border-radius: 7px;
+	padding: 0px 5px;
+}
+
+mark1 { background: yellow;  }
+mark2 { background: #FFE100; }
+mark3 { background: #E3FF00; }
+mark4 { background: #D5F7F7; }
+mark5 { background: #F7D8F7; }
+/* ******************************************************** */
+/* lookup info */
+/* ******************************************************** */
+refbox, .refbox {
+	position: relative;
+	display: inline-block;
+
+	vertical-align: bottom;
+	color: navy;
+	text-decoration: underline dotted;
+}
+
+refbox:hover refbody, .refbox:hover refbody, .refbox:hover .refbody, refbox:hover .refbody {
+	z-index: 90;
+	display: block;
+}
+
+/* ******************************************************** */
+/* lookup content */
+/* ******************************************************** */
+refbody, .refbody {
+	display: none;
+	position: absolute;
+
+	background: whitesmoke;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	padding: 5px 10px 7px;
+
+	max-height: 50vh;
+	min-width: 10rem;
+	overflow: auto;
+	overscroll-behavior: none;
+
+	color: black;
+	font-size: 0.85em;
+	font-weight: normal;
+	font-style: normal;
+#	white-space: pre-line;
+	text-align: left;
+}
+
+/* ******************************************************** */
+/* help symbol */
+/* ******************************************************** */
+.helpbox {
+	display: inline-block;
+	position: relative;
+	margin: -30px -7px 0px 0px;
+	float: right;
+	right: 0px;
+}
+.helpbox:hover .helpbox-content {
+	display: block;
+}
+
+.helpbox-content {
+	z-index: 30;
+	display: none;
+	position: fixed;
+	right: calc(100% - 43rem - 22rem - 3rem - 70px + 20px);
+	width: calc(43rem * 0.9);
+	max-height: 50vh;
+	overflow: auto;
+
+	color: black;
+	background: whitesmoke;
+
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	padding: 0px 25px 15px;
+}
+/* ******************************************************** */
+/* debugging, error tracing, help messages */
+/* ******************************************************** */
+dbg, err, msg, code, php, .confirm {
+	z-index: 85;
+	color: navy;
+	background: whitesmoke;
+
+	vertical-align: middle;
+	display: inline-block;
+	max-width: 100%;
+
+	border: 1px solid #AAA;
+	border-radius: 10px;
+	margin: 0px;
+	padding: 2px 7px 3px;
+}
+php, code, dbg {
+	font-family: monospace;
+	font-size: 0.85em;
+	white-space: pre-wrap;
+}
+
+code {
+	display: block;
+	overflow: auto;
+	min-height: 1.1em;
+}
+
+dbg  { color: maroon; }
+msg  { color: black;  background: rgb(255,240,230);  }
+err  { color: maroon; background: ; }
+
+/* ******************************************************** */
+hint, .hint {
+	color: grey;
+	background: ;
+	font-size: 0.85em;
+	font-style: normal;
+}
+
+msg > ul {
+	margin: 0px;
+}
+
+/* ******************************************************** */
+.confirm {
+	padding: 5px 12px 8px;
+	display: block;
+	border: 0px;
+}
+
+/* ******************************************************** */
+/* err handling */
+/* ******************************************************** */
+trace {
+	background: transparent;
+	border: 0px;
+	padding: 0px;
+	font-size: 0.85em;
+}
+
+.err1 {
+	background: white;
+	border: 0px;
+	margin: 5px -6px 3px;
+	padding: 5px 6px 2px;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	font-family: monospace;
+	font-size: 0.75em;
+	color: grey;
+}
+
+/* ******************************************************** */
+/* info-button */
+/* ******************************************************** */
+.info {
+	display: inline-block;
+	color: navy;
+	background: white;
+	border: 1px solid #AAA;
+	border-radius: 50%;
+	width: 1.5rem;
+	height: 1.5rem;
+	vertical-align: bottom;
+	text-align: center;
+	font-family: monospace;
+	font-weight: bold;
+}
+
+/* ******************************************************** */
+/* teaser banner */
+/* ******************************************************** */
+.teaser {
+	width: 100%;
+	height: 100px;
+	margin: auto;
+	overflow: hidden;
+	background: gainsboro;
+	border-radius: 15px;
+	text-align: center;
+}
+
+.fader {
+	position: relative;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+}
+.fader img {
+	vertical-align: middle;
+	width: 43rem;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -25%;
+}
+.fader_x img.next {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+form {
+	margin: 2px 0px 20px;
+}
+
+form table {
+	margin: 0px;
+}
+
+/* ******************************************************** */
+/* input fields */
+/* ******************************************************** */
+input, select, button, .dmbtn {
+	margin: 0px;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 0px 5px;
+	overflow: auto;
+
+	min-height: 1.5rem;
+	min-width: 45px;
+
+	color: ;
+	background: #FFFFE5;
+	vertical-align: bottom;
+}
+
+/* ******************************************************** */
+/* buttons */
+/* ******************************************************** */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+	background: linear-gradient(snow, lightgrey);
+	padding: 0px 10px;
+	cursor: pointer;
+}
+
+/* ******************************************************** */
+/* common input */
+/* ******************************************************** */
+input[type="file"] {}
+input[type="text"] {}
+input[type="date"] { padding: 0px 2px; }
+
+input[type="color"] { /* color input */
+	height: 1.5rem;
+}
+
+/* ******************************************************** */
+/* check and radio */
+/* ******************************************************** */
+input[type="checkbox"],
+input[type="radio"] {
+	margin-right: 0.5em;
+	min-width: 1em;
+}
+
+/* ******************************************************** */
+/* combo boxes */
+/* ******************************************************** */
+select {
+	background: rgb(238,238,238) url("/cms/core/icons/input/combodown.png") no-repeat right;
+	min-width: 0.2vw;
+	cursor: pointer;
+
+	padding: 3px 2em 3px 5px;
+	font-family: inherit;
+
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+/* ******************************************************** */
+/* textareas  */
+/* ******************************************************** */
+textarea {
+	background-color: white;
+	min-width: 0.35vw;
+	min-height: 0.05vh;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+	padding: 5px 2px 5px 7px;
+
+	width: 35rem;
+	height: 7rem;
+
+	overflow: auto;
+}
+
+textarea.max {
+	width: 100%;
+}
+
+/* ******************************************************** */
+/* info */
+/* ******************************************************** */
+.comment { /* help text */
+	display: inline-block;
+	margin: 3px 0px 5px;
+	padding: 0px 7px;
+	vertical-align: middle;
+	font-size: 0.85em;
+}
+
+/* ******************************************************** */
+/* sections */
+/* ******************************************************** */
+.selSection {
+	color: navy;
+	font-style: italic;
+	vertical-align: bottom;
+
+	padding-top: 12px;
+}
+
+.spacer {
+	border: 0px;
+}
+
+/* ******************************************************** */
+/* read only representation */
+/* ******************************************************** */
+.selHead {
+	white-space: nowrap;
+	vertical-align: middle;
+	padding: 0px 15px 3px 1px;
+	width: 15rem;
+}
+.selData {
+	vertical-align: middle;
+	padding: 0px 0px 1px;
+	width: 100%;
+}
+
+/* ******************************************************** */
+/* ratings */
+/* ******************************************************** */
+.rating {
+	width: 105px;
+	border: 1px solid #AAA;
+	border-radius: 5px;
+
+	background: url("/cms/core/icons/input/rating.png") no-repeat top;
+}
+
+rating img {
+	margin: 2px 0px;
+	opacity: 100%;
+}
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.dropMenu, .subMenu {
+	z-index: 150;
+	display: block;
+
+	margin: 0px 0px 2px;
+	border: 1px 0px solid navy;
+	border-radius: 7px;
+
+	color: snow;
+	background: linear-gradient(-3deg, #473BB1, navy 45%);
+	font-weight: bold;
+	padding: 3px 7px 1px;
+}
+
+.subMenu {
+	color: black;
+	background: linear-gradient(-3deg, white, cadetblue 65%);
+	border: 1px solid #AAA;
+}
+
+.localicon {
+	padding: 2px 10px;
+}
+
+/* ******************************************************** */
+/* top navigation bar - with drop down content */
+/* ******************************************************** */
+.mbanner {
+	position: relative;
+	height: 0px;
+}
+
+.topMenu {
+	position: absolute;
+	bottom:   0px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+
+	background: rgb(15, 0, 100, 0.3);
+}
+
+.topMenu a {
+	color: snow;
+}
+.topMenu .active {
+	color: snow;
+	background: navy;
+}
+
+/* ******************************************************** */
+.topItem {
+	display: inline-block;
+	border-radius: 10px 10px 0px 0px;
+	color: snow;
+}
+
+.topItem:hover {
+	background: #473BB1;
+}
+.topItem:hover .topList {
+	display: block;
+}
+
+/* ******************************************************** */
+.topText {
+	display: inline-block;
+	border-radius: 10px 10px 0px 0px;
+	padding: 5px 12px 2px;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px grey;
+}
+
+/* ******************************************************** */
+.topList {
+	z-index: 99;
+	position: absolute;
+	display: none;
+	background: rgb(238,238,238);
+	border: 1px solid #AAA;
+	border-top: 0px;
+	border-radius: 0px 0px 15px 15px;
+  	padding: 0px 0px 5px;
+  	max-height: 50vh;
+  	overflow: auto;
+
+	color: black;
+	font-weight: normal;
+}
+
+.topList a {
+	display: block;
+	padding: 3px 10px;
+	color: black;
+	font-weight: normal;
+}
+
+.topList a:hover {
+	color: black;
+	background: gold;
+}
+/* ******************************************************** */
+/* tool bars */
+/* ******************************************************** */
+.toolbar {
+	z-index: 35;
+	background: #e7e7e7;
+	margin-bottom: 1px;
+}
+
+.btnbar {
+	vertical-align: baseline;
+	background: linear-gradient(-1deg, #A2EA31, forestgreen 70%);
+	padding: 1px 6px 1px;
+	margin-bottom: 2px;
+	border-radius: 5px;
+}
+
+/* ******************************************************** */
+/* menu icon */
+/* ******************************************************** */
+.micon {
+	display: none;
+}
+
+.miconbar {
+	width: 15px;
+	height: 3px;
+	background-color: navy;
+	margin: 2px 0px;
+}
+
+/* ******************************************************** */
+/* buttons in toolbars*/
+/* ******************************************************** */
+button.icon {
+	min-height: 1.5rem;
+	min-width: 2rem;
+	padding: 0px 7px;
+}
+button.rose, .rose {
+	background: linear-gradient(#FCC, snow);
+}
+
+button.selected {
+	background: linear-gradient(#F0FEDB, #D1FF00);
+	font-weight: bold;
+}
+
+/* ******************************************************** */
+/* dropdown menus and other dropdown objects */
+/* ******************************************************** */
+.dropdown {
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.dropdown:hover .dropbody {
+	z-index: 90;
+	display: block;
+}
+
+/* ******************************************************** */
+/* dropdown banner */
+/* ******************************************************** */
+.droptext {
+}
+
+/* ******************************************************** */
+/* dropdown content */
+/* ******************************************************** */
+.dropbody {
+	display: none;
+	position: absolute;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
+	padding: 3px 7px;
+
+	max-height: 50vh;
+	min-width: 15rem;
+	overflow: auto;
+	overscroll-behavior: none;
+
+	color: black;
+	background: rgb(238,238,238);
+	font-weight: normal;
+	text-align: left;
+}
+
+.dropbody a {
+	display: block;
+	padding: 0px 5px;
+	color: black;
+	font-weight: normal;
+}
+.dropbody a:hover {
+	color: black;
+	background: gold;
+}
+.dropbody h4 {
+	margin: 5px;
+}
+/* ******************************************************** */
+/* vertical tabs */
+/* ******************************************************** */
+.vtab {
+	display: block;
+	margin: 0px 0px 5px 14px;
+	border-radius: 10px 0px 0px 10px;
+	border: 1px solid #AAA;
+	border-right: 0px;
+	padding: 15px 7px 15px 9px;
+	width: 2em;
+
+	color: navy;
+	background: #dbe1e9;
+
+	font-weight: normal;
+	text-align: middle;
+}
+.vtab_selected {
+	padding-right: 4px;
+	color: navy;
+	background: whitesmoke;
+}
+
+.vertical {
+#	writing-mode: vertical-rl;
+#	text-orientation: mixed;
+	writing-mode: tb-rl;
+	transform: rotate(-180deg);
+}
+.vertical_moz {
+	writing-mode: sideways-lr;
+	text-orientation: mixed;
+}
+
+.tabicon {
+	height: 30px;
+	text-align:	center;
+	margin-right: 9px;
+}
+
+/* ******************************************************** */
+/* horizontal tabs - single line */
+/* ******************************************************** */
+.regtabs {
+	display: inline-block;
+	overflow: hidden;
+	margin: 0px;
+	padding: 5px 0px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.regtabs a {
+	color: black;
+	background: rgb(238,238,238);
+	border-radius: 0px;
+	text-shadow: 1px 1px 2px grey;
+}
+.regtabs a:hover {
+	color: black;
+	background: gold;
+	font-weight: normal;
+	text-decoration: none;
+}
+.regtabs a.active {
+	color: black;
+	background: gold;
+}
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+.toc {
+	color: navy;
+	background: whitesmoke;
+
+	overflow: auto;
+	line-height: 1.1rem;
+	padding-bottom: 12px;
+
+	font-size: F_MENU;
+	white-space: nowrap;
+}
+.toc a {
+	color: navy;
+	text-decoration: none;
+	font-weight: normal;
+}
+.toc a.inactive {
+	color: grey;
+	background: ;
+}
+
+/* ******************************************************** */
+/* toc hierarchy */
+/* ******************************************************** */
+.lev1, .lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {
+	display: block;
+}
+
+.lev1 {
+	margin: 0px 0px 10px;
+	border: 1px solid #AAA;
+	border-radius: 7px;
+	padding: 7px 7px 3px;
+
+	background: rgb(238,238,238);
+	font-size: 1.2em;
+}
+.lev2 {
+	font-size: 1em;
+}
+
+.lev2 { background-position:  5px top; padding-left: 25px; }
+.lev3 { background-position: 15px top; padding-left: 35px; }
+.lev4 { background-position: 25px top; padding-left: 45px; }
+.lev5 { background-position: 35px top; padding-left: 55px; }
+.lev6 { background-position: 45px top; padding-left: 65px; }
+.lev7 { background-position: 55px top; padding-left: 75px; }
+.lev8 { background-position: 65px top; padding-left: 85px; }
+.lev9 { background-position: 75px top; padding-left: 95px; }
+
+/* ******************************************************** */
+/* folders */
+/* ******************************************************** */
+.dir {
+	background-image: url("/cms/img/menus/folder.gif");
+	background-repeat: no-repeat;
+}
+.dir a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+/* ******************************************************** */
+/* files */
+/* ******************************************************** */
+.file {
+	background-image: url("/cms/img/menus/page.gif");
+	background-repeat: no-repeat;
+}
+.file a {
+	color: black;
+}
+.file a:hover {
+	text-decoration: underline;
+}
+
+/* ******************************************************** */
+/* properties */
+/* ******************************************************** */
+.sel {
+	color: black;
+	background: gold;
+	border-radius: 5px;
+}
+
+.hidden > a {
+	color: grey;
+	background: ;
+}
+/* ******************************************************** */
+/* table of content */
+/* ******************************************************** */
+topic {
+	display: block;
+	color: snow;
+	background: navy;
+	border: 1px solid #AAA;
+	border-radius: 13px;
+	margin: 0px 0px 7px;
+}
+/* ******************************************************** */
+/* info cards */
+/* ******************************************************** */
+.chip {
+	display: inline-block;
+	margin: 7px;
+	padding: 0px;
+	width: 30rem;
+#	border: 1px solid #AAA;
+	border-radius: 35px;
+	background: whitesmoke;
+}
+
+.chip img {
+	float: left;
+	margin: 0px 35px 0px 0px;
+	height: 75px;
+	width: 75px;
+	border-radius: 50%;
+}
+
+.chip p {
+	padding: 5px;
+}
+
+/* ******************************************************** */
+@media print {
+/* ******************************************************** */
+
+@page {
+	margin: 2cm 2cm 2.4cm;
+	widows: 3;
+	orphans: 2;
+}
+
+body.print {
+	padding: 25px 20px 35px;
+	width: calc(100% - 40px);
+}
+
+h1, h2 {
+	page-break-after: avoid;
+	color: maroon;
+}
+
+h1, h2, h3 {
+	margin: 1cm 0px 0px;
+}
+
+h1 + h2 {
+#	page-break-before: initial;
+}
+
+h3, h4, h5, h6 {
+	page-break-after: avoid;
+	text-decoration: none;
+}
+
+
+p {
+	page-break-inside: avoid;
+	widows: 2;
+	orphans: 2;
+}
+
+hr.pbr {
+	page-break-after: always;
+	background-color: transparent;
+	border-top: 0px none;
+	height: 0px;
+}
+
+.helpbox {
+	display: none;
+}
+
+tr, .br {
+	page-break-inside: avoid;
+}
+
+/* ******************************************************** */
+}
+/* ******************************************************** */
+/* ********************************************************
+@media only screen and (orientation: landscape)
+@media only screen and (min-width: 600px)
+
+******************************************************** */
+
+@media only screen and (max-width: 1500px) {
+	.modToc  { width: 15rem; }
+	.modOpts {
+		width: calc(100% - 3rem - 15rem - 70px - 43rem - 10px);
+	}
+}
+
+@media only screen and (max-width: 1350px) {
+	.modToc  { border-right: 1px solid #AAA; }
+	.modMbar { display: none; }
+	.modOpts {
+		width: calc(100% - 3rem - 15rem - 43rem - 10px);
+	}
+}
+
+@media only screen and (max-width: 1250px) {
+	.modBody { width: calc(43rem * 0.85); }
+	.modOpts {
+		width: calc(100% - 3rem - 15rem - 43rem * 0.85 - 10px);
+	}
+}
+
+@media only screen and (min-width: 1100px) {
+	.joker { display: none; }
+}
+
+@media only screen and (max-width: 1100px) {
+	[class^="mod"] {
+		position: absolute;
+		height:   calc(100% - 1.5rem);
+		width:    100%;
+		left:     0px;
+		top:      25px;
+	}
+
+	.modTabs { display: none; }
+	.modBord { display: none; }
+
+	.modBody { z-index: 5; }
+
+	.joker { display: block; }
+}

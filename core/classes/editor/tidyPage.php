@@ -27,10 +27,14 @@ function __construct() {}
 // retrieving modified text
 // ***********************************************************
 public function get($htm) {
-	$htm = $this->restruct($htm);
+	$htm = STR::clear($htm, "\r");
 
+	$htm = $this->secure($htm);
+	$htm = $this->restruct($htm);
 	$htm = $this->sweep($htm);
 	$htm = $this->restore($htm);
+
+# echo "<textarea>$htm</textarea><br>";
 
 	if (! $htm) {
 		$htm = "<p>¶</p>";
@@ -61,6 +65,7 @@ private function restruct($txt) {
 private function sweep($txt) {
 	$txt = STR::replace($txt, "¶", "");
 	$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
+	$txt = PRG::replace($txt,  "(\s+)", " ");
 
 	$txt = $this->cleanTags($txt);
 	$txt = $this->clearUselessTags($txt);
@@ -72,14 +77,13 @@ private function sweep($txt) {
 	$txt = $this->addLFs($txt);
 	$txt = $this->addLF($txt, "bblRef");
 	$txt = $this->addLF($txt, "bblShow");
-
 	return trim($txt);
 }
 
 // ***********************************************************
 private function addLFs($txt) {
 	$arr = array(); $cnt = 0;
-	$arr[] = "<div.<p.</ul.</ol.<li.</dl.<dd.<dt.</table.<tr.</tr.<th.<td"; // single lf
+	$arr[] = "<div.<p.</ul.</ol.<li.</dl.<dd.<dt.</table.<tr.</tr.<th.<td.<php"; // single lf
 	$arr[] = "<ul.<ol.<dl.<hr.<table.<blockquote"; // double lf
 	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6"; // tripple lf
 
@@ -161,29 +165,27 @@ private function clearBr($txt) {
 // php methods
 // ***********************************************************
 private function phpSecure($txt) { // do not act outside of php code
-	$arr = STR::find($txt, "<?php", "?>", false); if (! $arr) return $txt;
+	if ( ! STR::contains($txt, "<?php")) return $txt;
+	$out = STR::replace($txt, ";?>",  "; ?>");
 
-	$txt = STR::replace($txt, "<?php ",  "<php>");
-	$txt = STR::replace($txt, "<?php\n", "<php>\n");
-	$txt = STR::replace($txt, ";?>",  "; </php>");
-	$txt = STR::replace($txt, " ?>",   " </php>");
-	$txt = STR::replace($txt, "\n?>", "\n</php>");
+	$out = STR::replace($out, "<?php ",  "<php>");
+	$out = STR::replace($out, " ?>",   " </php>");
+
+	$arr = STR::find($out, "<php>", "</php>", false);
 
 	foreach ($arr as $key => $val) {
 		$rep = $val;
 		$rep = STR::replace($rep, "->", "&rarr;");
 		$rep = STR::replace($rep, "=>", "&rArr;");
 
-		$txt = STR::replace($txt, $val, $rep);
+		$out = STR::replace($out, $val, $rep);
 	}
-	return $txt;
+	return $out;
 }
 
 private function phpRestore($txt) { // do not act outside of php code
-	$arr = STR::find($txt, "<php>", "</php>", false); if (! $arr) return $txt;
-
-	$txt = STR::replace($txt, "<php>", "<?php ");
-	$txt = STR::replace($txt, "</php>", "?>");
+	$arr = STR::find($txt, "<php>", "</php>", false);
+	if (! $arr) return $txt;
 
 	foreach ($arr as $key => $val) {
 		$rep = $val;
@@ -192,6 +194,9 @@ private function phpRestore($txt) { // do not act outside of php code
 
 		$txt = STR::replace($txt, $val, $rep);
 	}
+	$txt = STR::replace($txt, "<php>", "<?php ");
+	$txt = STR::replace($txt, "</php>", " ?>");
+
 	return $txt;
 }
 
@@ -205,6 +210,19 @@ private function tplSecure($txt) {
 
 private function tplRestore($txt) {
 	$txt = STR::replace($txt, "<|", "<!");
+	return $txt;
+}
+
+private function lfSecure($txt, $tag) {
+	$txt = STR::replace($txt, "$tag>\n",   "$tag>§");
+	$txt = STR::replace($txt, "\n<$tag",   "§<$tag" );
+	$txt = STR::replace($txt, "\n</$tag>", "§</$tag>");
+	return $txt;
+}
+
+private function lfRestore($txt) {
+	$txt = STR::replace($txt, "§<",  "\n<");
+	$txt = STR::replace($txt, ">§",  ">\n");
 	return $txt;
 }
 

@@ -39,7 +39,7 @@ public static function snip($file, $head = "") {
 }
 
 // ***********************************************************
-public static function csv($file, $sep = ";") {
+public static function csv($file, $sep = ";", $wid = "100%") {
 	incCls("tables/csv_table.php");
 
 	$fil = HTW::getLink($file);

@@ -28,7 +28,14 @@
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
+.mbanner {
+	position: relative;
+	height: H_MENU;
+}
+
 .topMenu {
+	position: absolute;
+	bottom:   0px;
 	width: 100%;
 	margin: 0px;
 	padding: 0px;

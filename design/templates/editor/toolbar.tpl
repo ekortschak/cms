@@ -85,7 +85,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [formatting]
 # *****************************************************************
-<div class="dropdown"><button class="icon rose" onclick="addTag('p');">¶COMBO_DOWN</button>
+<div class="dropdown"><button class="icon" onclick="addTag('p');">¶COMBO_DOWN</button>
 	<div id="edHead" class="dropbody">
 		<div><a href="javascript:addTag('p');"><p><!DIC:paragraph!></p></a></div>
 		<hr>

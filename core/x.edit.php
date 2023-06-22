@@ -1,7 +1,6 @@
 <?php
 
-# if (! defined("LAYOUT")) define("LAYOUT", "default");
-# if (! defined("VMODE"))  define("VMODE",  "pedit");
+# define("LAYOUT", "default");
 
 // ***********************************************************
 // load essential modules
@@ -20,9 +19,18 @@ requireAdmin();
 if (! FS_ADMIN) CFG::set("VMODE","login");
 
 // ***********************************************************
+// setting VMODE and CUR_DEST
+// ***********************************************************
+$mod = ENV::getVMode();
+
+CFG::set("VMODE", $mod);
+CFG::setDest(VMODE);
+
+// ***********************************************************
 // supply defaults
 // ***********************************************************
-include_once "include/load.std.php";
+include_once "include/load.app.php";
+include_once "defaults.php";
 
 // ***********************************************************
 // create page

@@ -1,8 +1,6 @@
 [include]
 LOC_LAY/default/main.tpl
 
-[vars]
-height = 151
 
 [layout] <!-- layout.divs -->
 <body>
@@ -21,12 +19,9 @@ height = 151
 # horizontal panels
 # ***********************************************************
 [menu]
-<div style="position: relative; height: 100%;">
+<div class="mbanner">
 <!MOD:banner!>
-
-<div style="position: absolute; bottom: 0px; width: 100%;">
 <!MOD:menu!>
-</div>
 </div>
 
 # ***********************************************************

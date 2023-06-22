@@ -1,9 +1,9 @@
 <?php
 
 // project
-CFG::set("PRJ_TITLE",  "Free CMS");
+CFG::set("PRJ_TITLE",  "UNNAMED PROJECT");
 CFG::set("VMODE",      "view");
-CFG::set("ERR_SHOW",   0);
+CFG::set("ERR_SHOW",   false);
 
 CFG::set("LAYOUT",     "default");
 CFG::set("COLORS",     "default");

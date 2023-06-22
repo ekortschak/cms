@@ -139,6 +139,18 @@ public static function setVal($idx, $val) {
 }
 
 // ***********************************************************
+// setting CUR_DEST
+// ***********************************************************
+public static function setDest($mod) {
+	switch ($mod) {
+		case "csv": $dst = "csv"; break; // retrieve data only
+		case "prn": $dst = "prn"; break; // printing and pdf
+		default:    $dst = "screen";
+	}
+	CFG::set("CUR_DEST", $dst);
+}
+
+// ***********************************************************
 // replacing constants in strings
 // ***********************************************************
 public static function apply($text) {

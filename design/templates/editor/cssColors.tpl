@@ -34,15 +34,12 @@ on = auf
 [item]
 # ***********************************************************
 <tr>
-	<td class="selHead"><!VAR:set!></td>
-	<td class="selData">
-		<input type="text" name="<!VAR:FCN!>" value="<!VAR:FCV!>" size=15 /> &nbsp;
-	</td>
-	<td class="selHead round7" style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>;" align="center">
+	<td width=100><!VAR:set!></td>
+	<td><input type="text" name="<!VAR:FCN!>" value="<!VAR:FCV!>" size=15></td>
+	<td style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>; border-radius: 7px;" align="center">
 		Sample
 	</td>
-	<td width="*">&nbsp;</td>
-	<td class="selData"> &nbsp;
+	<td>
 		<input type="text" name="<!VAR:BCN!>" value="<!VAR:BCV!>" size=15 />
 	</td>
 </tr>

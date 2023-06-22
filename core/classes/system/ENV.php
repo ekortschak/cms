@@ -75,6 +75,18 @@ public static function getTopDir() {
 	return ENV::get("tpc.$tab");
 }
 
+public static function getVMode() {
+	if (OFFLINE) if (! IS_LOCAL) return "offline";
+
+	$mod = ENV::getParm("dmode");
+
+	if ($mod) {
+		ENV::set("vmode", "view");
+		return $mod;
+	}
+	return ENV::get("vmode", "view");
+}
+
 // ***********************************************************
 // handling form and request vars
 // ***********************************************************

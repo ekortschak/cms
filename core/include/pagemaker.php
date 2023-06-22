@@ -5,7 +5,7 @@ PGE::init();
 // ***********************************************************
 // define display mode
 // ***********************************************************
-$mod = ENV::getParm("dmode", VMODE);
+$mod = VMODE;
 
 $tpl = APP::file("LOC_LAY/LAYOUT/$mod.tpl");  if (! $tpl)
 $tpl = APP::file("LOC_LAY/default/$mod.tpl"); if (! $tpl)
@@ -29,7 +29,6 @@ incCls("files/page.php");  // load page builder
 
 $htm = new page();
 $htm->read($tpl);
-$htm->set("layout", "$mod.tpl");
 $htm->set("title", PRJ_TITLE);
 $htm->setModules();
 $htm->show();

@@ -22,17 +22,21 @@ class tidyHtml {
 	private $dat = array();
 	private $hst = array();
 
+	private $tag = "@q@";
+
 function __construct() {}
 
 // ***********************************************************
 // retrieving modified text
 // ***********************************************************
 public function get($htm) {
-#	return $htm;
+# return $htm;
 	$htm = $this->securePhp($htm);
+# echo "<textarea>$htm</textarea>";
 	$htm = $this->badTags($htm);
 	$arr = $this->prepare($htm);
 	$htm = $this->analize($arr);
+
 	$htm = $this->restorePhp($htm);
 	return $htm;
 }
@@ -42,10 +46,9 @@ public function get($htm) {
 // ***********************************************************
 private function prepare($txt) {
 	$sep = "¬¬¬"; $lst = "[A-Za-z0-9]";
-	$txt = PRG::replace($txt,  "(\s+)", " ");
-	$txt = PRG::replace($txt,  "<($lst*?) ", "$sep+|$1:<$1 " ); // mark html tags
-	$txt = PRG::replace($txt,  "<($lst*?)>", "$sep+|$1:<$1>" ); // mark html tags
-	$txt = PRG::replace($txt, "</($lst*?)>", "$sep-|$1:");     // mark end tags
+	$txt = PRG::replace($txt,  "<($lst+)>", "$sep+|$1:<$1>"); // mark html tags
+	$txt = PRG::replace($txt,  "<($lst+) ", "$sep+|$1:<$1 "); // mark html tags
+	$txt = PRG::replace($txt, "</($lst+)>", "$sep-|$1:");     // mark end tags
 	$txt = trim($txt);
 
 	if (! STR::begins($txt, $sep)) $txt = "$sep+p:<p>$txt";
@@ -68,7 +71,7 @@ private function badTags($txt) {
 // ***********************************************************
 private function analize($arr) {
 	$this->dat = array();
-	$this->hst = array("@q@");
+	$this->hst = array($this->tag);
 
 	foreach ($arr as $itm) {
 		if (! $itm) continue;
@@ -87,20 +90,22 @@ private function analize($arr) {
 			}
 			continue;
 		}
-		$this->close($tag);
+		$this->closeTags($tag);
 
-		switch ($typ) {
-			case "p": $this->chkPgf($txt, $tag); break;
-			default:  $this->append($txt);
+		if ($txt) {
+			switch ($typ) {
+				case "p": $this->dat[] = "<p>$txt</p>"; break;
+				default:  $this->dat[] = $txt;
+			}
 		}
 	}
-	$this->close("all");
+	$this->closeTags($this->tag);
 
 	return implode("", $this->dat);
 }
 
 // ***********************************************************
-// tracking tag usage
+// opening tags
 // ***********************************************************
 private function append($txt, $tag = false) {
 	if ($txt) $this->dat[] = $txt;
@@ -108,13 +113,13 @@ private function append($txt, $tag = false) {
 }
 
 private function doPgfs($txt, $tag = false) {
-	$this->close($tag); // no nesting, close char tags
-	$this->append($txt, $tag);
-}
+	$arr = VEC::sort($this->hst, "rsort");
 
-private function chkPgf($txt, $tag = false) {
-	$txt = trim($txt);
-	if ($txt) $this->dat[] = "<$tag>$txt</$tag>";
+	foreach ($arr as $itm) {
+		$typ = $this->getType($itm); if ($typ != "p") continue;
+		$this->closeTags($itm);
+	}
+	$this->append($txt, $tag);
 }
 
 private function doFmts($txt, $tag = false) {
@@ -124,26 +129,34 @@ private function doFmts($txt, $tag = false) {
 	$this->append($txt, $tag);
 }
 
-private function close($tag) {
+// ***********************************************************
+// closing tags
+// ***********************************************************
+private function close($tag, $txt = "") {
+	$this->dat[] = "</$tag>"; if ($txt)
+	$this->dat[] = $txt;
+}
+
+private function closeTags($tag) {
 	if (! $this->isOpen($tag)) return;
 
 	while ($this->hst) {
-		$itm = array_pop($this->hst); if (! $itm) continue;
-		$typ = $this->getType($tag);  if ($typ == "s") continue;
+		$itm = array_pop($this->hst);
+		$typ = $this->getType($tag); if ($typ == "s") continue;
 
-		if ($itm == "@q@") break; $this->dat[] = "</$itm>";
-		if ($itm ==  $tag) break;
+		if ($itm == $this->tag) break; $this->close($itm);
+		if ($itm == $tag) break;
 	}
-}
-
-private function isOpen($tag) {
-	if ($tag == "all") return true;
-	return in_array($tag, $this->hst);
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
+private function isOpen($tag) {
+	if ($tag == $this->tag) return true;
+	return in_array($tag, $this->hst);
+}
+
 private function getType($tag) {
 	if ($this->mayNest($tag))  return "n";
 	if ($this->isSingle($tag)) return "s";
@@ -151,6 +164,8 @@ private function getType($tag) {
 	return "z";
 }
 
+// ***********************************************************
+// analizing tags
 // ***********************************************************
 private function mayNest($tag) {
 	$tgs = "div.table.ul.ol";
@@ -169,7 +184,7 @@ private function isSingle($tag) { // no closing tags
 // restore structure
 // ***********************************************************
 private function securePhp($txt) {
-	$this->php = STR::find($txt, "<?php", "?>", false);
+	$this->php = STR::find($txt, "<php>", "</php>", false);
 	$cnt = 1;
 
 	foreach ($this->php as $cod) {

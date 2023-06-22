@@ -1,19 +1,5 @@
 <?php
 
-if (! isset($local)) {
-	$local = false;
-}
-
-// ***********************************************************
-// deny editing
-// ***********************************************************
-if (isset(  $_GET["vmode"])) {
-	switch ($_GET["vmode"]) {
-		case "search": case "xfer": break;
-		default: $_GET["vmode"] = "view";
-	}
-}
-
 // ***********************************************************
 // load essential modules
 // ***********************************************************
@@ -26,15 +12,30 @@ include_once "include/load.more.php";
 // ***********************************************************
 // check scope
 // ***********************************************************
-if ($local) if (! IS_LOCAL) {
-	die("Thanks for stopping by ...");
+if (isset($local)) {
+	if (! IS_LOCAL) die("Thanks for stopping by ...");
 }
+
+// ***********************************************************
+// overruling vmode and dmode
+// ***********************************************************
+$mod = ENV::getVMode();
+
+switch ($mod) {
+	case "offline": case "toc": case "opts": case "search":
+	case "xfer": break;
+	default: $mod = "view"; // deny editing
+}
+
+CFG::set("VMODE", $mod);
+CFG::setDest(VMODE);
 
 // ***********************************************************
 // supply defaults
 // ***********************************************************
-include_once "include/load.ini.php";
-include_once "include/load.std.php";
+include_once "include/load.ini.php"; // php settings
+include_once "include/load.app.php"; // app specific features
+include_once "defaults.php";
 
 // ***********************************************************
 // create page

@@ -16,16 +16,20 @@ include_once "core/include/load.min.php";
 include_once "core/include/load.more.php";
 
 // ***********************************************************
+// local execution only
+// ***********************************************************
 if (! IS_LOCAL) die("Thanks for stopping by ...");
 
-requireAdmin();
+$mod = ENV::getVMode();
 
-if (! FS_ADMIN) CFG::set("DMODE","login");
+CFG::set("VMODE", $mod);
+CFG::setDest(VMODE);
 
 // ***********************************************************
 // supply defaults
 // ***********************************************************
-include_once "include/load.std.php";
+include_once "include/load.app.php";
+include_once "defaults.php";
 
 // ***********************************************************
 // create page

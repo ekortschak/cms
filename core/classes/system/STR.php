@@ -47,7 +47,7 @@ public static function ends($haystack, $needle) {
 
 // ***********************************************************
 public static function features($haystack, $needle) {
-	return (STR::contains(".$haystack.", ".$needle"));
+	return (STR::contains(".$haystack.", ".$needle."));
 }
 public static function misses($haystack, $needle) {
 	return (! STR::contains($haystack, $needle));

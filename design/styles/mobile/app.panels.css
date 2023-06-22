@@ -1,6 +1,6 @@
 .colMain {
 	float:      left;
-	overflow:   auto;
+	overflow:   hidden;
 	max-height: 100vh;
 	min-height: 100vh;
 	width:      W_BODY;
@@ -11,7 +11,6 @@
 /* horizontal panels */
 /* ******************************************************** */
 .horMenu {
-	z-index: 99;
 	float: top;
 	overflow: visible;
 
@@ -20,36 +19,37 @@
 	background-position: center;
 	background-size: cover;
 
-	height:    H_MENU;
-	width:     100%;
-	max-width: 100%;
-	min-width: 300px;
+	min-height: H_MENU;
+	width:      100%;
+	max-width:  100%;
+	min-width:  300px;
 
-	color:     FC_MENU;
+	color:      FC_MENU;
 }
-
-.modBody {
-	float:     top;
-	overflow:  auto;
-	height:    calc(100vh - H_MENU);
-	width:     100%;
-	min-width: 300px;
-	max-width: 100%;
-
-	background: BC_BODY;
-}
-
 
 .joker {
 	float:      top;
 	display:    none;
 	padding:    0px 15px;
+	height:     1.5rem;
 	min-height: 1.5rem;
 	width:      100%;
 	min-width:  300px;
 	max-width:  100%;
 	background: BC_TABS;
 }
+
+.modBody {
+	float:      top;
+	overflow:   auto;
+	height:     calc(100vh - H_MENU);
+	width:      100%;
+	min-width:  300px;
+	max-width:  100%;
+
+	background: BC_BODY;
+}
+
 
 /* ******************************************************** */
 /* vertical panels */
@@ -69,9 +69,9 @@
 }
 
 .modOpts {
-	float:    left;
-	height:   100vh;
-	width:    calc(100% - W_TABS - W_BODY - 10px);
-	left:     calc(W_TABS + W_BODY);
-	top:      0px;
+	float:      left;
+	height:     100vh;
+	width:      calc(100% - W_TABS - W_BODY - 10px);
+	min-width:  150px;
+	left:       calc(W_TABS + W_BODY);
 }

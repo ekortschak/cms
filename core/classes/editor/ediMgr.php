@@ -80,7 +80,7 @@ private function findList($typ) {
 }
 
 private function findType($file) {
-	$ext = FSO::ext($file, true); $ext = ".$ext.";
+	$ext = FSO::ext($file, true);
 
 	if (STR::features("php",         $ext)) return "code";
 	if (STR::features("ini.btn.def", $ext)) return "ini";
