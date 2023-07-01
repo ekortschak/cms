@@ -7,7 +7,6 @@ LOC_SCR/metakeys.js
 # ***********************************************************
 [body] <!-- body.seo -->
 # ***********************************************************
-<div class="container">
 <!MOD:edit.seo!>
 
 <div class="cold" id="pgeView" contenteditable="true" spellcheck="false">
@@ -18,5 +17,3 @@ LOC_SCR/metakeys.js
 	obj = document.getElementById("pgeView");
 	obj.addEventListener("keydown", function(e) { e = doKeys(e); });
 </script>
-
-</div>

@@ -5,10 +5,10 @@ const mtrack = function(e) {
 	fcs = getVar('--fcs');
 
 	if (x < fcs) {
-		document.documentElement.style.setProperty('--aln', "");
+//		document.documentElement.style.setProperty('--aln', "");
 	}
 	else {
-		document.documentElement.style.setProperty('--aln', "0px");
+//		document.documentElement.style.setProperty('--aln', "0px");
 	}
 }
 

@@ -6,43 +6,33 @@
 
 @media only screen and (max-width: 1500px) {
 	.modToc  { width: W_MIN; }
-	.modOpts {
-		width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px);
-	}
+	.modOpts { width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1350px) {
 	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
-	.modOpts {
-		width: calc(100% - W_TABS - W_MIN - W_BODY - 10px);
-	}
+	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1250px) {
 	.modBody { width: calc(W_BODY * 0.85); }
-	.modOpts {
-		width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px);
-	}
-}
-
-@media only screen and (min-width: 1100px) {
-	.joker { display: none; }
+	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
 }
 
 @media only screen and (max-width: 1100px) {
 	[class^="mod"] {
 		position: absolute;
+		display:  none;
 		height:   calc(100% - 1.5rem);
 		width:    100%;
 		left:     0px;
-		top:      25px;
 	}
 
-	.modTabs { display: none; }
-	.modBord { display: none; }
+	.joker   { display: block; }
 
-	.modBody { z-index: 5; }
-
-	.joker { display: block; }
+	.modBody {
+		display: block;
+		z-index: 5;
+	}
 }

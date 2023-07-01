@@ -17,6 +17,12 @@ h5, h6, hy {
 	text-decoration: underline;
 }
 
+h1:first-of-type,
+h2:first-of-type,
+h3:first-of-type {
+	margin: 0px 0px 7px;
+}
+
 hx, hy {
 	display: block;
 	font-size: 1em;

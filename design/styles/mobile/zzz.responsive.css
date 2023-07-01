@@ -21,9 +21,9 @@
 
 @media only screen and (max-width: 1500px) and (max-resolution: 2dppx) and (orientation: portrait) {
 	.colMain {
-		width: 33%;
-#		zoom: 3;
-		transform: scale(3);
+		width: 25%;
+#		zoom: 2;
+		transform: scale(4);
 	}
 }
 

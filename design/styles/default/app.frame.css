@@ -31,23 +31,3 @@ body {
 	background: BC_PAGE;
 	color:      FC_BODY;
 }
-
-/* ******************************************************** */
-/* container */
-/* ******************************************************** */
-.container {
-	background: transparent;
-	padding:    0px 20px 35px;
-}
-
-.conToc  { padding: 15px 15px 35px; }
-.conBody { padding: 15px 20px 35px; }
-.conOpts { padding:  0px 20px 35px; }
-
-.conHead {
-	position:   sticky;
-	top:        0px;
-	background: BC_BODY;
-	padding:    0px 20px 0px;
-	width:      100%;
-}

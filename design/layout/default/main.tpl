@@ -46,11 +46,13 @@ title = PRJ_TITLE
 [layout] <!-- layout -->
 # ***********************************************************
 <body>
-	<div class="joker"  ><!SEC:joker!></div>
 	<div class="modTabs"><!SEC:tabs!></div>
 	<div class="modToc" ><!SEC:toc!> </div>
 	<div class="modMbar"><!SEC:mbar!></div>
-	<div class="modBody"><!SEC:body!></div>
+	<div>
+		<div class="joker"><!SEC:joker!></div>
+		<div class="modBody"><!SEC:body!></div>
+	</div>
 	<div class="modBord"><!SEC:bord!></div>
 	<div class="modOpts"><!SEC:opts!></div>
 </body>
@@ -71,30 +73,23 @@ title = PRJ_TITLE
 # vertical panels
 # ***********************************************************
 [tabs] <!-- tabs -->
-<div class="container" style="padding: 7px 0px;">
+<div style="padding: 7px 0px;">
 <!MOD:tabs!>
 </div>
 
 # ***********************************************************
 [toc] <!-- toc -->
-<div class="container conToc" id="maindow">
 <!MOD:toc!>
-</div>
-
-<div class="container">
 <!MOD:toc.blocks!>
-</div>
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
 
 # ***********************************************************
 [body] <!-- body -->
-<div class="conHead">
 <!MOD:body.head!>
-</div>
 
-<div class="container" id="scView">
+<div id="scView">
 <!MOD:body.feedback!>
 <!MOD:body!>
 </div>
@@ -104,10 +99,8 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [opts] <!-- opts -->
-<div class="container conOpts">
 <!MOD:app.info!>
 <!MOD:user.opts!>
 <!MOD:user.tags!>
 <!MOD:msgs!>
 <!MOD:debug.timer!>
-</div>

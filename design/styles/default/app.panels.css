@@ -20,6 +20,7 @@
 	width:      W_TOC;
 	color:      FC_TOC;
 	background: BC_TOC;
+	padding:    15px 15px 35px;
 }
 
 .modMbar {
@@ -28,11 +29,13 @@
 }
 
 .modBody {
+	float:      top;
 	width:      W_BODY;
 	min-width:  W_MIN;
 	font-size:  F_BODY;
 	color:      FC_BODY;
 	background: BC_BODY;
+	padding:    15px 20px 35px;
 }
 
 .modBord {
@@ -43,15 +46,19 @@
 .modOpts {
 	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
 	color:      FC_OPTS;
+	background: BC_OPTS;
+	padding:    15px 20px 35px;
 }
 
 /* ******************************************************** */
 /* horizontal panels */
 /* ******************************************************** */
 .joker {
+	float:      top;
 	overflow:   auto;
 	display:    none;
-	padding:    0px 15px;
+	padding:    0px 20px;
 	min-height: 1.5rem;
 	background: BC_TABS;
+	width:      100%;
 }

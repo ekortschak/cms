@@ -26,15 +26,11 @@ LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
 [toc] <!-- toc.static -->
-<div class="container conToc">
 <!MOD:toc!>
-</div>
 
 # ***********************************************************
 [body] <!-- body.static -->
-<div class="container">
 <!MOD:body!>
-</div>
 
 # ***********************************************************
 [opts] <!-- opts.static -->

@@ -44,7 +44,7 @@ agent =
 [tedit]
 # ***********************************************************
 <div class="tabicon">
-<a href="?vmode=tedit">
+<a href="x.edit.php?vmode=tedit">
 	<img src="LOC_ICO/buttons/edit.tab.png" alt="TabEdit" />
 </a>
 </div>
