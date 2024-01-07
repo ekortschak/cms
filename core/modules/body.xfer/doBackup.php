@@ -32,7 +32,7 @@ if (! FSO::hasXs($dir)) {
 }
 
 if ($fnc == "manage") {
-	include APP::getInc(__DIR__, "exManage.php");
+	include_once "exManage.php";
 	return;
 }
 

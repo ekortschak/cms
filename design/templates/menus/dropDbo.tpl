@@ -17,6 +17,3 @@ sep =
 
 [main.one]
 <!SEC:uniq!> <!VAR:current!> &ensp;
-
-[empty]
-<div class="dropMenu"><!DIC:no.data!></div>

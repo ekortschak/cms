@@ -1,13 +1,14 @@
+[dic]
+replace = Replace
+current = currently
+
+[dic.de]
+replace = Ersetzen
+current = derzeit
 
 [vars]
 checked = CHECKED
 lang = CUR_LANG
-
-[dic]
-replace = Replace
-
-[dic.de]
-replace = Ersetzen
 
 
 [main]
@@ -19,17 +20,16 @@ replace = Ersetzen
 <!VAR:items!>
 <hr>
 	<div class="flex">
-		<!SEC:hint!>
+		<p>&nbsp;</p>
 		<input type="submit" name="act.xlref" value="<!DIC:replace!>" />
 	</div>
 </form>
 
 [item]
-<div>
-	<input type="checkbox" name="ref" value="<!VAR:ref!>" <!VAR:checked!> />
-	<div class="dropdown"><!VAR:ref!>
-		<div class="dropbody" style="max-wdith: 700px;">
-			<!VAR:cur!> ... <hr> <!VAR:new!>
+<div>&bull; <!VAR:ref!> &rarr;
+	<div class="dropdown"><!VAR:new!>
+		<div class="dropbody">
+			<!VAR:cur!>
 		</div>
 	</div>
 </div>
@@ -42,13 +42,6 @@ replace = Ersetzen
 [refs.de]
 <p>Zu ersetztende externe Referenzen</p>
 
-
-
-[hint]
-<msg><b>Info</b>: Changes will affect <dfn><!VAR:lang!>.htm</dfn> &nbsp;</msg>
-
-[hint.de]
-<msg><b>Info</b>: Änderungen betreffen <dfn><!VAR:lang!>.htm</dfn> &nbsp;</msg>
 
 
 [protected]

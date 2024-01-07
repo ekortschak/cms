@@ -1,10 +1,13 @@
 <?php
 # a collection will collect all subdirectories of the current page
-# (first # level only) and display according to the given template
+# (first level only) and display according to the given template
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+$loc = PGE::dir();
 $sel = ENV::getParm("coll");
-$pge = ENV::getPage();
-$arr = APP::folders($pge);
+$arr = APP::folders($loc);
 $lst = array();
 
 if (count($arr) < 1) {
@@ -27,23 +30,25 @@ $dir = $box->getKey("coll", $lst, $sel);
 $tit = $box->decode("coll", $dir);
 $xxx = $box->show();
 
-$pic = APP::files($dir, "*.png, *.jpb, *.gif");
-$pic = basename(key($pic));
-$dir = APP::relPath($dir);
-$pic = FSO::join($dir, $pic);
+$whr = FSO::join(APP_DIR, $dir);
+$xxx = APP::addPath($whr);
+
+$htm = APP::gcSys($dir);
+$pic = PGE::pic($dir);
 
 // ***********************************************************
 // show collected pages
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("modules/collect.tpl");
+$tpl->load("pages/collect.tpl");
 
-if (! is_file($pic)) {
-	$tpl->clearSec("pic");
-}
+$tpl->set("text", $htm);
 $tpl->set("head", $tit);
 $tpl->set("pic", $pic);
-$tpl->set("text", APP::gcSys($dir));
+
+if (! $pic) {
+	$tpl->clearSec("pic");
+}
 $tpl->show();
 
 ?>

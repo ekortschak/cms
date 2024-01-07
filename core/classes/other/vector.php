@@ -7,7 +7,7 @@ not in use
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/vector.php");
+incCls("other/vector.php");
 
 $vector = new vector();
 */

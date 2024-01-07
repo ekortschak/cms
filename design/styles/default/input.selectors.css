@@ -5,9 +5,9 @@
 .selSection {
 	color: FC_HEAD;
 	font-style: italic;
-	vertical-align: bottom;
 
-	padding-top: 12px;
+	border-bottom: 1px solid OUTLINE;
+	padding: 9px 0px 2px 0px;
 }
 
 .spacer {
@@ -19,13 +19,11 @@
 /* ******************************************************** */
 .selHead {
 	white-space: nowrap;
-	vertical-align: middle;
-	padding: 0px 15px 3px 1px;
-	min-width: 15rem;
+	padding: 4px 15px 0px 5px;
+	min-width: 150px;
 }
 .selData {
-	vertical-align: middle;
-	padding: 0px 0px 1px;
+	padding: 1px 0px 0px;
 	width: 100%;
 }
 
@@ -35,7 +33,7 @@
 .rating {
 	width: 105px;
 	border: 1px solid OUTLINE;
-	border-radius: 5px;
+	border-radius: BR_INP;
 
 	background: url("LOC_ICO/input/rating.png") no-repeat top;
 }

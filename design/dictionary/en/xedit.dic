@@ -1,14 +1,27 @@
 [dic.en]
-file.pattern = File type
-files.search = Search in files
-files.containing = Files containing
-
-xedit = Extended Editing
-
-xlRef.none = Document does not contains external references
-xlRef.xlate = Translate external references
-xlRef.saved = External references have been updated
-
-
-text.xlate = Text.xlate*
-opt.preview = Opt.preview*
+code.tidy = Code bereinigen*
+dir = Verzeichnis*
+edit.keywords = Meta-Info bearbeiten*
+file.pattern = Dateityp*
+files = Dateien*
+files.containing = Dateien mit*
+files.rename = Dateien umbenennen*
+files.search = Dateien durchsuchen*
+find = Find**
+links.check = Links überprüfen*
+loc = Loc**
+no.xs = BOOL_NO*
+nums.conv = Zahlen konvertieren*
+opt.overwrite, 0 = Opt.overwrite, 0**
+opt.preview = Vorschaumodus*
+ref.xlate = Externe Referenzen übersetzen*
+rename = Umbenennen in*
+settings = Settings**
+text.xlate = Text übersetzen*
+topics = Topics**
+unq.Method = Methode*
+xedit = Erweiterte Bearbeitung*
+xlRef.title = Translations
+xlRef.none = Dokument enthält keine leeren Referenzen*
+xlRef.saved = Exteren Referenzen wurden aktualisiert*
+xlRef.xlate = Externe Referenzen übersetzen*

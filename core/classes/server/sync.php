@@ -46,6 +46,8 @@ function __construct($dev) {
 	$this->load("modules/xfer.sync.tpl");
 	$this->register();
 	$this->setNewer();
+
+	$this->setVisOnly(true);
 }
 
 // ***********************************************************
@@ -73,8 +75,11 @@ protected function setNewer() { // protect newer files?
 
 // ***********************************************************
 public function setVisOnly($value) {
-	$val = ($value) ? BOOL_NO : BOOL_YES;
-	$this->set("what", $val);
+	$val = (bool) $value;
+	$chr = ($val) ? BOOL_NO : BOOL_YES;
+
+	$this->visOnly = $val;
+	$this->set("what", $chr);
 }
 
 // ***********************************************************
@@ -84,7 +89,7 @@ protected function srcName($fso)  {
 	if (STR::begins($fso, $this->srcPath)) return $fso;
 	return FSO::join($this->srcPath, $fso);
 }
-protected function trgName($fso, $act = false) {
+protected function trgName($fso) {
 	if (STR::begins($fso, $this->trgPath)) return $fso;
 	return FSO::join($this->trgPath, $fso);
 }
@@ -140,31 +145,30 @@ TMR::punch("exec.in");
 	$rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
 
 	$arr = $this->aggregate($arr);
+	$arr = $this->rearrange($arr); // put "ren" first
 
 	foreach ($arr as $act => $lst) {
 		foreach ($lst as $key => $fso) {
-			$erg = $this->manage($act, $fso); if (! $erg) continue;
+			$res = $this->manage($act, $fso); if (! $res) continue;
 
-			$rep[$act]+= $erg;
+			$this->rep[$act]++;
 			unset($arr[$act][$key]);
 		}
 		if (! VEC::get($arr, $act)) unset($arr[$act]);
 	}
-
-
 	ENV::set("sync.jbs", $arr);
-	$this->rep = $rep;
 
 TMR::punch("exec.done");
 }
 
 // **********************************************************
 protected function manage($act, $fso) {
-	$src = $this->srcName($fso, $act);
-	$dst = $this->trgName($fso, $act);
+	if ($act == "ren") return $this->do_ren($fso);
+
+	$src = $this->srcName($fso);
+	$dst = $this->trgName($fso);
 
 	switch ($act) {
-		case "ren": return $this->do_ren($fso);
 		case "mkd": return $this->do_mkDir($dst);
 		case "rmd": return $this->do_rmDir($dst);
 		case "cpf": return $this->do_copy($src, $dst);
@@ -197,7 +201,6 @@ protected function preView($tellMe = false) {
 		if (! $tellMe) return;
 		return MSG::now("do.nothing");
 	}
-
 	$this->showStat($arr, "man", "sync.protected");
 	$this->showStat($arr, "nwr", "sync.newer");
 	$this->showStat($arr, "ren", "sync.rename");
@@ -224,20 +227,26 @@ protected function showStat($arr, $act, $cap) {
 // show results
 // ***********************************************************
 protected function report() {
-	HTW::xtag("ftp.report"); $blk = "ren.rmd.dpf.mkd"; $out = array();
+	HTW::xtag("ftp.report"); $out = array();
 
 	foreach ($this->rep as $key => $val) {
-		$cat = "file(s)"; if (STR::contains($blk, $key))
-		$cat = "block(s)";
-
 		$this->set("inf", DIC::getPfx("arr", $key));
+		$this->set("cat", $this->getCat($key));
 		$this->set("val", $val);
-		$this->set("cat", $cat);
 
 		$out[] = $this->getSection("report.row");
 	}
-	$this->set("tdata", implode("\n", $out));
+	$rep = DIC::get("no.jobs"); if ($out) $rep = implode("\n", $out);
+
+	$this->set("tdata", $rep);
 	echo $this->getSection("report");
+}
+
+protected function getCat($act) {
+// to be overruled by derived classes
+	if (STR::ends($act, "d")) return "";
+	if (STR::ends($act, "f")) return "";
+	return DIC::get("items(s)");
 }
 
 // ***********************************************************
@@ -261,7 +270,7 @@ protected function lclFiles($dir) {
 }
 
 protected function conv($txt) {
-	return STR::slice($txt);
+	return STR::split($txt);
 }
 
 protected function chkErr($arr, $inf) {
@@ -275,38 +284,35 @@ protected function getNewer($src, $dst) {
 	if ($this->chkErr($src, "source")) return array();
 #	if ($this->chkErr($dst, "target")) return array();
 
-	$out = $lst = $ren = array();
+	$out = $lst = array();
 
 	foreach ($src as $itm) { // source - e.g. local files
 		$inf = $this->split($itm, "s"); if (! $inf) continue; extract($inf);
-		$lst[$fso] = $inf;
-
-		$ren[$alf]["typ"] = $typs;
-		$ren[$alf]["src"] = $fso;
+		$lst[$alf] = $inf; if ($typs == "d")
+		$this->ren[$alf]["src"] = $fsos;
 	}
 	foreach ($dst as $itm) { // destination - e.g. remote files
 		$inf = $this->split($itm, "d"); if (! $inf) continue; extract($inf);
+		if (! isset($lst[$alf])) $lst[$alf] = array();
+		$lst[$alf]+= $inf;
 
-		if (  isset($lst[$fso])) $lst[$fso]+= $inf; else $lst[$fso] = $inf;
-		if (! isset($ren[$alf])) continue;
-
-		if ( $ren[$alf]["src"] == $fso) unset($ren[$alf]);
-		else $ren[$alf]["dst"] =  $fso;
+		$this->chkRen($lst[$alf]);
 	}
-
 	foreach ($lst as $fso => $prp) { // check dates
 		$inf = $this->chkProps($prp); extract($inf);
 
+		if ($typs === "f")
 		if ($md5s === $md5d) continue;
 
 		$act = $this->getAction($typs.$typd, $dats >= $datd);
 		$act = $this->chkAction($act, $fso);
 
-		if ($act == "x") continue;
-
-		$out[$act][] = $fso;
+		switch ($act) {
+			case "mkd": case"cpf": $out[$act][] = $fsos; break;
+			case "rmd": case"dpf": $out[$act][] = $fsod; break;
+			case "nwr":            $out[$act][] = $fsos; break;
+		}
 	}
-	$this->ren = $ren;
 	return $out;
 }
 
@@ -327,9 +333,9 @@ protected function getAction($mds, $newer) {
 	return "x"; // ignore
 }
 
-protected function chkAction($act, $fso) {
+protected function chkAction($act, $fso) { // dropping fso
 	if (STR::misses(".rmd.dpf.", $act)) return $act;
-	if (STR::begins($fso, $this->drp))  return "x";
+	if (STR::begins($fso, $this->drp))  return "x"; // already taken care of
 	if ($act == "rmd") $this->drp[] = $fso;
 	return $act;
 }
@@ -338,9 +344,9 @@ protected function chkAction($act, $fso) {
 // executing modifications
 // ***********************************************************
 protected function do_ren($fso) {
-	$prp = STR::slice($fso, "|"); if (count($prp) < 3) return false;
-	$old = $this->trgName($prp[2]);
-	$new = $this->trgName($prp[1]);
+	$prp = STR::split($fso, " => "); if (count($prp) < 2) return false;
+	$old = $this->trgName($prp[0]);  if (! $old) return false;
+	$new = $this->trgName($prp[1]);  if (! $new) return false;
 
 	return (bool) FSO::rename($old, $new);
 }
@@ -362,18 +368,20 @@ protected function do_copy($src, $dst) {
 // **********************************************************
 // check for shortcuts renaming rather than copy and delete
 // **********************************************************
+protected function chkRen($inf) {
+	extract($inf);
+	if ( ! isset($fsos))                    return $this->dropRen($alf);
+	if (basename($fsos) == basename($fsod)) return $this->dropRen($alf);
+	$this->ren[$alf]["dst"] = $fsod;
+}
+protected function dropRen($alf) {
+	unset($this->ren[$alf]);
+}
+
 protected function chkRename($arr) {
-	foreach ($this->ren as $itm) {
-		if (count($itm) < 3) continue; extract($itm);
-		if ($typ != "d")     continue;
-		if ($src == $dst)    continue;
-
-		if (isset($arr["mkd"])) $arr["mkd"] = VEC::purge($arr["mkd"], $src); // src = new name
-		if (isset($arr["cpf"])) $arr["cpf"] = VEC::purge($arr["cpf"], $src);
-		if (isset($arr["rmd"])) $arr["rmd"] = VEC::purge($arr["rmd"], $dst); // dst = old name
-		if (isset($arr["dpf"])) $arr["dpf"] = VEC::purge($arr["dpf"], $dst);
-
-		$arr["ren"][] = "$typ|$src|$dst";
+	foreach ($this->ren as $alf => $itm) {
+		if (count($itm) < 2) continue; extract($itm);
+		$arr["ren"][] = "$dst => $src";
 	}
 	return $arr;
 }
@@ -392,12 +400,12 @@ protected function chkCount($arr) {
 // ***********************************************************
 protected function split($itm, $pfx) {
 	$itm = strip_tags(trim($itm));
-	$itm = STR::slice($itm, ";"); if (count($itm) < 4) return false;
+	$itm = STR::split($itm, ";"); if (count($itm) < 4) return false;
 	$fso = $itm[3];
 
 	return array(
-		"fso" => $fso,
-		"alf" => PRG::replace($fso, "\/\d\d\d\.", DIR_SEP),
+		"alf" => PRG::replace($fso, "\/(\d{1,3})\.", DIR_SEP),
+		"fso".$pfx => $fso,
 		"typ".$pfx => $itm[0],
 		"dat".$pfx => $itm[1],
 		"md5".$pfx => $itm[4]
@@ -406,7 +414,7 @@ protected function split($itm, $pfx) {
 
 protected function chkProps($arr) {
 	$out = array(
-		"fso" => "",   "alf" => "",
+		"fsos" => "",  "fsod" => "",  "alf" => "",
 		"typs" => "x", "typd" => "x",
 		"dats" => "",  "datd" => "",
 		"md5s" => "",  "md5d" => "",
@@ -427,6 +435,15 @@ protected function chkPath($dir) {
 // ***********************************************************
 protected function aggregate($arr) {
 	return $arr;
+}
+
+protected function rearrange($arr) {
+	$out = array(); $out["ren"] = false;
+
+	foreach ($arr as $key => $lst) {
+		$out[$key] = $lst;
+	}
+	return $out;
 }
 
 // ***********************************************************

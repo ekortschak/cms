@@ -1,23 +1,28 @@
 <?php
 
-incCls("search/sView.php");
+DBG::file(__FILE__);
 
 // ***********************************************************
 // select records
 // ***********************************************************
-$vew = new sView();
-$xxx = $vew->showNav();
-$fls = $vew->getSnips();
-$mod = $vew->getMode();
+incCls("search/sView.php");
 
-if (! $fls) {
+$vew = new sView();
+$act = $vew->showNav();
+
+if (! $act) {
 	$vew->show("none");
 	return;
 }
 
+$fls = $vew->getSnips();
+$mod = $vew->getMode();
+
 // ***********************************************************
 // preview searched item
 // ***********************************************************
-include APP::getInc(__DIR__, "do_$mod.php");
+$fil = APP::incFile(__DIR__, "do_$mod.php");
+
+include_once($fil);
 
 ?>

@@ -75,19 +75,19 @@ bulb = on
 
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
-		<td style="vertical-align: middle;"><!DIC:node.drop!></td>
+		<td><!DIC:node.drop!></td>
 		<td><button name="node.act" value="drop" onclick="return confirm('<!DIC:ask.sure!>');">BOOL_NO</button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
-		<td style="vertical-align: middle;"><!DIC:node.hide!></td>
+		<td><!DIC:node.hide!></td>
 		<td><button name="node.act" value="hide"><img src="LOC_ICO/menu/bulb_<!VAR:bulb!>.gif" /></button></td>
 	</tr>
 
 	<tr><td colspan="100%" height=5></td></tr>
 	<tr>
-		<td style="vertical-align: middle;"><!DIC:node.move!></td>
+		<td><!DIC:node.move!></td>
 		<td>
 <!SEC:nodes.move!>
 		</td>
@@ -115,7 +115,7 @@ bulb = on
 
 <table>
 	<tr>
-		<td width=250 style="vertical-align: middle;"><!DIC:chk.UIDs!></td>
+		<td width=250><!DIC:chk.UIDs!></td>
 		<td><button name="node.act" value="uid"><!DIC:check!></button></td>
 	</tr>
 </table>

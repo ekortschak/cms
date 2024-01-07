@@ -8,7 +8,7 @@ e.g. fünfhundertdrei => 503
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/string2num.php");
+incCls("other/string2num.php");
 
 $obj = new string2num();
 $txt = $obj->conv($txt);

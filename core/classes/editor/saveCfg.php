@@ -1,6 +1,6 @@
 <?php
 
-if (APP_CALL != "config.php") return;
+if (TAB_SET != "config") return;
 
 /* ***********************************************************
 // INFO

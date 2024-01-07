@@ -29,7 +29,7 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function setData($arr) { // $arr as from PFS::mnuInfo();
+public function setData($arr) { // $arr as from PFS::item();
 	$this->dat = $arr;
 }
 
@@ -37,24 +37,23 @@ public function setData($arr) { // $arr as from PFS::mnuInfo();
 // display functions
 // ***********************************************************
 public function gc($sec = "main") {
-	$trg = PFS::getPath(); $out = ""; $cnt = 0;
-	$max = PFS::getLevel($trg) + 1;
-	$lst = PFS::count();
+	$cur = PGE::$dir; $out = ""; $cnt = 0;
+	$arr = PFS::items();
+	$inf = PFS::item();
+	$kap = VEC::get($inf, "chnum");
 
-	for ($i = 0; $i < $lst; $i++) {
-		$inf = PFS::mnuInfo($i); if (! $inf) continue;
+	foreach ($arr as $inf) {
 		$this->merge($inf); extract($inf);
 
-		if ($level < 2) continue;
-
-		$this->set("index",	$cnt++."");
-		$this->set("vis", $this->isVisible($trg, $fpath, $level, $max)); // expandable
-		$this->set("sel", $this->isSelected($trg, $fpath));
-		$this->set("pos", $this->isOpen($trg, $fpath, $level));
-		$this->set("hid", $this->isHidden($fpath)); // show only in edit mode
+		$this->set("index",	 $cnt++);
 		$this->set("active", $state);
 
-		$typ = $this->chkType($mtype);
+		$this->set("sel", $this->isCurrent($kap, $chnum)); // highlighted
+		$this->set("pos", $this->isOpenFld($kap, $chnum)); // expanded
+		$this->set("vis", $this->isVisible($kap, $chnum)); // visible
+		$this->set("hid", $this->isHidden($fpath)); // show only in edit mode
+
+		$typ = $this->chkType($mtype, $fpath);
 		$out.= $this->getSection("link.$typ")."\n";
     }
     $this->set("items", $out);
@@ -65,10 +64,17 @@ public function gc($sec = "main") {
 }
 
 // ***********************************************************
-private function chkType($typ) {
+private function chkType($typ, $dir) {
 	$mod = ENV::get("output");
 
-	if ($mod == "static") {
+	if ($typ == "redir") {
+		$ini = new ini($dir);
+		$trg = $ini->getReDir();
+
+		if (FSO::folders($trg)) return $typ;
+		return "$typ file";
+	}
+	if ($mod === "static") {
 		if ($typ == "both") return "static.dir";
 		if ($typ == "file") return "static.file";
 	}
@@ -78,25 +84,28 @@ private function chkType($typ) {
 // ***********************************************************
 // determine display features
 // ***********************************************************
-private function isVisible($dir, $fpath, $lev, $max) {
-	if ($lev < 3) return "block";
-	if ($lev > $max) return "none"; // exclude deep level subdirs
-
-	if (STR::begins($fpath, $dir)) return "block"; // show immediate subdirs
-	if (STR::begins($dir, dirname($fpath))) return "block"; // show parents and siblings
-	return "none";
-}
-private function isOpen($dir, $fpath, $lev) {
-	if (STR::begins($dir, $fpath)) return "bottom";
-	return "top";
-}
-private function isSelected($dir, $idx) {
-	if ($idx != $dir) return "";
+private function isCurrent($kap, $num) { // show highlighted
+	if ($kap != $num) return "";
 	return "sel";
 }
-private function isHidden($idx) {
-	if (FSO::isHidden($idx)) return "hidden";
+private function isHidden($fpath) {
+	if (FSO::isHidden($fpath)) return "hidden";
 	return "";
+}
+
+// ***********************************************************
+private function isVisible($kap, $num) { // show parents and siblings
+	if (STR::misses($num, ".")) return "show";  // always show first level
+
+	$num = STR::split($num, "."); array_pop($num);
+	$num = implode(".", $num);
+
+	if (STR::begins($kap, $num)) return "show";
+	return "hide";
+}
+private function isOpenFld($kap, $num) { // show open folder
+	if (STR::begins($kap, $num)) return "open";
+	return "closed";
 }
 
 // ***********************************************************

@@ -30,7 +30,7 @@ cls = ms
 # ***********************************************************
 <tr class="toolbar">
 	<td><img src="LOC_ICO/nav/toggle.gif" onClick="toggleCB('<!VAR:cls!>');"></td>
-	<td nowrap style="min-width: 150px;"><small><!DIC:multi!></small></td>
+	<td nowrap style="min-width: 150px;"><div class="cbtext"><small><!DIC:multi!></div></small></td>
 </tr>
 
 

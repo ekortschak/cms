@@ -1,14 +1,16 @@
 <?php
 
-incCls("search/search.php");
+DBG::file(__FILE__);
 
 // ***********************************************************
 // get parameters
 // ***********************************************************
+incCls("search/search.php");
+
 $obj = new search();
 $opt = $obj->getScope();
 
-$fnd = ENV::get("search");
+$fnd = ENV::get("search.what");
 $fnd = str_replace('"', "'", $fnd);
 
 $lst = $obj->getResults($fnd);
@@ -24,7 +26,7 @@ $tpl->load("modules/search.tpl");
 if (! is_array($lst)) $res = DIC::get("no.match");
 else {
 	foreach ($lst as $tab => $inf) {
-		$tpc = PGE::getTitle($tab);
+		$tpc = PGE::title($tab);
 		$xxx = $tpl->set("topic", $tpc);
 		$xxx = $tpl->set("dir", $tab);
 		$res.= $tpl->getSection("topic");

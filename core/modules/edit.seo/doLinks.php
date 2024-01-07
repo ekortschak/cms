@@ -23,7 +23,7 @@ HTM::lf();
 // preview
 // ***********************************************************
 $pge = new pageInfo();
-$arr = FSO::ftree($dir, $ptn);
+$arr = FSO::fTree($dir, $ptn);
 $out = array();
 $cnt = 0;
 
@@ -62,7 +62,7 @@ echo "<small>\n";
 foreach ($out as $pge => $lst) {
 	if (! $lst) continue;
 
-	HTW::href("index.php?pge=$pge?vmode=pedit", $pge, "chk");
+	HTW::href("?pge=$pge?vmode=pedit", $pge, "chk");
 	HTM::lf("br");
 
 	echo "<ul>\n";

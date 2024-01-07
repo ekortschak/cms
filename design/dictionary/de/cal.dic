@@ -1,0 +1,42 @@
+[dic.de]
+day.1 = MO
+day.2 = DI
+day.3 = MI
+day.4 = DO
+day.5 = FR
+day.6 = SA
+day.7 = SO
+
+day.1.l = Montag
+day.2.l = Dienstag
+day.3.l = Mittwoch
+day.4.l = Donnerstag
+day.5.l = Freitag
+day.6.l = Samstag
+day.7.l = Sonntag
+
+mon.1 = Jan
+mon.2 = Feb
+mon.3 = März
+mon.4 = Apr
+mon.5 = Mai
+mon.6 = Jun
+mon.7 = Jul
+mon.8 = Aug
+mon.9 = Sep
+mon.10 = Okt
+mon.11 = Nov
+mon.12 = Dez
+
+mon.1.l = Jänner
+mon.2.l = Februar
+mon.3.l = März
+mon.4.l = April
+mon.5.l = Mai
+mon.6.l = Juni
+mon.7.l = Juli
+mon.8.l = August
+mon.9.l = September
+mon.10.l = Oktober
+mon.11.l = November
+mon.12.l = Dezember

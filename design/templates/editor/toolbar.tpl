@@ -24,7 +24,7 @@ listnum = Listings with &num;
 listbul = Listings with &bull;
 listdef = Definitions
 
-table = Table
+tins = Table
 trow = Table Row
 tcell = Table Cell
 askCols = Set columns
@@ -59,7 +59,7 @@ hilite = Wichtig
 hint = Anmerkung
 small = Kleindruck
 
-table = Tabelle einfügen
+tins = Tabelle einfügen
 trow = Zeile einfügen
 tcell = Zelle einfügen
 askCols = Spalten festlegen
@@ -147,7 +147,7 @@ askWidth = Bildbreite festlegen
 <div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/table.png" />COMBO_DOWN</button>
 	<div id="tables" class="dropbody">
 		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
-		<div><a href="javascript:addTable('tb');"><!DIC:table!></a></div>
+		<div><a href="javascript:addTable('tb');"><!DIC:tins!></a></div>
 		<div><a href="javascript:addTable('tr');"><red><!DIC:trow!></red></a></div>
 		<div><a href="javascript:addTable('td');"><red><!DIC:tcell!></red></a></div>
 	</div>
@@ -169,9 +169,9 @@ askWidth = Bildbreite festlegen
 </div>
 
 [addLFs]
-<div class="dropdown"><button class="icon" onclick="insAny('<br>');">&crarr;COMBO_DOWN</button>
+<div class="dropdown"><button class="icon" onclick="insAny('<br>\n');">&crarr;COMBO_DOWN</button>
 	<div id="edLFs" class="dropbody">
-		<div><a href="javascript:insAny('<br>');"><!DIC:lfeed!></a></div>
+		<div><a href="javascript:insAny('<br>\n');"><!DIC:lfeed!></a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
 		<div><a href="javascript:insAny('\n<hr class=\'pbr\'>\n');"><!DIC:pbreak!></a></div>
 		<div><a href="javascript:insAny('&shy;');"><!DIC:sbreak!></a></div>

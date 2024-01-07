@@ -23,7 +23,7 @@ no.info	= Keine weitere Info vorhanden
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="position:relative;">
+<div>
 
 <table width="100%">
 	<tr>

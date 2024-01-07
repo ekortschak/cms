@@ -10,7 +10,7 @@ used for cleaning up html code for editing.
 incCls("input/tidyPage.php");
 
 $tdy = new tidyPage();
-$tdy->get($htm);
+$tdy->read($file);
 
 */
 
@@ -26,104 +26,176 @@ function __construct() {}
 // ***********************************************************
 // retrieving modified text
 // ***********************************************************
-public function get($htm) {
+public function read($file, $edit = false) {
+	$htm = APP::read($file);
 	$htm = STR::clear($htm, "\r");
 
-	$htm = $this->secure($htm);
-	$htm = $this->restruct($htm);
-	$htm = $this->sweep($htm);
-	$htm = $this->restore($htm);
-
-# echo "<textarea>$htm</textarea><br>";
-
-	if (! $htm) {
-		$htm = "<p>¶</p>";
-	}
-	return $htm;
-}
-
-public function secure($htm) {
 	$htm = $this->phpSecure($htm);
-	$htm = $this->tplSecure($htm);
-	return $htm;
+	$htm = $this->checkTags($htm);
+	$htm = $this->sweep($htm, $edit);
+
+	if ($htm) return $htm;
+	return "<p>¶</p>";
 }
 
 public function restore($htm) {
+	$htm = STR::replace($htm, "¶", "");
+
 	$htm = $this->phpRestore($htm);
-	$htm = $this->tplRestore($htm);
 	return $htm;
 }
 
 // ***********************************************************
-// html methods
+// cleaning html code
 // ***********************************************************
-private function restruct($txt) {
-	$tdy = new tidyHtml();
-	return $tdy->get($txt);
-}
+private function sweep($txt, $edit = false) {
+	$txt = $this->prepare($txt);
+	$txt = $this->convPaths($txt);
 
-private function sweep($txt) {
-	$txt = STR::replace($txt, "¶", "");
-	$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
-	$txt = PRG::replace($txt,  "(\s+)", " ");
-
-	$txt = $this->cleanTags($txt);
+	$txt = $this->clearBr($txt);
 	$txt = $this->clearUselessTags($txt);
 	$txt = $this->clearEmptyTags($txt);
-	$txt = $this->clearBlanks($txt);
-	$txt = $this->clearPaths($txt);
-	$txt = $this->clearBr($txt);
+	$txt = $this->cleanTags($txt);
+	$txt = $this->cleanPunct($txt);
 
-	$txt = $this->addLFs($txt);
-	$txt = $this->addLF($txt, "bblRef");
-	$txt = $this->addLF($txt, "bblShow");
+	$txt = $this->protectLFs($txt);
+
+	$txt = $this->addLFs($txt, $edit);
+	$txt = $this->addTabs($txt);
+
+	$txt = $this->addLF($txt, "REF::"); // TODO move to app
+	$txt = PRG::replace($txt, "<php>(\s+)REF::", "<php>REF::");
+
+	$txt = $this->restoreLFs($txt);
+
+	if ($edit)
+	$txt = $this->addPara($txt);
 	return trim($txt);
 }
 
 // ***********************************************************
-private function addLFs($txt) {
-	$arr = array(); $cnt = 0;
-	$arr[] = "<div.<p.</ul.</ol.<li.</dl.<dd.<dt.</table.<tr.</tr.<th.<td.<php"; // single lf
-	$arr[] = "<ul.<ol.<dl.<hr.<table.<blockquote"; // double lf
-	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6"; // tripple lf
+private function prepare($txt) {
+	$txt = STR::replace($txt, "¶", "");
+	$txt = STR::replace($txt, "&lt;", "<");
+	$txt = STR::replace($txt, "&ft;", ">");
+	$txt = PRG::replace($txt, "(\s+)", " ");
 
-	foreach ($arr as $tgs) {
- 		$its = STR::slice($tgs, ".");
- 		$cnt++;
-
-		foreach ($its as $fnd) {
-			if (! $fnd) continue;
-			$txt = $this->addLF($txt, $fnd, $cnt);
-		}
-	}
-	$txt = PRG::replace($txt, "<td>\n<p>", "<td><p>");
+	$txt = STR::replace($txt, "<table border=\"1\">", "<table>");
 	return $txt;
 }
 
-private function addLF($txt, $fnd, $cnt = 1) {
+// ***********************************************************
+private function checkTags($txt) {
+	$tdy = new tidyHtml();
+	return $tdy->get($txt);
+}
+
+// ***********************************************************
+private function addPara($txt) {
+	$pgf = "&para;";
+	$txt = "$pgf$txt\n$pgf";
+	$txt = PRG::replace($txt, "$pgf(\s+)$pgf", "$pgf");
+#	$txt = STR::replace($txt, "</p>\n\n$pgf", "</p>\n\n");
+#	$txt = STR::replace($txt, "</p>\n\n\n$pgf", "</p>\n\n\n");
+	return $txt;
+}
+
+// ***********************************************************
+private function protectLFs($txt, $edit = false) {
+	$arr = STR::split("<php>bblLink(.*?)</php>", ".");
+	$rep = STR::split("<pxp>bblLink(.*?)</pxp>", ".");
+
+	foreach ($arr as $key => $val) {
+		$txt = STR::replace($txt, $val, $rep[$key]);
+	}
+	return $txt;
+}
+
+private function restoreLFs($txt, $edit = false) {
+	$txt = STR::replace($txt, "pxp>", "php>");
+	return $txt;
+}
+
+// ***********************************************************
+private function addLFs($txt, $edit = false) {
+	$arr = array(); $cnt = 0;
+	$arr[] = "</ul.</ol.<li.</dl.<dd.<dt.</table.<tr.</tr.<th.<td.<php"; // single lf
+	$arr[] = "<div.<p.<ul.<ol.<dl.<hr.<table.<blockquote"; // double lf
+	$arr[] = "<h1.<h2.<h3.<h4.<h5.<h6"; // tripple lf
+
+	foreach ($arr as $tgs) {
+ 		$its = STR::split($tgs, ".");
+		$mrk = ""; if ($edit) if ($cnt) $mrk = "&para;";
+		$cnt++;
+
+		foreach ($its as $itm) {
+			if (! $itm) continue;
+			$txt = $this->addLF($txt, $itm, $cnt, $mrk);
+		}
+	}
+	$txt = STR::replace($txt, "<td>\n", "<td>");
+	$txt = STR::replace($txt, "<li>\n", "<li>");
+	return $txt;
+}
+
+private function addLF($txt, $fnd, $cnt = 1, $mrk = "") {
 	$rep = str_repeat("\n", $cnt);
 	$txt = PRG::replace($txt, "(\s+)$fnd\b", $fnd);
-	return PRG::replace($txt, "$fnd\b", $rep.$fnd);
+	return PRG::replace($txt, "$fnd\b", $rep.$mrk.$fnd);
+}
+
+// ***********************************************************
+private function addTabs($txt) {
+	$arr = array(); $cnt = 0;
+	$arr[] = "<li.<dd.<dt.<tr.</tr"; // single tab
+	$arr[] = "<th.<td"; // double tab
+
+	foreach ($arr as $tgs) {
+ 		$its = STR::split($tgs, "."); $cnt++;
+
+		foreach ($its as $itm) {
+			if (! $itm) continue;
+			$txt = $this->addTab($txt, $itm, $cnt);
+		}
+	}
+	return $txt;
+}
+
+private function addTab($txt, $fnd, $cnt = 1) {
+	$rep = str_repeat("\t", $cnt);
+	return STR::replace($txt, $fnd, $rep.$fnd);
 }
 
 // ***********************************************************
 // clean up html code
 // ***********************************************************
 private function cleanTags($txt) { // rearrange blanks around tags
-	$txt = PRG::replace($txt, "<([A-Za-z]+)>(\s+)", " <$1>");
-	$txt = PRG::replace($txt, "(\s+)</([A-Za-z0-9]*?)>", "</$2> ");
+	$txt = PRG::replace($txt, "<([A-Za-z]*?)> ", " <$1>");
+	$txt = PRG::replace($txt, " </([A-Za-z0-9]*?)>", "</$1> ");
 	return $txt;
 }
 
-private function clearEmptyTags($txt) {
+private function cleanPunct($txt) { // spaces around punctuation marks
+	$arr = str_split(".,:;?!");
+
+	foreach ($arr as $chr) {
+		$txt = STR::replace($txt, " $chr", "$chr ");
+		$txt = STR::replace($txt, " $chr",  $chr );
+	}
+	$txt = PRG::replace($txt, "(\w+)\.\.\.", "$1 ...");
+	return $txt;
+}
+
+// ***********************************************************
+private function clearEmptyTags($txt) { // tags containing blank space at best
 	$arr = STR::toArray("p.b.u.i.h1.h2.h3.h4.h5.h6.div", ".");
 
 	foreach ($arr as $tag) {
-		$txt = PRG::replace($txt, "<$tag>(\s*?)</$tag>", " ");
+		$txt = PRG::replace($txt, "<$tag>(\s*?)</$tag>", "");
 	}
 	return $txt;
 }
-private function clearUselessTags($txt) {
+private function clearUselessTags($txt) { // immediately reopening tags
 	$arr = STR::toArray("b.u.i", ".");
 
 	foreach ($arr as $tag) {
@@ -132,32 +204,18 @@ private function clearUselessTags($txt) {
 	return $txt;
 }
 
-// ***********************************************************
-private function clearPaths($txt) {
-	$dir = ENV::getPage();
-	$txt = STR::replace($txt, $dir, ".");
-	return $txt;
-}
-
-// ***********************************************************
-private function clearBlanks($txt) {
-	$arr = str_split(".,:;?!");
-	$txt = PRG::replace($txt, " ( *?)", " ");
-
-	foreach ($arr as $chr) {
-		$txt = STR::replace($txt, " $chr", $chr);
-	}
-	return $txt;
-}
-
-// ***********************************************************
 private function clearBr($txt) {
 	$txt = STR::replace($txt, "<br />", "<br>");
-	$txt = PRG::replace($txt, "(\s+)<br>", "<br>");
-	$txt = PRG::replace($txt, "<br>(\s+)", "<br>");
+	$txt = PRG::replace($txt, "(\s?)<br>(\s?)", "<br>");
 	$txt = PRG::replace($txt, "<br></([bui]+)>", "</$1><br>");
 	$txt = PRG::replace($txt, "<br></", "</");
-	$txt = STR::replace($txt, "<br>", "<br>\n");
+	return $txt;
+}
+
+// ***********************************************************
+private function convPaths($txt) {
+	$dir = PGE::$dir;
+	$txt = STR::replace($txt, $dir, ".");
 	return $txt;
 }
 
@@ -166,21 +224,19 @@ private function clearBr($txt) {
 // ***********************************************************
 private function phpSecure($txt) { // do not act outside of php code
 	if ( ! STR::contains($txt, "<?php")) return $txt;
-	$out = STR::replace($txt, ";?>",  "; ?>");
 
-	$out = STR::replace($out, "<?php ",  "<php>");
-	$out = STR::replace($out, " ?>",   " </php>");
-
-	$arr = STR::find($out, "<php>", "</php>", false);
+	$txt = PRG::replace($txt, "<\?php([ ]?)", "<php>");
+	$txt = PRG::replace($txt, "([ ]?)\?>",   "</php>");
+	$arr = STR::find($txt, "<php>", "</php>", false);
 
 	foreach ($arr as $key => $val) {
 		$rep = $val;
 		$rep = STR::replace($rep, "->", "&rarr;");
 		$rep = STR::replace($rep, "=>", "&rArr;");
 
-		$out = STR::replace($out, $val, $rep);
+		$txt = STR::replace($txt, $val, $rep);
 	}
-	return $out;
+	return $txt;
 }
 
 private function phpRestore($txt) { // do not act outside of php code
@@ -188,41 +244,12 @@ private function phpRestore($txt) { // do not act outside of php code
 	if (! $arr) return $txt;
 
 	foreach ($arr as $key => $val) {
-		$rep = $val;
-		$rep = STR::replace($rep, "→", "->");
+		$rep = STR::replace($val, "→", "->");
 		$rep = STR::replace($rep, "⇒", "=>");
-
 		$txt = STR::replace($txt, $val, $rep);
 	}
-	$txt = STR::replace($txt, "<php>", "<?php ");
-	$txt = STR::replace($txt, "</php>", " ?>");
-
-	return $txt;
-}
-
-// ***********************************************************
-// tpl methods
-// ***********************************************************
-private function tplSecure($txt) {
-	$txt = STR::replace($txt, "<!", "<|");
-	return $txt;
-}
-
-private function tplRestore($txt) {
-	$txt = STR::replace($txt, "<|", "<!");
-	return $txt;
-}
-
-private function lfSecure($txt, $tag) {
-	$txt = STR::replace($txt, "$tag>\n",   "$tag>§");
-	$txt = STR::replace($txt, "\n<$tag",   "§<$tag" );
-	$txt = STR::replace($txt, "\n</$tag>", "§</$tag>");
-	return $txt;
-}
-
-private function lfRestore($txt) {
-	$txt = STR::replace($txt, "§<",  "\n<");
-	$txt = STR::replace($txt, ">§",  ">\n");
+	$txt = PRG::replace($txt, "<php>([ ]?)", "<?php ");
+	$txt = PRG::replace($txt, "([ ]?)</php>", " ?>");
 	return $txt;
 }
 

@@ -1,0 +1,20 @@
+/* ******************************************************** */
+/* calendar representation
+/* ******************************************************** */
+.wday, .sat, .sun {
+	border: 1px solid OUTLINE;
+}
+
+.sat {
+	background: BC_TEVEN;
+}
+
+.sun {
+	background: BC_TODD;
+	color: red;
+}
+
+.daynum {
+	display: inline-block;
+	padding: 0px 5px;
+}

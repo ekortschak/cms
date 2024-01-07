@@ -1,21 +1,20 @@
 <?php
 
-$loc = ENV::getPage();
+$tit = PGE::title();
+$typ = PGE::type();
 
-$typ = PGE::get("props.typ");
-$tit = PGE::getTitle($loc);
-
-HTW::tag($tit, "h3");
+HTW::tag($tit, "div class='h2'");
+DBG::file(__FILE__);
 
 // ***********************************************************
 // specific tasks
 // ***********************************************************
 switch (STR::left($typ)) {
 	case "cha": $inc = "chapters"; break;
-	default: return;
+	default:    return;
 }
 
-include APP::getInc(__DIR__, "$inc.php");
+APP::inc(__DIR__, "$inc.php");
 
 ?>
 

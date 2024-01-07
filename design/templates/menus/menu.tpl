@@ -10,7 +10,7 @@
 [item]
 # ***********************************************************
 <div class="topItem">
-	<div class="topText <!VAR:class!>"><!VAR:text!></div>
+	<div class="topText <!VAR:class!>"><!VAR:text!> COMBO_DOWN</div>
 	<div class="topList"><!VAR:subitems!></div>
 </div>
 

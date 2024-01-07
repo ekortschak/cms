@@ -3,8 +3,8 @@
 /* dropdown menus and other dropdown objects */
 /* ******************************************************** */
 .dropdown {
+	position: relative;
 	display: inline-block;
-	vertical-align: bottom;
 }
 
 .dropdown:hover .dropbody {
@@ -16,7 +16,7 @@
 /* dropdown banner */
 /* ******************************************************** */
 .droptext {
-}
+ }
 
 /* ******************************************************** */
 /* dropdown content */
@@ -25,7 +25,7 @@
 	display: none;
 	position: absolute;
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	padding: 3px 7px;
 

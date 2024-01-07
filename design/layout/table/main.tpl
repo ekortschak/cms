@@ -10,6 +10,7 @@ LOC_LAY/default/main.tpl
 		<td class="modTabs"><!SEC:tabs!></td>
 		<td class="modToc" ><!SEC:toc!> </td>
 		<td class="modMbar"><!SEC:mbar!></td>
+		<td class="titBody"><!SEC:head!></td>
 		<td class="modBody"><!SEC:body!></td>
 		<td class="modBord"><!SEC:bord!></td>
 		<td class="modOpts"><!SEC:opts!></td>

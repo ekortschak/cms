@@ -2,16 +2,14 @@
 
 if (TAB_TYPE != "sel") return;
 
+incCls("menus/topics.php");
 incCls("menus/dropBox.php");
 
 // ***********************************************************
 // collect data
 // ***********************************************************
-$arr = PGE::topics();
-
-foreach ($arr as $key => $val) { // mark hidden topics
-	if (STR::contains($key, "~")) $arr[$key] = "# $val";
-}
+$tps = new topics();
+$arr = $tps->getMarked(); if (! $arr) return;
 
 // ***********************************************************
 // show topics - if any

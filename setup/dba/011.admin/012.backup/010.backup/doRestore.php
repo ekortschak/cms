@@ -57,7 +57,7 @@ foreach ($exc as $tbl => $cap) {
 
 	$ddl = STR::between($dat, "[ddl]", "[data]"); if (! $ddl) continue;
 	$rcs = STR::after($dat, "[data]"); if (! $rcs) continue;
-	$rcs = STR::slice($rcs);
+	$rcs = STR::split($rcs);
 
 	$dba->set("tab", $tbl);
 	$dba->t_drop($tbl);

@@ -6,13 +6,12 @@ $uid = $ini->getUID();
 
 // ***********************************************************
 $tit = HTM::href("?pge=$uid", $tit);
-$cur = ENV::getPage();
 
-$sel = ""; if ($cur == TAB_HOME)
+$sel = ""; if (TAB_HOME == PGE::$dir)
 $sel = "sel";
 
 ?>
 
-<div class="toc mnu lev1 <?php echo $sel; ?>">
+<div class="toc mnu topic <?php echo $sel; ?>">
 <?php echo $tit; ?>
 </div>

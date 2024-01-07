@@ -1,7 +1,7 @@
 <?php
 
-if (! IS_LOCAL) {
-	return MSG::now("edit.deny");
+if (FTP_MODE != "passive") {
+	return MSG::now("ftp.disabled");
 }
 
 if (! IS_LOCAL) {

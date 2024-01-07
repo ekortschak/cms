@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/buttons/xlate.png
+url = ?vmode=xlate
+hilite = VMODE == "xlate"
+
+[de]
+caption =
+tooltip = Wechselt zum Sprach-Editor.
+
+[en]
+caption =
+tooltip = Switches to language editor mode.

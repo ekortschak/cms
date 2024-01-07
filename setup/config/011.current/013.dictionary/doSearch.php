@@ -11,7 +11,7 @@ $fnd = $sel->input("find.dic", "*");
 $act = $sel->show();
 
 $dir = FSO::join(LOC_DIC, $lng);
-$arr = FSO::ftree($dir);
+$arr = FSO::fTree($dir);
 
 // ***********************************************************
 HTW::xtag("dic.result");
@@ -28,7 +28,7 @@ foreach ($arr as $fil => $nam) {
 	$xxx = HTW::tag($lnk, "div");
 
 	echo "<ul>";
-	$lns = STR::slice($txt);
+	$lns = STR::split($txt);
 
 	foreach ($lns as $lin) {
 		if (STR::misses($lin, $fnd)) continue;

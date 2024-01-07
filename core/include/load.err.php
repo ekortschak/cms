@@ -33,7 +33,7 @@ function errHandler($num, $msg, $file, $line) {
 function relPath($fso) {
 	$fso = STR::replace($fso, APP_FBK, "FBK");
 	$fso = STR::replace($fso, APP_DIR, ".");
-	$fso = STR::replace($fso, SRV_ROOT, "");
+	$fso = STR::replace($fso, APP_ROOT, "/");
 	return $fso;
 }
 

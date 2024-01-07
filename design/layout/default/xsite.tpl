@@ -1,9 +1,13 @@
 [include]
 LOC_LAY/LAYOUT/main.tpl
 
+[register]
+design/other/print.css
+design/other/xsite.css
+
 # ***********************************************************
 [layout] <!-- layout.xsite -->
 # ***********************************************************
-<body style="margin: 0px; padding: 0px; background: white;">
-<!MOD:body.xsite!>
+<body class="print">
+<!MOD:xsite!>
 </body>

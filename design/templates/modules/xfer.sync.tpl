@@ -22,17 +22,17 @@ vtrg = VERSION
 [main]
 # ***********************************************************
 <!VAR:choices!>
-
+<div style="margin: 0px 0px 7px;"> # tspace
 <div class="rh"><!DIC:confirm!></div>
 <div class="confirm">
 	<table class="nomargin">
 		<tr>
-			<td style="padding-left: 0px;"><!DIC:source!></td>
+			<td class="nopad"><!DIC:source!></td>
 			<td>v<!VAR:vsrc!></td>
 			<td><!VAR:source!></td>
 		</tr>
 		<tr>
-			<td style="padding-left: 0px;"><!DIC:target!></td>
+			<td class="nopad"><!DIC:target!></td>
 			<td>v<!VAR:vtrg!></td>
 			<td><!SEC:dest!></td>
 		</tr>
@@ -47,6 +47,8 @@ vtrg = VERSION
 	<a href="?sync.act=1"><button><!DIC:sync.analize!></button></a>
 	<a href="?sync.act=2"><button><!DIC:sync.execute!></button></a>
 </div>
+</div>
+
 
 # ***********************************************************
 # destination
@@ -67,7 +69,7 @@ vtrg = VERSION
 <p><msg>It is recommended to <a href="?btn.xfer=B"&pic.mode=backup>backup</a> the project prior to restoring it!</msg></p>
 
 [backup.1st.de]
-<p><msg>Es empfiehlt sich, vorher eine <a href="?btn.xfer=B&pic.mode=backup">Sicherung</a> durchzuführen!</msg></p>
+<p><msg>Es empfiehlt sich, vorher eine <a href="?btn.xfer=B&pic.mode=backup">Sicherungs-Kopie</a> erstellen!</msg></p>
 
 
 # ***********************************************************
@@ -118,7 +120,7 @@ vtrg = VERSION
 <tr>
 	<td nowrap><!VAR:inf!> &nbsp; &nbsp; </td>
 	<td align='right'><!VAR:val!></td>
-	<td><hint><!VAR:cat!></hint></td>
+	<td><!VAR:cat!></td>
 <tr>
 
 [stats]

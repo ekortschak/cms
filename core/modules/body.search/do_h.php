@@ -1,5 +1,5 @@
 <?php
 
-include APP::getInc(__DIR__, "do_p.php");
+APP::inc(__DIR__, "do_p.php");
 
 ?>

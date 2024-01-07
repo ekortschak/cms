@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/edit.menu.png
-url = x.edit.php?vmode=medit
+url = ?vmode=medit
+hilite = VMODE == "medit"
 
 [de]
 caption =

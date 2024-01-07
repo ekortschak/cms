@@ -49,10 +49,10 @@ spellcheck="false"><!VAR:content!></textarea>
 # ***********************************************************
 [restore]
 	<a href="?file.act=backup&fil=<!VAR:file!>">
-		<img class="btn" src="LOC_ICO/buttons/backup.png" />
+		<button><img src="LOC_ICO/buttons/backup.png" /></button>
 	</a>
 	<a href="?file.act=restore&fil=<!VAR:file!>">
-		<img class="btn" src="LOC_ICO/buttons/restore.png" />
+		<button><img src="LOC_ICO/buttons/restore.png" /></button>
 	</a>
 
 [drop.file]

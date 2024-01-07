@@ -16,11 +16,11 @@ incCls("search/lookupAss.php");
 // ***********************************************************
 class lookupAss {
 	private $prt = array(); // protected tags
-
 	private $mod = "u";
-	private $sep = "@X@";
-	private $idf = "@Q@";
 	private $cnt = 0;
+
+	const SEP = "@X@";
+	const IDF = "@Q@";
 
 function __construct() {}
 
@@ -32,7 +32,7 @@ public function replace($text, $search, $mask, $mod = "u") {
 	$txt = $this->secure($text);
 	$rep = STR::replace($mask, $search, "\$1\$2\$3");
 	$fnd = PRG::quote($search);
-	$arr = STR::split($txt, "<p>");
+	$arr = STR::splitAt($txt, "<p>");
 
 	$fnc = $this->getFunc($fnd);
 	$out = "";
@@ -80,7 +80,7 @@ private function repXX($txt, $fnd, $rep) {
 // replace only 1st occurrence per paragraphe
 // ***********************************************************
 private function doPreg($txt, $fnd, $rep) {
-	return PRG::replace1($txt, $fnd, $rep, $this->mod);
+	return PRG::repFirst($txt, $fnd, $rep, $this->mod);
 }
 
 private function getFunc($fnd) {
@@ -100,7 +100,7 @@ private function secure($txt) {
 
 	foreach ($arr as $itm) {
 		$sec = STR::before($itm, ">");
-		$txt = STR::replace($txt, "<lup$itm</lup$sec>", $this->idf.$cnt.$this->idf);
+		$txt = STR::replace($txt, "<lup$itm</lup$sec>", self::IDF.$cnt.self::IDF);
 		$this->prt[$cnt] = $itm;
 		$cnt++;
 	}
@@ -110,9 +110,9 @@ private function secure($txt) {
 private function restore($txt) {
 	foreach ($this->prt as $key => $itm) {
 		$sec = STR::before($itm, ">");
-		$txt = STR::replace($txt, $this->idf.$key.$this->idf, "<lup$itm</lup$sec>");
+		$txt = STR::replace($txt, self::IDF.$key.self::IDF, "<lup$itm</lup$sec>");
 	}
-	$txt = STR::clear($txt, $this->sep);
+	$txt = STR::clear($txt, self::SEP);
 	return $txt;
 }
 

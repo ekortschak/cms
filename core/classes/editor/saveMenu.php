@@ -25,7 +25,7 @@ function __construct() {
 // methods
 // ***********************************************************
 protected function exec() {
-	$dir = ENV::getPage(); if (! $dir) return;
+	$dir = ENV::get("curDir"); if (! is_dir($dir)) return;
 	$act = $this->env("btn.menu");
 
 	switch ($act) {
@@ -65,16 +65,16 @@ private function nodeRename($dir) { // rename directory
 	$par = dirname($dir);
 	$dst = "$par/$dst";
 
-	if (is_dir($dst)) return ERR::msg("dir.exists", $dir); $erg = rename($dir, $dst);
-    if (! $erg) return ERR::assist("dir", "no.write", $dir);
+	if (is_dir($dst)) return ERR::msg("dir.exists", $dir); $res = rename($dir, $dst);
+    if (! $res) return ERR::assist("dir", "no.write", $dir);
 
     ENV::setPage($dst);
 }
 
 // ***********************************************************
 private function nodeHide($dir) { // hide or remove node
-	$new = FSO::toggleVis($dir);
-	ENV::setPage($new);
+	$dst = FSO::toggleVis($dir);
+	ENV::setPage($dst);
 }
 private function nodeDrop($dir) {
 	FSO::rmDir($dir);
@@ -85,7 +85,7 @@ private function nodeDrop($dir) {
 // ***********************************************************
 private function nodeOut($dir) { // move out in hierarchy
 	$dst = dirname(dirname($dir));
-	$chk = STR::count($dst, DIR_SEP); if ($chk < 1) return;
+	$chk = FSO::level($dst); if ($chk < 1) return;
 	$dst = FSO::join($dst, basename($dir));
 
 	FSO::mvDir($dir, $dst);
@@ -94,8 +94,8 @@ private function nodeOut($dir) { // move out in hierarchy
 private function nodeIn($dir) { // move in in hierarchy
 	$dst = FSO::getPrev($dir);
 	$dst = FSO::join($dst, basename($dir));
-	$lev = STR::count($dir, DIR_SEP);
-	$chk = STR::count($dst, DIR_SEP); if ($chk < $lev) return;
+	$lev = FSO::level($dir);
+	$chk = FSO::level($dst); if ($chk < $lev) return;
 
 	FSO::mvDir($dir, $dst);
 	ENV::setPage($dst);
@@ -105,12 +105,13 @@ private function nodeIn($dir) { // move in in hierarchy
 // acting on whole tree
 // ***********************************************************
 private function nodeCheck() { // add UID to page.ini recursively
-	$arr = FSO::dtree(TAB_HOME); unset($arr[0]);
+	$arr = FSO::dTree(TAB_HOME); unset($arr[0]);
 
 	foreach ($arr as $dir => $nam) {
 		$ini = new iniWriter();
 		$ini->read($dir);
 		$ini->verifyUID();
+		$ini->verifyCaps();
 	}
 	MSG::add("Check UIDs - OK");
 }
@@ -136,7 +137,7 @@ private function nodeAdd($dir) {
 private function sortOpts($dir) { // sort node entries
 	$cmd = $this->get("sort.act");  if (! $cmd) return;
 	$lst = $this->get("sort.list"); $cnt = 10; // start at #
-	$lst = STR::slice($lst, ";"); $inc =  1;
+	$lst = STR::split($lst, ";"); $inc =  1;
 
 	foreach ($lst as $itm) {
 		$itm = basename($itm); if (! $itm) continue;
@@ -170,11 +171,12 @@ private function fileOpts($dir) {
 private function fileAddIni($dir) { // add page.ini (recursively)
 	$all = $this->get("ini.rec", false);
 	$ovr = $this->env("opt.overwrite");
-	$tab = ENV::getTopDir();
+
+	$this->saveStdIni($dir, $ovr);
 
 	switch ($all) {
-		case true: $arr = FSO::dtree($tab); unset($arr[0]); break;
-		default:   $arr = FSO::dtree($dir);
+		case true: $arr = FSO::dTree(TAB_HOME); unset($arr[0]); break;
+		default:   $arr = FSO::dTree($dir);
 	}
 	foreach ($arr as $dir => $nam) {
 		$this->saveStdIni($dir, $ovr);
@@ -207,18 +209,18 @@ private function fileAddAny($dir) { // create any file
 	$nam = $this->get("any.name");
 	$ovr = $this->env("opt.overwrite");
 	$fil = FSO::join($dir, $nam);
-	$erg = APP::writeTell($fil, "", $ovr);
+	$res = APP::writeTell($fil, "", $ovr);
 }
 
 private function fileToggle($dir) { // toggle hidden files
 	$fil = $this->get("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
-	$xxx = FSO::toggleVis($fil);
+	$res = FSO::toggleVis($fil);
 }
 private function fileDelete($dir) { // delete a files
 	$fil = $this->get("fil"); if (! $fil) return;
 	$fil = FSO::join($dir, $fil);
-	$erg = FSO::kill($fil);
+	$res = FSO::kill($fil);
 }
 
 // ***********************************************************
@@ -244,12 +246,12 @@ private function pageProps($dir) { // change uid, display type
 
 private function pageDefault($dir) { // mark node as default
 	$cmd = $this->get("default"); if (! $cmd) return false;
-	$tpc = ENV::getTopDir();
-	$tpl = FSO::join($tpc, "tab.ini");
+	$tpl = FSO::join(TAB_HOME, "tab.ini");
 
 	$ini = new iniWriter(); // update page.ini - if necessary
 	$xxx = $ini->read($dir);
 	$uid = $ini->getUID();
+	$xxx = $ini->set("uid", $uid);
 	$ini->save();
 
 	$edt = new tabEdit($tpl); // update tab.ini
@@ -289,6 +291,7 @@ private function clipOpts($cur) {
 
 	switch (STR::left($chk)) {
 		case "cop": $this->clipCopy ($cur); break; // copy to clipboard
+		case "dup": $this->clipDupe ($cur); break; // duplicate menu item in situ
 		case "cut": $this->clipMove ($cur); break; // move to clipboard
 		case "pas": $this->clipPaste($cur); break; // restore as menu item
 		case "del": $this->clipDrop (    ); break; // drop from clipboard
@@ -298,7 +301,23 @@ private function clipOpts($cur) {
 
 private function clipCopy($cur) { // copy to clipboard
 	$dir = LOC::tempDir("clipboard");
-	return FSO::copyDir($cur, $dir);
+	$dst = FSO::join($dir, basename($cur));
+	return FSO::copyDir($cur, $dst);
+}
+
+private function clipDupe($cur) { // duplicate in situ
+	$uid = $this->get("clip.uid"); if (! $uid) return false;
+
+	$dir = dirname($cur);
+	$dst = FSO::join($dir, $uid);
+	$res = FSO::copyDir($cur, $dst);
+
+	$ini = new iniWriter();
+	$ini->read($dst);
+	$ini->set("props.uid", $uid);
+	$ini->save();
+
+    ENV::setPage($dst);
 }
 
 private function clipMove($cur) { // move to clipboard
@@ -322,13 +341,11 @@ private function clipDrop() { // drop from clipboard
 // ***********************************************************
 // write to ini files
 // ***********************************************************
-private function saveStdIni($dir, $ovr = false, $uid = NV) { // rewrite ini-file
+private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
 	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
-	if ($uid === NV) $uid = basename($dir);
 
 	$ini = new iniWriter("inc");
 	$ini->read($fil);
-	$ini->setIf("props.uid", $uid);
 	$ini->save($fil);
 }
 

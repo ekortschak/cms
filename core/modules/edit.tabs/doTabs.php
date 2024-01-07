@@ -1,7 +1,10 @@
 <?php
 
-$lst = PGE::tabsets(APP_CALL, true);
-$vis = PGE::tabsetsVis();
+incCls("menus/tabsets.php");
+
+$tbs = new tabsets();
+$lst = $tbs->getTabs(TAB_SET);
+$vis = $tbs->visTabs(TAB_SET);
 
 // ***********************************************************
 HTW::xtag("tabs.toggle");
@@ -22,7 +25,7 @@ foreach ($lst as $tab => $tit) {
 
 	$dat.= $tpl->getSection("row");
 }
-$tpl->set("tabset", APP_CALL);
+$tpl->set("tabset", TAB_SET);
 $tpl->set("items", $dat);
 $tpl->show();
 

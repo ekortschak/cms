@@ -45,11 +45,12 @@ public function gc($sec = "main") {
 		$itm = "item"; if ($img)
 		$itm = "item.img";
 
-		$this->set("link",  APP::relPath($tab));
-		$this->set("mode",  $this->getMode());
+		$this->set("link",  APP::relPath($tab)); $this->set("mode",
+		$this->getMode());
 		$this->set("text",  $cap);
 		$this->set("class", $this->getClass($tab));
-		$this->set("agent", $this->getAgent($cap));
+		$this->set("vmode", $this->getVMode($tab));
+		$this->set("agent",	$this->getAgent($cap));
 		$this->set("img",   $img);
 
 		$out.= $this->getSection($itm);
@@ -70,6 +71,11 @@ private function getMode() {
 private function getClass($dir) {
 	if (STR::begins(TAB_HOME, $dir)) return "vtab_selected";
 	return "std";
+}
+
+private function getVMode() {
+	if (VMODE == "search") return "view";
+	return VMODE;
 }
 
 private function getAgent($cap) {

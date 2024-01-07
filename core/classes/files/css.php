@@ -22,7 +22,7 @@ class css {
 	private $cms = "static/cms.css";
 
 function __construct() {
-	CFG::readCss();
+	CFG::readCss(); // read relevant constants
 }
 
 // ***********************************************************
@@ -167,8 +167,7 @@ private function cleanUrls($css, $sep1, $sep2) {
 	$cms = basename(APP_FBK);
 
 	foreach ($arr as $fil) {
-		$ful = self::url($fil); if (! STR::begins($ful, "/$cms"))
-		$ful = ltrim($ful, DIR_SEP);
+		$ful = self::url($fil);
 		$css = STR::replace($css, $fil, $ful);
 	}
 	return $css;
@@ -176,12 +175,7 @@ private function cleanUrls($css, $sep1, $sep2) {
 
 private static function url($fso) {
 	$fil = APP::file($fso);
-
-	if (STR::begins($fil, APP_FBK)) {
-		$out = STR::replace($fil, APP_FBK, CMS_URL);
-		return STR::clear($out, SRV_ROOT);
-	}
-	return APP::relPath($fil);
+	return APP::url($fil);
 }
 
 // ***********************************************************

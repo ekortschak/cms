@@ -21,9 +21,10 @@ class ssl {
 #	private static $met = "aes-256-cbc";
 	private static $met = "AES-128-CTR";
 	private static $key = "dpqerqAu+eglkZmv#<y4M590m v #V";
-	private static $sep = "@q@";
 	private static $len = 16;
-	private static $timeout = 2500;
+
+	const SEP = "@q@";
+	const TIMEOUT = 2500;
 
 public static function init() {
 	SSL::$len = openssl_cipher_iv_length(SSL::$met);
@@ -37,13 +38,13 @@ public static function encrypt($data) {
 #	$ivc = random_bytes(SSL::$len);
 	$ivc = substr(SSL::$key, 0, 16);
     $out = openssl_encrypt($data, SSL::$met, SSL::$key, 0, $ivc);
-    return base64_encode($out.SSL::$sep.$ivc);
+    return base64_encode($out.SSL::SEP.$ivc);
 }
 
 public static function decrypt($data) {
     $dat = base64_decode($data);
-    $out = STR::before($dat, SSL::$sep);
-    $ivc = STR::after($dat, SSL::$sep, false);
+    $out = STR::before($dat, SSL::SEP);
+    $ivc = STR::after($dat, SSL::SEP, false);
     return openssl_decrypt($out, SSL::$met, SSL::$key, 0, $ivc);
 }
 
@@ -61,7 +62,7 @@ public static function isValid($md5) {
 
 	$now = SSL::getStamp();
 	$dif = $now - $chk;
-	return ($dif < SSL::$timeout);
+	return ($dif < SSL::TIMEOUT);
 }
 
 private static function getStamp() {

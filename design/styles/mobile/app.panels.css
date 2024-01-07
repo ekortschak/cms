@@ -1,9 +1,5 @@
 .colMain {
-	float:      left;
 	overflow:   hidden;
-	max-height: 100vh;
-	min-height: 100vh;
-	width:      W_BODY;
 }
 
 /* ******************************************************** */
@@ -29,7 +25,7 @@
 .joker {
 	float:      top;
 	display:    none;
-	padding:    0px 15px;
+	padding:    0px 20px;
 	height:     1.5rem;
 	min-height: 1.5rem;
 	width:      100%;
@@ -47,7 +43,7 @@
 	max-width:  100%;
 
 	background: BC_BODY;
-	padding:    15px 20px 35px;
+	padding:    1rem 20px 35px;
 }
 
 
@@ -74,5 +70,5 @@
 	width:      calc(100% - W_TABS - W_BODY - 10px);
 	min-width:  150px;
 	left:       calc(W_TABS + W_BODY);
-	padding:    15px 20px 35px;
+	padding:    1rem 20px 35px;
 }

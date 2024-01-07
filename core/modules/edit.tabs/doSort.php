@@ -1,6 +1,10 @@
 <?php
 
 incCls("menus/dropBox.php");
+incCls("menus/tabsets.php");
+
+$tbs = new tabsets();
+$lst = $tbs->getTabs(TAB_MODE);
 
 // ***********************************************************
 // show elements to sort
@@ -8,8 +12,6 @@ incCls("menus/dropBox.php");
 $tpl = new tpl();
 $tpl->load("editor/sort.items.tpl");
 $tpl->register();
-
-$lst = PGE::tabsets(APP_CALL, true);
 
 $its = "";
 $ccc = 1;
@@ -22,7 +24,7 @@ foreach ($lst as $key => $val) {
 	$its.= $tpl->getSection("item")."\n";
 }
 
-$tpl->set("sparm", APP_CALL);
+$tpl->set("sparm", TAB_MODE);
 $tpl->set("items", $its);
 $tpl->show();
 

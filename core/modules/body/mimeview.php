@@ -1,8 +1,11 @@
 <?php
 
-$ext = PGE::get("props.ext", "pics");
-$dir = PGE::get("props.path", PGE::$dir);
-$srt = PGE::get("props.sort");
+DBG::file(__FILE__);
+
+// ***********************************************************
+$ext = PGE::get("props_mim.ext", "pics");
+$dir = PGE::get("props_mim.path", PGE::$dir);
+$srt = PGE::get("props_mim.sort");
 
 $arr = FSO::files($dir);
 $arr = FSO::filter($arr, $ext);

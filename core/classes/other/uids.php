@@ -18,14 +18,14 @@ $itm->getID($key, $value);
 // BEGIN OF CLASS
 // ***********************************************************
 class uids {
-	private $sep = "§";
 	private $dat = array();
+	const SEP = "§";
 
 function __construct() {}
 
 // ***********************************************************
 public function getUID($key, $value = "") {
-	$key = STR::before($key, $this->sep); // eliminate trailing numbers
+	$key = STR::before($key, self::SEP); // eliminate trailing numbers
 	$key = STR::before($key, ":"); // downward compatibility
 	$val = trim($value);
 
@@ -43,7 +43,7 @@ private function get($key) {
 	if (! isset($this->dat[$key])) return false;
 
 	$cnt = $this->dat[$key]["cnt"]; if ($cnt < 2) return $key;
-	$sep = $this->sep;
+	$sep = self::SEP;
 
 	return "$key$sep$cnt";
 }

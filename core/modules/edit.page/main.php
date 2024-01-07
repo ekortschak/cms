@@ -1,27 +1,24 @@
 <?php
 
 if (! FS_ADMIN) {
-	incMod("stop.php");
+	incMod("msgs/stop.php");
 	return;
 }
 
-incCls("editor/ediMgr.php");
+DBG::file(__FILE__);
 
+// ***********************************************************
+// check context
+// ***********************************************************
 $loc = PGE::$dir;
 
-// ***********************************************************
-// show title
-// ***********************************************************
-$fil = APP::find($loc);
-$tit = PGE::getTitle();
-$std = ENV::get("pic.file");
-$std = FSO::join($loc, $std);
-
-HTW::tag($tit, "h3");
+if (! is_dir($loc)) return MSG::now("not.appliccable");
 
 // ***********************************************************
 // find relevant editors
 // ***********************************************************
+incCls("editor/ediMgr.php");
+
 $edi = new ediMgr(true);
 $edi->edit($loc);
 

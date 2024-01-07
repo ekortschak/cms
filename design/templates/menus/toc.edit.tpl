@@ -9,6 +9,7 @@ abstract = Abstract ...
 topic = Betrifft gesamtes Thema
 abstract = Abstract ...
 
+
 # ***********************************************************
 # menu folders
 # ***********************************************************
@@ -16,20 +17,31 @@ abstract = Abstract ...
 <!SEC:link.menu!>
 
 [link.menu]
-	<div class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>"> _
-		<!SEC:link!>
-    </div>
+<div <!SEC:qid!> class="dir <!SEC:cls!>"> _
+	<!SEC:link!> _
+</div>
+
+[link.redir]
+<div <!SEC:qid!> class="dir <!SEC:cls!>"> _
+	<a class="<!VAR:active!>" href="?tpc=<!VAR:topic!>&pge=<!VAR:uid!>"> _
+		<div class="redir"><b><!VAR:title!></b></div> _
+	</a>
+</div>
+
+[link.redir file]
+<div <!SEC:qid!> class="file <!SEC:cls!>"> _
+	<a class="<!VAR:active!>" href="?tpc=<!VAR:topic!>&pge=<!VAR:uid!>"> _
+		<div class="redir"><b><!VAR:title!></b></div> _
+	</a> _
+</div>
 
 # ***********************************************************
 # content links
 # ***********************************************************
 [link.file]
-	<div _
-		class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-		style="display:<!VAR:vis!>;"> _
-		<!SEC:link!>
-    </div>
+<div <!SEC:qid!> class="file <!SEC:cls!>"> _
+	<!SEC:link!> _
+</div>
 
 # ***********************************************************
 # whole topic

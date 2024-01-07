@@ -122,7 +122,7 @@ public function usrGroups($sys = true) {
 // ***********************************************************
 private function dropSysObjs($arr, $lst) {
  // drop reserved or delicate items from output array
-	if (! $arr) return $arr; $lst = STR::slice($lst, ".");
+	if (! $arr) return $arr; $lst = STR::split($lst, ".");
 	if (! $lst) return $arr;
 
 	foreach ($lst as $itm) {

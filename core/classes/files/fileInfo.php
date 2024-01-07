@@ -43,7 +43,7 @@ public function read($file) {
 
 // ***********************************************************
 private function setName($inf, $ful) {
-	$url = APP::relPath($ful);
+	$url = APP::url($ful);
 
 	$this->set("full", $ful);
     $this->set("path", $inf["dirname"]);

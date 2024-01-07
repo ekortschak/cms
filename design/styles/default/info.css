@@ -24,6 +24,7 @@ caps {
 }
 
 small {
+#	vertical-align: middle;
 	font-size: 0.75em;
 }
 
@@ -31,7 +32,7 @@ kbd {
 	display: inline-block;
 	background: #EEE;
 	border: 1px solid grey;
-	border-radius: 7px;
+	border-radius: BR_INP;
 	padding: 1px 0.5em;
 	min-width: 12px;
 
@@ -48,15 +49,9 @@ fnote {
 /* ******************************************************** */
 /* highlighting (marker)*/
 /* ******************************************************** */
-markp {
-	background: yellow;
-	padding: 0px 5px;
-}
-
-mark, mark1, mark2, mark3, mark4, mark5 {
-#	background: BC_MARK;
-	border: 1px solid orange;
-	border-radius: 7px;
+markp, mark, mark1, mark2, mark3, mark4, mark5 {
+	background: BC_MARK;
+	border-radius: BR_INP;
 	padding: 0px 5px;
 }
 

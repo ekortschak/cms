@@ -34,7 +34,7 @@ public function getProps($set = NV) {
 	return $this->getValues($set);
 }
 
-public function getTabs($set = APP_CALL) {
+public function getTabs($set = TAB_SET) {
 	$arr = $this->getValues($set); $out = array();
 
 	foreach ($arr as $tab => $usage) {
@@ -48,7 +48,7 @@ public function getTabs($set = APP_CALL) {
 	return $out;
 }
 
-public function visTabs($set = APP_CALL) {
+public function visTabs($set = TAB_SET) {
 	$arr = $this->getValues($set); $out = array();
 
 	foreach ($arr as $key => $val) {

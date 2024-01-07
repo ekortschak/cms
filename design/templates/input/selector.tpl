@@ -48,7 +48,7 @@ header = <!DIC:header!>
 </tr>
 
 # ***********************************************************
-[line]
+[line] # separate sections in form
 # ***********************************************************
 <tr>
 	<td colspan="100%" class="selSection">

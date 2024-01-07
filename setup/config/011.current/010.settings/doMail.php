@@ -3,10 +3,12 @@
 incCls("user/mail.php");
 
 // ***********************************************************
-$inc = APP::getInc(__DIR__, "common.php");
-$fcs = "mail";
-
-include $inc;
+// read and write data
+// ***********************************************************
+$mgr = new iniMgr("mail.def");
+$mgr->read("config/mail.ini");
+$mgr->setScope();
+$mgr->edit();
 
 // ***********************************************************
 HTW::xtag("mail.test");
@@ -16,8 +18,10 @@ if (MAILMODE == "none") {
 }
 $mel = new mail();
 $chk = $mel->test();
-$chk = intval($chk);
 
-MSG::now("mail.con", $chk);
+$msg = "no.connection"; if ($chk)
+$msg = "mail.con";
+
+MSG::now($msg);
 
 ?>

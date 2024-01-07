@@ -10,6 +10,7 @@ css.add = Statische CSS Datei erstellen
 css.del = Statische CSS Datei entfernen
 css.info = Statische Stylesheets können den Seitenaufbau beschleunigen.
 css.static = Statische CSS Datei
+css.path = dir = static
 db.con = DB Verbindung BOOL_NO
 db.con ok = DB Verbindung BOOL_YES
 file.new = Neue Datei

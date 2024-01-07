@@ -72,7 +72,7 @@ private function tabAdd() {
 	$cmd = $this->get("tab.act"); if (! $cmd) return;
 	$dir = $this->get("tab.dir"); if (! $dir) return;
 	$fil = FSO::join($dir, "tab.ini");
-	$set = APP_CALL;
+	$set = TAB_SET;
 
 	$edt = new tabEdit($fil); // create default tab.ini
 	$edt->save();
@@ -88,7 +88,7 @@ private function tabSort() {
 	$lst = $this->get("sort.list"); if (! $lst) return;
 	$set = $this->get("sort.parm");
 
-	$lst = STR::slice($lst, ";");
+	$lst = STR::split($lst, ";");
 
 	$edt = new tabEdit("config/tabsets.ini");
 	$vls = $edt->getValues($set);
@@ -133,7 +133,7 @@ private function tabPics() { // execute pic related tasks
 private function pngDel() { // remove tab pics
 	foreach (LNG::get() as $lng) {
 		$fil = FSO::join(TAB_ROOT, "tab.$lng.png");
-		$xxx = FSO::kill($fil);
+		$res = FSO::kill($fil);
 	}
 }
 

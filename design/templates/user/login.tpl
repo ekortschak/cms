@@ -27,12 +27,12 @@ cancel = Abbrechen
 
 	<table>
 		<tr>
-			<td style="vertical-align: middle"><!DIC:user!> &emsp;</td>
+			<td><!DIC:user!> &emsp;</td>
 			<td><input type="text" name="crdu" placeholder="CUR_USER" size="25" maxlength="25" autofocus /></td>
 		</tr>
 
 		<tr>
-			<td style="vertical-align: middle"><!DIC:pwd!> &emsp;</td>
+			<td><!DIC:pwd!> &emsp;</td>
 			<td><input type="password" name="crdp" placeholder="pwd" value="" size="25" maxlength="32"></td>
 		</tr>
 

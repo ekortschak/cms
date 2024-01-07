@@ -10,6 +10,6 @@ cols = 50
 # ***********************************************************
 <tr>
 	<td colspan="100%" style="padding: 0px 7px;">
-		xxxxx<!VAR:head!>
+		<!VAR:head!>
 	</td>
 </tr>

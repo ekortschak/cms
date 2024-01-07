@@ -1,4 +1,4 @@
 [main]
 #<!-- img src="img/logo.png" /-->
-<h1>PRJ_TITLE</h1>
+<div class="h1">PRJ_TITLE</div>
 

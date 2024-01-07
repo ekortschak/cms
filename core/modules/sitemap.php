@@ -1,7 +1,5 @@
 <?php
 
-if (STR::begins(VMODE, "x")) return;
-
 $loc = PGE::$dir;
 $arr = FSO::folders($loc);
 $out = "";
@@ -41,7 +39,7 @@ foreach ($arr as $dir => $nam) {
 // ***********************************************************
 // split output into columns
 // ***********************************************************
-$tpl->set("title", PFS::getTitle());
+$tpl->set("title", PGE::title());
 $cnt = 1;
 
 foreach ($out as $col) {

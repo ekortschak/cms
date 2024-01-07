@@ -9,9 +9,9 @@ LOC_LAY/default/offline.tpl
 
 <table>
 	<tr>
-		<td style="vertcal-align: middle;"><img src="LOC_IMG/timeout.png" width=85 /></td>
+		<td><img src="LOC_IMG/timeout.png" width=85 /></td>
 		<td width=25>&nbsp;</td>
-		<td style="vertcal-align: middle;"><!SEC:msg!></td>
+		<td><!SEC:msg!></td>
 	</tr>
 </table>
 

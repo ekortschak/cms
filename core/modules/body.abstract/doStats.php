@@ -7,7 +7,7 @@ incCls("tables/htm_table.php");
 // show description
 // ***********************************************************
 $obj = new counter();
-$arr = FSO::fdtree(TAB_HOME);
+$arr = FSO::fdTree(TAB_HOME);
 
 foreach ($arr as $fil => $nam) {
 	if (is_dir($fil)) $obj->count("DIRS");

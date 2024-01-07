@@ -30,11 +30,11 @@ result =
 # ***********************************************************
 <!SEC:heading!>
 
-<form method="post" action="?">
+<form method="post" action="?vmode=search">
 <!SEC:oid!>
 <!VAR:range!>
 
-	<input type="text" name="search" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
+	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
 
 	<div align="right">
 		<input type="submit" name="search,act" value="OK" />
@@ -48,7 +48,7 @@ result =
 [heading]
 # ***********************************************************
 <div class="flex">
-	<div><h3  class="top"><!DIC:search!></h3></div>
+	<div><h3><!DIC:search!></h3></div>
 	<div><!SEC:nav.toc!></div>
 </div>
 
@@ -61,10 +61,10 @@ result =
 <a href="?vmode=view"><button><img src="LOC_ICO/buttons/view.png" align="right" /></a>
 
 [topic]
-<div style="white-space: nowrap;"><h5><!VAR:topic!></h5></div>
+<div class="nowrap"><h5><!VAR:topic!></h5></div>
 
 [item]
-<div style="white-space: nowrap;"><a href="?search.topic=<!VAR:dir!>&search.dir=<!VAR:key!>"><!VAR:title!></a></div>
+<div class="nowrap"><a href="?search.topic=<!VAR:dir!>&search.dir=<!VAR:key!>"><!VAR:title!></a></div>
 
 
 # ***********************************************************
@@ -86,7 +86,7 @@ result =
 
 [prv.topic]
 <div class="submenu">
-<img src="LOC_ICO/buttons/view.png" style="vertical-align: bottom;" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
+<img src="LOC_ICO/buttons/view.png" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
 </div>
 
 [item.sep]

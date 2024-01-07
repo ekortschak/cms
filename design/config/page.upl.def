@@ -2,7 +2,7 @@
 LOC_CFG/page.def
 
 # additional properties
-[props]
+[props_upl]
 ext = png, jpg, gif
 max_files = 15
 max_size = 1500

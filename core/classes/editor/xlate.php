@@ -22,6 +22,7 @@ if (! $xlc->act()) return;
 
 incCls("menus/dropBox.php");
 incCls("input/qikOption.php");
+incCls("other/strProtect.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -32,7 +33,6 @@ class xlate {
 
 	private $trg = false; // target language
 	private $ovr = false;
-	private $dbg = true;
 
 function __construct() {
 	$this->setLangs();
@@ -42,7 +42,9 @@ function __construct() {
 // setting options
 // ***********************************************************
 private function setLangs() {
-	$this->lgs = LNG::getOthers();
+	$arr = LNG::getOthers();
+	$arr[CUR_LANG] = CUR_LANG;
+	$this->lgs = $arr;
 }
 
 public function getLang() {
@@ -69,9 +71,6 @@ public function setLang() {
 public function setOverwrite($value) {
 	$this->ovr = $value;
 }
-public function setDebug($value) {
-	$this->dbg = $value;
-}
 
 // ***********************************************************
 // check target file
@@ -87,10 +86,9 @@ public function setDest($file) {
 
 	$qik = new qikOption();
 	$this->ovr = $qik->getVal("opt.overwrite", $this->ovr);
-	$this->dbg = $qik->getVal("opt.preview", $this->dbg);
 	$qik->show();
 
-	$this->trg = FSO::join($dir, "$this->lng.$ext");
+	$this->trg = LNG::file($file, $this->lng);
 
 	if (! is_file($this->trg)) return;
 	if ($this->ovr) return;
@@ -101,13 +99,29 @@ public function setDest($file) {
 }
 
 // ***********************************************************
+// handle content
+// ***********************************************************
+public function read($file) { // passing file or text
+	$out = $file; if (is_file($file))
+	$out = APP::read($file);
+
+	$prt = new strProtect();
+	$out = $prt->secure($out, "<?php", "?>");
+	$xxx = $prt->store("xlate");
+	return $out;
+}
+
+// ***********************************************************
 // write translated file
 // ***********************************************************
 public function save($text) {
-	$txt = trim(strip_tags($text));
+	$chk = trim(strip_tags($text)); if (! $chk) return MSG::now("no.data");
 
-	if (strlen($txt) < 1) return MSG::now("no.data");
-	APP::write($this->trg, $text);
+	$prt = new strProtect();
+	$xxx = $prt->recall("xlate");
+	$txt = $prt->restore($text);
+
+	APP::write($this->trg, $txt);
 }
 
 public function act() {

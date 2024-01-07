@@ -6,18 +6,17 @@ dbg, err, msg, code, php, .confirm {
 	color: FC_TOC;
 	background: BC_TBACK;
 
-	vertical-align: middle;
-	display: inline-block;
+	display: block;
 	max-width: 100%;
 
 	border: 1px solid OUTLINE;
-	border-radius: 10px;
+	border-radius: BR_TEXT;
 	margin: 0px;
 	padding: 2px 7px 3px;
 }
-php, code, dbg {
+php, code, dbg, pre {
 	font-family: monospace;
-	font-size: 0.85em;
+	font-size: 0.75em;
 	white-space: pre-wrap;
 }
 
@@ -30,6 +29,19 @@ code {
 dbg  { color: FC_WARN; }
 msg  { color: FC_MSG;  background: BC_MSG;  }
 err  { color: FC_WARN; background: BC_WARN; }
+
+/* ******************************************************** */
+dbg.hint {
+	color: white;
+	background: grey;
+	font-size: 0.75em;
+}
+
+dbg.hint2 {
+	color: white;
+	background: darkgrey;
+	font-size: 0.75em;
+}
 
 /* ******************************************************** */
 hint, .hint {
@@ -60,7 +72,7 @@ trace {
 	font-size: 0.85em;
 }
 
-.err1 {
+.err_dd {
 	background: BC_BODY;
 	border: 0px;
 	margin: 5px -6px 3px;
@@ -83,7 +95,6 @@ trace {
 	border-radius: 50%;
 	width: 1.5rem;
 	height: 1.5rem;
-	vertical-align: bottom;
 	text-align: center;
 	font-family: monospace;
 	font-weight: bold;

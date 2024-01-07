@@ -1,9 +1,12 @@
 <?php
 
+CFG::set("SEARCH_BOT", false);
+
 // project
 CFG::set("PRJ_TITLE",  "UNNAMED PROJECT");
-CFG::set("VMODE",      "view");
 CFG::set("ERR_SHOW",   false);
+CFG::set("DEBUG",      false);
+CFG::set("VMODE",      "view");
 
 CFG::set("LAYOUT",     "default");
 CFG::set("COLORS",     "default");
@@ -11,7 +14,6 @@ CFG::set("EDITOR",     "default");
 
 CFG::set("LANGUAGES",  "en");
 CFG::set("GEN_LANG",   "en");
-CFG::set("DATE_FMT",   "Y/m/d");
 
 CFG::set("TIMEZONE",   NET::geoTime());
 

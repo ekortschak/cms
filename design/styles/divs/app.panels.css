@@ -1,10 +1,10 @@
 .colMain {
 	float:      left;
 	overflow:   auto;
-	max-height: 100vh;
 	min-height: 100vh;
 	width:      W_BODY;
-	max-width:  100%;
+	max-width:  W_BODY;
+	background: BC_BODY;
 }
 
 /* ******************************************************** */
@@ -37,9 +37,15 @@
 	max-width: 100%;
 
 	background: BC_BODY;
-	padding:    15px 20px 35px;
+	padding:    7px 20px 35px;
 }
 
+.titBody {
+	overflow:   visble;
+	width:      100%;
+	padding:    1rem 20px 0px;
+	background: BC_BODY;
+}
 
 .joker {
 	float:      top;
@@ -72,7 +78,7 @@
 .modOpts {
 	float:    left;
 	height:   100vh;
-	width:    calc(100% - W_TABS - W_BODY - 10px);
+	width:    300px;
 	left:     calc(W_TABS + W_BODY);
-	padding:    15px 20px 35px;
+	padding:  1rem 20px 35px;
 }

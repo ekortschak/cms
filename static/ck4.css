@@ -8,7 +8,7 @@
 	border:     0px;
  	padding:    0px;
 
- 	vertical-align: bottom;
+ 	vertical-align: top;
 }
 
 /* ******************************************************** */
@@ -16,42 +16,22 @@
 /* ******************************************************** */
 html, body {
 	height:     100vh;
-	width:      100%;
+	width:      100vw;
 }
 
 html {
  	background:  white;
-	font-family: Arial, sans-serif;
+	font-family: Liberation sans, sans-serif, Arial;
 	font-size:   1rem;
 	font-weight: normal;
 	hyphens:     auto;
 }
 
 body {
-	overflow:   auto;
+	overflow:   hidden;
 	position:   relative;
 	background: gainsboro;
 	color:      black;
-}
-
-/* ******************************************************** */
-/* container */
-/* ******************************************************** */
-.container {
-	background: transparent;
-	padding:    0px 20px 35px;
-}
-
-.conToc  { padding: 15px 15px 35px; }
-.conBody { padding: 15px 20px 35px; }
-.conOpts { padding:  0px 20px 35px; }
-
-.conHead {
-	position:   sticky;
-	top:        0px;
-	background: white;
-	padding:    0px 20px 0px;
-	width:      100%;
 }
 /* ******************************************************** */
 /* common props */
@@ -61,6 +41,20 @@ body {
 	overflow:   auto;
 	max-height: 100vh;
 	min-height: 100vh;
+}
+
+.colToc {
+	background: whitesmoke;
+	overflow:   hidden;
+}
+
+.colMain {
+	float:      left;
+	overflow:   auto;
+	min-height: 100vh;
+	width:      43rem;
+	max-width:  43rem;
+	background: white;
 }
 
 /* ******************************************************** */
@@ -75,6 +69,7 @@ body {
 	width:      22rem;
 	color:      navy;
 	background: whitesmoke;
+	padding:    15px 15px 85px;
 }
 
 .modMbar {
@@ -82,12 +77,19 @@ body {
 	background: transparent url("/cms/img/mbar/spirals.png") repeat-y;
 }
 
+.titBody {
+	overflow:   visble;
+	width:      100%;
+	height:     45px;
+	padding:    15px 20px 0px;
+}
+
 .modBody {
-	width:      43rem;
-	min-width:  15rem;
+	max-height: calc(100vh - 45px);
+	min-height: calc(100vh - 45px);
+	width:      100%;
 	font-size:  1rem;
-	color:      black;
-	background: white;
+	padding:    0px 20px 25px;
 }
 
 .modBord {
@@ -98,17 +100,43 @@ body {
 .modOpts {
 	width:      calc(100% - 3rem - 22rem - 70px - 43rem - 10px);
 	color:      black;
+	background: gainsboro;
+	padding:    15px 20px 25px;
+	width:      300px;
+	max-width:  300px;
 }
 
 /* ******************************************************** */
 /* horizontal panels */
 /* ******************************************************** */
 .joker {
-	overflow:   auto;
+	float:      top;
+	overflow:   hidden;
 	display:    none;
-	padding:    0px 15px;
 	min-height: 1.5rem;
 	background: #dbe1e9;
+	width:      100%;
+	padding:    0px 20px 0px;
+}
+/* ******************************************************** */
+/* calendar representation
+/* ******************************************************** */
+.wday, .sat, .sun {
+	border: 1px solid #AAA;
+}
+
+.sat {
+	background: snow;
+}
+
+.sun {
+	background: #F0F0F0;
+	color: red;
+}
+
+.daynum {
+	display: inline-block;
+	padding: 0px 5px;
 }
 /* ******************************************************** */
 /* classes for common use */
@@ -119,6 +147,9 @@ body {
 .nopad {
 	padding: 0px;
 }
+.nowrap {
+	white-space: nowrap;
+}
 
 .pre {
 	max-height: 15rem;
@@ -126,10 +157,6 @@ body {
 	font-family: monospace;
 	font-size: 0.75em;
 	white-space: pre;
-}
-
-.top {
-	margin-top: 0px;
 }
 
 /* ******************************************************** */
@@ -147,7 +174,6 @@ body {
 	background: #05819C;
 	font-weight: bold;
 	text-align: left;
-	vertical-align: middle;
 }
 
 .rw	               { color: ; background: snow; }
@@ -157,7 +183,13 @@ body {
 .rf {
 	color: ;
 	background: #E9E5E5;
-	vertical-align: middle;
+}
+
+/* ******************************************************** */
+/* alignment */
+/* ******************************************************** */
+.rgt {
+	text-align: right;
 }
 
 /* ******************************************************** */
@@ -171,6 +203,20 @@ body {
 .scroll {
 	overflow: auto;
 }
+div.h1 {
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding: 0px 0px 7px;
+	color: navy;
+}
+
+div.h4 {
+	font-weight: bold;
+	margin: 15px 0px 7px;
+	border-bottom: 1px solid;
+	color: navy;
+}
+
 /* ******************************************************** */
 /* flex divs */
 /* ******************************************************** */
@@ -178,18 +224,6 @@ div.flex {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: row wrap;
-}
-
-div.flexleft {
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: row wrap;
-}
-
-div.flexbottomx {
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-end;
 }
 [contenteditable] {
 	outline: 0px solid transparent;
@@ -234,13 +268,15 @@ div.flexbottomx {
 /* standard tags */
 /* ******************************************************** */
 h1, h2, h3, h4, h5, h6 {
-	margin: 15px 0px 7px;
+	margin: 20px 0px 7px;
 	color: navy;
 }
-h4, hx {
+
+h4 {
+	margin: 15px 0px 7px;
 	border-bottom: 1px solid;
 }
-h5, h6, hy {
+h5, h6 {
 	margin: 5px 0px 3px;
 
 	font-size: 1em;
@@ -249,13 +285,14 @@ h5, h6, hy {
 	text-decoration: underline;
 }
 
-hx, hy {
-	display: block;
-	font-size: 1em;
-	color: black;
-	margin-bottom: 5px;
+/* ******************************************************** */
+h1:first-of-type,
+h2:first-of-type,
+div h3:first-of-type {
+	margin: 0px 0px 7px;
 }
 
+/* ******************************************************** */
 p {
 	margin: 3px 0px 7px;
 	text-align: justify;
@@ -336,7 +373,6 @@ details-content {
 /* images */
 /* ******************************************************** */
 img {
-	vertical-align: middle;
 }
 
 img.flag {
@@ -352,18 +388,15 @@ img.btn {
 }
 
 img.rgt {
-	text-align: right;
-	padding-left: 25px;
+	padding: 0px 0px 5px 15px;
 }
 img.lft {
-	text-align: left;
-	padding-right: 15px;
+	padding: 0px 0px 5px 15px;
 }
 
 .thumb {
 	display: inline-block;
 	margin: 0px 5px 3px;
-	width: 110px;
 }
 
 /* ******************************************************** */
@@ -485,7 +518,6 @@ table {
 /* rows */
 /* ******************************************************** */
 tr {
-	vertical-align: top;
 }
 
 /* ******************************************************** */
@@ -498,8 +530,12 @@ th {
 	text-align: left;
 }
 
+th refbox {
+	color: cyan;
+}
+
 td {
-	padding: 0px 5px;
+	padding:  0px 5px;
 }
 /* ******************************************************** */
 /* simple color tags */
@@ -527,6 +563,7 @@ caps {
 }
 
 small {
+	vertical-align: bottom;
 	font-size: 0.75em;
 }
 
@@ -551,14 +588,8 @@ fnote {
 /* ******************************************************** */
 /* highlighting (marker)*/
 /* ******************************************************** */
-markp {
-	background: yellow;
-	padding: 0px 5px;
-}
-
-mark, mark1, mark2, mark3, mark4, mark5 {
-#	background: gold;
-	border: 1px solid orange;
+markp, mark, mark1, mark2, mark3, mark4, mark5 {
+	background: gold;
 	border-radius: 7px;
 	padding: 0px 5px;
 }
@@ -575,12 +606,11 @@ refbox, .refbox {
 	position: relative;
 	display: inline-block;
 
-	vertical-align: bottom;
 	color: navy;
 	text-decoration: underline dotted;
 }
 
-refbox:hover refbody, .refbox:hover refbody, .refbox:hover .refbody, refbox:hover .refbody {
+refbox:hover refbody {
 	z-index: 90;
 	display: block;
 }
@@ -607,7 +637,6 @@ refbody, .refbody {
 	font-size: 0.85em;
 	font-weight: normal;
 	font-style: normal;
-#	white-space: pre-line;
 	text-align: left;
 }
 
@@ -650,8 +679,7 @@ dbg, err, msg, code, php, .confirm {
 	color: navy;
 	background: whitesmoke;
 
-	vertical-align: middle;
-	display: inline-block;
+	display: block;
 	max-width: 100%;
 
 	border: 1px solid #AAA;
@@ -659,9 +687,9 @@ dbg, err, msg, code, php, .confirm {
 	margin: 0px;
 	padding: 2px 7px 3px;
 }
-php, code, dbg {
+php, code, dbg, pre {
 	font-family: monospace;
-	font-size: 0.85em;
+	font-size: 0.75em;
 	white-space: pre-wrap;
 }
 
@@ -704,7 +732,7 @@ trace {
 	font-size: 0.85em;
 }
 
-.err1 {
+.err_dd {
 	background: white;
 	border: 0px;
 	margin: 5px -6px 3px;
@@ -727,7 +755,6 @@ trace {
 	border-radius: 50%;
 	width: 1.5rem;
 	height: 1.5rem;
-	vertical-align: bottom;
 	text-align: center;
 	font-family: monospace;
 	font-weight: bold;
@@ -753,7 +780,6 @@ trace {
 	margin: 0px;
 }
 .fader img {
-	vertical-align: middle;
 	width: 43rem;
 	padding: 0px;
 	margin: 0px;
@@ -787,7 +813,6 @@ input, select, button, .dmbtn {
 
 	color: ;
 	background: #FFFFE5;
-	vertical-align: bottom;
 }
 
 /* ******************************************************** */
@@ -849,7 +874,7 @@ textarea {
 	border-radius: 5px;
 	padding: 5px 2px 5px 7px;
 
-	width: 35rem;
+	width: 100%;
 	height: 7rem;
 
 	overflow: auto;
@@ -866,7 +891,6 @@ textarea.max {
 	display: inline-block;
 	margin: 3px 0px 5px;
 	padding: 0px 7px;
-	vertical-align: middle;
 	font-size: 0.85em;
 }
 
@@ -876,9 +900,9 @@ textarea.max {
 .selSection {
 	color: navy;
 	font-style: italic;
-	vertical-align: bottom;
 
-	padding-top: 12px;
+	border-bottom: 1px solid #AAA;
+	padding: 9px 0px 2px 0px;
 }
 
 .spacer {
@@ -890,13 +914,11 @@ textarea.max {
 /* ******************************************************** */
 .selHead {
 	white-space: nowrap;
-	vertical-align: middle;
-	padding: 0px 15px 3px 1px;
-	width: 15rem;
+	padding: 0px 15px 3px 5px;
+	min-width: 150px;
 }
 .selData {
-	vertical-align: middle;
-	padding: 0px 0px 1px;
+	padding: 1px 0px 0px;
 	width: 100%;
 }
 
@@ -1029,7 +1051,6 @@ rating img {
 }
 
 .btnbar {
-	vertical-align: baseline;
 	background: linear-gradient(-1deg, #A2EA31, forestgreen 70%);
 	padding: 1px 6px 1px;
 	margin-bottom: 2px;
@@ -1071,8 +1092,8 @@ button.selected {
 /* dropdown menus and other dropdown objects */
 /* ******************************************************** */
 .dropdown {
+	position: relative;
 	display: inline-block;
-	vertical-align: bottom;
 }
 
 .dropdown:hover .dropbody {
@@ -1084,7 +1105,7 @@ button.selected {
 /* dropdown banner */
 /* ******************************************************** */
 .droptext {
-}
+ }
 
 /* ******************************************************** */
 /* dropdown content */
@@ -1171,7 +1192,6 @@ button.selected {
 	margin: 0px;
 	padding: 5px 0px;
 	font-weight: bold;
-	vertical-align: middle;
 }
 
 .regtabs a {
@@ -1317,20 +1337,32 @@ topic {
 .chip p {
 	padding: 5px;
 }
+body.print {
+	background: transparent;
+	padding: 20px 20px 35px;
+	width: 100%;
+}
+
+div.h1 {
+	margin-top: 0px;
+}
+
+section h1, section h2, section h3 {
+	margin-top: 0px;
+}
 
 /* ******************************************************** */
 @media print {
 /* ******************************************************** */
 
 @page {
-	margin: 2cm 2cm 2.4cm;
+	margin: 2cm 2cm 1.5cm;
 	widows: 3;
 	orphans: 2;
 }
 
 body.print {
-	padding: 25px 20px 35px;
-	width: calc(100% - 40px);
+	padding: 0px;
 }
 
 h1, h2 {
@@ -1338,19 +1370,10 @@ h1, h2 {
 	color: maroon;
 }
 
-h1, h2, h3 {
-	margin: 1cm 0px 0px;
-}
-
-h1 + h2 {
-#	page-break-before: initial;
-}
-
 h3, h4, h5, h6 {
 	page-break-after: avoid;
 	text-decoration: none;
 }
-
 
 p {
 	page-break-inside: avoid;
@@ -1379,48 +1402,42 @@ tr, .br {
 /* ********************************************************
 @media only screen and (orientation: landscape)
 @media only screen and (min-width: 600px)
-
 ******************************************************** */
 
 @media only screen and (max-width: 1500px) {
 	.modToc  { width: 15rem; }
-	.modOpts {
-		width: calc(100% - 3rem - 15rem - 70px - 43rem - 10px);
-	}
+#	.modOpts { width: calc(100% - 3rem - 15rem - 70px - 43rem - 10px); }
 }
 
 @media only screen and (max-width: 1350px) {
 	.modToc  { border-right: 1px solid #AAA; }
 	.modMbar { display: none; }
-	.modOpts {
-		width: calc(100% - 3rem - 15rem - 43rem - 10px);
-	}
+#	.modOpts { width: calc(100% - 3rem - 15rem - 43rem - 10px); }
 }
 
 @media only screen and (max-width: 1250px) {
 	.modBody { width: calc(43rem * 0.85); }
-	.modOpts {
-		width: calc(100% - 3rem - 15rem - 43rem * 0.85 - 10px);
-	}
-}
-
-@media only screen and (min-width: 1100px) {
-	.joker { display: none; }
+#	.modOpts { width: calc(100% - 3rem - 15rem - 43rem * 0.85 - 10px); }
 }
 
 @media only screen and (max-width: 1100px) {
 	[class^="mod"] {
-		position: absolute;
-		height:   calc(100% - 1.5rem);
-		width:    100%;
-		left:     0px;
-		top:      25px;
+		display:    none;
+		width:      100%;
+		height:     100%;
+		min-height: 100%;
+		max-height: 100%;
 	}
 
-	.modTabs { display: none; }
-	.modBord { display: none; }
+	.joker   { display: block; overflow: visible; }
+	.modBody { display: block; }
 
-	.modBody { z-index: 5; }
+	.colMain, .colToc {
+		width: 50%;
+		min-height: 50%;
+		max-height: 50%;
 
-	.joker { display: block; }
+		transform-origin: top left;
+		transform: scale(2);
+	}
 }

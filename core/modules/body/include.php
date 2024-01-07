@@ -1,19 +1,34 @@
 <?php
 
-$pge = ENV::getPage();
+DBG::file(__FILE__);
 
 // ***********************************************************
-$txt = APP::gcSys($pge);
-$txt = APP::lookup($txt);
-$txt = ACR::clean($txt);
+$loc = PGE::dir();
+$pic = PGE::pic();
+
+$htm = APP::gcMap($loc);
+$htm = APP::lookup($htm);
+$htm = ACR::clean($htm);
+
+if (! $htm) $htm = NV;
 
 // ***********************************************************
 if (VMODE == "view") {
-	$txt = STR::replace($txt, '<hr class="pbr">', "");
+	$htm = STR::replace($htm, '<hr class="pbr">', "");
 }
 
 // ***********************************************************
-if (! $txt) $txt = NV;
-echo $txt;
+// show page
+// ***********************************************************
+$tpl = new tpl();
+$tpl->load("pages/include.tpl");
+
+$tpl->set("text", $htm);
+$tpl->set("pic",  $pic);
+
+if (! $pic) {
+	$tpl->clearSec("pic");
+}
+$tpl->show();
 
 ?>

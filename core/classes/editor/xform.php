@@ -24,7 +24,7 @@ function __construct($cnt = 3) {
 	$this->dir = LOC::tempDir("static pages", STR::afterX($this->tab, APP_NAME));
 	$this->dbg = $cnt; // number of items handled in debug mode
 
-	$ini = new iniTab(TAB_PATH);
+	$ini = new iniTab(TAB_HOME);
 	$this->sel = $ini->get("props.std");
 }
 
@@ -67,7 +67,7 @@ public function report() {
 // writing pages
 // ***********************************************************
 private function doPage($dir, $inf) {
-	ENV::setPage($dir); extract($inf);
+	PGE::load($dir); extract($inf);
 	set_time_limit(10);
 
 	$htm = new page();
@@ -81,8 +81,8 @@ private function doPage($dir, $inf) {
 	$txt = $this->deRefTabs($txt);
 
 	$xxx = $this->writeIdx($uid, $txt);
-	$erg = $this->writePge($sname, $uid, $txt);
-	$this->cnt+= $erg;
+	$res = $this->writePge($sname, $uid, $txt);
+	$this->cnt+= $res;
 }
 
 private function writeIdx($uid, $txt) {
@@ -93,7 +93,7 @@ private function writeIdx($uid, $txt) {
 
 private function writePge($fil, $uid, $txt) {
 	$fil = FSO::join($this->dir, $fil);
-	$erg = APP::write($fil, $txt);
+	$res = APP::write($fil, $txt);
 	return (is_file($fil));
 }
 
@@ -106,7 +106,7 @@ private function writeCss() {
 	$txt = $this->deRefSrc($txt, "url('", "')");
 
 	$dst = FSO::join($this->dir, "site.css");
-	$erg = APP::write($dst, $txt);
+	$res = APP::write($dst, $txt);
 }
 
 // ***********************************************************

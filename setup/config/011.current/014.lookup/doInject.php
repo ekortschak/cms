@@ -46,7 +46,7 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // execute
 // ***********************************************************
-$arr = FSO::ftree($tab); if (! $arr) return;
+$arr = FSO::fTree($tab); if (! $arr) return;
 $arr = FSO::filter($arr, "php, htm");
 
 $lup = new lookup();

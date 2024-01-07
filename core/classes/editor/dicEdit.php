@@ -46,7 +46,7 @@ public function exec($file, $lang) {
 		$lng = STR::after($lng, "lang_"); if (! $lng) continue;
 		$ful = FSO::join($dir, $lng, $fil);
 
-		$erg = $this->save($fil, $lng, $key, $val);
+		$this->save($fil, $lng, $key, $val);
 	}
 }
 
@@ -96,9 +96,11 @@ private function showSel($arr) {
 }
 
 private function showEdit($key) {
-	$arr = DIC::getAll($key);
+	$lgs = LNG::get(); $out = array();
 
-	foreach ($arr as $lng => $val) {
+	foreach ($lgs as $lng) {
+		$val = DIC::get($key, $lng);
+
 		$this->addInput($lng, $key, $val);
 		$this->setProp("fname", "lang.$lng");
 	}
@@ -115,7 +117,7 @@ private function addInput($lang, $key, $val) {
 // goodies
 // ***********************************************************
 private function count($dir, $key) {
-	$fls = FSO::ftree($dir); $cnt = 0;
+	$fls = FSO::fTree($dir); $cnt = 0;
 
 	foreach ($fls as $fil => $nam) {
 		$txt = APP::read($fil); if (STR::misses($txt, $key)) continue;

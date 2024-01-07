@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/xedit.png
-url = x.edit.php?vmode=xedit
+url = ?vmode=xedit
+hilite = VMODE == "xedit"
 
 [de]
 caption =

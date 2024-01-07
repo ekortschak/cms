@@ -1,4 +1,4 @@
-function load(ref) {
+function load(ref) { // add anchors to page
 	obj = document.getElementById("scView");
 	url = "?pge=" + ref;
 
@@ -11,7 +11,6 @@ function load(ref) {
 
 function toggleDiv(pfx, qid) {
 	rec = pfx + "[" + qid + "]";
-	qid = qid * 1;
 
     cur = document.getElementById(rec);
     cls = cur.className;
@@ -21,30 +20,37 @@ function toggleDiv(pfx, qid) {
     vis = "hidden";
 
     if (pos == "bottom") { // change to top = collapse
-        cur.style = "background-position-y: top; ";
+		cur.classList.remove("open");
+		cur.classList.add("closed");
     }
     else { // change to bottom = expand
-        cur.style = "background-position-y: bottom; ";
+		cur.classList.remove("closed");
+		cur.classList.add("open");
         vis = "visible";
     }
 
     do { qid++;
 		fnd = pfx + "[" + qid + "]";
-		cur = document.getElementById(fnd); if (typeof cur !== "object") break;
 
+		cur = document.getElementById(fnd); if (cur == null) break;
 		cls = cur.className;
 		lev = getLevel(cls); if (lev <= vgl) break;
 
+console.debug(fnd);
+
      // whether closed or opened: subfolders will always be shown as closed
-		cur.style = "background-position-y: top;";
+		cur.classList.remove("open");
+		cur.classList.add("closed");
 
         if ((lev == (vgl * 1 + 1)) && (vis == "visible")) {
 		 // first grade sub level will be shown
-			cur.style.display = "block";
+			cur.classList.remove("hide");
+			cur.classList.add("show");
         }
         else {
 		 // deeper levels will be closed
-			cur.style.display = "none";
+			cur.classList.remove("show");
+			cur.classList.add("hide");
         }
     } while (1);
 }

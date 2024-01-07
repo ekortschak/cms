@@ -30,7 +30,6 @@ function __construct($tplfile = false) {
 	parent::__construct();
 
 	$this->forget();
-
 	$this->tpl = $tplfile;
 }
 
@@ -85,7 +84,7 @@ private function getType($fil) {
 	if ($this->tpl) return $this->tpl;
 
 	if (STR::ends($fil, "page.ini")) {
-		return PGE::getType($fil);
+		return PGE::type($fil);
 	}
 	if (STR::ends($fil, ".ini")) {
 		$nam = basename($fil);

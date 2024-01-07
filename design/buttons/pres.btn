@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/edit/img.png
+url = ?vmode=pres
+hilite = VMODE == "pres"
+
+[de]
+caption =
+tooltip = Schaltet in den Präsentationsmodus um.
+
+[en]
+caption =
+tooltip = Switches to presentation mode.

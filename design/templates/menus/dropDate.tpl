@@ -10,7 +10,7 @@ LOC_TPL/menus/dropNav.tpl
 }
 .dropbody a {
 	display: inline-block;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	min-width: 20px;
 }
 
@@ -23,7 +23,7 @@ LOC_TPL/menus/dropNav.tpl
 	display: block;
 	margin: 0px;
  	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	padding: 3px;
 
 	color: FC_DROP;
@@ -77,9 +77,7 @@ a.inactive {
 # ***********************************************************
 <div class="dropdown">
 <div class="droptext"><!VAR:current!>COMBO_DOWN &emsp;</div>
-<div class="dropbody" style="position: relative; display: block; margin: 0px;">
-<!SEC:cal!>
-</div>
+<div class="dropbody"><!SEC:cal!></div>
 </div>
 </div>
 

@@ -48,7 +48,7 @@ if (!$cnf->act()) return;
 // ***********************************************************
 // create static files
 // ***********************************************************
-$arr = PFS::getData("dat");
+$arr = PFS::data("dat");
 
 $xfm->pages($arr);
 $xfm->report();

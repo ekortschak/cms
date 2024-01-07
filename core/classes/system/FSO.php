@@ -36,12 +36,12 @@ public static function norm($fso) { // $fso => dir or file
 	if (! $fso) return "";
     if (FSO::isUrl($fso)) return $fso;
 
+	if (STR::begins($fso, CUR_DIR)) $fso = FSO::reroute($fso);
+
     $sep = DIR_SEP;
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
 	$fso = rtrim($fso, $sep);
 
-#	$fso = STR::replace($fso, "..", ".");
-#	$fso = STR::replace($fso, "$sep.", $sep);
 	$fso = preg_replace("~($sep+)~", $sep, $fso);
 	return $fso;
 }
@@ -51,6 +51,7 @@ public static function trim($fso) { // $fso => dir or file
 }
 
 public static function level($fso) {
+	$fso = FSO::trim($fso);
 	return STR::count($fso, DIR_SEP) + 1;
 }
 
@@ -59,14 +60,13 @@ public static function force($dir, $mod = 0775) {
 	$dir = FSO::norm($dir); if (is_dir($dir)) return $dir;
 	$chk = FSO::trim($dir); if (strlen($chk) < 1) return false;
 
-	$erg = mkdir($dir, $mod, true); // includes chmod
+	if (! mkdir($dir, $mod, true)) return false; // mkdir includes chmod
 	FSO::permit($dir, $mod);
-
-	return ($erg) ? $dir : false;
+	return true;
 }
 
 public static function rename($old, $new) {
-	if ($old == $new) return;
+	if ($old == $new) return false;
 
 	if (is_dir($old))
 	return (bool) FSO::mvDir($old, $new);
@@ -117,6 +117,7 @@ public static function folders($dir = APP_DIR, $visOnly = true) {
 }
 
 public static function findDir($dir) {
+	if (STR::begins($dir, DIR_SEP)) $dir = FSO::join(APP_ROOT, $dir);
 	if (STR::misses($dir, "*")) return $dir;
 
 	$par = dirname($dir);
@@ -134,7 +135,7 @@ public static function findDir($dir) {
 // ***********************************************************
 public static function copyDir($src, $dst) {
 	$fso = FSO::fTree($src); if (! $fso) return; $cnt = 0;
-	$xxx = FSO::force($dst);
+	$res = FSO::force($dst);
 
 	foreach ($fso as $fil => $nam) {
 		$new = STR::after($fil, $src);
@@ -146,27 +147,21 @@ public static function copyDir($src, $dst) {
 
 // ***********************************************************
 public static function mvDir($src, $dst) {
-	$arr = FSO::fTree($src); if (! $arr) return false;
-
-	foreach ($arr as $fso => $nam) {
-		$new = STR::after($fso, $src.DIR_SEP);
-		$new = FSO::join($dst, $new);
-		$xxx = FSO::force(dirname($new));
-		$erg = FSO::move($fso, $new); if (! $erg) return false;
-	}
-	return FSO::rmdir($src);
+	$dir = FSO::force(dirname($dst));
+	$res = rename($src, $dst); if ($res) return true;
+	return ERR::assist("file", "no.write", $dst);
 }
 
 // ***********************************************************
-public static function rmDir($src) {
-	$arr = FSO::fdTree($src);
-	$arr = VEC::sort($arr, "krsort"); // subdirs first
+public static function rmDir($dir) {
+	$arr = FSO::fdTree($dir);
+	$arr = VEC::sort($arr, "krsort"); // put subdirs first
 
-	foreach ($arr as $fso => $nam) {
-		if (is_dir($fso)) rmdir($fso); else
-		if (is_file($fso)) FSO::kill($fso);
+	foreach ($arr as $fso => $nam) { // kill files
+		if (is_dir ($fso)) rmdir($fso);
+		else FSO::kill($fso);
 	}
-	return rmdir($src);
+	return rmdir($dir);
 }
 
 // ***********************************************************
@@ -194,6 +189,16 @@ public static function rmFiles($dir) {
 	}
 }
 
+public static function reroute($fso) {
+	if (STR::begins($fso, CUR_DIR)) {
+		return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
+	}
+	if (STR::begins($fso, DIR_SEP)) {
+		$out = FSO::join(APP_ROOT, $fso); if (is_dir($out)) return $out;
+	}
+	echo $fso;
+}
+
 // ***********************************************************
 // working on files
 // ***********************************************************
@@ -207,14 +212,14 @@ public static function backup($file) {
 public static function copy($src, $dst) { // copy a file
 	$src = APP::file($src); if (! is_file($src)) return false;
 	$dir = FSO::force(dirname($dst));
-	copy($src, $dst); if (is_file($dst)) return true;
+	$res = copy($src, $dst); if ($res) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
 
 public static function move($old, $new) { // rename a file
 	if (! is_file($old)) return false;
 	$dir = FSO::force(dirname($new));
-	rename($old, $new); if (is_file($new)) return true;
+	$res = rename($old, $new); if ($res) return true;
 	return ERR::assist("file", "no.write", $new);
 }
 
@@ -226,22 +231,28 @@ public static function kill($file) { // delete a file
 // ***********************************************************
 // tree listings
 // ***********************************************************
-public static function dtree($dir, $visOnly = true) {
+public static function dTree($dir, $visOnly = true) {
  // list all subfolders of $dir, including symbolic links
-	$dir = APP::dir($dir);                if (! $dir) return array();
-	$arr = FSO::folders($dir, $visOnly); if (! $arr) return array();
-	$out = $arr;
+	$out = $arr = FSO::folders($dir, $visOnly); if (! $arr) return array();
 
 	foreach ($arr as $dir => $nam) {
-		$lst = FSO::dtree($dir, $visOnly); if ($lst)
+		$lst = FSO::dTree($dir, $visOnly); if ($lst)
 		$out = array_merge($out, $lst);
 	}
 	return VEC::sort($out);
 }
 
-public static function fTree($dir, $pattern = "*", $incDirs = false) {
+// ***********************************************************
+public static function fTree($dir, $pattern = "*", $visOnly = true) {
+	return FSO::getTree($dir, $pattern, $visOnly, false); // exlude dirs
+}
+public static function fdTree($dir, $pattern = "*", $visOnly = true) {
+	return FSO::getTree($dir, $pattern, $visOnly, true); // inlude dirs
+}
+
+private static function getTree($dir, $pattern = "*", $visOnly = true, $incDirs = false) {
  // list all files in $dir recursively, including hidden dirs
-	$drs = FSO::dtree($dir, false);
+	$drs = FSO::dTree($dir, $visOnly);
 	$out = FSO::files($dir, $pattern);
 
 	foreach ($drs as $dir => $nam) {
@@ -252,16 +263,13 @@ public static function fTree($dir, $pattern = "*", $incDirs = false) {
 	return VEC::sort($out);
 }
 
-public static function fdTree($dir, $pattern = "*") {
-	return FSO::ftree($dir, $pattern, true);
-}
-
+// ***********************************************************
 public function dropEmpty($dir) {
-	$fls = FSO::dtree($dir);
+	$fls = FSO::dTree($dir);
 
 	foreach ($fls as $dir => $nam) {
 		$arr = FSO::files($dir); if (count($arr) > 0) continue;
-		$xxx = FSO::rmDir($dir);
+		$res = FSO::rmDir($dir);
 	}
 }
 
@@ -277,6 +285,7 @@ public static function parents($dir) {
 	$out[] = $dir;
 
 	while ($dir = dirname($dir)) {
+		if ($dir == "/") break; // no access outside app path
 		if ($dir == ".") break; // no access outside app path
 		$out[] = $dir;
 	}
@@ -315,25 +324,19 @@ public static function isHidden($fso) {
 	return STR::contains($fso, DIR_SEP.HIDE);
 }
 
+// ***********************************************************
+// info
+// ***********************************************************
+public static function name($file) {
+	$out = basename($file);
+	return STR::before($out, ".");
+}
+
 public static function isUrl($fso) {
 	if (STR::contains($fso, "://")) return true;
 	if (STR::contains($fso, "?")) return true;
 	if (STR::contains($fso, "script:")) return true;
 	return false;
-}
-
-// ***********************************************************
-// extensions
-// ***********************************************************
-public static function ext($file, $norm = false) {
-	$out = pathinfo($file, PATHINFO_EXTENSION); if ($norm)
-	$out = STR::left($out);
-	return $out;
-}
-
-public static function name($file) {
-	$out = basename($file);
-	return STR::before($out, ".");
 }
 
 public static function filter($files, $ext) {
@@ -344,6 +347,20 @@ public static function filter($files, $ext) {
 		if (! FSO::inExt($fil, $ext)) continue;
 		$out[$fil] = $nam;
 	}
+	return $out;
+}
+
+public static function hash($file) {
+#	return sha1_file($file);
+	return md5_file($file);
+}
+
+// ***********************************************************
+// extensions
+// ***********************************************************
+public static function ext($file, $norm = false) {
+	$out = pathinfo($file, PATHINFO_EXTENSION); if ($norm)
+	$out = STR::left($out);
 	return $out;
 }
 
@@ -366,11 +383,6 @@ private static function inExt($fil, $arr) {
 	$out = VEC::get($arr, "*" ); if ($out) return true;
 	$out = VEC::get($arr, $ext); if ($out) return true;
 	return false;
-}
-
-public static function hash($file) {
-#	return sha1_file($file);
-	return md5_file($file);
 }
 
 // ***********************************************************

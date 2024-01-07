@@ -1,5 +1,8 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
 $arr = array(
 	"T" => "Tab Properties",
 	"M" => "Menu Properties",
@@ -17,10 +20,12 @@ $wht = $box->getKey("pic.show", $arr, "S");
 $box->show();
 
 switch ($wht) {
-	case "T": include "doTab.php";  break;
-	case "M": include "doMenu.php"; break;
-	case "I": include "doIni.php";  break;
-	case "P": include "doPFS.php";  break;
+	case "T": $inc = "doTab";  break;
+	case "M": $inc = "doMenu"; break;
+	case "I": $inc = "doIni";  break;
+	case "P": $inc = "doPFS";  break;
 }
+
+APP::inc(__DIR__, "$inc.php");
 
 ?>

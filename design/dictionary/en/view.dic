@@ -1,5 +1,16 @@
 [dic.en]
-bible.ver = Bible version
-
-tag.options = Options
-unq.tpc = Topics
+Anmerkung = Anmerkung**
+Bewertung = Bewertung**
+bible.ver = Bibelversion*
+loc = Loc**
+memo = Memo**
+no.tabroot = TAB_ROOT nicht definiert*
+rating = Rating**
+ref = Ref**
+settings = Settings**
+tag.feedback = Feedback*
+tag.options = Optionen*
+topics = Topics**
+unq.coll = Coll**
+unq.link = Link**
+unq.tpc = Themen*

@@ -5,12 +5,12 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // find tabs
 // ***********************************************************
-$arr = CFG::getValues("tabsets:".APP_CALL);
+$arr = CFG::getValues("tabsets:".TAB_SET);
 $tbs = array();
 
 foreach ($arr as $tab => $prp) {
 	$ini = FSO::join($tab, "tab.ini");
-	$tbs[$tab] = PGE::getTitle($ini);
+	$tbs[$tab] = PGE::title($ini);
 }
 
 $box = new dropBox("button");
@@ -30,7 +30,7 @@ switch (LAYOUT) {
 // show joker tool bar
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("modules/css.joker.tpl");
+$tpl->load("pages/css.joker.tpl");
 $tpl->set("topics", $tbs); if (! $lyt)
 $tpl->clearSec("menu");
 $tpl->show();

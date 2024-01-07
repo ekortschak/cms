@@ -1,7 +1,9 @@
 <?php
 
-$inc = FSO::join(__DIR__, "mimeview.php");
-include $inc;
+DBG::file(__FILE__);
+
+// ***********************************************************
+APP::inc(__DIR__, "mimeview.php");
 
 // TODO: add thumb gallery at bottom of pic
 

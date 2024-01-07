@@ -103,15 +103,15 @@ protected function collect($sec) {
 
 		switch ($vls["typ"]) {
 			case "cmb": $out.= $this->getCombo($sec, $dat); break;
-			case "mon":	$out.= $this->monCombo(); break;
-			case "day":	$cal = $this->dayCombo(); break;
+			case "mon":	$out.= $this->comboMon(); break;
+			case "day":	$cal = $this->comboDay(); break;
 		}
     }
     $this->set("cal", $cal);
     return $out;
 }
 
-protected function monCombo() {
+protected function comboMon() {
 	$out = "";
 
 	for ($i = 1; $i <= 12; $i++) {
@@ -125,7 +125,7 @@ protected function monCombo() {
 	return $this->getSection("combo.mon");
 }
 
-protected function dayCombo() {
+protected function comboDay() {
 	$qid = $this->get("dparm"); $out = "";
 
 	$cur = ENV::get($qid);

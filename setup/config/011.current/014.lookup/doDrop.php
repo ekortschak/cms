@@ -4,10 +4,10 @@
 HTW::xtag("files.kill");
 // ***********************************************************
 $dpf = ENV::getParm("dpf");
-$dpf = APP::relPath($dpf);
+$fil = basename($dpf);
 
 if ($dpf) {
-	$arr = LNG::get(); $fil = basename($dpf);
+	$arr = LNG::get();
 
 	foreach ($arr as $lng) {
 		$fil = FSO::join("dictionary", $lng, $fil);

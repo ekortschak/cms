@@ -1,6 +1,13 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+incCls("menus/tabsets.php");
 incCls("menus/tabs.php");
+
+$tbs = new tabsets();
+$lst = $tbs->getTabs(TAB_SET);
 
 // ***********************************************************
 // read mods.ini
@@ -19,10 +26,15 @@ switch (VMODE) {
 	case "tedit":  $nav->copy("return", "tedit");  break;
 	case "opts":   $nav->copy("return", "opts");   break;
 }
+
+if (STR_contains(TAB_SET, "pres")) {
+	$nav->copy("gohome", "tedit");
+}
+
 if (! $sek) $nav->clearSec("search");
 if (! $edt) $nav->clearSec("tedit");
 
-$nav->setData(PGE::tabsets());
+$nav->setData($lst);
 $nav->show();
 
 ?>

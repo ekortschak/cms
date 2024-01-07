@@ -5,8 +5,7 @@
 // ***********************************************************
 // load essential modules
 // ***********************************************************
-include_once "config/fallback.php";
-
+require_once "include/fallback.php";
 include_once "include/load.err.php";
 include_once "include/load.min.php";
 include_once "include/load.more.php";
@@ -16,7 +15,7 @@ include_once "include/load.more.php";
 // ***********************************************************
 requireAdmin();
 
-if (! FS_ADMIN) CFG::set("VMODE","login");
+if (! FS_ADMIN) CFG::set("VMODE", "login");
 
 // ***********************************************************
 // setting VMODE and CUR_DEST
@@ -27,14 +26,15 @@ CFG::set("VMODE", $mod);
 CFG::setDest(VMODE);
 
 // ***********************************************************
-// supply defaults
+// supply app specific features
 // ***********************************************************
-include_once "include/load.app.php";
-include_once "defaults.php";
+$fil = appFile("core/include/load.app.php");
+include_once $fil;
 
 // ***********************************************************
 // create page
 // ***********************************************************
-incFnc("pagemaker.php");
+include_once "include/defaults.php"; // handle missing constants
+include_once "include/pagemaker.php";
 
 ?>

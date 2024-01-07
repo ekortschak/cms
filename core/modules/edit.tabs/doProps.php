@@ -2,10 +2,13 @@
 
 incCls("editor/iniMgr.php");
 incCls("files/iniTab.php");
+incCls("menus/topics.php");
 
 // ***********************************************************
 $tab = FSO::trim(TAB_ROOT);
-$tab = PGE::tabsetsVerify(APP_CALL, $tab);
+
+$tbs = new tabsets();
+$tab = $tbs->verify(TAB_MODE, $tab);
 
 ENV::set("tedit.tab", $tab);
 
@@ -14,11 +17,10 @@ ENV::set("tedit.tab", $tab);
 // ***********************************************************
 $ini = new iniTab($tab);
 $tit = $ini->getTitle();
-$typ = $ini->getType("root");
 $std = $ini->get("props.std");
 
-$arr = PGE::topics();
-$std = PGE::topicsVerify($tab, $std);
+$tps = new topics();
+$std = $tps->verify($tab, $std);
 
 // ***********************************************************
 HTW::tag("Tab = $tit");

@@ -15,8 +15,6 @@ SSV::get($key, $default, $div);
 
 */
 
-session_start();
-
 SSV::init();
 
 // ***********************************************************
@@ -30,8 +28,8 @@ class SSV {
 
 
 public static function init() {
-	if ( !  isset($_SESSION[APP_IDX])) $_SESSION[APP_IDX] = array();
-	SSV::$dat = &$_SESSION[APP_IDX];
+	if (! isset( $_SESSION[APP_NAME])) $_SESSION[APP_NAME] = array();
+	SSV::$dat = &$_SESSION[APP_NAME];
 
 	SSV::chkReset();
 	SSV::chkTimeOut();
@@ -64,8 +62,8 @@ public static function set($key, $value, $div = "env") {
 
 public static function get($key, $default = false, $div = "env") {
 	$key = SSV::norm($key);
-	if (! isset(SSV::$dat[$div][$key])) return $default;
-	return      SSV::$dat[$div][$key];
+	$arr = VEC::get(SSV::$dat, $div); if (! $arr) return $default;
+	return VEC::get($arr, $key, $default);
 }
 
 public static function getValues($div = "env") {
@@ -89,10 +87,8 @@ public static function wipe($div = "env") {
 // other methods
 // ***********************************************************
 public static function norm($key) {
-#	$key = STR::norm($key);
 	$clr = str_split(".,: ");
 	$key = str_replace($clr, "_", $key);
-#	$key = strtolower($key);
 	return $key;
 }
 

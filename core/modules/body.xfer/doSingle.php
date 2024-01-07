@@ -2,9 +2,28 @@
 
 incCls("input/qikOption.php");
 incCls("input/confirm.php");
+incCls("menus/dropBox.php");
 incCls("editor/QED.php");
 
 $loc = PGE::$dir;
+
+// ***********************************************************
+// offer option(s)
+// ***********************************************************
+$arr = array(
+	"doc" => "Document",
+	"toc" => "Table of Contents",
+);
+$dst = array(
+	"scr" => "Screen",
+	"fil" => "File",
+#	"pdf" => "PDF",
+);
+
+$box = new dropBox("menu");
+$opt = $box->getKey("xsite.opt", $arr);
+$mod = $box->getKey("xsite.dst", $dst);
+$act = $box->show();
 
 // ***********************************************************
 // show info
@@ -14,77 +33,44 @@ $tpl->load("modules/xsite.tpl");
 $tpl->show("info");
 
 // ***********************************************************
-// read ini
+// show module xsite
 // ***********************************************************
-$ini = new ini($loc);
-$pbr = $ini->get(CUR_LANG.".pbreak");
+# output handled by the module xsite itself
 
-$top = ENV::get("xsite.top", $loc);
-$cur = ENV::get("xsite.cur");
+// ***********************************************************
+// react to quick edit options
+// ***********************************************************
+$sel = ENV::getParm("opt.starthere", 0);
+$top = ENV::get("xsite.top", TAB_HOME);
 
-$hpb = QED::hasPbr(); // pbreaks inside doc?
+if ($sel)
+if ($top != $loc) $top = ENV::set("xsite.top", $loc);
+
+$chk = ($top === $loc);
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-$dir = LOC::tempDir("single page");
-$fil = FSO::join($dir, "$tit.htm");
-
-$dst = DIC::get("output.screen");
+$dst = DIC::get("output.screen"); if ($mod != "scr");
+$dst = DIC::get("output.file");
 $hed = DIC::get("file.merge");
-$tit = PGE::getTitle($top);
+$tit = PGE::title($top);
 
 $cnf = new confirm();
-$cnf->set("link", "?dmode=xsite&fil=$fil");
+$cnf->set("link", "?dmode=xsite");
 $cnf->head($hed);
 $cnf->dic("scope", $tit);
 $cnf->add("&rarr; $dst");
 $cnf->show();
 
 // ***********************************************************
-// show module xsite
-// ***********************************************************
-# output handled by the module body.xsite itself
-
-// ***********************************************************
-// react to quick edit options
-// ***********************************************************
-if (PGE::isCurrent($cur)) {
-	if (ENV::get("opt.starthere")) {
-		ENV::set("xsite.top", $loc); $top = $loc;
-	}
-	elseif ($top == $loc) {
-dbg("why here?");
-		ENV::set("xsite.top", TAB_HOME); $top = TAB_HOME;
-	}
-
-	$pb4 = ENV::get("opt.pbreak"); if ($pb4 != $pbr) {
-		$pbr = QED::setPbr($pb4);
-	}
-
-	$pbi = ENV::get("opt.inside"); if ($hpb > $pbi) {
-		QED::clearPbr();
-		$hpb = false;
-	}
-}
-
-$chk = ($top == $loc);
-
-// ***********************************************************
 // offer quick edit options
 // ***********************************************************
 HTW::xtag("qik.edit");
-ENV::set("xsite.cur", $loc);
 
 $qik = new qikOption();
 $qik->forget();
-
 $qik->getVal("opt.starthere", $chk);
-$qik->getVal("opt.pbreak", $pbr);
-$qik->getVal("opt.inside", $hpb);
-
 $qik->show();
-
-// TODO: Add page breaks in doc
 
 ?>

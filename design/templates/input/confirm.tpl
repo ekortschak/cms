@@ -32,7 +32,7 @@ button = <!DIC:ok!>
 
 
 [main.item]
-<div><!VAR:msg!></div><nolf>
+<div><!VAR:msg!></div>
 
 
 # ***********************************************************

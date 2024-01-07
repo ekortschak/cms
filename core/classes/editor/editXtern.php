@@ -37,6 +37,7 @@ function __construct() {
 // ***********************************************************
 public function edit() {
 	$htm = APP::read($this->file);
+	$this->exec();
 
 	parent::set("path", $this->dir);
 	parent::set("file", $this->file);

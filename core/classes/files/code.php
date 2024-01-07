@@ -91,7 +91,7 @@ protected function incFiles($txt) {
 	$inc = STR::between($txt, "[include]", "[");
 
 	if (! $inc) return;
-	$arr = STR::slice($inc);
+	$arr = STR::split($inc);
 
 	foreach ($arr as $fil) {
 		$this->read($fil);
@@ -100,7 +100,7 @@ protected function incFiles($txt) {
 
 protected function regFiles($txt) { // register scripts
 	$reg = STR::between($txt, "[register]", "["); if (! $reg) return;
-	$arr = STR::slice($reg);
+	$arr = STR::split($reg);
 
 	foreach ($arr as $fil) {
 		$ext = FSO::ext($fil);
@@ -198,7 +198,7 @@ protected function setProps($file) {
 // ***********************************************************
 protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 	$arr = $txt; if (! is_array($txt))
-	$arr = STR::slice($pfx.$txt, $lfd); $out = array();
+	$arr = STR::split($pfx.$txt, $lfd); $out = array();
 
     foreach ($arr as $itm) {
 		$key = STR::before($itm, $del); if (! $key) continue;
@@ -214,8 +214,7 @@ protected function split($txt, $pfx = "\n", $lfd = "\n", $del = "=") {
 protected function isKnown($fil) {
 	if ($fil == "fallback") { // shortcut in templates
 		$fil = array_key_last($this->hst);
-		$fil = APP::relPath($fil);
-		$ful = FSO::join(APP_FBK, $fil);
+		$ful = APP::fbkFile($fil);
 	}
 	else {
 		$ful = APP::file($fil);

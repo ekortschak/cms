@@ -1,4 +1,3 @@
-var mark = "¶";
 var hist = [];
 var cols = 2;
 var pwid = 200;
@@ -18,12 +17,15 @@ function show() {
 	alert(htm);
 }
 function addTag(tag) { // bracket selection by tag
-	wlf = "p.h1.h2.h3.h4.h5.h6.";
-	htm = selString(); if (! htm) htm = mark;
-	htm = cleanSel(htm);
-	htm = "<" + tag + ">" + htm + "</" + tag + ">";
+	wlf = ".p.h1.h2.h3.h4.h5.h6.";
+	wlf = wlf.includes("." + tag + ".");
 
-	if (wlf.includes("." + tag + ".")) htm = htm + mark;
+	htm = selString(); if (! htm) htm = "¶";
+	htm = cleanSel(htm);
+	htm = "<" + tag + ">" + htm + "</" + tag + ">"
+
+	if (wlf) htm = htm + "\n";
+
 	repString(htm);
 }
 function insAny(txt) { // insert txt after selection
@@ -264,7 +266,6 @@ function exSubmit() {
 	if (mod) {
 		obj = document.getElementById("content");
 		htm = document.getElementById("divEdit").innerHTML;
-		htm = beautify(htm);
 		obj.value = htm;
 	}
 	document.getElementById("inlineEdit").submit();
@@ -283,14 +284,12 @@ function toggleView() {
 function toTxtEdit() {
 	      document.getElementById("divEdit").style.display = "none";
 	htm = document.getElementById("divEdit").innerHTML;
-	htm = beautify(htm);
 	      document.getElementById("content").value = htm;
 	      document.getElementById("curEdit").style.display = "block";
 }
 function toDivEdit() {
 	      document.getElementById("curEdit").style.display = "none";
 	htm = document.getElementById("content").value;
-	htm = insertMarks(htm);
 	      document.getElementById("divEdit").innerHTML = htm;
 	      document.getElementById("divEdit").style.display = "block";
 }
@@ -299,57 +298,59 @@ function toDivEdit() {
 // code tidying
 // **********************************************************
 function beautify(htm) {
-/*
-	htm = htm.replace(/(¶+)/gi, "");
-	htm = htm.trim();
+	htm = clearLF(htm);
 
 	htm = htm.replace(/<div(.*?)>/gi, "<p>");
 	htm = htm.replace(/<\/div>/gi, "</p>");
 	htm = htm.replace(/<p>(\s?)/gi, "<p>");
 
-	htm = htm.replace(/<h/gi, "\n\n<h");
-	htm = htm.replace(/<p>/gi, "\n<p>");
+	htm = htm.replace(/<h/gi, "\n\n\n<h");
+	htm = htm.replace(/<p>/gi, "\n\n<p>");
 
-	htm = htm.replace(/<ol/gi, "\n<ol"); // lists
-	htm = htm.replace(/<ul/gi, "\n<ul");
-	htm = htm.replace(/><li/gi, ">\n<li");
-	htm = htm.replace(/<dl/gi, "\n<dl");
-	htm = htm.replace(/><dt/gi, ">\n<dt");
-	htm = htm.replace(/><dd/gi, ">\n<dd");
+	htm = htm.replace(/(\s?)<br>(\s?)/gi, "<br>\n");
+	htm = htm.replace(/<br>(\s?)<\//gi, "</");
+
+	htm = htm.replace(/<([uod]+)l/gi, "\n\n<$1l"); // lists
+	htm = htm.replace(/<li/gi, "\n<li");
+	htm = htm.replace(/<d([dt]+)/gi, "\n<d$1");
+	htm = htm.replace(/<\/([uod]+)l>/gi, "\n</$1l>"); // lists
+
+	htm = htm.replace(/<block/gi, "\n\n<block"); // tables
+	htm = htm.replace(/<\/block>/gi, "\n</block>"); // lists
 
 	htm = htm.replace(/<table/gi, "\n\n<table"); // tables
-	htm = htm.replace(/><tr/gi, ">\n<tr");
-	htm = htm.replace(/><th/gi, ">\n<th");
-	htm = htm.replace(/><td/gi, ">\n<td");
+	htm = htm.replace(/<\/table>/gi, "\n</table>"); // lists
+	htm = htm.replace(/<t([rhd]+)/gi, "\n<t$1");
 
-	htm = htm.replace(/\n\n\n/gi, "\n");
-*/
-	return htm;
+	htm = htm.replace(/REF::/gi, "\nREF::"); // tables
+	htm = htm.replace(/<php>(\s+)REF::/gi, "\n\n<php>bblRef"); // bible refs
+	htm = htm.replace(/\n<php>(\s+)REF::link(.*?)<\/php>/gi, "<php>REF::link$1</php>"); // bible links
+	htm = htm.replace(/<php>(\s?)HT/gi, "\n\n<php>HT"); // ???
+	return htm.trim();
 }
 
 function insertMarks(htm) {
-/*
-	htm = beautify(htm);
-	htm = htm.replace(/<div/gi, "<p");
-	htm = htm.replace(/div>/gi, "p>");
-	htm = htm.replace(/(\s?)<\/p>/gi, "</p>¶");
 	htm = htm.replace(/<p>/gi, "¶<p>");
-	htm = htm.replace(/<h([1-6]+)> /gi, "¶<h$1>");
-	htm = htm.replace(/<\/h([1-6]+)> /gi, "</h$1>¶");
-	htm = "¶" + htm.trim() + "¶";
-	htm = htm.replace(/¶(\s*)¶/gi, "¶");
-	htm = htm.replace(/(¶+)/gi, "¶");
-*/
+	htm = htm.replace(/<h([1-6]+)>/gi, "¶<h$1>");
+	htm = htm.replace(/<([uod]+)l>/gi, "¶<$1l>");
+
+	htm = htm.replace(/<br>(\s?)/gi, "<br>");
+
+	htm = "¶" + htm.trim() + "\n¶";
+	htm = htm.replace(/¶(\s+)¶/gi, "¶");
+	htm = htm.replace(/¶(¶+)/gi, "¶");
+	return htm;
+}
+
+function clearLF(htm) {
+	htm = htm.trim();
+	htm = htm.replace(/(¶+)/gi, "");
+	htm = htm.replace(/(\n+)/gi, "\n");
 	return htm;
 }
 
 function cleanSel(txt, tag) {
 	txt = txt.replace(/<div>/gi, "");
 	txt = txt.replace(/<\/div>/gi, "");
-
-	//reg = new RegExp("regex\\d", "gi");
-	//txt = txt.replace(reg, "<" + tag + ">");
-
-//	console.log(txt);
 	return txt;
 }

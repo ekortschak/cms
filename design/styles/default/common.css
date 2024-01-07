@@ -7,6 +7,9 @@
 .nopad {
 	padding: 0px;
 }
+.nowrap {
+	white-space: nowrap;
+}
 
 .pre {
 	max-height: 15rem;
@@ -14,10 +17,6 @@
 	font-family: monospace;
 	font-size: 0.75em;
 	white-space: pre;
-}
-
-.top {
-	margin-top: 0px;
 }
 
 /* ******************************************************** */
@@ -35,7 +34,6 @@
 	background: BC_THEAD;
 	font-weight: bold;
 	text-align: left;
-	vertical-align: middle;
 }
 
 .rw	               { color: FC_TEVEN; background: BC_TEVEN; }
@@ -45,17 +43,11 @@
 .rf {
 	color: FC_TFOOT;
 	background: BC_TFOOT;
-	vertical-align: middle;
 }
 
 /* ******************************************************** */
-/* borders */
+/* alignment */
 /* ******************************************************** */
-.round7 {
-	border: 1px solid OUTLINE;
-	border-radius: 7px;
-}
-
-.scroll {
-	overflow: auto;
+.rgt {
+	text-align: right;
 }

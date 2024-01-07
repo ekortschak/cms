@@ -50,11 +50,11 @@ public function readRef() {
 	$arr = FSO::files("lookup", "*.ini"); if (! $arr) return;
 
 	foreach ($arr as $fil => $nam) {
-		$this->readIni($fil);
+		$this->loadIni($fil);
 	}
 }
 
-private function readIni($fil) {
+private function loadIni($fil) {
 	$ini = new ini($fil);
 	$arr = $ini->getValues("data"); if (! $arr) return;
  	$prp = $ini->getValues("props");

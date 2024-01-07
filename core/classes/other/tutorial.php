@@ -31,7 +31,6 @@ public function sample($file, $head = "") {
 	$this->gc($file, "code", $head);
 }
 public function gc($fil, $sec = "main", $head = "") {
-	$fil = $this->getFile($fil);
 	$cod = $this->getContent($fil);
 
 	$htm = new tpl();
@@ -44,7 +43,6 @@ public function gc($fil, $sec = "main", $head = "") {
 }
 
 public function text($file, $head = "") {
-	$fil = $this->getFile($file);
 	$cod = $this->getContent($fil);
 
 	$htm = new tpl();
@@ -86,12 +84,9 @@ public function markPHP($text) {
 	return $out;
 }
 
-private function getFile($fil) {
-	if ( ! STR::begins ($fil, "./")) return $fil;
-	return STR::replace($fil, "./", PGE::$dir.".".DIR_SEP);
-}
-
 private function getContent($fil) {
+	$fil = FSO::reroute($fil);
+
 	$cod = file_get_contents($fil);
 	$cod = self::markPHP($cod);
 	return STR::clear($cod, "\n");

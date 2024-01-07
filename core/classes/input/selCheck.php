@@ -21,7 +21,8 @@ class selCheck extends selInput {
 function __construct($pid) {
 	parent::__construct($pid);
 
-	$this->setChoice("YES / NO");
+	$val = DIC::get("choice.01");
+	$this->setChoice($val);
 }
 
 // ***********************************************************

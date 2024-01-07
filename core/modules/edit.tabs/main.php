@@ -1,15 +1,17 @@
 <?php
 
 if (! FS_ADMIN) {
-	incMod("stop.php");
+	incMod("msgs/stop.php");
 	return;
 }
 
-incCls("menus/buttons.php");
+DBG::file(__FILE__);
 
 // ***********************************************************
-$nav = new buttons("tab", "P", __DIR__);
+incCls("menus/buttons.php");
 // ***********************************************************
+$nav = new buttons("tab", "P", __DIR__);
+
 $nav->add("T", "doTabs");
 $nav->add("A", "doAdd",  "add");
 $nav->add("X", "doDrop", "drop");

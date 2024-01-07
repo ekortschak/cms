@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/view.png
-url = index.php?vmode=view
+url = ?vmode=view
+hilite = VMODE == "view"
 
 [de]
 caption =

@@ -3,6 +3,8 @@ os = ""
 parm = tab
 agent =
 
+vmode = VMODE
+
 # ***********************************************************
 [main]
 # ***********************************************************
@@ -11,14 +13,14 @@ agent =
 <!VAR:items!>
 
 [item]
-<a href="?<!VAR:parm!>=<!VAR:link!>&vmode=<!VAR:mode!>">
+<a href="?vmode=<!VAR:vmode!>&<!VAR:parm!>=<!VAR:link!>">
 	<div class="vtab <!VAR:class!>">
 		<div class="vertical<!VAR:agent!>"><!VAR:text!></div>
 	</div>
 </a>
 
 [item.img]
-<a href="?<!VAR:parm!>=<!VAR:link!>&vmode=<!VAR:mode!>">
+<a href="?<!VAR:parm!>=<!VAR:link!>">
 	<div class="vtab <!VAR:class!>">
 		<img src="<!VAR:img!>" alt="<!VAR:text!>" />
 	</div>
@@ -44,13 +46,22 @@ agent =
 [tedit]
 # ***********************************************************
 <div class="tabicon">
-<a href="x.edit.php?vmode=tedit">
+<a href="?vmode=tedit">
 	<img src="LOC_ICO/buttons/edit.tab.png" alt="TabEdit" />
 </a>
 </div>
 
 # ***********************************************************
 [return]
+# ***********************************************************
+<div class="tabicon">
+<a href="?vmode=view">
+	<img src="LOC_ICO/buttons/view.png" alt="View" />
+</a>
+</div>
+
+# ***********************************************************
+[gohome]
 # ***********************************************************
 <div class="tabicon">
 <a href="?vmode=view">

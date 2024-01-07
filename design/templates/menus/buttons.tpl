@@ -22,7 +22,7 @@ target = _self
 [button]
 # ***********************************************************
 <a href="<!VAR:link!>" target="<!VAR:target!>">
-	<button class="<!VAR:class!>"><!VAR:pic!> <!VAR:caption!></button>
+	<button class="<!VAR:class!> <!VAR:hilite!>"><!VAR:pic!> <!VAR:caption!></button>
 </a>
 
 [button.tip]

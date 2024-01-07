@@ -9,7 +9,7 @@ err = Hinweis
 <div><err class="dropdown">E<!VAR:errNum!> _
 <div class="dropbody err"> _
 	<div class="err"><!VAR:errMsg!></div> _
-	<div class="err1"><b><!VAR:line!></b> <!VAR:file!></div> _
+	<div class="err_dd"><b><!VAR:line!></b> <!VAR:file!></div> _
 	<div><!VAR:items!></div> _
 </div> _
 </err> _
@@ -18,19 +18,19 @@ err = Hinweis
 # ***********************************************************
 [trace]
 # ***********************************************************
-<div class="err1 scroll">
+<div class="err_dd scroll">
 <!VAR:items!>
 </div>
 
 [short]
-<div style="white-space: nowrap;"> _
+<div class="nowrap"> _
 <b><!VAR:line!></b> <!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>) _
-</div> _
+</div>
 
 [item]
-<div style="white-space: nowrap; font-size: 0.75em;">
-<b><!VAR:line!></b> <!VAR:file!><br>
-&nbsp;<!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>)
+<div>
+<b><!VAR:line!></b> <!VAR:file!><br> _
+&nbsp;<!VAR:class!><blue>.<!VAR:function!></blue>(<green><!VAR:args!></green>) _
 </div>
 
 # ***********************************************************

@@ -36,13 +36,13 @@ mnu.thaw = Auftauen
 
 [act.freeze]
 	<tr>
-		<td width=150 style="vertical-align: middle;"><!DIC:mnu.struct!></td>
+		<td width=150><!DIC:mnu.struct!></td>
 		<td><button name="mnu.stat" value=1><!DIC:mnu.freeze!></td>
 	</tr>
 
 [act.thaw]
 	<tr>
-		<td width=150 style="vertical-align: middle;"><!DIC:mnu.struct!></td>
+		<td width=150><!DIC:mnu.struct!></td>
 		<td><button name="mnu.stat" value=1><!DIC:mnu.thaw!></td>
 	</tr>
 

@@ -1,0 +1,11 @@
+[props]
+pic = LOC_ICO/buttons/edit.png
+url = ?vmode=cpedit
+
+[de]
+caption =
+tooltip = Wechsetl zum Seiten-Editor für den Setup-Bereich.
+
+[en]
+caption =
+tooltip = Switches to page editor mode for setup pages.

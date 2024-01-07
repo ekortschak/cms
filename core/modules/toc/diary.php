@@ -11,7 +11,7 @@ $xxx = $box->show();
 
 // ***********************************************************
 $dir = FSO::join(TAB_HOME, $dat);
-$xxx = ENV::setPage($dir);
+$xxx = PGE::load($dir);
 
 if (is_dir($dir)) return;
 

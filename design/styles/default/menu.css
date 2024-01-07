@@ -7,7 +7,7 @@
 
 	margin: 0px 0px 2px;
 	border: 1px 0px solid navy;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 
 	color: FC_INFO;
 	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
@@ -54,7 +54,7 @@
 /* ******************************************************** */
 .topItem {
 	display: inline-block;
-	border-radius: 10px 10px 0px 0px;
+	border-radius: BR_MENU BR_MENU 0px 0px;
 	color: FC_MENU;
 }
 
@@ -68,7 +68,7 @@
 /* ******************************************************** */
 .topText {
 	display: inline-block;
-	border-radius: 10px 10px 0px 0px;
+	border-radius: BR_MENU BR_MENU 0px 0px;
 	padding: 5px 12px 2px;
 	font-weight: bold;
 	text-shadow: 1px 1px 2px grey;
@@ -82,7 +82,7 @@
 	background: BC_DROP;
 	border: 1px solid OUTLINE;
 	border-top: 0px;
-	border-radius: 0px 0px 15px 15px;
+	border-radius: 0px 0px BR_MENU BR_MENU;
   	padding: 0px 0px 5px;
   	max-height: 50vh;
   	overflow: auto;

@@ -5,6 +5,8 @@ if (PFS::isStatic()) {
 }
 
 // ***********************************************************
+// modifications handled by edit.menu/saveMenu.php
+// ***********************************************************
 $dir = LOC::tempDir("clipboard");
 $arr = FSO::folders($dir);
 
@@ -21,6 +23,7 @@ $tpl = new tpl();
 $tpl->register();
 $tpl->load("editor/menu.clip.tpl");
 $tpl->set("curloc", PGE::$dir);
+$tpl->set("curuid", uniqid());
 $tpl->set("box", $obj);
 $tpl->show();
 

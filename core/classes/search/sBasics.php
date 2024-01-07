@@ -24,12 +24,13 @@ incCls("menus/dropBox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class sBasics {
-	protected $dir = TAB_PATH;
+	protected $dir = TAB_HOME;
 	protected $vis = true;
-	protected $sep = "@Q@";
 	protected $mod = "p";
 
-function __construct($dir = TAB_PATH) {
+	const SEP = "@Q@";
+
+function __construct($dir = TAB_HOME) {
 	$this->dir = ENV::get("search.tpc", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
 
@@ -44,12 +45,13 @@ public function getScope() {
 	$mds = $this->getMods();
 
 	$box = new dropBox("menu");
-	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_PATH);
+	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_HOME);
 	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
 	return $box->gc("menu");
 }
 
 protected function isScope($dir) {
+// dummy to be overruled by derived classes
 	return true;
 }
 
@@ -58,7 +60,7 @@ protected function isScope($dir) {
 // ***********************************************************
 public function getResults($what) {
 	$out = $this->isSame($what); if ($out) return $out;
-	$xxx = $this->saveRes("");   if (strlen($what) < 2) return;
+	$xxx = $this->saveParms("");
 
 	$psg = $this->search($what); if (! $psg) return false;
 	$psg = $this->sort($psg);
@@ -66,9 +68,9 @@ public function getResults($what) {
 
 	foreach ($psg as $fil) {
 		$tab = $this->getTab($fil);
-		$out[$tab][$fil] = PGE::getTitle($fil);
+		$out[$tab][$fil] = PGE::title($fil);
 	}
-	$this->saveRes($out);
+	$this->saveParms($out);
 	return $out;
 }
 
@@ -81,7 +83,7 @@ protected function getTab($fil) {
 protected function search($what) { // $what expected as string
 	if (strlen($what) < 2) return false;
 
-	$arr = FSO::dtree($this->dir);
+	$arr = FSO::dTree($this->dir);
 	$out = array();
 
 	foreach ($arr as $dir => $nam) {
@@ -112,7 +114,6 @@ public function getSnips($dir, $what) { // called by preview
 		$txt = $this->prepare($fil);
 		$arr = $this->match($txt, $what); if (! $arr) continue;
 		$out[$fil] = $arr;
-break;
 	}
 	return $out;
 }
@@ -123,7 +124,7 @@ break;
 protected function sort($arr) {
 	return $arr;
 }
-protected function saveRes($val) {
+protected function saveParms($val) {
 	ENV::set("search.last", $val);
 }
 protected function getParms($what) {
@@ -134,16 +135,16 @@ protected function getParms($what) {
 // helper methods for scope
 // ***********************************************************
 protected function getPaths() {
-	$dir = dirname(TAB_PATH);
+	$dir = dirname(TAB_HOME);
 	$fil = FSO::join($dir, "tab.ini");
 
 	$ini = new ini($fil);
 	$typ = $ini->getType();
 
-	if ($typ != "sel") $dir = TAB_PATH;
+	if ($typ != "sel") $dir = TAB_HOME;
 
 	return array(
-		TAB_PATH => DIC::get("Local"),
+		TAB_HOME => DIC::get("Local"),
 		$dir => DIC::get("Global"),
 	);
 }
@@ -186,15 +187,15 @@ protected function prepare($src) {
 
 protected function prepare_h($txt) {
 	for ($i = 1; $i < 6; $i++) {
-		$txt = STR::replace($txt, "<h$i>", $this->sep."<h$i>");
+		$txt = STR::replace($txt, "<h$i>", self::SEP."<h$i>");
 	}
 	return $txt;
 }
 
 protected function prepare_p($txt) {
 	$txt = $this->prepare_h($txt);
-	$txt = STR::replace($txt, "<p>", $this->sep."<p>");
-	$txt = STR::replace($txt, "<p ", $this->sep."<p ");
+	$txt = STR::replace($txt, "<p>", self::SEP."<p>");
+	$txt = STR::replace($txt, "<p ", self::SEP."<p ");
 	return $txt;
 }
 
@@ -203,9 +204,9 @@ protected function prepare_p($txt) {
 // ***********************************************************
 protected function chkReset() {
 	$rst = ENV::getParm("search.reset"); if (! $rst) return;
-	ENV::set("search", false);
+	ENV::set("search.what",  false);
 	ENV::set("search.parms", false);
-	ENV::set("search.last", false);
+	ENV::set("search.last",  false);
 }
 
 protected function getContent($file) {
@@ -219,7 +220,7 @@ protected function getContent($file) {
 
 // ***********************************************************
 protected function match1st($txt, $find) {
-	$arr = STR::split($txt, $this->sep); $out = array();
+	$arr = STR::split($txt, self::SEP); $out = array();
 
 	foreach ($arr as $pgf) {
 		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) return true;
@@ -228,11 +229,11 @@ protected function match1st($txt, $find) {
 }
 
 protected function match($txt, $find) {
-	$arr = STR::split($txt, $this->sep); $out = array();
+	$arr = STR::split($txt, self::SEP); $out = array();
 
 	foreach ($arr as $pgf) {
 		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
-		$out[] = STR::clear($pgf, $this->sep);
+		$out[] = $pgf;
 	}
 	return $out;
 }

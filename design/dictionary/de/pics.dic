@@ -1,10 +1,4 @@
 [dic.de]
 pic.editor = 📝
-pic.folder = <img src="LOC_ICO/files/folder.gif" alt="folder">
 pic.file = 📄
 pic.medium = 💿
-pic.mode = Method #<img src="LOC_ICO/buttons/how.png" alt="folder">
-
-pic.dbase = <img src="LOC_ICO/buttons/db.png" alt="dbase">
-pic.table = <img src="LOC_ICO/buttons/table.png" alt="table">
-pic.field = <img src="LOC_ICO/buttons/field.png" alt="field">

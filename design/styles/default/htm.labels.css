@@ -4,7 +4,7 @@
 /* ******************************************************** */
 label {
 	border: 1px solid OUTLINE;
-	border-radius: 5px;
+	border-radius: BR_INP;
 	padding: 3px 10px;
 
 #	height: H_LINE;

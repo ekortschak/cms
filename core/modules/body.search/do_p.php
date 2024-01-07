@@ -3,7 +3,7 @@
 $tpl = new tpl();
 $tpl->load("modules/search.tpl");
 
-$fnd = ENV::get("search");
+$fnd = ENV::get("search.what");
 $old = "";
 
 foreach ($fls as $fil => $arr) {
@@ -11,8 +11,8 @@ foreach ($fls as $fil => $arr) {
 	$nam = basename($fil);
 
 	$num = STR::between($nam, ".", "."); $num = intval($num);
-	$tit = PGE::getTitle($dir);
-	$uid = PGE::getUID($dir);
+	$tit = PGE::title($dir);
+	$uid = PGE::UID($dir);
 	$cnt = 0;
 
 	$tpl->set("titel", $tit);

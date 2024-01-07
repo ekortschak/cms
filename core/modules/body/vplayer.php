@@ -1,6 +1,9 @@
 <?php
 
-$ipa = PGE::get("props.ip"); if (! $ipa) return;
+DBG::file(__FILE__);
+
+// ***********************************************************
+$ipa = PGE::get("props_cam.ip"); if (! $ipa) return;
 
 incCls("files/stream.php");
 

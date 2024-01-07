@@ -1,6 +1,8 @@
 <?php
 
-#return MSG::now("Feature currently disabled ...");
+if (FTP_MODE != "passive") {
+	return MSG::now("ftp.disabled");
+}
 
 if (! IS_LOCAL) {
 	return MSG::now("edit.deny");
@@ -9,7 +11,7 @@ if (! IS_LOCAL) {
 incCls("server/syncCms.php");
 
 // ***********************************************************
-$fil = FSO::join(APP_FBK, "config", "ftp.ini");
+$fil = APP::fbkFile("config", "ftp.ini");
 
 $snc = new syncCms($fil);
 $snc->upgrade();

@@ -1,15 +1,12 @@
 <?php
 
-$dir = APP::relPath(__DIR__);
+DBG::file(__FILE__);
 
 // ***********************************************************
-$tpl = new tpl();
-$tpl->read("$dir/main.tpl");
-
-// ***********************************************************
-include "$dir/banner.php";
-include "$dir/edit.php";
-include "$dir/opts.php";
-include "$dir/user.php";
+APP::inc(__DIR__, "banner.php");
+APP::inc(__DIR__, "view.php");
+APP::inc(__DIR__, "edit.php");
+APP::inc(__DIR__, "opts.php");
+APP::inc(__DIR__, "user.php");
 
 ?>

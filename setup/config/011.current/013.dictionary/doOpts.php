@@ -30,13 +30,13 @@ return;
 // ***********************************************************
 function reWrite() {
 	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng);
+ 	$ptn = APP::fbkFile(LOC_DIC, $lng);
 	$fls = FSO::files($ptn, "*.dic");
 	$sec = "[dic.$lng]";
 
  	foreach ($fls as $fil => $nam) {
 		$txt = APP::read($fil);
-		$arr = STR::slice($txt); sort($arr);
+		$arr = STR::split($txt); sort($arr);
 		$out = array();
 
 		foreach ($arr as $lin) {
@@ -55,37 +55,31 @@ function reWrite() {
 }
 
 // ***********************************************************
-function spawn() {
-	$lng = CUR_LANG;
- 	$ptn = FSO::join(APP_FBK, LOC_DIC, $lng);
+function spawn() { // create missing language entries from [dic.CUR_LANG]
+ 	$ptn = APP::fbkFile(LOC_DIC, CUR_LANG);
 	$fls = FSO::files($ptn, "*.dic");
 
 	foreach ($fls as $fil => $nam) {
 		$lns = file($fil); $out = array();
 
-		foreach (LNG::get() as $itm) {
-			if ($itm == $lng) continue;
+		foreach (LNG::get() as $lng) {
+			if ($lng == CUR_LANG) continue;
+			$out[] = "[dic.$lng]";
 
-			$rep = DIC::get($itm); if (! $rep) continue;
+			$rep = DIC::get($lng); if (! $rep) continue;
 
 			foreach ($lns as $lin) {
-				if (STR::contains($lin, "[dic.$lng]")) {
-					$out[] = "[dic.$itm]";
-					continue;
-				}
-				if (STR::misses($lin, "=")) {
-					$out[] = $lin;
-					continue;
-				}
+				if (STR::misses($lin, "=")) continue;
+
 				$key = STR::before($lin, "=");
 				$val = STR::after($lin, "=");
+				$xlt = DIC::get($key, $lng, "$val*");
 
-				$xlt = VEC::get($rep, $key); if (! $xlt) $xlt = "$val*";
 				$out[] = "$key = $xlt";
 			}
 			$txt = implode("\n", $out);
-			$sav = FSO::join(APP_FBK, LOC_DIC, $itm, $nam);
-			$xxx = APP::write($sav, "$txt\n");
+			$sav = APP::fbkFile(LOC_DIC, "$lng/$nam");
+			$xxx = APP::write($sav, $txt);
 		}
 	}
 }

@@ -6,6 +6,6 @@ topic {
 	color: FC_INFO;
 	background: BC_INFO;
 	border: 1px solid OUTLINE;
-	border-radius: 13px;
+	border-radius: BR_TEXT;
 	margin: 0px 0px 7px;
 }

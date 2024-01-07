@@ -15,9 +15,10 @@ incCls("system/DAT.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class DAT {
-	private static $lenDay = 86400;
-	private static $minYear = 2000;
-	private static $maxYear = 2100;
+	private static $min_year = 2000;
+	private static $max_year = 2100;
+
+	const DAY_SECS = 86400;
 
 // ***********************************************************
 public static function make($year, $mon, $day) {
@@ -27,10 +28,10 @@ public static function make($year, $mon, $day) {
 // ***********************************************************
 public static function years($coming = 1, $past = 5) {
 	$cur = date("Y");
-	$max = CHK::range($coming, 5); DAT::$maxYear = $cur + $max;
-	$min = CHK::range($past,   7); DAT::$minYear = $cur - $min;
+	$max = CHK::range($coming, 5); DAT::$max_year = $cur + $max;
+	$min = CHK::range($past,   7); DAT::$min_year = $cur - $min;
 
-	return VEC::range(DAT::$maxYear, DAT::$minYear);
+	return VEC::range(DAT::$max_year, DAT::$min_year);
 }
 public static function months() {
 	return VEC::range(1, 12);
@@ -43,11 +44,11 @@ public static function numDays($year, $mon) {
 
 // ***********************************************************
 public static function checkMax($date) {
-	$max = DAT::make(DAT::$maxYear, 12, 31);
+	$max = DAT::make(DAT::$max_year, 12, 31);
 	return DAT::isPrior($date, $max);
 }
 public static function checkMin($date) {
-	$min = DAT::make(DAT::$minYear, 1, 1);
+	$min = DAT::make(DAT::$min_year, 1, 1);
 	return DAT::isLater($date, $min);
 }
 
@@ -99,7 +100,7 @@ public static function calc($date, $offset = 1, $format = DATE_FMT) {
 
 // ***********************************************************
 private static function addDays($timestamp, $offset, $format = DATE_FMT) {
-	$ofs = $offset * DAT::$lenDay;
+	$ofs = $offset * DAT::DAY_SECS - 1;
 	$out = $timestamp + $ofs; if (! $format) return $out;
 	return date($format, $out);
 }
@@ -108,7 +109,7 @@ public static function difDays($first, $second) {
  // returns number of days between $first and $second
 	$one = DAT::toSecs($first);
 	$two = DAT::toSecs($second);
-	return intval(($one - $two) / DAT::$lenDay);
+	return intval(($one - $two) / DAT::DAY_SECS);
 }
 
 // ***********************************************************
@@ -124,17 +125,30 @@ public static function first($what = "Monday", $mon = false, $year = false) {
 	return DAT::find("first $what $yir-$mon");
 }
 
+// ***********************************************************
 public static function firstOfMonth($date) {
 	$yir = DAT::get($date, "Y");
 	$mon = DAT::get($date, "m");
 	return DAT::make($yir, $mon, 1);
 }
 
+public static function lastOfMonth($date) {
+	$dat = DAT::toSecs($date);
+	return date("t", $dat);
+}
+
+// ***********************************************************
 public static function firstOfWeek($date) {
 	$wkd = DAT::weekday($date);
 	return DAT::calc($date, $wkd * -1 + 1);
 }
 
+public static function lastOfWeek($date) {
+	$dat = DAT::firstOfWeek($date);
+	return DAT::calc($dat, 6);
+}
+
+// ***********************************************************
 private static function find($what) {
 	$out = strtotime($what);
 	return DAT::get($out);
@@ -142,7 +156,8 @@ private static function find($what) {
 
 public static function weekday($date) {
 	$wkd = DAT::get($date, "w");
-	return ($wkd == 0) ? 7 : $wkd;
+	if ($wkd == 0) return 7;
+	return $wkd;
 }
 
 // ***********************************************************
@@ -172,9 +187,22 @@ public static function toSecs($string) { // return time stamp
 	if (is_numeric($dat)) return $dat;
 
 	if ($out = strtotime($dat)) return $out; $dat = str_replace(".", "/", $dat);
-	if ($out = strtotime($dat)) return $out; $dat = str_replace("/", "-", $dat);
+	if ($out = strtotime($dat)) return $out; $dat = str_replace("-", "/", $dat);
 	if ($out = strtotime($dat)) return $out;
 	return false;
+}
+
+public static function getDay($date, $mode = "short") {
+	$mod = ""; if ($mode == "long") $mod = ".l";
+
+	$wkd = DAT::weekday($date);
+	return DIC::get("day.$wkd$mod");
+}
+
+public static function getMonth($date, $mode = "short") {
+	$mod = ""; if ($mode == "long") $mod = ".l";
+	$mon = DAT::get($date, "m"); $mon = intval($mon);
+	return DIC::get("mon.$mon$mod");
 }
 
 // ***********************************************************

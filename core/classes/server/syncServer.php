@@ -33,7 +33,6 @@ public function read($inifile) {
 	$vls = $ini->getValues(); $this->merge($vls);
 	$prt = $ini->getSec("protect");
 
-	$ftp = $this->get("module.FTP_MODE", "none");
 	$pcl = $this->get("web.pcl", "https");
 	$srv = $this->get("web.url");
 	$xxx = $this->set("protect", $prt);
@@ -75,16 +74,24 @@ protected function query($act) {
 // **********************************************************
 protected function chkProtect($arr) {
 	$grd = $this->get("protect"); if (! $grd) return $arr;
-	$grd = "\n$grd\n";
+	$grd = VEC::explode($grd, "\n"); $out = array();
+	$obj = DiC::get("objects");
+	$chk = 0;
 
 	foreach ($arr as $act => $itm) {
-		foreach ($itm as $fso) {
-			if (STR::misses($grd, "\n$fso")) continue;
-			$arr[$act] = VEC::drop($arr[$act], $fso);
-			$arr["man"][] = $fso;
+		foreach ($itm as $key => $fso) {
+			if (! STR::contains($fso, $grd)) {
+				$out[$act][] = $fso;
+				continue;
+			}
+			$chk++;
 		}
 	}
-	return $arr;
+	if ($chk) {
+		$out["man"] = $grd;
+		$out["man"][] = "<green>$chk $obj</green>";
+	}
+	return $out;
 }
 
 // **********************************************************

@@ -31,8 +31,8 @@ class OID {
 public static function init() {
 	$oid = ENV::getPost("oid", NV);
 
-	OID::$vrs = &$_SESSION[APP_IDX]; if (! isset(OID::$vrs["oid"])) OID::$vrs["oid"] = array();
-	OID::$top = &OID::$vrs["oid"];  if (! isset(OID::$top[$oid ])) OID::$top[$oid]  = array();
+	OID::$vrs = &$_SESSION[APP_NAME]; if (! isset(OID::$vrs["oid"])) OID::$vrs["oid"] = array();
+	OID::$top = &OID::$vrs["oid"];    if (! isset(OID::$top[$oid ])) OID::$top[$oid]  = array();
 
 	OID::chkPost($_POST, OID::$top, $oid);
 }
@@ -42,8 +42,7 @@ public static function init() {
 // ***********************************************************
 public static function register($key = NV, $sfx = "'") {
 	if ($key === NV) {
-		$dir = ENV::getPage();
-		$key = "$dir.$sfx.".OID::$cnt++;
+		$key = PGE::$dir.".$sfx.".OID::$cnt++;
 	}
 	if (strlen($key) != 32) $key = md5($key);
 	return $key;
@@ -72,7 +71,7 @@ public static function get($oid, $key, $default = false) {
 	$idx = STR::between($key,"[", "]");
 	$key = STR::before($key, "[");
 
-	$arr = OID::getValues($oid);          if (! $arr) return $default;
+	$arr = OID::getValues($oid);           if (! $arr) return $default;
 	$out = VEC::get($arr, $key, $default); if (! $idx) return $out;
 	return VEC::get($out, $idx, $default);
 }

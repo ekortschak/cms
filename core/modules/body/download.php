@@ -1,8 +1,11 @@
 <?php
 
-$ext = PGE::get("props.ext", "pdf, txt, doc, docx");
-$dox = PGE::get("props.path", PGE::$dir);
-$srt = PGE::get("props.sort");
+DBG::file(__FILE__);
+
+// ***********************************************************
+$ext = PGE::get("props_dow.ext", "pdf, txt, doc, docx");
+$dox = PGE::get("props_dow.path", PGE::$dir);
+$srt = PGE::get("props_dow.sort");
 
 // ***********************************************************
 incCls("files/dirView.php");

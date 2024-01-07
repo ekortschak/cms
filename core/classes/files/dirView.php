@@ -45,7 +45,7 @@ function __construct() {
 // ***********************************************************
 public function readTree($dir, $ext = false) {
 	$this->dir = APP::dir($dir); if (! $this->dir) return;
-	$this->vrz = FSO::dtree($this->dir);
+	$this->vrz = FSO::dTree($this->dir);
 	$this->setExt($ext);
 
 	$fls = FSO::files($dir, "*");

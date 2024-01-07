@@ -5,12 +5,11 @@ refbox, .refbox {
 	position: relative;
 	display: inline-block;
 
-	vertical-align: bottom;
 	color: FC_HEAD;
 	text-decoration: underline dotted;
 }
 
-refbox:hover refbody, .refbox:hover refbody, .refbox:hover .refbody, refbox:hover .refbody {
+refbox:hover refbody {
 	z-index: 90;
 	display: block;
 }
@@ -24,9 +23,9 @@ refbody, .refbody {
 
 	background: BC_HINT;
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	padding: 5px 10px 7px;
+	padding: 5px BR_TEXT 7px;
 
 	max-height: 50vh;
 	min-width: 10rem;
@@ -37,7 +36,6 @@ refbody, .refbody {
 	font-size: 0.85em;
 	font-weight: normal;
 	font-style: normal;
-#	white-space: pre-line;
 	text-align: left;
 }
 
@@ -68,7 +66,7 @@ refbody, .refbody {
 	background: BC_HINT;
 
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
-	padding: 0px 25px 15px;
+	padding: 0px BR_TEXT 15px;
 }

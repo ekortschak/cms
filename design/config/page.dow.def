@@ -2,5 +2,5 @@
 LOC_CFG/page.def
 
 # additional properties
-[props]
+[props_dow]
 ext = pdf

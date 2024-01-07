@@ -1,0 +1,10 @@
+[props]
+pic = LOC_ICO/buttons/search.gif
+
+[de]
+caption =
+tooltip = <p>Suche nach Einträgen im Wörterbuch</p>
+
+[en]
+caption =
+tooltip = <p>Search for dictionary entries</p>

@@ -28,6 +28,13 @@ function __construct() {}
 // ***********************************************************
 // handling variables
 // ***********************************************************
+public function readIni($file) {
+	$ini = new ini($file);
+	$vls = $ini->getValues();
+
+	$this->merge($vls);
+}
+
 public function merge($arr, $pfx = false) { // requires assoc array
 	if (! $arr) return;
 	if (! is_array($arr)) return;
@@ -53,6 +60,16 @@ public function set($key, $val) {
 	return $val;
 }
 
+public function setIf($key, $default) { // preserve existing values
+	$val = $this->get($key, $default);
+	return $this->set($key, $val);
+}
+
+public function isVar($key) {
+	return isset($this->vls[$key]);
+}
+
+// ***********************************************************
 public function drop($sec, $key = "") { // drop values
 	$chk = STR::trim("$sec.$key", ".");
 
@@ -64,11 +81,6 @@ public function drop($sec, $key = "") { // drop values
 public function dup($new, $old) { // copy value to another key
 	$val = $this->get($old);
 	return $this->set($new, $val);
-}
-
-public function setIf($key, $default) { // preserve existing values
-	$val = $this->get($key, $default);
-	return $this->set($key, $val);
 }
 
 // ***********************************************************

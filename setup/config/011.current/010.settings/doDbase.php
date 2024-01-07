@@ -1,9 +1,12 @@
 <?php
 
-$inc = APP::getInc(__DIR__, "common.php");
-$fcs = "dbase";
-
-include $inc;
+// ***********************************************************
+// read and write data
+// ***********************************************************
+$mgr = new iniMgr("dbase.def");
+$mgr->read("config/dbase.ini");
+$mgr->setScope();
+$mgr->edit();
 
 // ***********************************************************
 HTW::xtag("dbo.check objects");

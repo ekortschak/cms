@@ -53,10 +53,10 @@ chkFst = CHECKED
 
 <table>
 
-<!SEC:addIniFile!>
 <!SEC:addSysFile!>
 <!SEC:addPrjFile!>
 <!SEC:addAnyFile!>
+<!SEC:addIniFile!>
 
 	<tr><td colspan="100%"><hr class="weak"></td></tr>
 	<tr>
@@ -94,15 +94,15 @@ chkFst = CHECKED
 # ***********************************************************
 [addIniFile]
 <tr>
-	<td style="vertical-align: middle;" width=175><!DIC:inifiles!></td>
-	<td><input type="checkbox" name="ini.rec" value="1" /> <!DIC:recurse!></td>
+	<td width=175><!DIC:inifiles!></td>
+	<td><input type="checkbox" name="ini.rec" value="1" /><div class="cbtext"><!DIC:recurse!></div></td>
 	<td><button name="file.act" value="ini"><!DIC:create!></button></td>
 </tr>
 
 [addSysFile]
 <tr><td colspan="100%" height=5></td></tr>
 <tr>
-	<td style="vertical-align: middle;" ><!DIC:cont!></td>
+	<td><!DIC:cont!></td>
 	<td><!VAR:choice!></td>
 	<td><button name="file.act" value="sys"><!DIC:create!></button></td>
 </tr>
@@ -110,7 +110,7 @@ chkFst = CHECKED
 [addPrjFile]
 <tr><td colspan="100%" height=5></td></tr>
 <tr>
-	<td style="vertical-align: middle;" ><!DIC:proj!></td>
+	<td><!DIC:proj!></td>
 	<td><!VAR:pfiles!></td>
 	<td><button name="file.act" value="prj"><!DIC:create!></button></td>
 </tr>
@@ -118,7 +118,7 @@ chkFst = CHECKED
 [addAnyFile]
 <tr><td colspan="100%" height=5></td></tr>
 <tr>
-	<td style="vertical-align: middle;" ><!DIC:addfile!></td>
+	<td><!DIC:addfile!></td>
 	<td><input name="any.name" type="text" value="" placeholder="newfile.txt" /></td>
 	<td><button name="file.act" value="any"><!DIC:create!></button></td>
 </tr>

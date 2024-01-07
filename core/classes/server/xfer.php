@@ -84,7 +84,9 @@ private function sendList($dir) {
 
 public function getFiles($dir) {
 	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return;
-	$arr = FSO::fdtree($dir); $out = "";
+
+	$arr = FSO::fdTree($dir, "*", $this->visOnly);
+	$out = "";
 
 	foreach ($arr as $fso => $nam) {
 		if (! $fso) continue;
@@ -95,9 +97,6 @@ public function getFiles($dir) {
 
 // ***********************************************************
 private function getEntry($fso, $root) {
-	if ($this->visOnly)
-	if (STR::contains($fso, HIDE)) return "";
-
 	$dir = FSO::norm($root);
 	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 
@@ -116,8 +115,8 @@ private function getEntry($fso, $root) {
 private function upload($fso) {
 	$fil = $_FILES['file_contents']['tmp_name'];
 
-	$erg = move_uploaded_file($fil, $fso);
-	$this->send($erg > 0);
+	$res = move_uploaded_file($fil, $fso);
+	$this->send($res > 0);
 }
 
 // ***********************************************************
@@ -128,7 +127,7 @@ private function do_rmDir($lst) { return $this->exec("rmDir", $lst); }
 private function do_kill ($lst) { return $this->exec("kill",  $lst); }
 
 private function exec($fnc, $lst) {
-	$arr = STR::slice($lst, ";");
+	$arr = STR::split($lst, ";");
 
 	foreach ($arr as $fso) {
 		if ($fso) FSO::$fnc($fso);
@@ -138,22 +137,20 @@ private function exec($fnc, $lst) {
 
 // ***********************************************************
 private function do_ren($lst) { // rename dirs or files
-	$arr = STR::slice($lst, ";"); $cnt = 0;
+	$arr = STR::split($lst, ";"); $cnt = 0;
 
 	foreach ($arr as $itm) {
-		$prp = STR::slice($itm, "|");   if (count($prp) < 3) continue;
-		$typ = $prp[0];                 if ($typ != "d") continue;
-
-		$new = $this->chkPath($prp[1]); if (! $new) continue;
-		$old = $this->chkPath($prp[2]); if (! $old) continue;
-		FSO::rename($old, $new);
+		$prp = STR::split($itm, " => "); if (count($prp) < 2) continue;
+		$old = $prp[0]; if (! $old) continue;
+		$new = $prp[1]; if (! $new) continue;
+		$cnt+= FSO::rename($old, $new);
 	}
-	$this->send(1);
+	$this->send($cnt);
 }
 
 // ***********************************************************
 private function do_touch($inf) {
-	$arr = STR::slice($lst, ";");
+	$arr = STR::split($lst, ";");
 
 	foreach ($arr as $itm) {
 		$fso = STR::before($inf, ":"); if (! $fso) continue;

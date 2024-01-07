@@ -28,16 +28,24 @@ public static function range($min, $max) {
 // ***********************************************************
 // converting arrays
 // ***********************************************************
-public static function xform($data, $name = false) {
+public static function xform($data, $max = 0) {
 	if (! is_array($data)) return $data;
 
+	if ($max > 0) {
+		$rst = count($data) - $max;
+
+		if ($rst > 0) {
+			$data = array_slice($data, 0, $max);
+			$data[$max] = "+ $rst";
+		}
+	}
 	$out = print_r($data, true);
 	$out = str_replace("\r", "", $out);
 	$out = str_replace("\n\n", "\n", $out);
 	$out = str_replace("  ", " ", $out);
-    $out = preg_replace("~\n\s+\(~", " (", $out); // opening braces should go with previous line
+    $out = preg_replace("~\n\s+\(~", " (", $out); // opening braces go with previous line
 
-	$cap = "Array ("; if ($name) $cap = "$name (";
+	$cap = "Array (";
 	$out = str_replace("Array\n(", $cap, $out);
 	return $out;
 }
@@ -80,7 +88,8 @@ public static function explode($text, $sep = ",", $max = 0) {
 		default: $data = explode($sep, $text, $max);
 	}
 	foreach ($data as $val) {
-		$out[] = trim($val);
+		$val = trim($val); if (! $val) continue;
+		$out[] = $val;
 	}
 	if ($max)
 	$out = array_pad($out, $max, "");
@@ -186,10 +195,19 @@ public static function purge($data, $vals) {
 
 	foreach ($data as $key => $val) {
 		if (STR::begins($val, $vals)) continue;
-		if (is_numeric($key)) $out[] = $val;
-		else $out[$key] = $val;
+		$out[$key] = $val;
 	}
 	return $out;
+}
+
+public static function subDir($data, $dir) {
+	$out = array(); if (! $data) return $out;
+
+	foreach ($data as $val) {
+		if (! STR::begins($dir, $val)) continue;
+		if ($dir > $val) return true;
+	}
+	return false;
 }
 
 public static function merge($data1, $data2) {

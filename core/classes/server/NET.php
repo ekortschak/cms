@@ -16,8 +16,10 @@ class NET {
 	private static $geo = false;
 
 public static function init() {
+	ob_start();
     NET::$con = @fsockopen("www.google.com", 80); if (NET::$con) fclose(NET::$con);
 	NET::$geo = NET::geoData();
+	ob_flush();
 }
 
 // ***********************************************************

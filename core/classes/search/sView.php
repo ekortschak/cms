@@ -50,7 +50,7 @@ public function showNav() {
 	$dir = $box->getKey("search.dir", $arr, $dir);
 
 	if ($arr) {
-		$uid = PGE::getUID($dir);
+		$uid = PGE::UID($dir);
 
 		$this->set("topic", $tpc);
 		$this->set("page", $uid);
@@ -62,6 +62,7 @@ public function showNav() {
 
 	$mnu->show();
 	$box->show();
+	return true;
 }
 
 // ***********************************************************
@@ -73,8 +74,9 @@ public function getData() {
 }
 
 public function getSnips() {
+
 	$dir = ENV::get("search.dir");
-	$fnd = ENV::get("search");
+	$fnd = ENV::get("search.what");
 
 	$obj = new search();
 	return $obj->getSnips($dir, $fnd);
@@ -94,7 +96,7 @@ private function chkReset() {
 
 private function chkData($arr) {
 	foreach ($arr as $key => $dir) {
-		$arr[$key] = PGE::getTitle($dir);
+		$arr[$key] = PGE::title($dir);
 	}
 	return $arr;
 }

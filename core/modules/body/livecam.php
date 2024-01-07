@@ -1,6 +1,9 @@
 <?php
 
-$url = PGE::get("props.ip", "localhost");
+DBG::file(__FILE__);
+
+// ***********************************************************
+$url = PGE::get("props_cam.ip", "localhost");
 
 if (! $url) {
 	return ERR::msg("no.IP");

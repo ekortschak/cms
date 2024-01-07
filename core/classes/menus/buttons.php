@@ -122,7 +122,7 @@ private function showContent() {
 	$sel = ENV::get($this->own, $this->std);
 	$inc = VEC::get($this->fls, $sel);
 
-	if (! $inc) return $this->show("wrong.btn");
+	if (! $inc) return parent::show("wrong.btn");
 	include_once $inc;
 }
 
@@ -142,7 +142,7 @@ private function chkPhp($php) {
 	$fil = FSO::join($dir, "$php.php"); if (APP::file($fil)) return $fil;
 	$htm = FSO::join($dir, "$php.htm"); if (APP::file($htm)) return $htm;
 
-	if (APP_CALL != "index.php") return $fil;
+	if (VMODE != "config") return $fil;
 
 	FSO::copy("LOC_CFG/button.def", $fil);
 	return $fil;
@@ -155,7 +155,7 @@ private function chkIni($btn) {
 	$fil = FSO::join($dir,   "$btn.btn"); if (APP::file($fil)) return $fil;
 	$glb = APP::file("LOC_BTN/$btn.btn"); if (APP::file($glb)) return $glb;
 
-	if (APP_CALL != "index.php") return $fil;
+	if (VMODE != "config") return $fil;
 
 	FSO::copy("LOC_CFG/button.def", $fil);
 	return $fil;

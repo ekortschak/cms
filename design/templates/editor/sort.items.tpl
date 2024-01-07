@@ -43,4 +43,4 @@ nodata = Keine sortierbaren Einträge ...
 </button>
 
 [nodata]
-<p><!DIC:nodata!></p>
+<msg><!DIC:nodata!></msg>

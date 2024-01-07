@@ -14,7 +14,6 @@ table {
 /* rows */
 /* ******************************************************** */
 tr {
-	vertical-align: top;
 }
 
 /* ******************************************************** */
@@ -27,6 +26,10 @@ th {
 	text-align: left;
 }
 
+th refbox {
+	color: cyan;
+}
+
 td {
-	padding: 0px 5px;
+	padding:  0px 5px;
 }

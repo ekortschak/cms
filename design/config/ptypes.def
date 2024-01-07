@@ -1,11 +1,12 @@
 [default]
-include  = default
-gallery  = file viewer
-mimetype = mime type viewer
-collect  = collection
-chapters = chapters
-download = file download
-upload   = file upload
-camera   = ip camera
-redirect = internal redirection
-tutorial = tutorial
+include  = Default
+gallery  = File viewer
+mimetype = Mime type viewer
+collect  = Collection
+chapters = Chapters
+download = File download
+upload   = File upload
+camera   = IP camera
+redirect = Internal redirection
+tutorial = Tutorial
+calpage  = Calendar page

@@ -26,16 +26,18 @@ class iniWriter extends ini {
 	protected $lst = array(); // dropdown values for editor
 
 function __construct($tplfile = false) {
-	$tpl = $this->chkTpl($tplfile);	if (! $tpl) return;
+	$tpl = $this->chkTpl($tplfile); if (! $tpl) return;
 
-	$this->read($tpl); $this->lst = $this->vls;
-	$this->seal();
+	$this->read($tpl);
+	$this->lst = $this->vls;
+	$this->sealed = true;
 }
 
 // ***********************************************************
 // handling sections and keys
 // ***********************************************************
 public function addSec($sec) {
+	if (isset($this->sec[$sec])) return;
 	$this->sec[$sec] = "";
 }
 
@@ -114,7 +116,6 @@ public function savePost($file = NV) {
 // ***********************************************************
 public function save($file = NV) {
 	if ($file === NV) $file = $this->file; $out = "";
-	$this->chkUID();
 
 	foreach ($this->sec as $sec => $txt) {
 		$out.= "[$sec]\n";
@@ -135,6 +136,7 @@ public function save($file = NV) {
 		}
 		$out.= "\n";
 	}
+	if (is_dir($file)) $file = FSO::join($file, "page.ini");
 	return APP::write($file, $out);
 }
 
@@ -144,8 +146,26 @@ public function save($file = NV) {
 public function verifyUID() {
 	$ids = new uids(); // make sure UID is unique
 	$uid = $this->getUID();
-	$chk = $this->getUID($uid); if ($uid == $chk) return;
 
+	$this->set("props.uid", $uid);
+	$this->save();
+}
+
+public function verifyCaps() {
+	$ids = new uids(); // make sure UID is unique
+	$uid = $this->getUID();
+
+	$lgs = LNG::get();
+
+	foreach ($lgs as $lng) {
+		$this->addSec($lng);
+
+		$tit = $this->getTitle($lng); if (! $tit) $tit = $uid;
+		$hed = $this->getHead($lng);  if ($tit == $hed) $hed = "";
+
+		$this->set("$lng.title", $tit);
+		$this->set("$lng.head", $hed);
+	}
 	$this->set("props.uid", $chk);
 	$this->save();
 }
@@ -163,25 +183,22 @@ protected function secure($val) {
 // methods concerning templates
 // ***********************************************************
 private function chkTpl($fil) {
-	if (strlen($fil) == 3) {
-		$tpl = $this->isTemplate("page.$fil.def"); if ($tpl) return $tpl;
-		return $this->isTemplate("page.def");
+	if (strlen($fil) == 3) { // define by type
+		$tpl = $this->getTpl("page.$fil.def"); if ($tpl) return $tpl;
+		return $this->getTpl("page.def");
 	}
-	if (STR::ends($fil, "page.ini")) {
+	if (STR::ends($fil, "page.ini")) { // defien by props.typ
 		$typ = $this->getType();
-		$tpl = $this->isTemplate("page.$typ.def"); if ($tpl) return $tpl;
+		$tpl = $this->getTpl("page.$typ.def"); if ($tpl) return $tpl;
+		return $this->getTpl("page.def");
 	}
-	$tpl = basename($fil);
+	$tpl = basename($fil); // define by file name
 	$tpl = STR::replace($tpl, ".ini", ".def");
-	$tpl = $this->isTemplate($tpl); if ($tpl) return $tpl;
-
-#	$tpl = basename(dirname($fil));
-#	$tpl = $this->isTemplate("$tpl.def"); if ($tpl) return $tpl;
-
+	$tpl = $this->getTpl($tpl); if ($tpl) return $tpl;
 	return false;
 }
 
-private function isTemplate($fil) {
+private function getTpl($fil) {
 	$tpl = FSO::join(LOC_CFG, $fil);
 	return APP::file($tpl);
 }

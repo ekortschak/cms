@@ -1,10 +1,12 @@
 <?php
 
-incCls("menus/buttons.php");
+DBG::file(__FILE__);
 
 // ***********************************************************
 HTW::xtag("usr.opts", "h3");
 // ***********************************************************
+incCls("menus/buttons.php");
+
 $nav = new buttons("usr", "L", __DIR__);
 
 if (CUR_USER == "www") {

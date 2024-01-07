@@ -7,7 +7,7 @@
 	margin: auto;
 	overflow: hidden;
 	background: BC_OPTS;
-	border-radius: 15px;
+	border-radius: BR_IMG;
 	text-align: center;
 }
 
@@ -18,7 +18,6 @@
 	margin: 0px;
 }
 .fader img {
-	vertical-align: middle;
 	width: W_BODY;
 	padding: 0px;
 	margin: 0px;

@@ -16,7 +16,8 @@ incCls("search/sString.php");
 // ***********************************************************
 class sString {
 	private $txt = "";
-	private $sep = "|"; // OR operator
+
+	const SEP = "|"; // OR operator
 
 function __construct($text) {
 	$this->txt = " $text ";
@@ -47,7 +48,7 @@ public function match($what) { // returns yes or no
 			if (! $this->findNone($itm)) return false;
 			continue;
 		}
-		if (STR::contains($itm, $this->sep)) {
+		if (STR::contains($itm, self::SEP)) {
 			if (! $this->findAny($itm)) return false;
 			continue;
 		}
@@ -62,12 +63,12 @@ private function findNone($what) { // $what => -str1|str2|str3
 	return (! $this->findAny($fnd));
 }
 private function findAny($what) { // $what => str1|str2|str3
-	$fnd = STR::slice($what, $this->sep);
+	$fnd = STR::split($what, self::SEP);
 	$cnt = $this->word($fnd);
 	return ($cnt > 0);
 }
 private function findAll($what) { // $what => str1+str2+str3
-	$fnd = STR::slice($what, "+"); $anz = count($fnd);
+	$fnd = STR::split($what, "+"); $anz = count($fnd);
 	$cnt = $this->word($fnd);
 	return ($cnt == $anz);
 }
@@ -102,7 +103,7 @@ private function split($what) {
 	foreach ($qts as $key => $itm) {
 		$lst = str_replace("'$itm'", "@q$key", $lst);
 	}
-	$lst = STR::slice($lst, " ");
+	$lst = STR::split($lst, " ");
 	$out = array();
 
 	foreach ($lst as $sub) {
@@ -127,19 +128,17 @@ private function checkString($txt) {
 }
 
 private static function markit(&$haystack, $find, $idx) {
-	$lst = substr_count($find, "^");
-	$rep = "<mark$idx>$1</mark$idx>";
+	$fnd = STR::clear($find, "^");
 
-	if ($lst > 2) $rep = "$1<mark>$2</mark>$3"; else
-	if ($lst > 1) {
-		if (self::ends($find, "^")) $rep = "<mark>$1</mark>$2";
-		else $rep = "$1<mark>$2</mark>";
+	$beg = STR::begins($find, "^"); if (! $beg) $beg = 0;
+	$end = STR::ends($find, "^");   if (! $end) $end = 0;
+
+	switch ($beg.$end) {
+		case "11": $rep = "$1<mark$idx>$2</mark$idx>$3"; $fnd = "(\W+)($fnd)(\W+)"; break;
+		case "10": $rep = "$1<mark$idx>$2</mark$idx>"  ; $fnd = "(\W+)($fnd)";      break;
+		case "01": $rep =   "<mark$idx>$1</mark$idx>$2"; $fnd =      "($fnd)(\W+)"; break;
+		default:   $rep =   "<mark$idx>$1</mark$idx>"  ; $fnd =      "($fnd)";
 	}
-	$fnd = preg_quote($find);        $fnd = "($fnd)";
-	$fnd = str_replace("(\^", "^(",  $fnd);
-	$fnd = str_replace("\^)", ")^",  $fnd);
-	$fnd = str_replace("^", "(\W+)", $fnd);
-
 	$out = preg_replace("~$fnd~i", $rep, $haystack);
 # TODO: no marking in html-tags
 #	$out = preg_replace("~<(.*?)$fnd(.*?)>~i",  "<$1$2>",  $haystack);

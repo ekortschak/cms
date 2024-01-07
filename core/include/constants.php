@@ -29,18 +29,22 @@ define("CK5_URL", "/xtools/ck5");
 // internal constants
 // ***********************************************************
 define("DIR_SEP", "/");
+define("CUR_DIR", "./");
 define("NV", "N/A");
 define("HIDE", "~");
 
+define("DATE_FMT", "Y/m/d");
 define("CUR_DATE", date("Y/m/d"));
 define("CUR_YEAR", date("Y"));
 
 define("FS_PERMS", "0775");
 
 define("COMBO_DOWN", "&ensp;▾");
-define("ANCHOR", "a");
 
 define("BOOL_YES", "<green>&check;</green>");
 define("BOOL_NO", "<maroon>&cross;</maroon>");
+
+define("THUMB_WID", 200);
+define("THUMB_HGT", 133);
 
 ?>

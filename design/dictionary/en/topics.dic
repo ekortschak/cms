@@ -1,7 +1,7 @@
 [dic.en]
-act.show = Show
-tpc.info = Topic-Info
-tpc.desc = Abstract
-tpc.list = Topics
-tpc.nodesc = No abstract available ...
-tpc.select = Select a topic ...
+act.show = Anzeigen*
+tpc.desc = Abstrakt*
+tpc.info = Info zum Thema*
+tpc.list = Themen*
+tpc.nodesc = Keine Kurzbeschreibung vorhanden ...*
+tpc.select = Wähle ein Thema ...*

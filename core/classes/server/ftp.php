@@ -59,7 +59,7 @@ public function connect() {
 	$pwd = $this->get("ftp.fpass"); if (! $pwd) return false;
 
 	$con = @ftp_connect($srv);           if (! $con) return false;
-	$erg = @ftp_login($con, $usr, $pwd); if (! $erg) return false;
+	$res = @ftp_login($con, $usr, $pwd); if (! $res) return false;
 
 	ftp_set_option($con, FTP_TIMEOUT_SEC, $this->timeout);
 	ftp_pasv($con, true);
@@ -85,29 +85,26 @@ public function isProtected($fso) {
 // ***********************************************************
 public function remote_mkDir($dir) {
 	if (! $dir) return false;
-	$erg = ftp_mkdir($this->con, $dir); if ($erg)
-	$xxx = ftp_site($this->con, "CHMOD 0755 $dir");
-	return (bool) $erg;
+	if (! ftp_mkdir($this->con, $dir)) return false;
+	ftp_site($this->con, "CHMOD 0755 $dir");
+	return true;
 }
 public function remote_rmdir($dir) {
 	if (! $dir) return false;
-	$erg = ftp_rmdir($this->con, $dir);
-	return (bool) $erg;
+	return ftp_rmdir($this->con, $dir);
 }
 
 // ***********************************************************
 public function remote_rename($old, $new) {
 	if (! $old) return false;
 	if (! $new) return false;
-	$erg = ftp_rename($this->con, $old, $new);
-	return (bool) $erg;
+	return ftp_rename($this->con, $old, $new);
 }
 
 // ***********************************************************
 public function remote_del($file) {
 	if (! $file) return false;
-	$erg = ftp_delete($this->con, $file);
-	return (bool) $erg;
+	return ftp_delete($this->con, $file);
 }
 
 // ***********************************************************
@@ -133,12 +130,11 @@ public function remote_put($src, $dst) {
 // ***********************************************************
 public function save($src, $dst) {
 	if ($this->isProtected($src)) return false;
+	if ( ! ftp_get( $this->con, $dst, $src, FTP_BINARY)) return false;
 
-	$erg = ftp_get( $this->con, $dst, $src, FTP_BINARY);
 	$tim = ftp_mdtm($this->con, $src);
-
 	if ($tim > 1) touch ($dst, $tim);
-	return $erg;
+	return true;
 }
 
 // ***********************************************************

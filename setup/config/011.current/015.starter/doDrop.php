@@ -3,11 +3,10 @@
 // ***********************************************************
 HTW::xtag("files.kill");
 // ***********************************************************
-$dpf = ENV::getParm("dpf");
-$dpf = APP::relPath($dpf);
+$fil = ENV::getParm("dpf");
+$fil = APP::file($fil);
 
-if ($dpf) {
-	$dst = FSO::join(APP_DIR, $dpf);
+if ($fil) {
 	FSO::kill($dst);
 }
 
@@ -18,8 +17,7 @@ foreach ($app as $fil => $nam) {
 	if (STR::contains($nam, "index.php"))  continue;
 	if (STR::contains($nam, "x.css.php"))  continue;
 
-	$lnk = HTM::button("?dpf=$fil'>", $nam);
-	echo "<div style='margin-bottom: 3px;'>$lnk</div>";
+	HTW::button("?dpf=$fil", $nam);
 	$cnt++;
 }
 

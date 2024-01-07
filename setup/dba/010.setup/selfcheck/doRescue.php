@@ -25,10 +25,8 @@ if (! $cnf->act()) return;
 // ***********************************************************
 // create standard objects
 // ***********************************************************
-$dir = APP::relPath(__DIR__);
-
-include_once "$dir/exObjs.php";
-include_once "$dir/exPrivs.php";
-include_once "$dir/exAdmin.php";
+APP::inc(__DIR__, "exObjs.php");
+APP::inc(__DIR__, "exPrivs.php");
+APP::inc(__DIR__, "exAdmin.php");
 
 ?>

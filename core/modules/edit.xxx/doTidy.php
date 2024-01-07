@@ -15,7 +15,7 @@ $dir = $sel->ronly("dir", PGE::$dir);
 $act = $sel->show();
 
 $lng = CUR_LANG;
-$arr = FSO::ftree($dir, "*.$lng.*");
+$arr = FSO::fTree($dir, "*.$lng.*");
 
 // ***********************************************************
 // find & sweep files
@@ -23,8 +23,10 @@ $arr = FSO::ftree($dir, "*.$lng.*");
 $tdy = new tidyPage();
 
 foreach ($arr as $ful => $nam) {
-	$htm = APP::read($ful);
-	APP::write($ful, $tdy->get($htm));
+	$htm = $tdy->read($ful);
+	$htm = $tdy->restore($htm);
+
+	APP::write($ful, $htm);
 }
 
 ?>

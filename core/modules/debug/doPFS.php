@@ -1,6 +1,6 @@
 <?php
 
-$arr = PFS::getData("dat");
+$arr = PFS::data("dat");
 
 // ***********************************************************
 incCls("menus/tview.php");

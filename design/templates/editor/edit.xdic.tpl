@@ -1,6 +1,9 @@
 [include]
 LOC_TPL/editor/edit.tpl
 
+[register]
+LOC_SCR/clipboard.js
+
 [dic]
 xlate = Translation
 protected = File is write protected ...
@@ -38,25 +41,25 @@ rows = 7
 
 	<table>
 		<tr>
-			<td class="selHead"><!DIC:step!> 1:</td>
+			<td class="selHead"><!DIC:step!> 1</td>
 			<td class="selData"><!DIC:copy!>
 			</td>
 		</tr><tr>
-			<td class="selHead"><!DIC:step!> 2:</td>
+			<td class="selHead"><!DIC:step!> 2</td>
 			<td class="selData"><!DIC:paste!></td>
 		</tr><tr>
-			<td class="selHead"><!DIC:step!> 3:</td>
+			<td class="selHead"><!DIC:step!> 3</td>
 			<td class="selData"><!DIC:return!></td>
 		</tr><tr>
 			<td class="selHead">&nbsp;</td>
 			<td class="selData"><!SEC:ctarea!></td>
 		</tr><tr>
-			<td class="selHead"><!DIC:step!> 4:</td>
+			<td class="selHead"><!DIC:step!> 4</td>
 			<td class="selData"><!DIC:xlate!>
 				<input type="submit" name="act.xlate" value="<!DIC:apply!>" />
 			</td>
 		</tr><tr>
-			<td class="selHead"><!DIC:step!> 5:</td>
+			<td class="selHead"><!DIC:step!> 5</td>
 			<td class="selData"><!DIC:edit!>
 		</tr>
 	</table>

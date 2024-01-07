@@ -1,18 +1,15 @@
 <?php
 
-if (VMODE == "view") {
-	$dir = PGE::get("props.trg"); if (! is_dir($dir))
-	$dir = PFS::getPath($dir);
-	$xxx = ENV::setPage($dir);
-}
+DBG::file(__FILE__);
 
 // ***********************************************************
-// show new content
+if (VMODE != "view") return;
+
+$trg = PGE::get("props_red.trg");
+
 // ***********************************************************
-$txt = APP::gcSys($dir); if (! $txt) $txt = NV;
-
-echo $txt;
-
-PGE::restore();
+// show linked content
+// ***********************************************************
+echo "Redirected content: $trg";
 
 ?>

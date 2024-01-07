@@ -90,6 +90,12 @@ protected function manage($act, $fso) {
 	return $this->stripInf($out);
 }
 
+protected function getCat($act) {
+	if (STR::features("ren.rmd.dpf.mkd", $act))
+	return "block(s)";
+	return parent::getCat($act);
+}
+
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

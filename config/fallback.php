@@ -12,13 +12,11 @@ while ($par = dirname($par)) {
 }
 
 define("APP_DIR", $dir);
-define("APP_FBK", $fbk);
-
-define("APP_NAME", basename($dir));
+define("CMS_DIR", $fbk);
 
 // ***********************************************************
-// set include path
+// adapt include path
 // ***********************************************************
-set_include_path($dir.PATH_SEPARATOR.$fbk);
+set_include_path(APP_DIR.PATH_SEPARATOR.CMS_DIR);
 
 ?>

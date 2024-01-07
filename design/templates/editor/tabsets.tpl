@@ -30,7 +30,7 @@ std.always = Standard-Tab kann nicht ausgeblendet werden!
 		</tr>
 <!VAR:items!>
 		<tr class="rf">
-			<td colspan="100%" style="vertical-align: middle; text-align: right;">
+			<td colspan="100%" style="text-align: right;">
 				<input type="submit" name="set.act" value="OK" />
 			</td>
 		</tr>
@@ -45,7 +45,7 @@ std.always = Standard-Tab kann nicht ausgeblendet werden!
 		<input type="radio" name="tab.default" value="<!VAR:tab!>" <!VAR:default!> />
 	</td>
 	<td>
-		<!VAR:title!>
+		<div class="cbtext"><!VAR:title!></div>
 	</td>
 	<td align="center">
 		<label class="text">

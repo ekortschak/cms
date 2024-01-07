@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/print.gif
 url = ?dmode=print
+trg = prn
 
 [de]
 caption =

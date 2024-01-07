@@ -1,19 +1,14 @@
 [dic.en]
-default = Start page
-
-mnu.static = Menu is frozen ...
-page.props = Page proprties
-sys.exts = Extensions
-sys.files = Files
-sys.langs = Languages
-upl.count = Max. number
-upl.dest = Destination
-upl.files = Files
-upl.size = Max. size
-upl.types = Extensions
-upl.upload = Upload files
-
-sys.file = Sys.file*
-sys.lang = Sys.lang*
-sys.ext = Sys.ext*
-tab.props = Tab.props*
+default = Startseite*
+file.exists = Datei existiert bereits*
+mnu.static = Menü ist eingefroren ...*
+page.props = Seiten-Eigenschaften*
+sys.exts = Erweiterungen*
+sys.files = Dateien*
+sys.langs = Sprachen*
+upl.count = Max. Anzahl*
+upl.dest = Ziel*
+upl.files = Dateien*
+upl.size = Max. Größe*
+upl.types = Erweiterungen*
+upl.upload = Dateien hochladen*

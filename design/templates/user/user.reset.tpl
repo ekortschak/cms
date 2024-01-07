@@ -57,22 +57,22 @@ mis   = password mismatch
 
 	<table>
 		<tr>
-			<td style="vertical-align: middle">CUR_USER &emsp;</td>
+			<td>CUR_USER &emsp;</td>
 			<td><input type="text" name="crdu" value="<!VAR:user!>" size="20" readonly=1 /></td>
 		</tr>
 
 		<tr>
-			<td style="vertical-align: middle"><!DIC:old!> &emsp;</td>
+			<td><!DIC:old!> &emsp;</td>
 			<td><input type="password" name="opwd" autofocus></td>
 		</tr>
 
 		<tr>
-			<td style="vertical-align: middle"><!DIC:pwd!> &emsp;</td>
+			<td><!DIC:pwd!> &emsp;</td>
 			<td><input type="password" name="npwd"></td>
 		</tr>
 
 		<tr>
-			<td style="vertical-align: middle"><!DIC:chk!> &emsp;</td>
+			<td><!DIC:chk!> &emsp;</td>
 			<td><input type="password" name="cpwd"></td>
 		</tr>
 

@@ -8,8 +8,13 @@ w_body = Width
 w_toc = Width TOC
 w_tabs = Width Tabs
 w_mbar = Width Middle Bar
+w_opts = Width Options
 h_menu = Height Menu
 outline = Outline color
+br_img  = Borderradius Images
+br_text = Borderradius Text
+br_menu = Borderradius Menues
+br_inp  = Borderradius Input
 
 [dic.de]
 fonts   = Schriftarten
@@ -21,9 +26,13 @@ w_body = Breite Textausgabe
 w_toc = Breite Inhaltsverz.
 w_tabs = Breite Tabs
 w_mbar = Breite Mittelsteg
+w_opts = Breite Optionen
 h_menu = Höhe Menü
 outline = Linienfarbe
-
+br_img  = Eckenradius Bilder
+br_text = Eckenradius Text
+br_menu = Eckenradius Menüs
+br_inp  = Eckenradius Eingabe
 
 [fonts]
 F_SIZE = 1rem
@@ -34,10 +43,15 @@ W_BODY = 43rem
 W_TABS = 3rem
 W_TOC  = 22rem
 W_MBAR = 70px
-H_MENU = 0px
-
+W_OPTS = 300px
 W_MIN  = 15rem
+
+H_MENU = 0px
 H_LINE = 1.5rem
 
 [borders]
 OUTLINE = \#AAA
+BR_IMG  = 7px
+BR_TEXT = 7px
+BR_MENU = 10px
+BR_INP  = 5px

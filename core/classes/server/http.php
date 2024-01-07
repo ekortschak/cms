@@ -8,7 +8,7 @@ used for synchronizing fs via http
 // HOW TO USE
 // ***********************************************************
 $htp = new http();
-$erg = $htp->query($act, $dir);
+$res = $htp->query($act, $dir);
 
 */
 

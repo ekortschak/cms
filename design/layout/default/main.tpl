@@ -1,3 +1,4 @@
+
 [dic]
 lang  = english, en
 
@@ -15,7 +16,7 @@ title = PRJ_TITLE
 
 <html lang="CUR_LANG">
 <head>
-	<title><!VAR:title!></title>
+	<title><!SEC:title!></title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="expires" content="0" />
 
@@ -35,12 +36,18 @@ title = PRJ_TITLE
 # last to execute
 # ***********************************************************
 [styles]
-<link rel="StyleSheet" href="x.css.php?layout=LAYOUT" type="text/css" />
+<link rel="StyleSheet" href="CSS_URL?layout=LAYOUT" type="text/css" />
 <!MOD:zzz.styles!>
 
 [scripts]
 <!MOD:zzz.scripts!>
 
+
+# ***********************************************************
+# adaptables
+# ***********************************************************
+[title]
+<!VAR:title!>
 
 # ***********************************************************
 [layout] <!-- layout -->
@@ -49,8 +56,9 @@ title = PRJ_TITLE
 	<div class="modTabs"><!SEC:tabs!></div>
 	<div class="modToc" ><!SEC:toc!> </div>
 	<div class="modMbar"><!SEC:mbar!></div>
-	<div>
+	<div class="colMain">
 		<div class="joker"><!SEC:joker!></div>
+		<div class="titBody"><!SEC:head!></div>
 		<div class="modBody"><!SEC:body!></div>
 	</div>
 	<div class="modBord"><!SEC:bord!></div>
@@ -79,6 +87,7 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [toc] <!-- toc -->
+<!MOD:toc.topics!>
 <!MOD:toc!>
 <!MOD:toc.blocks!>
 
@@ -86,13 +95,12 @@ title = PRJ_TITLE
 [mbar] <!-- middle bar -->
 
 # ***********************************************************
-[body] <!-- body -->
+[head] <!-- sticky info -->
 <!MOD:body.head!>
-
-<div id="scView">
 <!MOD:body.feedback!>
+
+[body] <!-- body -->
 <!MOD:body!>
-</div>
 
 # ***********************************************************
 [bord] <!-- border right -->

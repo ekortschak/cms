@@ -1,0 +1,45 @@
+/* ******************************************************** */
+/* standard tags */
+/* ******************************************************** */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0px;
+	border: 0px;
+}
+
+h4, h5, h6 {
+	font-size: 1em;
+	font-style: italic;
+	text-decoration: none;
+}
+
+/* ******************************************************** */
+h1 { margin-top: 2em; }
+h2 { margin-top: 1.25em; }
+h3 { margin-top: 1em; }
+h4 { margin-top: 0.65em; }
+h5 { margin-top: 0.5em; }
+h6 { margin-top: 0.5em; }
+
+div h3:first-of-type {
+	margin: 0px 0px 7px;
+}
+
+/* ******************************************************** */
+hx, hy, hz {
+	margin: 0.65em 0px 0px;
+}
+
+hx {
+#	font-variant: small-caps;
+	font-style: normal;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+hy, hz {
+#	margin-top: 0.5em;
+
+#	font-variant: small-caps;
+	font-style: italic;
+	text-decoration: underline;
+}

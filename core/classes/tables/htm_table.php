@@ -47,7 +47,7 @@ public function addCol($col, $inf = array()) {
 }
 
 public function setHeads($colheads) {
-	$arr = STR::slice($colheads, ","); $cnt = 0;
+	$arr = STR::split($colheads, ","); $cnt = 0;
 
 	foreach ($arr as $val)
 		$this->cls->setProp($cnt++, "head", $val);

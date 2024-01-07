@@ -1,17 +1,15 @@
 <?php
 
-if (isset($_GET["layout"])) define("LAYOUT", $_GET["layout"]);
+if (isset($_GET["layout"])) {
+	define("LAYOUT", $_GET["layout"]);
+}
 
 // ***********************************************************
 // load working dirs
 // ***********************************************************
-include_once "config/fallback.php";
-
-if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
-if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
-
-require_once("include/constants.php");
-require_once("include/funcs.php");
+require_once "include/fallback.php";
+require_once "include/constants.php";
+require_once "include/funcs.php";
 
 // ***********************************************************
 // load basic classes (mostly static)
@@ -26,11 +24,6 @@ incCls("system/APP.php"); // app specific functions
 // ***********************************************************
 incCls("system/CFG.php"); // prepare constants
 CFG::setIf("layout");
-
-// ***********************************************************
-// start session
-// ***********************************************************
-incCls("system/SSV.php"); // session vars
 
 // ***********************************************************
 // create css output

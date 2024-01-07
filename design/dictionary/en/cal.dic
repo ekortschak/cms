@@ -1,0 +1,42 @@
+[dic.en]
+day.1 = Mon
+day.2 = Tue
+day.3 = Wed
+day.4 = Thu
+day.5 = Fri
+day.6 = Sat
+day.7 = Sun
+
+day.1.l = Monday
+day.2.l = Tuesday
+day.3.l = Wednesday
+day.4.l = Thursday
+day.5.l = Friday
+day.6.l = Saturday
+day.7.l = Sunday
+
+mon.1 = Jan
+mon.2 = Feb
+mon.3 = Mar
+mon.4 = Apr
+mon.5 = Mai
+mon.6 = Jun
+mon.7 = Jul
+mon.8 = Aug
+mon.9 = Sep
+mon.10 = Oct
+mon.11 = Nov
+mon.12 = Dec
+
+mon.1.l = Jannuary
+mon.2.l = February
+mon.3.l = March
+mon.4.l = April
+mon.5.l = Mai
+mon.6.l = June
+mon.7.l = July
+mon.8.l = August
+mon.9.l = September
+mon.10.l = October
+mon.11.l = November
+mon.12.l = December

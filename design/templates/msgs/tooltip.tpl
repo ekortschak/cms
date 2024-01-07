@@ -8,7 +8,7 @@
 # ***********************************************************
 [common]
 # ***********************************************************
-<div class="dropdown">
-<div class="droptext"><!VAR:key!>COMBO_DOWN &emsp;</div>
-<div class="dropbody"><pre><!VAR:tip!></pre></div>
+<div class="dropdown dbg">
+<div class="droptext"><!VAR:key!>COMBO_DOWN</div>
+<div class="dropbody pre"><!VAR:tip!></div>
 </div>

@@ -23,13 +23,13 @@ function __construct() {
 // methods
 // ***********************************************************
 protected function exec() {
-	$dir = ENV::getPage();
+	$dir = ENV::get("curDir"); if (! is_dir($dir)) return;
 
 	$act = $this->get("meta.act"); if (! $act) return;
 	$dat = $this->get("data");
 	$oid = $this->get("oid");
 
-	$wht = OID::get($oid, "what");   if (! $wht) return;
+	$wht = OID::get($oid, "what"); if (! $wht) return;
 
 	if ($wht == "desc")
 	$dat = STR::replace($dat, "\n", "_\n");

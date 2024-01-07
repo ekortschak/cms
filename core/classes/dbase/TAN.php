@@ -79,9 +79,9 @@ public static function exec() {
 	$qid = TAN::get("prop.recid");
 
 	$vls = TAN::getVals($arr);
-	$erg = TAN::doQuery($dbs, $tbl, "ID='$qid'", $vls);
+	$res = TAN::doQuery($dbs, $tbl, "ID='$qid'", $vls);
 	$xxx = TAN::close();
-	return $erg;
+	return $res;
 }
 
 private static function getVals($arr) {

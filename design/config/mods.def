@@ -1,39 +1,43 @@
 [dic]
 print = Print
 csv = CSV download
-pedit = Edit page
-xedit = Advanced editing
 medit = Edit menu
+pedit = Edit page
+xlate = Translate pages
+xedit = Advanced editing
+
 tedit = Edit tabs
-seo   = Search Engine Optimization
 xfer  = Backup & more
+seo   = Search Engine Optimization
 debug = Debug
 search = Search
 login = Login
 uinfo = User-Info
 man   = Manual
-seo   = SEO
 fback = Feedback
+pres  = Presentation
 
 show  = Show
 edit  = Edit
 
 [dic.de]
+print = Seiten drucken
 csv = CSV download
-print = Dateien drucken
-pedit = Dateien bearbeiten
-xedit = Erweitertes bearbeiten
 medit = Menüs bearbeiten
+pedit = Seiten bearbeiten
+xlate = Seiten übersetzen
+xedit = Erweitertes bearbeiten
+
 tedit = Bearbeiten
 xfer  = Sichern & mehr
-seo   = Suchmaschinenoptimierung
+seo   = SE-Optimierung
 debug = Fehlersuche
 search = Suchen
 login = Einloggen
 uinfo = User-Info
 man   = Handbuch
-seo   = SE-Optimierung
 fback = Feedback
+pres  = Präsentation
 
 show  = Anzeigen
 edit  = Bearbeiten
@@ -45,6 +49,7 @@ tedit  = 0|1
 search = 0|1
 
 [uopts]
+pres  = 0|1
 print = 0|1
 csv   = 0|1
 man   = 0|1
@@ -53,12 +58,13 @@ uinfo = 0|1
 fback = 0|1
 
 [eopts]
-pedit = 0|1
-xedit = 0|1
 medit = 0|1
+pedit = 0|1
+xlate = 0|1
+xedit = 0|1
+seo   = 0|1
 xfer  = 0|1
 debug = 0|1
-seo   = 0|1
 
 [setup]
 show  = 0|1

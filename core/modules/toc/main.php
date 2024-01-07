@@ -1,7 +1,9 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
 incMod("toc/banner.php");
-incMod("toc/topics.php");
 incMod("toc/current.php");
 
 switch (TAB_TYPE) {

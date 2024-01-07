@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/screwdriver.png
-url = config.php?vmode=view
+url = ?tabset=config&vmode=view
+hilite = TAB_SET == "config"
 
 [de]
 caption =

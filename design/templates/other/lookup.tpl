@@ -9,15 +9,15 @@ color = FC_BODY
 
 
 [lookup]
-<refbox style="color: <!VAR:color!>;"><!VAR:caption!>
-<refbody><b><!VAR:key!></b><br><!VAR:info!></refbody>
-</refbox><nolf>
+<refbox style="color: <!VAR:color!>;"><!VAR:caption!> _
+<refbody><b><!VAR:key!></b><br><!VAR:info!></refbody> _
+</refbox>
 
 [xsite]
-<!VAR:caption!><nolf>
+<!VAR:caption!>
 
 [doc]
-<!VAR:caption!> {dt: <!VAR:info!>}<nolf>
+<!VAR:caption!> {dt: <!VAR:info!>}
 
 [pdf]
 <lookup><!VAR:caption!> <hint>(<!VAR:info!>)</hint></lookup>

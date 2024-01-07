@@ -41,7 +41,7 @@ function __construct($mod = "t") {
 	$this->mod = "f";
 
 	$this->forget();
-	$this->readIni();
+	$this->readDef();
 }
 
 // ***********************************************************
@@ -67,7 +67,7 @@ public function edit() {
 // ***********************************************************
 private function showMenu($act) {
 	$box = new dropDbo();
-	$this->dbs = $box->getDbase();
+// TODO: $this->dbs = $box->getDbase();
 $this->dbs = "default";
 	$this->tbl = $box->getTable($this->dbs); if ($this->mod == "f")
 	$this->fld = $box->getField($this->dbs, $this->tbl);
@@ -84,7 +84,7 @@ private function readInfo() {
 }
 
 // ***********************************************************
-private function readIni() {
+private function readDef() {
 	$fil = "LOC_CFG/db.tables.def"; if ($this->mod == "f")
 	$fil = "LOC_CFG/db.fields.def";
 

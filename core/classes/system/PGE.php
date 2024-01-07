@@ -5,202 +5,144 @@
 page related functionality
 */
 
-incCls("menus/tabsets.php");
-incCls("menus/topics.php");
 incCls("menus/tabs.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class PGE {
-	public static $dir = false;
+	public static $dir = false;    // selected pfs directory
 
-	private static $sets = ""; // tabsets
-	private static $tabs = ""; // tabs
-	private static $tpcs = ""; // topics
-
-	private static $tpc = "";  // current topic
-	private static $pge = "";  // current page props
+	private static $top = false;   // dir with actual focus (selected from menu)
+	private static $inf = array(); // current page props
+	private static $typ = "inc";   // current page type
 
 
 public static function init() {
-	$idx = APP_IDX;
-	$tab = PGE::getTab();
-	$typ = PGE::getTabType($tab);
-	$tpc = PGE::getTopic($tab, $typ);
-	$pge = PGE::getPage($tpc);
-
-	if ($typ != "sel") $tab = $tpc;
-
-	CFG::set("TAB_HOME", $tpc);
-	CFG::set("TAB_ROOT", APP::dir($tab.DIR_SEP));
-	CFG::set("TAB_PATH", APP::dir($tpc.DIR_SEP));
-	CFG::set("TAB_TYPE", $typ);
-	CFG::set("CUR_TAB",  APP::relPath($tpc));
-
-	ENV::set("tab.$idx", $tab);
-	ENV::set("tpc.$tab", $tpc);
-	ENV::set("pge.$tpc", $pge);
+	PGE::$top = PGE::$dir = ENV::getPage();
 }
 
 // ***********************************************************
-// handling page props
+// setting focus
 // ***********************************************************
-public static function load($dir) {
-	PGE::$dir = $dir;
-
-	$ini = new ini($dir);
-	PGE::$pge = $ini->getValues();
-}
-
-public static function get($key, $default = false) {
-	return VEC::get(PGE::$pge, $key, $default);
-}
-
-// ***********************************************************
-public static function incFile() {
-	$act = PGE::get("props.typ", "include");
-
-	$out = "$act.php";
-	$ful = FSO::join(LOC_MOD, "body", $out);
-	if (APP::file($ful)) return $out;
-
-	switch (STR::left($act)) {
-		case "roo": return "include.php";  // root
-		case "inc": return "include.php";  // default mode
-
-		case "mim": return "mimeview.php"; // show files
-		case "dow": return "download.php"; // download
-		case "gal": return "gallery.php";  // show files
-		case "upl": return "upload.php";   // upload
-		case "cam": return "livecam.php";  // camera
-		case "tut": return "tutorial.php"; // tutorial
-		case "red": return "redirect.php"; // redirection to another local directory
-		case "url": return "links.php";    // list of external links
-
-		case "dbt": return "dbtable.php";  // database table
-
-		case "col": // collection of files in separate dirs
-			if (VMODE != "xfer") return "collect.php";
-			return "collect.xsite.php";
-	}
-	return "invalid.php";
+public static function restore() {
+	$dir = PFS::findDir(PGE::$top);
+	PGE::load($dir);
 }
 
 public static function isCurrent($dir) {
-	return ($dir == PGE::$dir);
-}
-
-public static function restore() {
- 	ENV::setPage(PGE::$dir);
+	return ($dir === PGE::$dir);
 }
 
 // ***********************************************************
-// tab related methods
+// loading page props
 // ***********************************************************
-public static function tabsets() {
-#	return CFG::getValues("tabsets:".APP_CALL);
+public static function load($dir) {
+	ENV::set("curDir", $dir);
+	PGE::$inf = array(); if (! is_dir($dir)) return;
 
-	$tbs = new tabsets();
-	return $tbs->getTabs(APP_CALL);
-}
-public static function tabsetsVis() {
-	$tbs = new tabsets();
-	return $tbs->visTabs(APP_CALL);
-}
-public static function tabsetsVerify($set, $tab) {
-	$tbs = new tabsets();
-	return $tbs->verify($set, $tab);
+	$ini = new ini($dir); // = $dir/page.ini
+	PGE::$typ = $ini->getType();
+	PGE::$inf = $ini->getValues();
+	PGE::$dir = $dir;
 }
 
-public static function topics() {
-	$tab = new topics();
-	return $tab->getTopics();
-}
-public static function topicsVerify($tab, $std) {
-	$arr = PGE::topics($tab);
+public static function loadPFS($dir = NV) {
+	$uid = PFS::find($dir);
+	$inf = PFS::item($uid);
 
-	$std = FSO::join($tab, $std);
-	$chk = VEC::get($arr, $std, NV); if ($chk === NV)
-	$std = array_key_first($arr);
-	return $std;
-}
-
-// ***********************************************************
-// auxilliary methods for tabs
-// ***********************************************************
-private static function getTab() {
-	$tpc = ENV::getParm("tpc"); if ($tpc) {
-		return dirname($tpc);
+	foreach ($inf as $key => $val) {
+		PGE::$inf["pfs.$key"] = $val;
 	}
-	$tab = ENV::getParm("tab");      if ($tab) return $tab;
-	$tab = ENV::get("tab.".APP_IDX); if ($tab) return $tab;
-	$set = basename(APP_IDX);
-
-	$arr = CFG::getValues("tabsets:$set");
-	$lst = VEC::flip($arr);
-	$tab = VEC::get($lst, "default"); if ($tab) return $tab;
-	return key($arr);
 }
 
 // ***********************************************************
-private static function getTabType($tab) {
-	$ini = new ini("$tab/tab.ini");
-	$typ = $ini->getType("root");
-	$std = $ini->get("props.std");
-
-	if ($typ == "sel") PGE::$tpc = basename($std);
-	return $typ;
+// retrieving page props
+// ***********************************************************
+public static function get($key, $default = false) {
+	return VEC::get(PGE::$inf, $key, $default);
 }
 
-// ***********************************************************
-private static function getTopic($tab, $typ) {
-	$tpc = ENV::getParm("tpc");  if ($tpc) return $tpc;
-	$tpc = ENV::get("tpc.$tab"); if ($tpc) return $tpc;
-
-	if ($typ != "sel") return $tab;
-	return FSO::join($tab, PGE::$tpc);
-}
-
-// ***********************************************************
-// auxilliary methods for pages
-// ***********************************************************
-private static function getPage($tab) {
-	$pge = ENV::getParm("pge");  if ($pge) return $pge;
-	$pge = ENV::get("pge.$tab"); if ($pge) return $pge;
-
-	$ini = new ini("$tab/tab.ini");
-	$pge = $ini->get("props.std");
-	return $pge;
-}
-
-private static function langProp($prop) {
-	foreach (LNG::getRel() as $lng) {
-		$out = PGE::get("$lng.$prop"); if ($out) return $out;
+public static function dir() {
+	switch (PGE::$typ) {
+		case "red":
+			$trg = PGE::get("props_red.trg");
+			return FSO::join(APP_ROOT, $trg);
 	}
-	return PGE::get($prop, false);
+	$out = PGE::$dir;                 if (is_dir($out)) return $out;
+	$out = FSO::join(APP_ROOT, $out); if (is_dir($out)) return $out;
+	MSG::err("Path? $dir");
+}
+
+public static function level() {
+	$loc = PGE::$dir;
+	$dir = STR::after($loc, TAB_HOME); if (! $dir) return false;
+	return FSO::level($dir);
+}
+public static function props($sec = "") {
+	return VEC::match(PGE::$inf, $sec);
+}
+
+public static function pic($dir = false) {
+	if (! $dir) $dir = PGE::dir();
+
+	$pic = APP::files($dir, "pic.png, pic.jpg, pic.gif");
+	return APP::file(key($pic));
+}
+
+// ***********************************************************
+// include files
+// ***********************************************************
+public static function incFile() {
+	$act = PGE::type();
+
+	if ($act == "red") {
+		$trg = PGE::dir();
+		$act = PGE::type($trg);
+	}
+	if ($act == "roo") return "include.php";  // default mode
+	if ($act == "inc") return "include.php";  // default mode
+	if ($act == "col") return "collect.php";  // collection of files in separate dirs
+
+	if ($act == "mim") return "mimeview.php"; // show files
+	if ($act == "dow") return "download.php"; // download
+	if ($act == "gal") return "gallery.php";  // show files
+	if ($act == "upl") return "upload.php";   // upload
+	if ($act == "cam") return "livecam.php";  // camera
+	if ($act == "tut") return "tutorial.php"; // tutorial
+	if ($act == "url") return "links.php";    // list of external links
+
+	if ($act == "dbt") return "dbtable.php";  // database table
+	if ($act == "cal") return "calpage.php";  // calender page
+
+	return "invalid.php";
 }
 
 // ***********************************************************
 // common ini related tasks
 // ***********************************************************
-public static function getType($fso = false) {
-	return PGE::getAny($fso, "getType", "inc");
+public static function UID($fso = false) {
+	return PGE::find($fso, "getUID");
 }
-public static function getTitle($fso = false) {
-	return PGE::getAny($fso, "getHead");
+public static function type($fso = false) {
+	return PGE::find($fso, "getType", "inc");
 }
-public static function getUID($fso = false) {
-	return PGE::getAny($fso, "getUID");
-}
-public static function getValues($fso = false, $sec = "*") {
-	return PGE::getAny($fso, "getValues", $sec);
+public static function title($fso = false) {
+	return PGE::find($fso, "getHead");
 }
 
-private static function getAny($fso, $fnc, $prm = false) {
-	if (! $fso) $fso = PGE::$dir;
+// ***********************************************************
+private static function find($fso, $fnc, $prm = false) {
+	if (! $fso) $fso = PGE::dir();
 	$ini = new ini($fso);
 	return $ini->$fnc($prm);
+}
+
+// ***********************************************************
+// debug
+// ***********************************************************
+public static function dump() {
+	DBG::tview(PGE::$inf, "PGE::\$inf");
 }
 
 // ***********************************************************

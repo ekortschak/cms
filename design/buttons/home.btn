@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/buttons/file.png
+url = ?tabset=&vmode=view
+hilite = TAB_SET != "config"
+
+[de]
+caption =
+tooltip = Zurück zur Standard-Ansicht.
+
+[en]
+caption =
+tooltip = Returns to the default view.

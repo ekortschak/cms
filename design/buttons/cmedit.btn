@@ -1,0 +1,12 @@
+[props]
+pic = n =
+pic = LOC_ICO/buttons/edit.menu.png
+url = ?vmode=cmedit
+
+[de]
+caption =
+tooltip = Wechsetl zum Menü-Editor für den Setup-Bereich.
+
+[en]
+caption =
+tooltip = Switches to menu editor mode for setup pages.

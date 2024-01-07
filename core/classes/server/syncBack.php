@@ -49,7 +49,7 @@ public function restore() {
 	$dir = $box->getKey("as of", $vrs);
 	$mnu = $box->gc();
 
-	$this->source($dir);
+	$this->setSource($dir);
 	$this->set("choices", $mnu);
 	$this->run("restore");
 }

@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/google.png
-url = x.edit.php?vmode=seo
+url = ?vmode=seo
+hilite = VMODE == "seo"
 
 [de]
 caption =

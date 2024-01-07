@@ -51,7 +51,7 @@ TIMEOUT = range: 15-180
 
 [environment]
 WWW_USER = www-data
-CMS_URL = /cms
+CMS_URL = /www/cms
 
 [debugging]
 ERR_SHOW = 0|1

@@ -31,6 +31,14 @@ public static function init() {
 }
 
 // ***********************************************************
+// retrieving correspondig files
+// ***********************************************************
+public static function file($file, $lang) {
+	$cur = CUR_LANG;
+	return STR::replace($file, ".$cur.", ".$lang.");
+}
+
+// ***********************************************************
 // retrieving available languages
 // ***********************************************************
 public static function get($lang = CUR_LANG) {

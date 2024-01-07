@@ -25,31 +25,32 @@
 /* ******************************************************** */
 /* toc hierarchy */
 /* ******************************************************** */
-.lev1, .lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {
+.topic, .lev1, .lev2, .lev3, .lev4, .lev5, .lev6, .lev7, .lev8, .lev9 {
 	display: block;
 }
 
-.lev1 {
+.topic {
 	margin: 0px 0px 10px;
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	padding: 7px 7px 3px;
 
 	background: BC_DROP;
 	font-size: 1.2em;
 }
-.lev2 {
+.lev1 {
+	background-position: 5px top; padding-left:  25px;
 	font-size: 1em;
 }
 
-.lev2 { background-position:  5px top; padding-left: 25px; }
-.lev3 { background-position: 15px top; padding-left: 35px; }
-.lev4 { background-position: 25px top; padding-left: 45px; }
-.lev5 { background-position: 35px top; padding-left: 55px; }
-.lev6 { background-position: 45px top; padding-left: 65px; }
-.lev7 { background-position: 55px top; padding-left: 75px; }
-.lev8 { background-position: 65px top; padding-left: 85px; }
-.lev9 { background-position: 75px top; padding-left: 95px; }
+.lev2 { background-position: 15px top; padding-left:  35px; }
+.lev3 { background-position: 25px top; padding-left:  45px; }
+.lev4 { background-position: 35px top; padding-left:  55px; }
+.lev5 { background-position: 45px top; padding-left:  65px; }
+.lev6 { background-position: 55px top; padding-left:  75px; }
+.lev7 { background-position: 65px top; padding-left:  85px; }
+.lev8 { background-position: 75px top; padding-left:  95px; }
+.lev9 { background-position: 85px top; padding-left: 105px; }
 
 /* ******************************************************** */
 /* folders */
@@ -83,10 +84,33 @@
 .sel {
 	color: FC_MARK;
 	background: BC_MARK;
-	border-radius: 5px;
+	border-radius: BR_INP;
 }
 
 .hidden > a {
 	color: FC_DEAD;
 	background: BC_DEAD;
 }
+
+.redir {
+}
+.redir::after {
+	font-weight: normal;
+	color: green;
+	content: " <<< ";
+}
+
+.open {
+	background-position-Y: bottom;
+}
+.closed {
+	background-position-Y: top;
+}
+
+.show {
+	display: block;
+}
+.hide {
+	display: none;
+}
+

@@ -28,8 +28,8 @@
 .cold, .hot {
 	overflow: auto;
 	border: 1px solid OUTLINE;
-	border-radius: 15px;
-	padding: 7px 15px 25px;
+	border-radius: BR_MENU;
+	padding: 7px BR_MENU 25px;
 	min-height: 1.5rem;
 	max-height: 75vh;
 }

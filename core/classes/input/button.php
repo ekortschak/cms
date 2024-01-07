@@ -65,9 +65,14 @@ public function read($btn) {
 	$cod->read($fil);
 	$this->merge($cod->getValues());
 
+	$sel = $this->get("props.hilite", "");
+	$sel = HTM::php_cond($sel);
+	$sel = ($sel) ? "selected" : "";
+
 	$this->set("pic",     $this->get("props.pic"));
 	$this->set("link",    $this->get("props.url"));
-	$this->set("target",  $this->get("props.trg"));
+	$this->set("target",  $this->get("props.trg", "_self"));
+	$this->set("hilite",  $sel);
 	$this->set("caption", $this->lng("caption")); if ($tip)
 	$this->set("tip",     $this->lng("tooltip"));
 }

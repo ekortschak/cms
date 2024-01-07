@@ -16,7 +16,7 @@ incCls("editor/iniMgr.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class editIni extends editText  {
+class editIni extends editText {
 
 function __construct() {}
 

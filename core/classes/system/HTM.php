@@ -16,7 +16,16 @@ HTW::ytube($ytid, "title", $len");
 // BEGIN OF CLASS
 // ***********************************************************
 class HTM  {
-	private static $tpl;
+
+
+// ***********************************************************
+// handling php snips
+// ***********************************************************
+public static function php_cond($code) {
+	if (! $code) return;
+	eval("\$out = ($code);");
+	return $out;
+}
 
 // ***********************************************************
 // handling standard objects
@@ -24,7 +33,10 @@ class HTM  {
 public static function tag($text, $tag = "h4") {
 	if (! $text) return "";
 	if (is_array($text)) $text = print_r($text, true);
-	return "<$tag>$text</$tag>\n";
+
+	$end = STR::before($tag, " ");
+
+	return "<$tag>$text</$end>\n";
 }
 
 public static function xtag($text, $tag = "h4") {
@@ -66,6 +78,13 @@ public static function vspace($size) {
 	return "<div style='margin-top: ".$siz."px;'></div>";
 }
 
+public static function prvPic($fil = "") {
+	$tpl = new tpl();
+	$tpl->load("other/stdObjs.tpl");
+	$tpl->set("link", $fil);
+
+	return $tpl->gc("thumbR");
+}
 // ***********************************************************
 } // END OF CLASS
 // ***********************************************************

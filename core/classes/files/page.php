@@ -22,7 +22,7 @@ incCls("files/iniTab.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class page extends tpl {
-	private $mod = array("app", "zzz");	// array of modules called by layout and defined by modules/*/main.php
+	protected $mod = array("app", "zzz");	// array of modules called by layout and defined by modules/*/main.php
 
 function __construct() {
 	parent::__construct();
@@ -47,19 +47,19 @@ public function setModules() {
 	}
 }
 
-private function getModules() {
+protected function getModules() {
 	$app = VEC::get($this->mod, "app", array());
 	$zzz = VEC::get($this->mod, "zzz", array());
 	return $app + $zzz;
 }
 
-private function addModule($mod, $idx) {
+protected function addModule($mod, $idx) {
 	$ful = FSO::join(LOC_MOD, $mod, "main.php");
 	$ful = APP::file($ful);
 	$this->mod[$idx][$mod] = $ful;
 }
 
-private function findModules() {
+protected function findModules() {
 	$tpl = parent::gc();
 	$out = STR::find($tpl, "<!MOD:", "!>");
 	return $out;
@@ -87,53 +87,47 @@ public function gc($sec = "main") {
 	foreach ($arr as $key => $fil) { // fill in modules
 		$mod = "<!MOD:$key!>"; if (STR::misses($htm, $mod)) continue;
 		$val = APP::gcFile($fil);
-
-		$htm = str_ireplace($mod, "$val\n", $htm);
+		$htm = STR::replace($htm, $mod, "$val\n", false);
 	}
-	$htm = $this->solveLinks($htm, 'src="');
-	$htm = $this->solveLinks($htm, "src='");
-	$htm = $this->solveLinks($htm, 'href="');
-	$htm = $this->solveLinks($htm, "href='");
-
-	$htm = $this->cleanChars($htm);
+	$htm = $this->cleanUp($htm);
 	$htm = $this->unescape($htm);
 
-	$htm = STR::replace($htm, "ANCHOR", ANCHOR);
+	$htm = STR::replace($htm, "CUR_PAGE", PGE::$dir);
+	$htm = STR::replace($htm, "_§_", "_");
+	$htm = STR::clear($htm, DOC_ROOT);
 	return STR::dropSpaces($htm);
 }
 
 // ***********************************************************
 // resolve file references and constants
 // ***********************************************************
-private function solveLinks($htm, $sep) {
+protected function cleanUp($htm) {
+	$htm = $this->solveLinks($htm, 'src="');
+	$htm = $this->solveLinks($htm, "src='");
+	$htm = $this->solveLinks($htm, 'href="');
+	$htm = $this->solveLinks($htm, "href='");
+
+	return $this->cleanChars($htm);
+}
+
+protected function solveLinks($htm, $sep) {
 	$arr = STR::find($htm, $sep, str_split("'\"?"));
 
 	foreach ($arr as $fil) {
-		$url = $this->makeUrl($fil); if (! $url) continue;
+		$url = APP::file($fil); if (! $url) continue;
+		$url = APP::url($url);
 		$htm = STR::replace($htm, $sep.$fil, $sep.$url);
 	}
 	return $htm;
 }
 
-// ***********************************************************
-public static function makeUrl($fso) { // convert file to url
-	if (FSO::isUrl($fso)) return ""; if (! $fso) return "";
-
-	if (STR::begins($fso, "./")) { // e.g. local pics
-		$fil = STR::after($fso, "./");
-		return FSO::join(PGE::$dir, $fil);
-	}
-	return APP::url($fso);
-}
-
-// ***********************************************************
-private function unescape($code) {
+protected function unescape($code) {
 	$out = STR::replace($code, "<|", "<!");
 	return $out;
 }
 
 // ***********************************************************
-private function cleanChars($code) {
+protected function cleanChars($code) {
 	if (CUR_LANG != "de") return $code;
 
 	$out = STR::replace($code, "(CR)", "&copy;");
@@ -144,7 +138,7 @@ private function cleanChars($code) {
 		"ü" => "&uuml;", "Ü" => "&Uuml;",
 	);
 	foreach ($fnd as $key => $val) {
-		$out = str_replace($key, $val, $out);
+		$out = STR::replace($out, $key, $val);
 	}
 	return $out;
 }

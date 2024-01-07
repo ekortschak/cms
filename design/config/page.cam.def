@@ -9,5 +9,5 @@ ip = Kamera IP
 
 
 # additional properties
-[props]
+[props_cam]
 ip =

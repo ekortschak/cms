@@ -1,14 +1,23 @@
 /* ******************************************************** */
 /* standard tags */
 /* ******************************************************** */
-h1, h2, h3, h4, h5, h6 {
-	margin: 15px 0px 7px;
+h0, h1, h2, h3, h4, h5, h6 {
+	margin: 20px 0px 7px;
 	color: FC_HEAD;
 }
-h4, hx {
+h2, h3, h4 {
+	margin: 12px 0px 7px;
+}
+
+h0 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+h4 {
 	border-bottom: 1px solid;
 }
-h5, h6, hy {
+h5, h6 {
 	margin: 5px 0px 3px;
 
 	font-size: 1em;
@@ -17,19 +26,11 @@ h5, h6, hy {
 	text-decoration: underline;
 }
 
+/* ******************************************************** */
 h1:first-of-type,
 h2:first-of-type,
-h3:first-of-type {
-	margin: 0px 0px 7px;
-}
 
-hx, hy {
-	display: block;
-	font-size: 1em;
-	color: FC_BODY;
-	margin-bottom: 5px;
-}
-
+/* ******************************************************** */
 p {
 	margin: 3px 0px 7px;
 	text-align: justify;
@@ -38,7 +39,7 @@ p {
 blockquote {
 	margin: 3px 0px 12px;
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 	padding: 5px 10px;
 }
 
@@ -91,6 +92,9 @@ a.norm {
 sup, sub {
 	font-size: 0.6em;
 }
+sub {
+	vertical-align: bottom;
+}
 
 /* ******************************************************** */
 /* other */
@@ -104,5 +108,5 @@ details-content {
 	margin: 0px 18px;
 	padding: 3px 10px 5px;
 	border: 1px solid OUTLINE;
-	border-radius: 7px;
+	border-radius: BR_TEXT;
 }

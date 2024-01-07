@@ -41,10 +41,9 @@ ERR::mode(0);
 class ERR {
 	private static $err = array(); // error information
 	private static $hst = array(); // trace history
-
-    private static $depth = 7;  // call stack depth to display
 	private static $done = 0;	// only first error will be displayed
 
+    const DEPTH = 7;  // call stack depth to display
 
 // ***********************************************************
 // add messages
@@ -133,7 +132,7 @@ public static function trace() {
 }
 
 private static function getStack($sec = "short") {
-	$arr = ERR::getList(0, ERR::$depth); // get list of calling functions
+	$arr = ERR::getList(0, ERR::DEPTH); // get list of calling functions
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
@@ -151,7 +150,7 @@ private static function getStack($sec = "short") {
 // reading backtrace info into array
 // ***********************************************************
 private static function getList($fst = 0, $cnt = NV) {
-	if ($cnt === NV) $cnt = ERR::$depth;
+	if ($cnt === NV) $cnt = ERR::DEPTH;
 
 	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";
@@ -198,7 +197,7 @@ private static function fmtMsg($msg) {
 private static function fmtFName($file) {
 	$ful = APP::relPath($file); // reduce path
 	$fil = basename($file);
-	return str_replace($fil, "<b>$fil</b>", $ful);
+	return STR::replace($ful, $fil, "<b>$fil</b>");
 }
 
 private static function fmtArgs($arg, $max = 250) {

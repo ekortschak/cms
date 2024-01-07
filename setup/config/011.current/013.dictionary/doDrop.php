@@ -3,12 +3,11 @@
 // ***********************************************************
 HTW::xtag("files.kill");
 // ***********************************************************
-$dpf = ENV::getParm("dpf");
-$dpf = APP::relPath($dpf);
+$fil = ENV::getParm("dpf");
+$fil = APP::file($fil);
 
-if ($dpf) {
-	$dst = FSO::join(APP_DIR, $dpf);
-	FSO::kill($dst);
+if ($fil) {
+	FSO::kill($fil);
 }
 
 // ***********************************************************

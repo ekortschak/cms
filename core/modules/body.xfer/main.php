@@ -3,6 +3,7 @@
 incCls("menus/buttons.php");
 
 HTW::xtag("replicator", "h3");
+DBG::file(__FILE__);
 
 // ***********************************************************
 $nav = new buttons("xfer", "B", __DIR__);
@@ -14,7 +15,7 @@ $nav->add("R", "doRestore");
 $nav->add("D", "syncDown", "download");
 $nav->space();
 $nav->add("I", "doSingle", "pdf");
-$nav->add("S", "doStatic", "static");
+#$nav->add("S", "doStatic", "static");
 $nav->space();
 $nav->add("V", "syncCms");
 $nav->show();

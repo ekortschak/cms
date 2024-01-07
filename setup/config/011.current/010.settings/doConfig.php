@@ -1,8 +1,11 @@
 <?php
 
-$inc = APP::getInc(__DIR__, "common.php");
-$fcs = "config";
-
-include $inc;
+// ***********************************************************
+// read and write data
+// ***********************************************************
+$mgr = new iniMgr("config.def");
+$mgr->read("config/config.ini");
+$mgr->setScope();
+$mgr->edit();
 
 ?>

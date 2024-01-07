@@ -7,7 +7,7 @@ Used to create user input filters (forms)
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/pageAnalizer.php");
+incCls("other/pageAnalizer.php");
 
 $obj = new pageAnalizer();
 

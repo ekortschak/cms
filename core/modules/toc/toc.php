@@ -15,7 +15,7 @@ if (VMODE == "medit") {
 $sec = "main";
 
 if (TAB_TYPE == "sel")
-if (TAB_ROOT == TAB_PATH) $sec = "no.topic";
+if (TAB_ROOT == TAB_HOME) $sec = "no.topic";
 
 // ***********************************************************
 // show menu

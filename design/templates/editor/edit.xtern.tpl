@@ -24,8 +24,13 @@ ed.upd = Importieren
 		<a href="?edit=provide&file=<!VAR:file!>"><button><!DIC:ed.cpy!></button></a>
 		<a href="?edit=update&file=<!VAR:file!>"> <button><!DIC:ed.upd!></button></a>
 		<a href="?edit=clear"><button>BOOL_NO</button></a>
-		&nbsp; <small>dir = <dfn><!VAR:path!></dfn></small>
+
 	</div>
+	<div style="margin: 5px 0px 0px;">
+		<small>dir = <dfn><!VAR:path!></dfn></small>
+	</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
 	<div>
 		<!SEC:item.view!>
 	</div>

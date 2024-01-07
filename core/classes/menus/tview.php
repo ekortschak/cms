@@ -14,11 +14,6 @@ $obj->readTree();
 $obj->setData($arr);
 $obj->show();
 
-$arr = $obj->getMenu();
-$dat = $obj->getData($index);
-$tit = $obj->getTitle();
-$inf = $obj->mnuInfo($index);
-
 */
 
 incCls("other/items.php");

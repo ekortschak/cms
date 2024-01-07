@@ -20,8 +20,8 @@ incCls("search/sString.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class STR {
-	private static $sep = "¬¬¬";
-	private static $lim = "@|@";
+	const SEP = "¬¬¬";
+	const LIM = "@|@";
 
 // ***********************************************************
 // concat
@@ -36,13 +36,13 @@ public static function join() {
 // ***********************************************************
 public static function begins($haystack, $needle, $start = 0) {
 	$out = STR::simplify($haystack, $needle); if (! $needle) return false;
-	$out = substr($out, $start, strlen(STR::$sep));
-	return ($out == STR::$sep);
+	$out = substr($out, $start, strlen(STR::SEP));
+	return ($out == STR::SEP);
 }
 public static function ends($haystack, $needle) {
 	$out = STR::simplify($haystack, $needle); if (! $needle) return false;
-	$out = substr($out, -strlen(STR::$sep));
-	return ($out == STR::$sep);
+	$out = substr($out, -strlen(STR::SEP));
+	return ($out == STR::SEP);
 }
 
 // ***********************************************************
@@ -55,7 +55,7 @@ public static function misses($haystack, $needle) {
 public static function contains($haystack, $needle) {
 	if (! $needle) return false;
 	$out = STR::simplify($haystack, $needle);
-	$pos = strpos(STR::$lim.$out, STR::$sep);
+	$pos = strpos(STR::LIM.$out, STR::SEP);
 	return ($pos > 0);
 }
 
@@ -112,6 +112,21 @@ public static function count($haystack, $needle) {
 	return substr_count($haystack, $needle);
 }
 
+public static function trunc($text, $size = 50) {
+	if (! $text) return "-";
+	if (strlen($text) <= $size) return $text;
+	return substr($text, 0, $size)." ...";
+}
+
+public static function camel($text) {
+	$arr = STR::split($text, " "); $out = "";
+
+	foreach ($arr as $itm) {
+		$out.= ucFirst($itm);
+	}
+	return $out;
+}
+
 // ***********************************************************
 public static function beforePunct($haystack) {
 	$out = STR::toArray($haystack, "pnc");
@@ -120,7 +135,8 @@ public static function beforePunct($haystack) {
 
 public static function before($haystack, $sep = "\n", $trim = true) {
 	$out = STR::simplify($haystack, $sep);
-	$out.= STR::$sep; $pos = strpos($out, STR::$sep);
+
+	$out.= STR::SEP; $pos = strpos($out, STR::SEP);
 	$out = substr($out, 0, $pos);
 	return ($trim) ? trim($out) : $out;
 }
@@ -211,7 +227,7 @@ public static function trim($text, $chars = "") {
 // replacing substrings
 // ***********************************************************
 public static function replace($haystack, $find, $rep = "", $case = true) {
-	if ($case)
+	if ($case) // case sensitive
 	return str_replace ($find, $rep, $haystack);
 	return str_ireplace($find, $rep, $haystack);
 }
@@ -226,6 +242,13 @@ public static function norm($key, $lowercase = false) {
 	if (is_array($key)) $key = implode("//", $key);
 	if ($lowercase) $key = strtolower($key);
 	return trim($key);
+}
+
+// ***********************************************************
+// bracketing
+// ***********************************************************
+public static function quote($haystack, $bracket = '"') {
+	return $bracket.$haystack.$bracket;
 }
 
 // ***********************************************************
@@ -249,13 +272,19 @@ public static function mark($haystack, $find) {
 // ***********************************************************
 // search strings
 // ***********************************************************
-public static function split($haystack, $sep) { // retains $sep as part of result
-	$txt = str_replace($sep, STR::$sep.$sep, $haystack);
-	return explode(STR::$sep, $txt);
+public static function splitAt($haystack, $sep) { // retains $sep as part of result
+	$txt = str_replace($sep, STR::SEP.$sep, $haystack);
+	return explode(STR::SEP, $txt);
 }
 
-public static function slice($haystack, $sep = "\n") {
-	return explode($sep, $haystack);
+public static function split($haystack, $sep = "\n", $trim = true) { // removes $sep from result
+	$out = explode($sep, $haystack);
+
+	foreach ($out as $key => $val) {
+		if ($trim) $val = trim($val);
+		$out[$key] = $val;
+	}
+	return $out;
 }
 
 public static function toArray($text, $seps = "std") {
@@ -266,8 +295,8 @@ public static function toArray($text, $seps = "std") {
 		case "ref": $seps = ";|\n"; break;
 	}
 	$sep = str_split($seps);
-	$txt = str_replace($sep, STR::$sep, $text);
-	$arr = explode(STR::$sep, $txt);
+	$txt = str_replace($sep, STR::SEP, $text);
+	$arr = explode(STR::SEP, $txt);
 	$out = array();
 
 	foreach ($arr as $val) {
@@ -345,7 +374,7 @@ private static function simplify($txt, $sep) {
 	if (! is_array($sep)) $sep = array($sep);
 
 	foreach ($sep as $del) { // delimiter
-		$txt = str_ireplace($del, STR::$sep, $txt);
+		$txt = str_ireplace($del, STR::SEP, $txt);
 	}
 	return $txt;
 }

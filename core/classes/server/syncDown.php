@@ -74,10 +74,8 @@ protected function do_down($fso) { // single file op
 	$fso = $this->trgName($fso);
 	$tmp = "$fso.tmp";
 
-	$erg = APP::write($tmp, $txt); if (! $erg) return false;
-	$xxx = FSO::move($tmp, $fso);
-
-	return true;
+	$res = APP::write($tmp, $txt); if (! $res) return false;
+	return FSO::move( $tmp, $fso);
 }
 
 // ***********************************************************

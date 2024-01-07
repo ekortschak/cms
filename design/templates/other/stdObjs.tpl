@@ -7,8 +7,8 @@ source = Quelle
 target = Ziel
 
 [vars]
-wid = 250
-hgt = 150
+wid = THUMB_WID
+hgt = THUMB_HGT
 link = notyet
 
 
@@ -33,10 +33,10 @@ link = notyet
 <a href="<!VAR:link!>"><img src="<!VAR:link!>" style="margin: 0px 3px 7px 0px;" width=<!VAR:wid!> height=<!VAR:hgt!> /></a>
 
 [thumbR]
-<a href="<!VAR:link!>"><img src="<!VAR:link!>" class="rgt" align="right" width=<!VAR:wid!> /></a>
+<a href="<!VAR:link!>"><img src="<!VAR:link!>" class="rgt" align="right" width=<!VAR:wid!> height=<!VAR:hgt!> /></a>
 
 [thumbL]
-<a href="<!VAR:link!>"><img src="<!VAR:link!>" class="lft" align="left" width=<!VAR:wid!> height=<!VAR:hgt!> /></a>
+<a href="<!VAR:link!>"><img src="<!VAR:link!>" class="lft" align="left"  width=<!VAR:wid!> height=<!VAR:hgt!> /></a>
 
 # ***********************************************************
 [yt.link]

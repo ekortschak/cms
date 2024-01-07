@@ -35,7 +35,7 @@ private function totime($date) {
 	$dat = $date;
 	$dat = STR::replace($dat, "/", "-");
 	$dat = STR::replace($dat, ".", "-");
-	$dat = STR::slice($dat, "-");
+	$dat = STR::split($dat, "-");
 
 	if (count($dat) < 2) return $date;
 	if (count($dat) < 3) $dat[] = date("Y");

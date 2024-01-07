@@ -8,6 +8,20 @@
 	min-height: 100vh;
 }
 
+.colToc {
+	background: BC_TOC;
+	overflow:   hidden;
+}
+
+.colMain {
+	float:      left;
+	overflow:   auto;
+	min-height: 100vh;
+	width:      W_BODY;
+	max-width:  W_BODY;
+	background: BC_BODY;
+}
+
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */
@@ -20,7 +34,7 @@
 	width:      W_TOC;
 	color:      FC_TOC;
 	background: BC_TOC;
-	padding:    15px 15px 35px;
+	padding:    1rem 15px 85px;
 }
 
 .modMbar {
@@ -28,14 +42,18 @@
 	background: transparent url("LOC_IMG/mbar/spirals.png") repeat-y;
 }
 
+.titBody {
+	width:      100%;
+#	height:     45px;
+	padding:    1rem 20px 0px;
+}
+
 .modBody {
-	float:      top;
-	width:      W_BODY;
-	min-width:  W_MIN;
+	max-height: calc(100vh - 45px);
+	min-height: calc(100vh - 45px);
+	width:      100%;
 	font-size:  F_BODY;
-	color:      FC_BODY;
-	background: BC_BODY;
-	padding:    15px 20px 35px;
+	padding:    0px 20px 25px;
 }
 
 .modBord {
@@ -44,10 +62,13 @@
 }
 
 .modOpts {
-	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
+	overflow:   auto;
 	color:      FC_OPTS;
 	background: BC_OPTS;
-	padding:    15px 20px 35px;
+	padding:    1rem 20px 25px;
+	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
+#	width:      W_OPTS;
+#	max-width:  W_OPTS;
 }
 
 /* ******************************************************** */
@@ -55,10 +76,10 @@
 /* ******************************************************** */
 .joker {
 	float:      top;
-	overflow:   auto;
+	overflow:   hidden;
 	display:    none;
-	padding:    0px 20px;
 	min-height: 1.5rem;
 	background: BC_TABS;
 	width:      100%;
+	padding:    0px 20px 0px;
 }

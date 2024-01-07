@@ -33,8 +33,8 @@ if (ENV::getPost("login.act") == 5) { // update pwd
 	elseif ($old != $chk) $sec = "invalid";
 	else {
 		$sec = "info";
-		$erg = $dbq->update(array("pwd" => $new), $flt);
-		if (! $erg) $sec = "main";
+		$res = $dbq->update(array("pwd" => $new), $flt);
+		if (! $res) $sec = "main";
 
 		ENV::set("crdp", md5($new));
 	}

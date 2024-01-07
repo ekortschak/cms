@@ -22,7 +22,7 @@ class = dropMenu
 		<td class="nopad" width=5></td>
 		<td class="nopad" width=26 align="center">
 			<div class="<!VAR:class!>">
-				<a style="color: white; vertical-align: top; font-family: monospace;" href="?vmode=abstract">?</a>
+				<a style="color: white; font-family: monospace;" href="?vmode=abstract">?</a>
 			</div>
 		</td>
 	</tr>

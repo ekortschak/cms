@@ -17,75 +17,81 @@ DBG::text($msg, $info);
 // ***********************************************************
 // shortcuts
 // ***********************************************************
-function dbg($msg = "hier", $info = "dbg") { // list as <li>text
+function dbg($msg = "hier", $info = "dbg") { // show plain text
 	DBG::text($msg, $info);
 }
-function dbgbox($any, $info = "dbg") { // show boxed info
+function dbx($any, $info = "dbg") { // show boxed info
 	DBG::box($any, $info);
 }
-function dbght($msg, $info = "htm") { // show html code
-	echo "<pre>"; DBG::html($msg, $info);
-	echo "</pre>";
+function dbt($any, $info = "dbg") { // show tree view
+	DBG::tview($any, $info);
 }
-function dbgpi($msg, $info = "path") { // show path info
-	DBG::path($msg, $info);
-}
-
 function dump($obj) {
 	var_dump($obj);
 }
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class DBG {
-	public static $dest = "web";	// or cl = coammand line
-	private static $max = 7;
+	private static $watch = "";	    // content to watch for
+	private static $dest = "web";	// or cl = coammand line
+	private static $max = 9;        // max array items to show
+
+	const LEN = 65;
 
 // ***********************************************************
-// debugging tools
+// handling options
+// ***********************************************************
+public static function setDest($val) {
+	if ($val == "cl") DBG::$dest = $val;
+	DBG::$dest = "web";
+}
+
+public static function setMax($val = 99) {
+	$val = intval($val);
+	$val = CHK::range($val, 7, 49);
+
+	DBG::$max = $val;
+}
+
+// ***********************************************************
+// print to screen: strings, arrays, objects ...
 // ***********************************************************
 public static function text($msg, $info = "dbg") {
-	if (is_object($msg)) return DBG::obj($msg, $info);
-	if (is_array($msg)) {
-		if (count($msg) > 15) {
-			$msg = array_slice($msg, 0, 15);
-			$msg["+"] = "...";
-		}
-		return DBG::vector($msg, $info);
+	$msg = DBG::convert($msg); DBG::save($info, $msg);
+
+	if (DBG::$dest == "cl") { // write to command line
+		echo "$info: $msg\n"; return;
 	}
-	if (DBG::$dest == "cl") { // command line
-		echo "$info: $msg\n";
-		return;
-	}
-	if (is_object("SSV")) SSV::set($info, $msg, "dbg");
-	echo "\n<li><blue>$info</blue>: $msg</li>";
+	echo "<dbg><blue>$info</blue> $msg</dbg>";
 }
-public static function html($msg, $info = "htm") { // show html code
-	if (is_array($msg)) {
-		DBG::vector($msg, $info);
-		return;
-	}
-	DBG::text(htmlspecialchars($msg), $info);
-}
+
 public static function path($msg, $info = "path") { // show path info
-	$msg = str_replace("/",  " / ",  $msg);
+	$msg = str_replace("/",  "|",  $msg);
 	DBG::text($msg, $info);
 }
 
 // ***********************************************************
-public static function vector($arr, $info = "arr") {
-	SSV::set($info, $arr, "dbg");
+// show file info
+// ***********************************************************
+public static function file($file) {
+	if (! DEBUG) return;
+	$lev = ""; if (! STR::contains($file, "main.php")) $lev = 2;
+	$fil = CFG::encode($file);
 
-	if (DBG::$dest == "cl") {
-		$out = print_r($arr, true);
-		$out = str_replace("Array\n", "Array ", $out);
-		$out = trim($out);
+	echo "<dbg class='hint$lev'>&darr; $fil</dbg>";
+}
 
-		echo "$info = $out";
-		return;
+// ***********************************************************
+// present data as tree view: arrays
+// ***********************************************************
+public static function tview($arr, $info = "arr") {
+	incCls("menus/tview.php"); DBG::save($info, $arr);
+
+	foreach ($arr as $key => $val) {
+		$arr[$key] = htmlspecialchars($val);
 	}
-	incCls("menus/tview.php");
-
 	$tvw = new tview();
 	$tvw->setData($arr);
 	$tvw->set("info", $info);
@@ -95,41 +101,50 @@ public static function vector($arr, $info = "arr") {
 // ***********************************************************
 // boxed output: strings, arrays, objects ...
 // ***********************************************************
-public static function box($var, $info = "dbg") {
-	if ($var === false) $var = "FALSE";
-
-	if (is_object($var)) DBG::obj($var, $info); else
-	if (is_array($var))  DBG::arr($var, $info); else
-	                     DBG::str($var, $info);
-}
-
-private static function str($msg, $pfx = "str") {
-	$tmp = htmlspecialchars($msg); if ($tmp) $msg = $tmp;
-	DBG::tooltip($msg, $pfx);
-}
-
-private static function obj($obj, $pfx = "obj") {
-	$msg = var_export($obj, true);
-	DBG::str($msg, $pfx);
-}
-
-private static function arr($arr, $pfx = "var") {
-	$num = count($arr); if (DBG::$max > 0)
-	$arr = array_slice($arr, 0, DBG::$max);
-	$msg = VEC::xform($arr);
-
-	DBG::tooltip($msg, "$pfx = $num recs");
-}
-
-// ***********************************************************
-// write output
-// ***********************************************************
-private static function tooltip($tip, $key = "") {
-	incCls("other/tooltip.php");
+public static function box($msg, $info = "dbg") {
+	incCls("other/tooltip.php"); DBG::save($info, $msg);
 
 	$tpl = new tooltip();
-	$tpl->setData($key, $tip);
+	$tpl->setData($info, DBG::convert($msg));
 	$tpl->show("error");
+}
+
+// ***********************************************************
+// watch
+// ***********************************************************
+public static function watch($what) {
+	DBG::$watch = $what;
+}
+
+public static function check($what, $info = "watch") {
+	if (! DBG::$watch) return;
+	if (! STR::contains($what, DBG::$watch)) return;
+	DBG::text($what, $info);
+}
+
+// ***********************************************************
+// convert msgs
+// ***********************************************************
+private static function convert($msg) {
+	$msg = DBG::toString($msg);
+	$msg = htmlspecialchars($msg);
+	return $msg;
+#	return STR::trunc($msg, DBG::LEN);
+}
+
+private static function toString($msg) {
+	if ($msg === false)  return "FALSE";
+
+	if (is_object($msg)) return var_export($obj, true);
+	if (is_array( $msg)) return VEC::xform($msg, DBG::$max);
+	return $msg;
+}
+
+// ***********************************************************
+// copy info to SSV
+// ***********************************************************
+private static function save($msg, $info) {
+	if (is_object("SSV")) SSV::set($info, $msg, "dbg");
 }
 
 // ***********************************************************

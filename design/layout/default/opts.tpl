@@ -5,7 +5,7 @@ LOC_LAY/LAYOUT/main.tpl
 [layout] <!-- layout -->
 # ***********************************************************
 <body>
-	<div class="modBody"><!SEC:body!></div>
+	<!SEC:body!>
 </body>
 
 
@@ -14,7 +14,7 @@ LOC_LAY/LAYOUT/main.tpl
 # ***********************************************************
 <div class="joker"><!SEC:joker!></div>
 
-<div id="scView">
-<!MOD:user.opts!>
-<!MOD:user.tags!>
+<div style="padding: 3px 20px 0px;">
+	<!MOD:user.opts!>
+	<!MOD:user.tags!>
 </div>

@@ -61,7 +61,7 @@ cur.file = Dateiname
 <table>
 	<tr>
 		<td><img src="<!VAR:file!>" /></td>
-		<td style="vertical-align: middle;"><!DIC:cur.file!>:<br>&emsp; <!VAR:file!></td>
+		<td><!DIC:cur.file!>:<br>&emsp; <!VAR:file!></td>
 	</tr>
 </table>
 

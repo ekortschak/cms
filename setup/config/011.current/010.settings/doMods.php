@@ -1,8 +1,11 @@
 <?php
 
-$inc = APP::getInc(__DIR__, "common.php");
-$fcs = "mods";
-
-include $inc;
+// ***********************************************************
+// read and write data
+// ***********************************************************
+$mgr = new iniMgr("mods.def");
+$mgr->read("config/mods.ini");
+$mgr->setScope();
+$mgr->edit();
 
 ?>

@@ -1,17 +1,3 @@
 <?php
-
-// ***********************************************************
-// load local constants and classes (if any)
-// ***********************************************************
-$lcl = FSO::join(LOC_INC, "main.php");
-$lcl = APP::file($lcl);
-
-if ($lcl)
-include_once $lcl;
-
-// ***********************************************************
-// benchmark
-// ***********************************************************
-# TMR::punch("inc.std");
-
+# place holder for local adjustments to general setup ...
 ?>

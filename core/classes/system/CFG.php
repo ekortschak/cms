@@ -26,6 +26,8 @@ public static function init() {
 	CFG::addForced(); // constants set before config.ini
 	CFG::addServer(); // constants derived from env
 
+	CFG::set("TAB_SET", "default"); // should be set already
+
 	CFG::readCfg();   // read inifiles
 }
 
@@ -41,19 +43,16 @@ private static function addForced() { // constants set by startup script
 }
 
 private static function addServer() {
-	CFG::set("SRV_ROOT", dirname(APP_DIR));
+	CFG::set("APP_ROOT", dirname(APP_DIR));
+	CFG::set("DOC_ROOT", VEC::get($_SERVER, "DOCUMENT_ROOT", APP_ROOT));
 
 	CFG::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
 	CFG::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	CFG::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
 	CFG::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
-	CFG::set("APP_FILE", VEC::get($_SERVER, "PHP_SELF", "unknown"));
 	CFG::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
 
-	CFG::set("APP_CALL", CFG::getCaller(APP_FILE));
-	CFG::set("APP_IDX",  CFG::getIndex());
-
-	CFG::set("IS_LOCAL", STR::begins(SRV_ADDR, "127"));
+	CFG::set("IS_LOCAL", self::getLocal(SRV_ADDR));
 }
 
 // ***********************************************************
@@ -135,6 +134,7 @@ public static function setIf($key) {
 }
 
 public static function setVal($idx, $val) {
+#if (STR::contains($idx, "tabsets")) echo "<li>$idx - $val";
 	CFG::$cfg[$idx] = $val;
 }
 
@@ -154,10 +154,9 @@ public static function setDest($mod) {
 // replacing constants in strings
 // ***********************************************************
 public static function apply($text) {
-	$out = $text; if (! $out) return $out;
-	$arr = CFG::$dat;
+	$out = $text; if (! $out) return "";
 
-	foreach ($arr as $key => $val) {
+	foreach (CFG::$dat as $key => $val) {
 		if (! $key) continue;
 		if ($key == "NV") continue;
 		$out = preg_replace("~\b$key\b~", $val, $out);
@@ -165,11 +164,19 @@ public static function apply($text) {
 	return $out;
 }
 
+public static function encode($text) {
+	foreach (CFG::$dat as $key => $val) {
+		if (! STR::begins($key, array("APP_", "LOC_"))) continue;
+		$text = preg_replace("~$val~", $key, $text);
+	}
+	return $text;
+}
+
 // ***********************************************************
 public static function restore($text) {
 	$out = CFG::contains($text, "APP_FBK");  if ($out) return $out;
 	$out = CFG::contains($text, "APP_DIR");  if ($out) return $out;
-	$out = CFG::contains($text, "SRV_ROOT"); if ($out) return $out;
+	$out = CFG::contains($text, "APP_ROOT"); if ($out) return $out;
 	return $text;
 }
 
@@ -223,6 +230,12 @@ public static function getConst($key, $default = "") {
 	return constant($key);
 }
 
+private static function getLocal($srv) {
+	if (STR::begins($srv, "127")) return true;
+	if (STR::begins($srv, "::1")) return true;
+	return false;
+}
+
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
@@ -236,20 +249,6 @@ public static function getVal($idx, $default = "") { // $idx - format: file:sec.
 
 public static function mod($key) {
 	return CFG::getVal("mods:$key");
-}
-
-// ***********************************************************
-// auxilliary methods
-// ***********************************************************
-private static function getCaller($file) {
-	$fil = basename($file);
-	if (STR::begins($fil, "x.")) return "index.php";
-	return $fil;
-}
-
-private static function getIndex() {
-	if (STR::misses(APP_FILE, "x.edit")) return APP_FILE;
-	return STR::replace(APP_FILE, "x.edit", "index");
 }
 
 // ***********************************************************

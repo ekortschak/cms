@@ -21,7 +21,6 @@ incCls("files/code.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class ini extends objects {
-	protected $silent = true;
 	protected $sealed = false;
 
 	protected $sec = array();
@@ -39,7 +38,7 @@ function __construct($fso) {
 
 function reset() {
 	$this->sec = $this->typ = $this->vrs = $this->vls = array();
-	$this->dir = $this->file;
+	$this->dir = $this->file = "";
 }
 
 // ***********************************************************
@@ -52,7 +51,13 @@ public function getVars() {
 public function getValues($sec = "") {
 	if ($sec) $sec = $this->langSec($sec);
 	if ($sec) if (! STR::ends($sec, ".")) $sec.= ".";
-	return parent::getValues($sec);
+
+	$out = parent::getValues($sec);
+
+	foreach ($out as $key => $val) {
+		$out[$key] = $this->chkValue($val);
+	}
+	return $out;
 }
 
 // ***********************************************************
@@ -92,32 +97,48 @@ public function findSec($sec, $default = false) {
 	return $sec;
 }
 
+protected function isSec($sec) {
+	return array_key_exists($sec, $this->sec);
+}
+
+// ***********************************************************
+// handling UIDs
+// ***********************************************************
+public function getUID() {
+ // uniqueness handled by PFS
+	$uid = $this->get("props.uid");
+	if ( ! $this->isDefault($uid)) return $uid;
+	return $this->getDefault();
+}
+
+private function getDefault() {
+	$uid = $this->getTitle(); if ($uid) return STR::camel($uid);
+	$uid = $this->getName();  if ($uid != "Config") return $uid;
+	return "§".uniqid();
+}
+private function isDefault($uid) {
+	if (STR::begins($uid, "§")) return true;
+	if ($uid == "GET_UID") return true;
+	if ($uid == "Config") return true;
+	if (! $uid) return true;
+	return false;
+}
+
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public function getUID() {
- // TODO: verify uniqueness
-	$uid = $this->get("props.uid");       if (! $this->isDefault($uid)) return $uid;
-	$tit = $this->get(GEN_LANG.".title"); if (! $tit) $tit = "GET_TITLE";
+public function getDir() {  return $this->dir;  }
+public function getFile() {	return $this->file; }
 
-	if ($tit != "GET_TITLE") {
-		$arr = STR::slice($tit, " "); $out = "";
-
-		foreach ($arr as $itm) {
-			$out.= ucFirst($itm);
-		}
-		if ($out) return $out;
-	}
-	return $this->getDir();
+private function getName() {
+	$out = basename($this->dir);
+	$out = PRG::clrDigits($out);
+	return ucfirst($out);
 }
 
-public function getDir() {
-	$dir = basename($this->dir);
-	return PRG::clrDigits($dir);
-}
-
-public function getFile() {
-	return $this->file;
+public function getReDir() {
+	$trg = $this->get("props_red.trg"); if (! $trg) return "";
+	return FSO::join(APP_ROOT, $trg);
 }
 
 // ***********************************************************
@@ -125,12 +146,11 @@ public function getTitle($lng = CUR_LANG) {
 	$tit = $this->langProp("title");
 	$out = $this->scrTitle($tit); if ($out) return $out;
 	$out = $this->chkTitle($tit); if ($out) return $out;
-	$out = $this->getUID();
-	return ucfirst($out);
+	return $this->getName();
 }
 
 private function chkTitle($txt) {
-	if ($txt == "GET_TITLE") return "";
+	if ($txt == "GET_TITLE") return false;
 	return $txt;
 }
 
@@ -144,8 +164,7 @@ private function scrTitle($txt) {
 // ***********************************************************
 public function getHead($lng = CUR_LANG) {
 	$out = $this->lng("head");
-	if ($out == "GET_HEAD") $out = "";
-	if ($out) return $out;
+	$out = STR::clear($out, "GET_HEAD"); if ($out) return $out;
 	return $this->getTitle($lng);
 }
 
@@ -163,13 +182,12 @@ public function read($file) {
 	$ext = FSO::ext($fil);
 
 	$cod = new code();
-	$erg = $cod->read($fil); if (! $erg) return;
+	if (! $cod->read($fil)) return;
 
 	$this->mergex($this->sec, $cod->getSecs()); if (! $this->sealed)
 	$this->mergex($this->typ, $cod->getTypes());
 	$this->mergex($this->vrs, $cod->getVars());
 	$this->mergex($this->vls, $cod->getValues());
-	$this->chkUID();
 }
 
 protected function mergex(&$dst, $arr) {
@@ -177,10 +195,6 @@ protected function mergex(&$dst, $arr) {
 		if ($this->sealed) if (! isset($dst[$key])) continue;
 		$dst[$key] = $val;
 	}
-}
-
-protected function seal() {
-	$this->sealed = true;
 }
 
 // ***********************************************************
@@ -197,6 +211,23 @@ public function parentType() {
 	$dir = dirname($this->dir);
 	$ini = new ini($dir);
 	return $ini->getType();
+}
+
+public function chkValue($val, $sec = NV) {
+	if ($val == "GET_UID")    return $this->getUID();
+	if ($val == "GET_TITLE")  return $this->getTitle($sec);
+	if ($val == "GET_HEAD")   return $this->getHead($sec);
+	if ($val == "DIR_NAME")   return $this->getName();
+
+	if ($val == "NODE_TYPES") return "include";
+
+	if (is_array($val)) {
+		return array_key_first($val);
+	}
+	$val = STR::before($val, "|");
+	$val = STR::before($val, ":=");
+
+	return $val;
 }
 
 // ***********************************************************
@@ -222,46 +253,9 @@ private function langProp($prop, $lng = CUR_LANG) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function chkUID() {
-	if (! $this->isKey("props.uid")) return;
-	$uid = $this->get("props.uid", "GET_UID"); if ($uid != "GET_UID") return;
-	$this->set("props.uid", $this->getUID());
-}
-
-public function chkValue($val, $sec) {
-	if ($val == "GET_UID")    return $this->getUID();
-	if ($val == "DIR_NAME")   return $this->getDir();
-	if ($val == "GET_DIR")    return $this->dir;
-	if ($val == "GET_TITLE")  return $this->getTitle($sec);
-	if ($val == "GET_HEAD")   return $this->getHead($sec);
-	if ($val == "NODE_TYPES") return "include";
-
-	if (is_array($val)) {
-		return array_key_first($val);
-	}
-	$val = STR::before($val, "|");
-	$val = STR::before($val, ":=");
-
-	return $val;
-}
-
-// ***********************************************************
-private function isDefault($uid) { // default = name of containing dir
-	if ($uid == "GET_UID") return true;
-	if (! $uid) return true;
-	if (strlen($uid) < 5) if (STR::begins($uid, "§")) return true;
-	return false;
-}
-
-protected function isSec($sec) {
-	return array_key_exists($sec, $this->sec);
-}
-
-// ***********************************************************
 protected function chkFile($fil) {
 	$chk = APP::dir($fil); if ($chk)
 	$fil = FSO::join($fil, $this->fname);
-	$ful = APP::file($fil);
 
 	$this->dir = dirname($fil);
 	$this->file = $fil;

@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/world.png
-url = x.edit.php?vmode=xfer
+url = ?vmode=xfer
+hilite = VMODE == "xfer"
 
 [de]
 caption =

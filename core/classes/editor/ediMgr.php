@@ -23,6 +23,7 @@ $edi->edit($dir);
 */
 
 incCls("menus/dropBox.php");
+incCls("editor/editIni.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -37,23 +38,27 @@ function __construct($filesOnly = false) {
 // ***********************************************************
 // display
 // ***********************************************************
-public function edit($dir, $files = false)   {
-	$old = $ful = $dir;
-
+public function edit($dir, $files = false) { // dir = dir or file
 	$box = new dropBox("menu");
+	$old = $ful = $dir;
 
 	if (is_dir($dir)) {
 		if (! $this->fonly)
 		$dir = $box->folders($dir); if (! $dir) $dir = $old;
-		$ful = $box->files($dir);
+		$arr = $this->getFiles($dir);
+		$ful = $box->getKey("pic.file", $arr, $dir);
 	}
-	elseif ($files) {
-		$ful = $box->getKey("pic.file", $files, $dir);
-	}
+	else {
+		if (! $dir) $ful = current($files);
 
+		$fil = basename($dir);
+		$arr = array($ful => $fil);
+		$ful = $box->getKey("pic.file", $arr, $fil);
+	}
 	$typ = $this->findType($ful);
-	$eds = $this->findList($typ);
+	$eds = $this->findEditors($typ);
 
+	if ($typ != "none")
 	$typ = $box->getKey("pic.editor", $eds);
 	$xxx = $box->show();
 
@@ -69,18 +74,19 @@ public function edit($dir, $files = false)   {
 // ***********************************************************
 // retrieving options
 // ***********************************************************
-private function findList($typ) {
-	if ($typ == "code") return $this->getArr("code,xtern,text");
-	if ($typ ==	"html") return $this->getArr("html,xtern,ck4,ck5,code");
-	if ($typ == "ini")  return $this->getArr("ini,text");
-	if ($typ == "dic")  return $this->getArr("dic,text");
-	if ($typ == "pic")  return $this->getArr("pic");
+private function findEditors($typ) {
+	if ($typ == "none") return array();
+	if ($typ == "code") return $this->getModes("code,xtern,text");
+	if ($typ ==	"html") return $this->getModes("html,xtern,ck4,ck5,code");
+	if ($typ == "ini")  return $this->getModes("ini,text");
+	if ($typ == "dic")  return $this->getModes("dic,text");
+	if ($typ == "pic")  return $this->getModes("pic");
 
 	return array("text" => "text");
 }
 
 private function findType($file) {
-	$ext = FSO::ext($file, true);
+	if (! $file) return "none";      $ext = FSO::ext($file, true);
 
 	if (STR::features("php",         $ext)) return "code";
 	if (STR::features("ini.btn.def", $ext)) return "ini";
@@ -88,12 +94,7 @@ private function findType($file) {
 	if (STR::features("css",         $ext)) return "css";
 	if (STR::features("png.jpg.gif", $ext)) return "pic";
 	if (STR::features("ico",         $ext)) return "pic";
-
-	if (STR::features("htm.html",    $ext)) {
-#		$htm = APP::read($file);
-#		if (STR::contains($htm, "<?php")) return "code";
-		return "html";
-	}
+	if (STR::features("htm.html",    $ext)) return "html";
 	return "text";
 }
 
@@ -106,7 +107,7 @@ private function findClass($typ) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getArr($items) {
+private function getModes($items) {
 	$out = array(); $arr = STR::toArray($items);
 	$dat = array(
 		"code"  => "Code",   "ini" => "Ini-Editor",
@@ -118,6 +119,15 @@ private function getArr($items) {
 		$out[$key] = $dat[$key];
 	}
 	return $out;
+}
+
+private function getFiles($dir) {
+	$arr = FSO::files($dir);
+
+	foreach ($arr as $key => $val) {
+		if ($val == "page.ini") unset($arr[$key]);
+	}
+	return $arr;
 }
 
 // ***********************************************************

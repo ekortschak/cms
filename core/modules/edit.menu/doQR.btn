@@ -1,0 +1,11 @@
+[props]
+pic =
+
+[de]
+caption = QR
+tooltip = QR-Codes erstellen
+
+[en]
+caption = QR
+tooltip = Create QR-Codes
+

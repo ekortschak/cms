@@ -1,5 +1,8 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
 incCls("server/upload.php");
 incCls("input/selector.php");
 incCls("input/ptracker.php");
@@ -8,10 +11,10 @@ incCls("input/qikOption.php");
 // ***********************************************************
 // read properties
 // ***********************************************************
-$ext = CFG::getVal("upload:props.ext", "*");
-$max = CFG::getVal("upload:props.max_size", 2000);
-$ovr = CFG::getVal("upload:props.overwrite", 0);
-$dst = CFG::getVal("upload:props.path", PGE::$dir);
+$ext = CFG::getVal("upload:props_upl.ext", "*");
+$max = CFG::getVal("upload:props_upl.max_size", 2000);
+$ovr = CFG::getVal("upload:props_upl.overwrite", 0);
+$dst = CFG::getVal("upload:props_upl.path", PGE::$dir);
 
 HTW::tag("dir = $dst", "hint");
 

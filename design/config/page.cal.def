@@ -1,0 +1,13 @@
+[include]
+LOC_CFG/page.def
+
+[dic]
+ip = Calendar page
+
+[dic.de]
+ip = Kalenderseite
+
+
+# additional properties
+[props_cal]
+date = 2024/02/15

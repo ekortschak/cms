@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/edit.tab.png
-url = x.edit.php?vmode=tedit
+url = ?vmode=tedit
+hilite = VMODE == "tedit"
 
 [de]
 caption =

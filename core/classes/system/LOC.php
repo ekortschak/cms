@@ -38,7 +38,7 @@ public static function setArchive($dir) {
 // app dirs or files
 // ***********************************************************
 public static function tempDir($dir = "temp", $sub = "") { // always local dirs
-	return LOC::arcDir(LOC::$arc, $dir, $sub);
+	return LOC::arcDir($dir, $sub);
 }
 
 public static function arcDir($dir = "", $sub = "") { // archive

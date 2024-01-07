@@ -1,11 +1,3 @@
 [dic.en]
-lang.target = Target language
-
+lang.target = Zielsprache*
 unq.snip = Snip*
-Node type = Node type*
-Skip printing = Skip printing*
-Title in menu = Title in menu*
-Title on page = Title on page*
-Keywords = Keywords*
-Description = Description*
-Page break = Page break*

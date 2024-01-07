@@ -6,7 +6,7 @@
 	border:     0px;
  	padding:    0px;
 
- 	vertical-align: bottom;
+ 	vertical-align: top;
 }
 
 /* ******************************************************** */
@@ -14,18 +14,19 @@
 /* ******************************************************** */
 html, body {
 	height:     100vh;
-	width:      100%;
+	width:      100vw;
 }
 
 html {
  	background:  white;
-	font-family: Arial, sans-serif;
+	font-family: FreeSans, sans-serif, Arial;
 	font-size:   F_SIZE;
 	font-weight: normal;
 	hyphens:     auto;
 }
 
 body {
+	overflow:   hidden;
 	overflow:   auto;
 	position:   relative;
 	background: BC_PAGE;

@@ -47,6 +47,8 @@ public function read($file) {
 	$this->sec = array_merge($this->sec, $cod->getSecs());
 	$this->hst = array_merge($this->hst, $cod->getHist());
 	$this->merge($cod->getVars());
+
+	$this->set("tplfile", CFG::encode($fil));
 	return $fil;
 }
 
@@ -128,10 +130,10 @@ private function insSecs($out, $sec) {
 // ***********************************************************
 // handling variables
 // ***********************************************************
-public function setX($var, $val) { // suppress section if no content
+public function setX($var, $val) { // suppress homonymous section if no content
 	$val = trim($val);
 	if (! $val) $this->clearSec($var);
-	else $this->set($var, $val);
+	$this->set($var, $val);
 }
 
 // ***********************************************************
@@ -144,27 +146,22 @@ private function insDics($txt) {
 // ***********************************************************
 // output
 // ***********************************************************
-public function xshow($sec = "main") {
-	$xxx = $this->setTplInfo($sec);
-	$out = $this->getSection("debug");
-	$out.= $this->gc($sec);
-	echo $out;
-}
 public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
-	$xxx = $this->setTplInfo($sec);
-	$out = $this->getSection($sec);
-#	$out = $this->addMarks($out);
+	$out = $this->getTplInfo($sec);
+	$out.= $this->getSection($sec);
+	if (DEBUG)
+	$out = $this->addMarks($out);
 	return $out;
 }
 
 private function addMarks($txt) {
-	if (! $txt) return ""; $fil = $this->get("tplfile");
+	$fil = $this->get("tplfile");
 	$pfx = "\n<!-- TOF: $fil -->\n";
 	$sfx = "\n<!-- EOF: $fil -->\n";
-	return $pfx.$out.$sfx;
+	return $pfx.$txt.$sfx;
 }
 
 // ***********************************************************
@@ -174,32 +171,25 @@ private function norm($sec) {
 	return STR::norm($sec, true);
 }
 
-private function isFile($fil) {
-	$this->setIf("tplfile", $fil);
-	$ful = APP::file($fil);
-
-	switch ($ful) {
-		case true: $this->hst[$ful] = 1; return $fil;
-		default:   $this->hst[$fil] = 0; return "";
-	}
-	return "";
-}
-
 // ***********************************************************
 // template call stack
 // ***********************************************************
-private function setTplInfo($sec) {
+private function getTplInfo($sec) {
+	if (! DEBUG) return "";
+
 	$lst = array_reverse($this->hst); $out = "";
 	$sts = $this->isSec($sec);
 	$sts = ($sts) ? BOOL_YES : BOOL_NO;
 
 	foreach ($lst as $fil => $val) {
+		$fil = CFG::encode($fil);
+		$fil = STR::replace($fil, "_", "_§_");
 		$xxx = $this->set("tplitem", $fil);
 		$out.= $this->getSection("tplitem.$val");
 	}
+#	$this->set("tstatus", $sts);
 	$this->set("section", $sec);
-	$this->set("history", $out);
-	$this->set("tstatus", $sts);
+#	$this->set("history", $out);
 }
 
 // ***********************************************************

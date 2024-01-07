@@ -11,11 +11,15 @@ ol {
 	padding: 0px 20px;
 }
 
+li {
+	text-align: justify;
+}
+
 /* ******************************************************** */
 dl {
 	display: block;
 	border: 1px solid OUTLINE;
-	border-radius: 10px;
+	border-radius: BR_TEXT;
 
 	margin: 7px 0px 12px;
 	padding: 7px 15px 10px;

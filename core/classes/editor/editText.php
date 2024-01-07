@@ -39,6 +39,10 @@ function __construct() {
 public function grab($file) {
 	$this->ful  = APP::file($file);
 	$this->file = APP::relPath($file);
+
+	OID::set($this->oid, "orgName", $this->file);
+
+	$this->chkLocal();
 }
 
 public function suit($variant) {
@@ -51,10 +55,10 @@ public function suit($variant) {
 
 public function edit() {
 	$htm = $this->getContent();
-	$xxx = $this->chkLocal();
+	$xxx = $this->process($htm);
+}
 
-	OID::set($this->oid, "orgName", $this->file);
-
+protected function process($htm) {
 	$rws = STR::count($htm, "\n") + 30;
 	$rws = CHK::range($rws, 30, 7);
 
@@ -68,18 +72,14 @@ public function edit() {
 // ***********************************************************
 // providing and updating externally edited files
 // ***********************************************************
-// automatic updates by class saveFile  !!!
+// automatic updates by class savePage !!!
 // else: provide a method for saving in calling module.
 
 // ***********************************************************
 // reading info
 // ***********************************************************
 protected function getContent() {
-	$out = APP::read($this->file);
-
-	$tdy = new tidyPage();
-	$out = $tdy->secure($out);
-	return $out;
+	return APP::read($this->file);
 }
 
 protected function getSnips() {

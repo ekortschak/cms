@@ -1,17 +1,17 @@
 <?php
 
 if (! FS_ADMIN) {
-	incMod("stop.php");
+	incMod("msgs/stop.php");
 	return;
 }
 
 HTW::xtag("seo", "h3");
+DBG::file(__FILE__);
 
+// ***********************************************************
 incCls("menus/buttons.php");
-
 // ***********************************************************
 $nav = new buttons("seo", "L", __DIR__);
-// ***********************************************************
 $nav->add("L", "doLinks");
 $nav->add("K", "doMetaKeys");
 $nav->add("D", "doMetaDesc");

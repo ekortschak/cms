@@ -1,9 +1,12 @@
-
 <?php
 
+if (SEARCH_BOT) return;
 if (! IS_LOCAL) return;
 if (! CFG::mod("uopts.uinfo")) return;
 
+DBG::file(__FILE__);
+
+// ***********************************************************
 function getFS() {
 	if (FS_ADMIN) return "admin";
 	if (FS_LOGIN) return "user";
@@ -16,9 +19,11 @@ function getDB() {
 	return "no access";
 }
 
+if (! defined("DB_GRPS")) define("DB_GRPS", "not set");
+
 ?>
 
-<h4>User-Info</h4>
+<div class="h4">User-Info</div>
 
 <small>
 <table>

@@ -218,7 +218,7 @@ public function beautify($msg) {
 }
 
 private function doLFs($msg, $set) {
-	$set = STR::slice($set, ".");
+	$set = STR::split($set, ".");
 
 	foreach ($set as $key) {
 		if (! $key) continue;
@@ -228,7 +228,7 @@ private function doLFs($msg, $set) {
 }
 
 private function doKeys($msg) { // reserved words
-	$rwd = STR::slice("TABLE.EXISTS.PRIMARY.KEY"
+	$rwd = STR::split("TABLE.EXISTS.PRIMARY.KEY"
 		. "DISTINCT.ASC.DESC.UNION.JOIN.INNER.OUTER.ON."
 		. "NOT.LIKE.IN.BETWEEN.AND.OR.XOR.TRUE.FALSE.NULL."
 		. "LEFT.MID.RIGHT.SUBSTRING.TRIM.LOWER.UPPER.FORMAT.REVERSE.LOCATE.INSTR.LENGTH.REPEAT.CONCAT_WS.CONCAT."
@@ -244,7 +244,7 @@ private function doKeys($msg) { // reserved words
 	}
 	return $msg;
 }
-//	$ops = STR::slice(" <> != <= >= && || < > ! = ^ & | ( ) , . ; + - * /", " ");
+//	$ops = STR::split(" <> != <= >= && || < > ! = ^ & | ( ) , . ; + - * /", " ");
 
 // ***********************************************************
 } // END OF CLASS

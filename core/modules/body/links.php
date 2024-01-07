@@ -1,8 +1,9 @@
+<?php DBG::file(__FILE__); ?>
 
 <ul>
 <?php
 
-$arr = PGE::getValues("url");
+$arr = PGE::props("url");
 
 foreach ($arr as $key => $val) {
 	$val = VEC::explode($val, ";", 2);

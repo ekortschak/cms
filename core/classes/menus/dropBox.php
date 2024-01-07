@@ -36,19 +36,13 @@ public function reset() {
 // display variants
 // ***********************************************************
 private function suit($mode) {
-	switch ($mode) {
-		case "table":  $tpl = "menus/dropTable.tpl";  break;
-		case "inline": $tpl = "menus/dropInline.tpl"; break;
-		case "button": $tpl = "menus/dropButton.tpl"; break;
-		case "topics": $tpl = "menus/dropTopics.tpl"; break;
-		case "script": $tpl = "menus/dropScript.tpl"; break;
-		case "menu":   $tpl = "menus/dropMenu.tpl";   break;
-		case "menu2":  $tpl = "menus/dropMenu2.tpl";  break;
-		case "icon":   $tpl = "menus/dropIcon.tpl";   break;
-		case "dbo":    $tpl = "menus/dropDbo.tpl";    break;
-#		case "nav":    $tpl = "menus/dropNav.tpl";    break;
-		default: 	   $tpl = "menus/dropBox.tpl";
-	}
+	$mds = "table.inline.button.topics.script.menu.menu2.icon.dbo";
+	$chk = strtolower($mode);
+	$mod = ucfirst($chk);
+
+	$tpl = "menus/drop$mod.tpl"; if (! STR::features($mds, $chk))
+	$tpl = "menus/dropBox.tpl";
+
 	$this->load($tpl);
 }
 

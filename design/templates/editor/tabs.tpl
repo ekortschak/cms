@@ -15,7 +15,7 @@ create = Neuen Tab anlegen
 			<td class="selData" width="*">
 				<input type="text" name="val.new" value="new tab" size="35" />
 			</td>
-            <td rowspan="100%" style="vertical-align: middle;">
+            <td rowspan="100%">
                 &emsp; <input type="submit" name="act" value="OK" />
             </td>
 		</tr>

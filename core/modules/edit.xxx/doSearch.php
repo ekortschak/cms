@@ -41,7 +41,7 @@ if (! $act) return;
 // ***********************************************************
 // preview
 // ***********************************************************
-$arr = FSO::ftree($dir, $ptn);
+$arr = FSO::fTree($dir, $ptn);
 $ttl = count($arr);
 $cnt = $fds = 0;
 
@@ -59,8 +59,8 @@ $fnd = STR::replace($fnd, "<dqot>", '"');
 foreach ($arr as $ful => $nam) {
 	$txt = file_get_contents($ful); if (strlen($txt) < 1) continue;
 
-	$erg = PRG::find($txt, $fnd); if (! $erg) continue;
-	$fds+= $anz = count($erg);
+	$res = PRG::find($txt, $fnd); if (! $res) continue;
+	$fds+= $anz = count($res);
 	$cnt++;
 
 	if ($dbg) {

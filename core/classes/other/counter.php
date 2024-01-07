@@ -7,7 +7,7 @@ use this class to count items
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/counter.php");
+incCls("other/counter.php");
 
 $obj = new counter();
 $obj->count($key);
@@ -24,17 +24,33 @@ function __construct() {}
 // ***********************************************************
 // methods
 // ***********************************************************
-public function count($key) {
-	if (! isset($this->dat[$key])) $this->dat[$key] = 0;
-	$this->dat[$key]++;
+public function count($key, $inc = 1) {
+	$this->chkKey($key);
+	$this->dat[$key] += $inc;
 }
 
-public function getData() {
+public function set($key, $value) {
+	$this->dat[$key] = $value;
+}
+
+public function get($key) {
+	return VEC::get($this->dat, $key);
+}
+
+public function getData($key = false) {
 	return VEC::sort($this->dat, "arsort");
 }
 
 public function show() {
 	DBG::vector($this->dat);
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function chkKey($key) {
+	if (isset($this->dat[$key])) return;
+	$this->dat[$key] = 0;
 }
 
 // ***********************************************************

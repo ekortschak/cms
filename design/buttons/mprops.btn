@@ -1,0 +1,11 @@
+[props]
+pic = LOC_ICO/buttons/props.menu.png
+url = ?vmode=medit&btn.menu=P
+
+[de]
+caption =
+tooltip = Wechselt zum Menü-Editor.
+
+[en]
+caption =
+tooltip = Switches to menu editor mode.

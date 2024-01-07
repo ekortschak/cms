@@ -2,7 +2,7 @@
 
 <?php
 
-$arr = PFS::mnuInfo(PGE::$dir);
+$arr = PFS::item(PGE::$dir);
 
 // ***********************************************************
 incCls("tables/htm_table.php");

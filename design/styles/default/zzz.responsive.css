@@ -1,38 +1,41 @@
 /* ********************************************************
 @media only screen and (orientation: landscape)
-@media only screen and (min-width: 600px)
-
 ******************************************************** */
 
 @media only screen and (max-width: 1500px) {
 	.modToc  { width: W_MIN; }
-	.modOpts { width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px); }
+#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1350px) {
 	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
-	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
+#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1250px) {
 	.modBody { width: calc(W_BODY * 0.85); }
-	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
+#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
 }
 
 @media only screen and (max-width: 1100px) {
 	[class^="mod"] {
-		position: absolute;
-		display:  none;
-		height:   calc(100% - 1.5rem);
-		width:    100%;
-		left:     0px;
+		display:    none;
+		width:      100%;
+		height:     100%;
+		min-height: 100%;
+		max-height: 100%;
 	}
 
-	.joker   { display: block; }
+	.joker   { display: block; overflow: visible; }
+	.modBody { display: block; }
 
-	.modBody {
-		display: block;
-		z-index: 5;
+	.colMain, .colToc {
+		width: 50%;
+		min-height: 50%;
+		max-height: 50%;
+
+		transform-origin: top left;
+		transform: scale(2);
 	}
 }
