@@ -64,6 +64,7 @@ public function setSec($sec, $text = "") { // set section content
 }
 
 public function copy($sec, $dest) { // copy sections
+	if ($sec == $dest) return;
 	$sec = $this->norm($sec); if (! $this->isSec($sec)) return;
 	$txt = $this->getSec($sec);
 	$this->setSec($dest, $txt);
@@ -183,7 +184,6 @@ private function getTplInfo($sec) {
 
 	foreach ($lst as $fil => $val) {
 		$fil = CFG::encode($fil);
-		$fil = STR::replace($fil, "_", "_§_");
 		$xxx = $this->set("tplitem", $fil);
 		$out.= $this->getSection("tplitem.$val");
 	}

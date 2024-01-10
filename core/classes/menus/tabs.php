@@ -45,13 +45,13 @@ public function gc($sec = "main") {
 		$itm = "item"; if ($img)
 		$itm = "item.img";
 
-		$this->set("link",  APP::relPath($tab)); $this->set("mode",
-		$this->getMode());
+		$this->set("link",  APP::relPath($tab));
 		$this->set("text",  $cap);
+		$this->set("img",   $img);
+		$this->set("mode",	$this->getMode());
 		$this->set("class", $this->getClass($tab));
 		$this->set("vmode", $this->getVMode($tab));
 		$this->set("agent",	$this->getAgent($cap));
-		$this->set("img",   $img);
 
 		$out.= $this->getSection($itm);
 	}

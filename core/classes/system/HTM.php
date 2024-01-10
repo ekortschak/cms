@@ -17,16 +17,6 @@ HTW::ytube($ytid, "title", $len");
 // ***********************************************************
 class HTM  {
 
-
-// ***********************************************************
-// handling php snips
-// ***********************************************************
-public static function php_cond($code) {
-	if (! $code) return;
-	eval("\$out = ($code);");
-	return $out;
-}
-
 // ***********************************************************
 // handling standard objects
 // ***********************************************************
@@ -40,7 +30,7 @@ public static function tag($text, $tag = "h4") {
 }
 
 public static function xtag($text, $tag = "h4") {
-	$out = DIC::getPfx("tag", $text);
+	$out = DIC::get($text);
 	return HTM::tag($out, $tag);
 }
 

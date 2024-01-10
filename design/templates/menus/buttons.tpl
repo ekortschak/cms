@@ -5,7 +5,7 @@ click = Please, click a button
 click = Bitte klicken Sie auf eine Schaltfläche
 
 [vars]
-target = _self
+target = ah
 
 
 [main]

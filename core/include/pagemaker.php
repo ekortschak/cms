@@ -1,15 +1,7 @@
 <?php
 
 PGE::init();
-
-// ***********************************************************
-// define display mode
-// ***********************************************************
-$mod = VMODE;
-
-$tpl = APP::file("LOC_LAY/LAYOUT/$mod.tpl");  if (! $tpl)
-$tpl = APP::file("LOC_LAY/default/$mod.tpl"); if (! $tpl)
-$tpl = APP::file("LOC_LAY/default/stop.tpl");
+CFG::setDest(VMODE);
 
 // ***********************************************************
 // react to previous editing
@@ -23,12 +15,19 @@ incCls("menus/PFS.php");   // load menu builder
 PFS::init();
 
 // ***********************************************************
+// supply app specific features
+// ***********************************************************
+$fil = appFile("core/include/load.app.php");
+include_once $fil;
+
+// ***********************************************************
 // show page
 // ***********************************************************
 incCls("files/page.php");  // load page builder
 
 $htm = new page();
-$htm->read($tpl);
+$htm->read(VMODE);
+$htm->set("tpl", "$mod.tpl");
 $htm->set("title", PRJ_TITLE);
 $htm->setModules();
 $htm->show();

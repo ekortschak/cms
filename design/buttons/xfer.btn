@@ -1,7 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/world.png
 url = ?vmode=xfer
-hilite = VMODE == "xfer"
+hilite = \VMODE == "xfer"
 
 [de]
 caption =

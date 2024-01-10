@@ -98,7 +98,7 @@ protected function chkProtect($arr) {
 // auxilliary methods
 // **********************************************************
 protected function stripInf($txt) {
-	return STR::between($txt, "<body><pre>", "</pre></body>");
+	return STR::between($txt, "<body><pre>", "</pre></body>", false);
 }
 
 // ***********************************************************

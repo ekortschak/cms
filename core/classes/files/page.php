@@ -28,9 +28,9 @@ function __construct() {
 	parent::__construct();
 }
 
-public function read($tpl = "LOC_LAY/LAYOUT/view.tpl") {
-	$tpl = APP::file($tpl); if (! $tpl)
-	$tpl = APP::file("LOC_LAY/default/main.tpl");
+public function read($tpl = "view") {
+	$tpl = APP::layout($tpl); if (! $tpl)
+    $tpl = APP::layout("stop");
 
 	parent::read($tpl);
 }
@@ -39,18 +39,13 @@ public function read($tpl = "LOC_LAY/LAYOUT/view.tpl") {
 // handling page modules
 // ***********************************************************
 public function setModules() {
-	$arr = $this->findModules(); $hld = array();
+	$tpl = parent::gc();
+	$arr = STR::find($tpl, "<!MOD:", "!>");
 
 	foreach ($arr as $mod => $idx) {
 		$idx = "app"; if (STR::begins($mod, "zzz.")) $idx = "zzz";
 		$this->addModule($mod, $idx);
 	}
-}
-
-protected function getModules() {
-	$app = VEC::get($this->mod, "app", array());
-	$zzz = VEC::get($this->mod, "zzz", array());
-	return $app + $zzz;
 }
 
 protected function addModule($mod, $idx) {
@@ -59,10 +54,10 @@ protected function addModule($mod, $idx) {
 	$this->mod[$idx][$mod] = $ful;
 }
 
-protected function findModules() {
-	$tpl = parent::gc();
-	$out = STR::find($tpl, "<!MOD:", "!>");
-	return $out;
+protected function getModules() {
+	$app = VEC::get($this->mod, "app", array());
+	$zzz = VEC::get($this->mod, "zzz", array());
+	return $app + $zzz;
 }
 
 // ***********************************************************
@@ -89,58 +84,33 @@ public function gc($sec = "main") {
 		$val = APP::gcFile($fil);
 		$htm = STR::replace($htm, $mod, "$val\n", false);
 	}
-	$htm = $this->cleanUp($htm);
-	$htm = $this->unescape($htm);
+	return $this->cleanUp($htm);
+}
+
+// ***********************************************************
+// resolve file references
+// ***********************************************************
+protected function cleanUp($htm) {
+	$htm = $this->solveLinks($htm, "src");
+	$htm = $this->solveLinks($htm, "href");
 
 	$htm = STR::replace($htm, "CUR_PAGE", PGE::$dir);
-	$htm = STR::replace($htm, "_§_", "_");
+	$htm = STR::replace($htm, "<|", "<!");
 	$htm = STR::clear($htm, DOC_ROOT);
+
 	return STR::dropSpaces($htm);
 }
 
 // ***********************************************************
-// resolve file references and constants
-// ***********************************************************
-protected function cleanUp($htm) {
-	$htm = $this->solveLinks($htm, 'src="');
-	$htm = $this->solveLinks($htm, "src='");
-	$htm = $this->solveLinks($htm, 'href="');
-	$htm = $this->solveLinks($htm, "href='");
-
-	return $this->cleanChars($htm);
-}
-
-protected function solveLinks($htm, $sep) {
-	$arr = STR::find($htm, $sep, str_split("'\"?"));
+protected function solveLinks($htm, $atr) {
+	$htm = PRG::replace($htm, "$atr(\s?)=(\s?)(['\"]+)(.*?)\"", "$atr=\"$4\"");
+	$arr = STR::find($htm, "$atr=\"", str_split("'\"?"));
 
 	foreach ($arr as $fil) {
-		$url = APP::file($fil); if (! $url) continue;
-		$url = APP::url($url);
-		$htm = STR::replace($htm, $sep.$fil, $sep.$url);
+		$url = APP::url($fil); if (! $url) continue;
+		$htm = STR::replace($htm, $fil, $url);
 	}
 	return $htm;
-}
-
-protected function unescape($code) {
-	$out = STR::replace($code, "<|", "<!");
-	return $out;
-}
-
-// ***********************************************************
-protected function cleanChars($code) {
-	if (CUR_LANG != "de") return $code;
-
-	$out = STR::replace($code, "(CR)", "&copy;");
-
-	$fnd = array(
-		"ä" => "&auml;", "Ä" => "&Auml;", "ß" => "&szlig;",
-		"ö" => "&ouml;", "Ö" => "&Ouml;",
-		"ü" => "&uuml;", "Ü" => "&Uuml;",
-	);
-	foreach ($fnd as $key => $val) {
-		$out = STR::replace($out, $key, $val);
-	}
-	return $out;
 }
 
 // ***********************************************************

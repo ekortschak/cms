@@ -1,10 +1,9 @@
 [include]
 LOC_LAY/LAYOUT/main.tpl
 
-
 # ***********************************************************
 [body] <!-- body.pedit -->
 # ***********************************************************
 <div id="scView">
-<!MOD:edit.page!>
+<!MOD:edit/page!>
 </div>

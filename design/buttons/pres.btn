@@ -1,7 +1,7 @@
 [props]
-pic = LOC_ICO/edit/img.png
+pic = LOC_ICO/buttons/pres.png
 url = ?vmode=pres
-hilite = VMODE == "pres"
+hilite = \VMODE == "pres"
 
 [de]
 caption =

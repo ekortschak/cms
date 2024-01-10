@@ -80,7 +80,7 @@ public static function file($file) {
 	$lev = ""; if (! STR::contains($file, "main.php")) $lev = 2;
 	$fil = CFG::encode($file);
 
-	echo "<dbg class='hint$lev'>&darr; $fil</dbg>";
+	echo "<dbg class='hint$lev'>§ $fil</dbg>";
 }
 
 // ***********************************************************

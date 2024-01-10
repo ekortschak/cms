@@ -34,7 +34,7 @@ class dbBasics extends sqlStmt {
 
 
 function __construct($dbase = "default") {
-	$inf = CFG::getValues("dbase:$dbase"); if (! $inf) return;
+	$inf = CFG::iniGroup("dbase:$dbase"); if (! $inf) return;
 	extract($inf); // set connection vars
 
 	$ful = FSO::join(LOC_CLS, "dbase", "$type.php");

@@ -6,7 +6,7 @@ incCls("input/selector.php");
 HTW::xtag("dic.search");
 // ***********************************************************
 $sel = new selector();
-$lng = $sel->combo("unq.language", LNG::get(), CUR_LANG);
+$lng = $sel->combo("language", LNG::get(), CUR_LANG);
 $fnd = $sel->input("find.dic", "*");
 $act = $sel->show();
 

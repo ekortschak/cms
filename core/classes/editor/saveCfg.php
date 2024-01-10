@@ -37,7 +37,7 @@ private function update($fil) {
 
 	foreach ($_POST as $sec => $lst) {
 		foreach ($lst as $key => $val) {
-			CFG::setVal("mods:$sec.$key", $val);
+			CFG::update("mods:$sec.$key", $val);
 		}
 	}
 }

@@ -83,7 +83,7 @@ protected function getContent() {
 }
 
 protected function getSnips() {
-	$arr = CFG::getValues("snips:html");
+	$arr = CFG::iniGroup("snips:html");
 	$arr = VEC::flip($arr);
 
 	$box = new dropBox("script");

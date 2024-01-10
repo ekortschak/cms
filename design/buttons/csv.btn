@@ -1,7 +1,7 @@
 [props]
 pic = LOC_ICO/nav/csv.gif
 url = ?dmode=csv
-trg = prn
+trg = ah
 
 [de]
 caption =

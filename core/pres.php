@@ -1,7 +1,10 @@
 <?php
 
-define("LAYOUT", "default");
+define("LAYOUT", "pres");
+define("SSHEET", "pres");
 
-include_once "index.php";
+include_once "core/index.php";
 
 ?>
+
+

@@ -22,12 +22,13 @@ class CFG {
 	private static $cfg = array(); // ini data
 	private static $vls = array(); // buffer between .ini and .srv vars
 
+	private static $msk = "¬@¬";
+
 public static function init() {
 	CFG::addForced(); // constants set before config.ini
-	CFG::addServer(); // constants derived from env
+	CFG::addServer(); // constants derived from emv
 
-	CFG::set("TAB_SET", "default"); // should be set already
-
+	CFG::initCfg();   // read default values for constants
 	CFG::readCfg();   // read inifiles
 }
 
@@ -52,33 +53,33 @@ private static function addServer() {
 	CFG::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
 	CFG::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
 
-	CFG::set("IS_LOCAL", self::getLocal(SRV_ADDR));
+	CFG::set("IS_LOCAL", self::isLocal(SRV_ADDR));
 }
 
 // ***********************************************************
 // reading config files
 // ***********************************************************
+public static function initCfg() {
+	CFG::read("core/include/internals.ini");
+	CFG::read("core/include/defaults.ini");
+}
+
 public static function readCfg() {
 	$arr = APP::files("config", "*.ini");
 
 	foreach ($arr as $fil => $nam) {
 		CFG::read($fil);
 	}
-	CFG::freeze();
-}
 
-// ***********************************************************
-public static function readCss() {
 	CFG::read("LOC_CLR/default.ini");
 	CFG::read("LOC_CLR/COLORS.ini");
-	CFG::read("LOC_DIM/LAYOUT.ini");
-
+	CFG::read("LOC_DIM/SSHEET.ini");
 	CFG::freeze();
 }
 
 // ***********************************************************
 private static function read($file) {
-	$fil = CFG::apply($file); // resolve constants in file names
+	$fil = CFG::apply($file); // including colors and dimensions
 	$fil = APP::file($fil); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
 
@@ -100,15 +101,15 @@ private static function load($fil) {
 		if (STR::misses($lin, "=")) continue;
 
 		$key = STR::before($lin, "="); if (! $key) continue;
-		$val = STR::after($lin, "=");
+		$val = STR::after( $lin, "=");
 
-		CFG::setVal("$idx:$sec.$key", $val);
+		CFG::update("$idx:$sec.$key", $val);
+		CFG::preset($key, $val);
 	}
 }
 
 private static function freeze() {
-	foreach (CFG::$cfg as $idx => $val) {
-		$key = STR::after($idx, "."); if ($key != strtoupper($key)) continue;
+	foreach (CFG::$dat as $key => $val) {
 		CFG::set($key, $val); // valid constant definition
 	}
 }
@@ -116,26 +117,35 @@ private static function freeze() {
 // ***********************************************************
 // setting values
 // ***********************************************************
+public static function update($idx, $val) {
+	CFG::$cfg[$idx] = $val; // set config var
+}
+
 public static function set($key, $value) {
-	$key = strtoupper(trim($key)); if (defined($key)) return;
-	$val = trim(CFG::apply($value));
+	if ( ! CFG::chkKey($key)) return;
+	$val = CFG::chkVal($value);
 
-	if ($val === "false") $val = false;
-	if ($val === "true")  $val = true;
-
-	CFG::$dat[$key] = $val;
+	CFG::$dat[$key] = $val; // set constant
 	define($key, $val);
 }
 
-public static function setIf($key) {
-	$key = strtoupper(trim($key)); if (defined($key)) return;
-	$val = VEC::get($_GET, $key);  if (! $val) return;
-	CFG::set($key, $val);
+private static function preset($key, $val) { // suggest value for constant
+	if ( ! CFG::chkKey($key)) return;
+	$val = CFG::chkVal($val);
+	CFG::$dat[$key] = $val;
 }
 
-public static function setVal($idx, $val) {
-#if (STR::contains($idx, "tabsets")) echo "<li>$idx - $val";
-	CFG::$cfg[$idx] = $val;
+// ***********************************************************
+private static function chkKey($key) {
+	if (strtoupper($key) !== $key) return false;
+	if (defined($key)) return false;
+	return $key;
+}
+private static function chkVal($val) {
+	$val = trim($val);
+	if ($val === "false") return false;
+	if ($val === "true")  return true;
+	return $val;
 }
 
 // ***********************************************************
@@ -154,49 +164,52 @@ public static function setDest($mod) {
 // replacing constants in strings
 // ***********************************************************
 public static function apply($text) {
-	$out = $text; if (! $out) return "";
+	if (! $text) return ""; $out = $text; $msk = CFG::$msk;
 
 	foreach (CFG::$dat as $key => $val) {
-		if (! $key) continue;
 		if ($key == "NV") continue;
+
+// protect constant definitions (e.g. ini files)
+		$out = preg_replace("~\n$key(\s?)=(\s?)~", "\n$msk = ", $out);
+// protect masked/escapted constants (preceeded by "\");
+		$out = STR::replace($out, "\\$key", $msk);
+// substitute remaining constants by their values
 		$out = preg_replace("~\b$key\b~", $val, $out);
+// restore protected constants
+		$out = STR::replace($out, $msk, $key);
 	}
 	return $out;
 }
 
-public static function encode($text) {
+public static function unmask($text) {
+	if (! $text) return ""; $out = $text;
+
 	foreach (CFG::$dat as $key => $val) {
-		if (! STR::begins($key, array("APP_", "LOC_"))) continue;
-		$text = preg_replace("~$val~", $key, $text);
+		$out = STR::replace($out, "\\$key", $key);
 	}
-	return $text;
+	return $out;
+}
+
+public static function encode($dir) {
+	$dir = STR::replace($dir, APP_DIR, "APP_DIR");
+	$dir = STR::replace($dir, APP_FBK, "APP_FBK");
+
+	foreach (CFG::$dat as $key => $val) {
+		if ( ! STR::begins($key, "LOC_")) continue;
+		$dir = STR::replace($dir, $val, $key);
+	}
+	return $dir;
 }
 
 // ***********************************************************
-public static function restore($text) {
-	$out = CFG::contains($text, "APP_FBK");  if ($out) return $out;
-	$out = CFG::contains($text, "APP_DIR");  if ($out) return $out;
-	$out = CFG::contains($text, "APP_ROOT"); if ($out) return $out;
-	return $text;
+// retrieving info
+// ***********************************************************
+private static function isLocal($srv) {
+	if (STR::begins($srv, "127")) return true;
+	if (STR::begins($srv, "::1")) return true;
+	return false;
 }
 
-private static function contains($text, $var) {
-	$cfg = CFG::getConst($var);
-	if ( ! STR::begins ($text, $cfg)) return false;
-	return STR::replace($text, $cfg, $var);
-}
-
-// ***********************************************************
-// retrieving categories
-// ***********************************************************
-public static function groups() {
-	$arr = get_defined_constants(true);
-	return VEC::keys($arr);
-}
-
-// ***********************************************************
-// retrieving db state
-// ***********************************************************
 public static function dbState($sec = "main") { // tpl section
 	if (! DB_MODE)  return "nodb";
 	if (! DB_CON)   return "nocon";
@@ -207,14 +220,14 @@ public static function dbState($sec = "main") { // tpl section
 // ***********************************************************
 // retrieving constants
 // ***********************************************************
-public static function getCats() {
+public static function cats() {
 	$cst = get_defined_constants(true);
 	$cst = array_keys($cst); ksort($cst); unset($cst["user"]);
 	$out = array("user" => "USER", "" => "<hr>");
 	return $out + $cst;
 }
 
-public static function getConsts($sec = "user") {
+public static function constants($sec = "user") {
 	$out = get_defined_constants(true); if ($sec)
 	$out = $out[$sec]; ksort($out); if ($sec != "user") return $out;
 
@@ -225,30 +238,24 @@ public static function getConsts($sec = "user") {
 	return $out;
 }
 
-public static function getConst($key, $default = "") {
+public static function constant($key, $default = "") {
 	if (! defined($key)) return $default;
 	return constant($key);
-}
-
-private static function getLocal($srv) {
-	if (STR::begins($srv, "127")) return true;
-	if (STR::begins($srv, "::1")) return true;
-	return false;
 }
 
 // ***********************************************************
 // retrieving config vars
 // ***********************************************************
-public static function getValues($pfx = "") {
+public static function iniGroup($pfx = "") {
 	return VEC::match(CFG::$cfg, $pfx);
 }
 
-public static function getVal($idx, $default = "") { // $idx - format: file:sec.value
+public static function iniVal($idx, $default = "") { // $idx - format: file:sec.value
 	return VEC::get(CFG::$cfg, $idx, $default);
 }
 
 public static function mod($key) {
-	return CFG::getVal("mods:$key");
+	return CFG::iniVal("mods:$key");
 }
 
 // ***********************************************************

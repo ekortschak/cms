@@ -1,7 +1,9 @@
 [dic.en]
-Local = Lokal*
-Paragraphs = Absätze*
-Sections = Abschnitte*
+Local = Local
+count = Count
+folders = Folders
+Paragraphs = Paragraphs
+Sections = Sections
 Verses = Bibelverse*
 ask.sure = Sicher?*
 bookmarks = Lesezeichen*

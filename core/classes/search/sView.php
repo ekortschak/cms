@@ -38,11 +38,11 @@ function __construct() {
 public function showNav() {
 	$lst = $this->getData();
 
-	$tpc = ENV::get("search.topic");
-	$dir = ENV::get("search.dir");
+	$tpc = ENV::get("search.tpc");
+#	$dir = ENV::get("search.dir");
 
 	$mnu = new dropBox("menu");
-	$tpc = $mnu->getKey("search.topic", $lst, $dir);
+	$tpc = $mnu->getKey("search.dir", $lst);
 
 	$arr = VEC::get($this->dat, $tpc);
 

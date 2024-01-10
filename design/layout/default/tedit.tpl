@@ -33,4 +33,4 @@ vtabs = Registerkarten (Tabs)
 [body] <!-- body.tedit -->
 # ***********************************************************
 <h3><!DIC:vtabs!></h3>
-<!MOD:edit.tabs!>
+<!MOD:edit/tabs!>

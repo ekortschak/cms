@@ -14,7 +14,7 @@
 
 [right]
 <div>
-<button><a href="?vmode=opts"><img src="LOC_ICO/other/vw.gif"></a></button>
+<button><a href="?vmode=joker"><img src="LOC_ICO/other/vw.gif"></a></button>
 <button><a href="?vmode=view" ><img src="LOC_ICO/buttons/view.png"></a></button>
 </div>
 

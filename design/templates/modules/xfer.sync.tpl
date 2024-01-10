@@ -60,7 +60,7 @@ vtrg = VERSION
 <!VAR:target!>
 
 [dest.remote]
-<a href="http://<!VAR:dest!>" target="dest"><!VAR:target!></a>
+<a href="http://<!VAR:dest!>" target="ah"><!VAR:target!></a>
 
 
 # ***********************************************************
@@ -69,7 +69,7 @@ vtrg = VERSION
 <p><msg>It is recommended to <a href="?btn.xfer=B"&pic.mode=backup>backup</a> the project prior to restoring it!</msg></p>
 
 [backup.1st.de]
-<p><msg>Es empfiehlt sich, vorher eine <a href="?btn.xfer=B&pic.mode=backup">Sicherungs-Kopie</a> erstellen!</msg></p>
+<p><msg>Es empfiehlt sich, vorher eine <a href="?btn.xfer=B&pic.mode=backup">Sicherungs-Kopie</a> zu erstellen!</msg></p>
 
 
 # ***********************************************************

@@ -127,8 +127,8 @@ public static function dir($dir) { // find dir in extended fs
 
 public static function file($file) { // find file in extended fs
 	if ($file == null)     return false;
+	if (is_file($file))    return $file;
 	if (FSO::isUrl($file)) return $file;
-	if (is_file($file)) return $file;
 
 	$fil = APP::relPath($file);
 
@@ -138,8 +138,19 @@ public static function file($file) { // find file in extended fs
 	return false;
 }
 
+public static function layout($name) {
+	$arr = array(LAYOUT => LAYOUT, "default" => "default");
+
+	foreach ($arr as $lyt) {
+		$fil = FSO::join(LOC_LAY, $lyt, "$name.tpl");
+		$fil = APP::file($fil); if ($fil) return $fil;
+	}
+	return false;
+}
+
 public static function url($file) {
-	return STR::replace($file, APP_FBK, CMS_URL);
+	$fil = APP::file($file);
+	return STR::replace($fil, APP_FBK, CMS_URL);
 }
 
 // ***********************************************************
@@ -215,23 +226,18 @@ public static function append($file, $data) {
 }
 
 public static function write($file, $data, $overwrite = true) {
-	if (is_file($file)) if (! $overwrite) return false;
+	if (! $overwrite) if (is_file($file)) return false;
 	return APP::writeFile($file, $data, false);
 }
 
 private static function writeFile($file, $data, $overwrite = false) {
 	if (is_dir($file)) return false;
 
-	if (STR::begins($file, DIR_SEP)) {
-		$file = FSO::join(APP_ROOT, $file);
-	}
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
 	$txt = trim($txt)."\n";
 
-	if (! file_put_contents($file, $txt, $overwrite)) return false;
-	FSO::permit($file);
-	return true;
+	return FSO::write($file, $txt);
 }
 
 public static function writeTell($file, $content, $overwrite = true) {
@@ -251,7 +257,7 @@ public static function lookup($txt) {
 		case "view": case "xfer": break;
 		default: return $txt;
 	}
-	$cls = CFG::getVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
+	$cls = CFG::iniVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");
 

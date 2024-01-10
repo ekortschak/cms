@@ -47,7 +47,8 @@ pres = Präsentation
 # ***********************************************************
 <div class="h4"><!DIC:view!></div>
 <div>
-<!BTN:view!> <!SEC:pres!> <!SEC:csv!> <!SEC:print!>
+<!BTN:view!> <!SEC:csv!> <!SEC:print!> <br>
+<!SEC:search!> <!SEC:pres!>
 </div>
 
 # ***********************************************************
@@ -55,9 +56,9 @@ pres = Präsentation
 # ***********************************************************
 <div class="h4"><!DIC:edit!></div>
 <div>
-<!SEC:medit!> <br>
+<!SEC:tedit!> <!SEC:medit!> <br>
 <!SEC:pedit!> <!SEC:xlate!> <!SEC:seo!> <br>
-<!SEC:xedit!> <!SEC:debug!>
+<!SEC:xedit!>
 </div>
 
 # ***********************************************************
@@ -66,6 +67,7 @@ pres = Präsentation
 <div class="h4"><!DIC:settings!></div>
 <div>
 <!SEC:xfer!>
+<!SEC:debug!>
 </div>
 
 # ***********************************************************
@@ -75,12 +77,14 @@ pres = Präsentation
 [print]  <!BTN:print!>
 [csv]    <!BTN:csv!>
 [manual] <!BTN:manual!>
+[search] <!BTN:search!>
 
+[tedit]  <!BTN:tedit!>
+[medit]  <!BTN:medit!> <!BTN:mprops!>
 [pedit]  <!BTN:pedit!>
 [xedit]  <!BTN:xedit!>
-[medit]  <!BTN:medit!> <!BTN:mprops!>
-[seo]    <!BTN:seo!>
 [xlate]  <!BTN:xlate!>
+[seo]    <!BTN:seo!>
 
 [config] <!BTN:config!>
 [home]   <!BTN:home!>

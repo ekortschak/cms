@@ -7,7 +7,7 @@ LOC_SCR/metakeys.js
 # ***********************************************************
 [body] <!-- body.seo -->
 # ***********************************************************
-<!MOD:edit.seo!>
+<!MOD:edit/seo!>
 
 <div class="cold" id="pgeView" contenteditable="true" spellcheck="false">
 <!MOD:body!>

@@ -1,6 +1,6 @@
 [props]
 pic = LOC_ICO/db/login.gif
-url = APP_CALL?vmode=login
+url = ?vmode=login
 
 [de]
 caption =

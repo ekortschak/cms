@@ -72,10 +72,8 @@ protected function do_down($fso) { // single file op
 	$txt = $this->htp->query("dwn", $fso);
 	$txt = $this->stripInf($txt);
 	$fso = $this->trgName($fso);
-	$tmp = "$fso.tmp";
 
-	$res = APP::write($tmp, $txt); if (! $res) return false;
-	return FSO::move( $tmp, $fso);
+	return FSO::write($fso, $txt);
 }
 
 // ***********************************************************

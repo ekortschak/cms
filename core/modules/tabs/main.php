@@ -21,18 +21,12 @@ $sek = CFG::mod("tabs.search", 1);
 // ***********************************************************
 $nav = new tabs();
 
-switch (VMODE) {
-	case "search": $nav->copy("search.return", "search"); break;
-	case "tedit":  $nav->copy("return", "tedit");  break;
-	case "opts":   $nav->copy("return", "opts");   break;
-}
-
-if (STR_contains(TAB_SET, "pres")) {
-	$nav->copy("gohome", "tedit");
-}
-
 if (! $sek) $nav->clearSec("search");
 if (! $edt) $nav->clearSec("tedit");
+
+switch (VMODE) {
+	case "search": $nav->copy("search.return", "search"); break;
+}
 
 $nav->setData($lst);
 $nav->show();

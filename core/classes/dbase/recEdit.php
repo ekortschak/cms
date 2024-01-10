@@ -84,7 +84,8 @@ public function findDefaults() {
 		$this->std->addItem($fld);
 
 		foreach ($inf as $prp => $val) {
-			$val = CFG::apply($val); if ($prp == "value")
+#			$val = CFG::apply($val);
+			if ($prp == "value")
 			$val = OID::get($this->oid, $fld, $val);
 
 			$this->std->setProp($fld, $prp, $val);

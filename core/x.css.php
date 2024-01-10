@@ -1,14 +1,16 @@
 <?php
 
-if (isset($_GET["layout"])) {
-	define("LAYOUT", $_GET["layout"]);
-}
+$stl = "default"; if (isset($_GET["style"])) $stl = $_GET["style"];
+$fsz = "1rem";    if (isset($_GET["fsize"])) $fsz = $_GET["fsize"];
+
+define("SSHEET", $stl);
+define("F_SIZE", $fsz);
 
 // ***********************************************************
 // load working dirs
 // ***********************************************************
 require_once "include/fallback.php";
-require_once "include/constants.php";
+require_once "include/internals.php";
 require_once "include/funcs.php";
 
 // ***********************************************************
@@ -23,7 +25,6 @@ incCls("system/APP.php"); // app specific functions
 // read config file(s)
 // ***********************************************************
 incCls("system/CFG.php"); // prepare constants
-CFG::setIf("layout");
 
 // ***********************************************************
 // create css output

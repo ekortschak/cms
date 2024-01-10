@@ -55,8 +55,9 @@ public static function init($dir = TAB_HOME) {
 	$dir = PFS::findDir($uid);
 	PGE::load($dir);
 
-	ENV::set("last.vmode", VMODE);
-	ENV::set("last.fpath", PGE::$dir);
+	ENV::set("pfs.clang", CUR_LANG);
+	ENV::set("pfs.vmode", VMODE);
+	ENV::set("pfs.fpath", PGE::$dir);
 }
 
 // ***********************************************************
@@ -126,7 +127,8 @@ private static function append($ini, $pfx, $lev) { // single page info
 // ***********************************************************
 private static function recall() {
 	if (ENV::getParm("reset")) return false;
-	if (ENV::get("last.vmode") != "view") return false;
+	if (ENV::get("pfs.clang") != CUR_LANG) return false;
+	if (ENV::get("pfs.vmode") != "view")   return false;
 	if (VMODE != "view") return false;
 
 	$tpc = TAB_HOME;
@@ -183,7 +185,7 @@ private static function findNext($inc) {
 
 public static function findDir($uid) {
 	$out = PFS::get($uid, "fpath"); if (strlen($out) > 3) return $out;
-	$dir = ENV::get("last.fpath");
+	$dir = ENV::get("pfs.fpath");
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path

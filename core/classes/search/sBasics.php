@@ -62,7 +62,8 @@ public function getResults($what) {
 	$out = $this->isSame($what); if ($out) return $out;
 	$xxx = $this->saveParms("");
 
-	$psg = $this->search($what); if (! $psg) return false;
+	$psg = $this->search($what);
+	if (! $psg) return false;
 	$psg = $this->sort($psg);
 	$out = array();
 

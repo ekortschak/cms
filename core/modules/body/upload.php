@@ -11,10 +11,10 @@ incCls("input/qikOption.php");
 // ***********************************************************
 // read properties
 // ***********************************************************
-$ext = CFG::getVal("upload:props_upl.ext", "*");
-$max = CFG::getVal("upload:props_upl.max_size", 2000);
-$ovr = CFG::getVal("upload:props_upl.overwrite", 0);
-$dst = CFG::getVal("upload:props_upl.path", PGE::$dir);
+$ext = CFG::iniVal("upload:props_upl.ext", "*");
+$max = CFG::iniVal("upload:props_upl.max_size", 2000);
+$ovr = CFG::iniVal("upload:props_upl.overwrite", 0);
+$dst = CFG::iniVal("upload:props_upl.path", PGE::$dir);
 
 HTW::tag("dir = $dst", "hint");
 

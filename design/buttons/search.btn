@@ -1,6 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/search.gif
 url = ?vmode=search
+hilite = \VMODE == "pres"
 
 [de]
 caption =

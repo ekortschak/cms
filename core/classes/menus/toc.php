@@ -57,10 +57,7 @@ public function gc($sec = "main") {
 		$out.= $this->getSection("link.$typ")."\n";
     }
     $this->set("items", $out);
-    $out = parent::gc($sec);
-
-	$out = CFG::apply($out);
-    return $out;
+    return parent::gc($sec);
 }
 
 // ***********************************************************
@@ -85,7 +82,7 @@ private function chkType($typ, $dir) {
 // determine display features
 // ***********************************************************
 private function isCurrent($kap, $num) { // show highlighted
-	if ($kap != $num) return "";
+	if ($kap !== $num) return "";
 	return "sel";
 }
 private function isHidden($fpath) {

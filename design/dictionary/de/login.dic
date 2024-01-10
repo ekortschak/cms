@@ -1,6 +1,6 @@
 [dic.de]
 pwd.short = Passwort muß mindestens 6 Zeichen lang sein!
-unq.group = Gruppe
+group = Gruppe
 usr.account = Benutzer
 usr.accounts = Benutzernamen
 usr.chg = Aktuellen Benutzer ändern

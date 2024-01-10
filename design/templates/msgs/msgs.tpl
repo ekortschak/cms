@@ -31,4 +31,4 @@ err = Kritischer Fehler
 <div><!VAR:item!></div>
 
 [urlimg]
-<a href="<!VAR:url!>" target="lup"><img src="LOC_ICO/buttons/web.gif" /></a>
+<a href="<!VAR:url!>" target="ah"><img src="LOC_ICO/buttons/web.gif" /></a>

@@ -1,7 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/xlate.png
 url = ?vmode=xlate
-hilite = VMODE == "xlate"
+hilite = \VMODE == "xlate"
 
 [de]
 caption =

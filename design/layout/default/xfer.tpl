@@ -28,10 +28,10 @@ replicator = Seiten übertragen
 [toc] <!-- toc.xfer -->
 # ***********************************************************
 <h3><!DIC:replicator!></h3>
-<!MOD:toc.topics!>
-<!MOD:toc.xfer!>
+<!MOD:toc/topics!>
+<!MOD:toc/xfer!>
 
 # ***********************************************************
 [body] <!-- body.xfer -->
 # ***********************************************************
-<!MOD:body.xfer!>
+<!MOD:body/xfer!>

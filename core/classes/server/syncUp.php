@@ -45,13 +45,18 @@ public function publish() {
 protected function getTree($src, $dst) {
 	if ($this->err) return;
 
+TMR::punch("in");
 	$src = $this->lclFiles($src);
+TMR::punch("lcl");
 	$dst = $this->srvFiles();
+TMR::punch("srv");
 	$out = $this->getNewer($src, $dst);
+TMR::punch("comp");
 
 	$out = $this->chkProtect($out);
 	$out = $this->chkRename($out);
 	$out = $this->chkCount($out);
+TMR::punch("comp");
 	return $out;
 }
 

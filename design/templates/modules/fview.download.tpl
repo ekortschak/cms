@@ -34,7 +34,7 @@ free = Kostenlose Downloads
 # ***********************************************************
 <tr>
 	<td><img src="LOC_ICO/files/file.gif" /></td>
-	<td nowrap><a href="<!VAR:url!>" target="_blank"><!VAR:caption!></a></td>
+	<td nowrap><a href="<!VAR:url!>" target="ah"><!VAR:caption!></a></td>
 	<td>&nbsp;</td>
 	<td><!VAR:ext3!></td>
 	<td nowrap align="right"><grey><!VAR:size!></grey></td>

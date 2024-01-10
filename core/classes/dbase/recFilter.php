@@ -77,7 +77,7 @@ public function gc() {
 		$typ = VEC::get($inf, "dtype"); if (! $typ) continue;
 		$val = VEC::get($inf, "fstd");
 		$val = VEC::get($vls, $fld, $val);
-		$val = CFG::apply($val);
+#		$val = CFG::apply($val);
 
 		$inf["head"]  = $hed;
 		$inf["perms"] = "w"; if ($typ == "key")

@@ -1,7 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/view.png
 url = ?vmode=view
-hilite = VMODE == "view"
+hilite = \VMODE == "view"
 
 [de]
 caption =

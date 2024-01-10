@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/LAYOUT/msg.tpl
+LOC_LAY/default/msg.tpl
 
 
 [msg]

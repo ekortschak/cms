@@ -36,16 +36,12 @@ title = PRJ_TITLE
 # last to execute
 # ***********************************************************
 [styles]
-<link rel="StyleSheet" href="CSS_URL?layout=LAYOUT" type="text/css" />
-<!MOD:zzz.styles!>
+<link rel="StyleSheet" href="CSS_URL?style=SSHEET" type="text/css" />
+<!MOD:zzz/styles!>
 
 [scripts]
-<!MOD:zzz.scripts!>
+<!MOD:zzz/scripts!>
 
-
-# ***********************************************************
-# adaptables
-# ***********************************************************
 [title]
 <!VAR:title!>
 
@@ -69,13 +65,13 @@ title = PRJ_TITLE
 # horizontal panels
 # ***********************************************************
 [joker] <!-- escape for small viewports -->
-<!MOD:css.joker!>
+<!MOD:app/joker!>
 
 [menu] <!-- banner -->
 #<!MOD:menu!>
 
 [status] <!-- status -->
-#<!MOD:app.status!>
+#<!MOD:app/status!>
 
 # ***********************************************************
 # vertical panels
@@ -87,17 +83,17 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [toc] <!-- toc -->
-<!MOD:toc.topics!>
+<!MOD:toc/topics!>
 <!MOD:toc!>
-<!MOD:toc.blocks!>
+<!MOD:toc/blocks!>
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
 
 # ***********************************************************
 [head] <!-- sticky info -->
-<!MOD:body.head!>
-<!MOD:body.feedback!>
+<!MOD:body/head!>
+<!MOD:body/feedback!>
 
 [body] <!-- body -->
 <!MOD:body!>
@@ -107,8 +103,8 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [opts] <!-- opts -->
-<!MOD:app.info!>
-<!MOD:user.opts!>
-<!MOD:user.tags!>
+<!MOD:app/info!>
+<!MOD:user/opts!>
+<!MOD:user/tags!>
 <!MOD:msgs!>
-<!MOD:debug.timer!>
+<!MOD:debug/timer!>

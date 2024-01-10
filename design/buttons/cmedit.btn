@@ -1,5 +1,4 @@
 [props]
-pic = n =
 pic = LOC_ICO/buttons/edit.menu.png
 url = ?vmode=cmedit
 

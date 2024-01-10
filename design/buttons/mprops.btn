@@ -1,5 +1,5 @@
 [props]
-pic = LOC_ICO/buttons/props.menu.png
+pic = LOC_ICO/buttons/props.png
 url = ?vmode=medit&btn.menu=P
 
 [de]

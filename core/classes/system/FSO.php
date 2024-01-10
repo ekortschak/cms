@@ -21,6 +21,8 @@ class FSO {
 	private static $sort = "asc";
 	private static $cnt;
 
+	const CUR_DIR = "./";
+
 public static function init() {
 }
 
@@ -227,6 +229,14 @@ public static function kill($file) { // delete a file
 	if (! is_file($file)) return false;
 	return unlink($file);
 }
+
+public static function write($file, $text) {
+	$dir = FSO::force(dirname($file));
+	$res = file_put_contents($file, $text); if (! $res) return false;
+	FSO::permit($file);
+	return true;
+}
+
 
 // ***********************************************************
 // tree listings

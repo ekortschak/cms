@@ -18,9 +18,9 @@ LOC_LAY/LAYOUT/main.tpl
 </div>
 
 <div style="padding: 3px 20px 0px;">
-	<!MOD:toc.topics!>
+	<!MOD:toc/topics!>
 
 	<div id="scView">
-		<!MOD:toc!>
+		<!MOD:toc/>
 	</div>
 </div>

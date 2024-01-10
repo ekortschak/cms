@@ -1,5 +1,4 @@
 [vars]
-layout = ???
 lang = CUR_LANG
 
 # ***********************************************************
@@ -13,9 +12,10 @@ lang = CUR_LANG
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="expires" content="0" />
 
-<!SEC:styles!>
+	<link rel="StyleSheet" href="CSS_URL" type="text/css" />
 </head>
 
+<!SEC:styles!>
 <!SEC:layout!>
 </html>
 

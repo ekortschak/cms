@@ -5,5 +5,5 @@ LOC_LAY/LAYOUT/main.tpl
 [body] <!-- body.medit -->
 # ***********************************************************
 <div id="viewport">
-<!MOD:edit.menu!>
+<!MOD:edit/menu!>
 </div>

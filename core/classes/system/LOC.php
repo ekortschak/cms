@@ -26,7 +26,7 @@ class LOC {
 public static function init() {
 	$sec = "remote"; if (IS_LOCAL) $sec = "local";
 
-	LOC::$arc = CFG::getVal("backup:$sec.archive", LOC::$arc);
+	LOC::$arc = CFG::iniVal("backup:$sec.archive", LOC::$arc);
 	LOC::setArchive(LOC::$arc);
 }
 

@@ -1,0 +1,26 @@
+.colMain {
+	min-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 50px);
+	max-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 50px);
+}
+
+.titBody {
+	width:      100%;
+	padding:    15px 20px 15px;
+}
+
+.modPres {
+	width:      100%;
+	padding:    0px 20px 50px;
+
+	transform:  scale(1);
+}
+
+.modOpts {
+	padding:    12px 5px;
+	min-width:  2rem;
+	max-width:  2rem;
+}
+
+p.dc {
+	font-size:  1.75em;
+}

@@ -1,5 +1,7 @@
 [dic.de]
 Local = Lokal
+count = Anzahl
+folders = Ordner
 Paragraphs = Absätze
 Sections = Abschnitte
 Verses = Bibelverse

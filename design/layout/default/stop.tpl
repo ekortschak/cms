@@ -1,14 +1,15 @@
-LOC_LAY/LAYOUT/msg.tpl
+[include]
+LOC_LAY/default/msg.tpl
 
 
 [msg]
 <h3>Info</h3>
 <p>Layout not found:<br>
-LOC_LAY/LAYOUT/<!VAR:layout!>
+&rarr; <!VAR:tpl!>
 </p>
 
 [msg.de]
 <h3>Info</h3>
 <p>Layout nicht gefunden:<br>
-LOC_LAY/LAYOUT/<!VAR:layout!>
+&rarr; <!VAR:tpl!>
 </p>

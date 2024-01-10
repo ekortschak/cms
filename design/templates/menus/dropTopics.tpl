@@ -21,9 +21,7 @@ class = dropMenu
 		</td>
 		<td class="nopad" width=5></td>
 		<td class="nopad" width=26 align="center">
-			<div class="<!VAR:class!>">
-				<a style="color: white; font-family: monospace;" href="?vmode=abstract">?</a>
-			</div>
+			<!SEC:nav!>
 		</td>
 	</tr>
 </table>
@@ -36,3 +34,15 @@ class = dropMenu
 
 [main.one]
 <!DIC:topic!> &ensp;
+
+# ***********************************************************
+[nav]
+# ***********************************************************
+<div class="<!VAR:class!>"> _
+<a style="color: white; font-family: monospace;" href="?vmode=abstract">?</a> _
+</div>
+
+[nav.back]
+<div style="padding: 2px 0px 1px; background: navy; border-radius: BR_IMG;"> _
+<a href="?vmode=view"><img src="LOC_ICO/buttons/view.png"></a>
+</div>

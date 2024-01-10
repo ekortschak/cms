@@ -32,7 +32,6 @@ public function init($dir) {
 public function show($sec = "main") {
 	$out = $this->gc($sec);
 	$out = $this->stripNotes($out);
-	$out = CFG::apply($out);
 	echo $out;
 }
 

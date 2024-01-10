@@ -54,7 +54,7 @@ public function gc($sec = "main") {
 
 	foreach ($this->lst as $key => $val) {
 		$this->set("key", $key);
-		$this->set("caption", DIC::getPfx("unq", $key));
+		$this->set("caption", DIC::get($key));
 
 		$shw = $sec; if (! $val) $shw = "$sec.no";
 		$out.= $this->getSection($shw);

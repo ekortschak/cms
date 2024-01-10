@@ -33,7 +33,7 @@ err  { color: FC_WARN; background: BC_WARN; }
 /* ******************************************************** */
 dbg.hint {
 	color: white;
-	background: grey;
+	background: #585555;
 	font-size: 0.75em;
 }
 

@@ -21,19 +21,20 @@ function appFile($file) {
 // startup functions
 // ***********************************************************
 function appVar($key, $default) {
-	$out = appVarValue($key, $default);
-	$_SESSION[APP_DIR][$key] = $out;
-	return $out;
+	$val = appVarValue($key, $default);
+	$val = appToggle($key, $val);
+	$_SESSION[APP_DIR][$key] = $val;
+	return $val;
 }
 function appVarValue($key, $default) {
 	if (isset ($_GET[$key]))              return $_GET[$key];
 	if (isset ($_SESSION[APP_DIR][$key])) return $_SESSION[APP_DIR][$key];
 	return $default;
 }
-function appMode($mod) {
-	$fil = appFile("core/$mod.php");
-	if (is_file($fil)) return $mod;
-	return "index";
+function appToggle($key, $val) {
+	if ($val !== "toggle") return $val;
+	if (! isset ($_SESSION[APP_DIR][$key])) return true;
+	return ! (bool) $_SESSION[APP_DIR][$key];
 }
 
 // ***********************************************************
@@ -58,9 +59,9 @@ function dbgli($msg = "hier", $info = "dbg") { // show plain text
 	echo "<li>$info: $msg</li>";
 }
 
-function dbgpi($msg = "hier", $info = "dbg") { // show plain text
-	$msg = STR::replace($msg, DIR_SEP, " / ");
-	echo "<li>$info: $msg</li>";
+function dbgpi($path = "hier", $info = "dbg") { // show plain text
+	$path = CFG::encode($path);
+	echo "<dbg>$info: $path</dbg>";
 }
 
 ?>

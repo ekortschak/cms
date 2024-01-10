@@ -14,7 +14,7 @@ $hst = DB_HOST;
 // ***********************************************************
 // table info
 // ***********************************************************
-$usr = CFG::getVal("dbase:dbase.user");
+$usr = CFG::iniVal("dbase:dbase.user");
 $dir = LOC::arcDir("dbs.$dbs");
 $dir = FSO::join($dir, "$dbs.sql");
 

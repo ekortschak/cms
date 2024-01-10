@@ -96,12 +96,12 @@ protected function trgName($fso) {
 
 // ***********************************************************
 protected function visPath($dir) {
-	$out = CFG::restore($dir); if ($out != $dir) return $out;
+	$out = CFG::encode($dir); if ($out != $dir) return $out;
 	$arc = LOC::arcDir();
 
 	if (STR::begins($dir, $arc)) {
 		$out = STR::after($dir, "$arc/");
-		return "~/cms.archive/$out";
+		return FSO::join("~/cms.archive", APP_NAME, $out);
 	}
 	return $dir;
 }
@@ -145,7 +145,7 @@ TMR::punch("exec.in");
 	$rep = array("ren" => 0, "mkd" => 0, "rmd" => 0, "cpf" => 0, "dpf" => 0);
 
 	$arr = $this->aggregate($arr);
-	$arr = $this->rearrange($arr); // put "ren" first
+	$arr = $this->reArrange($arr); // put "ren" first
 
 	foreach ($arr as $act => $lst) {
 		foreach ($lst as $key => $fso) {
@@ -396,6 +396,13 @@ protected function chkCount($arr) {
 }
 
 // ***********************************************************
+// dummies for derived classes
+// ***********************************************************
+protected function aggregate($arr) {
+	return $arr;
+}
+
+// ***********************************************************
 // auxilliary methods
 // ***********************************************************
 protected function split($itm, $pfx) {
@@ -430,20 +437,9 @@ protected function chkPath($dir) {
 	return FSO::norm($dir);
 }
 
-// ***********************************************************
-// dummies for derived classes
-// ***********************************************************
-protected function aggregate($arr) {
-	return $arr;
-}
-
-protected function rearrange($arr) {
-	$out = array(); $out["ren"] = false;
-
-	foreach ($arr as $key => $lst) {
-		$out[$key] = $lst;
-	}
-	return $out;
+protected function reArrange($arr) {
+	$out = array("ren" => false);
+	return array_merge($out, $arr);
 }
 
 // ***********************************************************

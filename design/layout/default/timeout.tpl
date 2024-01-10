@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/default/offline.tpl
+LOC_LAY/default/msg.tpl
 
 
 # ***********************************************************

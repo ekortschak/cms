@@ -28,13 +28,11 @@ result =
 # ***********************************************************
 [main]
 # ***********************************************************
-<!SEC:heading!>
-
 <form method="post" action="?vmode=search">
 <!SEC:oid!>
 <!VAR:range!>
 
-	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: calc(100% - 12px);" />
+	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: 100%;" />
 
 	<div align="right">
 		<input type="submit" name="search,act" value="OK" />
@@ -44,13 +42,6 @@ result =
 <h4><!DIC:result!></h4>
 <!VAR:result!>
 
-# ***********************************************************
-[heading]
-# ***********************************************************
-<div class="flex">
-	<div><h3><!DIC:search!></h3></div>
-	<div><!SEC:nav.toc!></div>
-</div>
 
 # ***********************************************************
 [result]
@@ -64,7 +55,7 @@ result =
 <div class="nowrap"><h5><!VAR:topic!></h5></div>
 
 [item]
-<div class="nowrap"><a href="?search.topic=<!VAR:dir!>&search.dir=<!VAR:key!>"><!VAR:title!></a></div>
+<div class="nowrap"><a href="?vmode=search&search.tpc=<!VAR:dir!>&search.dir=<!VAR:key!>"><!VAR:title!></a></div>
 
 
 # ***********************************************************

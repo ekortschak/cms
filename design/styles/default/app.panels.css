@@ -67,8 +67,6 @@
 	background: BC_OPTS;
 	padding:    1rem 20px 25px;
 	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
-#	width:      W_OPTS;
-#	max-width:  W_OPTS;
 }
 
 /* ******************************************************** */

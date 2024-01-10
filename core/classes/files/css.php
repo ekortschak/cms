@@ -8,6 +8,8 @@ used to generate style sheet from chosen directory
 // HOW TO USE
 // ***********************************************************
 include_once "core/include/load.css.php";
+
+incCls("system/CFG.php");
 incCls("files/css.php");
 
 $css = new css();
@@ -21,9 +23,7 @@ class css {
 	private $dir = "static";
 	private $cms = "static/cms.css";
 
-function __construct() {
-	CFG::readCss(); // read relevant constants
-}
+function __construct() { }
 
 // ***********************************************************
 // get style sheet
@@ -41,12 +41,6 @@ public function get() { // get style sheet
 
 // ***********************************************************
 public function gc() { // get code
-	$css = $this->getCss();
-	return CFG::apply($css);
-}
-
-// ***********************************************************
-private function getCss() {
 	$css = $this->getStatic(); if ($css) return $css;
 	$arr = $this->getFiles();
 	$css = "";
@@ -57,7 +51,7 @@ private function getCss() {
 		$css.= $itm;
 	}
 #	$css = $this->compress($css);
-	return $css;
+	return CFG::apply($css);
 }
 
 // ***********************************************************
@@ -110,8 +104,7 @@ public function export($file) {
 private function getStatic() {
 	return false; // TODO:kill
 	$ful = APP::file($this->cms); if (! $ful) return false;
-	$out = file_get_contents($ful);
-	return trim($out);
+	return file_get_contents($ful);
 }
 
 // ***********************************************************
@@ -120,7 +113,7 @@ private function getFiles() {
 
 	$sets = array( // assoc to avoid dups
 		"default" => "default",
-		 LAYOUT   => LAYOUT,
+		 SSHEET   =>  SSHEET,
 		"app"     => ""
 	);
 	foreach ($sets as $val) {
@@ -167,15 +160,10 @@ private function cleanUrls($css, $sep1, $sep2) {
 	$cms = basename(APP_FBK);
 
 	foreach ($arr as $fil) {
-		$ful = self::url($fil);
+		$ful = APP::url($fil);
 		$css = STR::replace($css, $fil, $ful);
 	}
 	return $css;
-}
-
-private static function url($fso) {
-	$fil = APP::file($fso);
-	return APP::url($fil);
 }
 
 // ***********************************************************

@@ -21,7 +21,7 @@ head = Dateien
 # ***********************************************************
 <tr>
 	<td><img src="LOC_ICO/files/file.gif" /></td>
-	<td><a href="<!VAR:url!>" target="_blank"><!VAR:text!></a></td>
+	<td><a href="<!VAR:url!>" target="ah"><!VAR:text!></a></td>
 	<td>&nbsp;</td>
 	<td><!VAR:ext3!></td>
 	<td align="right"><!VAR:size!></td>

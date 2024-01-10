@@ -11,10 +11,16 @@ incCls("menus/dropBox.php");
 $tps = new topics();
 $arr = $tps->getMarked(); if (! $arr) return;
 
+switch (VMODE) {
+	case "abstract": $nav = "nav.back"; break;
+	default:         $nav = "nav";
+}
+
 // ***********************************************************
 // show topics - if any
 // ***********************************************************
 $box = new dropBox("topics");
+$box->substitute("nav", $nav);
 $box->getKey("tpc", $arr);
 $box->show();
 

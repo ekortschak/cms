@@ -14,6 +14,6 @@ design/other/print.css
 [layout] <!-- layout.print -->
 # ***********************************************************
 <body class="print">
-<!MOD:body.head!>
+<!MOD:body/head!>
 <!MOD:body!>
 </body>

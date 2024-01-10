@@ -98,7 +98,7 @@ protected function collect($sec) {
 		extract ($vls);
 
 		$this->set("parm", $unq);
-		$this->set("uniq", DIC::getPfx("unq", $unq));
+		$this->set("uniq", DIC::get($unq));
 		$this->set("current", $cur);
 
 		switch ($vls["typ"]) {

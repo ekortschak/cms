@@ -47,10 +47,7 @@ public function gc($btn = "view") {
 		$tpl->set("pic", $tpl->getSection("pic"));
 	}
 	$sec = "button"; if ($ref) $sec = "button.tip";
-	$out = $tpl->gc($sec);
-	$out = STR::replace($out, "MY_VAL", $this->get("qid", "X"));
-	$out = CFG::apply($out);
-	return $out;
+	return $tpl->gc($sec);
 }
 
 // ***********************************************************
@@ -66,7 +63,7 @@ public function read($btn) {
 	$this->merge($cod->getValues());
 
 	$sel = $this->get("props.hilite", "");
-	$sel = HTM::php_cond($sel);
+	$sel = $this->chkStatus($sel);
 	$sel = ($sel) ? "selected" : "";
 
 	$this->set("pic",     $this->get("props.pic"));
@@ -75,6 +72,15 @@ public function read($btn) {
 	$this->set("hilite",  $sel);
 	$this->set("caption", $this->lng("caption")); if ($tip)
 	$this->set("tip",     $this->lng("tooltip"));
+}
+
+// ***********************************************************
+// handling php snips
+// ***********************************************************
+private function chkStatus($code) {
+	$code = CFG::unmask($code); if (! $code) return;
+	eval("\$out = ($code);");
+	return $out;
 }
 
 // ***********************************************************

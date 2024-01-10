@@ -58,7 +58,7 @@ private static function setTab($idx) {
 private static function findTab($idx) {
 	$tab = ENV::getParm("tab");	 if ($tab) return $tab;
 	$tab = ENV::get("tab.$idx"); if ($tab) return $tab;
-	$arr = CFG::getValues("tabsets:".TAB_SET);
+	$arr = CFG::iniGroup("tabsets:".TAB_SET);
 
 	foreach ($arr as $key => $val) {
 		if (STR::contains($val, "default")) return $key;

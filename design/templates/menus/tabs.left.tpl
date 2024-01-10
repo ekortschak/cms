@@ -29,39 +29,21 @@ vmode = VMODE
 # ***********************************************************
 [search]
 # ***********************************************************
+<div class="tabicon">
 <a href="?vmode=search">
-	<div class="vtab <!VAR:class!>">
-		<img src="LOC_ICO/buttons/search.gif" alt="Search" />
-	</div>
+	<img src="LOC_ICO/buttons/search.gif" alt="Search" />
 </a>
+</div>
 
 [search.return]
-<a href="?vmode=view">
-	<div class="vtab <!VAR:class!>">
-		<img src="LOC_ICO/buttons/search.stop.gif" alt="Back" />
-	</div>
-</a>
-
-# ***********************************************************
-[tedit]
-# ***********************************************************
 <div class="tabicon">
-<a href="?vmode=tedit">
-	<img src="LOC_ICO/buttons/edit.tab.png" alt="TabEdit" />
+<a href="?vmode=view">
+	<img src="LOC_ICO/buttons/search.stop.gif" alt="Back" />
 </a>
 </div>
 
 # ***********************************************************
 [return]
-# ***********************************************************
-<div class="tabicon">
-<a href="?vmode=view">
-	<img src="LOC_ICO/buttons/view.png" alt="View" />
-</a>
-</div>
-
-# ***********************************************************
-[gohome]
 # ***********************************************************
 <div class="tabicon">
 <a href="?vmode=view">

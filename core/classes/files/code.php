@@ -62,6 +62,7 @@ protected function getContent($file) {
 	$txt = STR::dropComments($txt);
 	$txt = STR::dropSpaces($txt);
 	$txt = STR::clear($txt, "\r");
+	$txt = CFG::apply($txt);
 	return STR::replace($txt, "\#", "#");
 }
 
@@ -75,7 +76,7 @@ public function getSecs($const = true) {
 	if (! $const) return $this->sec; $out = array();
 
 	foreach ($this->sec as $key => $val) {
-		$out[$key] = CFG::apply($val);
+		$out[$key] = $val;
 	}
 	return $out;
 }
@@ -173,7 +174,6 @@ protected function setVars() { // set vars
 	$arr = $this->split($txt);
 
 	foreach ($arr as $key => $val) {
-		$val = CFG::apply($val);
 		$val = DIC::xlate($val);
 		$this->vrs[$key] = $val;
 	}

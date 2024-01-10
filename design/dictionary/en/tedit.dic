@@ -1,4 +1,4 @@
 [dic.en]
 tabs.toggle = Tabs ein- und ausschalten*
-tag.props = Eigenschaften*
-unq.font = Schriftart*
+props = Eigenschaften*
+font = Schriftart*
