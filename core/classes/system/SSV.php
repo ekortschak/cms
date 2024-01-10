@@ -41,8 +41,8 @@ public static function init() {
 }
 
 public static function reset() {
-	SSV::$dat = array(
-		"env" => array(), "oid" => array(), "tmr" => array(),
+	SSV::$dat =  array(
+		"env" => array(), "oid" => array(), "sec" => array(),
 		"pfs" => array(), "tan" => array(), "log" => array(),
 		"prm" => array(), "dbg" => array()
 	);
@@ -68,6 +68,11 @@ public static function get($key, $default = false, $div = "env") {
 
 public static function getValues($div = "env") {
 	return SSV::$dat[$div];
+}
+
+public static function count($key) {
+	$cnt = SSV::get($key, 0, "sec");
+	return SSV::set($key, $cnt + 1, "sec");
 }
 
 // ***********************************************************
@@ -117,7 +122,7 @@ private static function getTimeOut() {
 	$max = intval(TIMEOUT);
 
 	if ($max < SSV::$min) $max = SSV::$min;
-	if ($max < SSV::$max) $max = SSV::$max;
+	if ($max > SSV::$max) $max = SSV::$max;
 
 	return time() + ($max * 60);
 }

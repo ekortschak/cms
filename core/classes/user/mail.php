@@ -95,6 +95,8 @@ public function addSep($msg) {
 // output
 // ***********************************************************
 public function send($mode = MAILMODE) {
+	$cnt = SSV::count("mails"); if ($cnt > 7) return;
+
 	if (IS_LOCAL) {
 		MSG::now("mail.force preview");
 		$mode = "preview";
