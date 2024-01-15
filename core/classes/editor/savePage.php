@@ -37,11 +37,10 @@ protected function exec() {
 
 private function savePage($act) {
 	if ($act != "save") return false;
+
 	$txt = $this->get("content");  if (! $txt) return false;
 	$old = $this->get("orgName");  if (! $old) return false;
 	$fil = $this->get("filName");  if (! $fil) $fil = $old;
-
-	if ($fil != $old) FSO::kill($old);
 
 	$ext = FSO::ext($fil);
 
@@ -49,7 +48,11 @@ private function savePage($act) {
 		$tdy = new tidyPage();
 		$txt = $tdy->restore($txt);
 	}
-	APP::write($fil, $txt);
+	$res = APP::write($fil, $txt);
+
+	if ($res)
+	if ($fil != $old) FSO::kill($old);
+
 	return true;
 }
 

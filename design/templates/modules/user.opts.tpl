@@ -56,8 +56,9 @@ pres = Präsentation
 # ***********************************************************
 <div class="h4"><!DIC:edit!></div>
 <div>
-<!SEC:tedit!> <!SEC:medit!> <br>
-<!SEC:pedit!> <!SEC:xlate!> <!SEC:seo!> <br>
+<!SEC:tedit!>
+<!SEC:medit!>
+<!SEC:pedit!>
 <!SEC:xedit!>
 </div>
 
@@ -79,9 +80,9 @@ pres = Präsentation
 [manual] <!BTN:manual!>
 [search] <!BTN:search!>
 
-[tedit]  <!BTN:tedit!>
-[medit]  <!BTN:medit!> <!BTN:mprops!>
-[pedit]  <!BTN:pedit!>
+[tedit]  <!BTN:tedit!>  <br>
+[medit]  <!BTN:medit!> <!BTN:mprops!> <br>
+[pedit]  <!BTN:pedit!> <!SEC:xlate!> <!SEC:seo!> <br>
 [xedit]  <!BTN:xedit!>
 [xlate]  <!BTN:xlate!>
 [seo]    <!BTN:seo!>

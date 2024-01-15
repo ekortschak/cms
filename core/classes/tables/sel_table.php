@@ -39,7 +39,7 @@ function __construct() {
 // ***********************************************************
 protected function exec($dbase, $tbl, $flt) { // recSel templates
 	$act = ENV::getPost("rec.act", false);      if (! $act) return;
-	$rec = OID::get($this->oid, "sel", "list"); if (! $rec) return;
+	$rec = $this->recall("sel", "list"); if (! $rec) return;
 
 	$act = strtolower($act);
 

@@ -86,8 +86,8 @@ public static function props($sec = "") {
 public static function pic($dir = false) {
 	if (! $dir) $dir = PGE::dir();
 
-	$pic = APP::files($dir, "pic.png, pic.jpg, pic.gif");
-	return APP::file(key($pic));
+	$pic = FSO::files($dir, "pic.*"); $pic = key($pic);
+	return APP::url($pic);
 }
 
 // ***********************************************************

@@ -207,7 +207,7 @@ protected function getRecID($arr) {
 // ***********************************************************
 protected function getPage() {
     $lst = count($this->dat);
-    $pge = OID::get($this->oid, "cur", 0);
+    $pge = $this->recall("cur", 0);
 
     switch (ENV::getParm("act", "x")) {
         case "f": $pge = 0;        break;
@@ -217,7 +217,8 @@ protected function getPage() {
     }
     $max = $this->getMax($lst);
     $pge = CHK::range($pge, $max);
-    $xxx = OID::set($this->oid, "cur", $pge);
+
+    $xxx = $this->hold("cur", $pge);
     return $pge;
 }
 
@@ -242,7 +243,7 @@ protected function getTable($body) {
     if (! $body) return "";
 
     $lst = count($this->dat); $lst = $this->getMax($lst);
-    $pge = OID::get($this->oid, "cur", 0);
+    $pge = $this->recall("cur", 0);
 
 	$this->set("body", $body);
     $this->set("qid",  $this->oid);

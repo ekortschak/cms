@@ -59,7 +59,7 @@ public function setTable($dbase, $table, $flt = "") {
 
 protected function getPage() {
     $lst = count($this->dat);
-    $pge = OID::get($this->oid, "cur", 0);
+    $pge = $this->recall("cur", 0);
 
     switch (ENV::getPost("act", "x")) {
         case "p": $pge = $pge - 1; break;
@@ -69,7 +69,8 @@ protected function getPage() {
     }
     $max = $this->getMax($lst);
     $pge = CHK::range($pge, $max);
-    $xxx = OID::set($this->oid, "cur", $pge);
+
+    $xxx = $this->hold("cur", $pge);
     return $pge;
 }
 

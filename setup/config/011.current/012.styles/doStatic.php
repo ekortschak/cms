@@ -22,7 +22,7 @@ $arr = array(
 // ***********************************************************
 // adjust buttons
 // ***********************************************************
-$cms = FSO::join(APP_DIR, "static/cms.css");
+$cms = "static/cms.css";
 
 $cur = "add"; if (is_file($cms))
 $cur = "del";

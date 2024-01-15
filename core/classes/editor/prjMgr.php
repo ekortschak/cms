@@ -7,15 +7,15 @@ used to handle project setup tasks
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("input/cmsSetup.php");
+incCls("input/prjMgr.php");
 
-$obj = new cmsSetup();
+$obj = new prjMgr();
 */
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class cmsSetup {
+class prjMgr {
 
 function __construct() {
 #	$this->cms = rtrim(APP_FBK, DIR_SEP);

@@ -86,7 +86,7 @@ public function findDefaults() {
 		foreach ($inf as $prp => $val) {
 #			$val = CFG::apply($val);
 			if ($prp == "value")
-			$val = OID::get($this->oid, $fld, $val);
+			$val = $this->recall($fld, $val);
 
 			$this->std->setProp($fld, $prp, $val);
 		}
@@ -170,7 +170,7 @@ public function gc() {
 	$txs = $this->getTPerms();
 
 	$tan = TAN::register($this->dbs, $this->tbl, $this->qid);
-	$xxx = OID::set($this->oid, "tan", $tan);
+	$xxx = $this->hold("tan", $tan);
 
 	$fed = new fldEdit($this->dbs);
 	$fed->set("oid", $this->oid);

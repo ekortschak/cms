@@ -7,7 +7,7 @@ DBG::file(__FILE__);
 // ***********************************************************
 $loc = PGE::dir();
 $sel = ENV::getParm("coll");
-$arr = APP::folders($loc);
+$arr = FSO::folders($loc);
 $lst = array();
 
 if (count($arr) < 1) {
@@ -44,7 +44,7 @@ $tpl->load("pages/collect.tpl");
 
 $tpl->set("text", $htm);
 $tpl->set("head", $tit);
-$tpl->set("pic", $pic);
+$tpl->set("pic",  $pic);
 
 if (! $pic) {
 	$tpl->clearSec("pic");

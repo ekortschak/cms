@@ -42,6 +42,17 @@ protected function exec() {
 	SSV::set("reload", true, "pfs");
 }
 
+protected function exec_2() {
+	$dir = ENV::get("curDir");  if (! is_dir($dir)) return;
+	$act = $this->env("btn.menu"); if ($act != "F") return;
+	$cmd = $this->get("file.act"); if (! $cmd) return;
+
+	switch(STR::left($cmd)) {
+		case "dro": return $this->fileDelete($dir); // delete a file
+		case "hid": return $this->fileToggle($dir); // hide and unhide a file
+	}
+}
+
 // ***********************************************************
 // node Opts
 // ***********************************************************
@@ -110,8 +121,7 @@ private function nodeCheck() { // add UID to page.ini recursively
 	foreach ($arr as $dir => $nam) {
 		$ini = new iniWriter();
 		$ini->read($dir);
-		$ini->verifyUID();
-		$ini->verifyCaps();
+		$ini->checkIni();
 	}
 	MSG::add("Check UIDs - OK");
 }

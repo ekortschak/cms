@@ -171,11 +171,13 @@ public static function rmDir($dir) {
 // ***********************************************************
 public static function files($dir, $pattern = "*") {
  // collect all files matching $pattern
-	$ptn = FSO::join($dir, $pattern); $out = array();
-	$ptn = FSO::norm($ptn);
+	$out = array(); if (! is_dir($dir)) return $out;
+	$ext = STR::split($pattern, ",");
 
-	$arr = glob($ptn); if (! $arr) return $out;
-
+	foreach ($ext as $ptn) {
+		$ful = FSO::join($dir, $ptn);
+		$arr = glob($ful);
+	}
 	foreach ($arr as $itm) {
 		if (is_dir($itm)) continue;
 		$out[$itm] = basename($itm);

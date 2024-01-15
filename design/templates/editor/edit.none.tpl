@@ -25,8 +25,11 @@ lev1 = Erste Ebene verknüpfen
 <h4>Import</h4>
 <form method="post" action="?">
 <!SEC:oid!>
-	<input name="target" type="text" value="CUR_PAGE" />
-	<input name="source" type="text" value="<!VAR:target!>" />
+	<input name="target" type="hidden" value="CUR_PAGE" />
+	<input name="source" type="hidden" value="<!VAR:target!>" />
 	<button name="file.act" value="import"><!DIC:lev1!></button>
 </form>
 
+DOC_ROOT<br>
+APP_DIR<br>
+CMS_DIR

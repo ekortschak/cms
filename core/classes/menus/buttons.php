@@ -43,8 +43,8 @@ function __construct($owner, $std, $dir) {
 
 	$this->load("menus/buttons.tpl");
 	$this->register();
+	$this->hold("sfx", $owner);
 
-	OID::set($this->oid, "sfx", $owner);
 	ENV::setIf($this->own, $std);
 }
 
@@ -102,7 +102,6 @@ public function show($sec = "main") {
 	foreach ($this->dat as $idx => $inf) {
 		$htm = implode("\n", $inf);
 		$this->set("group", $htm);
-
 		$out.= parent::gc("group");
 	}
 	$this->set("items", $out);
@@ -121,6 +120,7 @@ public function act() {
 private function showContent() {
 	$sel = ENV::get($this->own, $this->std);
 	$inc = VEC::get($this->fls, $sel);
+	$inc = appFile($inc);
 
 	if (! $inc) return parent::show("wrong.btn");
 	include_once $inc;

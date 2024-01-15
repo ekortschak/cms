@@ -111,7 +111,7 @@ public function show() {
 // determine display features
 // ***********************************************************
 private function find($default) {
-	return OID::get($this->oid, "trg", $default);
+	return $this->recall("trg", $default);
 }
 
 private function isVisible($dir, $index, $lev) {

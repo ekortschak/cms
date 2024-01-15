@@ -40,8 +40,7 @@ public function grab($file) {
 	$this->ful  = APP::file($file);
 	$this->file = APP::relPath($file);
 
-	OID::set($this->oid, "orgName", $this->file);
-
+	$this->hold("orgName", $this->file);
 	$this->chkLocal();
 }
 

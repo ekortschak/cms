@@ -72,13 +72,7 @@ public function text($uid, $value = "") {
 
 // ***********************************************************
 public function hide($uid, $value = 1) { // hidden values
-	return OID::set($this->oid, $uid, $value);
-	return $this->itm->addInput("hid", $uid, $value);
-}
-
-public function hidden($uid, $value = 1) { // hidden values
-	return OID::set($this->oid, $uid, $value);
-	return $this->itm->addInput("hid", $uid, $value);
+	return $this->hold($uid, $value);
 }
 
 // ***********************************************************

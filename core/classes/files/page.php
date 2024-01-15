@@ -43,7 +43,7 @@ public function setModules() {
 	$arr = STR::find($tpl, "<!MOD:", "!>");
 
 	foreach ($arr as $mod => $idx) {
-		$idx = "app"; if (STR::begins($mod, "zzz.")) $idx = "zzz";
+		$idx = "app"; if (STR::begins($mod, "zzz/")) $idx = "zzz";
 		$this->addModule($mod, $idx);
 	}
 }
@@ -96,7 +96,7 @@ protected function cleanUp($htm) {
 
 	$htm = STR::replace($htm, "CUR_PAGE", PGE::$dir);
 	$htm = STR::replace($htm, "<|", "<!");
-	$htm = STR::clear($htm, DOC_ROOT);
+#	$htm = STR::clear($htm, DOC_ROOT);
 
 	return STR::dropSpaces($htm);
 }

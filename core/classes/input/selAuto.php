@@ -62,11 +62,11 @@ public function addField($fname, $vals, $val) {
 	}
 
 	if (STR::begins($vals, "folders:")) {
-		$arr = $this->getFolders($vals);
+		$arr = $this->folders($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
 	if (STR::begins($vals, "files:")) {
-		$arr = $this->getFiles($vals);
+		$arr = $this->files($vals);
 		return $this->addObj("combo", $fname, $arr, $val);
 	}
 	if (STR::begins($vals, "inifile:")) {
@@ -111,11 +111,11 @@ public function memo($caption, $value = "", $rows = 4) { // text area colspan 10
 // ***********************************************************
 // handling arrays
 // ***********************************************************
-protected function getFolders($dir) {
+protected function folders($dir) {
 	$dir = STR::after($dir, ":"); if (! $dir) return array();
 	return APP::folders($dir);
 }
-protected function getFiles($dir) {
+protected function files($dir) {
 	$dir = STR::after($dir, ":"); if (! $dir) return array();
 	return APP::files($dir);
 }

@@ -30,7 +30,7 @@ function __construct($pid) {
 public function setChoice($options) {
 	$sel = $this->get("value");
 	$sel = parent::get("curVal", $sel);
-	$sel = OID::get($this->oid, $this->uid, $sel);
+	$sel = $this->recall($this->uid, $sel);
 
 	$this->vals = $options;
 	$this->sels = $this->getChoice($options, $sel);

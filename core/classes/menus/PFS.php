@@ -25,7 +25,6 @@ class PFS {
 	private static $idx = array();  // menu index list
 	private static $vrz = array();  // menu dirs list
 	private static $num = array();  // chapter numbers
-	private static $inv = array();  // invisible items like collection
 
 	private static $dir = "";       // current topic
 	private static $fil = "";       // name of static menu file
@@ -77,24 +76,16 @@ private static function readDir($dir, $pfx = "", $ofs = 0) {
 
 	foreach ($drs as $dir => $nam) {
 		$ini = new ini($dir);
-		$uid = PFS::uniq($ini->getUID());
 		$typ = $ini->getType();
 
-		if ($chk) if (STR::begins($dir, $old)) {
-			PFS::$inv[$uid] = $pid;
-			continue;
-		}
 		$lev = FSO::level($dir);
 
-		PFS::append($ini, $pfx, $lev - $top + $ofs);
+		PFS::append($ini, $pfx, $lev + $ofs - $top);
 
-		if ($typ == "red") {
+		if ($typ == "red") { // redirection
 			$inc = $ini->getReDir();
-			PFS::readDir($inc, PFS::$red++, $top + $ofs + 1);
+			PFS::readDir($inc, PFS::$red++, $top + $ofs);
 		}
-		if (VMODE == "view") $chk = ($typ == "col");
-		$old = $dir;
-		$pid = $uid;
 	}
 }
 
@@ -171,8 +162,7 @@ public static function find($key = NV) { // dir, uid or num index expected !
 		if ($uid) return $uid;
 	}
 	$idx = VEC::get(PFS::$dat, $key); if ($idx) return $key;
-	$idx = VEC::get(PFS::$vrz, $key); if ($idx) return $idx;
-	return VEC::get(PFS::$inv, $key);
+	return VEC::get(PFS::$vrz, $key);
 }
 
 private static function findNext($inc) {

@@ -43,9 +43,10 @@ public function edit($dir, $files = false) { // dir = dir or file
 	$old = $ful = $dir;
 
 	if (is_dir($dir)) {
-		if (! $this->fonly)
-		$dir = $box->folders($dir); if (! $dir) $dir = $old;
-		$arr = $this->getFiles($dir);
+		if (! $this->fonly) $dir = $box->folders($dir);
+		if (! $dir) $dir = $old;
+
+		$arr = $this->files($dir);
 		$ful = $box->getKey("pic.file", $arr, $dir);
 	}
 	else {
@@ -56,7 +57,7 @@ public function edit($dir, $files = false) { // dir = dir or file
 		$ful = $box->getKey("pic.file", $arr, $fil);
 	}
 	$typ = $this->findType($ful);
-	$eds = $this->findEditors($typ);
+	$eds = $this->editors($typ);
 
 	if ($typ != "none")
 	$typ = $box->getKey("pic.editor", $eds);
@@ -74,13 +75,13 @@ public function edit($dir, $files = false) { // dir = dir or file
 // ***********************************************************
 // retrieving options
 // ***********************************************************
-private function findEditors($typ) {
+private function editors($typ) {
 	if ($typ == "none") return array();
-	if ($typ == "code") return $this->getModes("code,xtern,text");
-	if ($typ ==	"html") return $this->getModes("html,xtern,ck4,ck5,code");
-	if ($typ == "ini")  return $this->getModes("ini,text");
-	if ($typ == "dic")  return $this->getModes("dic,text");
-	if ($typ == "pic")  return $this->getModes("pic");
+	if ($typ == "code") return $this->modes("code,xtern,text");
+	if ($typ ==	"html") return $this->modes("html,xtern,ck4,ck5,code");
+	if ($typ == "ini")  return $this->modes("ini,text");
+	if ($typ == "dic")  return $this->modes("dic,text");
+	if ($typ == "pic")  return $this->modes("pic");
 
 	return array("text" => "text");
 }
@@ -107,7 +108,7 @@ private function findClass($typ) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getModes($items) {
+private function modes($items) {
 	$out = array(); $arr = STR::toArray($items);
 	$dat = array(
 		"code"  => "Code",   "ini" => "Ini-Editor",
@@ -121,7 +122,7 @@ private function getModes($items) {
 	return $out;
 }
 
-private function getFiles($dir) {
+private function files($dir) {
 	$arr = FSO::files($dir);
 
 	foreach ($arr as $key => $val) {

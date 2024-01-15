@@ -70,9 +70,9 @@ public function edit($fil, $lng = CUR_LANG) {
 	$key = $this->showSel($arr);
 	$xxx = $this->showEdit($key);
 
-	OID::set($this->oid, "file", $fil);
-	OID::set($this->oid, "clng", $lng);
-	OID::set($this->oid, "ckey", $key);
+	$this->hold("file", $fil);
+	$this->hold("clng", $lng);
+	$this->hold("ckey", $key);
 
 	$cnt = $this->count(APP_FBK, $key);
 	$xxx = $this->set("count", $cnt);

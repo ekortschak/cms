@@ -1,7 +1,7 @@
 <?php
 
 incCls("input/selector.php");
-incCls("editor/cmsSetup.php");
+incCls("editor/prjMgr.php");
 
 // ***********************************************************
 $sel = new selector();
@@ -24,8 +24,7 @@ if ($prj == "new_project") {
 $top = dirname(APP_DIR);
 $dir = FSO::join($top, $prj);
 
-$obj = new cmsSetup($dir);
+$obj = new prjMgr($dir);
 $obj->addProj($dir, $prj, $tpc);
 
 ?>
-

@@ -49,17 +49,10 @@ public function setProp($prop, $value) {
 	$this->cur->set($prop, $value);
 }
 
-protected function setOidVal($key, $val) {
-	$chk = OID::update($this->oid, $key, $val); if (! $chk) return;
-#	$xxx = OID::set($this->oid, $key, $val);
-}
-
 // ***********************************************************
 // wrapper for text fields of all kinds
 // ***********************************************************
 private function inpTBox($class, $type, $uid, $value = "") {
-	$this->setOidVal($uid, $value);
-
 	$inp = new $class($this->oid);
 	$inp->setProps($this->vls, $this->dic);
 	$inp->init($type, $uid, $value);
@@ -123,8 +116,6 @@ public function inpHelp($class, $type, $info = "") {
 }
 
 public function inpMemo($type, $uid, $value = "") {
-	$this->setOidVal($uid, $value);
-
 	$inp = new selMemo($this->oid);
 	$inp->setProps($this->vls, $this->dic);
 	$inp->init($type, $uid, $value);

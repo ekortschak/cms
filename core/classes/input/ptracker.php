@@ -22,15 +22,14 @@ if ($ptk->get("sel_name")) {
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class ptracker {
-	private $oid = NV;
+class ptracker extends objects {
 	private $lock = true;
 
 function __construct() {
-	$this->oid = OID::register($oid, $sfx);
+	$this->register(NV, $sfx);
 
 	foreach ($_POST as $key => $val) {
-		OID::set($this->oid, $key, $val);
+		$this->hold($key, $val);
 	}
 }
 
@@ -38,7 +37,7 @@ function __construct() {
 // methods
 // ***********************************************************
 public function watch($key = "cnf.act", $val = true) {
-	$chk = OID::get($this->oid, $key, NV); if ($chk === NV) return;
+	$chk = $this->recall($key, NV); if ($chk === NV) return;
 	$this->lock = ($chk != $val);
 	return (! $this->lock);
 }
@@ -46,7 +45,7 @@ public function watch($key = "cnf.act", $val = true) {
 public function get($key, $default = false) {
 	if ($this->lock) return false;
 
-	$out = OID::get($this->oid, $key, NV); if ($out === NV) return false;
+	$out = $this->recall($key, NV); if ($out === NV) return false;
 	$xxx = OID::forget($this->oid);
 
 	if ($out !== NV) return $out;

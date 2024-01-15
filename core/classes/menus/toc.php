@@ -37,7 +37,7 @@ public function setData($arr) { // $arr as from PFS::item();
 // display functions
 // ***********************************************************
 public function gc($sec = "main") {
-	$cur = PGE::$dir; $out = ""; $cnt = 0;
+	$cur = PGE::$dir; $out = ""; $cnt = 0; $skp = false;
 	$arr = PFS::items();
 	$inf = PFS::item();
 	$kap = VEC::get($inf, "chnum");
@@ -45,6 +45,10 @@ public function gc($sec = "main") {
 	foreach ($arr as $inf) {
 		$this->merge($inf); extract($inf);
 
+		if ($skp) { // skip collection dirs
+			if (STR::begins($fpath, $skp)) continue;
+			$skp = false;
+		}
 		$this->set("index",	 $cnt++);
 		$this->set("active", $state);
 
@@ -55,6 +59,10 @@ public function gc($sec = "main") {
 
 		$typ = $this->chkType($mtype, $fpath);
 		$out.= $this->getSection("link.$typ")."\n";
+
+		if ($dtype == "col") {
+			$skp = $fpath;
+		}
     }
     $this->set("items", $out);
     return parent::gc($sec);

@@ -93,14 +93,6 @@ public static function setIf($oid, $key, $value) {
 }
 
 // ***********************************************************
-public static function update($oid, $key, $value) {
-	$idx = "$oid.$key";
-	$val = SSV::get($idx, NV); if ($val === $value) return false;
-	$xxx = SSV::set($idx, $value);
-	return true;
-}
-
-// ***********************************************************
 public static function getLast($oid = false) {
 	if (! $oid) $oid = ENV::getPost("oid");
  	return OID::getValues($oid);

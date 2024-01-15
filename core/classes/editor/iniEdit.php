@@ -34,7 +34,7 @@ function __construct($tplfile = false) {
 }
 
 public function read($file) {
-	OID::set($this->oid, "edit.file", $file);
+	$this->hold("edit.file", $file);
 	$this->file = $file;
 }
 

@@ -143,19 +143,11 @@ public function save($file = NV) {
 // ***********************************************************
 // methods for proper navigation
 // ***********************************************************
-public function verifyUID() {
-	$ids = new uids(); // make sure UID is unique
+public function checkIni() {
 	$uid = $this->getUID();
+	$lgs = LNG::get();
 
 	$this->set("props.uid", $uid);
-	$this->save();
-}
-
-public function verifyCaps() {
-	$ids = new uids(); // make sure UID is unique
-	$uid = $this->getUID();
-
-	$lgs = LNG::get();
 
 	foreach ($lgs as $lng) {
 		$this->addSec($lng);
@@ -166,7 +158,6 @@ public function verifyCaps() {
 		$this->set("$lng.title", $tit);
 		$this->set("$lng.head", $hed);
 	}
-	$this->set("props.uid", $chk);
 	$this->save();
 }
 

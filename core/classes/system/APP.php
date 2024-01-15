@@ -30,19 +30,20 @@ public static function init() {
 	$arr = STR::split($pfd, PATH_SEPARATOR);
 	$arr = preg_filter('/$/', "/", $arr);
 
-	APP::$fbk = $arr;
+	foreach ($arr as $dir) {
+		APP::addPath($dir);
+	}
 }
 
 // ***********************************************************
 // app dirs or files
 // ***********************************************************
 public static function addPath($dir) {
-	if (in_array($dir, APP::$fbk)) return;
-
-	$pfd = get_include_path();
+	if (! $dir) return;
+	$pfd = get_include_path(); if (STR::contains($pfd, $dir)) return;
 	$xxx = set_include_path($pfd.PATH_SEPARATOR.$dir);
 
-	APP::$fbk[] = $dir;
+	APP::$fbk[$dir] = $dir;
 }
 
 public static function inc($dir, $file) {
@@ -56,9 +57,17 @@ public static function incFile($dir, $file) {
 	return appFile($fil);
 }
 
+// ***********************************************************
+public static function prjFile($dir, $file = "") {
+	return APP::findFile(APP_DIR, $dir, $file);
+}
 public static function fbkFile($dir, $file = "") {
+	return APP::findFile(APP_FBK, $dir, $file);
+}
+
+public static function findFile($rep, $dir, $file = "") {
 	$dir = APP::relPath($dir);
-	$out = FSO::join(APP_FBK, $dir, $file);
+	$out = FSO::join($rep, $dir, $file);
 	return rtrim($out, DIR_SEP);
 }
 
@@ -92,14 +101,11 @@ public static function folders($dir) {
 
 public static function files($dir, $pattern = "*") {
 	$dir = APP::relPath($dir); $out = array();
-	$ext = STR::split($pattern, ",");
 
 	foreach (APP::$fbk as $loc) { // add files from app and fbk folders
-		foreach ($ext as $ptn) {
-			$ful = FSO::join($loc, $dir); if (! is_dir($ful)) continue;
-			$arr = FSO::files($ful, $ptn);
-			APP::addFso($arr, $out);
-		}
+		$ful = FSO::join($loc, $dir); if (! is_dir($ful)) continue;
+		$arr = FSO::files($ful, $pattern);
+		APP::addFso($arr, $out);
 	}
 	return $out;
 }
@@ -150,7 +156,8 @@ public static function layout($name) {
 
 public static function url($file) {
 	$fil = APP::file($file);
-	return STR::replace($fil, APP_FBK, CMS_URL);
+	$fil = STR::replace($fil, APP_FBK, CMS_URL);
+	return STR::clear($fil, DOC_ROOT);
 }
 
 // ***********************************************************

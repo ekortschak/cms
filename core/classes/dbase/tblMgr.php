@@ -49,7 +49,7 @@ function __construct($dbase = "default", $table = NV) {
 	$this->register("$dbase.$table");
 	$this->setTable($table);
 
-	$rec = OID::get($this->oid, "rec", "list");
+	$rec = $this->recall("rec", "list");
 	$this->set("rec", $rec);
 }
 

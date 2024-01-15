@@ -133,6 +133,13 @@ public function register($oid = NV, $sfx = "*") {
 	$this->set("oid", $this->oid);
 }
 
+public function hold($key, $value) {
+	OID::set($this->oid, $key, $value);
+}
+public function recall($key, $default) {
+	return OID::get($this->oid, $key, $default);
+}
+
 public function forget() {
 	OID::forget($this->oid);
 }

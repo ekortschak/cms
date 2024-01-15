@@ -123,7 +123,7 @@ public function setSec($sec, $value = "") {
 public function getValue($default = NV) { // get session value
 	$chk = $this->get("curVal", NV); if ($chk !== NV) return $chk;
 	$key = $this->get("fname");
-	$val = OID::get($this->oid, $key, $default);
+	$val = $this->recall($key, $default);
 	return self::secure($val);
 }
 

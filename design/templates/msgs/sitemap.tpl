@@ -1,5 +1,5 @@
 [dic]
-notyet = This page not (yet) available.
+notyet = This page is not (yet) available.
 empty = Folder is empty.
 
 [dic.de]

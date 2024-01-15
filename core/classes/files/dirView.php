@@ -59,11 +59,11 @@ public function readTree($dir, $ext = false) {
 // ***********************************************************
 public function gc($sec = "main") {
 	$this->set("curloc",  $this->dir);
-	$this->set("folders", $this->getFolders());
-	$this->set("thumbs",  $this->getThumbs());
-	$this->set("files",   $this->getFiles());
-	$this->set("first",   $this->getFirst());
-	$this->set("url",     $this->getFirst());
+	$this->set("folders", $this->folders());
+	$this->set("thumbs",  $this->thumbs());
+	$this->set("files",   $this->files());
+	$this->set("first",   $this->first());
+	$this->set("url",     $this->first());
 
 	return parent::gc($sec);
 }
@@ -71,7 +71,7 @@ public function gc($sec = "main") {
 // ***********************************************************
 // handling folders
 // ***********************************************************
-private function getFolders() {
+private function folders() {
 	$lin = $this->getSection("Folder"); if (! $lin) return "";
 	$out = array(); if (! $this->vrz) return "";
 
@@ -89,13 +89,13 @@ private function getFolders() {
 // ***********************************************************
 // handling files
 // ***********************************************************
-private function getThumbs() {
+private function thumbs() {
 	$dir = FSO::join($this->dir, ".thumbs"); if (is_dir($dir))
-	return $this->getFiles("thumb");
-	return $this->getFiles("file");
+	return $this->files("thumb");
+	return $this->files("file");
 }
 
-private function getFiles($what = "file") {
+private function files($what = "file") {
 	$lin = $this->getSec($what)."\n"; $out = "";
 	$inf = new fileInfo();
 
@@ -107,7 +107,7 @@ private function getFiles($what = "file") {
 	return $this->getSection("nofiles");
 }
 
-private function getFirst() {
+private function first() {
 	return VEC::getFirst($this->fls);
 }
 
