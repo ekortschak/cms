@@ -6,8 +6,8 @@ DBG::file(__FILE__);
 
 // ***********************************************************
 $edt = CFG::mod("eopts.medit", false);
-$mod = ($edt) ? "login" : "stop";
+$mod = ($edt) ? "body/login" : "msgs/stop";
 
-incMod("body/$mod.php");
+incMod("$mod.php");
 
 ?>

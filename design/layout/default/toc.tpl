@@ -21,6 +21,6 @@ LOC_LAY/LAYOUT/main.tpl
 	<!MOD:toc/topics!>
 
 	<div id="scView">
-		<!MOD:toc/>
+		<!MOD:toc!>
 	</div>
 </div>
