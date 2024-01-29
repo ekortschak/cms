@@ -42,6 +42,11 @@ public static function lf($tag = "hr") {
 // ***********************************************************
 // standard tags
 // ***********************************************************
+public static function href($lnk, $cap, $trg = "_self") {
+	if (! $trg) return "<a href='$lnk'>$cap</a>";
+	return "<a href='$lnk' target='sf'>$cap</a>";
+}
+
 public static function button($lnk, $cap, $trg = "_self") {
 	$btn = HTM::tag($cap, "button");
 	return HTM::href($lnk, $btn, $trg);
@@ -57,15 +62,10 @@ public static function flag($lng) {
 	return "<img src='$img' class='flag' alt='$lng'>";
 }
 
-public static function href($lnk, $cap, $trg = "_blank") {
-	if (! $trg) return "<a href='$lnk'>$cap</a>";
-	return "<a href='$lnk' target='trg'>$cap</a>";
-}
-
 
 public static function vspace($size) {
-	$siz = intval($size);
-	return "<div style='margin-top: ".$siz."px;'></div>";
+	$siz = intval($size)."px";
+	return "\n<div name='vspace' style='margin-top: $siz;'></div>\n";
 }
 
 public static function prvPic($fil = "") {

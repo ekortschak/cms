@@ -29,6 +29,7 @@ class PFS {
 	private static $dir = "";       // current topic
 	private static $fil = "";       // name of static menu file
 	private static $cnt = 0;        // menu items count
+	private static $syn = 1;        // menu items with identical uids
 
 	private static $red = 0;        // redirection level
 	private static $max = 9;        // max. toc depth
@@ -66,25 +67,29 @@ public static function read($dir = NV) {
 	if (PFS::import()) return;
 	if ($dir === NV) $dir = PFS::$dir;
 
-	PFS::readDir($dir, PFS::$red);
+	PFS::readDir($dir, $dir, PFS::$red);
 }
 
-private static function readDir($dir, $pfx = "", $ofs = 0) {
-	$dir = APP::dir($dir);
-	$drs = FSO::dTree($dir, ! IS_LOCAL); $old = $pid = "¬";
-	$top = FSO::level($dir); $chk = false;
+private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
+ // $cur = fs branch to virtually plug in to
+	$drs = FSO::dTree($top, ! IS_LOCAL); $old = $pid = "¬";
+	$fst = FSO::level($top); $chk = false;
 
 	foreach ($drs as $dir => $nam) {
 		$ini = new ini($dir);
 		$typ = $ini->getType();
 
+		$trl = STR::clear($dir, $top); // calc trailing elements
+		$vdr = FSO::join($cur, $trl);  // calc virtual dir
 		$lev = FSO::level($dir);
 
-		PFS::append($ini, $pfx, $lev + $ofs - $top);
+		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr);
 
-		if ($typ == "red") { // redirection
+		if ($typ === "red") { // internal redirection
 			$inc = $ini->getReDir();
-			PFS::readDir($inc, PFS::$red++, $top + $ofs);
+			$lvl = $lev - $fst - $ofs;
+
+			PFS::readDir($inc, $vdr, PFS::$red++, $lvl);
 		}
 	}
 }
@@ -92,7 +97,7 @@ private static function readDir($dir, $pfx = "", $ofs = 0) {
 // ***********************************************************
 // reading & handling properties
 // ***********************************************************
-private static function append($ini, $pfx, $lev) { // single page info
+private static function append($ini, $pfx, $lev, $par) { // single page info
 	$uid = $ini->getUID(); $uid = PFS::uniq($uid);
 	$dir = $ini->getDir(); $cnt = PFS::$cnt;
 
@@ -103,8 +108,10 @@ private static function append($ini, $pfx, $lev) { // single page info
 	PFS::setPropVal($uid, "dtype", $ini->getType());
 	PFS::setPropVal($uid, "noprn", $ini->get("props.noprint"));
 
+	PFS::setPropVal($uid, "vpath", $par);
 	PFS::setPropVal($uid, "level", $lev);
 	PFS::setPropVal($uid, "index", $cnt);
+
 	PFS::setPropVal($uid, "chnum", PFS::chapNum($uid));
 	PFS::setPropVal($uid, "sname", PFS::statID()); // for static output
 
@@ -117,6 +124,8 @@ private static function append($ini, $pfx, $lev) { // single page info
 // retrieving data
 // ***********************************************************
 private static function recall() {
+return false;
+
 	if (ENV::getParm("reset")) return false;
 	if (ENV::get("pfs.clang") != CUR_LANG) return false;
 	if (ENV::get("pfs.vmode") != "view")   return false;
@@ -154,7 +163,7 @@ public static function level($dir, $ofs = 0) {
 
 // ***********************************************************
 public static function find($key = NV) { // dir, uid or num index expected !
-	if ($key === NV) $key = PGE::$dir; // will return uid
+	if ($key === NV) $key = PGE::$dir;   // will return uid
 	if ($key === false) return false;
 
 	if (is_numeric($key)) {
@@ -246,13 +255,12 @@ public static function tocEntry($index = NV) {
 // ***********************************************************
 public static function items($dir = false) {
 	$out = array(); $max = PFS::$cnt;
-	$dir = APP::relPath($dir);
 
 	for ($i = 0; $i < $max; $i++) { // skip root element
 		$inf = PFS::item($i); if (! $inf) continue;
-		$loc = $inf["fpath"];
+		$loc = $inf["vpath"];
 
-		if ($dir) {
+		if ($dir) { // heed selected sub tree
 			if (! STR::begins($loc, $dir)) continue;
 		}
 		if (VMODE == "view") {
@@ -288,8 +296,8 @@ private static function mnuType($dir, $typ) {
 	}
 	if ($typ == "red") return "redir";
 
-	$fld = (bool) APP::folders($dir, ! IS_LOCAL);
-	$fil = (bool) APP::find($dir);
+	$fld = (bool) APP::dirs($dir, ! IS_LOCAL);
+	$fil = (bool) APP::snip($dir);
 
 	if ($fld && $fil) return "both";
 	if ($fld) return "menu";
@@ -368,7 +376,8 @@ public static function count() {
 private static function uniq($uid, $pfx = "") {
 	if ($pfx) $uid = "$pfx.$uid";
 	$chk = VEC::get(PFS::$dat, $uid); if (! $chk) return $uid;
-	return PFS::uniq("#$uid.".uniqid());
+	$syn = PFS::$syn++;
+	return PFS::uniq("§$uid.$syn");
 }
 
 // ***********************************************************

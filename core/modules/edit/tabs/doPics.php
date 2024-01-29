@@ -25,7 +25,7 @@ HTW::tag("Tab = $tit");
 // ***********************************************************
 // create vtab pics
 // ***********************************************************
-$fil = APP::find(TAB_ROOT, "tab", "png");
+$fil = APP::snip(TAB_ROOT, "tab", "png");
 $fil = APP::relPath($fil);
 
 $sec = "add.png"; if ($fil) $sec = "del.png";

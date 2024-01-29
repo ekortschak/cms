@@ -115,7 +115,7 @@ public static function count($haystack, $needle) {
 public static function trunc($text, $size = 50) {
 	if (! $text) return "-";
 	if (strlen($text) <= $size) return $text;
-	return substr($text, 0, $size)." ...";
+	return mb_substr($text, 0, $size)." ...";
 }
 
 public static function camel($text) {

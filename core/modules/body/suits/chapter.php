@@ -2,7 +2,7 @@
 # used for directories with multiple numbered html files
 
 $loc = PGE::dir();
-$arr = APP::files($loc, "*.htm");
+$arr = FSO::files($loc, "*.htm");
 $cnt = 1;
 
 if (count($arr) < 1) {
@@ -26,3 +26,4 @@ $xxx = $box->show();
 echo APP::gcFile($dir);
 
 ?>
+

@@ -59,7 +59,7 @@ public function readTree($dir, $ext = false) {
 // ***********************************************************
 public function gc($sec = "main") {
 	$this->set("curloc",  $this->dir);
-	$this->set("folders", $this->folders());
+	$this->set("folders", $this->dirs());
 	$this->set("thumbs",  $this->thumbs());
 	$this->set("files",   $this->files());
 	$this->set("first",   $this->first());
@@ -71,7 +71,7 @@ public function gc($sec = "main") {
 // ***********************************************************
 // handling folders
 // ***********************************************************
-private function folders() {
+private function dirs() {
 	$lin = $this->getSection("Folder"); if (! $lin) return "";
 	$out = array(); if (! $this->vrz) return "";
 

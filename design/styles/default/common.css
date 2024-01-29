@@ -24,6 +24,7 @@
 /* ******************************************************** */
 .bg {
 	background: BC_TBACK;
+	margin-bottom: 12px;
 	width: 100%;
 	overflow: auto;
 }

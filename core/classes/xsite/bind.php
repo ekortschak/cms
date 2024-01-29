@@ -54,11 +54,14 @@ private function getDoc() {
 
 // ***********************************************************
 private function doContent() {
-	$loc = FSO::join("LOC_MOD", "xsite");
+	$fil = FSO::join("LOC_MOD", "xsite", "doc.php");
+	$fil = APP::file($fil);
 
 	foreach($this->dat as $inf) {
-		PGE::load($inf["fpath"]);
-		APP::inc($loc, "doc.php");
+		$dir = $inf["fpath"]; if (! is_dir($dir)) continue;
+
+		PGE::load($dir);
+		include $fil;
 	}
 }
 private function doNotes() {

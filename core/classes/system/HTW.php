@@ -69,12 +69,12 @@ public static function pre($text) {
 // ***********************************************************
 // standard tags
 // ***********************************************************
+public static function href($lnk, $cap, $trg = "_self") {
+	echo HTM::href($lnk, $cap, $trg);
+}
 public static function button($lnk, $cap, $trg = "_self") {
 	$lnk = HTM::button($lnk, $cap, $trg);
 	echo "<div style='margin-bottom: 3px;'>$lnk</div>";
-}
-public static function href($lnk, $cap, $trg = "") {
-	echo HTM::href($lnk, $cap, $trg);
 }
 public static function vspace($size) {
 	echo HTM::vspace($size);

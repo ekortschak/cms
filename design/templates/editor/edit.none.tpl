@@ -4,22 +4,36 @@ LOC_TPL/editor/edit.tpl
 [dic]
 edit.none = No editable files ...
 lev1 = First level links
+edit = Edit source
+redir = Redirection
 
 [dic.de]
 edit.none = Keine bearbeitbaren Dateien ...
 lev1 = Erste Ebene verknüpfen
+edit = Quelle bearbeiten
+redir = Umleitung
 
 # ***********************************************************
 [main]
 # ***********************************************************
 <msg><!DIC:edit.none!></msg>
 
-<h4><!SEC:<!VAR:type!>!></h4>
+<!SEC:<!VAR:type!>!>
 
 
 [redirect]
-<h4><!VAR:type!></h4>
+<h4><!DIC:redir!></h4>
 <p>&rarr; <!VAR:target!></p>
+
+<a href="<!VAR:source!>&vmode=view" target="sf">
+<button><img src="LOC_ICO/buttons/view.png"></button>
+</a>
+<a href="<!VAR:source!>&vmode=pedit" target="sf">
+<button><img src="LOC_ICO/buttons/edit.png"></button>
+</a>
+<a href="<!VAR:source!>&vmode=medit&btn.menu=P" target="sf">
+<button><img src="LOC_ICO/buttons/props.png"></button>
+</a>
 
 
 <h4>Import</h4>
@@ -29,7 +43,3 @@ lev1 = Erste Ebene verknüpfen
 	<input name="source" type="hidden" value="<!VAR:target!>" />
 	<button name="file.act" value="import"><!DIC:lev1!></button>
 </form>
-
-DOC_ROOT<br>
-APP_DIR<br>
-CMS_DIR

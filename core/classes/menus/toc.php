@@ -76,7 +76,7 @@ private function chkType($typ, $dir) {
 		$ini = new ini($dir);
 		$trg = $ini->getReDir();
 
-		if (FSO::folders($trg)) return $typ;
+		if (FSO::dirs($trg)) return $typ;
 		return "$typ file";
 	}
 	if ($mod === "static") {

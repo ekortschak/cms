@@ -9,7 +9,7 @@
 // ***********************************************************
 incCls("system/APP.php");
 
-$drs = APP::folders($dir);
+$drs = APP::dirs($dir);
 $fls = APP::files($dir, "*.ext");
 
 */
@@ -48,7 +48,8 @@ public static function addPath($dir) {
 
 public static function inc($dir, $file) {
 	$dir = APP::relPath($dir);
-	appInclude("$dir/$file");
+	$fil = FSO::join($dir, $file);
+	appInclude($fil);
 }
 
 public static function incFile($dir, $file) {
@@ -59,13 +60,13 @@ public static function incFile($dir, $file) {
 
 // ***********************************************************
 public static function prjFile($dir, $file = "") {
-	return APP::findFile(APP_DIR, $dir, $file);
+	return APP::join(APP_DIR, $dir, $file);
 }
 public static function fbkFile($dir, $file = "") {
-	return APP::findFile(APP_FBK, $dir, $file);
+	return APP::join(APP_FBK, $dir, $file);
 }
 
-public static function findFile($rep, $dir, $file = "") {
+private static function join($rep, $dir, $file = "") {
 	$dir = APP::relPath($dir);
 	$out = FSO::join($rep, $dir, $file);
 	return rtrim($out, DIR_SEP);
@@ -88,12 +89,29 @@ public static function relPath($fso) {
 // ***********************************************************
 // fs object lists
 // ***********************************************************
-public static function folders($dir) {
+public static function parents($dir) {
+	if (  is_file($dir)) $dir = dirname($dir);
+	if (! is_dir ($dir)) $dir = APP::dir($dir);
+	if (! is_dir ($dir)) return array();
+
+	$dir = APP::relPath($dir);
+	$out[] = $dir;
+
+	while ($dir = dirname($dir)) {
+		if ($dir == "/") break; // no access outside app path
+		if ($dir == ".") break; // no access outside app path
+		$out[] = $dir;
+	}
+	sort($out);
+	return $out;
+}
+
+public static function dirs($dir) {
 	$dir = APP::relPath($dir); $out = array();
 
 	foreach (APP::$fbk as $loc) { // add dirs from app and fbk folders
 		$ful = FSO::join($loc, $dir);
-		$arr = FSO::folders($ful);
+		$arr = FSO::dirs($ful);
 		APP::addFso($arr, $out);
 	}
 	return $out;
@@ -132,9 +150,9 @@ public static function dir($dir) { // find dir in extended fs
 }
 
 public static function file($file) { // find file in extended fs
-	if ($file == null)     return false;
+#	if ($file == null)     return false;
 	if (is_file($file))    return $file;
-	if (FSO::isUrl($file)) return $file;
+#	if (FSO::isUrl($file)) return $file;
 
 	$fil = APP::relPath($file);
 
@@ -154,29 +172,46 @@ public static function layout($name) {
 	return false;
 }
 
+// ***********************************************************
 public static function url($file) {
+	if (FSO::isUrl($file)) return $file;
+
 	$fil = APP::file($file);
 	$fil = STR::replace($fil, APP_FBK, CMS_URL);
 	return STR::clear($fil, DOC_ROOT);
 }
 
-// ***********************************************************
-public static function firstDir($dir) {
-	$arr = APP::folders($dir);
-	return array_key_first($arr);
+public static function link($trg) {
+	$dir = FSO::join(DOC_ROOT, $trg);
+	$hme = APP::home($dir, "tab.ini");
+	$idx = APP::home($dir, "index.php");
+	$uid = PGE::UID($dir);
+
+	$hme = STR::after($hme, $idx.DIR_SEP);
+	$idx = STR::after($idx, DOC_ROOT);
+
+	return "$idx?tpc=$hme&pge=$uid";
 }
 
-public static function find($dir, $snip = "page", $fext = "php, htm, html") {
-	$fil = APP::file($dir); if ($fil) return $fil;
+public static function home($dir, $file) { // get TAB_HOME
+	$arr = FSO::parents($dir);
 
+	foreach ($arr as $itm) {
+		$fil = FSO::join($itm, $file);
+		if (is_file($fil)) return $itm;
+	}
+	return "???";
+}
+
+// ***********************************************************
+public static function snip($dir, $snip = "page", $fext = "php, htm, html") {
 	$lgs = LNG::getRel(); // find language relevant content
 	$ext = STR::toArray($fext);
 
-	if (STR::contains($dir, "/$snip.")) $dir = basename($dir);
-
 	foreach ($lgs as $lng) {
 		foreach ($ext as $ptn) {
-			$ful = APP::file("$dir/$snip.$lng.$ptn");
+			$fil = FSO::join($dir, "$snip.$lng.$ptn");
+			$ful = APP::file($fil);
 			if (is_file($ful)) return $ful;
 		}
 	}
@@ -186,15 +221,8 @@ public static function find($dir, $snip = "page", $fext = "php, htm, html") {
 // ***********************************************************
 // retrieving system content
 // ***********************************************************
-public static function gcSys($fso, $snip = "page") {
-	if (ENV::get("blockme")) return "";
-
-	$ful = APP::find($fso, $snip); if (! $ful) return "";
-	return APP::gcFile($ful);
-}
-
-public static function gcRec($dir, $snip) { // get content recursively
-	$arr = FSO::parents($dir); if (! $arr) return "";
+public static function gcRec($dir, $snip) { // show banner/trailer
+	$arr = APP::parents($dir); if (! $arr) return "";
 	$out = ""; if ($snip == "trailer") rsort($arr);
 
 	foreach ($arr as $dir) {
@@ -203,21 +231,28 @@ public static function gcRec($dir, $snip) { // get content recursively
 	return $out;
 }
 
-// ***********************************************************
-// retrieving non system content
-// ***********************************************************
-public static function gcMap($fso) {
-	$out = APP::gcSys($fso); if (! $out) // usually body/include.php
-	$out = APP::gcFile("LOC_MOD/sitemap.php");
-	return $out;
+public static function gcSys($fso, $snip = "page") { // show any part of page
+	if (ENV::get("blockme")) return "";
+
+	$ful = APP::snip($fso, $snip); if (! $ful) return "";
+	return APP::gcFile($ful);
 }
 
+public static function gcMap($fso) { // show page or sitemap
+	$out = APP::gcFile($fso); if ($out) return $out;
+	return APP::gcFile("LOC_MOD/sitemap.php");
+}
+
+// ***********************************************************
+// retrieving any content
 // ***********************************************************
 public static function gcFile($fil) {
 	$ful = APP::file($fil); if (! $ful) return "";
 
 	$xxx = ob_start(); include $ful;
-	return ob_get_clean();
+	$out = ob_get_clean();
+
+	return CFG::apply($out);
 }
 
 // ***********************************************************

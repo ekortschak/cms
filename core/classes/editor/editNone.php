@@ -29,13 +29,25 @@ function __construct() {
 // ***********************************************************
 public function edit() {
 	$ini = new ini(PGE::$dir);
-	$typ = $ini->get("props.typ");
-	$trg = $ini->get("props_red.trg"); if (! $trg)
-	$trg = PGE::$dir;
+	$uid = $ini->getUID();
+	$typ = $ini->getType("props.typ");
+	$trg = $ini->get("props_red.trg");
 
 	$this->set("type", $typ);
 	$this->set("target", $trg);
+
+	switch ($typ) {
+		case "red": return $this->redir($trg);
+	}
 	$this->show();
+}
+
+public function redir($trg) {
+	if (! $trg) return;
+	$url = APP::link($trg);
+
+	$this->set("source", $url);
+	$this->show("redirect");
 }
 
 // ***********************************************************

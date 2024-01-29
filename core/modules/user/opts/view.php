@@ -10,14 +10,23 @@ $tpl = new tpl();
 $tpl->load($fil);
 
 // ***********************************************************
-// viewing
+// check opts
 // ***********************************************************
 if (! CFG::mod("uopts.pres"))  $tpl->clearSec("pres");
 if (! CFG::mod("uopts.csv"))   $tpl->clearSec("csv");
 if (! CFG::mod("uopts.print")) $tpl->clearSec("print");
 
-if (TAB_SET != "default") $tpl->clearSec("print");
+$ok1 = (TAB_SET != "default");
+$ok2 = (VMODE != "view");
 
+if ($ok1 || $ok2) {
+	$tpl->clearSec("pres");
+	$tpl->clearSec("csv");
+	$tpl->clearSec("print");
+}
+
+// ***********************************************************
+// show opts
 // ***********************************************************
 $tpl->show("view");
 

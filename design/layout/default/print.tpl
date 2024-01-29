@@ -2,7 +2,7 @@
 LOC_LAY/LAYOUT/main.tpl
 
 [register]
-design/other/print.css
+LOC_CSS/other/print.css
 
 
 # ***********************************************************

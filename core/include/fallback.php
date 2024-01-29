@@ -12,8 +12,9 @@ if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 // ***********************************************************
 // adapt include path
 // ***********************************************************
-$pfd = APP_DIR.PATH_SEPARATOR.APP_FBK; if (CMS_DIR !== APP_FBK)
-$pfd.= PATH_SEPARATOR.CMS_DIR;
+$pfd = APP_DIR;
+if (APP_DIR !== APP_FBK) $pfd.= PATH_SEPARATOR.APP_FBK;
+if (CMS_DIR !== APP_FBK) $pfd.= PATH_SEPARATOR.CMS_DIR;
 
 set_include_path($pfd);
 

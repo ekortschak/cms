@@ -1,7 +1,7 @@
 <?php
 
 $act = ENV::getPost("act_xlate");
-$src = APP::find(PGE::$dir);
+$src = APP::snip(PGE::$dir);
 
 incCls("editor/xlate.php");
 incCls("other/strProtect.php");

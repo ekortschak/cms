@@ -25,21 +25,21 @@ LOC_LAY/LAYOUT/main.tpl
 </div>
 
 <div class="tabicon" style="font-size: 1rem;">
-<a href="?fsize=1">A</a>
+<a href="?fsize=1rem">A</a>
 </div>
 
 <div class="tabicon" style="font-size: 1.25rem;">
-<a href="?fsize=1.25">A</a>
+<a href="?fsize=1.25rem">A</a>
 </div>
 
 <div class="tabicon" style="font-size: 1.5rem;">
-<a href="?fsize=1.5">A</a>
+<a href="?fsize=1.5rem">A</a>
 </div>
 
 <div class="tabicon" style="font-size: 1.75rem;">
-<a href="?fsize=1.75">A</a>
+<a href="?fsize=1.75rem">A</a>
 </div>
 
 <div class="tabicon" style="font-size: 2rem;">
-<a href="?fsize=2">A</a>
+<a href="?fsize=2rem">A</a>
 </div>

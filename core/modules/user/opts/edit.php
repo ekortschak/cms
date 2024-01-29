@@ -1,6 +1,7 @@
 <?php
 
 if (SEARCH_BOT) return;
+if (VMODE == "search") return;
 
 DBG::file(__FILE__);
 

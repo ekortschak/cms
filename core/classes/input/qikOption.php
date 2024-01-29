@@ -39,10 +39,6 @@ public function getVal($key, $value = 0) {
 	return $val;
 }
 
-public function act() {
-	return ENV::getParm("opt.starthere", false);
-}
-
 // ***********************************************************
 // display check boxes
 // ***********************************************************

@@ -5,7 +5,7 @@
 incCls("system/PRN.php");
 incCls("xsite/bind.php");
 
-DBG::file(__FILE__);
+# DBG::file(__FILE__);
 
 // ***********************************************************
 // what's up

@@ -15,22 +15,6 @@ DBG::text($msg, $info);
 */
 
 // ***********************************************************
-// shortcuts
-// ***********************************************************
-function dbg($msg = "hier", $info = "dbg") { // show plain text
-	DBG::text($msg, $info);
-}
-function dbx($any, $info = "dbg") { // show boxed info
-	DBG::box($any, $info);
-}
-function dbt($any, $info = "dbg") { // show tree view
-	DBG::tview($any, $info);
-}
-function dump($obj) {
-	var_dump($obj);
-}
-
-// ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class DBG {

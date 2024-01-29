@@ -108,8 +108,8 @@ protected function getSel($qid, $data, $sel) {
 // ***********************************************************
 // show dirs and files
 // ***********************************************************
-public function folders($dir, $parm = "pic.folder", $selected = false) {
-	$arr = APP::folders($dir); if (! $arr) return false;
+public function dirs($dir, $parm = "pic.folder", $selected = false) {
+	$arr = APP::dirs($dir); if (! $arr) return false;
 	return $this->getKey($parm, $arr, $selected);
 }
 public function files($dir, $parm = "pic.file", $selected = false) {
@@ -118,7 +118,7 @@ public function files($dir, $parm = "pic.file", $selected = false) {
 	return $this->getKey($parm, $arr, $selected);
 }
 public function pages($dir, $parm = "pic.file", $selected = false) {
-	$arr = APP::folders($dir); if (! $arr) return false;
+	$arr = APP::dirs($dir); if (! $arr) return false;
 
 	foreach ($arr as $dir => $nam) {
 		$ini = new ini($dir);

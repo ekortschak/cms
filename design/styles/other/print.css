@@ -31,14 +31,9 @@ body.print {
 	padding: 0px;
 }
 
-h1, h2 {
+h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+	page-break-inside: avoid;
 	page-break-after: avoid;
-#	color: maroon;
-}
-
-h3, h4, h5, h6 {
-	page-break-after: avoid;
-	text-decoration: none;
 }
 
 p {

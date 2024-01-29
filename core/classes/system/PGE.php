@@ -67,10 +67,15 @@ public static function dir() {
 	switch (PGE::$typ) {
 		case "red":
 			$trg = PGE::get("props_red.trg");
-			return FSO::join(APP_ROOT, $trg);
+			return FSO::join(DOC_ROOT, $trg);
+		default:
 	}
-	$out = PGE::$dir;                 if (is_dir($out)) return $out;
-	$out = FSO::join(APP_ROOT, $out); if (is_dir($out)) return $out;
+	$dir = PGE::$dir;
+	if (FSO::isHidden($dir)) return false;
+	if (is_dir($dir)) return $dir;
+
+	$out = FSO::join(APP_ROOT, $dir); if (is_dir($out)) return $out;
+	$out = FSO::join(DOC_ROOT, $dir); if (is_dir($out)) return $out;
 	MSG::err("Path? $dir");
 }
 
@@ -96,12 +101,9 @@ public static function pic($dir = false) {
 public static function incFile() {
 	$act = PGE::type();
 
-	if ($act == "red") {
-		$trg = PGE::dir();
-		$act = PGE::type($trg);
-	}
 	if ($act == "roo") return "include.php";  // default mode
 	if ($act == "inc") return "include.php";  // default mode
+	if ($act == "cha") return "chapter.php";  // collection of chapters
 	if ($act == "col") return "collect.php";  // collection of files in separate dirs
 
 	if ($act == "mim") return "mimeview.php"; // show files
@@ -115,6 +117,10 @@ public static function incFile() {
 	if ($act == "dbt") return "dbtable.php";  // database table
 	if ($act == "cal") return "calpage.php";  // calender page
 
+	if ($act == "red") { // internal redirection
+		$trg = PGE::dir();
+		$act = PGE::type($trg);
+	}
 	return "invalid.php";
 }
 

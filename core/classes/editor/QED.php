@@ -27,14 +27,14 @@ public static function setPbr($value) {
 }
 
 public static function clearPbr() {
-	$fil = APP::find(PGE::$dir); if (! $fil) return;
+	$fil = APP::snip(PGE::$dir); if (! $fil) return;
 	$txt = APP::read($fil); if (! $txt) return;
 	$txt = PRG::replace($txt, '<hr class="pbr">(\s*?)', "");
 	return APP::write($fil, $txt);
 }
 
 public static function hasPbr() {
-	$fil = APP::find(PGE::$dir); if (! $fil) return false;
+	$fil = APP::snip(PGE::$dir); if (! $fil) return false;
 	$txt = APP::read($fil); if (! $txt) return false;
 	return STR::contains($txt, '<hr class="pbr">');
 }

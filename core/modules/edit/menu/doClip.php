@@ -8,7 +8,7 @@ if (PFS::isStatic()) {
 // modifications handled by edit.menu/saveMenu.php
 // ***********************************************************
 $dir = LOC::tempDir("clipboard");
-$arr = FSO::folders($dir);
+$arr = FSO::dirs($dir);
 
 // ***********************************************************
 // show elements in clipboard

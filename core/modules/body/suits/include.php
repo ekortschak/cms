@@ -6,7 +6,7 @@ DBG::file(__FILE__);
 $loc = PGE::dir();
 $pic = PGE::pic();
 
-$htm = APP::gcMap($loc);
+$htm = APP::gcSys($loc, "page");
 $htm = APP::lookup($htm);
 $htm = ACR::clean($htm);
 

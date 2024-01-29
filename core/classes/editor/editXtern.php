@@ -49,11 +49,11 @@ public function edit() {
 // providing and updating externally edited files
 // ***********************************************************
 protected function exec() {
-	$act = ENV::getParm("edit"); if (! $act) return;
-
-	if ($act == "provide") return $this->provide($this->file);
-	if ($act == "update")  return $this->update( $this->file);
-	if ($act == "clear")   return $this->clear();
+	switch (ENV::getParm("edit")) {
+		case "provide": return $this->provide($this->file);
+		case "update":  return $this->update( $this->file);
+		case "clear":   return $this->clear();
+	}
 }
 
 // ***********************************************************

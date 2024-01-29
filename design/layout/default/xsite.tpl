@@ -2,8 +2,8 @@
 LOC_LAY/LAYOUT/main.tpl
 
 [register]
-design/other/print.css
-design/other/xsite.css
+LOC_CSS/other/print.css
+LOC_CSS/other/xsite.css
 
 # ***********************************************************
 [layout] <!-- layout.xsite -->

@@ -13,6 +13,7 @@ class chapter extends tpl {
 
 function __construct() {
 	parent::__construct();
+	$this->load("xsite/main.tpl");
 }
 
 // ***********************************************************
@@ -36,18 +37,21 @@ public function show($sec = "main") {
 }
 
 public function gc($sec = "main") {
-	if ($this->err) return ""; $out = "";
+#	if ($this->err) return ""; $out = "";
 	if ($this->skp) return "";
 
 	$pbr = PRN::pbreak(); if ($pbr) $out = HTW::lf("pbr");
-	$txt = PRN::content();
-	$txt = $this->cnvHeads($txt);
+	$txt = PRN::content(); $txt = $this->cnvHeads($txt);
+	$pic = PRN::pic();
 
-	$this->spc = ($txt) ? 25 : 10;
+	$spc = ($txt) ? 25 : 10;
 
+	$this->set("pic",   $pic);
 	$this->set("head",  PRN::title());
 	$this->set("level", PRN::level());
 	$this->set("text",  $txt);
+
+	if (! $pic) $this->clearSec("pic");
 
 	$out.= parent::gc($sec);
 	$out.= HTM::vspace($spc);
@@ -59,14 +63,12 @@ public function gc($sec = "main") {
 // ***********************************************************
 public function addPic() {
 	$pic = PRN::pic(); if (! $pic) return;
-
 	$this->set("pic", $pic);
-	return parent::gc("pic");
 }
 
 public function addQR() {
-	$pic = FSO::join($this->loc, "qr.png"); #if (! $pic) return;
-	$qrc = APP::file($pic);
+	$pic = FSO::join($this->loc, "qr.png"); if (! $pic) return;
+	$qrc = APP::file($pic); // convert to URL
 
 	$this->set("qr", $qrc);
 }

@@ -2,12 +2,10 @@
 /* standard tags */
 /* ******************************************************** */
 h0, h1, h2, h3, h4, h5, h6 {
-	margin: 20px 0px 7px;
 	color: FC_HEAD;
 }
-h2, h3, h4 {
-	margin: 12px 0px 7px;
-}
+h0, h1 {     margin: 20px 0px 7px; }
+h2, h3, h4 { margin: 12px 0px 7px; }
 
 h0 {
 	font-size: 1.5em;
@@ -17,7 +15,7 @@ h0 {
 h4 {
 	border-bottom: 1px solid;
 }
-h5, h6 {
+h5, h6, h7, h8, h9 {
 	margin: 5px 0px 3px;
 
 	font-size: 1em;
@@ -29,8 +27,6 @@ h5, h6 {
 /* ******************************************************** */
 h1:first-of-type,
 h2:first-of-type,
-
-/* ******************************************************** */
 p {
 	margin: 3px 0px 7px;
 	text-align: justify;

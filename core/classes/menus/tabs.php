@@ -41,7 +41,7 @@ public function gc($sec = "main") {
 	foreach ($this->dat as $tab => $cap) {
 		if (! APP::dir($tab)) continue;
 
-		$img = APP::find($tab, "tab", "png");
+		$img = APP::snip($tab, "tab", "png");
 		$itm = "item"; if ($img)
 		$itm = "item.img";
 

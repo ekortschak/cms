@@ -121,9 +121,7 @@ private function tabProps() {
 // graphic tabs
 // ***********************************************************
 private function tabPics() { // execute pic related tasks
-	$act = ENV::getParm("tab.act"); if (! $act) return;
-
-	switch ($act) {
+	switch (ENV::getParm("tab.act")) {
 		case "add":  return $this->pngTab();
 		case "drop": return $this->pngDel();
 	}

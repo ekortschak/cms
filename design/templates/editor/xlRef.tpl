@@ -6,10 +6,6 @@ current = currently
 replace = Ersetzen
 current = derzeit
 
-[vars]
-checked = CHECKED
-lang = CUR_LANG
-
 
 [main]
 <h4><!SEC:refs!></h4>
@@ -26,13 +22,7 @@ lang = CUR_LANG
 </form>
 
 [item]
-<div>&bull; <!VAR:ref!> &rarr;
-	<div class="dropdown"><!VAR:new!>
-		<div class="dropbody">
-			<!VAR:cur!>
-		</div>
-	</div>
-</div>
+<div>&bull; <!VAR:ref!> &rarr; <!VAR:new!></div>
 
 
 

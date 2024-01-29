@@ -9,7 +9,7 @@ LOC_TPL/msgs/sitemap.tpl
 <!SEC:text!>
 
 [pic]
-<a href="<!VAR:pic!>" target="ah">
+<a href="<!VAR:pic!>" target="sf">
 <img class="max" src="<!VAR:pic!>" width="100%" oncontextmenu="return false;" />
 </a>
 

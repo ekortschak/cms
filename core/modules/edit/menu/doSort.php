@@ -7,7 +7,7 @@ if (PFS::isStatic()) {
 $loc = PGE::$dir;
 
 // ***********************************************************
-$arr = FSO::folders($loc); if (! $arr)
+$arr = FSO::dirs($loc); if (! $arr)
 $arr = array();
 
 $sec = "main"; if (count($arr) < 2)

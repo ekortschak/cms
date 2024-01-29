@@ -39,28 +39,22 @@ public function showNav() {
 	$lst = $this->getData();
 
 	$tpc = ENV::get("search.tpc");
-#	$dir = ENV::get("search.dir");
+	$dir = ENV::get("search.dir", $dir);
 
 	$mnu = new dropBox("menu");
-	$tpc = $mnu->getKey("search.dir", $lst);
-
-	$arr = VEC::get($this->dat, $tpc);
+	$tpc = $mnu->getKey("search.tpc", $lst, $tpc);
+	$arr = VEC::get($this->dat, $tpc); if (! $arr) return false;
 
 	$box = new dropNav();
 	$dir = $box->getKey("search.dir", $arr, $dir);
+	$uid = PGE::UID($dir);
 
-	if ($arr) {
-		$uid = PGE::UID($dir);
-
-		$this->set("topic", $tpc);
-		$this->set("page", $uid);
-		$this->show("prv.goto");
-	}
+	$this->set("topic", $tpc);
+	$this->set("page", $uid);
+	$this->show("prv.goto");
 	$this->show("preview");
 
-	if (! $arr) return false;
-
-	$mnu->show();
+	$mnu->show(); if ($tpc !== $dir)
 	$box->show();
 	return true;
 }
@@ -74,7 +68,6 @@ public function getData() {
 }
 
 public function getSnips() {
-
 	$dir = ENV::get("search.dir");
 	$fnd = ENV::get("search.what");
 
@@ -83,14 +76,14 @@ public function getSnips() {
 }
 
 public function getMode() {
-	return ENV::get("search.mod");
+	return ENV::get("search.mod", "p");
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
 private function chkReset() {
-	$rst = ENV::getParm("search.reset"); if (! $rst) return;
+	if (! ENV::getParm("search.reset")) return;
 	ENV::set("search.last", false);
 }
 

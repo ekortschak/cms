@@ -30,8 +30,7 @@ function __construct() {}
 // read file(s)
 // ***********************************************************
 public function readPath($dir, $fil = "perms.ini") {
-	$dir = APP::dir($dir); if (! $dir) return;
-	$arr = FSO::parents($dir);
+	$arr = APP::parents($dir);
 
 	foreach ($arr as $dir) {
 		$ptn = FSO::join($dir, $fil);

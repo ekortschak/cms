@@ -73,7 +73,7 @@ public function revert() {
 // ***********************************************************
 protected function getVersions($typ) {
 	$dir = LOC::arcDir($typ);
-	return FSO::folders($dir);
+	return FSO::dirs($dir);
 }
 
 // ***********************************************************

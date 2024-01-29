@@ -40,7 +40,7 @@ function insRef(typ) { // links
 	htm = selString(); if (! htm) htm = "TEXT";
 	url = prompt("URL:", "http://xy"); if (! url) return;
 	out = "<a href='" + url + "'>" + htm + "</a>"; if (typ == "ax")
-	out = "<a href='" + url + "' target='_blank'>" + htm + "</a>";
+	out = "<a href='" + url + "' target='sf'>" + htm + "</a>";
 	repString(out);
 }
 

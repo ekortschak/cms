@@ -36,11 +36,6 @@ function __construct($fso) {
 	$this->read($fso);
 }
 
-function reset() {
-	$this->sec = $this->typ = $this->vrs = $this->vls = array();
-	$this->dir = $this->file = "";
-}
-
 // ***********************************************************
 // handling vars
 // ***********************************************************
@@ -111,23 +106,23 @@ public function getUID() {
 	return $this->getDefault();
 }
 
+private function isDefault($uid) {
+	if (STR::begins($uid, "§")) return true;
+	if ($uid == "GET_UID") return true;
+	if ($uid == "Config") return true;
+	if ($uid) return false;
+	return true;
+}
 private function getDefault() {
 	$uid = $this->getTitle(); if ($uid) return STR::camel($uid);
 	$uid = $this->getName();  if ($uid != "Config") return $uid;
 	return "§".uniqid();
 }
-private function isDefault($uid) {
-	if (STR::begins($uid, "§")) return true;
-	if ($uid == "GET_UID") return true;
-	if ($uid == "Config") return true;
-	if (! $uid) return true;
-	return false;
-}
 
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public function getDir() {  return $this->dir;  }
+public function getDir()  { return $this->dir;  }
 public function getFile() {	return $this->file; }
 
 private function getName() {
@@ -138,7 +133,8 @@ private function getName() {
 
 public function getReDir() {
 	$trg = $this->get("props_red.trg"); if (! $trg) return "";
-	return FSO::join(APP_ROOT, $trg);
+	$dir = APP::dir($trg); if ($dir) return $dir;
+	return FSO::join(DOC_ROOT, $trg);
 }
 
 // ***********************************************************
@@ -179,7 +175,6 @@ public function getType($default = "inc") {
 // ***********************************************************
 public function read($file) {
 	$fil = $this->chkFile($file); if (! $fil) return;
-	$ext = FSO::ext($fil);
 
 	$cod = new code();
 	if (! $cod->read($fil)) return;
@@ -254,12 +249,11 @@ private function langProp($prop, $lng = CUR_LANG) {
 // auxilliary methods
 // ***********************************************************
 protected function chkFile($fil) {
-	$chk = APP::dir($fil); if ($chk)
+	if (is_dir($fil))
 	$fil = FSO::join($fil, $this->fname);
 
 	$this->dir = dirname($fil);
 	$this->file = $fil;
-
 	return $fil;
 }
 

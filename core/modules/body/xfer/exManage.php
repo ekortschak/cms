@@ -21,7 +21,7 @@ if ($arr) {
 HTW::xtag("bkp.manage");
 // ***********************************************************
 $dir = LOC::arcDir("bkp");
-$arr = FSO::folders($dir);
+$arr = FSO::dirs($dir);
 $arr = VEC::sort($arr, "krsort"); // latest first
 
 // ***********************************************************

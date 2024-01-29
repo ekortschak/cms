@@ -26,12 +26,11 @@ public static function reset() {
 }
 
 public static function load($dir) {
-	$chk = VEC::get(PRN::$hst, $dir);
+	if (VEC::get(PRN::$hst, $dir)) return;
 
 	PRN::$loc = $dir;
 	PRN::$inf = PFS::item($dir);
 	PRN::$hst[$dir] = 1;
-	return $chk;
 }
 
 // ***********************************************************
@@ -53,8 +52,8 @@ public static function level() {
 // handling standard pics
 // ***********************************************************
 public static function pic() {
-	$pic = FSO::join(PRN::$loc, "pic.png");
-	return (is_file($pic)) ? $pic : "";
+	$pic = FSO::join(PRN::$loc, "pic.png"); if (! is_file($pic)) return "";
+	return APP::url($pic);
 }
 
 // ***********************************************************

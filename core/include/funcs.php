@@ -55,8 +55,12 @@ function requireLogin() { // force login of any user
 // ***********************************************************
 // debug
 // ***********************************************************
-function dbgli($msg = "hier", $info = "dbg") { // show plain text
-	echo "<li>$info: $msg</li>";
+function dbg($msg = "hier", $info = "dbg") { // show plain text
+	if (class_exists("DBG")) {
+		DBG::text($msg, $info);
+		return;
+	}
+	echo "<pre>$info: ".print_r($msg, true)."</pre>";
 }
 
 function dbgpi($path = "hier", $info = "dbg") { // show plain text

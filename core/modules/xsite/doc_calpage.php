@@ -3,7 +3,7 @@
 incCls("tables/cal_table.php");
 
 // ***********************************************************
-$loc = PGE::dir();
+$loc = PGE::dir(); if (! $loc) return;
 $dat = PGE::get("props.cal.date");
 
 $cal = new cal_table("monList");

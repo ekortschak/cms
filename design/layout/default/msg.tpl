@@ -43,6 +43,7 @@ body {
 h3, h4 {
 	color: navy;
 	margin: 0px 0px 5px;
+	border-bottom: 1px solid navy;
 	padding: 0px;
 }
 
@@ -50,6 +51,15 @@ p {
 	margin: 0px;
 	padding: 0px;
 }
+
+button {
+	background: linear-gradient(snow, lightgrey);
+	border: 1px solid grey;
+	border-radius: 5px;
+	padding: 3px 10px;
+	cursor: pointer;
+}
+
 </style>
 
 # ***********************************************************

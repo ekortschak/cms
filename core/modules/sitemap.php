@@ -4,7 +4,7 @@ DBG::file(__FILE__);
 
 // ***********************************************************
 $loc = PGE::$dir;
-$arr = FSO::folders($loc);
+$arr = FSO::dirs($loc);
 $out = "";
 
 // ***********************************************************
@@ -14,7 +14,7 @@ $tpl = new tpl();
 $tpl->load("msgs/sitemap.tpl");
 
 if (! $arr) {
-	$fil = APP::find($loc);
+	$fil = APP::snip($loc);
 	$sec = ($fil) ? "empty" : "notyet";
 	return $tpl->show($sec);
 }

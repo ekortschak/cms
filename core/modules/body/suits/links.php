@@ -10,7 +10,7 @@ foreach ($arr as $key => $val) {
 	$inf = $val[0];
 	$lnk = $val[1];
 
-	$lnk = HTM::href($lnk, $inf, "_blank");
+	$lnk = HTM::href($lnk, $inf, "sf");
 	$xxx = HTW::tag($lnk, "p");
 }
 

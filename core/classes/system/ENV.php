@@ -98,9 +98,15 @@ private static function findTpc($idx, $tab) {
 	$tpc = $ini->get("props.std");
 
 	$dir = FSO::join($tab, $tpc); if (! is_dir($dir))
-	$dir = APP::firstDir($tab);
+	$dir = ENV::dir1st($tab);
 	return $dir;
 }
+
+private static function dir1st($dir) {
+	$arr = APP::dirs($dir);
+	return array_key_first($arr);
+}
+
 
 // ***********************************************************
 // handling Pages

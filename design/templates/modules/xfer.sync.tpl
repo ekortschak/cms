@@ -60,7 +60,7 @@ vtrg = VERSION
 <!VAR:target!>
 
 [dest.remote]
-<a href="http://<!VAR:dest!>" target="ah"><!VAR:target!></a>
+<a href="http://<!VAR:dest!>" target="sf"><!VAR:target!></a>
 
 
 # ***********************************************************

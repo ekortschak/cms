@@ -43,7 +43,7 @@ public function edit($dir, $files = false) { // dir = dir or file
 	$old = $ful = $dir;
 
 	if (is_dir($dir)) {
-		if (! $this->fonly) $dir = $box->folders($dir);
+		if (! $this->fonly) $dir = $box->dirs($dir);
 		if (! $dir) $dir = $old;
 
 		$arr = $this->files($dir);

@@ -1,9 +1,9 @@
 <?php
 
-$loc = PGE::dir();
+$loc = PGE::dir(); if (! $loc) return;
+// ***********************************************************
 
 $kap = new chapter();
-$kap->load("xsite/main.tpl");
 $kap->init($loc);
 $kap->show();
 

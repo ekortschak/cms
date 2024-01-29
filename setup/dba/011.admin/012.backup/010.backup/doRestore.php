@@ -12,7 +12,7 @@ $box = new dropDbo();
 $dbs = $box->getDbase();
 
 $dir = LOC::arcDir("dbs.$dbs");
-$vrs = FSO::folders($dir);
+$vrs = FSO::dirs($dir);
 $vrs = VEC::sort($vrs, "krsort"); // newest first
 
 foreach ($vrs as $key => $val) {

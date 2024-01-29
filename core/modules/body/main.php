@@ -31,11 +31,9 @@ $htm->setX("page",    APP::gcMap($inc));
 $htm->setX("tail",    APP::gcSys($loc, "tail"));
 $htm->setX("trailer", APP::gcRec($loc, "trailer"));
 
-$out = $htm->gc();
-
 // ***********************************************************
 // show result
 // ***********************************************************
-echo $out;
+$htm->show();
 
 ?>

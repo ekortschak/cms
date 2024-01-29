@@ -10,8 +10,8 @@ incCls("search/search.php");
 $obj = new search();
 $opt = $obj->getScope();
 
-$fnd = ENV::get("search.what");
-$fnd = str_replace('"', "'", $fnd);
+$fnd = ENV::find("search.what");
+$fnd = STR::replace($fnd, '"', "'");
 
 $lst = $obj->getResults($fnd);
 $lst = VEC::sort($lst);

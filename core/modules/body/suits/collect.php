@@ -7,7 +7,7 @@ DBG::file(__FILE__);
 // ***********************************************************
 $loc = PGE::dir();
 $sel = ENV::getParm("coll");
-$arr = FSO::folders($loc);
+$arr = FSO::dirs($loc);
 $lst = array();
 
 if (count($arr) < 1) {

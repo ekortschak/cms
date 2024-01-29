@@ -24,14 +24,14 @@ incCls("menus/dropBox.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class sBasics {
-	protected $dir = TAB_HOME;
+	protected $rng = TAB_HOME;
 	protected $vis = true;
 	protected $mod = "p";
 
 	const SEP = "@Q@";
 
 function __construct($dir = TAB_HOME) {
-	$this->dir = ENV::get("search.tpc", $dir);
+	$this->rng = ENV::get("search.rng", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
 
 	$this->chkReset();
@@ -45,8 +45,8 @@ public function getScope() {
 	$mds = $this->getMods();
 
 	$box = new dropBox("menu");
-	if (count($drs) > 1) $this->dir = $box->getKey("search.tpc", $drs, TAB_HOME);
-	if (count($mds) > 1) $this->mod = $box->getKey("search.mod", $mds, $this->mod);
+	$this->rng = $box->getKey("search.rng", $drs, $this->rng);
+	$this->mod = $box->getKey("search.mod", $mds, $this->mod);
 	return $box->gc("menu");
 }
 
@@ -59,11 +59,10 @@ protected function isScope($dir) {
 // retrieving relevant files
 // ***********************************************************
 public function getResults($what) {
-	$out = $this->isSame($what); if ($out) return $out;
-	$xxx = $this->saveParms("");
+#	$out = $this->isSame($what); if ($out) return $out;
+#	$xxx = $this->saveParms("");
 
-	$psg = $this->search($what);
-	if (! $psg) return false;
+	$psg = $this->search($what); if (! $psg) return false;
 	$psg = $this->sort($psg);
 	$out = array();
 
@@ -76,15 +75,15 @@ public function getResults($what) {
 }
 
 protected function getTab($fil) {
-	$tab = STR::between($fil, TAB_ROOT, DIR_SEP);
-	return TAB_ROOT.$tab;
+	$tab = STR::between($fil, TAB_ROOT.DIR_SEP, DIR_SEP);
+	return FSO::JOIN(TAB_ROOT, $tab);
 }
 
 // ***********************************************************
 protected function search($what) { // $what expected as string
 	if (strlen($what) < 2) return false;
 
-	$arr = FSO::dTree($this->dir);
+	$arr = FSO::dTree($this->rng);
 	$out = array();
 
 	foreach ($arr as $dir => $nam) {
@@ -96,11 +95,10 @@ protected function search($what) { // $what expected as string
 
 			$txt = $this->prepare($fil);      if (! $txt) continue;
 			$psg = $this->match($txt, $what); if (! $psg) continue;
-
 			$out[$dir] = $dir;
 		}
 	}
-	return $this->sort($out);
+	return $out;
 }
 
 // ***********************************************************
@@ -129,7 +127,7 @@ protected function saveParms($val) {
 	ENV::set("search.last", $val);
 }
 protected function getParms($what) {
-	return STR::join($this->dir, $this->mod, $what);
+	return STR::join($this->rng, $this->mod, $what);
 }
 
 // ***********************************************************
@@ -204,7 +202,8 @@ protected function prepare_p($txt) {
 // auxilliary methods
 // ***********************************************************
 protected function chkReset() {
-	$rst = ENV::getParm("search.reset"); if (! $rst) return;
+	if (! ENV::getParm("search.reset")) return;
+
 	ENV::set("search.what",  false);
 	ENV::set("search.parms", false);
 	ENV::set("search.last",  false);

@@ -88,9 +88,10 @@ private function backup($act) {
 
 private function import($act) {
 	if ($act != "import") return false;
+
 	$trg = $this->get("target"); if (! $trg) return false;
 	$src = $this->get("source"); if (! $src) return false;
-	$arr = FSO::folders($src);   if (! $arr) return true;
+	$arr = FSO::dirs($src);      if (! $arr) return true;
 
 	$ini = new iniWriter("page.def");
 	$ini->read($src);
@@ -106,7 +107,7 @@ private function import($act) {
 		$ini = new iniWriter("page.red.def");
 		$ini->read($dir);
 		$ini->set("props.typ", "redirect");
-		$ini->set("props_red.trg", APP::relPath($dir));
+		$ini->set("props_red.trg", APP::relPath($dir)); // TODO:: check if APP::url would work better
 		$ini->save($dst);
 	}
 }

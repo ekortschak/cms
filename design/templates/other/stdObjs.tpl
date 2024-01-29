@@ -43,7 +43,7 @@ link = notyet
 # ***********************************************************
 <p>
 	<img src="LOC_ICO/nav/youtube.png" style="margin-right: 5px;" />
-	<a href="https://www.youtube.com/watch?v=<!VAR:ytid!>" target="ah"><!VAR:title!></a>
+	<a href="https://www.youtube.com/watch?v=<!VAR:ytid!>" target="sf"><!VAR:title!></a>
 	<hint><!VAR:len!> (ID = <!VAR:ytid!>)</hint>
 </p>
 

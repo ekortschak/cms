@@ -53,8 +53,8 @@ chkFst = CHECKED
 
 <table>
 
-<!SEC:addSysFile!>
 <!SEC:addPrjFile!>
+<!SEC:addSysFile!>
 <!SEC:addAnyFile!>
 <!SEC:addIniFile!>
 
@@ -108,12 +108,6 @@ chkFst = CHECKED
 </tr>
 
 [addPrjFile]
-<tr><td colspan="100%" height=5></td></tr>
-<tr>
-	<td><!DIC:proj!></td>
-	<td><!VAR:pfiles!></td>
-	<td><button name="file.act" value="prj"><!DIC:create!></button></td>
-</tr>
 
 [addAnyFile]
 <tr><td colspan="100%" height=5></td></tr>

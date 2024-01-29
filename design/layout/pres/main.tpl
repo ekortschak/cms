@@ -15,7 +15,7 @@ LOC_LAY/default/main.tpl
 </body>
 
 [styles]
-<link rel="StyleSheet" href="CSS_URL?style=SSHEET" type="text/css" />
+<link rel="StyleSheet" href="CSS_URL?style=SSHEET&fsize=FSIZE" type="text/css" />
 
 # ***********************************************************
 [opts] <!-- opts -->

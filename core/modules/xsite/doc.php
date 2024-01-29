@@ -11,12 +11,13 @@ $inc = PGE::incFile();
 switch (STR::left($inc)) {
 	case "cal":
 	case "col": break;
-	default:    $inc = "include";
+	default:    $inc = "include.php";
 }
 
 // ***********************************************************
 // print page(s)
 // ***********************************************************
-APP::inc(__DIR__, "doc_$inc.php");
+$fil = FSO::join(__DIR__, "doc_$inc");
+include $fil;
 
 ?>

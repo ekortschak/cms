@@ -105,7 +105,7 @@ protected function chkRef($ref) {
 	$ref = STR::after($ref, ":");
 
 	switch(STR::left($fnc)) {
-		case "folders": return APP::folders($ref);
+		case "folders": return APP::dirs($ref);
 		case "files":   return APP::files($ref);
 		case "tables":  return $this->getDbInfo("tbl");
 		case "fields":  return $this->getDbInfo("fld", $ref);

@@ -12,6 +12,8 @@ LOC_LAY/LAYOUT/main.tpl
 	<div class="colMain">
 		<div class="modBody"><!SEC:body!></div>
 	</div>
+	<div class="modBord"><!SEC:bord!></div>
+	<div class="modOpts"><!SEC:opts!></div>
 </body>
 
 [toc]

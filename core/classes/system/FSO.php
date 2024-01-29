@@ -99,7 +99,7 @@ public static function permit($fso, $mod = 0775) {
 // ***********************************************************
 // folders
 // ***********************************************************
-public static function folders($dir = APP_DIR, $visOnly = true) {
+public static function dirs($dir = APP_DIR, $visOnly = true) {
 	$out = array();
 
 	if (! is_dir($dir)) $dir = FSO::findDir($dir);
@@ -245,7 +245,7 @@ public static function write($file, $text) {
 // ***********************************************************
 public static function dTree($dir, $visOnly = true) {
  // list all subfolders of $dir, including symbolic links
-	$out = $arr = FSO::folders($dir, $visOnly); if (! $arr) return array();
+	$out = $arr = FSO::dirs($dir, $visOnly); if (! $arr) return array();
 
 	foreach ($arr as $dir => $nam) {
 		$lst = FSO::dTree($dir, $visOnly); if ($lst)
@@ -289,25 +289,18 @@ public function dropEmpty($dir) {
 // methods for menus
 // ***********************************************************
 public static function parents($dir) {
-	if (  is_file($dir)) $dir = dirname($dir);
-	if (! is_dir ($dir)) $dir = APP::dir($dir);
-	if (! is_dir ($dir)) return array();
-
-	$dir = APP::relPath($dir);
-	$out[] = $dir;
+	if (is_file($dir)) $dir = dirname($dir); $out = array();
 
 	while ($dir = dirname($dir)) {
-		if ($dir == "/") break; // no access outside app path
-		if ($dir == ".") break; // no access outside app path
+		if ($dir < DOC_ROOT) break;
 		$out[] = $dir;
 	}
-	sort($out);
 	return $out;
 }
 
 public static function getPrev($dir) {
 	$par = dirname($dir);
-	$arr = FSO::folders($par);
+	$arr = FSO::dirs($par);
 	$prv = $par;
 
 	foreach ($arr as $key => $val) {

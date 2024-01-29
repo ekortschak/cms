@@ -21,7 +21,7 @@ class topics {
 
 function __construct($dir = TAB_ROOT) {
 	$vis = (! IS_LOCAL);
-	$arr = FSO::folders($dir, $vis);
+	$arr = FSO::dirs($dir, $vis);
 
 	foreach ($arr as $dir => $nam) {
 		$cap = PGE::title($dir);

@@ -102,7 +102,7 @@ public function export($file) {
 // read all css files from styles folder(s) into array
 // ***********************************************************
 private function getStatic() {
-	return false; // TODO:kill
+	return false; // TODO:kill this feature?
 	$ful = APP::file($this->cms); if (! $ful) return false;
 	return file_get_contents($ful);
 }

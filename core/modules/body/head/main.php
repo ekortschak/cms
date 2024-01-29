@@ -10,14 +10,4 @@ switch (VMODE) {
 
 HTW::tag($tit, "div class='h2'");
 
-// ***********************************************************
-// specific tasks
-// ***********************************************************
-switch (PGE::type()) {
-	case "cha": $inc = "chapters"; break;
-	default:    return;
-}
-
-APP::inc(__DIR__, "$inc.php");
-
 ?>
