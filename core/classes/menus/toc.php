@@ -46,7 +46,7 @@ public function gc($sec = "main") {
 		$this->merge($inf); extract($inf);
 
 		if ($skp) { // skip collection dirs
-			if (STR::begins($fpath, $skp)) continue;
+			if (STR::begins($vpath, $skp)) continue;
 			$skp = false;
 		}
 		$this->set("index",	 $cnt++);
@@ -60,9 +60,8 @@ public function gc($sec = "main") {
 		$typ = $this->chkType($mtype, $fpath);
 		$out.= $this->getSection("link.$typ")."\n";
 
-		if ($dtype == "col") {
-			$skp = $fpath;
-		}
+		if ($dtype == "col")
+		if (VMODE == "view") $skp = $vpath;
     }
     $this->set("items", $out);
     return parent::gc($sec);

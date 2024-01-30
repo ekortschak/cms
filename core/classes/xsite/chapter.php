@@ -37,8 +37,8 @@ public function show($sec = "main") {
 }
 
 public function gc($sec = "main") {
-#	if ($this->err) return ""; $out = "";
-	if ($this->skp) return "";
+	if ($this->skp) return ""; $out = "";
+#	if ($this->err) return "";
 
 	$pbr = PRN::pbreak(); if ($pbr) $out = HTW::lf("pbr");
 	$txt = PRN::content(); $txt = $this->cnvHeads($txt);

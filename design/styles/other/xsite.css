@@ -13,17 +13,17 @@ h1 {
 }
 h2 { margin-top: 1.25em; }
 h3 { margin-top: 1.00em; }
-h4 { margin-top: 0.65em; }
 
 h4, h5, h6 {
-	margin-top: 0.5em;
+	margin-top: 0.65em;
+	background: yellow;
 	font-size: 1em;
 	font-style: italic;
 	text-decoration: underline;
 }
 
 h7, h8, h9 {
-	margin-top: 0.25px;
+	margin-top: 0.25em;
 	font-size: 1em;
 	font-style: normal;
 	text-decoration: underline;
@@ -31,7 +31,8 @@ h7, h8, h9 {
 
 /* ******************************************************** */
 hx, hy, hz {
-	margin: 0.65em 0px 0px;
+	display: block;
+	margin: 0.5em 0px 0px;
 }
 
 hx {
@@ -42,8 +43,6 @@ hx {
 }
 
 hy, hz {
-#	margin-top: 0.5em;
-
 	font-style: italic;
 	text-decoration: underline;
 }

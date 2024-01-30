@@ -21,9 +21,10 @@ $dat = PFS::data($index);
 // BEGIN OF CLASS
 // ***********************************************************
 class PFS {
-	private static $dat = array();  // menu items & props
+	public static $dat = array();  // menu items & props
 	private static $idx = array();  // menu index list
 	private static $vrz = array();  // menu dirs list
+	private static $vdr = array();  // list of virtual dirs
 	private static $num = array();  // chapter numbers
 
 	private static $dir = "";       // current topic
@@ -100,6 +101,7 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
 private static function append($ini, $pfx, $lev, $par) { // single page info
 	$uid = $ini->getUID(); $uid = PFS::uniq($uid);
 	$dir = $ini->getDir(); $cnt = PFS::$cnt;
+	$red = $ini->getReDir("props_red.trg");
 
 	PFS::setPropVal($uid, "uid",   $uid);
 	PFS::setPropVal($uid, "fpath", $dir);
@@ -116,7 +118,9 @@ private static function append($ini, $pfx, $lev, $par) { // single page info
 	PFS::setPropVal($uid, "sname", PFS::statID()); // for static output
 
 	PFS::$idx[$cnt] = $uid; PFS::$cnt++;
-	PFS::$vrz[$dir] = $uid;
+	PFS::$vrz[$dir] = $uid; if ($red)
+	PFS::$vdr[$red] = $uid;
+
 	return $uid;
 }
 
@@ -171,7 +175,8 @@ public static function find($key = NV) { // dir, uid or num index expected !
 		if ($uid) return $uid;
 	}
 	$idx = VEC::get(PFS::$dat, $key); if ($idx) return $key;
-	return VEC::get(PFS::$vrz, $key);
+	$idx = VEC::get(PFS::$vrz, $key); if ($idx) return $idx;
+	return VEC::get(PFS::$vdr, $key);
 }
 
 private static function findNext($inc) {
@@ -263,10 +268,9 @@ public static function items($dir = false) {
 		if ($dir) { // heed selected sub tree
 			if (! STR::begins($loc, $dir)) continue;
 		}
-		if (VMODE == "view") {
-			if (STR::contains($loc, HIDE)) continue;
-			if ($inf["noprn"]) continue;
-		}
+		if (VMODE == "view")  if (STR::contains($loc, HIDE)) continue;
+		if (VMODE == "xsite") if ($inf["noprn"]) continue;
+
 		$out[] = $inf;
 	}
 	return $out;

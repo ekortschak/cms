@@ -9,8 +9,7 @@ incCls("xsite/chapter.php");
 $inc = PGE::incFile();
 
 switch (STR::left($inc)) {
-	case "cal":
-	case "col": break;
+	case "cal": break;
 	default:    $inc = "include.php";
 }
 

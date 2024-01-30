@@ -100,6 +100,7 @@ public static function permit($fso, $mod = 0775) {
 // folders
 // ***********************************************************
 public static function dirs($dir = APP_DIR, $visOnly = true) {
+#	$dir = realpath($dir);
 	$out = array();
 
 	if (! is_dir($dir)) $dir = FSO::findDir($dir);

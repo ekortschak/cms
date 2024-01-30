@@ -46,7 +46,7 @@ $top = ENV::get("xsite.top", TAB_HOME);
 if ($sel)
 if ($top != $loc) $top = ENV::set("xsite.top", $loc);
 
-$chk = ($top === $loc);
+$sel = ($top === $loc);
 
 // ***********************************************************
 // ask for confirmation
@@ -70,7 +70,7 @@ HTW::xtag("qik.edit");
 
 $qik = new qikOption();
 $qik->forget();
-$qik->getVal("opt.starthere", $chk);
+$qik->getVal("opt.starthere", $sel);
 $qik->show();
 
 ?>

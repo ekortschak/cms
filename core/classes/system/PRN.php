@@ -26,8 +26,6 @@ public static function reset() {
 }
 
 public static function load($dir) {
-	if (VEC::get(PRN::$hst, $dir)) return;
-
 	PRN::$loc = $dir;
 	PRN::$inf = PFS::item($dir);
 	PRN::$hst[$dir] = 1;
