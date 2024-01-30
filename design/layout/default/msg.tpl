@@ -43,8 +43,8 @@ body {
 h3, h4 {
 	color: navy;
 	margin: 0px 0px 5px;
-	border-bottom: 1px solid navy;
 	padding: 0px;
+	font-size: 1.25rem;
 }
 
 p {
@@ -69,7 +69,7 @@ button {
 
 <table>
 	<tr>
-		<td><img src="LOC_IMG/baustelle.png" width=85 /></td>
+		<td><img src="LOC_IMG/baustelle.png" width=85 alt="work in progress" /></td>
 		<td width=25>&nbsp;</td>
 		<td><!SEC:msg!></td>
 	</tr>

@@ -70,12 +70,8 @@ public static function dir() {
 			return FSO::join(DOC_ROOT, $trg);
 		default:
 	}
-	$dir = PGE::$dir;
-	if (FSO::isHidden($dir)) return false;
-	if (is_dir($dir)) return $dir;
-
-	$out = FSO::join(APP_ROOT, $dir); if (is_dir($out)) return $out;
-	$out = FSO::join(DOC_ROOT, $dir); if (is_dir($out)) return $out;
+	$dir = PGE::$dir; if (FSO::isHidden($dir)) return false;
+	$out = PGE::find($dir); if ($out) return $out;
 	MSG::err("Path? $dir");
 }
 
@@ -124,21 +120,30 @@ public static function incFile() {
 	return "invalid.php";
 }
 
+private static function find($dir) {
+	if (is_dir($dir)) return $dir;
+
+	$out = APP::dir($dir);            if (       $out ) return $out;
+	$out = FSO::join(APP_ROOT, $dir); if (is_dir($out)) return $out;
+	$out = FSO::join(DOC_ROOT, $dir); if (is_dir($out)) return $out;
+	return false;
+}
+
 // ***********************************************************
 // common ini related tasks
 // ***********************************************************
 public static function UID($fso = false) {
-	return PGE::find($fso, "getUID");
+	return PGE::prop($fso, "getUID");
 }
 public static function type($fso = false) {
-	return PGE::find($fso, "getType", "inc");
+	return PGE::prop($fso, "getType", "inc");
 }
 public static function title($fso = false) {
-	return PGE::find($fso, "getHead");
+	return PGE::prop($fso, "getHead");
 }
 
 // ***********************************************************
-private static function find($fso, $fnc, $prm = false) {
+private static function prop($fso, $fnc, $prm = false) {
 	if (! $fso) $fso = PGE::dir();
 	$ini = new ini($fso);
 	return $ini->$fnc($prm);

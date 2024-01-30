@@ -9,7 +9,7 @@ LOC_LAY/default/msg.tpl
 
 <table>
 	<tr>
-		<td><img src="LOC_IMG/timeout.png" width=85 /></td>
+		<td><img src="LOC_IMG/timeout.png" width=85 alt="timeout" /></td>
 		<td width=25>&nbsp;</td>
 		<td><!SEC:msg!></td>
 	</tr>

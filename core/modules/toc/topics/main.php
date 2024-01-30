@@ -11,7 +11,7 @@ DBG::file(__FILE__);
 // collect data
 // ***********************************************************
 $tps = new topics();
-$arr = $tps->getMarked(); if (! $arr) return;
+$arr = $tps->items(); if (! $arr) return;
 
 // ***********************************************************
 // show topics - if any

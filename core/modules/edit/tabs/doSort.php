@@ -4,7 +4,7 @@ incCls("menus/dropBox.php");
 incCls("menus/tabsets.php");
 
 $tbs = new tabsets();
-$lst = $tbs->getTabs(TAB_SET);
+$lst = $tbs->items(TAB_SET);
 
 // ***********************************************************
 // show elements to sort

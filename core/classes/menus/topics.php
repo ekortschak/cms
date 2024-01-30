@@ -10,7 +10,7 @@ Handles topic navigation
 incCls("menus/tabs.php");
 
 $tpc = new topics($dir);
-$tpc->getTopics();
+$tpc->items();
 */
 
 // ***********************************************************
@@ -24,27 +24,24 @@ function __construct($dir = TAB_ROOT) {
 	$arr = FSO::dirs($dir, $vis);
 
 	foreach ($arr as $dir => $nam) {
-		$cap = PGE::title($dir);
-		$lnk = APP::relPath($dir);
+		$key = APP::relPath($dir);
+		$cap = PGE::title($dir); if (STR::contains($key, "~"))
+		$cap = "# $cap";
 
-		$this->dat[$lnk] = $cap;
+		$this->dat[$key] = $cap;
 	}
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
-public function getMarked() {
-	$out = $this->getTopics();
+public function items() {
+	$out = $this->dat; if (IS_LOCAL) return $out;
 
 	foreach ($out as $key => $val) { // mark hidden topics
-		if (STR::contains($key, "~")) $out[$key] = "# $val";
+		if (STR::begins($val, "#")) unset($out[$key]);
 	}
 	return $out;
-}
-
-public function getTopics() {
-	return $this->dat;
 }
 
 // ***********************************************************
@@ -52,14 +49,6 @@ public function getTopic($tab, $std) {
 	$out = FSO::join($tab, $std);
 	$chk = VEC::get($this->dat, $out); if ($out) return $out;
 	return array_key_first($this->dat);
-}
-
-public function verify($tab, $std) {
-	$arr = $this->getTopics();
-
-	$std = FSO::join($tab, $std);
-	$chk = VEC::get($arr, $std, NV); if ($chk !== NV) return $std;
-	return array_key_first($arr);
 }
 
 // ***********************************************************

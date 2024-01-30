@@ -10,7 +10,7 @@ used to associate tabs with tabsetss
 incCls("menus/tabsets.php");
 
 $tbs = new tabsets();
-$arr = $tbs->getTabs($set);
+$arr = $tbs->items($set);
 
 */
 
@@ -21,7 +21,6 @@ incCls("files/code.php");
 // BEGIN OF CLASS
 // ***********************************************************
 class tabsets extends iniTab {
-	private $tabs = array();
 
 function __construct() {
 	$this->read("config/tabsets.ini");
@@ -30,11 +29,7 @@ function __construct() {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function getProps($set = NV) {
-	return $this->getValues($set);
-}
-
-public function getTabs($set = TAB_SET) {
+public function items($set = TAB_SET) {
 	$arr = $this->getValues($set); $out = array();
 
 	foreach ($arr as $tab => $usage) {
@@ -43,25 +38,32 @@ public function getTabs($set = TAB_SET) {
 
 		$itm = new iniTab($tab);
 		$tit = $itm->getTitle(); if (! $tit) continue;
+
 		$out[$tab] = $tit;
 	}
 	return $out;
 }
 
-public function visTabs($set = TAB_SET) {
-	$arr = $this->getValues($set); $out = array();
-
-	foreach ($arr as $key => $val) {
-		if ($val) $out[$key] = $val;
-	}
-	return $out;
+// ***********************************************************
+// query properties
+// ***********************************************************
+public function isVisible($set, $tab) {
+	$prp = $this->prop($set, $tab); if (! $prp) return false;
+	return STR::misses($prp, "0");
+}
+public function isLocal($set, $tab) {
+	$prp = $this->prop($set, $tab); if (! $prp) return false;
+	return STR::contains($prp, "local");
+}
+public function isDefault($set, $tab) {
+	$prp = $this->prop($set, $tab); if (! $prp) return false;
+	return STR::contains($prp, "default");
 }
 
-public function verify($set, $tab) {
-	$arr = $this->visTabs($set);
-	$cap = VEC::get($arr, $tab, NV); if ($cap === NV)
-	$tab = array_key_first($arr);
-	return $tab;
+// ***********************************************************
+private function prop($set, $tab) {
+	$arr = $this->getValues($set); if (! $arr) return false;
+	return strtolower(VEC::get($arr, $tab));
 }
 
 // ***********************************************************

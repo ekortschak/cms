@@ -2,7 +2,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-turns templates as ini files
+used to handle ini files
 
 // ***********************************************************
 // HOW TO USE
@@ -249,7 +249,7 @@ private function langProp($prop, $lng = CUR_LANG) {
 // auxilliary methods
 // ***********************************************************
 protected function chkFile($fil) {
-	if (is_dir($fil))
+	$chk = APP::dir($fil); if ($chk)
 	$fil = FSO::join($fil, $this->fname);
 
 	$this->dir = dirname($fil);

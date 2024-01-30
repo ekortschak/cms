@@ -3,8 +3,7 @@
 incCls("menus/tabsets.php");
 
 $tbs = new tabsets();
-$lst = $tbs->getTabs(TAB_SET);
-$vis = $tbs->visTabs(TAB_SET);
+$lst = $tbs->items(TAB_SET);
 
 // ***********************************************************
 HTW::xtag("tabs.toggle");
@@ -15,13 +14,11 @@ $tpl->register();
 $dat = "";
 
 foreach ($lst as $tab => $tit) {
-	$chk = VEC::get($vis, $tab);
-
-	$tpl->set("tab", $tab);
-	$tpl->set("title", $tit);
-	$tpl->set("local",   (STR::contains($chk, "local"))   ? "CHECKED" : "");
-	$tpl->set("default", (STR::contains($chk, "default")) ? "CHECKED" : "");
-	$tpl->set("visible", ($chk) ? "CHECKED" : "");
+	$tpl->set("tab",      $tab);
+	$tpl->set("title",    $tit);
+	$tpl->set("local",   ($tbs->isLocal(  TAB_SET, $tab)) ? "CHECKED" : "");
+	$tpl->set("default", ($tbs->isDefault(TAB_SET, $tab)) ? "CHECKED" : "");
+	$tpl->set("visible", ($tbs->isVisible(TAB_SET, $tab)) ? "CHECKED" : "");
 
 	$dat.= $tpl->getSection("row");
 }

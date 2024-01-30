@@ -79,8 +79,7 @@ public static function readCfg() {
 
 // ***********************************************************
 private static function read($file) {
-	$fil = CFG::apply($file); // including colors and dimensions
-	$fil = APP::file($fil); if (! $fil) return;
+	$fil = APP::file($file); if (! $fil) return;
 	$srv = STR::replace($fil, ".ini", ".srv");
 
 	CFG::load($fil); if (! IS_LOCAL)

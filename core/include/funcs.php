@@ -57,15 +57,19 @@ function requireLogin() { // force login of any user
 // ***********************************************************
 function dbg($msg = "hier", $info = "dbg") { // show plain text
 	if (class_exists("DBG")) {
-		DBG::text($msg, $info);
-		return;
+		return DBG::text($msg, $info);
 	}
 	echo "<pre>$info: ".print_r($msg, true)."</pre>";
 }
 
 function dbgpi($path = "hier", $info = "dbg") { // show plain text
-	$path = CFG::encode($path);
-	echo "<dbg>$info: $path</dbg>";
+	$msg = CFG::encode($path);
+	echo "<pre>$info: ".print_r($msg, true)."</pre>";
+}
+
+function dbx($msg, $info = "aborting") {
+	echo "<pre>$info: ".print_r($msg, true)."</pre>";
+	die("Execution halted");
 }
 
 ?>

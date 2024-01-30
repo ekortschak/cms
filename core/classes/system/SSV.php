@@ -105,7 +105,12 @@ private static function chkReset() {
 	SSV::reset(); unset($_GET["reset"]);
 }
 
+// ***********************************************************
+// handling timeout
+// ***********************************************************
 private static function chkTimeOut() { // drop all stored vars ?
+	if (IS_LOCAL) return;
+
 	$vgl = SSV::get("timeout"); if (! $vgl) return;
 	$now = time(); if ($vgl > $now) return;
 
@@ -113,7 +118,6 @@ private static function chkTimeOut() { // drop all stored vars ?
 	SSV::reset();
 }
 
-// ***********************************************************
 private static function setTimeOut() {
 	SSV::set("timeout", SSV::getTimeOut());
 }

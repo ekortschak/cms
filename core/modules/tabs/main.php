@@ -7,7 +7,7 @@ incCls("menus/tabsets.php");
 incCls("menus/tabs.php");
 
 $tbs = new tabsets();
-$lst = $tbs->getTabs(TAB_SET);
+$lst = $tbs->items(TAB_SET);
 
 // ***********************************************************
 // read mods.ini

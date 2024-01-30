@@ -2,15 +2,12 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-turns templates as ini files
+used to handle tab.ini files explicitly
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("files/ini.php");
-
-$ini = new iniTab($ini_file);
-
+see parent class
 */
 
 incCls("files/ini.php");

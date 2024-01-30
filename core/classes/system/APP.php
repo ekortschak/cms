@@ -129,6 +129,20 @@ public static function files($dir, $pattern = "*") {
 }
 
 // ***********************************************************
+// tree listings
+// ***********************************************************
+public static function dTree($dir, $visOnly = true) {
+ // list all subfolders of $dir, including symbolic links
+	$out = $arr = APP::dirs($dir, $visOnly); if (! $arr) return array();
+
+	foreach ($arr as $dir => $nam) {
+		$lst = APP::dTree($dir, $visOnly); if ($lst)
+		$out = array_merge($out, $lst);
+	}
+	return VEC::sort($out);
+}
+
+// ***********************************************************
 private static function addFso($arr, &$out) {
 	foreach ($arr as $fso => $nam) { // APP_DIR to prevail over APP_FBK and others
 		$fso = APP::relPath($fso); if (isset($out[$fso])) continue;
@@ -150,9 +164,7 @@ public static function dir($dir) { // find dir in extended fs
 }
 
 public static function file($file) { // find file in extended fs
-#	if ($file == null)     return false;
-	if (is_file($file))    return $file;
-#	if (FSO::isUrl($file)) return $file;
+	if (is_file($file)) return $file;
 
 	$fil = APP::relPath($file);
 
@@ -251,7 +263,7 @@ public static function gcFile($fil) {
 
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
-
+return $out;
 	return CFG::apply($out);
 }
 

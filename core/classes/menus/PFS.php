@@ -73,7 +73,8 @@ public static function read($dir = NV) {
 
 private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
  // $cur = fs branch to virtually plug in to
-	$drs = FSO::dTree($top, ! IS_LOCAL); $old = $pid = "¬";
+	$top = APP::dir($top);
+ 	$drs = FSO::dTree($top, ! IS_LOCAL); $old = $pid = "¬";
 	$fst = FSO::level($top); $chk = false;
 
 	foreach ($drs as $dir => $nam) {
@@ -128,8 +129,10 @@ private static function append($ini, $pfx, $lev, $par) { // single page info
 // retrieving data
 // ***********************************************************
 private static function recall() {
-return false;
-
+	if (true) {
+		MSG::add("PFS::recall() is disabled!");
+		return false;
+	}
 	if (ENV::getParm("reset")) return false;
 	if (ENV::get("pfs.clang") != CUR_LANG) return false;
 	if (ENV::get("pfs.vmode") != "view")   return false;
@@ -189,7 +192,7 @@ private static function findNext($inc) {
 
 public static function findDir($uid) {
 	$out = PFS::get($uid, "fpath"); if (strlen($out) > 3) return $out;
-	$dir = ENV::get("pfs.fpath");
+	$dir = ENV::get("pfs.fpath"); // recall last valid page,,
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path

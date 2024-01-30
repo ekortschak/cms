@@ -2,13 +2,9 @@
 
 incCls("editor/iniMgr.php");
 incCls("files/iniTab.php");
-incCls("menus/topics.php");
 
 // ***********************************************************
 $tab = FSO::trim(TAB_ROOT);
-
-$tbs = new tabsets();
-$tab = $tbs->verify(TAB_SET, $tab);
 
 ENV::set("tedit.tab", $tab);
 
@@ -18,9 +14,6 @@ ENV::set("tedit.tab", $tab);
 $ini = new iniTab($tab);
 $tit = $ini->getTitle();
 $std = $ini->get("props.std");
-
-$tps = new topics();
-$std = $tps->verify($tab, $std);
 
 // ***********************************************************
 HTW::tag("Tab = $tit");
