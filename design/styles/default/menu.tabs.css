@@ -35,8 +35,11 @@
 
 .tabicon {
 	height: 30px;
+	width: 100%;
 	text-align:	center;
-	margin-right: 9px;
+	vertical-align: middle;
+	margin: 0px;
+	padding: 0px;
 }
 
 /* ******************************************************** */

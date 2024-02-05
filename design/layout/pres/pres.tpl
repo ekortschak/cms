@@ -1,6 +1,9 @@
 [include]
 LOC_LAY/LAYOUT/main.tpl
 
+[vars]
+pagenum = 135
+
 # ***********************************************************
 [layout] <!-- layout -->
 # ***********************************************************
@@ -23,6 +26,14 @@ LOC_LAY/LAYOUT/main.tpl
 	<img src="LOC_ICO/buttons/view.png" alt="View" />
 </a>
 </div>
+
+<br>
+
+<div class="tabicon" style="font-size: 1.5rem;">
+<!MOD:user/pres!>
+</div>
+
+<br><br>
 
 <div class="tabicon" style="font-size: 1rem;">
 <a href="?fsize=1rem">A</a>

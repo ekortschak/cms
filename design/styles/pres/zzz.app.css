@@ -1,6 +1,6 @@
 .colMain {
-	min-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 50px);
-	max-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 50px);
+	min-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 65px);
+	max-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 65px);
 }
 
 .titBody {
@@ -16,9 +16,9 @@
 }
 
 .modOpts {
-	padding:    12px 5px;
-	min-width:  2rem;
-	max-width:  2rem;
+	padding:    12px 0px;
+	min-width:  50px;
+	max-width:  50px;
 }
 
 p.dc, blockquote {

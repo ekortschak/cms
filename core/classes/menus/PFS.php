@@ -47,15 +47,13 @@ public static function init($dir = TAB_HOME) {
 		SSV::set("$tpc.data", PFS::data(), "pfs");
 		SSV::set("$tpc.reload", 0, "pfs");
 	}
+	$uid = ENV::getPage();
 
 	switch (ENV::getParm("pfs.nav")) {
-		case "prev": $uid = PFS::findNext(-1); break;
-		case "next": $uid = PFS::findNext(+1); break;
-		default:     $uid = ENV::getPage();
+		case "prev": $uid = PFS::findNext($uid, -1); break;
+		case "next": $uid = PFS::findNext($uid, +1); break;
+		default:     $dir = PFS::verify($uid); PGE::load($dir);
 	}
-	$dir = PFS::findDir($uid);
-	PGE::load($dir);
-
 	ENV::set("pfs.clang", CUR_LANG);
 	ENV::set("pfs.vmode", VMODE);
 	ENV::set("pfs.fpath", PGE::$dir);
@@ -129,7 +127,7 @@ private static function append($ini, $pfx, $lev, $par) { // single page info
 // retrieving data
 // ***********************************************************
 private static function recall() {
-	if (true) {
+	if (false) {
 		MSG::add("PFS::recall() is disabled!");
 		return false;
 	}
@@ -182,17 +180,18 @@ public static function find($key = NV) { // dir, uid or num index expected !
 	return VEC::get(PFS::$vdr, $key);
 }
 
-private static function findNext($inc) {
-	$uid = VEC::get(PFS::$vrz, PGE::$dir);
-	$arr = VEC::get(PFS::$dat, $uid);
-	$key = VEC::get($arr, "index");
+private static function findNext($uid, $inc) {
+	$key = PFS::propVal($uid, "index", 0);
 	$key = CHK::range($key + $inc, 0, PFS::$cnt - 1);
-	return VEC::get(PFS::$idx, $key);
+	$uid = PFS::find($key);
+	$dir = PFS::propVal($uid, "fpath", TAB_HOME);
+
+	ENV::setPage($uid);
+	PGE::load($dir);
 }
 
-public static function findDir($uid) {
-	$out = PFS::get($uid, "fpath"); if (strlen($out) > 3) return $out;
-	$dir = ENV::get("pfs.fpath"); // recall last valid page,,
+private static function verify($uid) {
+	$dir = PFS::get($uid, "fpath"); if (strlen($dir) > 3) return $dir;
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path
@@ -271,8 +270,8 @@ public static function items($dir = false) {
 		if ($dir) { // heed selected sub tree
 			if (! STR::begins($loc, $dir)) continue;
 		}
-		if (VMODE == "view")  if (STR::contains($loc, HIDE)) continue;
-		if (VMODE == "xsite") if ($inf["noprn"]) continue;
+		if (PFS::isHidden($loc)) continue;
+		if (PFS::noPrint($inf)) continue;
 
 		$out[] = $inf;
 	}
@@ -298,7 +297,7 @@ public static function item($index = NV, $depth = 99) {
 // ***********************************************************
 private static function mnuType($dir, $typ) {
 	if ($typ == "col") {
-		if (VMODE == "view") return "file";
+		if (PFS::isView()) return "file";
 		return "menu";
 	}
 	if ($typ == "red") return "redir";
@@ -313,18 +312,13 @@ private static function mnuType($dir, $typ) {
 
 // ***********************************************************
 private static function mnuState($idx) {
-	if (VMODE != "view")     return "active";
-	if (FSO::isHidden($idx)) return "inactive";
+	if (PFS::isHidden($idx)) return "inactive";
 	return "active";
 }
 
 // ***********************************************************
 // handling static menues
 // ***********************************************************
-public static function isStatic() {
-	return is_file(PFS::$fil);
-}
-
 public static function toggle() {
 	if (PFS::isStatic()) return FSO::kill(PFS::$fil);
 	PFS::export();
@@ -342,7 +336,7 @@ private static function export() { // write menu info to stat file
 }
 
 private static function import() {
-	if (  VMODE != "view") return false;
+	if (! PFS::isView())   return false;
 	if (! PFS::isStatic()) return false;
 
 	include_once PFS::$fil; // read menu info from stat file
@@ -353,24 +347,6 @@ private static function import() {
 // ***********************************************************
 private static function statID() {
 	return sprintf("p%05d.htm", PFS::$cnt);
-}
-
-// ***********************************************************
-// user permissions
-// ***********************************************************
-public static function hasXs($index = NV) {
-	if (! FS_LOGIN) return "r"; $dir = PFS::findDir($index);
-
-	$ini = new code();
-	$xxx = $ini->readPath($dir, "perms.ini"); // inherit settings
-	$arr = $ini->getValues("perms"); if (! $arr) return "r";
-
-	$prm = VEC::get($arr, "*", "x");
-	$prm = VEC::get($arr, CUR_USER, $prm);
-
-    if (STR::contains($prm, "w")) return "w";
-    if (STR::contains($prm, "r")) return "r";
-    return false;
 }
 
 // ***********************************************************
@@ -385,6 +361,22 @@ private static function uniq($uid, $pfx = "") {
 	$chk = VEC::get(PFS::$dat, $uid); if (! $chk) return $uid;
 	$syn = PFS::$syn++;
 	return PFS::uniq("§$uid.$syn");
+}
+
+// ***********************************************************
+private static function isView() {
+	return (STR::features("view.pres", VMODE));
+}
+private static function isHidden($dir) {
+	if ( ! PFS::isView()) return false;
+	return FSO::isHidden($dir);
+}
+private static function noPrint($inf) {
+	if (VMODE != "xsite") return false;
+	return $inf["noprn"];
+}
+public static function isStatic() {
+	return is_file(PFS::$fil);
 }
 
 // ***********************************************************

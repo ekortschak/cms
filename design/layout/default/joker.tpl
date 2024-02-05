@@ -5,7 +5,9 @@ LOC_LAY/LAYOUT/main.tpl
 [layout] <!-- layout -->
 # ***********************************************************
 <body>
-	<!SEC:body!>
+	<div class="colMain">
+		<!SEC:body!>
+	</div>
 </body>
 
 

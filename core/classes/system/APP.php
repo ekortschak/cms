@@ -251,7 +251,7 @@ public static function gcSys($fso, $snip = "page") { // show any part of page
 }
 
 public static function gcMap($fso) { // show page or sitemap
-	$out = APP::gcFile($fso); if ($out) return $out;
+	$out = APP::gcFile($fso); if (trim($out)) return $out;
 	return APP::gcFile("LOC_MOD/sitemap.php");
 }
 

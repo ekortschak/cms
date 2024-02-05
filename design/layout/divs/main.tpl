@@ -20,7 +20,7 @@ LOC_LAY/default/main.tpl
 # ***********************************************************
 [menu]
 <div class="mbanner">
-<!MOD:banner!>
+<!MOD:app/banner!>
 <!MOD:menu!>
 </div>
 

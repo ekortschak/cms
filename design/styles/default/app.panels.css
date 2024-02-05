@@ -9,16 +9,16 @@
 }
 
 .colToc {
+	overflow:   auto;
 	background: BC_TOC;
-	overflow:   hidden;
+	height: 	100vh;
 }
 
 .colMain {
 	float:      left;
-	overflow:   auto;
-	min-height: 100vh;
+	overflow:   hidden;
+	height: 	100vh;
 	width:      W_BODY;
-	max-width:  W_BODY;
 	background: BC_BODY;
 }
 
@@ -31,6 +31,7 @@
 }
 
 .modToc {
+	overflow:   auto;
 	width:      W_TOC;
 	color:      FC_TOC;
 	background: BC_TOC;
@@ -44,16 +45,13 @@
 
 .titBody {
 	width:      100%;
-#	height:     45px;
 	padding:    1rem 20px 0px;
 }
 
 .modBody {
-	max-height: calc(100vh - 45px);
-	min-height: calc(100vh - 45px);
 	width:      100%;
 	font-size:  F_BODY;
-	padding:    0px 20px 25px;
+	padding:    0px 20px 115px;
 }
 
 .modBord {
@@ -74,10 +72,14 @@
 /* ******************************************************** */
 .joker {
 	float:      top;
-	overflow:   hidden;
 	display:    none;
-	min-height: 1.5rem;
 	background: BC_TABS;
 	width:      100%;
-	padding:    0px 20px 0px;
+	padding:    0px 2px 0px;
+}
+
+.topics {
+	float:      top;
+	width:      100%;
+	padding:    3px 20px 0px;
 }

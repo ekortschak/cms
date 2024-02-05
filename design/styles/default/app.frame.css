@@ -27,8 +27,9 @@ html {
 
 body {
 	overflow:   hidden;
-	overflow:   auto;
+#	overflow:   auto;
 	position:   relative;
+	height:     100vh;
 	background: BC_PAGE;
 	color:      FC_BODY;
 }

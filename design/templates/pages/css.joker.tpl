@@ -14,19 +14,19 @@
 
 [right]
 <div>
+<button><a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/menu.png"></a></button>
 <button><a href="?vmode=joker"><img src="LOC_ICO/other/vw.gif"></a></button>
+</div>
+
+[right.back]
+<div>
+<button><a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/menu.png"></a></button>
 <button><a href="?vmode=view" ><img src="LOC_ICO/buttons/view.png"></a></button>
 </div>
+
 
 [topics]
 <!VAR:topics!>
 
 [nav]
-<div>
-<a href="?pfs.nav=prev&vmode=view"><button>◂</button></a>
-<!SEC:menu!>
-<a href="?pfs.nav=next&vmode=view"><button>▸</button></a>
-</div>
-
-[menu]
-<button><a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/menu.png"></a></button>
+<div></div>

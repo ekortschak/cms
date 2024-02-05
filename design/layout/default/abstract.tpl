@@ -9,6 +9,7 @@ LOC_LAY/LAYOUT/main.tpl
 	<div class="modToc" ><!SEC:toc!> </div>
 	<div class="modMbar"><!SEC:mbar!></div>
 	<div class="colMain">
+		<div class="joker"><!SEC:joker!></div>
 		<div class="titBody"><!SEC:head!></div>
 		<div class="modBody"><!SEC:body!></div>
 	</div>
@@ -19,7 +20,7 @@ LOC_LAY/LAYOUT/main.tpl
 # ***********************************************************
 [toc] <!-- toc.abstract -->
 # ***********************************************************
-<!MOD:toc/abstract!>
+<!MOD:toc/stats!>
 
 [head] <!-- sticky info -->
 <!MOD:body/head!>

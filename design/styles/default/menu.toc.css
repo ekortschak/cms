@@ -2,13 +2,13 @@
 /* table of content */
 /* ******************************************************** */
 .toc {
-	color: FC_TOC;
+	overflow:   auto;
 	background: BC_TOC;
 
-	overflow: auto;
-	line-height: 1.1rem;
-	padding-bottom: 12px;
+#	line-height: 1.1rem;
+	padding: 3px 0px 12px;
 
+	color: FC_TOC;
 	font-size: F_MENU;
 	white-space: nowrap;
 }

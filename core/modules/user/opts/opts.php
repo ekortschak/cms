@@ -2,7 +2,9 @@
 
 if (SEARCH_BOT) return;
 if (TAB_SET == "config") return;
+
 if (VMODE == "search") return;
+if (VMODE == "joker") return;
 
 DBG::file(__FILE__);
 

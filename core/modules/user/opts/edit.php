@@ -2,6 +2,7 @@
 
 if (SEARCH_BOT) return;
 if (VMODE == "search") return;
+if (VMODE == "joker") return;
 
 DBG::file(__FILE__);
 

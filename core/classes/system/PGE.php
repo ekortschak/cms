@@ -26,8 +26,7 @@ public static function init() {
 // setting focus
 // ***********************************************************
 public static function restore() {
-	$dir = PFS::findDir(PGE::$top);
-	PGE::load($dir);
+	PGE::load(PGE::$top);
 }
 
 public static function isCurrent($dir) {
@@ -91,6 +90,13 @@ public static function pic($dir = false) {
 	return APP::url($pic);
 }
 
+public static function page() {
+	$kap = PFS::get(NV, "chnum");
+
+	$ini = new ini("files/toc.ini");
+	return $ini->get("pagenums.$kap", "-");
+}
+
 // ***********************************************************
 // include files
 // ***********************************************************
@@ -127,6 +133,24 @@ private static function find($dir) {
 	$out = FSO::join(APP_ROOT, $dir); if (is_dir($out)) return $out;
 	$out = FSO::join(DOC_ROOT, $dir); if (is_dir($out)) return $out;
 	return false;
+}
+
+// ***********************************************************
+// user permissions
+// ***********************************************************
+public static function hasXs($dir) {
+	if (! FS_LOGIN) return "r";
+
+	$ini = new code();
+	$xxx = $ini->readPath($dir, "perms.ini"); // inherit settings
+	$arr = $ini->getValues("perms"); if (! $arr) return "r";
+
+	$prm = VEC::get($arr, "*", "x");
+	$prm = VEC::get($arr, CUR_USER, $prm);
+
+    if (STR::contains($prm, "w")) return "w";
+    if (STR::contains($prm, "r")) return "r";
+    return false;
 }
 
 // ***********************************************************

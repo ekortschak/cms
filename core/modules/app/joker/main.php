@@ -28,13 +28,21 @@ switch (LAYOUT) {
 	default: $lyt = false;
 }
 
+switch (VMODE) {
+	case "view": case "toc": $clr = true; break;
+	default: $clr = false;
+}
+
 // ***********************************************************
 // show joker tool bar
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("pages/css.joker.tpl");
-$tpl->set("topics", $tbs); if (! $lyt)
-$tpl->clearSec("menu");
+$tpl->set("topics", $tbs);
+
+if (! $lyt) $tpl->clearSec("menu");
+if (! $clr) $tpl->substitute("right", "right.back");
+
 $tpl->show();
 
 ?>

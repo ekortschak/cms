@@ -3,7 +3,7 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-$fil = "modules/user.opts.tpl"; if (SEARCH_BOT)
+$fil = "modules/user.opts.tpl"; if ((SEARCH_BOT) || (VMODE == "joker"))
 $fil = "modules/searchbot.tpl";
 
 $tpl = new tpl();
@@ -15,6 +15,7 @@ $tpl->load($fil);
 if (! CFG::mod("uopts.pres"))  $tpl->clearSec("pres");
 if (! CFG::mod("uopts.csv"))   $tpl->clearSec("csv");
 if (! CFG::mod("uopts.print")) $tpl->clearSec("print");
+if (! CFG::mod("tabs.search")) $tpl->clearSec("search");
 
 $ok1 = (TAB_SET != "default");
 $ok2 = (VMODE != "view");

@@ -3,7 +3,7 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-$fil = "modules/user.opts.tpl"; if (SEARCH_BOT)
+$fil = "modules/user.opts.tpl"; if ((SEARCH_BOT) || (VMODE == "joker"))
 $fil = "modules/searchbot.tpl";
 
 $tpl = new tpl();

@@ -37,6 +37,7 @@ pres = Präsentation
 
 <!SEC:user!>
 <!SEC:manual!>
+
 </div>
 
 [lang]
@@ -87,7 +88,8 @@ pres = Präsentation
 [xlate]  <!BTN:xlate!>
 [seo]    <!BTN:seo!>
 
-[config] <!BTN:config!>
+[config]
+ <!BTN:config!>
 [home]   <!BTN:home!>
 [xfer]   <!BTN:xfer!>
 

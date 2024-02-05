@@ -66,6 +66,8 @@ title = PRJ_TITLE
 # ***********************************************************
 [joker] <!-- escape for small viewports -->
 <!MOD:app/joker!>
+<div style="height: 3px;"></div>
+<!MOD:toc/topics!>
 
 [menu] <!-- banner -->
 #<!MOD:menu!>
@@ -83,9 +85,12 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [toc] <!-- toc -->
+<!MOD:toc/banner!>
 <!MOD:toc/topics!>
+<!MOD:toc/current!>
 <!MOD:toc!>
 <!MOD:toc/blocks!>
+<!MOD:toc/status!>
 
 # ***********************************************************
 [mbar] <!-- middle bar -->

@@ -28,7 +28,8 @@ class = dropMenu
 
 [main.box]
 <div class="dropdown">
-<div class="droptext"><!DIC:tpc.list!>COMBO_DOWN</div>
+#<div class="droptext"><!DIC:tpc.list!>COMBO_DOWN</div>
+<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!VAR:links!></div>
 </div> &ensp;
 
@@ -38,8 +39,8 @@ class = dropMenu
 # ***********************************************************
 [nav]
 # ***********************************************************
-<div class="<!VAR:class!>"> _
-<a style="color: white; font-family: monospace;" href="?vmode=abstract">?</a> _
+<div class="<!VAR:class!> droptext"> _
+<a style="color: white;" href="?vmode=abstract">?</a> _
 </div>
 
 [nav.back]

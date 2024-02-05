@@ -12,7 +12,6 @@
 	color: FC_INFO;
 	background: linear-gradient(-3deg, BC_MENU, BC_INFO 45%);
 	font-weight: bold;
-	padding: 3px 7px 1px;
 }
 
 .subMenu {

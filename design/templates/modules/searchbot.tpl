@@ -1,7 +1,3 @@
-[include]
-LOC_TPL/modules/user.opts.tpl
-
-
 # ***********************************************************
 [nav]
 # ***********************************************************
@@ -13,14 +9,14 @@ LOC_TPL/modules/user.opts.tpl
 	</div>
 </div>
 
-#<!SEC:manual!>
+&nbsp;
+
+<!BTN:reset!>
+<!BTN:home!>
+
 </div>
 
 # ***********************************************************
-# hide from search bot
+[lang]
 # ***********************************************************
-[view]
-[edit]
-[admin]
-
-[print]
+<div><a href="?lang=<!VAR:lang!>"><img class="flag" src="LOC_ICO/flags/<!VAR:lang!>.gif" alt="<!VAR:lang!>" /> <!VAR:lang!></a></div>

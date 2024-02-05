@@ -12,13 +12,14 @@ DBG::file(__FILE__);
 // ***********************************************************
 // check access permissions
 // ***********************************************************
-$prm = PFS::hasXs(); // force login ?
+$loc = PGE::dir();
+$prm = PGE::hasXs($loc); // force login ?
+
 if (! $prm) return incMod("body/login.php");
 
 // ***********************************************************
 // retrieving main page
 // ***********************************************************
-$loc = PGE::dir();
 $inc = PGE::incFile();
 $inc = FSO::join(LOC_MOD, "body/suits", $inc);
 

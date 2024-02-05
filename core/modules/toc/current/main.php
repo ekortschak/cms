@@ -1,5 +1,8 @@
 <?php
 
+if (STR::features("view.pres", VMODE)) return;
+
+// ***********************************************************
 $ini = new ini(TAB_HOME);
 $tit = $ini->getTitle();
 $uid = $ini->getUID();

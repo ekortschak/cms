@@ -14,6 +14,7 @@
 	color: FC_TOC;
 	background: BC_TOC;
 	width: W_TOC;
+	height: 1vh;
 	padding: 1rem 15px 35px;
 }
 

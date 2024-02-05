@@ -8,6 +8,10 @@ switch (VMODE) {
 	default:         $tit = PGE::title();
 }
 
-HTW::tag($tit, "div class='h2'");
+// ***********************************************************
+$tpl = new tpl();
+$tpl->load("modules/chapter.tpl");
+$tpl->set("title", $tit);
+$tpl->show();
 
 ?>

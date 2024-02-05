@@ -39,6 +39,7 @@ public function readPath($dir, $fil = "perms.ini") {
 }
 
 public function read($file) { // ini lines
+
 	$fil = $this->isKnown($file);   if (! $fil) return false;
 	$txt = $this->getContent($fil); if (! $txt) return false;
 	$txt = $this->buttons($txt);
@@ -88,9 +89,7 @@ public function getTypes() {
 // preparing ENV
 // ***********************************************************
 protected function incFiles($txt) {
-	$inc = STR::between($txt, "[include]", "[");
-
-	if (! $inc) return;
+	$inc = STR::between($txt, "[include]", "["); if (! $inc) return;
 	$arr = STR::split($inc);
 
 	foreach ($arr as $fil) {

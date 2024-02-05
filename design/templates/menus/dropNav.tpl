@@ -48,5 +48,5 @@ class = dropMenu
 </a>
 
 [nav.null]
-<div class="<!VAR:class!>">&emsp;</div>
+<div class="<!VAR:class!> droptext">&emsp;</div>
 
