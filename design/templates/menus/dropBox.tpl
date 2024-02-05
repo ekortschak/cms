@@ -49,4 +49,4 @@ sep = :
 <button><!VAR:current!></button> &ensp;
 
 [text]
-<!VAR:current!> &ensp;
+<div class="droptext"><!VAR:current!></div>

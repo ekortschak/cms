@@ -44,6 +44,6 @@ class = dropMenu
 </div>
 
 [nav.back]
-<div style="padding: 2px 0px 1px; background: navy; border-radius: BR_IMG;"> _
-<a href="?vmode=view"><img src="LOC_ICO/buttons/view.png"></a>
+<div class="<!VAR:class!> droptext"> _
+<a href="?vmode=view"><img src="LOC_ICO/buttons/view.png"></a> _
 </div>

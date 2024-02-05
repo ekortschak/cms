@@ -38,7 +38,7 @@ class = dropMenu
 # navigation buttons
 # ***********************************************************
 [nav.left]
-<a href="?<!VAR:parm!>=<!VAR:prev!>">
+<a href="?<!VAR:parm!>=<!VAR:prev!>">sss
 	<div class="localicon <!VAR:class!>">&ltrif;</div>
 </a>
 

@@ -47,8 +47,8 @@ $sec = "err.short";
 
 $tpl->set("range", $opt);
 $tpl->set("search", $fnd);
-$tpl->set("items", $res);
-$tpl->set("result", "<!SEC:$sec!>");
+#$tpl->set("items", $res);
+#$tpl->set("result", "<!SEC:$sec!>");
 $tpl->show();
 
 ?>

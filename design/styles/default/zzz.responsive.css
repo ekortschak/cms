@@ -35,6 +35,7 @@
 	[class^="mod"] {
 		display:    none;
 	}
+	.mobile  { display: inline-block; }
 	.joker   { display: block; }
 	.titBody { padding: 3px var(--pad_min) 0px; }
 	.toc     { padding: auto 25px auto; }
