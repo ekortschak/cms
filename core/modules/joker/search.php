@@ -1,6 +1,6 @@
 <?php
 
-DBG::file(__FILE__);
+incCls("search/search.php");
 
 // ***********************************************************
 // check for reset
@@ -14,8 +14,6 @@ if (ENV::getParm("search.reset")) {
 // ***********************************************************
 // creating search form
 // ***********************************************************
-incCls("search/search.php");
-
 $obj = new search();
 $opt = $obj->getScope();
 $fnd = $obj->findWhat();
@@ -30,8 +28,6 @@ $tpl->show();
 // ***********************************************************
 // showing results
 // ***********************************************************
-$fil = APP::incFile(__DIR__, "results.php");
-
-include_once($fil);
+incMod("body/search/results.php");
 
 ?>

@@ -54,6 +54,7 @@ title = PRJ_TITLE
 	<div class="modMbar"><!SEC:mbar!></div>
 	<div class="colMain">
 		<div class="joker"><!SEC:joker!></div>
+		<div class="titBody mobile"><!SEC:topics!></div>
 		<div class="titBody"><!SEC:head!></div>
 		<div class="modBody"><!SEC:body!></div>
 	</div>
@@ -65,8 +66,9 @@ title = PRJ_TITLE
 # horizontal panels
 # ***********************************************************
 [joker] <!-- escape for small viewports -->
-<!MOD:app/joker!>
-<div style="height: 3px;"></div>
+<!MOD:joker!>
+
+[topics]
 <!MOD:toc/topics!>
 
 [menu] <!-- banner -->

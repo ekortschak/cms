@@ -3,51 +3,26 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-$loc = PGE::dir();
-$arr = FSO::dirs($loc);
-$out = "";
+$loc = PGE::$dir;
+$arr = PFS::sibs($loc);
 
 // ***********************************************************
 // show default sitemap message
 // ***********************************************************
-$tpl = new tpl();
-$tpl->load("msgs/sitemap.tpl");
-
 if (! $arr) {
-	$fil = APP::snip($loc);
-	$sec = ($fil) ? "empty" : "notyet";
-	return $tpl->show($sec);
+	$tpl = new tpl();
+	$tpl->load("msgs/sitemap.tpl");
+	return $tpl->show("notyet");
 }
 
 // ***********************************************************
 // offer subdirectories for further navigation
 // ***********************************************************
-$out = array();
-$anz = CHK::min(count($arr), 30);
-$cls = 2; if ($anz > 30) $cls = 3;
-$col = 1; $idx = 0;
-$max = intval($anz / $cls); if ($max < 2) $max = 2;
+incCls("menus/toc.php");
 
-foreach ($arr as $dir => $nam) {
-	$ini = new ini($dir);
-	$tpl->set("link", $ini->getUID());
-	$tpl->set("text", $ini->getHead());
-
-	if ($idx++ > $max) {
-		$idx = 1; $col++;
-	}
-	$out = VEC::append($out, $col, $tpl->getSection("item"));
-}
-
-// ***********************************************************
-// split output into columns
-// ***********************************************************
-$tpl->set("title", PGE::title());
-$cnt = 1;
-
-foreach ($out as $col) {
-	$tpl->set("items".$cnt++, $col);
-}
-$tpl->show("list")
+$toc = new toc();
+$toc->setData($arr);
+$toc->set("pfx", "smap");
+$toc->show();
 
 ?>

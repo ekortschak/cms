@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/LAYOUT/main.tpl
+LOC_LAY/LAYOUT/main.edit.tpl
 
 [dic]
 vtabs = Vertical tabs
@@ -11,7 +11,7 @@ vtabs = Registerkarten (Tabs)
 # ***********************************************************
 [toc.de] <!-- toc.tedit -->
 # ***********************************************************
-<h3>Tabs</h3>
+<div class="h3">Tabs</div>
 <h4>Anleitung</h4>
 <ul>
 <li>Tab auswählen</li>
@@ -21,7 +21,7 @@ vtabs = Registerkarten (Tabs)
 # ***********************************************************
 [toc] <!-- toc.tedit -->
 # ***********************************************************
-<h3>Tabs</h3>
+<div class="h3">Tabs</div>
 <h4>Instructions</h4>
 <ul>
 <li>Select a tabset</li>
@@ -32,5 +32,7 @@ vtabs = Registerkarten (Tabs)
 # ***********************************************************
 [body] <!-- body.tedit -->
 # ***********************************************************
-<h3><!DIC:vtabs!></h3>
+<div class="h3"><!DIC:vtabs!></div>
 <!MOD:edit/tabs!>
+
+[head]

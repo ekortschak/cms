@@ -38,6 +38,8 @@ public function setData($arr) { // $arr as from PFS::item();
 // ***********************************************************
 public function gc($sec = "main") {
 	$cur = PGE::$dir; $out = ""; $cnt = 0; $skp = false;
+
+	$arr = $this->dat; if (! $arr)
 	$arr = PFS::items();
 	$inf = PFS::item();
 	$kap = VEC::get($inf, "chnum");

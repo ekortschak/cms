@@ -10,12 +10,12 @@ LOC_LAY/LAYOUT/main.tpl
 	</div>
 </body>
 
+
 # ***********************************************************
 [body] <!-- body.search -->
 # ***********************************************************
 <div class="joker"><!SEC:joker!></div>
-<div class="titBody"><!MOD:toc/current!></div>
 
-<div id="scView">
-	<!MOD:toc!>
+<div class="modBody">
+	<!MOD:joker/search.php!>
 </div>

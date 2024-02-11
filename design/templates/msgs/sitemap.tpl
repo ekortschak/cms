@@ -1,3 +1,6 @@
+[register]
+#LOC_SCR/toc.view.js
+
 [dic]
 notyet = This page is not (yet) available.
 empty = Folder is empty.

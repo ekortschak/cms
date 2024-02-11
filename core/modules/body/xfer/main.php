@@ -2,7 +2,7 @@
 
 incCls("menus/buttons.php");
 
-HTW::xtag("replicator", "h3");
+HTW::xtag("replicator", "div class='h3'");
 DBG::file(__FILE__);
 
 // ***********************************************************

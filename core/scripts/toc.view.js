@@ -14,35 +14,34 @@ function toggleDiv(pfx, qid) {
 
     cur = document.getElementById(rec);
     cls = cur.className;
-    pos = cur.style.backgroundPositionY;
+	hid = cls.includes("closed");
+
+console.debug(cls);
 
 	vgl = getLevel(cls);
-    vis = "hidden";
 
-    if (pos == "bottom") { // change to top = collapse
-		cur.classList.remove("open");
-		cur.classList.add("closed");
-    }
-    else { // change to bottom = expand
+    if (hid) { // change to top = collapse
 		cur.classList.remove("closed");
 		cur.classList.add("open");
-        vis = "visible";
+    }
+    else { // change to bottom = expand
+		cur.classList.remove("open");
+		cur.classList.add("closed");
     }
 
     do { qid++;
 		fnd = pfx + "[" + qid + "]";
+// console.debug(fnd);
 
 		cur = document.getElementById(fnd); if (cur == null) break;
 		cls = cur.className;
 		lev = getLevel(cls); if (lev <= vgl) break;
 
-console.debug(fnd);
-
      // whether closed or opened: subfolders will always be shown as closed
 		cur.classList.remove("open");
-		cur.classList.add("closed");
+ 		cur.classList.add("closed");
 
-        if ((lev == (vgl * 1 + 1)) && (vis == "visible")) {
+        if ((lev == (vgl * 1 + 1)) && (hid)) {
 		 // first grade sub level will be shown
 			cur.classList.remove("hide");
 			cur.classList.add("show");

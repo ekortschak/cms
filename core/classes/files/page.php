@@ -48,16 +48,22 @@ public function setModules() {
 	}
 }
 
-protected function addModule($mod, $idx) {
-	$ful = FSO::join(LOC_MOD, $mod, "main.php");
-	$ful = APP::file($ful);
-	$this->mod[$idx][$mod] = $ful;
-}
-
 protected function getModules() {
 	$app = VEC::get($this->mod, "app", array());
 	$zzz = VEC::get($this->mod, "zzz", array());
 	return $app + $zzz;
+}
+
+// ***********************************************************
+protected function addModule($mod, $idx) {
+	$ful = $this->findModule($mod); if (! $ful) return;
+	$this->mod[$idx][$mod] = $ful;
+}
+
+protected function findModule($mod) {
+	$dir = FSO::join(LOC_MOD, $mod);    if (APP::file($dir)) return $dir;
+	$fil = FSO::join($dir, "main.php"); if (APP::file($fil)) return $fil;
+	return false;
 }
 
 // ***********************************************************

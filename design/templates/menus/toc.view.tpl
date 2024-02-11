@@ -12,7 +12,7 @@ no.topic = Wähle ein Thema ...
 
 [vars]
 topic = TAB_HOME
-pfx = q
+pfx = toc
 hid =
 grey =
 
@@ -26,7 +26,7 @@ grey =
 #<a href="javascript:load('<!VAR:uid!>');"><!VAR:title!></a>
 
 [qid]
-id="q[<!VAR:index!>]"
+id="<!VAR:pfx!>[<!VAR:index!>]"
 
 [cls]
 lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
@@ -81,13 +81,13 @@ lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 # static files
 # ***********************************************************
 [link.static.dir]
-<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+<div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>
 </div>
 
 [link.static.file]
-<div id="q[<!VAR:index!>]" data-par="<!VAR:level!>" _
+<div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>
 </div>

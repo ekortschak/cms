@@ -32,13 +32,13 @@ class = dropMenu
 <div class="dropdown">
 <div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!VAR:links!></div>
-</div> &ensp;
+</div>
 
 # ***********************************************************
 # navigation buttons
 # ***********************************************************
 [nav.left]
-<a href="?<!VAR:parm!>=<!VAR:prev!>">sss
+<a href="?<!VAR:parm!>=<!VAR:prev!>">
 	<div class="localicon <!VAR:class!>">&ltrif;</div>
 </a>
 

@@ -8,18 +8,13 @@
 	min-height: 100vh;
 }
 
-.colToc {
-	overflow:   auto;
-	background: BC_TOC;
-	height: 	100vh;
-}
-
 .colMain {
 	float:      left;
 	overflow:   hidden;
 	height: 	100vh;
 	width:      W_BODY;
 	background: BC_BODY;
+	padding:    1rem 0px 0px;
 }
 
 /* ******************************************************** */
@@ -45,7 +40,7 @@
 
 .titBody {
 	width:      100%;
-	padding:    1rem 20px 0px;
+	padding:    0px 20px 0px;
 }
 
 .modBody {
@@ -76,6 +71,7 @@
 	background: BC_TABS;
 	width:      100%;
 	padding:    0px 2px 0px;
+	margin:    -1rem 0px 2px;
 }
 
 .topics {

@@ -21,7 +21,7 @@ $dat = PFS::data($index);
 // BEGIN OF CLASS
 // ***********************************************************
 class PFS {
-	public static $dat = array();  // menu items & props
+	private static $dat = array();  // menu items & props
 	private static $idx = array();  // menu index list
 	private static $vrz = array();  // menu dirs list
 	private static $vdr = array();  // list of virtual dirs
@@ -73,7 +73,8 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
  // $cur = fs branch to virtually plug in to
 	$top = APP::dir($top);
  	$drs = FSO::dTree($top, ! IS_LOCAL); $old = $pid = "¬";
-	$fst = FSO::level($top); $chk = false;
+	$fst = FSO::level($top);
+	$col = false;
 
 	foreach ($drs as $dir => $nam) {
 		$ini = new ini($dir);
@@ -83,8 +84,9 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
 		$vdr = FSO::join($cur, $trl);  // calc virtual dir
 		$lev = FSO::level($dir);
 
-		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr);
+		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr, $col);
 
+		if ($typ === "col") $col = $vdr;
 		if ($typ === "red") { // internal redirection
 			$inc = $ini->getReDir();
 			$lvl = $lev - $fst - $ofs;
@@ -97,7 +99,7 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
 // ***********************************************************
 // reading & handling properties
 // ***********************************************************
-private static function append($ini, $pfx, $lev, $par) { // single page info
+private static function append($ini, $pfx, $lev, $par, $col) { // single page info
 	$uid = $ini->getUID(); $uid = PFS::uniq($uid);
 	$dir = $ini->getDir(); $cnt = PFS::$cnt;
 	$red = $ini->getReDir("props_red.trg");
@@ -113,6 +115,7 @@ private static function append($ini, $pfx, $lev, $par) { // single page info
 	PFS::setPropVal($uid, "level", $lev);
 	PFS::setPropVal($uid, "index", $cnt);
 
+	PFS::setPropVal($uid, "iscol", STR::begins($par, $col));
 	PFS::setPropVal($uid, "chnum", PFS::chapNum($uid));
 	PFS::setPropVal($uid, "sname", PFS::statID()); // for static output
 
@@ -182,9 +185,13 @@ public static function find($key = NV) { // dir, uid or num index expected !
 
 private static function findNext($uid, $inc) {
 	$key = PFS::propVal($uid, "index", 0);
-	$key = CHK::range($key + $inc, 0, PFS::$cnt - 1);
-	$uid = PFS::find($key);
-	$dir = PFS::propVal($uid, "fpath", TAB_HOME);
+
+	do {
+		$key = CHK::range($key + $inc, 0, PFS::$cnt - 1);
+		$uid = VEC::get(PFS::$idx, $key);
+		$col = PFS::propVal($uid, "iscol", false); if ($col) continue;
+		$dir = PFS::propVal($uid, "fpath", TAB_HOME); break;
+	} while(1);
 
 	ENV::setPage($uid);
 	PGE::load($dir);
@@ -250,18 +257,10 @@ private static function chapNum($index) {
 }
 
 // ***********************************************************
-public static function tocEntry($index = NV) {
-	$kap = PFS::chapTitle($index);
-	$lev = PFS::propVal($index, "level", 1);
-	$ind = str_repeat("&nbsp; ", $lev);
-	return $ind.$kap;
-}
-
-// ***********************************************************
-// menu node info
+// menu subtrees
 // ***********************************************************
 public static function items($dir = false) {
-	$out = array(); $max = PFS::$cnt;
+	$out = array(); $max = PFS::$cnt; $cnt = $top = 0;
 
 	for ($i = 0; $i < $max; $i++) { // skip root element
 		$inf = PFS::item($i); if (! $inf) continue;
@@ -273,11 +272,26 @@ public static function items($dir = false) {
 		if (PFS::isHidden($loc)) continue;
 		if (PFS::noPrint($inf)) continue;
 
+		$lev = $inf["level"]; if ($cnt < 1) $top = $lev;
+		$xxx = $inf["level"] = $lev - $top + 1;
 		$out[] = $inf;
+
+		$cnt++;
 	}
 	return $out;
 }
 
+// ***********************************************************
+public static function sibs($dir) {
+	$idx = PFS::find($dir);
+	$dir = PFS::propVal($idx, "vpath", false);
+	$out = PFS::items($dir); if (! $out) return false;
+	unset($out[0]);
+	return $out;
+}
+
+// ***********************************************************
+// menu node info
 // ***********************************************************
 public static function item($index = NV, $depth = 99) {
 	$idx = PFS::find($index);

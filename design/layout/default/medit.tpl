@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/LAYOUT/main.tpl
+LOC_LAY/LAYOUT/main.edit.tpl
 
 # ***********************************************************
 [body] <!-- body.medit -->

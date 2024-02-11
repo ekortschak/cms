@@ -16,7 +16,6 @@ replicator = Seiten übertragen
 	<div class="modMbar"><!SEC:mbar!></div>
 	<div class="colMain">
 		<div class="joker"><!SEC:joker!></div>
-		<div style="height: 1rem;"></div>
 		<div class="modBody"><!SEC:body!></div>
 	</div>
 	<div class="modBord"><!SEC:bord!></div>
@@ -27,7 +26,7 @@ replicator = Seiten übertragen
 # ***********************************************************
 [toc] <!-- toc.xfer -->
 # ***********************************************************
-<h3><!DIC:replicator!></h3>
+<div class="h3"><!DIC:replicator!></div>
 <!MOD:toc/topics!>
 <!MOD:toc/xfer!>
 

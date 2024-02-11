@@ -5,10 +5,8 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-$loc = PGE::dir();
-$sel = ENV::getParm("coll");
-$arr = FSO::dirs($loc);
-$lst = array();
+$loc = PGE::$dir;
+$arr = PFS::sibs($loc);
 
 if (count($arr) < 1) {
 	return MSG::now("no.subfolders");
@@ -17,9 +15,11 @@ if (count($arr) < 1) {
 // ***********************************************************
 // read subdirs
 // ***********************************************************
-foreach ($arr as $dir => $itm) {
-	$ini = new ini($dir);
-	$lst[$dir] = $ini->getHead();
+$lst = array();
+
+foreach ($arr as $inf) {
+	extract($inf);
+	$lst[$fpath] = $title;
 }
 
 // ***********************************************************
@@ -30,9 +30,7 @@ $dir = $box->getKey("coll", $lst, $sel);
 $tit = $box->decode("coll", $dir);
 $xxx = $box->show();
 
-$whr = FSO::join(APP_DIR, $dir);
-$xxx = APP::addPath($whr);
-
+$xxx = APP::addPath($dir);
 $htm = APP::gcSys($dir);
 $pic = PGE::pic($dir);
 
@@ -41,13 +39,12 @@ $pic = PGE::pic($dir);
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("pages/collect.tpl");
-
 $tpl->set("text", $htm);
 $tpl->set("head", $tit);
-$tpl->set("pic",  $pic);
 
-if (! $pic) {
-	$tpl->clearSec("pic");
+switch ($pic) {
+	case true: $tpl->set("pic", $pic); break;
+	default:   $tpl->clearSec("pic");
 }
 $tpl->show();
 

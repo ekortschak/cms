@@ -6,7 +6,7 @@ if (! FS_ADMIN) {
 }
 
 DBG::file(__FILE__);
-HTW::xtag("xedit", "h3");
+HTW::xtag("xedit", "div class='h3'");
 
 // ***********************************************************
 incCls("menus/buttons.php");

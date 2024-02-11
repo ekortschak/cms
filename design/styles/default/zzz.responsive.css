@@ -3,7 +3,7 @@
 ******************************************************** */
 :root {
   --pad_min: 7px;
-  --zoom_l: 2;
+  --zoom_l: 1.5;
   --zoom_p: 3;
 }
 
@@ -24,7 +24,7 @@
 }
 
 @media only screen and (max-width: 1100px) {
-	.colMain, .colToc {
+	.colMain {
 		width:  calc(100% / var(--zoom_l));
 		height: calc(100% / var(--zoom_l));
 
@@ -37,7 +37,7 @@
 	}
 	.mobile  { display: inline-block; }
 	.joker   { display: block; }
-	.titBody { padding: 3px var(--pad_min) 0px; }
+	.titBody { padding: 0px var(--pad_min); }
 	.toc     { padding: auto 25px auto; }
 
 	.modBody {
@@ -54,7 +54,7 @@
 }
 
 @media only screen and (max-width: 1100px) and (orientation: portrait) {
-	.colMain, .colToc  {
+	.colMain  {
 		width:  calc(100% / var(--zoom_p));
 		height: calc(100% / var(--zoom_p));
 

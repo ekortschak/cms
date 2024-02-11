@@ -1,7 +1,7 @@
 [main]
 
 <div class="flex">
-<div>
+<div class="nowrap" style="max-width: calc(100% - 75px);">
 	<button class="mobile mobbut">
 		<a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/toc.png"></a>
 	</button>

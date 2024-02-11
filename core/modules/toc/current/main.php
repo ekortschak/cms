@@ -1,6 +1,7 @@
 <?php
 
-if (STR::features("view.pres", VMODE)) return;
+if (! STR::features("view.pres.toc", VMODE)) return;
+if (TAB_TYPE == "sel") return;
 
 // ***********************************************************
 $ini = new ini(TAB_HOME);

@@ -33,8 +33,6 @@ class sBasics {
 function __construct($dir = TAB_HOME) {
 	$this->rng = ENV::get("search.rng", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
-
-	$this->chkReset();
 }
 
 // ***********************************************************
@@ -58,6 +56,15 @@ protected function isScope($dir) {
 // ***********************************************************
 // retrieving relevant files
 // ***********************************************************
+public function findWhat() {
+	$out = ENV::find("search.what");
+	$out = STR::replace($out, '"', "'");
+	return $out;
+}
+
+// ***********************************************************
+// retrieving relevant files
+// ***********************************************************
 public function getResults($what) {
 #	$out = $this->isSame($what); if ($out) return $out;
 #	$xxx = $this->saveParms("");
@@ -71,6 +78,7 @@ public function getResults($what) {
 		$out[$tab][$fil] = PGE::title($fil);
 	}
 	$this->saveParms($out);
+	VEC::sort($out);
 	return $out;
 }
 
@@ -201,14 +209,6 @@ protected function prepare_p($txt) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function chkReset() {
-	if (! ENV::getParm("search.reset")) return;
-
-	ENV::set("search.what",  false);
-	ENV::set("search.parms", false);
-	ENV::set("search.last",  false);
-}
-
 protected function getContent($file) {
 	$ext = FSO::ext($file);	if (STR::misses(".php.htm.", $ext)) return false;
 	$out = APP::read($file);

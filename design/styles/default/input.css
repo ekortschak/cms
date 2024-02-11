@@ -9,7 +9,7 @@ form table {
 /* ******************************************************** */
 /* input fields */
 /* ******************************************************** */
-input, select, button, .dmbtn {
+input, select, button {
 	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
@@ -33,6 +33,26 @@ button {
 	background: linear-gradient(snow, lightgrey);
 	padding: 0px 10px;
 	cursor: pointer;
+}
+
+input[type='reset'] {
+	color: maroon;
+}
+
+.dmbtn {
+	display: inline-block;
+	margin: 0px;
+	border: 1px solid OUTLINE;
+	border-radius: BR_INP;
+	padding: 0px 5px 0px;
+
+	min-width: 45px;
+	line-height: H_LINE;
+	max-height: H_LINE;
+
+	background: linear-gradient(snow, lightgrey);
+	text-align: center;
+#	vertical-align: bottom;
 }
 
 /* ******************************************************** */

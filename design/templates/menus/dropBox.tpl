@@ -43,7 +43,7 @@ sep = :
 </div>
 
 [link]
-<div style="white-space: nowrap;"><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
+<div class="nowrap"><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
 
 [button]
 <button><!VAR:current!></button> &ensp;

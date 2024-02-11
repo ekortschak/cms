@@ -37,7 +37,7 @@ switch (VMODE) {
 // show joker tool bar
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("pages/css.joker.tpl");
+$tpl->load("pages/joker.tpl");
 $tpl->set("topics", $tbs);
 
 if (! $lyt) $tpl->clearSec("menu");

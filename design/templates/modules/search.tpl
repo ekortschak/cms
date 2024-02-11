@@ -28,20 +28,24 @@ result =
 # ***********************************************************
 [main]
 # ***********************************************************
-<form method="post" action="?vmode=search">
+<div class="h3"><!DIC:search!></div>
+<form method="post" action="?">
 <!SEC:oid!>
 <!VAR:range!>
 
 	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: 100%;" />
 
 	<div align="right">
-		<input type="submit" name="search,act" value="OK" />
+		<a href="?search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
+		<input type="submit" name="search.act" value="OK" />
 	</div>
 </form>
 
-<h4><!DIC:result!></h4>
-<!VAR:result!>
+[intro]
+<font color="black">
 
+[extro]
+</font>
 
 # ***********************************************************
 [result]
@@ -61,17 +65,12 @@ result =
 # ***********************************************************
 [preview]
 # ***********************************************************
-<h3><!DIC:prevw!></h3>
+<h4><!DIC:result!></h4>
 
 [prv.goto]
-<div style="float: right;">
+<div style="float: right; margin-top: -7px;">
 	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
 		<button><img src="LOC_ICO/buttons/view.png" alt="View"></button>
-	</a>
-</div>
-<div style="float: right; margin-right: 5px;">
-	<a href="?search.reset=1">
-		<button>BOOL_NO</button>
 	</a>
 </div>
 
@@ -104,19 +103,27 @@ result =
 <!SEC:info.text!>
 
 [info]
-<h4>How to use</h4>
+<div class="h3">How to use</div>
 <ul>
 	<li>Enter a search term into the text field.</li>
 	<li>Click OK.</li>
-	<li>Select an item from the results list.</li>
+</ul>
+
+<h5>Important</h5>
+<ul>
+	<li>The search is not case sensitive!</li>
 </ul>
 
 [info.de]
-<h4>Anleitung</h4>
+<div class="h3">Anleitung</div>
 <ul>
 	<li>Gib einen Suchbegriff in das Textfeld ein.</li>
 	<li>Drücke OK.</li>
-	<li>Wähle einen Eintrag in der Ergebnisliste.</li>
+</ul>
+
+<h5>Wichtig</h5>
+<ul>
+	<li>Die Suche unterscheidet nicht zwischen Groß- und Kleinschreibung!</li>
 </ul>
 
 # ***********************************************************
@@ -124,29 +131,29 @@ result =
 # ***********************************************************
 <h4>Search patterns</h4>
 <table>
-	<tr class="rh"><th>Pattern</th>                  <th></th><th>will find any text containing ...</th></tr>
-	<tr class="rw"><td class="pre">+str or str</td>  <td></td><td>any occurrence of str</td></tr>
-	<tr class="rw"><td class="pre">-str</td>         <td></td><td>anything but str</td></tr>
-	<tr class="rw"><td class="pre"> str1 str2</td>   <td></td><td>all of these strings</td></tr>
-	<tr class="rw"><td class="pre"> str1|str2</td>   <td></td><td>any of these strings (no blanks!)</td></tr>
-	<tr class="rw"><td class="pre">-str1|str2</td>   <td></td><td>none of these strings (no blanks!)</td></tr>
-	<tr class="rw"><td class="pre">^str or Str</td>  <td></td><td>any string beginning with str</td></tr>
-	<tr class="rw"><td class="pre"> str^</td>        <td></td><td>any string ending with str</td></tr>
-	<tr class="rw"><td class="pre">^str^ or Str^</td><td></td><td>the exact word</td></tr>
-	<tr class="rw"><td class="pre">"str1 str2"</td>  <td></td><td>the exact character sequence</td></tr>
+	<tr class="rh"><th>Pattern</th>                  <th>will find any text containing ...</th></tr>
+	<tr class="rw"><td class="pre">+str or str</td>  <td>any occurrence of str</td></tr>
+	<tr class="rw"><td class="pre">-str</td>         <td>anything but str</td></tr>
+	<tr class="rw"><td class="pre"> str1 str2</td>   <td>all of these strings</td></tr>
+	<tr class="rw"><td class="pre"> str1|str2</td>   <td>any of these strings (no blanks!)</td></tr>
+	<tr class="rw"><td class="pre">-str1|str2</td>   <td>none of these strings (no blanks!)</td></tr>
+	<tr class="rw"><td class="pre">^str or Str</td>  <td>any string beginning with str</td></tr>
+	<tr class="rw"><td class="pre"> str^</td>        <td>any string ending with str</td></tr>
+	<tr class="rw"><td class="pre">^str^ or Str^</td><td>the exact word</td></tr>
+	<tr class="rw"><td class="pre">"str1 str2"</td>  <td>the exact character sequence</td></tr>
 </table>
 
 [info.text.de]
 <h5>Suchbegriffe</h5>
 <table>
-	<tr class="rh"><th>Muster</th>                   <th></th><th>findet Textstellen ...</th></tr>
-	<tr class="rw"><td class="pre">+str bzw. str</td><td></td><td>die str beinhalten</td></tr>
-	<tr class="rw"><td class="pre">-str</td>         <td></td><td>die str nicht beinhalten</td></tr>
-	<tr class="rw"><td class="pre"> str1 str2</td>   <td></td><td>mit allen angegebenen Zeichenketten</td></tr>
-	<tr class="rw"><td class="pre"> str1|str2</td>   <td></td><td>mit zumindest einer der Zeichenketten (keine Leerzeichen!)</td></tr>
-	<tr class="rw"><td class="pre">-str1|str2</td>   <td></td><td>ohne die angegebenen Zeichenketten (keine Leerzeichen!)</td></tr>
-	<tr class="rw"><td class="pre">^str bzw. Str</td><td></td><td>in denen Wörter mit str beginnen</td></tr>
-	<tr class="rw"><td class="pre"> str^</td>        <td></td><td>in denen Wörter mit str enden</td></tr>
-	<tr class="rw"><td class="pre">^str^ bzw. Str^</td><td></td><td>in denen das angegebene Wort vorkommt</td></tr>
-	<tr class="rw"><td class="pre">"str1 str2"</td>  <td></td><td>in denen die angegebene Wortfolge vorkommt</td></tr>
+	<tr class="rh"><th>Muster</th>                   <th>findet Textstellen ...</th></tr>
+	<tr class="rw"><td class="pre">+str bzw. str</td><td>die str beinhalten</td></tr>
+	<tr class="rw"><td class="pre">-str</td>         <td>die str nicht beinhalten</td></tr>
+	<tr class="rw"><td class="pre"> str1 str2</td>   <td>mit allen angegebenen Zeichenketten</td></tr>
+	<tr class="rw"><td class="pre"> str1|str2</td>   <td>mit zumindest einer der Zeichenketten (keine Leerzeichen!)</td></tr>
+	<tr class="rw"><td class="pre">-str1|str2</td>   <td>ohne die angegebenen Zeichenketten (keine Leerzeichen!)</td></tr>
+	<tr class="rw"><td class="pre">^str bzw. Str</td><td>in denen Wörter mit str beginnen</td></tr>
+	<tr class="rw"><td class="pre"> str^</td>        <td>in denen Wörter mit str enden</td></tr>
+	<tr class="rw"><td class="pre">^str^ bzw. Str^</td><td>in denen das angegebene Wort vorkommt</td></tr>
+	<tr class="rw"><td class="pre">"str1 str2"</td>  <td>in denen die angegebene Wortfolge vorkommt</td></tr>
 </table>
