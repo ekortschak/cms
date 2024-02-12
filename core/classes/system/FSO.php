@@ -101,35 +101,22 @@ public static function permit($fso, $mod = 0775) {
 // ***********************************************************
 public static function dirs($dir = APP_DIR, $visOnly = true) {
 	$out = array();
+	$dir = FSO::resolve($dir); if (! is_dir($dir)) return $out;
+	$arr = glob("$dir/*", GLOB_ONLYDIR);
 
-	if (! is_dir($dir)) $dir = FSO::findDir($dir);
-	if (! is_dir($dir)) return $out;
-
-	$hdl = opendir($dir); if (! $hdl) return $out;
-
-	while (false !== ($itm = readdir($hdl))) {
-		if (STR::begins($itm, "." )) continue; if ($visOnly)
-		if (STR::begins($itm, HIDE)) continue;
-
-		$ful = FSO::join($dir, $itm); if (is_file($ful)) continue;
-		$out[$ful] = $itm;
+	foreach ($arr as $itm) {
+		if ($visOnly) if (FSO::isHidden($itm)) continue;
+		$out[$itm] = basename($itm);
 	}
-	closedir($hdl);
 	return VEC::sort($out, "ksort");
 }
 
-public static function findDir($dir) {
-	if (STR::begins($dir, DIR_SEP)) $dir = FSO::join(APP_ROOT, $dir);
-	if (STR::misses($dir, "*")) return $dir;
+// ***********************************************************
+public static function resolve($fso) {
+	if (STR::misses($fso, "*")) return $fso;
 
-	$par = dirname($dir);
-	$fnd = STR::after(basename($dir), "*");
-	$arr = glob("$par/*", GLOB_ONLYDIR);
-
-	foreach ($arr as $itm) {
-		if (STR::ends($itm, $fnd)) return $itm;
-	}
-	return $dir;
+	$arr = glob($fso); if (! $arr) return false;
+	return current($arr);
 }
 
 // ***********************************************************
@@ -171,12 +158,13 @@ public static function rmDir($dir) {
 // ***********************************************************
 public static function files($dir, $pattern = "*") {
  // collect all files matching $pattern
-	$out = array(); if (! is_dir($dir)) return $out;
+	$out = $arr = array();
+	$dir = FSO::resolve($dir); if (! is_dir($dir)) return $out;
 	$ext = STR::split($pattern, ",");
 
 	foreach ($ext as $ptn) {
 		$ful = FSO::join($dir, $ptn);
-		$arr = glob($ful);
+		$arr+= glob($ful);
 	}
 	foreach ($arr as $itm) {
 		if (is_dir($itm)) continue;
@@ -185,22 +173,21 @@ public static function files($dir, $pattern = "*") {
 	return VEC::sort($out, "ksort");
 }
 
+// ***********************************************************
+public static function reroute($fso) {
+	if (STR::begins($fso, CUR_DIR)) { // CUR_DIR = ./
+		return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
+	}
+	return APP::dir($fso);
+}
+
+// ***********************************************************
 public static function rmFiles($dir) {
 	$fls = FSO::files($dir);
 
 	foreach ($fls as $fil => $nam) {
 		FSO::kill($fil, "", 0);
 	}
-}
-
-public static function reroute($fso) {
-	if (STR::begins($fso, CUR_DIR)) {
-		return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
-	}
-	if (STR::begins($fso, DIR_SEP)) {
-		$out = FSO::join(APP_ROOT, $fso); if (is_dir($out)) return $out;
-	}
-	echo $fso;
 }
 
 // ***********************************************************
@@ -292,7 +279,7 @@ public static function parents($dir) {
 	if (is_file($dir)) $dir = dirname($dir); $out = array();
 
 	while ($dir = dirname($dir)) {
-		if ($dir < DOC_ROOT) break;
+		if ($dir < TOP_DIR) break;
 		$out[] = $dir;
 	}
 	return $out;

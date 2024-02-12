@@ -86,7 +86,7 @@ private function backup($act) {
 	return true;
 }
 
-private function import($act) {
+private function import($act) { // import redirected page
 	if ($act != "import") return false;
 
 	$trg = $this->get("target"); if (! $trg) return false;

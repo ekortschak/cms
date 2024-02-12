@@ -132,9 +132,7 @@ private function getName() {
 }
 
 public function getReDir() {
-	$trg = $this->get("props_red.trg"); if (! $trg) return "";
-	$dir = APP::dir($trg); if ($dir) return $dir;
-	return FSO::join(DOC_ROOT, $trg);
+	return $this->get("props_red.trg");
 }
 
 // ***********************************************************

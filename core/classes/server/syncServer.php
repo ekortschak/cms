@@ -59,7 +59,7 @@ protected function srvFiles() {
 
 protected function srvVersion() {
 	$out = $this->query("ver");
-	return ($out) ? $out : "?.x";
+	return ($out) ? $out : "?";
 }
 
 protected function query($act) {
@@ -80,7 +80,7 @@ protected function chkProtect($arr) {
 
 	foreach ($arr as $act => $itm) {
 		foreach ($itm as $key => $fso) {
-			if (! STR::contains($fso, $grd)) {
+			if (STR::misses($fso, $grd)) {
 				$out[$act][] = $fso;
 				continue;
 			}

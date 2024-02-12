@@ -31,7 +31,7 @@ public function edit() {
 	$ini = new ini(PGE::$dir);
 	$uid = $ini->getUID();
 	$typ = $ini->getType("props.typ");
-	$trg = $ini->get("props_red.trg");
+	$trg = $ini->getReDir();
 
 	$this->set("type", $typ);
 	$this->set("target", $trg);

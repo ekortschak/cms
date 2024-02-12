@@ -44,9 +44,6 @@ private static function addForced() { // constants set by startup script
 }
 
 private static function addServer() {
-	CFG::set("APP_ROOT", dirname(APP_DIR));
-	CFG::set("DOC_ROOT", VEC::get($_SERVER, "DOCUMENT_ROOT", APP_ROOT));
-
 	CFG::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
 	CFG::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	CFG::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
@@ -70,7 +67,6 @@ public static function readCfg() {
 	foreach ($arr as $fil => $nam) {
 		CFG::read($fil);
 	}
-
 	CFG::read("LOC_CLR/default.ini");
 	CFG::read("LOC_CLR/COLORS.ini");
 	CFG::read("LOC_DIM/SSHEET.ini");
@@ -170,7 +166,7 @@ public static function apply($text) {
 
 // protect constant definitions (e.g. ini files)
 		$out = preg_replace("~\n$key(\s?)=(\s?)~", "\n$msk = ", $out);
-// protect masked/escapted constants (preceeded by "\");
+// protect masked/escaped constants (preceeded by "\");
 		$out = STR::replace($out, "\\$key", $msk);
 // substitute remaining constants by their values
 		$out = preg_replace("~\b$key\b~", $val, $out);
@@ -190,8 +186,10 @@ public static function unmask($text) {
 }
 
 public static function encode($dir) {
-	$dir = STR::replace($dir, APP_DIR, "APP_DIR");
-	$dir = STR::replace($dir, APP_FBK, "APP_FBK");
+	$dir = STR::replace($dir, APP_DIR.DIR_SEP, "APP_DIR".DIR_SEP);
+	$dir = STR::replace($dir, APP_FBK.DIR_SEP, "APP_FBK".DIR_SEP);
+	$dir = STR::replace($dir, PRJ_DIR.DIR_SEP, "PRJ_DIR".DIR_SEP);
+	$dir = STR::replace($dir, TOP_DIR.DIR_SEP, "TOP_DIR".DIR_SEP);
 
 	foreach (CFG::$dat as $key => $val) {
 		if ( ! STR::begins($key, "LOC_")) continue;

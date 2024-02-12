@@ -20,7 +20,7 @@ class LOG {
 	private static $dir = false;
 
 public static function init() {
-	LOG::$dir = FSO::join(APP_ROOT, "_log", APP_NAME);
+	LOG::$dir = FSO::join(PRJ_DIR, "_log", APP_NAME);
 	FSO::rmFiles(LOG::$dir);
 }
 

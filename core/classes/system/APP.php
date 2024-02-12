@@ -31,7 +31,7 @@ public static function init() {
 	$arr = preg_filter('/$/', "/", $arr);
 
 	foreach ($arr as $dir) {
-		APP::addPath($dir);
+		APP::$fbk[$dir] = $dir;
 	}
 }
 
@@ -40,7 +40,9 @@ public static function init() {
 // ***********************************************************
 public static function addPath($dir) {
 	if (! $dir) return;
-	$pfd = get_include_path(); if (STR::contains($pfd, $dir)) return;
+	if (isset(APP::$fbk[$dir])) return;
+
+	$pfd = get_include_path();
 	$xxx = set_include_path($pfd.PATH_SEPARATOR.$dir);
 
 	APP::$fbk[$dir] = $dir;
@@ -80,7 +82,7 @@ public static function relPath($fso) {
 	$fso = FSO::norm($fso);
 
 	foreach (APP::$fbk as $dir) {
-		if ( ! STR::contains($fso, $dir)) continue;
+		if (STR::misses($fso, $dir)) continue;
 		return STR::after($fso, $dir);
 	}
 	return $fso;
@@ -154,8 +156,8 @@ private static function addFso($arr, &$out) {
 // single fs objects by priority
 // ***********************************************************
 public static function dir($dir) { // find dir in extended fs
-	if (is_dir($dir)) return $dir; $dir = APP::relPath($dir);
-	if (! $dir) return false;
+	if (is_dir($dir)) return $dir;
+	$dir = APP::relPath($dir); if (! $dir) return false;
 
 	foreach (APP::$fbk as $loc) {
 		$ful = FSO::join($loc, $dir); if (is_dir($ful)) return $ful;
@@ -164,9 +166,7 @@ public static function dir($dir) { // find dir in extended fs
 }
 
 public static function file($file) { // find file in extended fs
-	if (is_file($file)) return $file;
-
-	$fil = APP::relPath($file);
+	if (is_file($file)) return $file; $fil = APP::relPath($file);
 
 	foreach (APP::$fbk as $loc) {
 		$ful = FSO::join($loc, $fil); if (is_file($ful)) return $ful;
@@ -190,17 +190,17 @@ public static function url($file) {
 
 	$fil = APP::file($file);
 	$fil = STR::replace($fil, APP_FBK, CMS_URL);
-	return STR::clear($fil, DOC_ROOT);
+	return STR::clear($fil, TOP_DIR);
 }
 
 public static function link($trg) {
-	$dir = FSO::join(DOC_ROOT, $trg);
+	$dir = APP::dir($trg);
 	$hme = APP::home($dir, "tab.ini");
 	$idx = APP::home($dir, "index.php");
 	$uid = PGE::UID($dir);
 
 	$hme = STR::after($hme, $idx.DIR_SEP);
-	$idx = STR::after($idx, DOC_ROOT);
+	$idx = STR::after($idx, TOP_DIR);
 
 	return "$idx?tpc=$hme&pge=$uid";
 }
@@ -263,7 +263,9 @@ public static function gcFile($fil) {
 
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
-return $out;
+
+	if (TAB_SET == "config") return $out;
+#	if (! PFS::isView()) return $out;
 	return CFG::apply($out);
 }
 

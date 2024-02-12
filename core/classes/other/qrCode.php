@@ -29,7 +29,6 @@ class qrCode {
 // ***********************************************************
 public function url($url = null) {
 	$this->dat = preg_match("#^https?\:\/\/#", $url) ? $url : "http://{$url}";
-#	$this->dat = $url;
 }
 
 public function text($text) {

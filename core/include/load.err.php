@@ -31,9 +31,10 @@ function errHandler($num, $msg, $file, $line) {
 }
 
 function relPath($fso) {
-	$fso = STR::replace($fso, APP_FBK, "FBK");
-	$fso = STR::replace($fso, APP_DIR, ".");
-	$fso = STR::replace($fso, APP_ROOT, "/");
+	$fso = STR::replace($fso, APP_FBK, "APP_FBK");
+	$fso = STR::replace($fso, APP_DIR, "APP_DIR");
+	$fso = STR::replace($fso, PRJ_DIR, "PRJ_DIR");
+	$fso = STR::replace($fso, WEB_DIR, "WEB_DIR");
 	return $fso;
 }
 

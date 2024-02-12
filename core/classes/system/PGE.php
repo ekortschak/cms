@@ -16,6 +16,7 @@ class PGE {
 	private static $top = false;   // dir with actual focus (selected from menu)
 	private static $inf = array(); // current page props
 	private static $typ = "inc";   // current page type
+	private static $trg = "";      // redirection directory
 
 
 public static function init() {
@@ -39,11 +40,12 @@ public static function isCurrent($dir) {
 public static function load($dir) {
 	ENV::set("curDir", $dir);
 	PGE::$inf = array(); if (! is_dir($dir)) return;
+	PGE::$dir = $dir;
 
 	$ini = new ini($dir); // = $dir/page.ini
 	PGE::$typ = $ini->getType();
 	PGE::$inf = $ini->getValues();
-	PGE::$dir = $dir;
+	PGE::$trg = $ini->getReDir();
 }
 
 public static function loadPFS($dir = NV) {
@@ -64,14 +66,11 @@ public static function get($key, $default = false) {
 
 public static function dir() {
 	switch (PGE::$typ) {
-		case "red":
-			$trg = PGE::get("props_red.trg");
-			return FSO::join(DOC_ROOT, $trg);
-		default:
+		case "red": $dir = PGE::$trg; break;
+		default:    $dir = PGE::$dir;
 	}
-	$dir = PGE::$dir; if (FSO::isHidden($dir)) return false;
-	$out = PGE::find($dir); if ($out) return $out;
-	MSG::err("Path? $dir");
+	if (FSO::isHidden($dir)) return false;
+	return APP::dir($dir);;
 }
 
 public static function level() {
@@ -124,15 +123,6 @@ public static function incFile() {
 		$act = PGE::type($trg);
 	}
 	return "invalid.php";
-}
-
-private static function find($dir) {
-	if (is_dir($dir)) return $dir;
-
-	$out = APP::dir($dir);            if (       $out ) return $out;
-	$out = FSO::join(APP_ROOT, $dir); if (is_dir($out)) return $out;
-	$out = FSO::join(DOC_ROOT, $dir); if (is_dir($out)) return $out;
-	return false;
 }
 
 // ***********************************************************

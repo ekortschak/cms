@@ -3,7 +3,7 @@
 /* dropdown menus and other dropdown objects */
 /* ******************************************************** */
 .dropdown {
-	position: relative;
+#	position: relative;
 	display: inline-block;
 }
 
@@ -16,6 +16,7 @@
 /* dropdown banner */
 /* ******************************************************** */
 .droptext {
+	display: inline-block;
  	padding: 3px 7px 1px;
 }
 

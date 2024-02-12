@@ -102,7 +102,6 @@ protected function cleanUp($htm) {
 
 	$htm = STR::replace($htm, "CUR_PAGE", PGE::$dir);
 	$htm = STR::replace($htm, "<|", "<!");
-#	$htm = STR::clear($htm, DOC_ROOT);
 
 	return STR::dropSpaces($htm);
 }

@@ -31,9 +31,6 @@ incCls("system/OID.php");   // object IDs
 incCls("system/LOC.php");   // basic dir functions
 incCls("server/NET.php");   // net info
 
-#APP::addPath(APP_ROOT);
-APP::addPath(DOC_ROOT);
-
 // ***********************************************************
 // debugging tools
 // ***********************************************************

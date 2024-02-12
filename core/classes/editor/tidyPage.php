@@ -223,7 +223,7 @@ private function convPaths($txt) {
 // php methods
 // ***********************************************************
 private function phpSecure($txt) { // do not act outside of php code
-	if ( ! STR::contains($txt, "<?php")) return $txt;
+	if (STR::misses($txt, "<?php")) return $txt;
 
 	$txt = PRG::replace($txt, "<\?php([ ]?)", "<php>");
 	$txt = PRG::replace($txt, "([ ]?)\?>",   "</php>");

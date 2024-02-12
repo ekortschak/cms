@@ -79,19 +79,19 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
 	foreach ($drs as $dir => $nam) {
 		$ini = new ini($dir);
 		$typ = $ini->getType();
+		$trg = $ini->getReDir();
 
 		$trl = STR::clear($dir, $top); // calc trailing elements
 		$vdr = FSO::join($cur, $trl);  // calc virtual dir
 		$lev = FSO::level($dir);
 
-		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr, $col);
+		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr, $col, $trg);
 
 		if ($typ === "col") $col = $vdr;
 		if ($typ === "red") { // internal redirection
-			$inc = $ini->getReDir();
 			$lvl = $lev - $fst - $ofs;
 
-			PFS::readDir($inc, $vdr, PFS::$red++, $lvl);
+			PFS::readDir($trg, $vdr, PFS::$red++, $lvl);
 		}
 	}
 }
@@ -99,10 +99,9 @@ private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
 // ***********************************************************
 // reading & handling properties
 // ***********************************************************
-private static function append($ini, $pfx, $lev, $par, $col) { // single page info
+private static function append($ini, $pfx, $lev, $par, $col, $trg) { // single page info
 	$uid = $ini->getUID(); $uid = PFS::uniq($uid);
 	$dir = $ini->getDir(); $cnt = PFS::$cnt;
-	$red = $ini->getReDir("props_red.trg");
 
 	PFS::setPropVal($uid, "uid",   $uid);
 	PFS::setPropVal($uid, "fpath", $dir);
@@ -111,6 +110,7 @@ private static function append($ini, $pfx, $lev, $par, $col) { // single page in
 	PFS::setPropVal($uid, "dtype", $ini->getType());
 	PFS::setPropVal($uid, "noprn", $ini->get("props.noprint"));
 
+	PFS::setPropVal($uid, "redir", $trg);
 	PFS::setPropVal($uid, "vpath", $par);
 	PFS::setPropVal($uid, "level", $lev);
 	PFS::setPropVal($uid, "index", $cnt);
@@ -120,7 +120,7 @@ private static function append($ini, $pfx, $lev, $par, $col) { // single page in
 	PFS::setPropVal($uid, "sname", PFS::statID()); // for static output
 
 	PFS::$idx[$cnt] = $uid; PFS::$cnt++;
-	PFS::$vrz[$dir] = $uid; if ($red)
+	PFS::$vrz[$dir] = $uid; if ($trg)
 	PFS::$vdr[$red] = $uid;
 
 	return $uid;
@@ -130,7 +130,7 @@ private static function append($ini, $pfx, $lev, $par, $col) { // single page in
 // retrieving data
 // ***********************************************************
 private static function recall() {
-	if (false) {
+	if (0) {
 		MSG::add("PFS::recall() is disabled!");
 		return false;
 	}

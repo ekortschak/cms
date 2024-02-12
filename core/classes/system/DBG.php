@@ -61,7 +61,7 @@ public static function path($msg, $info = "path") { // show path info
 // ***********************************************************
 public static function file($file) {
 	if (! DEBUG) return;
-	$lev = ""; if (! STR::contains($file, "main.php")) $lev = 2;
+	$lev = ""; if (STR::misses($file, "main.php")) $lev = 2;
 	$fil = CFG::encode($file);
 
 	echo "<dbg class='hint$lev'>§ $fil</dbg>";
@@ -102,7 +102,7 @@ public static function watch($what) {
 
 public static function check($what, $info = "watch") {
 	if (! DBG::$watch) return;
-	if (! STR::contains($what, DBG::$watch)) return;
+	if (STR::misses($what, DBG::$watch)) return;
 	DBG::text($what, $info);
 }
 
