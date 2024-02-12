@@ -1,6 +1,6 @@
 <?php
 
-if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
+if (! is_dir(FBK_DIR)) die("FBK_DIR not set correctly: ".FBK_DIR);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
 include_once("internals.php");  // internal constants

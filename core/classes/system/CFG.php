@@ -187,7 +187,7 @@ public static function unmask($text) {
 
 public static function encode($dir) {
 	$dir = STR::replace($dir, APP_DIR.DIR_SEP, "APP_DIR".DIR_SEP);
-	$dir = STR::replace($dir, APP_FBK.DIR_SEP, "APP_FBK".DIR_SEP);
+	$dir = STR::replace($dir, FBK_DIR.DIR_SEP, "FBK_DIR".DIR_SEP);
 	$dir = STR::replace($dir, PRJ_DIR.DIR_SEP, "PRJ_DIR".DIR_SEP);
 	$dir = STR::replace($dir, TOP_DIR.DIR_SEP, "TOP_DIR".DIR_SEP);
 

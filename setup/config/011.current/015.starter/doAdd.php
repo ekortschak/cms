@@ -7,12 +7,12 @@ $cpy = ENV::getParm("cpy");
 $cpy = APP::relPath($cpy);
 
 if ($cpy) {
-	$src = FSO::join(APP_FBK, $cpy);
+	$src = FSO::join(FBK_DIR, $cpy);
 	$dst = FSO::join(APP_DIR, $cpy);
 	FSO::copy($src, $dst);
 }
 
-$fbk = FSO::files(APP_FBK);
+$fbk = FSO::files(FBK_DIR);
 $app = FSO::files(APP_DIR);
 $div = array_diff($fbk, $app);
 $cnt = 0;

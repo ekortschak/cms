@@ -17,7 +17,7 @@ if (is_dir($dir)) return;
 
 // ***********************************************************
 if (ENV::getParm("diary.act") == "add") {
-	$cms = rtrim(APP_FBK, DIR_SEP);
+	$cms = rtrim(FBK_DIR, DIR_SEP);
 
 	FSO::copyDir("$cms/design/setup/diary", $dir);
 

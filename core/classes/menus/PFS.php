@@ -300,22 +300,24 @@ public static function item($index = NV, $depth = 99) {
 
 	$lev = $out["level"]; if ($lev > $dep) return array();
 	$dir = $out["fpath"];
+	$trg = $out["redir"];
 	$typ = $out["dtype"];
 
-	$out["mtype"] = PFS::mnuType($dir, $typ);
+	$out["mtype"] = PFS::mnuType($dir, $typ, $trg);
 	$out["state"] = PFS::mnuState($idx);
 	$out["chap"]  = PFS::chapTitle($idx);
 	return $out;
 }
 
 // ***********************************************************
-private static function mnuType($dir, $typ) {
+private static function mnuType($dir, $typ, $trg = false) {
 	if ($typ == "col") {
 		if (PFS::isView()) return "file";
 		return "menu";
 	}
-	if ($typ == "red") return "redir";
-
+	if ($typ == "red") { // TODO: may there be other suits than inc?
+		return PFS::mnuType($trg, "inc");
+	}
 	$fld = (bool) APP::dirs($dir, ! IS_LOCAL);
 	$fil = (bool) APP::snip($dir);
 

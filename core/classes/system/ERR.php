@@ -97,12 +97,11 @@ public static function shutDown() {
 		die("A fatal error occured ...");
 	}
 	$inf = error_get_last(); extract($inf); if (! $inf) return;
-	$fil = APP::relPath($file);
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
 	$tpl->set("type", $type);
-	$tpl->set("file", $fil);
+	$tpl->set("file", $file);
 	$tpl->set("line", $line);
 	$tpl->set("message", $message);
 	$tpl->show("fatal");
@@ -195,7 +194,7 @@ private static function fmtMsg($msg) {
 }
 
 private static function fmtFName($file) {
-	$ful = APP::relPath($file); // reduce path
+	$ful = CFG::encode($file); // reduce path
 	$fil = basename($file);
 	return STR::replace($ful, $fil, "<b>$fil</b>");
 }

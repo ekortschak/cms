@@ -157,7 +157,7 @@ private function fix($css) {
 private function cleanUrls($css, $sep1, $sep2) {
 	$css = STR::replace($css, "'", '"');
 	$arr = STR::find($css, $sep1, $sep2);
-	$cms = basename(APP_FBK);
+	$cms = basename(FBK_DIR);
 
 	foreach ($arr as $fil) {
 		$ful = APP::url($fil);

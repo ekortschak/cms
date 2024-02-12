@@ -10,7 +10,7 @@ $dir = $xfm->getDir();
 $idx = $xfm->isPage();
 
 if ($idx) {
-	$url = APP::relPath($idx);
+	$url = APP::url($idx);
 	$msg = DIC::get("static.show");
 
 	$lnk = HTM::href($url, $msg, "static");

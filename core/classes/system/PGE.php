@@ -45,7 +45,8 @@ public static function load($dir) {
 	$ini = new ini($dir); // = $dir/page.ini
 	PGE::$typ = $ini->getType();
 	PGE::$inf = $ini->getValues();
-	PGE::$trg = $ini->getReDir();
+
+	PGE::set("title", $ini->getHead());
 }
 
 public static function loadPFS($dir = NV) {
@@ -60,13 +61,16 @@ public static function loadPFS($dir = NV) {
 // ***********************************************************
 // retrieving page props
 // ***********************************************************
+public static function set($key, $value) {
+	PGE::$inf[$key] = $value;
+}
 public static function get($key, $default = false) {
 	return VEC::get(PGE::$inf, $key, $default);
 }
 
 public static function dir() {
 	switch (PGE::$typ) {
-		case "red": $dir = PGE::$trg; break;
+		case "red": $dir = PGE::get("props_red.trg"); break;
 		default:    $dir = PGE::$dir;
 	}
 	if (FSO::isHidden($dir)) return false;
@@ -147,13 +151,15 @@ public static function hasXs($dir) {
 // common ini related tasks
 // ***********************************************************
 public static function UID($fso = false) {
+	if (! $fso) return PGE::get("props.uid");
 	return PGE::prop($fso, "getUID");
 }
 public static function type($fso = false) {
 	return PGE::prop($fso, "getType", "inc");
 }
 public static function title($fso = false) {
-	return PGE::prop($fso, "getHead");
+	if (! $fso) return PGE::get("title");
+	return PGE::get($fso, "getHead");
 }
 
 // ***********************************************************

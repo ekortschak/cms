@@ -59,8 +59,8 @@ public function gc($sec = "main") {
 		$this->set("vis", $this->isVisible($kap, $chnum)); // visible
 		$this->set("hid", $this->isHidden($fpath)); // show only in edit mode
 
-		$typ = $this->chkType($mtype, $fpath, $redir);
-		$out.= $this->getSection("link.$typ")."\n";
+		$typ = $this->chkType($mtype);
+		$out.= $this->getSection($typ)."\n";
 
 		if ($dtype == "col")
 		if (VMODE == "view") $skp = $vpath;
@@ -70,17 +70,11 @@ public function gc($sec = "main") {
 }
 
 // ***********************************************************
-private function chkType($typ, $dir, $trg) {
-	$mod = ENV::get("output");
+private function chkType($typ) {
+	if (ENV::get("output") !== "static") return "link.$typ";
 
-	if ($typ == "redir") {
-		if (APP::dirs($trg)) return $typ;
-		return "$typ file";
-	}
-	if ($mod === "static") {
-		if ($typ == "both") return "static.dir";
-		if ($typ == "file") return "static.file";
-	}
+	if ($typ == "both") return "static.dir";
+	if ($typ == "file") return "static.file";
 	return $typ;
 }
 

@@ -107,7 +107,7 @@ private function import($act) { // import redirected page
 		$ini = new iniWriter("page.red.def");
 		$ini->read($dir);
 		$ini->set("props.typ", "redirect");
-		$ini->set("props_red.trg", APP::relPath($dir)); // TODO:: check if APP::url would work better
+		$ini->set("props_red.trg", APP::relPath($dir));
 		$ini->save($dst);
 	}
 }

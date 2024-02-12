@@ -65,7 +65,7 @@ public static function prjFile($dir, $file = "") {
 	return APP::join(APP_DIR, $dir, $file);
 }
 public static function fbkFile($dir, $file = "") {
-	return APP::join(APP_FBK, $dir, $file);
+	return APP::join(FBK_DIR, $dir, $file);
 }
 
 private static function join($rep, $dir, $file = "") {
@@ -131,6 +131,16 @@ public static function files($dir, $pattern = "*") {
 }
 
 // ***********************************************************
+private static function addFso($arr, &$out) {
+	if (! $arr) return;
+
+	foreach ($arr as $fso => $nam) { // APP_DIR to prevail over FBK_DIR and others
+		$fso = APP::relPath($fso); if (isset($out[$fso])) continue;
+		$out[$fso] = $nam;
+	}
+}
+
+// ***********************************************************
 // tree listings
 // ***********************************************************
 public static function dTree($dir, $visOnly = true) {
@@ -142,14 +152,6 @@ public static function dTree($dir, $visOnly = true) {
 		$out = array_merge($out, $lst);
 	}
 	return VEC::sort($out);
-}
-
-// ***********************************************************
-private static function addFso($arr, &$out) {
-	foreach ($arr as $fso => $nam) { // APP_DIR to prevail over APP_FBK and others
-		$fso = APP::relPath($fso); if (isset($out[$fso])) continue;
-		$out[$fso] = $nam;
-	}
 }
 
 // ***********************************************************
@@ -185,12 +187,15 @@ public static function layout($name) {
 }
 
 // ***********************************************************
-public static function url($file) {
-	if (FSO::isUrl($file)) return $file;
+public static function url($fso) {
+	if (FSO::isUrl($fso)) return $fso;
 
-	$fil = APP::file($file);
-	$fil = STR::replace($fil, APP_FBK, CMS_URL);
-	return STR::clear($fil, TOP_DIR);
+	$out = APP::file($fso); if (! $out)
+	$out = APP::dir($fso);  if (! $out) return $fso;
+
+	$out = STR::replace($out, FBK_DIR, CMS_URL);
+	return STR::clear($out, PRJ_DIR);
+	return STR::clear($out, TOP_DIR);
 }
 
 public static function link($trg) {

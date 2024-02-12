@@ -92,7 +92,7 @@ protected function getSnips() {
 
 protected function chkLocal() {
 	$ful = APP::file($this->file);
-	$chk = STR::contains($ful, APP_FBK); if (! $chk) return;
+	$chk = STR::contains($ful, FBK_DIR); if (! $chk) return;
 	$this->copy("drop.cms", "drop.file");
 	$this->copy("save.cms", "save.file");
 }

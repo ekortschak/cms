@@ -13,7 +13,7 @@ function appInclude($file) {
 }
 function appFile($file) {
 	$ful = APP_DIR."/$file"; if (is_file($ful)) return $ful;
-	$ful = APP_FBK."/$file"; if (is_file($ful)) return $ful;
+	$ful = FBK_DIR."/$file"; if (is_file($ful)) return $ful;
 	return $file;
 }
 

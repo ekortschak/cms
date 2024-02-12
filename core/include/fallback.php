@@ -5,11 +5,11 @@ $fbk = realpath($fbk);
 
 define("PRJ_DIR", dirname(APP_DIR));
 define("TOP_DIR", dirname(PRJ_DIR));
-define("APP_FBK", $fbk);
+define("FBK_DIR", $fbk);
 
 define("APP_NAME", basename(APP_DIR));
 
-if (! is_dir(APP_FBK)) die("APP_FBK not set correctly: ".APP_FBK);
+if (! is_dir(FBK_DIR)) die("FBK_DIR not set correctly: ".FBK_DIR);
 if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 
 // ***********************************************************
@@ -17,8 +17,8 @@ if (! is_dir(APP_DIR)) die("APP_DIR not set correctly: ".APP_DIR);
 // ***********************************************************
 $pfd = APP_DIR;
 
-if (APP_DIR !== APP_FBK) $pfd.= PATH_SEPARATOR.APP_FBK;
-if (CMS_DIR !== APP_FBK) $pfd.= PATH_SEPARATOR.CMS_DIR;
+if (APP_DIR !== FBK_DIR) $pfd.= PATH_SEPARATOR.FBK_DIR;
+if (CMS_DIR !== FBK_DIR) $pfd.= PATH_SEPARATOR.CMS_DIR;
 
 $pfd.= PATH_SEPARATOR.PRJ_DIR;
 $pfd.= PATH_SEPARATOR.TOP_DIR;

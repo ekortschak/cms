@@ -79,7 +79,7 @@ private function showPath($fil) {
 	$ful = $fil; if ( ! STR::ends($fil, ".ini"))
 	$ful = FSO::join($fil, "page.ini");
 	$ful = APP::file($ful);
-	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+	$ful = STR::replace($ful, FBK_DIR, "<red>CMS</red>");
 
 	HTW::tag("file = $ful", "hint");
 }

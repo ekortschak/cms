@@ -10,7 +10,7 @@ $rel = $box->files(LOC_CLR, "color.set", COLORS.".ini");
 $xxx = $box->show();
 
 $ful = APP::file($rel);
-$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+$ful = STR::replace($ful, FBK_DIR, "<red>CMS</red>");
 HTW::tag("file = $ful", "hint");
 
 // ***********************************************************

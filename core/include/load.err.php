@@ -11,8 +11,8 @@ ini_set("display_errors", false);
 // ***********************************************************
 function shutDown() {
 	$inf = error_get_last(); extract($inf); if (! $inf) return;
-	$fil = relPath($file); if (! $type) return;
-	$msg = relPath($message);
+	$fil = constPath($file); if (! $type) return;
+	$msg = constPath($message);
 
 	echo "<hr>Error #$type<hr>in $fil on <b>$line</b><br />";
 	echo "<pre>$msg</pre>";
@@ -21,8 +21,8 @@ function shutDown() {
 function errHandler($num, $msg, $file, $line) {
 	if (! error_get_last()) return;
 
-	$fil = relPath($file);
-	$msg = relPath($msg);
+	$fil = constPath($file);
+	$msg = constPath($msg);
 
 	echo "<pre>";
 	echo "$line: $fil\n";
@@ -30,8 +30,8 @@ function errHandler($num, $msg, $file, $line) {
 	echo "</pre>";
 }
 
-function relPath($fso) {
-	$fso = STR::replace($fso, APP_FBK, "APP_FBK");
+function constPath($fso) {
+	$fso = STR::replace($fso, FBK_DIR, "FBK_DIR");
 	$fso = STR::replace($fso, APP_DIR, "APP_DIR");
 	$fso = STR::replace($fso, PRJ_DIR, "PRJ_DIR");
 	$fso = STR::replace($fso, WEB_DIR, "WEB_DIR");

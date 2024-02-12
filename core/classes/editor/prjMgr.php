@@ -18,7 +18,7 @@ $obj = new prjMgr();
 class prjMgr {
 
 function __construct() {
-#	$this->cms = rtrim(APP_FBK, DIR_SEP);
+#	$this->cms = rtrim(FBK_DIR, DIR_SEP);
 }
 
 // ***********************************************************
@@ -37,7 +37,7 @@ public function addProj($dir, $prj, $tpc) {
 private function addFiles($dir, $tpc) {
 	$tpl = APP::fbkFile("design/setup");
 	$hme = FSO::join($dir, "pages/$tpc");
-	$cms = APP_FBK;
+	$cms = FBK_DIR;
 
 	FSO::copy("$cms/index.php",  "$dir/index.php");
 	FSO::copy("$cms/seo.php",    "$dir/seo.php");

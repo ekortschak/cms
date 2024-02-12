@@ -63,7 +63,7 @@ public function edit($fil, $lng = CUR_LANG) {
 	$this->show("title");
 
 	$ful = APP::file($fil);
-	$ful = STR::replace($ful, APP_FBK, "<red>CMS</red>");
+	$ful = STR::replace($ful, FBK_DIR, "<red>CMS</red>");
 	HTW::tag("file = $ful", "hint");
 
 	$arr = $this->getItems($fil, $lng);
@@ -74,7 +74,7 @@ public function edit($fil, $lng = CUR_LANG) {
 	$this->hold("clng", $lng);
 	$this->hold("ckey", $key);
 
-	$cnt = $this->count(APP_FBK, $key);
+	$cnt = $this->count(FBK_DIR, $key);
 	$xxx = $this->set("count", $cnt);
 	parent::show("usage");
 }

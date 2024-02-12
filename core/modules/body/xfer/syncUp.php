@@ -8,7 +8,7 @@ if (! IS_LOCAL) {
 	return MSG::now("edit.deny");
 }
 
-if (APP_NAME == basename(APP_FBK)) {
+if (APP_NAME == basename(FBK_DIR)) {
 	MSG::now("cms.dist");
 	return;
 }

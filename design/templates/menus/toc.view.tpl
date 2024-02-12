@@ -63,30 +63,15 @@ lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 </div>
 
 # ***********************************************************
-# redirections
-# ***********************************************************
-[link.redir]
-<div <!SEC:qid!> class="dir <!SEC:cls!>"> _
-<a href="javascript:toggleDiv('<!VAR:pfx!>', <!VAR:index!>);"> _
-<b><!VAR:title!></b> _
-</a> _
-</div>
-
-[link.redir file]
-<div <!SEC:qid!> class="file <!SEC:cls!>"> _
-<a class="<!VAR:active!>" href="?tpc=<!VAR:topic!>&pge=<!VAR:uid!>"><!VAR:title!></a> _
-</div>
-
-# ***********************************************************
 # static files
 # ***********************************************************
-[link.static.dir]
+[static.dir]
 <div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>
 </div>
 
-[link.static.file]
+[static.file]
 <div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>

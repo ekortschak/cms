@@ -22,7 +22,7 @@ function __construct($inifile) {
 
 	$this->load("modules/xfer.cms.tpl");
 
-	$this->setTarget(APP_FBK);
+	$this->setTarget(FBK_DIR);
 }
 
 // ***********************************************************
