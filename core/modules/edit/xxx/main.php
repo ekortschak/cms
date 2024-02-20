@@ -1,11 +1,11 @@
 <?php
 
+DBG::file(__FILE__);
+
 if (! FS_ADMIN) {
-	incMod("msgs/stop.php");
-	return;
+	return APP::mod("msgs/stop");
 }
 
-DBG::file(__FILE__);
 HTW::xtag("xedit", "div class='h3'");
 
 // ***********************************************************

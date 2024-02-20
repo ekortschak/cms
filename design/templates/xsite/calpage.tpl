@@ -21,7 +21,7 @@ wid = 75
 </div>
 
 </div>
-</section><dolf>
+</section>
 
 [qrcode]
 <img src="<!VAR:qr!>", align="right" width=<!VAR:wid!> style="margin: 0px 0px 5px 10px;" />

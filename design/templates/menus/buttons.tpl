@@ -25,7 +25,9 @@ target = ah
 	<button class="<!VAR:class!> <!VAR:hilite!>"><!VAR:pic!> <!VAR:caption!></button>
 </a>
 
+# ***********************************************************
 [button.tip]
+# ***********************************************************
 <!SEC:button!>
 #<div class="dropdown"><!SEC:button!>
 #<div class="dropbody"><!VAR:tip!></div>

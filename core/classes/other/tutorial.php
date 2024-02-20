@@ -85,7 +85,7 @@ public function markPHP($text) {
 }
 
 private function getContent($fil) {
-	$fil = FSO::reroute($fil);
+	$fil = PGE::path($fil);
 
 	$cod = file_get_contents($fil);
 	$cod = self::markPHP($cod);

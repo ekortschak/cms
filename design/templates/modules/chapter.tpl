@@ -2,10 +2,10 @@
 
 <div class="flex">
 <div class="nowrap" style="max-width: calc(100% - 75px);">
-	<button class="mobile mobbut">
+	<button class="mobilex mobbut">
 		<a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/toc.png"></a>
 	</button>
-	<div class="h2" style="display: inline-block; padding: 3px 0px 4px;">
+	<div class="h2" style="display: inline-block; 	padding: 3px 0px 4px;">
 		<!VAR:title!>
 	</div>
 </div>

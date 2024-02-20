@@ -129,7 +129,7 @@ protected function buttons($txt) {
 	foreach ($arr as $itm) {
 		$btn = new button();
 		$xxx = $btn->read($itm);
-		$rep = $btn->gc($itm);
+		$rep = $btn->gc();
 		$txt = STR::replace($txt, "<!BTN:$itm!>", $rep);
 	}
 	return $txt;

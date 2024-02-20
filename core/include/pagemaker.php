@@ -6,7 +6,8 @@ CFG::setDest(VMODE);
 // ***********************************************************
 // react to previous editing
 // ***********************************************************
-incFnc("load.save.php");
+$fil = appFile("core/include/load.save.php");
+include_once $fil;
 
 // ***********************************************************
 // read page file system - if needed

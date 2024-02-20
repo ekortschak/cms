@@ -64,7 +64,7 @@ public function getCode($qid, $data, $selected = false) {
 	$arr = array();
 
 	foreach ($data as $key => $val) {
-		$key = STR::replace($key, '"',  "@DQ@");
+		$key = STR::replace($key, '"', "@DQ@");
 		$arr[$key] = $val;
 	}
 	return $this->getKey($qid, $arr, $selected);

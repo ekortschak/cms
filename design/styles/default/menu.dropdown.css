@@ -3,7 +3,7 @@
 /* dropdown menus and other dropdown objects */
 /* ******************************************************** */
 .dropdown {
-#	position: relative;
+	position: relative;
 	display: inline-block;
 }
 
@@ -32,7 +32,7 @@
 	padding: 3px;
 
 	max-height: 50vh;
-	min-width: 15rem;
+	min-width: fit-content;
 	overflow: auto;
 	overscroll-behavior: none;
 
@@ -40,6 +40,7 @@
 	background: BC_DROP;
 	font-weight: normal;
 	text-align: left;
+	white-space: pre;
 }
 
 .dropbody a {

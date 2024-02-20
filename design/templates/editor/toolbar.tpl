@@ -205,6 +205,6 @@ askWidth = Bildbreite festlegen
 </button>
 
 [item.view]
-<a href="APP_CALL?vmode=view">
+<a href="?vmode=view">
 	<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View" /></button>
 </a>

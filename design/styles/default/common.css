@@ -20,12 +20,12 @@
 	white-space: pre;
 }
 
-.mobile {
+.mobile, .mobilex {
 	display: none;
 }
 
 .mobbut {
-	padding: 0px 3px;
+	padding: 0px 10px 0px;
 	min-width: 25px;
 }
 

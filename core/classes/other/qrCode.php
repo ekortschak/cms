@@ -57,7 +57,7 @@ public function contact($name = null, $address = null, $num = null, $email = nul
 public function save($dir, $spec, $size = 400) {
 	$img = $this->getQR($size);
 	$fil = FSO::join($dir, "qr.$spec.png");
-	$res = FSO::write($fil, $img);
+	$res = APP::write($fil, $img);
 }
 
 public function send($size = 400) {

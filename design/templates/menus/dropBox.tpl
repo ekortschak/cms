@@ -1,4 +1,4 @@
-[dic]
+y[dic]
 table = Table
 field = Field
 range = Range
@@ -43,7 +43,7 @@ sep = :
 </div>
 
 [link]
-<div class="nowrap"><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div><dolf>
+<div class="nowrap"><a href="?<!VAR:parm!>=<!VAR:value!>"><!VAR:caption!></a></div>
 
 [button]
 <button><!VAR:current!></button> &ensp;

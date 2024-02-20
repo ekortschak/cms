@@ -47,17 +47,6 @@
 	background: BC_BODY;
 }
 
-.joker {
-	float:      top;
-	display:    none;
-	padding:    0px 15px;
-	min-height: 1.5rem;
-	width:      100%;
-	min-width:  300px;
-	max-width:  100%;
-	background: BC_TABS;
-}
-
 /* ******************************************************** */
 /* vertical panels */
 /* ******************************************************** */

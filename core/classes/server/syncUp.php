@@ -20,11 +20,11 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 class syncUp extends syncServer {
 
-function __construct($inifile) {
+function __construct($ftp) {
 	parent::__construct(false);
 
 	$this->load("modules/xfer.syncUp.tpl");
-	$this->read($inifile);
+	$this->read($ftp);
 
 	$this->setSource(APP_DIR);
 	$this->setTarget($this->get("web.url", "???"));
@@ -36,7 +36,7 @@ function __construct($inifile) {
 // run jobs
 // ***********************************************************
 public function publish() {
-	parent::run();
+	return parent::run();
 }
 
 // **********************************************************

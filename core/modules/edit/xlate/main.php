@@ -1,11 +1,10 @@
 <?php
 
-if (! FS_ADMIN) {
-	incMod("msgs/stop.php");
-	return;
-}
-
 DBG::file(__FILE__);
+
+if (! FS_ADMIN) {
+	return APP::mod("msgs/stop");
+}
 
 // ***********************************************************
 incCls("menus/buttons.php");

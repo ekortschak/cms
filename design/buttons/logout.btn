@@ -1,6 +1,6 @@
 [props]
 pic = LOC_ICO/db/logout.gif
-url = APP_CALL?dmode=logout
+url = ?dmode=logout
 
 [de]
 caption =

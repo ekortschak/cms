@@ -3,14 +3,9 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-incMod("toc/banner.php");
-#incMod("toc/current.php");
-
 switch (TAB_TYPE) {
-	case "dia": incMod("toc/diary.php"); break;
-	default:    incMod("toc/toc.php");
+	case "dia": APP::mod("toc/diary"); break;
+	default:    APP::mod("toc/toc");
 }
-
-incMod("toc/status.php");
 
 ?>

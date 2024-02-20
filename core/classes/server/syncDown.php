@@ -23,11 +23,11 @@ incCls("server/syncServer.php");
 // ***********************************************************
 class syncDown extends syncServer {
 
-function __construct($inifile) {
+function __construct($ftp) {
 	parent::__construct(false);
 
 	$this->load("modules/xfer.syncDown.tpl");
-	$this->read($inifile);
+	$this->read($ftp);
 
 	$this->setSource(APP_DIR);
 	$this->setTarget(APP_DIR);
@@ -73,7 +73,7 @@ protected function do_down($fso) { // single file op
 	$txt = $this->stripInf($txt);
 	$fso = $this->trgName($fso);
 
-	return FSO::write($fso, $txt);
+	return APP::write($fso, $txt);
 }
 
 // ***********************************************************

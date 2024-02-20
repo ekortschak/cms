@@ -15,7 +15,7 @@ DBG::file(__FILE__);
 $loc = PGE::dir();
 $prm = PGE::hasXs($loc); // force login ?
 
-if (! $prm) return incMod("body/login.php");
+if (! $prm) return APP::mod("body/login");
 
 // ***********************************************************
 // retrieving main page

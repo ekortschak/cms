@@ -3,11 +3,10 @@
 // ***********************************************************
 // find files or default to fallback dir
 // ***********************************************************
-function incCls($file) { appInclude(LOC_CLS."/$file"); }
-function incMod($file) { appInclude(LOC_MOD."/$file"); }
-function incFnc($file) { appInclude(LOC_INC."/$file"); }
+function incCls($file) {
+	appInclude(LOC_CLS."/$file");
+}
 
-// ***********************************************************
 function appInclude($file) {
 	include_once appFile($file);
 }
@@ -22,19 +21,13 @@ function appFile($file) {
 // ***********************************************************
 function appVar($key, $default) {
 	$val = appVarValue($key, $default);
-	$val = appToggle($key, $val);
-	$_SESSION[APP_DIR][$key] = $val;
+	$_SESSION[APP_NAME][$key] = $val;
 	return $val;
 }
 function appVarValue($key, $default) {
-	if (isset ($_GET[$key]))              return $_GET[$key];
-	if (isset ($_SESSION[APP_DIR][$key])) return $_SESSION[APP_DIR][$key];
+	if (isset ($_GET[$key]))               return $_GET[$key];
+	if (isset ($_SESSION[APP_NAME][$key])) return $_SESSION[APP_NAME][$key];
 	return $default;
-}
-function appToggle($key, $val) {
-	if ($val !== "toggle") return $val;
-	if (! isset ($_SESSION[APP_DIR][$key])) return true;
-	return ! (bool) $_SESSION[APP_DIR][$key];
 }
 
 // ***********************************************************

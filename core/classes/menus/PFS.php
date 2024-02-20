@@ -380,8 +380,12 @@ private static function uniq($uid, $pfx = "") {
 }
 
 // ***********************************************************
-private static function isView() {
-	return (STR::features("view.pres", VMODE));
+public static function isView() {
+	if (TAB_SET == "config") return false;
+	if (VMODE   == "view")   return true;
+	if (VMODE   == "pres")   return true;
+	if (VMODE   == "xfer")   return true;
+	return false;
 }
 private static function isHidden($dir) {
 	if ( ! PFS::isView()) return false;

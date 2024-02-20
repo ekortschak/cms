@@ -94,6 +94,7 @@ pres = Präsentation
 [xfer]   <!BTN:xfer!>
 
 [debug]  <!BTN:debug!>
+[nobug]  <!BTN:debug.clear!>
 
 # ***********************************************************
 [user]

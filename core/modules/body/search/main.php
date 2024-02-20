@@ -30,8 +30,6 @@ $tpl->show();
 // ***********************************************************
 // showing results
 // ***********************************************************
-$fil = APP::incFile(__DIR__, "results.php");
-
-include_once($fil);
+APP::inc(__DIR__, "results.php");
 
 ?>

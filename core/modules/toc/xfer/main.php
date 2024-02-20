@@ -7,7 +7,7 @@ $btn = ENV::get("btn.xfer");
 
 switch ($btn) {
 	case "I": // merge into single file
-		return incMod("toc/main.php");
+		return APP::mod("toc");
 }
 
 // ***********************************************************

@@ -71,7 +71,7 @@ foreach ($arr as $ful => $nam) {
 	}
 	elseif ($fnc == "replace") {
 		$txt = PRG::replace($txt, $fnd, $rep);
-		$res = FSO::write($ful, $txt);
+		$res = APP::write($ful, $txt);
 	}
 }
 

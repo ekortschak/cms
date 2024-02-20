@@ -100,11 +100,7 @@ public function getSection($sec = "main") {
 
 protected function getSec($sec) {
 	$sec = $this->norm($sec);
-	$out = $this->getLangSec($sec); if (! $out) return "";
-
-	$out = STR::before ($out, "<nolf>");
-	$out = STR::replace($out, "<dolf>", "\n");
-	return $out;
+	return $this->getLangSec($sec);
 }
 
 private function getLangSec($sec) {

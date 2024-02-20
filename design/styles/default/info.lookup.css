@@ -4,6 +4,7 @@
 refbox, .refbox {
 	position: relative;
 	display: inline-block;
+	overflow: visible;
 
 	color: FC_HEAD;
 	text-decoration: underline dotted;
@@ -28,8 +29,7 @@ refbody, .refbody {
 	padding: 5px BR_TEXT 7px;
 
 	max-height: 50vh;
-	min-width: 10rem;
-	overflow: auto;
+	min-width: fit-content;
 	overscroll-behavior: none;
 
 	color: FC_HINT;
@@ -37,6 +37,7 @@ refbody, .refbody {
 	font-weight: normal;
 	font-style: normal;
 	text-align: left;
+	white-space: pre-wrap;
 }
 
 /* ******************************************************** */

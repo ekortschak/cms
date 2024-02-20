@@ -33,9 +33,10 @@
 	}
 
 	[class^="mod"] {
-		display:    none;
+		display: none;
 	}
-	.mobile  { display: inline-block; }
+	.mobile  { display: block; }
+	.mobilex { display: inline-block; }
 	.joker   { display: block; }
 	.titBody { padding: 0px var(--pad_min); }
 	.toc     { padding: auto 25px auto; }

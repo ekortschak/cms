@@ -1,8 +1,7 @@
 <?php
 
 if (! FS_ADMIN) {
-	incMod("msgs/stop.php");
-	return;
+	return APP::mod("msgs/stop");
 }
 
 DBG::file(__FILE__);

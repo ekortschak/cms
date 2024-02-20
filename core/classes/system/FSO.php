@@ -38,7 +38,7 @@ public static function norm($fso) { // $fso => dir or file
 	if (! $fso) return "";
     if (FSO::isUrl($fso)) return $fso;
 
-	if (STR::begins($fso, CUR_DIR)) $fso = FSO::reroute($fso);
+	if (STR::begins($fso, CUR_DIR)) $fso = PGE::path($fso);
 
     $sep = DIR_SEP;
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
@@ -137,13 +137,15 @@ public static function copyDir($src, $dst) {
 // ***********************************************************
 public static function mvDir($src, $dst) {
 	$dir = FSO::force(dirname($dst));
+	$xxx = LOG::dirty(APP_NAME);
 	$res = rename($src, $dst); if ($res) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
 
 // ***********************************************************
 public static function rmDir($dir) {
-	$arr = FSO::fdTree($dir);
+	$arr = FSO::fdTree($dir); if (! $arr) return;
+	$xxx = LOG::dirty(APP_NAME);
 	$arr = VEC::sort($arr, "krsort"); // put subdirs first
 
 	foreach ($arr as $fso => $nam) { // kill files
@@ -174,16 +176,8 @@ public static function files($dir, $pattern = "*") {
 }
 
 // ***********************************************************
-public static function reroute($fso) {
-	if (STR::begins($fso, CUR_DIR)) { // CUR_DIR = ./
-		return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
-	}
-	return APP::dir($fso);
-}
-
-// ***********************************************************
-public static function rmFiles($dir) {
-	$fls = FSO::files($dir);
+public static function rmFiles($dir, $pattern = "*") {
+	$fls = FSO::files($dir, $pattern);
 
 	foreach ($fls as $fil => $nam) {
 		FSO::kill($fil, "", 0);
@@ -203,6 +197,7 @@ public static function backup($file) {
 public static function copy($src, $dst) { // copy a file
 	$src = APP::file($src); if (! is_file($src)) return false;
 	$dir = FSO::force(dirname($dst));
+	$xxx = LOG::dirty(APP_NAME);
 	$res = copy($src, $dst); if ($res) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
@@ -210,17 +205,20 @@ public static function copy($src, $dst) { // copy a file
 public static function move($old, $new) { // rename a file
 	if (! is_file($old)) return false;
 	$dir = FSO::force(dirname($new));
+	$xxx = LOG::dirty(APP_NAME);
 	$res = rename($old, $new); if ($res) return true;
 	return ERR::assist("file", "no.write", $new);
 }
 
 public static function kill($file) { // delete a file
 	if (! is_file($file)) return false;
+	$xxx = LOG::dirty(APP_NAME);
 	return unlink($file);
 }
 
 public static function write($file, $text) {
 	$dir = FSO::force(dirname($file));
+	$xxx = LOG::dirty(APP_NAME);
 	$res = file_put_contents($file, $text); if (! $res) return false;
 	FSO::permit($file);
 	return true;

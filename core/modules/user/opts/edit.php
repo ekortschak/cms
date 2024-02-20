@@ -41,6 +41,11 @@ else {
 	if (! CFG::mod("eopts.seo"))   $tpl->clearSec("seo");
 	if (! CFG::mod("eopts.debug")) $tpl->clearSec("debug");
 }
+
+if (DEBUG) {
+	$tpl->substitute("debug", "nobug");
+}
+
 $tpl->show("edit");
 
 // ***********************************************************

@@ -153,7 +153,7 @@ private static function getList($fst = 0, $cnt = NV) {
 
 	$ign = ".shutDown.errHandler.trace.";
 	$ign.= ".include.include_once.require.require_once.";
-	$ign.= ".doInc.incCls.incMod.incFnc.";
+	$ign.= ".incCls.mod.";
 
 	$arr = debug_backtrace();
 	$out = array();

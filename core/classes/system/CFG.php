@@ -69,6 +69,7 @@ public static function readCfg() {
 	}
 	CFG::read("LOC_CLR/default.ini");
 	CFG::read("LOC_CLR/COLORS.ini");
+	CFG::read("LOC_DIM/default.ini");
 	CFG::read("LOC_DIM/SSHEET.ini");
 	CFG::freeze();
 }
@@ -176,7 +177,7 @@ public static function apply($text) {
 	return $out;
 }
 
-public static function unmask($text) {
+public static function unescape($text) {
 	if (! $text) return ""; $out = $text;
 
 	foreach (CFG::$dat as $key => $val) {
@@ -185,15 +186,15 @@ public static function unmask($text) {
 	return $out;
 }
 
-public static function encode($dir) {
-	$dir = STR::replace($dir, APP_DIR.DIR_SEP, "APP_DIR".DIR_SEP);
-	$dir = STR::replace($dir, FBK_DIR.DIR_SEP, "FBK_DIR".DIR_SEP);
-	$dir = STR::replace($dir, PRJ_DIR.DIR_SEP, "PRJ_DIR".DIR_SEP);
-	$dir = STR::replace($dir, TOP_DIR.DIR_SEP, "TOP_DIR".DIR_SEP);
+public static function encode($dir) { // directory constants only
+	$dir = STR::replace($dir, APP_DIR, "\APP_DIR");
+	$dir = STR::replace($dir, FBK_DIR, "\FBK_DIR");
+	$dir = STR::replace($dir, PRJ_DIR, "\PRJ_DIR");
+	$dir = STR::replace($dir, TOP_DIR, "\TOP_DIR");
 
 	foreach (CFG::$dat as $key => $val) {
 		if ( ! STR::begins($key, "LOC_")) continue;
-		$dir = STR::replace($dir, $val, $key);
+		$dir = STR::replace($dir, $val, "\\$key");
 	}
 	return $dir;
 }

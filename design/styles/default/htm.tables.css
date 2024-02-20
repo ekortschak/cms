@@ -27,7 +27,8 @@ th {
 }
 
 th refbox {
-	color: cyan;
+	color: FC_THEAD;
+	text-decoration: none;
 }
 
 td {

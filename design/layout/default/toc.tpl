@@ -14,6 +14,7 @@ LOC_LAY/LAYOUT/main.tpl
 [body] <!-- body.search -->
 # ***********************************************************
 <div class="joker"><!SEC:joker!></div>
+<div class="titBody"><!MOD:toc/topics!></div>
 <div class="titBody"><!MOD:toc/current!></div>
 
 <div id="scView">

@@ -34,6 +34,13 @@ public static function isCurrent($dir) {
 	return ($dir === PGE::$dir);
 }
 
+public static function path($fso) {
+	if (is_dir($fso)) return $fso;
+	if (STR::begins($fso, CUR_DIR)) // CUR_DIR = ./
+	return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
+	return APP::dir($fso);
+}
+
 // ***********************************************************
 // loading page props
 // ***********************************************************
@@ -159,7 +166,7 @@ public static function type($fso = false) {
 }
 public static function title($fso = false) {
 	if (! $fso) return PGE::get("title");
-	return PGE::get($fso, "getHead");
+	return PGE::prop($fso, "getHead");
 }
 
 // ***********************************************************

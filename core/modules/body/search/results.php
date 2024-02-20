@@ -21,8 +21,6 @@ $mod = $vew->getMode();
 // ***********************************************************
 // preview searched item
 // ***********************************************************
-$fil = APP::incFile(__DIR__, "do_$mod.php");
-
-include_once($fil);
+APP::inc(__DIR__, "do_$mod.php");
 
 ?>

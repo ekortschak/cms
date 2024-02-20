@@ -31,11 +31,11 @@ function __construct() {
 // ***********************************************************
 // display button
 // ***********************************************************
-public function show($btn = "view") {
+public function show($sec = "button") {
 	echo $this->gc($btn);
 }
 
-public function gc($btn = "view") {
+public function gc($sec = "button") {
 	$ref = $this->get("tip");
 	$pic = $this->get("pic");
 
@@ -46,7 +46,7 @@ public function gc($btn = "view") {
 	if ($pic) {
 		$tpl->set("pic", $tpl->getSection("pic"));
 	}
-	$sec = "button"; if ($ref) $sec = "button.tip";
+#	if ($ref) $sec = "$sec.tip";
 	return $tpl->gc($sec);
 }
 
@@ -78,7 +78,7 @@ public function read($btn) {
 // handling php snips
 // ***********************************************************
 private function chkStatus($code) {
-	$code = CFG::unmask($code); if (! $code) return;
+	$code = CFG::unescape($code); if (! $code) return;
 	eval("\$out = ($code);");
 	return $out;
 }

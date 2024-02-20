@@ -41,8 +41,8 @@ public static function tempDir($dir = "temp", $sub = "") { // always local dirs
 	return LOC::arcDir($dir, $sub);
 }
 
-public static function arcDir($dir = "", $sub = "") { // archive
-	return FSO::join(LOC::$arc, APP_NAME, $dir, $sub);
+public static function arcDir($dir = "", $sub = "", $app = APP_NAME) { // archive
+	return FSO::join(LOC::$arc, $app, $dir, $sub);
 }
 
 // ***********************************************************

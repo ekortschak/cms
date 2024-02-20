@@ -33,3 +33,15 @@ body {
 	background: BC_PAGE;
 	color:      FC_BODY;
 }
+
+/* ******************************************************** */
+/* adaptive design */
+/* ******************************************************** */
+.joker {
+	float:      top;
+	display:    none;
+	background: BC_TABS;
+	padding:    0px 2px 0px;
+	width:      100%;
+	margin-top: -1rem;
+}

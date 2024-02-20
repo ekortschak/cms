@@ -42,7 +42,7 @@ public static function snip($file, $head = "") {
 public static function csv($file, $sep = ";", $wid = "100%") {
 	incCls("tables/csv_table.php");
 
-	$fil = FSO::reroute($file);
+	$fil = PGE::path($file);
 
 	$csv = new csv_table();
 	$csv->load($fil, $sep);
@@ -93,7 +93,7 @@ public static function img($file) {
 private static function doImage($sec, $link = "") {
 	if (VMODE == "xsite") return HTW::thumbR($link);
 
-	HTW::$tpl->set("file", FSO::reroute($link));
+	HTW::$tpl->set("file", PGE::path($link));
 	HTW::$tpl->show($sec);
 }
 
@@ -116,7 +116,7 @@ public static function thumb($file, $wid = THUMB_WID, $hgt = THUMB_HGT) {
 }
 
 private static function doThumb($sec, $file, $wid, $hgt = "") {
-	$lnk = APP::file($file);
+	$lnk = APP::url($file);
 
 	HTW::$tpl->set("link", $lnk);
 	HTW::$tpl->set("wid", $wid);

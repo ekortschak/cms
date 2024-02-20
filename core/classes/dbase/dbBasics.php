@@ -257,8 +257,8 @@ private function userPerms($cat, $idx) {
 	if (! $this->isTable("dbxs")) return "x";
 
 	$sql = "SELECT USR_GRPS FROM `dbxs` WHERE (cat='$cat' AND spec='$idx')";
-    $arr = $this->dbo->fetch1st($sql); if (! $arr) return "x";
-    return implode("", $arr);
+	$arr = $this->dbo->fetch1st($sql); if (! $arr) return "x";
+	return implode("", $arr);
 }
 
 // ***********************************************************

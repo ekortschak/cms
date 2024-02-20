@@ -26,6 +26,7 @@ function __construct($dev) {
 
 	$this->setVisOnly(false);
 	$this->setSource(APP_DIR);
+	$this->setTarget($dir);
 }
 
 // ***********************************************************
@@ -33,27 +34,25 @@ function __construct($dev) {
 // ***********************************************************
 public function sync() {
 	$dir = LOC::arcDir("sync");
-	$this->common($dir, "sync");
+	return $this->common($dir, "sync");
 }
 
-// ***********************************************************
 public function backup() {
 	$dir = LOC::arcDir("bkp", date("Y.m.d"));
-	$this->common($dir, "backup");
+	return $this->common($dir, "backup");
 }
 
-// ***********************************************************
 public function version() {
 	$dir = LOC::arcDir("ver", VERSION);
-	$this->common($dir, "version");
+	return $this->common($dir, "version");
 }
 
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
 protected function common($dir, $sec) {
-	$this->setTarget($dir);
-	$this->run($sec);
+	if (! $this->trgPath) $this->setTarget($dir);
+	return $this->run($sec);
 }
 
 // ***********************************************************

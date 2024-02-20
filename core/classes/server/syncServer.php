@@ -46,7 +46,8 @@ public function read($inifile) {
 protected function run($info = "info") {
 	if (! NET::isCon()) return MSG::now("no.connection");
 	$this->err = false;
-	parent::run($info);
+
+	return parent::run($info);
 }
 
 // ***********************************************************

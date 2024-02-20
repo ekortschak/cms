@@ -49,15 +49,19 @@ public static function addPath($dir) {
 }
 
 public static function inc($dir, $file) {
-	$dir = APP::relPath($dir);
 	$fil = FSO::join($dir, $file);
-	appInclude($fil);
+	$fil = APP::file($fil); if (! $fil) return;
+	include $fil;
 }
 
-public static function incFile($dir, $file) {
-	$fil = FSO::join($dir, $file);
-	$fil = APP::relPath($fil);
-	return appFile($fil);
+public static function mod($mod) {
+	$inc = FSO::join(LOC_MOD, $mod, "main.php");
+	$inc = APP::file($inc);
+	if ($inc) return include $inc;
+
+	$inc = FSO::join(LOC_MOD, "$mod.php");
+	$inc = APP::file($inc);
+	if ($inc) include $inc;
 }
 
 // ***********************************************************
@@ -193,12 +197,12 @@ public static function url($fso) {
 	$out = APP::file($fso); if (! $out)
 	$out = APP::dir($fso);  if (! $out) return $fso;
 
-	$out = STR::replace($out, FBK_DIR, CMS_URL);
-	return STR::clear($out, PRJ_DIR);
+	if (STR::begins($out, APP_DIR)) return STR::after(  $out, APP_DIR.DIR_SEP);
+	if (STR::begins($out, FBK_DIR)) return STR::replace($out, FBK_DIR, CMS_URL);
 	return STR::clear($out, TOP_DIR);
 }
 
-public static function link($trg) {
+public static function link($trg) { // convert file to request uri
 	$dir = APP::dir($trg);
 	$hme = APP::home($dir, "tab.ini");
 	$idx = APP::home($dir, "index.php");
@@ -269,8 +273,7 @@ public static function gcFile($fil) {
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
 
-	if (TAB_SET == "config") return $out;
-#	if (! PFS::isView()) return $out;
+	if (! PFS::isView()) return $out;
 	return CFG::apply($out);
 }
 
@@ -311,13 +314,9 @@ public static function writeTell($file, $content, $overwrite = true) {
 // other
 // ***********************************************************
 public static function lookup($txt) {
-	if (VMODE != "view")      return $txt;
 	if (! ENV::get("lookup")) return $txt;
+	if (! PFS::isView())      return $txt;
 
-	switch (VMODE) {
-		case "view": case "xfer": break;
-		default: return $txt;
-	}
 	$cls = CFG::iniVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");

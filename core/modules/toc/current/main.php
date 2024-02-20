@@ -1,7 +1,9 @@
 <?php
 
-if (! STR::features("view.pres.toc", VMODE)) return;
+#if (! STR::features("view.pres.toc", VMODE)) return;
 if (TAB_TYPE == "sel") return;
+
+DBG::file(__FILE__);
 
 // ***********************************************************
 $ini = new ini(TAB_HOME);

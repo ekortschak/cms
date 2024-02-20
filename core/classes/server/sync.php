@@ -125,10 +125,12 @@ protected function run($info = "info") {
 
 	$this->confirm($info);
 
-	if ($act == 1) return $this->analize();
-	if ($act == 2) return $this->showStats();
-
+	switch ($act) {
+		case 1: return $this->analize();
+		case 2: return $this->showStats();
+	}
 	ENV::set("sync.jbs", false);
+	return false;
 }
 
 // **********************************************************
@@ -179,8 +181,8 @@ protected function manage($act, $fso) {
 
 // **********************************************************
 protected function showStats() {
-	$this->report();
-	$this->preview();
+	$xxx = $this->report();
+	return $this->preview();
 }
 
 // ***********************************************************
@@ -188,9 +190,9 @@ protected function showStats() {
 // ***********************************************************
 protected function analize() {
 	$lst = $this->getTree($this->srcPath, $this->trgPath);
-
 	ENV::set("sync.jbs", $lst);
-	$this->preView(true);
+
+	return $this->preView(true);
 }
 
 protected function preView($tellMe = false) {
@@ -198,8 +200,8 @@ protected function preView($tellMe = false) {
 
 	if ($this->err) return MSG::now($this->err);
 	if (! $arr) {
-		if (! $tellMe) return;
-		return MSG::now("do.nothing");
+		if ($tellMe) MSG::now("do.nothing");
+		return true;
 	}
 	$this->showStat($arr, "man", "sync.protected");
 	$this->showStat($arr, "nwr", "sync.newer");
@@ -208,6 +210,7 @@ protected function preView($tellMe = false) {
 	$this->showStat($arr, "cpf", "sync.copy");
 	$this->showStat($arr, "rmd", "sync.rmdir");
 	$this->showStat($arr, "dpf", "sync.kill");
+	return false	;
 }
 
 protected function showStat($arr, $act, $cap) {

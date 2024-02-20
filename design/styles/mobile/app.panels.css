@@ -22,16 +22,9 @@
 	color:      FC_MENU;
 }
 
-.joker {
-	float:      top;
-	display:    none;
-	padding:    0px 20px;
-	height:     1.5rem;
-	min-height: 1.5rem;
+.titBody {
 	width:      100%;
-	min-width:  300px;
-	max-width:  100%;
-	background: BC_TABS;
+	padding:    0px 12px 0px;
 }
 
 .modBody {
@@ -45,7 +38,6 @@
 	background: BC_BODY;
 	padding:    1rem 20px 35px;
 }
-
 
 /* ******************************************************** */
 /* vertical panels */

@@ -65,15 +65,6 @@
 /* ******************************************************** */
 /* horizontal panels */
 /* ******************************************************** */
-.joker {
-	float:      top;
-	display:    none;
-	background: BC_TABS;
-	width:      100%;
-	padding:    0px 2px 0px;
-	margin:    -1rem 0px 2px;
-}
-
 .topics {
 	float:      top;
 	width:      100%;

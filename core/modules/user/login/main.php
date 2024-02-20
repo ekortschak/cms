@@ -3,7 +3,7 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-incMod("body/login.php");
+APP::mod("body/login");
 
 ?>
 

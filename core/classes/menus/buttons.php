@@ -86,7 +86,7 @@ public function link($qid, $caption, $url) {
 	$btn->set("caption", DIC::get($caption));
 	$btn->set("link", $url);
 
-	$this->dat[$this->idx][$qid] = $btn->gc("link");
+	$this->dat[$this->idx][$qid] = $btn->gc();
 }
 
 public function space() {

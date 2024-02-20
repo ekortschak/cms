@@ -63,7 +63,6 @@ public static function file($file) {
 	if (! DEBUG) return;
 	$lev = ""; if (STR::misses($file, "main.php")) $lev = 2;
 	$fil = CFG::encode($file);
-
 	echo "<dbg class='hint$lev'>§ $fil</dbg>";
 }
 

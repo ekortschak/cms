@@ -17,8 +17,8 @@ incCls("server/syncDown.php");
 // ***********************************************************
 class syncCms extends syncDown {
 
-function __construct($inifile) {
-	parent::__construct($inifile);
+function __construct($ftp) {
+	parent::__construct($ftp);
 
 	$this->load("modules/xfer.cms.tpl");
 
