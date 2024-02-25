@@ -1,10 +1,19 @@
 <?php
 
+// ***********************************************************
+// find results
+// ***********************************************************
+$dir = ENV::get("search.dir");
+$fnd = ENV::get("search.what"); if (! $fnd) return;
+
+$obj = new search();
+$fls = $obj->getSnips($dir, $fnd);
+
+// ***********************************************************
+// show results
+// ***********************************************************
 $tpl = new tpl();
 $tpl->load("modules/search.tpl");
-
-$fnd = ENV::get("search.what");
-$old = "";
 
 foreach ($fls as $fil => $arr) {
 	$dir = dirname($fil);
@@ -22,7 +31,6 @@ foreach ($fls as $fil => $arr) {
 		if ($cnt++ > 0)
 		$tpl->show("item.sep");
 
-		$old = $tit;
 		$txt = STR::mark($txt, $fnd);
 		echo $txt;
 	}

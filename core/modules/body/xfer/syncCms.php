@@ -13,7 +13,8 @@ incCls("server/syncCms.php");
 // ***********************************************************
 $fil = APP::fbkFile("config", "ftp.ini");
 
-$snc = new syncCms($fil);
+$snc = new syncCms();
+$snc->connect($fil);
 $snc->upgrade();
 
 ?>

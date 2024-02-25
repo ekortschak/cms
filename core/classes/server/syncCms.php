@@ -17,11 +17,10 @@ incCls("server/syncDown.php");
 // ***********************************************************
 class syncCms extends syncDown {
 
-function __construct($ftp) {
-	parent::__construct($ftp);
+function __construct() {
+	parent::__construct();
 
 	$this->load("modules/xfer.cms.tpl");
-
 	$this->setTarget(FBK_DIR);
 }
 

@@ -11,7 +11,7 @@ Designed to sync server to local project ...
 incCls("server/syncDown.php");
 
 $snc = new syncDown();
-$snc->read("ftp.ini");
+$snc->connect("ftp.ini");
 $snc->upgrade();
 
 */
@@ -23,22 +23,20 @@ incCls("server/syncServer.php");
 // ***********************************************************
 class syncDown extends syncServer {
 
-function __construct($ftp) {
-	parent::__construct(false);
+function __construct() {
+	parent::__construct();
 
 	$this->load("modules/xfer.syncDown.tpl");
-	$this->read($ftp);
-
-	$this->setSource(APP_DIR);
-	$this->setTarget(APP_DIR);
-
-	$this->set("source", $this->get("web.url", "???"));
-	$this->set("vsrc",   $this->srvVersion());
 }
 
 // ***********************************************************
 // run jobs
 // ***********************************************************
+public function connect($ftp) {
+	$srv = parent::connect($ftp);
+	$this->setSource($srv);
+}
+
 public function upgrade() {
 	parent::run();
 }

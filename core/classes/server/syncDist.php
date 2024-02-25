@@ -18,8 +18,8 @@ incCls("server/syncUp.php");
 // ***********************************************************
 class syncDist extends syncUp {
 
-function __construct($ftp) {
-	parent::__construct($ftp);
+function __construct() {
+	parent::__construct();
 
 	$this->setSource(FBK_DIR);
 }

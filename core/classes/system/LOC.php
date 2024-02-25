@@ -21,17 +21,19 @@ LOC::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class LOC {
+	private static $app = APP_NAME;
 	private static $arc = "/var/www/cms.archive";
 
-public static function init() {
-	$sec = "remote"; if (IS_LOCAL) $sec = "local";
+	private const MY_ARC = "cms.archive";
 
-	LOC::$arc = CFG::iniVal("backup:$sec.archive", LOC::$arc);
-	LOC::setArchive(LOC::$arc);
+public static function init() {
+	$top = dirname(TOP_DIR);
+	$dir = FSO::join($top, self::MY_ARC);
+	LOC::setArchive($dir);
 }
 
 public static function setArchive($dir) {
-	LOC::$arc = FSO::join($dir, "cms.archive");
+	LOC::$arc = FSO::join($dir, self::MY_ARC);
 }
 
 // ***********************************************************
@@ -41,8 +43,14 @@ public static function tempDir($dir = "temp", $sub = "") { // always local dirs
 	return LOC::arcDir($dir, $sub);
 }
 
-public static function arcDir($dir = "", $sub = "", $app = APP_NAME) { // archive
+public static function arcDir($app = APP_NAME, $dir = "", $sub = "") { // archive
 	return FSO::join(LOC::$arc, $app, $dir, $sub);
+}
+
+public static function dir($dir) {
+	if (! STR::begins($dir, LOC::$arc)) return $dir;
+	$out = STR::after($dir, LOC::$arc);
+	return FSO::join("ARC_DIR", $out);
 }
 
 // ***********************************************************

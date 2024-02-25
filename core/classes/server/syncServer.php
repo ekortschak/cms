@@ -20,26 +20,26 @@ incCls("server/http.php");
 // ***********************************************************
 class syncServer extends sync {
 	protected $htp = false; // http object
+	protected $srv = "???"; // remote host
 
-function __construct($dev) {
+function __construct() {
 	$this->err = "no.connection"; // prophylaktisch
-
-	parent::__construct($dev);
+	parent::__construct();
 }
 
 // ***********************************************************
-public function read($inifile) {
-	$ini = new ini($inifile);
+public function connect($ftp) {
+	$ini = new ini($ftp);
 	$vls = $ini->getValues(); $this->merge($vls);
 	$prt = $ini->getSec("protect");
-
-	$pcl = $this->get("web.pcl", "https");
-	$srv = $this->get("web.url");
-	$xxx = $this->set("protect", $prt);
+	$pcl = $ini->get("web.pcl", "https");
+	$srv = $ini->get("web.url");
 
 	if ($srv) {
 		$this->htp = new http($srv, $pcl);
+		$this->srv = $srv;
 	}
+	return $srv;
 }
 
 // ***********************************************************
@@ -58,7 +58,9 @@ protected function srvFiles() {
 	return $this->conv($out);
 }
 
-protected function srvVersion() {
+protected function verNum($dir) {
+	if (is_dir($dir)) return parent::verNum($dir);
+
 	$out = $this->query("ver");
 	return ($out) ? $out : "?";
 }

@@ -8,7 +8,8 @@ Designed to sync local project to server ...
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-$snc = new syncUp("ftp.ini");
+$snc = new syncUp();
+$snc->connect("ftp.ini");
 $snc->publish();
 */
 
@@ -20,21 +21,20 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 class syncUp extends syncServer {
 
-function __construct($ftp) {
-	parent::__construct(false);
+function __construct() {
+	parent::__construct();
 
 	$this->load("modules/xfer.syncUp.tpl");
-	$this->read($ftp);
-
-	$this->setSource(APP_DIR);
-	$this->setTarget($this->get("web.url", "???"));
-
-	$this->set("vtrg", $this->srvVersion());
 }
 
 // ***********************************************************
 // run jobs
 // ***********************************************************
+public function connect($ftp) {
+	$srv = parent::connect($ftp);
+	$this->setTarget($srv);
+}
+
 public function publish() {
 	return parent::run();
 }

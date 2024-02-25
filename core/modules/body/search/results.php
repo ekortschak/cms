@@ -2,10 +2,12 @@
 
 DBG::file(__FILE__);
 
+incCls("search/sView.php");
+
 // ***********************************************************
 // select records
 // ***********************************************************
-incCls("search/sView.php");
+$fnd = ENV::get("search.what", "");
 
 $vew = new sView();
 $act = $vew->showNav();
@@ -15,7 +17,6 @@ if (! $act) {
 	return;
 }
 
-$fls = $vew->getSnips();
 $mod = $vew->getMode();
 
 // ***********************************************************

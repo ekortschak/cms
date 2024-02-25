@@ -40,6 +40,7 @@ public function showNav() {
 
 	$tpc = ENV::get("search.tpc");
 	$dir = ENV::get("search.dir", $dir);
+	$fnd = ENV::get("search.what"); if (! $fnd) return;
 
 	$mnu = new dropBox("menu");
 	$tpc = $mnu->getKey("search.tpc", $lst, $tpc);

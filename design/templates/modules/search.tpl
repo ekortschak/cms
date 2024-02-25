@@ -23,6 +23,7 @@ show   = Zeige
 [vars]
 search =
 result =
+help   = 1
 
 
 # ***********************************************************
@@ -35,9 +36,13 @@ result =
 
 	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: 100%;" />
 
-	<div align="right">
-		<a href="?search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
-		<input type="submit" name="search.act" value="OK" />
+	<div class="flex">
+		<div class="dmbtn"><!SEC:help!></div>
+
+		<div align="right">
+			<a href="?search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
+			<input type="submit" name="search.act" value="OK" />
+		</div>
 	</div>
 </form>
 
@@ -101,7 +106,7 @@ result =
 # ***********************************************************
 <div class="mobile">
 <!SEC:info!>
-<!SEC:info.text!>
+<!SEC:howto!>
 </div>
 
 [info]
@@ -129,7 +134,16 @@ result =
 </ul>
 
 # ***********************************************************
-[info.text]
+[help]
+# ***********************************************************
+<a href="?search.help=1"><img src="LOC_ICO/buttons/info.png">
+
+[nohelp]
+<a href="?search.help=0"><img src="LOC_ICO/buttons/infoClear.png">
+
+
+# ***********************************************************
+[howto]
 # ***********************************************************
 <h4>Search patterns</h4>
 <table>
@@ -145,7 +159,7 @@ result =
 	<tr class="rw"><td class="pre">"str1 str2"</td>  <td>the exact character sequence</td></tr>
 </table>
 
-[info.text.de]
+[howto.de]
 <h5>Suchbegriffe</h5>
 <table>
 	<tr class="rh"><th>Muster</th>                   <th>findet Textstellen ...</th></tr>

@@ -11,7 +11,8 @@ if (! IS_LOCAL) {
 incCls("server/syncDown.php");
 
 // ***********************************************************
-$snc = new syncDown("config/ftp.ini");
+$snc = new syncDown();
+$snc->connect("config/ftp.ini");
 $snc->upgrade();
 
 ?>

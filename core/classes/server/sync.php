@@ -40,14 +40,15 @@ class sync extends tpl {
 	protected $trgPath = false;
 
 
-function __construct($dev) {
-	LOC::setArchive($dev);
-
+function __construct() {
 	$this->load("modules/xfer.sync.tpl");
 	$this->register();
-	$this->setNewer();
 
+	$this->setNewer(); // protect newer files
 	$this->setVisOnly(true);
+
+	$this->setSource(APP_DIR);
+	$this->setTarget(APP_DIR);
 }
 
 // ***********************************************************
@@ -57,13 +58,13 @@ public function setSource($dir) {
 	$this->srcPath = $this->chkPath($dir);
 
 	$this->set("source", $this->visPath($dir));
-	$this->set("vsrc",   $this->getVersion($dir));
+	$this->set("vsrc",   $this->verNum($dir));
 }
 public function setTarget($dir) {
 	$this->trgPath = $this->chkPath($dir);
 
 	$this->set("target", $this->visPath($dir));
-	$this->set("vtrg",   $this->getVersion($dir));
+	$this->set("vtrg",   $this->verNum($dir));
 }
 
 // ***********************************************************
@@ -96,17 +97,11 @@ protected function trgName($fso) {
 
 // ***********************************************************
 protected function visPath($dir) {
-	$out = CFG::encode($dir); if ($out != $dir) return $out;
-	$arc = LOC::arcDir();
-
-	if (STR::begins($dir, $arc)) {
-		$out = STR::after($dir, "$arc/");
-		return FSO::join("~/cms.archive", APP_NAME, $out);
-	}
-	return $dir;
+	$out = LOC::dir($dir);
+	return CFG::encode($out);
 }
 
-protected function getVersion($dir) {
+protected function verNum($dir) {
 	if (! $dir) return "?";
 	$fil = FSO::join($dir, "config/config.ini");
 

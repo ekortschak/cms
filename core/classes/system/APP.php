@@ -50,6 +50,7 @@ public static function addPath($dir) {
 
 public static function inc($dir, $file) {
 	$fil = FSO::join($dir, $file);
+	$fil = APP::relPath($fil);
 	$fil = APP::file($fil); if (! $fil) return;
 	include $fil;
 }

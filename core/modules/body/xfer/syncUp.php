@@ -16,7 +16,8 @@ if (APP_NAME == basename(FBK_DIR)) {
 incCls("server/syncUp.php");
 
 // ***********************************************************
-$snc = new syncUp("config/ftp.ini");
+$snc = new syncUp();
+$snc->connect("config/ftp.ini");
 $snc->publish();
 
 ?>

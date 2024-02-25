@@ -19,31 +19,28 @@ incCls("server/sync.php");
 // ***********************************************************
 class syncArc extends sync {
 
-function __construct($dev) {
-	parent::__construct($dev);
+function __construct() {
+	parent::__construct();
 
 	$this->load("modules/xfer.backup.tpl");
-
 	$this->setVisOnly(false);
-	$this->setSource(APP_DIR);
-	$this->setTarget($dir);
 }
 
 // ***********************************************************
 // run jobs (backup mode)
 // ***********************************************************
 public function sync() {
-	$dir = LOC::arcDir("sync");
+	$dir = LOC::arcDir(APP_NAME, "sync");
 	return $this->common($dir, "sync");
 }
 
 public function backup() {
-	$dir = LOC::arcDir("bkp", date("Y.m.d"));
+	$dir = LOC::arcDir(APP_NAME, "bkp", date("Y.m.d"));
 	return $this->common($dir, "backup");
 }
 
 public function version() {
-	$dir = LOC::arcDir("ver", VERSION);
+	$dir = LOC::arcDir(APP_NAME, "ver", VERSION);
 	return $this->common($dir, "version");
 }
 
@@ -51,7 +48,7 @@ public function version() {
 // auxilliary methods
 // ***********************************************************
 protected function common($dir, $sec) {
-	if (! $this->trgPath) $this->setTarget($dir);
+	$xxx = $this->setTarget($dir);
 	return $this->run($sec);
 }
 

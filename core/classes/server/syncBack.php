@@ -20,20 +20,18 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 class syncBack extends sync {
 
-function __construct($dev) {
-	parent::__construct($dev);
+function __construct() {
+	parent::__construct();
 
 	$this->load("modules/xfer.backup.tpl");
-
 	$this->setVisOnly(false);
-	$this->setTarget(APP_DIR);
 }
 
 // ***********************************************************
 // run jobs (restore mode)
 // ***********************************************************
 public function syncBack() {
-	$dir = LOC::arcDir("sync");
+	$dir = LOC::arcDir(APP_NAME, "sync");
 	if (! is_dir($dir)) return MSG::now("sync.none", $dir);
 
 	$this->setSource($dir);
