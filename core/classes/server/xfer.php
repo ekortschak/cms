@@ -83,7 +83,7 @@ private function sendList($dir) {
 }
 
 public function getFiles($dir) {
-	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return;
+	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return false;
 
 	$arr = FSO::fdTree($dir, "*", $this->visOnly);
 	$out = "";

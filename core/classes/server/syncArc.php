@@ -29,18 +29,21 @@ function __construct() {
 // ***********************************************************
 // run jobs (backup mode)
 // ***********************************************************
-public function sync() {
-	$dir = LOC::arcDir(APP_NAME, "sync");
-	return $this->common($dir, "sync");
+public function sync($app = APP_NAME) {
+	$dir = LOC::arcDir($app, "sync");
+	$out = $this->common($dir, "sync");
+
+	if ($out) LOG::clear($app, "sync");
+	return $out;
 }
 
-public function backup() {
-	$dir = LOC::arcDir(APP_NAME, "bkp", date("Y.m.d"));
+public function backup($app = APP_NAME) {
+	$dir = LOC::arcDir($app, "bkp", date("Y.m.d"));
 	return $this->common($dir, "backup");
 }
 
-public function version() {
-	$dir = LOC::arcDir(APP_NAME, "ver", VERSION);
+public function version($app = APP_NAME) {
+	$dir = LOC::arcDir($app, "ver", VERSION);
 	return $this->common($dir, "version");
 }
 

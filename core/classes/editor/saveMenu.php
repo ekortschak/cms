@@ -116,7 +116,7 @@ private function nodeIn($dir) { // move in in hierarchy
 // acting on whole tree
 // ***********************************************************
 private function nodeCheck() { // add UID to page.ini recursively
-	$arr = FSO::dTree(TAB_HOME); unset($arr[0]);
+	$arr = FSO::dTree(TAB_HOME);
 
 	foreach ($arr as $dir => $nam) {
 		$ini = new iniWriter();
@@ -136,8 +136,7 @@ private function nodeAdd($dir) {
 
 	foreach ($dst as $sub) {
 		$itm = FSO::join($dir, $sub);
-		$itm = FSO::force($itm); if (! $itm) return ERR::assist("dir", "no.write", $dir);
-		$this->saveStdIni($itm, $ovr, $sub);
+		$this->saveStdIni($itm, $ovr);
 	}
 }
 
@@ -182,11 +181,9 @@ private function fileAddIni($dir) { // add page.ini (recursively)
 	$all = $this->get("ini.rec", false);
 	$ovr = $this->env("opt.overwrite");
 
-	$this->saveStdIni($dir, $ovr);
-
 	switch ($all) {
-		case true: $arr = FSO::dTree(TAB_HOME); unset($arr[0]); break;
-		default:   $arr = FSO::dTree($dir);
+		case true: $arr = FSO::dTreeX(TAB_HOME); break;
+		default:   $arr = FSO::dTreeX($dir);
 	}
 	foreach ($arr as $dir => $nam) {
 		$this->saveStdIni($dir, $ovr);
@@ -352,11 +349,14 @@ private function clipDrop() { // drop from clipboard
 // write to ini files
 // ***********************************************************
 private function saveStdIni($dir, $ovr = false) { // rewrite ini-file
-	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return;
+	if ( ! FSO::force($dir)) return false;
+	$fil = FSO::join($dir, "page.ini"); if (is_file($fil) && ! $ovr) return false;
 
 	$ini = new iniWriter("inc");
 	$ini->read($fil);
 	$ini->save($fil);
+
+	return true;
 }
 
 // ***********************************************************

@@ -21,15 +21,12 @@ LOC::init();
 // BEGIN OF CLASS
 // ***********************************************************
 class LOC {
-	private static $app = APP_NAME;
-	private static $arc = "/var/www/cms.archive";
-
+	private static $arc = "/var/www";
 	private const MY_ARC = "cms.archive";
 
 public static function init() {
 	$top = dirname(TOP_DIR);
-	$dir = FSO::join($top, self::MY_ARC);
-	LOC::setArchive($dir);
+	LOC::setArchive($top);
 }
 
 public static function setArchive($dir) {
@@ -40,7 +37,7 @@ public static function setArchive($dir) {
 // app dirs or files
 // ***********************************************************
 public static function tempDir($dir = "temp", $sub = "") { // always local dirs
-	return LOC::arcDir($dir, $sub);
+	return LOC::arcDir(APP_NAME, $dir, $sub);
 }
 
 public static function arcDir($app = APP_NAME, $dir = "", $sub = "") { // archive

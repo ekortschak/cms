@@ -18,6 +18,7 @@ LOG::init();
 // ***********************************************************
 class LOG {
 	private static $drt = "dirty.inf";
+	private const MY_DIR = "cms.log";
 
 
 public static function init() {
@@ -27,7 +28,7 @@ public static function init() {
 
 // ***********************************************************
 public static function dir($app = "") {
-	return FSO::join(TOP_DIR, "cms.log", $app);
+	return FSO::join(TOP_DIR, self::MY_DIR, $app);
 }
 public static function file($file, $app = APP_NAME) {
 	$dir = LOG::dir($app);
@@ -59,7 +60,9 @@ public static function get($key, $default = false) {
 // ***********************************************************
 // mark modified projects
 // ***********************************************************
-public static function dirty($app) {
+public static function dirty($app, $file = "") {
+	if (STR::contains($file, self::MY_DIR)) return;
+
 	$fil = LOG::file(LOG::$drt, $app);
 	$xxx = FSO::force(dirname($fil));
 	$txt = APP::read($fil);

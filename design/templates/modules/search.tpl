@@ -30,7 +30,7 @@ help   = 1
 [main]
 # ***********************************************************
 <div class="h3"><!DIC:search!></div>
-<form method="post" action="?">
+<form method="post" action="?vmode=search">
 <!SEC:oid!>
 <!VAR:range!>
 
@@ -38,7 +38,6 @@ help   = 1
 
 	<div class="flex">
 		<div class="dmbtn"><!SEC:help!></div>
-
 		<div align="right">
 			<a href="?search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
 			<input type="submit" name="search.act" value="OK" />

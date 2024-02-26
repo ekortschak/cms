@@ -12,7 +12,7 @@ $box = new dropDbo();
 $dbs = $box->getDbase();
 $xxx = $box->show();
 
-$dir = LOC::arcDir("dbs.$dbs");
+$dir = LOC::arcDir(APP_NAME, "dbs.$dbs");
 $dir = FSO::join($dir, date("Y.m.d"));
 
 HTW::tag("dir = $dir", "small");

@@ -137,7 +137,7 @@ private static function recall() {
 	if (ENV::getParm("reset")) return false;
 	if (ENV::get("pfs.clang") != CUR_LANG) return false;
 	if (ENV::get("pfs.vmode") != "view")   return false;
-	if (VMODE != "view") return false;
+	if (! PFS::isView()) return false;
 
 	$tpc = TAB_HOME;
 	$chk = SSV::get("$tpc.reload", false, "pfs"); if (  $chk) return false;

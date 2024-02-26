@@ -122,8 +122,7 @@ private static function setTimeOut() {
 	SSV::set("timeout", SSV::getTimeOut());
 }
 private static function getTimeOut() {
-	$max = 30; if (defined("TIMEOUT"))
-	$max = intval(TIMEOUT);
+	$max = intval(TIMEOUT); if (! TIMEOUT) return false;
 
 	if ($max < SSV::$min) $max = SSV::$min;
 	if ($max > SSV::$max) $max = SSV::$max;

@@ -1,25 +1,20 @@
 <?php
 
-PGE::init();
 CFG::setDest(VMODE);
 
 // ***********************************************************
 // react to previous editing
 // ***********************************************************
-$fil = appFile("core/include/load.save.php");
-include_once $fil;
+APP::inc("core/include", "load.save.php");
+APP::inc("core/include", "load.app.php");
+
+PGE::init();
 
 // ***********************************************************
 // read page file system - if needed
 // ***********************************************************
 incCls("menus/PFS.php");   // load menu builder
 PFS::init();
-
-// ***********************************************************
-// supply app specific features
-// ***********************************************************
-$fil = appFile("core/include/load.app.php");
-include_once $fil;
 
 // ***********************************************************
 // show page

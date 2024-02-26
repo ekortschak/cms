@@ -11,7 +11,7 @@ incCls("input/selector.php");
 $box = new dropDbo();
 $dbs = $box->getDbase();
 
-$dir = LOC::arcDir("dbs.$dbs");
+$dir = LOC::arcDir(APP_NAME, "dbs.$dbs");
 $vrs = FSO::dirs($dir);
 $vrs = VEC::sort($vrs, "krsort"); // newest first
 

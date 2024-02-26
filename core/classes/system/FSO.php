@@ -62,7 +62,9 @@ public static function force($dir, $mod = 0775) {
 	$dir = FSO::norm($dir); if (is_dir($dir)) return $dir;
 	$chk = FSO::trim($dir); if (strlen($chk) < 1) return false;
 
-	if (! mkdir($dir, $mod, true)) return false; // mkdir includes chmod
+	if (! mkdir($dir, $mod, true)) {
+		return ERR::assist("dir", "no.write", $dir);
+	}
 	FSO::permit($dir, $mod);
 	return true;
 }
@@ -212,13 +214,13 @@ public static function move($old, $new) { // rename a file
 
 public static function kill($file) { // delete a file
 	if (! is_file($file)) return false;
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty(APP_NAME, $file);
 	return unlink($file);
 }
 
 public static function write($file, $text) {
 	$dir = FSO::force(dirname($file));
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty(APP_NAME, $file);
 	$res = file_put_contents($file, $text); if (! $res) return false;
 	FSO::permit($file);
 	return true;
@@ -228,6 +230,13 @@ public static function write($file, $text) {
 // ***********************************************************
 // tree listings
 // ***********************************************************
+public static function dTreeX($dir, $visOnly = true) {
+	if ($visOnly) if (FSO::isHidden($dir)) return;
+
+	$out = array($dir => basename($dir));
+	$out+= FSO::dTree($dir, $visOnly);
+	return $out;
+}
 public static function dTree($dir, $visOnly = true) {
  // list all subfolders of $dir, including symbolic links
 	$out = $arr = FSO::dirs($dir, $visOnly); if (! $arr) return array();
@@ -262,7 +271,7 @@ private static function getTree($dir, $pattern = "*", $visOnly = true, $incDirs 
 
 // ***********************************************************
 public function dropEmpty($dir) {
-	$fls = FSO::dTree($dir);
+	$fls = FSO::dTreeX($dir);
 
 	foreach ($fls as $dir => $nam) {
 		$arr = FSO::files($dir); if (count($arr) > 0) continue;

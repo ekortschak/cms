@@ -35,8 +35,11 @@ public function connect($ftp) {
 	$this->setTarget($srv);
 }
 
-public function publish() {
-	return parent::run();
+public function publish($app = APP_NAME) {
+	$out = parent::run();
+
+	if ($out) LOG::clear($app, "publish");
+	return $out;
 }
 
 // **********************************************************
@@ -46,7 +49,7 @@ protected function getTree($src, $dst) {
 	if ($this->err) return;
 
 TMR::punch("in");
-	$src = $this->lclFiles($src);
+	$src = $this->lclFiles($src); if (! $src) return false;
 TMR::punch("lcl");
 	$dst = $this->srvFiles();
 TMR::punch("srv");
@@ -56,6 +59,7 @@ TMR::punch("comp");
 	$out = $this->chkProtect($out);
 	$out = $this->chkRename($out);
 	$out = $this->chkCount($out);
+
 TMR::punch("comp");
 	return $out;
 }

@@ -91,7 +91,7 @@ protected function getTab($fil) {
 protected function search($what) { // $what expected as string
 	if (strlen($what) < 2) return false;
 
-	$arr = FSO::dTree($this->rng);
+	$arr = FSO::dTreeX($this->rng);
 	$out = array();
 
 	foreach ($arr as $dir => $nam) {

@@ -120,7 +120,7 @@ public function act() {
 private function showContent() {
 	$sel = ENV::get($this->own, $this->std);
 	$inc = VEC::get($this->fls, $sel);
-	$inc = appFile($inc);
+	$inc = APP::file($inc);
 
 	if (! $inc) return parent::show("wrong.btn");
 	include_once $inc;

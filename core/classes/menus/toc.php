@@ -22,7 +22,7 @@ class toc extends tpl {
 
 function __construct() {
 	parent::__construct();
- 	$this->load("menus/toc.view.tpl"); if (VMODE != "view")
+ 	$this->load("menus/toc.view.tpl"); if (! PFS::isView())
 	$this->load("menus/toc.edit.tpl");
 }
 
@@ -63,7 +63,7 @@ public function gc($sec = "main") {
 		$out.= $this->getSection($typ)."\n";
 
 		if ($dtype == "col")
-		if (VMODE == "view") $skp = $vpath;
+		if (PFS::isView()) $skp = $vpath;
     }
     $this->set("items", $out);
     return parent::gc($sec);

@@ -1,6 +1,6 @@
 [props]
 pic = LOC_ICO/buttons/home.gif
-url = ?reset=1
+url = ?reset=1&vmode=view
 
 [de]
 caption =

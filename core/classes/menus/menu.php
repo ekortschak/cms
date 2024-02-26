@@ -90,7 +90,7 @@ private function getClass($dir) {
 
 private function getBox($sub) {
 	if (! $sub) return "empty";
-	if (VMODE != "view") return "edit";
+	if (! PFS::isView()) return "edit";
 	return "item";
 }
 

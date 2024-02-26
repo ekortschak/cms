@@ -15,7 +15,7 @@ $hst = DB_HOST;
 // table info
 // ***********************************************************
 $usr = CFG::iniVal("dbase:dbase.user");
-$dir = LOC::arcDir("dbs.$dbs");
+$dir = LOC::arcDir(APP_NAME, "dbs.$dbs");
 $dir = FSO::join($dir, "$dbs.sql");
 
 $dmp = "<b>mysqldump</b> --opt -h $hst -u $usr -p xxx $dbs | gzip > $dir";

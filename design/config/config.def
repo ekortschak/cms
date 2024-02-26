@@ -48,7 +48,7 @@ COLORS = inifile:LOC_CLR
 EDITOR = default|ck4|ck5
 
 [security]
-TIMEOUT = range: 15-180
+TIMEOUT = range: 0-180
 
 [environment]
 WWW_USER = www-data

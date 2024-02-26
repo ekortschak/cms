@@ -50,7 +50,7 @@ public function getUrl($act, $fso = ".") { // create acceptable command
 // ***********************************************************
 public function upload($fso, $dir = "") {
 	$cmd = $this->getUrl("cpf", $fso);
-#	$xxx = $this->debug($cmd);
+#	$xxx = $this->debug($cmd, $fso);
 
 	$fil = FSO::join($dir, $fso);
 	$fil = APP::file($fil); if (! $fil) return false;
@@ -77,8 +77,8 @@ public function upload($fso, $dir = "") {
 // ***********************************************************
 // debugging
 // ***********************************************************
-public static function debug($url) {
-	HTW::href($url, "Check URL request", "dbg");
+public static function debug($url, $inf = "dbg") {
+	HTW::href($url, "<div>$inf</div>");
 }
 
 // ***********************************************************

@@ -30,8 +30,8 @@ function __construct() {
 // ***********************************************************
 // run jobs (restore mode)
 // ***********************************************************
-public function syncBack() {
-	$dir = LOC::arcDir(APP_NAME, "sync");
+public function syncBack($app = APP_NAME) {
+	$dir = LOC::arcDir($app, "sync");
 	if (! is_dir($dir)) return MSG::now("sync.none", $dir);
 
 	$this->setSource($dir);
@@ -39,8 +39,8 @@ public function syncBack() {
 }
 
 // ***********************************************************
-public function restore() {
-	$vrs = $this->getVersions("bkp");
+public function restore($app = APP_NAME) {
+	$vrs = $this->getVersions($app, "bkp");
 	if (! $vrs) return MSG::now("restore.none");
 
 	$box = new dropBox("menu");
@@ -53,8 +53,8 @@ public function restore() {
 }
 
 // ***********************************************************
-public function revert() {
-	$vrs = $this->getVersions("ver");
+public function revert($app = APP_NAME) {
+	$vrs = $this->getVersions($app, "ver");
 	if (! $vrs) return MSG::now("versions.none");
 
 	$box = new dropBox("menu"); // inline ?
@@ -69,8 +69,8 @@ public function revert() {
 // ***********************************************************
 // find available versions
 // ***********************************************************
-protected function getVersions($typ) {
-	$dir = LOC::arcDir($typ);
+protected function getVersions($app, $typ) {
+	$dir = LOC::arcDir($app, $typ);
 	return FSO::dirs($dir);
 }
 

@@ -26,22 +26,21 @@ function __construct() {
 // methods
 // ***********************************************************
 protected function exec() {
-	$act = $this->get("file.act"); if (! $act) return;
+	$act = $this->get("file.act");
 
-	if ($this->savePage($act)) return;
-	if ($this->dropFile($act)) return;
-	if ($this->restore($act))  return;
-	if ($this->backup($act))   return;
-	if ($this->import($act))   return;
+	switch (STR::left($act)) {
+		case "sav": $this->savePage($act); return;
+		case "dro": $this->dropFile($act); return;
+		case "res": $this->restore($act);  return;
+		case "bac": $this->backup($act);   return;
+		case "imp": $this->import($act);   return;
+	}
 }
 
 private function savePage($act) {
-	if ($act != "save") return false;
-
-	$txt = $this->get("content");  if (! $txt) return false;
-	$old = $this->get("orgName");  if (! $old) return false;
-	$fil = $this->get("filName");  if (! $fil) $fil = $old;
-
+	$txt = $this->get("content");  if (! $txt) return;
+	$old = $this->get("orgName");  if (! $old) return;
+	$fil = $this->file("filName"); if (! $fil) $fil = $old;
 	$ext = FSO::ext($fil);
 
 	if (STR::features("htm.html", $ext)) {
@@ -52,46 +51,36 @@ private function savePage($act) {
 
 	if ($res)
 	if ($fil != $old) FSO::kill($old);
-
-	return true;
 }
 
 private function dropFile($act) {
-	if ($act != "drop") return false;
-	$fil = $this->get("fil"); if (! $fil) return false;
+	$fil = $this->file("fil"); if (! $fil) return;
 	FSO::kill($fil);
-	return true;
 }
 
 // ***********************************************************
 // backup and restore
 // ***********************************************************
 private function restore($act) {
-	if ($act != "restore") return false;
-	$fil = $this->get("fil"); if (! $fil) return false;
-
-	$dir = LOC::arcDir("sync");
-	$ful = FSO::join($dir, $fil);
-	$res = FSO::copy($ful, $fil);
-	return true;
+	$fil = $this->get("fil");
+	$trg = APP::file($fil); if (! $trg) return;
+	$dir = LOC::arcDir(APP_NAME, "sync");
+	$src = FSO::join($dir, $fil);
+	$res = FSO::copy($src, $trg);
 }
 
 private function backup($act) {
-	if ($act != "backup") return false;
-	$fil = $this->get("fil"); if (! $fil) return false;
+	$fil = $this->file("fil"); if (! $fil) return;
 
-	$dir = LOC::arcDir("sync");
+	$dir = LOC::arcDir(APP_NAME, "sync");
 	$ful = FSO::join($dir, $fil);
 	$res = FSO::copy($fil, $ful);
-	return true;
 }
 
 private function import($act) { // import redirected page
-	if ($act != "import") return false;
-
-	$trg = $this->get("target"); if (! $trg) return false;
-	$src = $this->get("source"); if (! $src) return false;
-	$arr = FSO::dirs($src);      if (! $arr) return true;
+	$trg = $this->get("target"); if (! $trg) return;
+	$src = $this->get("source"); if (! $src) return;
+	$arr = FSO::dirs($src);      if (! $arr) return;
 
 	$ini = new iniWriter("page.def");
 	$ini->read($src);
@@ -110,6 +99,14 @@ private function import($act) { // import redirected page
 		$ini->set("props_red.trg", APP::relPath($dir));
 		$ini->save($dst);
 	}
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function file($prm) {
+	$fil = $this->get($prm);
+	return APP::file($fil);
 }
 
 // ***********************************************************

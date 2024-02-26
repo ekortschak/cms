@@ -226,6 +226,7 @@ protected function showStat($arr, $act, $cap) {
 // ***********************************************************
 protected function report() {
 	HTW::xtag("ftp.report"); $out = array();
+	$rep = DIC::get("no.jobs");
 
 	foreach ($this->rep as $key => $val) {
 		$this->set("inf", DIC::getPfx("arr", $key));
@@ -234,7 +235,7 @@ protected function report() {
 
 		$out[] = $this->getSection("report.row");
 	}
-	$rep = DIC::get("no.jobs"); if ($out) $rep = implode("\n", $out);
+	if ($out) $rep = implode("\n", $out);
 
 	$this->set("tdata", $rep);
 	echo $this->getSection("report");
