@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/buttons/edit.tab.png
+url = ?vmode=sedit
+hilite = \VMODE == "sedit"
+
+[de]
+caption =
+tooltip = Wechselt zum Topic-Editor.
+
+[en]
+caption =
+tooltip = Switches to topic editor mode.

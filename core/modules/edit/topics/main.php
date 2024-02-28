@@ -9,13 +9,11 @@ DBG::file(__FILE__);
 // ***********************************************************
 incCls("menus/buttons.php");
 // ***********************************************************
-$nav = new buttons("tab", "P", __DIR__);
+$nav = new buttons("tab", "T", __DIR__);
 
-$nav->add("T", "doTab");
-$nav->add("S", "doSort");
-$nav->add("P", "doProps");
 $nav->space();
-$nav->add("G", "doPics");
+$nav->add("T", "topics");
+$nav->add("S", "topicSort");
 $nav->space();
 $nav->link("V", HTM::icon("buttons/view.png"), "?vmode=view");
 $nav->show();

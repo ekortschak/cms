@@ -7,23 +7,27 @@
   --zoom_p: 3;
 }
 
-@media only screen and (max-width: 1500px) {
-	.modToc  { width: W_MIN; }
-#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_MBAR - W_BODY - 10px); }
-}
-
-@media only screen and (max-width: 1350px) {
+@media only screen and (max-width: 1550px) {
+#	.modBody { background: orange; }
 	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
-#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
+	.modOpts { width: calc(100% - W_TABS - W_TOC - W_BODY - 10px); }
+}
+
+@media only screen and (max-width: 1400px) {
+#	.modBody { background: yellow; }
+	.modToc  { width: W_MIN; border-right: 1px solid OUTLINE; }
+	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1250px) {
-	.modBody { width: calc(W_BODY * 0.85); }
-#	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
+#	.modBody { background: lightgreen; }
+	.colMain { width: calc(W_BODY * 0.85); }
+	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
 }
 
 @media only screen and (max-width: 1100px) {
+#	.modBody { background: green; }
 	.colMain {
 		width:  calc(100% / var(--zoom_l));
 		height: calc(100% / var(--zoom_l));

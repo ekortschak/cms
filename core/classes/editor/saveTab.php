@@ -9,6 +9,7 @@ see parent
 */
 
 incCls("editor/tabEdit.php");
+incCls("editor/iniWriter.php");
 
 new saveTab();
 
@@ -74,12 +75,18 @@ private function tabAdd() {
 	$fil = FSO::join($dir, "tab.ini");
 	$set = TAB_SET;
 
-	$edt = new tabEdit($fil); // create default tab.ini
-	$edt->save();
-
 	$edt = new tabEdit("config/tabsets.ini"); // register new tab
 	$edt->set("$set.$dir", 1);
 	$edt->save();
+
+	$edt = new tabEdit($fil); // create default tab.ini
+	$edt->save();
+
+	$ini = new iniWriter();
+	$ini->read($dir);
+	$ini->set(CUR_LANG.".title", basename($dir));
+	$ini->set(GEN_LANG.".title", basename($dir));
+	$ini->save();
 }
 
 // ***********************************************************

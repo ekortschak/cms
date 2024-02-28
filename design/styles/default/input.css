@@ -44,7 +44,7 @@ input[type='reset'] {
 	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
-	padding: 0px 5px 0px;
+	padding: 0px 5px;
 
 	min-width: 45px;
 	line-height: H_LINE;
@@ -53,6 +53,10 @@ input[type='reset'] {
 	background: linear-gradient(snow, lightgrey);
 	text-align: center;
 #	vertical-align: bottom;
+}
+
+.dmbtn img {
+	padding-top: 2px;
 }
 
 /* ******************************************************** */

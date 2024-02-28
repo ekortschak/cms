@@ -26,4 +26,14 @@ $tpl->set("tabset", TAB_SET);
 $tpl->set("items", $dat);
 $tpl->show();
 
+// ***********************************************************
+// add or drop tabs
+// ***********************************************************
+$tpl = new tpl();
+$tpl->load("editor/menu.tab.tpl");
+$tpl->register();
+
+$tpl->show("add");
+$tpl->show("drop");
+
 ?>

@@ -11,7 +11,7 @@ LOC_SCR/inline.js
 
 [combo]
 <div class="dropdown">
-<div class="droptext"><button>Snips COMBO_DOWN</button></div>
+<button>Snips COMBO_DOWN</button>
 <div class="dropbody"><!VAR:links!></div>
 </div>
 

@@ -24,7 +24,7 @@ define("DEBUG", $dbg);
 $inc = $mod;
 
 switch ($mod) {
-	case "pedit": case "medit": case "xedit": case "tedit":
+	case "pedit": case "medit": case "xedit": case "tedit": case "sedit":
 	case "xlate": case "xfer":  case "seo":
 		$inc = "x.edit"; break;
 

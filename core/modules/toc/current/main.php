@@ -1,6 +1,6 @@
 <?php
 
-#if (! STR::features("view.pres.toc", VMODE)) return;
+if (PFS::isView())
 if (TAB_TYPE == "sel") return;
 
 DBG::file(__FILE__);

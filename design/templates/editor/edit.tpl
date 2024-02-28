@@ -57,7 +57,7 @@ spellcheck="false"><!VAR:content!></textarea>
 
 [drop.file]
 	<a href="?file.act=drop&fil=<!VAR:file!>" onclick="return confirm('<!DIC:ask.sure!>');">
-		<label>BOOL_NO</label>
+		<div class="dmbtn">BOOL_NO</div>
 	</a>
 
 [drop.cms]

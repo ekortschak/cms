@@ -81,7 +81,7 @@ pres = Präsentation
 [manual] <!BTN:manual!>
 [search] <!BTN:search!>
 
-[tedit]  <!BTN:tedit!>  <br>
+[tedit]  <!BTN:tedit!> <!BTN:topic!>  <br>
 [medit]  <!BTN:medit!> <!BTN:mprops!> <br>
 [pedit]  <!BTN:pedit!> <!SEC:xlate!> <!SEC:seo!> <br>
 [xedit]  <!BTN:xedit!>

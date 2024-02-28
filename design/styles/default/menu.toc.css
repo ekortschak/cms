@@ -30,10 +30,10 @@
 }
 
 .topic {
-	margin: 0px 0px 10px;
+	margin: 0px 0px 3px;
 	border: 1px solid OUTLINE;
 	border-radius: BR_TEXT;
-	padding: 7px 7px 3px;
+	padding: 3px 7px 1px;
 
 	background: BC_DROP;
 	font-size: 1.2em;

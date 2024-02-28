@@ -34,7 +34,7 @@ function constPath($fso) {
 	$fso = STR::replace($fso, FBK_DIR, "FBK_DIR");
 	$fso = STR::replace($fso, APP_DIR, "APP_DIR");
 	$fso = STR::replace($fso, PRJ_DIR, "PRJ_DIR");
-	$fso = STR::replace($fso, WEB_DIR, "WEB_DIR");
+	$fso = STR::replace($fso, TOP_DIR, "TOP_DIR");
 	return $fso;
 }
 
