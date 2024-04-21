@@ -23,7 +23,7 @@ class iniCfg extends objects {
 	protected $vrs = array(); // variables
 
 function __construct($file) {
-	$txt = $this->getContent($file); if (! $txt) return false;
+	$txt = $this->read($file); if (! $txt) return false;
 
 	$this->sections($txt);
 	$this->setProps();
@@ -31,7 +31,7 @@ function __construct($file) {
 }
 
 // ***********************************************************
-protected function getContent($file) {
+protected function read($file) {
 	$txt = APP::read($file); if (! $txt) return "";
 	$txt = STR::dropComments($txt);
 	$txt = STR::dropSpaces($txt);

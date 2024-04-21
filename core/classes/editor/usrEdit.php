@@ -46,7 +46,7 @@ public function setScope($mode = "") {
 	$box->show();
 }
 
-public function get($qid) {
+public function info($qid) {
 	if ($qid == "group") return $this->grp;
 	return false;
 }
@@ -58,16 +58,16 @@ public function cnfGroup($msg) {
 	if (! $this->grp) return MSG::now("no.grps.edit");
 	$this->act = $this->confirm($msg, $this->grp);
 }
-public function cnfUser($msg) {
-	if (! $this->usr) return MSG::now("no.user.edit");
-	$this->act = $this->confirm($msg, $this->usr);
-}
-
 public function chkGroup($usr) {
 	if ($usr) return true;
 	return MSG::now("grp.bad");
 }
 
+// ***********************************************************
+public function cnfUser($msg) {
+	if (! $this->usr) return MSG::now("no.user.edit");
+	$this->act = $this->confirm($msg, $this->usr);
+}
 public function chkUser($usr) {
 	if ($usr) return true;
 	return MSG::now("usr.bad");

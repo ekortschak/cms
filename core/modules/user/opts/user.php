@@ -1,12 +1,15 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+// check if applicable
+// ***********************************************************
 if (SEARCH_BOT) return;
 if (VMODE == "joker") return;
 
 if (! IS_LOCAL) return;
 if (! CFG::mod("uopts.uinfo")) return;
-
-DBG::file(__FILE__);
 
 // ***********************************************************
 function getFS() {

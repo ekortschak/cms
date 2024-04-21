@@ -30,7 +30,7 @@ function __construct() {}
 // ***********************************************************
 public function read($file) { // dic lines
 	$fil = $this->checkFile($file); if (! $fil) return false;
-	$txt = $this->getContent($fil); if (! $txt) return false;
+	$txt = $this->read($fil); if (! $txt) return false;
 
 	$this->sections($txt);
 	$this->setProps();
@@ -39,7 +39,7 @@ public function read($file) { // dic lines
 
 // ***********************************************************
 public function getKeys($pfx = "") { // register dic entries
-	$out = $this->getValues($pfx);
+	$out = $this->values($pfx);
 	return VEC::keys($out);
 }
 
@@ -67,7 +67,7 @@ public function modify($lang, $key, $value) {
 
 // ***********************************************************
 private function save($ful, $sec, $lang) {
-	$arr = $this->getValues($sec); if (! $arr) return;
+	$arr = $this->values($sec); if (! $arr) return;
 	$arr = VEC::sort($arr);
 	$out = "[$sec]\n";
 
@@ -87,7 +87,7 @@ private function checkFile($fil) {
 	return $fil;
 }
 
-protected function getContent($fil) {
+protected function read($fil) {
 	return APP::read($fil);
 }
 

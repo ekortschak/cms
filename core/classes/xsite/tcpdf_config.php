@@ -28,7 +28,7 @@ define ('PDF_MARGIN_LEFT', 15);
 define ('PDF_MARGIN_RIGHT', 15);
 
 // fonts
-$dir = FSO::join(TCPDF, "fonts/");
+$dir = FSO::join(TC_PDF, "fonts/");
 define ('K_PATH_FONTS', $dir);
 
 define ('PDF_FONT_NAME_MAIN', 'helvetica');

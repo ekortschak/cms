@@ -200,6 +200,7 @@ function updDivEdit(html) {
 //			return;
 			inf = range.createContextualFragment(html);
 			range.insertNode(inf);
+			range.collapse(true);
         }
         return;
     }

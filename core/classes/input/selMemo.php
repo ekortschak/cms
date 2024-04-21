@@ -30,7 +30,7 @@ public function rowFormat() {
 	return "span";
 }
 
-public function getTitle() {
+public function title() {
 	$typ = $this->getType();
 	return $this->getSection("sec.$typ");
 }

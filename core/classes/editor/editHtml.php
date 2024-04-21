@@ -21,16 +21,10 @@ class editHtml extends editText {
 
 function __construct() {
 	parent::__construct();
+	DBG::cls(__CLASS__);
 }
 
-public function edit() {
-	$tdy = new tidyPage();
-	$htm = $tdy->read($this->file, true);
-
-	return parent::edit();
-}
-
-protected function getContent() {
+protected function content() {
 	$tdy = new tidyPage();
 	return $tdy->read($this->file, true);
 }

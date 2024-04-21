@@ -134,8 +134,8 @@ public function getData() {
 		$inp = $this->itm[$uid][0];
 
 		$out[$uid]["type"] = $inp->rowFormat();
-		$out[$uid]["head"] = $inp->getTitle();
-		$out[$uid]["vals"] = $inp->getValues();
+		$out[$uid]["head"] = $inp->title();
+		$out[$uid]["vals"] = $inp->values();
 		$out[$uid]["data"] = $this->compact($uid);
 	}
 	return $out;

@@ -10,7 +10,7 @@ incCls("files/iniTab.php");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class xform {
+class statfs {
 	private $dir = ""; // output dir
 	private $tab = ""; // static pseudo tab
 	private $sel = ""; // pre-selected page
@@ -38,8 +38,8 @@ public function pages($pfs) {
 	ENV::set("output", "static");
 
 	foreach($pfs as $dir => $inf) {
-		if ($this->dbg) if ($cnt++ >= $this->dbg) break;
-		$this->doPage($dir, $inf); // will change current page
+		PGE::load($dir); $cnt++;
+		$this->doPage($dir, $inf, $cnt); // will change current page
 	}
 	PGE::restore(); // restore current page
 	ENV::set("output", "");
@@ -51,6 +51,9 @@ public function getDir() {
 	return $this->dir;
 }
 
+// ***********************************************************
+// status
+// ***********************************************************
 public function isPage() {
 	$fil = FSO::join($this->dir, "index.htm");
 	if (is_file($fil)) return $fil;
@@ -63,12 +66,23 @@ public function report() {
 	HTW::tag("# of files: $this->cnt/$this->num", "p");
 }
 
+public function status() {
+	if ($this->isPage()) {
+		$url = APP::url($idx);
+		$msg = DIC::get("static.show");
+		$msg = HTM::href($url, $msg, "static");
+	}
+	else {
+		$msg = DIC::get("static.none");
+	}
+	echo "<hr>$msg<hr>";
+}
+
 // ***********************************************************
 // writing pages
 // ***********************************************************
-private function doPage($dir, $inf) {
-	PGE::load($dir); extract($inf);
-	set_time_limit(10);
+private function doPage($dir, $inf, $cnt) {
+	set_time_limit(10); extract($inf);
 
 	$htm = new page();
 	$htm->read("LOC_LAY/LAYOUT/static.tpl");
@@ -80,8 +94,9 @@ private function doPage($dir, $inf) {
 	$txt = $this->deRefSrc($txt, "src='", "'");
 	$txt = $this->deRefTabs($txt);
 
+	$fil = $this->statID());
+	$res = $this->writePge($fil, $uid, $txt);
 	$xxx = $this->writeIdx($uid, $txt);
-	$res = $this->writePge($sname, $uid, $txt);
 	$this->cnt+= $res;
 }
 
@@ -118,7 +133,7 @@ private function deRefSrc($txt, $sep1, $sep2) {
 
 	foreach ($arr as $lnk) {
 		$dst = FSO::join($this->dir, "res", $dst);
-dbg("TODO: CHECK ME");
+// TODO: CHECK ME
 		$url = ltrim($dst, DIR_SEP);
 		$txt = STR::replace($txt, $lnk, $url);
 
@@ -142,7 +157,7 @@ private function deRefTabs($txt) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getTitle($inf) {
+private function title($inf) {
 	$lev = $inf["level"];
 	$hed = $inf["title"]; $tag = "h$lev";
 
@@ -152,8 +167,8 @@ private function getTitle($inf) {
 	return "<$tag>$num $hed</$tag>\n";
 }
 
-private function getText($dir) {
-	return APP::gcSys($dir);
+private function statID($cnt) {
+	return sprintf("p%05d.htm", $cnt);
 }
 
 // ***********************************************************

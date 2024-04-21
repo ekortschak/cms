@@ -8,7 +8,7 @@ $arr = VEC::sort($arr);
 
 $ini = new code();
 $xxx = $ini->readPath(PGE::$dir);
-$prm = $ini->getValues("perms");
+$prm = $ini->values("perms");
 
 // ***********************************************************
 // show permissions

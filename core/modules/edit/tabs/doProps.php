@@ -12,7 +12,7 @@ ENV::set("tedit.tab", $tab);
 // find tabsets
 // ***********************************************************
 $ini = new iniTab($tab);
-$tit = $ini->getTitle();
+$tit = $ini->title();
 $std = $ini->get("props.std");
 
 // ***********************************************************

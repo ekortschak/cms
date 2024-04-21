@@ -63,7 +63,7 @@ public function edit() {
 			$this->addField($sec."[tarea]", $val, 15);
 		}
 		else { // key = value sections
-			$arr = $ini->getValues($sec);
+			$arr = $ini->values($sec);
 
 			foreach ($arr as $key => $val) {
 				$qid = $sec."[$key]";
@@ -95,7 +95,7 @@ private function getType($fil) {
 	}
 	if (APP::file($fil)) {
 		$ini = new ini($fil);
-		$out = $ini->getType(NV); if ($out !== NV) return $out;
+		$out = $ini->type(NV); if ($out !== NV) return $out;
 	}
 	return NV;
 }

@@ -48,10 +48,9 @@ public function gc($sec = "main") {
 		$this->set("link",  APP::relPath($tab));
 		$this->set("text",  $cap);
 		$this->set("img",   $img);
-		$this->set("mode",	$this->getMode());
 		$this->set("class", $this->getClass($tab));
-		$this->set("vmode", $this->getVMode($tab));
-		$this->set("agent",	$this->getAgent($cap));
+		$this->set("vmode", $this->vmode($tab));
+		$this->set("agent",	$this->agent($cap));
 
 		$out.= $this->getSection($itm);
 	}
@@ -63,22 +62,17 @@ public function gc($sec = "main") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getMode() {
-	if (STR::contains(VMODE, "edit")) return VMODE;
-	return "view";
-}
-
 private function getClass($dir) {
 	if (STR::begins(TAB_HOME, $dir)) return "vtab_selected";
 	return "std";
 }
 
-private function getVMode() {
+private function vmode() {
 	if (VMODE == "search") return "view";
 	return VMODE;
 }
 
-private function getAgent($cap) {
+private function agent($cap) {
 	$chk = strip_tags($cap); if (strlen($chk) < 2) return "";
 	$uag = $_SERVER["HTTP_USER_AGENT"];
 	$gut = "Firefox";

@@ -4,45 +4,28 @@
 // find files or default to fallback dir
 // ***********************************************************
 function incCls($file) {
-	appInclude(LOC_CLS."/$file");
-}
-
-function appInclude($file) {
-	include_once appFile($file);
+#	$fil = SYS::file(LOC_CLS."/$file"); # TODO: why not working on server
+	$fil = appFile(LOC_CLS."/$file");
+	include_once $fil;
 }
 function appFile($file) {
-	$ful = APP_DIR."/$file"; if (is_file($ful)) return $ful;
-	$ful = FBK_DIR."/$file"; if (is_file($ful)) return $ful;
+	$out = APP_DIR."/$file"; if (is_file($out)) return $out;
+	$out = FBK_DIR."/$file"; if (is_file($out)) return $out;
 	return $file;
 }
 
 // ***********************************************************
-// startup functions
+// error handling
 // ***********************************************************
-function appVar($key, $default) {
-	$val = appVarValue($key, $default);
-	$_SESSION[APP_NAME][$key] = $val;
-	return $val;
-}
-function appVarValue($key, $default) {
-	if (isset ($_GET[$key]))               return $_GET[$key];
-	if (isset ($_SESSION[APP_NAME][$key])) return $_SESSION[APP_NAME][$key];
-	return $default;
-}
+function errMode($mode = ERR_SHOW) {
+	$mod = (int) (bool) $mode;
 
-// ***********************************************************
-// goodies
-// ***********************************************************
-function checkStop() { // force execution to stop
-	$fil = FSO::join(APP_DIR, "x.stop");
-	if (is_file($fil)) die("Execution halted!");
-}
-
-function requireAdmin() { // force login of admin
-	if (! FS_ADMIN) ENV::setParm("dmode", "login");
-}
-function requireLogin() { // force login of any user
-	if (CUR_USER == "www") ENV::setParm("dmode", "login");
+	switch ($mod) {
+		case true: error_reporting(E_ALL); break;
+		default:   error_reporting(0);
+	}
+	ini_set("display_startup_errors", $mod);
+	ini_set("display_errors", $mod);
 }
 
 // ***********************************************************
@@ -55,14 +38,13 @@ function dbg($msg = "hier", $info = "dbg") { // show plain text
 	echo "<pre>$info: ".print_r($msg, true)."</pre>";
 }
 
-function dbgpi($path = "hier", $info = "dbg") { // show plain text
-	$msg = CFG::encode($path);
-	echo "<pre>$info: ".print_r($msg, true)."</pre>";
+function dbgpi($path = "hier", $info = "dbg") { // show path info
+	dbg(CFG::encode($path), $info);
 }
 
 function dbx($msg, $info = "aborting") {
-	echo "<pre>$info: ".print_r($msg, true)."</pre>";
-	die("Execution halted");
+	dbg($msg, $info);
+	die("<hr>Execution halted by dbx()<hr>");
 }
 
 ?>

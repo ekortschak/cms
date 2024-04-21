@@ -95,7 +95,7 @@ chkFst = CHECKED
 [addIniFile]
 <tr>
 	<td width=175><!DIC:inifiles!></td>
-	<td><input type="checkbox" name="ini.rec" value="1" /><div class="cbtext"><!DIC:recurse!></div></td>
+	<td><input type="checkbox" name="ini.rec" value="1" /><!DIC:recurse!></td>
 	<td><button name="file.act" value="ini"><!DIC:create!></button></td>
 </tr>
 

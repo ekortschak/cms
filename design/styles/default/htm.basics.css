@@ -4,11 +4,9 @@
 h0, h1, h2, h3, h4, h5, h6 {
 	color: FC_HEAD;
 }
-h0, h1 {     margin: 20px 0px 7px; }
-h2, h3, h4 { margin: 12px 0px 7px; }
 
 h0 {
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	font-weight: bold;
 }
 
@@ -18,15 +16,13 @@ h4 {
 h5, h6, h7, h8, h9 {
 	margin: 5px 0px 3px;
 
-	font-size: 1em;
+	font-size: 1rem;
 	font-weight: normal;
 	font-style: italic;
 	text-decoration: underline;
 }
 
 /* ******************************************************** */
-h1:first-of-type,
-h2:first-of-type,
 p {
 	margin: 3px 0px 7px;
 	text-align: justify;
@@ -67,7 +63,7 @@ a {
 	font-weight: bold;
 }
 a:visited {
-#	color: #9FC700;
+		color: #316D2E;
 }
 
 a.inactive {

@@ -33,9 +33,6 @@ function __construct($pid) {
 
 	$this->register($pid);
 	$this->set("perms", "w");	// table permissions
-
-#   TODO: implement the following
-#	$this->set("mask", false);	// transform values
 }
 
 public function init($type, $qid, $default) {
@@ -106,7 +103,7 @@ public function rowFormat() {
 	return "rows";
 }
 
-public function getTitle() {
+public function title() {
 	return $this->getSection("head");
 }
 public function getTool() {

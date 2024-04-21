@@ -19,11 +19,11 @@
 /* ******************************************************** */
 .selHead {
 	white-space: nowrap;
-	padding: 4px 15px 0px 5px;
+	padding: 0px 15px 0px 5px;
 	min-width: 150px;
 }
 .selData {
-	padding: 1px 0px 0px;
+	padding: 0px;
 	width: 100%;
 }
 
@@ -38,7 +38,7 @@
 	background: url("LOC_ICO/input/rating.png") no-repeat top;
 }
 
-rating img {
+.rating img {
 	margin: 2px 0px;
 	opacity: 100%;
 }

@@ -10,11 +10,11 @@ search pages for content
 incCls("search/sBasics.php");
 
 $obj = new sBasics();
-$opt = $obj->getScope();
-$lst = $obj->getResults($fnd); // list of dirs with matching files
+$opt = $obj->scope();
+$lst = $obj->results($fnd); // list of dirs with matching files
 
-$tit = $obj->getTitle($fil);
-$lst = $obj->getSnips($dir, $fnd); // list of files and matching snips
+$tit = $obj->title($fil);
+$lst = $obj->snips($dir, $fnd); // list of files and matching snips
 
 */
 
@@ -38,9 +38,9 @@ function __construct($dir = TAB_HOME) {
 // ***********************************************************
 // determining scope
 // ***********************************************************
-public function getScope() {
-	$drs = $this->getPaths();
-	$mds = $this->getMods();
+public function scope() {
+	$drs = $this->paths();
+	$mds = $this->mods();
 
 	$box = new dropBox("menu");
 	$this->rng = $box->getKey("search.rng", $drs, $this->rng);
@@ -65,7 +65,7 @@ public function findWhat() {
 // ***********************************************************
 // retrieving relevant files
 // ***********************************************************
-public function getResults($what) {
+public function results($what) {
 #	$out = $this->isSame($what); if ($out) return $out;
 #	$xxx = $this->saveParms("");
 
@@ -74,7 +74,7 @@ public function getResults($what) {
 	$out = array();
 
 	foreach ($psg as $fil) {
-		$tab = $this->getTab($fil);
+		$tab = $this->tab($fil);
 		$out[$tab][$fil] = PGE::title($fil);
 	}
 	$this->saveParms($out);
@@ -82,7 +82,7 @@ public function getResults($what) {
 	return $out;
 }
 
-protected function getTab($fil) {
+protected function tab($fil) {
 	$tab = STR::between($fil, TAB_ROOT.DIR_SEP, DIR_SEP);
 	return FSO::JOIN(TAB_ROOT, $tab);
 }
@@ -112,7 +112,7 @@ protected function search($what) { // $what expected as string
 // ***********************************************************
 // retrieving relevant passages from files
 // ***********************************************************
-public function getSnips($dir, $what) { // called by preview
+public function snips($dir, $what) { // called by preview
 	$arr = FSO::files($dir); $out = array();
 
 	foreach ($arr as $fil => $nam) {
@@ -134,19 +134,19 @@ protected function sort($arr) {
 protected function saveParms($val) {
 	ENV::set("search.last", $val);
 }
-protected function getParms($what) {
+protected function parms($what) {
 	return STR::join($this->rng, $this->mod, $what);
 }
 
 // ***********************************************************
 // helper methods for scope
 // ***********************************************************
-protected function getPaths() {
+protected function paths() {
 	$dir = dirname(TAB_HOME);
 	$fil = FSO::join($dir, "tab.ini");
 
 	$ini = new ini($fil);
-	$typ = $ini->getType();
+	$typ = $ini->type();
 
 	if ($typ != "sel") $dir = TAB_HOME;
 
@@ -156,7 +156,7 @@ protected function getPaths() {
 	);
 }
 
-protected function getMods() {
+protected function mods() {
 	return array(
 		"p" => DIC::get("Paragraphs"),
 		"h" => DIC::get("Sections"),
@@ -169,7 +169,7 @@ protected function getMods() {
 protected function isSame($what) {
 	if (strlen($what) < 3) return true;
 
-	$chk = $this->getParms($what);
+	$chk = $this->parms($what);
 	$lst = ENV::get("search.parms");
 
 	if ($lst != $chk) {
@@ -183,7 +183,7 @@ protected function isSame($what) {
 // split text
 // ***********************************************************
 protected function prepare($src) {
-	$txt = $this->getContent($src); if (! $txt) return "";
+	$txt = $this->read($src); if (! $txt) return "";
 
 	switch ($this->mod) {
 		case "h": return $this->prepare_h($txt);
@@ -209,7 +209,7 @@ protected function prepare_p($txt) {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-protected function getContent($file) {
+protected function read($file) {
 	$ext = FSO::ext($file);	if (STR::misses(".php.htm.", $ext)) return false;
 	$out = APP::read($file);
 	$out = STR::replace($out, "<?php ", "<php>");

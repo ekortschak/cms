@@ -23,6 +23,7 @@ class editXtern extends editText {
 
 function __construct() {
 	parent::__construct();
+	DBG::cls(__CLASS__);
 
 	$this->load("editor/edit.xtern.tpl");
 	$this->dir = LOC::tempDir("curedit");

@@ -30,7 +30,7 @@ function __construct() {}
 // ***********************************************************
 public function readIni($file) {
 	$ini = new ini($file);
-	$vls = $ini->getValues();
+	$vls = $ini->values();
 
 	$this->merge($vls);
 }
@@ -49,8 +49,6 @@ public function merge($arr, $pfx = false) { // requires assoc array
 // ***********************************************************
 public function set($key, $val) {
     $key = STR::norm($key); if (! $key) return false;
-# TODO: why suddenly => test with gim - Schöpfer
-#    $val = trim($val);
 
     if ($val === NV) {
 		unset($this->vls[$key]);
@@ -108,7 +106,7 @@ public function getKeys($pfx = "") {
 	return VEC::keys($arr);
 }
 
-public function getValues($pfx = "") {
+public function values($pfx = "") {
 	return VEC::match($this->vls, $pfx);
 }
 

@@ -11,7 +11,7 @@ incCls("files/fileInfo.php");
 
 $obj = new fileInfo($file);
 $xxx = $obj->read($file);
-$vls = $obj->getValues();
+$vls = $obj->values();
 $txt = $obj->insVars($txt);
 
 */

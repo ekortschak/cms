@@ -34,6 +34,7 @@ protected function exec() {
 		case "res": $this->restore($act);  return;
 		case "bac": $this->backup($act);   return;
 		case "imp": $this->import($act);   return;
+		case "det": $this->detach($act);   return;
 	}
 }
 
@@ -79,7 +80,7 @@ private function backup($act) {
 
 private function import($act) { // import redirected page
 	$trg = $this->get("target"); if (! $trg) return;
-	$src = $this->get("source"); if (! $src) return;
+	$src = $this->get("source"); if (! $src) return; $src = APP::dir($src);
 	$arr = FSO::dirs($src);      if (! $arr) return;
 
 	$ini = new iniWriter("page.def");
@@ -99,6 +100,19 @@ private function import($act) { // import redirected page
 		$ini->set("props_red.trg", APP::relPath($dir));
 		$ini->save($dst);
 	}
+}
+
+private function detach($act) { // import redirected document
+	$trg = $this->get("target"); $trg = APP::dir($trg);
+	$src = $this->get("source"); $src = APP::dir($src);
+
+	FSO::copyDir($src, $trg);
+
+	$ini = new iniWriter();
+	$ini->read($trg);
+	$ini->set("props.typ", "include");
+	$ini->dropSec("props_red");
+	$ini->save();
 }
 
 // ***********************************************************

@@ -6,7 +6,7 @@ login = Log in (to enter data or deny usage)
 email = or send an <a href="mailto:copyright@glaubeistmehr.at;">email</a>
 empty = No graphic files!
 nodb  = Database is inaccessible!
-claim = Claim (CR) or deny usage
+claim = Claim &copy; or deny usage
 unknown = Unknown
 no.info	= No further info available
 
@@ -15,7 +15,7 @@ login = Anmelden (Daten eingeben oder Verwendung untersagen)
 email = EMail senden
 empty = Keine Grafik-Dateien!
 nodb  = Datenbank ist nicht erreichbar!
-claim = (CR) reklamieren
+claim = &copy; reklamieren
 unknown = Unbekannt
 no.info	= Keine weitere Info vorhanden
 
@@ -69,7 +69,7 @@ no.info	= Keine weitere Info vorhanden
 </div>
 
 [cr.short]
-(CR) <a href="<!VAR:source!>"><!VAR:holder!></a>
+&copy; <a href="<!VAR:source!>"><!VAR:holder!></a>
 
 [cr.user]
 <div class="dropdown"><!DIC:claim!>COMBO_DOWN
@@ -77,7 +77,7 @@ no.info	= Keine weitere Info vorhanden
 </div>
 
 [cr.unknown]
-<div class="dropdown">(CR) <!DIC:unknown!>COMBO_DOWN
+<div class="dropdown">&copy; <!DIC:unknown!>COMBO_DOWN
 	<div class="dropbody">
 		<!SEC:login!>
 		<!SEC:email!>

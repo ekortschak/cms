@@ -36,7 +36,7 @@ title = PRJ_TITLE
 # last to execute
 # ***********************************************************
 [styles]
-<link rel="StyleSheet" href="CSS_URL?style=SSHEET" type="text/css" />
+<link rel="StyleSheet" href="x.css.php?style=SSHEET" type="text/css" />
 <!MOD:zzz/styles!>
 
 [scripts]

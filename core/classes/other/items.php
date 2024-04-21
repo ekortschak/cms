@@ -76,7 +76,7 @@ public function getItems() {
 public function getItem($item) {
 	$idx = $this->getIndex($item);
 	$itm = VEC::get($this->itm, $idx); if (! $itm) return false;
-	return $itm->getValues();
+	return $itm->values();
 }
 
 // ***********************************************************

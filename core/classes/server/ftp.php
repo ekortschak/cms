@@ -38,7 +38,7 @@ public function read($inifile) {
 	$this->set("inifile", $inifile);
 
 	$ini = new ini($inifile);
-	$prp = $ini->getValues(); $this->merge($prp);
+	$prp = $ini->values(); $this->merge($prp);
 	$prt = $ini->getSec("protect"); $this->set("protect", $prt);
 }
 

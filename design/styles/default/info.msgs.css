@@ -43,6 +43,12 @@ dbg.hint2 {
 	font-size: 0.75em;
 }
 
+dbg.hint3 {
+	color: maroon;
+	background: #CECECE;
+	font-size: 0.75em;
+}
+
 /* ******************************************************** */
 hint, .hint {
 	color: FC_DEAD;

@@ -48,9 +48,7 @@ public static function read($url) {
 // geoDataation
 // ***********************************************************
 private static function geoData() {
-return;
 	if (! NET::$con) return;
-
 	$out = file_get_contents("http://www.geoplugin.net/php.gp?ip=".USER_IP);
 	$out = unserialize($out);
 	return $out;

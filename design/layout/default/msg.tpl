@@ -12,7 +12,7 @@ lang = CUR_LANG
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="expires" content="0" />
 
-	<link rel="StyleSheet" href="CSS_URL" type="text/css" />
+	<link rel="StyleSheet" href="x.css.php" type="text/css" />
 </head>
 
 <!SEC:styles!>
@@ -29,7 +29,7 @@ lang = CUR_LANG
 	left: 50%;
 	transform: translate(-50%, 0px);
 	border: 1px solid grey;
-	border-radius: 15px;
+	border-radius: BR_MENU;
 	padding: 30px;
 	box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.65);
 	background: white;
@@ -55,7 +55,7 @@ p {
 button {
 	background: linear-gradient(snow, lightgrey);
 	border: 1px solid grey;
-	border-radius: 5px;
+	border-radius: BR_TEXT;
 	padding: 3px 10px;
 	cursor: pointer;
 }

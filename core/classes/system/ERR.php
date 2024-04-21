@@ -45,11 +45,12 @@ class ERR {
 
     const DEPTH = 7;  // call stack depth to display
 
-public static function show() {
-	error_reporting(E_ALL);
 
-	ini_set("display_startup_errors", true);
-	ini_set("display_errors", true);
+public static function show($mode = true) {
+	errMode($mode);
+}
+public static function hide() {
+	errMode(false);
 }
 
 // ***********************************************************

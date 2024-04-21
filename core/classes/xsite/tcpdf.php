@@ -1,9 +1,9 @@
 <?php
 
-define("TCPDF", "/var/www/xtools/tcpdf");
+define("TC_PDF", X_TOOLS."/tcpdf");
 
 $pth = get_include_path();
-$xxx = set_include_path($pth.PATH_SEPARATOR.TCPDF);
+$xxx = set_include_path($pth.PATH_SEPARATOR.TC_PDF);
 
 // ***********************************************************
 // load constants

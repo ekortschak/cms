@@ -38,7 +38,8 @@ public static function norm($fso) { // $fso => dir or file
 	if (! $fso) return "";
     if (FSO::isUrl($fso)) return $fso;
 
-	if (STR::begins($fso, CUR_DIR)) $fso = PGE::path($fso);
+	if (STR::begins($fso, CUR_DIR)) // CUR_DIR = ./
+	$fso = STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
 
     $sep = DIR_SEP;
 	$fso = strtr($fso, DIRECTORY_SEPARATOR, $sep);
@@ -52,9 +53,9 @@ public static function trim($fso) { // $fso => dir or file
 	return STR::trim($fso, DIR_SEP);
 }
 
-public static function level($fso) {
+public static function level($fso, $ofs = 0) {
 	$fso = FSO::trim($fso);
-	return STR::count($fso, DIR_SEP) + 1;
+	return STR::count($fso, DIR_SEP) - $ofs + 1;
 }
 
 // ***********************************************************
@@ -320,6 +321,7 @@ public static function toggleVis($fso, $value = "toggle") {
 }
 
 public static function isHidden($fso) {
+	if (! $fso) return true;
 	return STR::contains($fso, DIR_SEP.HIDE);
 }
 

@@ -31,7 +31,7 @@ public function sample($file, $head = "") {
 	$this->gc($file, "code", $head);
 }
 public function gc($fil, $sec = "main", $head = "") {
-	$cod = $this->getContent($fil);
+	$cod = $this->read($fil);
 
 	$htm = new tpl();
 	$htm->load("other/codeSnip.tpl");
@@ -43,7 +43,7 @@ public function gc($fil, $sec = "main", $head = "") {
 }
 
 public function text($file, $head = "") {
-	$cod = $this->getContent($fil);
+	$cod = $this->read($fil);
 
 	$htm = new tpl();
 	$htm->load("other/codeSnip.tpl");
@@ -84,7 +84,7 @@ public function markPHP($text) {
 	return $out;
 }
 
-private function getContent($fil) {
+private function read($fil) {
 	$fil = PGE::path($fil);
 
 	$cod = file_get_contents($fil);

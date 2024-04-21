@@ -28,7 +28,7 @@ function __construct($file = "") {
 // ***********************************************************
 // setting & retrieving info
 // ***********************************************************
-public function getContent() {
+public function load() {
 	$this->txt = file_get_contents($this->file);
 	return $this->txt;
 }

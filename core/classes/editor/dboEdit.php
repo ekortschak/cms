@@ -90,7 +90,7 @@ private function readDef() {
 
 	$ini = new ini($fil);
 	$this->secs = $ini->getSecs();
-	$this->vals = $ini->getValues();
+	$this->vals = $ini->values();
 }
 
 // ***********************************************************

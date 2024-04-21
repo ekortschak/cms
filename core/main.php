@@ -4,38 +4,24 @@ session_start();
 
 require_once "include/fallback.php";
 require_once "include/funcs.php";
+require_once "include/SYS.php";
 
 // ***********************************************************
-// get context
+// define context
 // ***********************************************************
-$tbs = appVar("tabset", "default");
-$mod = appVar("vmode", "view");
-$dbg = appVar("debug", false);
+$tbs = SYS::get("tabset", "default");
+$mod = SYS::get("vmode", "view");
+$dbg = SYS::get("debug");
 
 if ($tbs !== "config") $tbs = "default";
 
-define("TAB_SET", $tbs); if (! defined("CSS_URL"))
-define("CSS_URL", "x.css.php");
+define("TAB_SET", $tbs);
 define("DEBUG", $dbg);
 
 // ***********************************************************
 // determine include file
 // ***********************************************************
-$inc = $mod;
-
-switch ($mod) {
-	case "pedit": case "medit": case "xedit": case "tedit": case "sedit":
-	case "xlate": case "xfer":  case "seo":
-		$inc = "x.edit"; break;
-
-	case "pres": break;
-
-	default: $inc = "index";
-}
-
-// ***********************************************************
-// act according to vmode
-// ***********************************************************
-appInclude("core/$inc.php");
+$fil = SYS::startFile($mod);
+include_once $fil;
 
 ?>

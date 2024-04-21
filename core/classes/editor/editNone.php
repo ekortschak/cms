@@ -20,6 +20,7 @@ class editNone extends editText  {
 
 function __construct() {
 	parent::__construct();
+	DBG::cls(__CLASS__);
 
 	$this->load("editor/edit.none.tpl");
 }
@@ -28,13 +29,11 @@ function __construct() {
 // methods
 // ***********************************************************
 public function edit() {
-	$ini = new ini(PGE::$dir);
-	$uid = $ini->getUID();
-	$typ = $ini->getType("props.typ");
-	$trg = $ini->getReDir();
+	$dir = PGE::get("pfs.fpath");
+	$trg = PGE::get("props_red.trg");
+	$typ = PGE::type($dir);
 
 	$this->set("type", $typ);
-	$this->set("target", $trg);
 
 	switch ($typ) {
 		case "red": return $this->redir($trg);
@@ -44,9 +43,9 @@ public function edit() {
 
 public function redir($trg) {
 	if (! $trg) return;
-	$url = APP::link($trg);
 
-	$this->set("source", $url);
+	$this->set("source", APP::link($trg));
+	$this->set("target", $trg);
 	$this->show("redirect");
 }
 

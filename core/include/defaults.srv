@@ -1,6 +1,6 @@
 [networking]
 FTP_MODE =   0
 
-CMS_URL = https://cms.glaubeistmehr.at/
+CMS_URL = /cms
 CK4_URL = https://cdn.ckeditor.com/4.16.0/standard
 CK5_URL = https://cdn.ckeditor.com/ckeditor5/24.0.0/classic

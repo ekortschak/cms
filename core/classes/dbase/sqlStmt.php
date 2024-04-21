@@ -33,7 +33,7 @@ public function __construct($dbtype) {
 	$ini->read("dbase/syntax/$typ/ddl.ini");
 	$ini->read("dbase/syntax/$typ/def.ini");
 
-	$this->merge($ini->getValues());
+	$this->merge($ini->values());
 	$this->setMasks();
 }
 

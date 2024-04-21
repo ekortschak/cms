@@ -55,7 +55,7 @@ public function rowFormat() {
 	return "line";
 }
 
-public function getTitle() {
+public function title() {
 	$typ = $this->getType();
 	return $this->getSection("sec.$typ");
 }

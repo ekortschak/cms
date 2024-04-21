@@ -18,6 +18,12 @@ class PGE {
 	private static $typ = "inc";   // current page type
 	private static $trg = "";      // redirection directory
 
+	private static $pgs = 1;       // printed pages
+	private static $skp = "";      // skip printing
+
+	private static $toc = array(); // list of toc entries
+	private static $nts = array(); // list of footnotes
+
 
 public static function init() {
 	PGE::$top = PGE::$dir = ENV::getPage();
@@ -35,30 +41,31 @@ public static function isCurrent($dir) {
 }
 
 public static function path($fso) {
-	if (is_dir($fso)) return $fso;
-	if (STR::begins($fso, CUR_DIR)) // CUR_DIR = ./
-	return STR::replace($fso, CUR_DIR, PGE::dir().DIR_SEP);
-	return APP::dir($fso);
+	$fso = FSO::norm($fso);
+	$out = APP::dir($fso); if ($out) return $out;
+	return APP::file($fso);
 }
 
 // ***********************************************************
 // loading page props
 // ***********************************************************
-public static function load($dir) {
+public static function load($dir = NV) {
+	if ($dir === NV) $dir = PFS::get(NV, "fpath");
+	if (! is_dir($dir)) return;
+
 	ENV::set("curDir", $dir);
-	PGE::$inf = array(); if (! is_dir($dir)) return;
 	PGE::$dir = $dir;
+	PGE::$inf = array();
 
+ // retrieve ini-props
 	$ini = new ini($dir); // = $dir/page.ini
-	PGE::$typ = $ini->getType();
-	PGE::$inf = $ini->getValues();
+	PGE::$typ = $ini->type();
+	PGE::$inf = $ini->values();
 
-	PGE::set("title", $ini->getHead());
-}
+	PGE::set("title", $ini->head());
 
-public static function loadPFS($dir = NV) {
-	$uid = PFS::find($dir);
-	$inf = PFS::item($uid);
+ // retrieve PFS-props as well
+	$inf = PFS::item($dir);
 
 	foreach ($inf as $key => $val) {
 		PGE::$inf["pfs.$key"] = $val;
@@ -86,8 +93,7 @@ public static function dir() {
 
 public static function level() {
 	$loc = PGE::$dir;
-	$dir = STR::after($loc, TAB_HOME); if (! $dir) return false;
-	return FSO::level($dir);
+	return PGE::get("pfs.level");
 }
 public static function props($sec = "") {
 	return VEC::match(PGE::$inf, $sec);
@@ -97,14 +103,19 @@ public static function pic($dir = false) {
 	if (! $dir) $dir = PGE::dir();
 
 	$pic = FSO::files($dir, "pic.*"); $pic = key($pic);
-	return APP::url($pic);
+	$pic = APP::url($pic); if (! $pic) return;
+
+	switch (VMODE) {
+		case "xsite": HTW::thumbR($pic); break;
+		default:      HTW::img($pic);
+	}
 }
 
 public static function page() {
-	$kap = PFS::get(NV, "chnum");
+	$key = PGE::get("pfs.chnum");
 
 	$ini = new ini("files/toc.ini");
-	return $ini->get("pagenums.$kap", "-");
+	return $ini->get("toc.$key", "-");
 }
 
 // ***********************************************************
@@ -116,8 +127,11 @@ public static function incFile() {
 	if ($act == "roo") return "include.php";  // default mode
 	if ($act == "inc") return "include.php";  // default mode
 	if ($act == "cha") return "chapter.php";  // collection of chapters
-	if ($act == "col") return "collect.php";  // collection of files in separate dirs
 
+	if ($act == "col") {
+		if (VMODE == "xsite") return "include.php";
+		return "collect.php";  // collection of files in separate dirs
+	}
 	if ($act == "mim") return "mimeview.php"; // show files
 	if ($act == "dow") return "download.php"; // download
 	if ($act == "gal") return "gallery.php";  // show files
@@ -128,11 +142,8 @@ public static function incFile() {
 
 	if ($act == "dbt") return "dbtable.php";  // database table
 	if ($act == "cal") return "calpage.php";  // calender page
+	if ($act == "red") return "redirect.php"; // internal redirection
 
-	if ($act == "red") { // internal redirection
-		$trg = PGE::dir();
-		$act = PGE::type($trg);
-	}
 	return "invalid.php";
 }
 
@@ -144,7 +155,7 @@ public static function hasXs($dir) {
 
 	$ini = new code();
 	$xxx = $ini->readPath($dir, "perms.ini"); // inherit settings
-	$arr = $ini->getValues("perms"); if (! $arr) return "r";
+	$arr = $ini->values("perms"); if (! $arr) return "r";
 
 	$prm = VEC::get($arr, "*", "x");
 	$prm = VEC::get($arr, CUR_USER, $prm);
@@ -159,14 +170,18 @@ public static function hasXs($dir) {
 // ***********************************************************
 public static function UID($fso = false) {
 	if (! $fso) return PGE::get("props.uid");
-	return PGE::prop($fso, "getUID");
+	return PGE::prop($fso, "UID");
 }
 public static function type($fso = false) {
-	return PGE::prop($fso, "getType", "inc");
+	return PGE::prop($fso, "type", "inc");
 }
 public static function title($fso = false) {
-	if (! $fso) return PGE::get("title");
-	return PGE::prop($fso, "getHead");
+	if ($fso) return PGE::prop($fso, "head");
+
+	$prp = "title"; if (VMODE == "xsite")
+	$prp = "pfs.chap";
+
+	return PGE::get($prp);
 }
 
 // ***********************************************************
@@ -174,6 +189,91 @@ private static function prop($fso, $fnc, $prm = false) {
 	if (! $fso) $fso = PGE::dir();
 	$ini = new ini($fso);
 	return $ini->$fnc($prm);
+}
+
+// ***********************************************************
+// specials
+// ***********************************************************
+public static function pbreak() {
+	if (VMODE != "xsite") return;
+	if (PGE::$pgs++  < 2) return; // never on first page
+
+	if (! PGE::get(CUR_LANG.".pbreak")) return;
+
+	echo PAGE_BREAK;
+}
+
+public static function skip() {
+	if (VMODE != "xsite") return false;
+
+	$dir = PGE::get("pfs.vpath");
+
+	if (PGE::get("props.noprint")) {
+		PGE::$skp = $dir;
+		return true;
+	}
+	if (PGE::$skp) { // skip subfolders as well
+		if (STR::begins($dir, PGE::$skp)) return true;
+	}
+	PGE::$skp = "";
+	return false;
+}
+
+private static function symbol($cap, $lev, $col) {
+	if ($col == 2) {
+		$out = end(explode(".", $cap)) + 96;
+		return chr($out).")";
+	}
+	if ($lev <  1) return "";
+	if ($lev == 6) return "&bull;";
+	if ($lev == 7) return "&#9702;";
+	if ($lev == 8) return "§";
+	if ($lev == 9) return "+";
+	if ($lev  > 9) return "-";
+
+	return $cap;
+}
+
+// ***********************************************************
+// handling toc
+// ***********************************************************
+public static function getToC() {
+	return PGE::$toc;
+}
+
+public static function addToc($max = 2) {
+	$lev = PGE::level(); if ($lev > $max) return;
+	$key = PGE::get("pfs.chnum");
+	$cap = PGE::get("pfs.chap");
+
+	PGE::$toc[$key] = "$lev:$cap";
+}
+
+// ***********************************************************
+// handling footnotes
+// ***********************************************************
+public static function getNotes() {
+	return PGE::$nts;
+}
+
+public static function getIndex($key, $val) {
+	$out = VEC::get(PGE::$nts, $key); if ($out) return $out;
+
+	PGE::$nts[$key] = $val;
+	return count(PGE::$nts);
+}
+
+// ***********************************************************
+// transformations
+// ***********************************************************
+public static function convHeads($htm) {
+	$htm = STR::replace($htm, "h1>", "hx>");
+	$htm = STR::replace($htm, "h2>", "hx>");
+	$htm = STR::replace($htm, "h3>", "hx>");
+	$htm = STR::replace($htm, "h4>", "hx>");
+	$htm = STR::replace($htm, "h5>", "hy>");
+	$htm = STR::replace($htm, "h6>", "hz>");
+	return $htm;
 }
 
 // ***********************************************************

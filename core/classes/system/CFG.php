@@ -168,7 +168,7 @@ public static function apply($text) {
 // protect constant definitions (e.g. ini files)
 		$out = preg_replace("~\n$key(\s?)=(\s?)~", "\n$msk = ", $out);
 // protect masked/escaped constants (preceeded by "\");
-		$out = STR::replace($out, "\\$key", $msk);
+		$out = STR::replace($out, "\\$key", "\\$msk");
 // substitute remaining constants by their values
 		$out = preg_replace("~\b$key\b~", $val, $out);
 // restore protected constants
@@ -236,9 +236,10 @@ public static function constants($sec = "user") {
 	return $out;
 }
 
-public static function constant($key, $default = "") {
-	if (! defined($key)) return $default;
-	return constant($key);
+public static function constant($key, $default = false) {
+	return false;
+#	if (! defined($key)) return $default;
+#	return constant($key);
 }
 
 // ***********************************************************

@@ -1,11 +1,14 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+// check if applicable
+// ***********************************************************
 if (! IS_LOCAL) return; // this excludes SEARCH_BOT as well
 
 $xxx = TMR::total("total");
 $arr = TMR::get(); if (! $arr) return;
-
-DBG::file(__FILE__);
 
 // ***********************************************************
 HTW::xtag("timer", 'div class="h4"');

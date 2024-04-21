@@ -2,9 +2,10 @@
 
 DBG::file(__FILE__);
 
-// ***********************************************************
+if (VMODE == "xsite") return;
+
 $loc = PGE::$dir;
-$arr = PFS::sibs($loc);
+$arr = PFS::subtree($loc);
 
 // ***********************************************************
 // show default sitemap message

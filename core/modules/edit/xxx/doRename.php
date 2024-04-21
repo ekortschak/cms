@@ -26,7 +26,6 @@ $arr = FSO::fTree($dir, $fnd);
 $ttl = count($arr);
 $cnt = 0;
 
-HTM::lf();
 echo "<small><table>\n";
 
 // ***********************************************************
@@ -44,9 +43,7 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</table></small>\n";
-HTM::lf();
 echo "&nbsp; Renamed: $cnt/$ttl files\n";
-HTM::lf();
 
 ?>
 

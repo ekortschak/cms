@@ -98,7 +98,7 @@ private function tabSort() {
 	$lst = STR::split($lst, ";");
 
 	$edt = new tabEdit("config/tabsets.ini");
-	$vls = $edt->getValues($set);
+	$vls = $edt->values($set);
 	$out = array();
 
 	foreach ($lst as $itm) {
@@ -151,7 +151,7 @@ private function pngTab() { // create tab pics
 		incCls("files/img.php");
 
 		$ini = new iniTab(TAB_ROOT);
-		$tit = $ini->getTitle($lng);
+		$tit = $ini->title($lng);
 
 		$img = new img();
 		$img->create($tit);

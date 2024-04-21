@@ -2,7 +2,7 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
-used to create QR-Codes
+used to create QR-Codes using an online service
 
 // ***********************************************************
 // HOW TO USE
@@ -10,8 +10,8 @@ used to create QR-Codes
 incCls("other/qrCode.php");
 
 $qrc = new qrCode();
-$qrc = $qrc->url($anyurl);
 
+$qrc->url($anyurl);
 $qrc->save($dir, $spec);
 $qrc->send();
 

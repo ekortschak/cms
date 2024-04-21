@@ -4,13 +4,14 @@ if (PFS::isStatic()) {
 	return MSG::now("mnu.static");
 }
 
-$loc = PGE::$dir;
-
 // ***********************************************************
 // set state
 // ***********************************************************
-$lev =  PGE::level($loc);
-$sts = (FSO::isHidden($loc)) ? "on" : "off";
+$loc = PGE::$dir;
+$lev = PGE::level($loc);
+
+$sts = "off"; if (FSO::isHidden($loc))
+$sts = "on";
 
 // ***********************************************************
 // show options

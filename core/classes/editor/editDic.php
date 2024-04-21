@@ -17,7 +17,10 @@ incCls("editor/editText.php");
 // ***********************************************************
 class editDic extends editText  {
 
-function __construct() {}
+function __construct() {
+	parent::__construct();
+	DBG::cls(__CLASS__);
+}
 
 // ***********************************************************
 // methods
@@ -25,8 +28,8 @@ function __construct() {}
 public function edit() {
 	incCls("editor/dicEdit.php");
 
-	$dic = new dicEdit();
-	$dic->edit($this->file);
+	$edi = new dicEdit();
+	$edi->edit($this->file);
 }
 
 // ***********************************************************

@@ -18,7 +18,7 @@ ENV::set("Font", $fnt);
 // find tabsets
 // ***********************************************************
 $ini = new iniTab(TAB_ROOT);
-$tit = $ini->getTitle();
+$tit = $ini->title();
 
 HTW::tag("Tab = $tit");
 

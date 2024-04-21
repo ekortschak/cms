@@ -24,8 +24,8 @@ class string2num {
 
 function __construct() {
 	$ini = new ini("files/num.ini");
-	$this->card = $ini->getValues("card");
-	$this->ord  = $ini->getValues("ord");
+	$this->card = $ini->values("card");
+	$this->ord  = $ini->values("ord");
 }
 
 // ***********************************************************

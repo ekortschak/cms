@@ -42,10 +42,8 @@ public static function snip($file, $head = "") {
 public static function csv($file, $sep = ";", $wid = "100%") {
 	incCls("tables/csv_table.php");
 
-	$fil = PGE::path($file);
-
 	$csv = new csv_table();
-	$csv->load($fil, $sep);
+	$csv->load($file, $sep);
 	$csv->show();
 }
 
@@ -91,7 +89,7 @@ public static function img($file) {
 }
 
 private static function doImage($sec, $link = "") {
-	if (VMODE == "xsite") return HTW::thumbR($link);
+	if (VMODE == "xsite") return HTW::thumbRH($link);
 
 	HTW::$tpl->set("file", PGE::path($link));
 	HTW::$tpl->show($sec);

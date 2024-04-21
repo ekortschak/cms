@@ -20,7 +20,7 @@ link = notyet
 [img.std]
 <div style="margin: 0px 0px 7px;">
 	<a href="<!VAR:file!>">
-		<img src="<!VAR:file!>" width="100%">
+		<img class="full" src="<!VAR:file!>">
 	</a>
 </div>
 

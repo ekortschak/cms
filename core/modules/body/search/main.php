@@ -23,9 +23,9 @@ $hlp = ENV::get("search.help", 0);
 incCls("search/search.php");
 
 $obj = new search();
-$opt = $obj->getScope();
+$opt = $obj->scope();
 $fnd = $obj->findWhat();
-$lst = $obj->getResults($fnd);
+$lst = $obj->results($fnd);
 
 $tpl = new tpl();
 $tpl->load("modules/search.tpl");

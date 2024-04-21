@@ -122,7 +122,7 @@ public function pages($dir, $parm = "pic.file", $selected = false) {
 
 	foreach ($arr as $dir => $nam) {
 		$ini = new ini($dir);
-		$arr[$dir] = $ini->getHead();
+		$arr[$dir] = $ini->head();
 	}
 	return $this->getKey($parm, $arr, $selected);
 }
@@ -150,10 +150,8 @@ public function gc($sec = "main") {
 	if (! $this->isSec($sec)) $sec = "main";
 	if (! $this->data) $sec = "empty";
 
-	$out = $this->collect($sec); if (! $out)
-	$out = "&nbsp;";
-
-	$this->set("items", $out);
+	$out = $this->collect($sec);
+	$xxx = $this->set("items", $out);
     return $this->getSection($sec);
 }
 
@@ -172,6 +170,7 @@ protected function collect($sec) {
 			case "cmb": $out.= $this->getCombo($sec, $dat); break;
 		}
     }
+	if (! $out) return "&nbsp;";
     return $out;
 }
 

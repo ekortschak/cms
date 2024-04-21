@@ -1,8 +1,8 @@
 <?php
 
-incCls("menus/dropBox.php");
-
 DBG::file(__FILE__);
+
+incCls("menus/dropBox.php");
 
 // ***********************************************************
 // find tabs

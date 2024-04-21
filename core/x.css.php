@@ -6,9 +6,10 @@
 require_once "include/fallback.php";
 require_once "include/internals.php";
 require_once "include/funcs.php";
+require_once "include/SYS.php";
 
-define("SSHEET", appVar("style", "1.75rem"));
-define("P_SIZE", appVar("fsize", "1.75rem"));
+define("SSHEET", SYS::get("style", "1.75rem"));
+define("P_SIZE", SYS::get("fsize", "1.75rem"));
 
 // ***********************************************************
 // load basic classes (mostly static)

@@ -1,9 +1,11 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
 incCls("menus/buttons.php");
 
 HTW::xtag("replicator", "div class='h3'");
-DBG::file(__FILE__);
 
 // ***********************************************************
 $nav = new buttons("xfer", "B", __DIR__);

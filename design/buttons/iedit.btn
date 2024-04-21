@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/buttons/edit.png
+url = ?vmode=iedit
+hilite = \VMODE == "iedit"
+
+[de]
+caption =
+tooltip = Wechselt zum Index-Editor.
+
+[en]
+caption =
+tooltip = Switches to index editor mode.

@@ -56,8 +56,8 @@ public function readRef() {
 
 private function loadIni($fil) {
 	$ini = new ini($fil);
-	$arr = $ini->getValues("data"); if (! $arr) return;
- 	$prp = $ini->getValues("props");
+	$arr = $ini->values("data"); if (! $arr) return;
+ 	$prp = $ini->values("props");
 
  	$arr = VEC::sort($arr, "krsort"); // longest first
 	$set = FSO::name($fil);

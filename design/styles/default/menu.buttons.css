@@ -10,8 +10,12 @@
 .btnbar {
 	background: linear-gradient(-1deg, #A2EA31, forestgreen 70%);
 	padding: 1px 6px 1px;
-	margin-bottom: 2px;
+	margin-bottom: 9px;
 	border-radius: BR_INP;
+}
+
+.btnbar + .dropdown {
+	margin-bottom: 2px;
 }
 
 /* ******************************************************** */

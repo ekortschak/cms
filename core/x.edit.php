@@ -6,8 +6,9 @@
 include_once "include/load.err.php";
 include_once "include/load.min.php";
 include_once "include/load.more.php";
+include_once "include/load.dbs.php";
 
-requireAdmin();
+SYS::forceAdmin();
 
 // ***********************************************************
 // setting VMODE

@@ -19,8 +19,7 @@ class = dropMenu
 		<td class="nopad" width="*">
 			<div class="<!VAR:class!>"><!VAR:items!></div>
 		</td>
-		<td class="nopad" width=5></td>
-		<td class="nopad" width=26 align="center">
+		<td class="nopad" width=25 align="right">
 			<!SEC:nav!>
 		</td>
 	</tr>
@@ -39,11 +38,7 @@ class = dropMenu
 # ***********************************************************
 [nav]
 # ***********************************************************
-<div class="<!VAR:class!> droptext"> _
-<a style="color: white;" href="?vmode=abstract">?</a> _
-</div>
+<a href="?vmode=abstract"><img src="LOC_ICO/buttons/info.png"></a> _
 
 [nav.back]
-<div class="<!VAR:class!> droptext"> _
 <a href="?vmode=view"><img src="LOC_ICO/buttons/view.png"></a> _
-</div>

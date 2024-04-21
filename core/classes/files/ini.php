@@ -39,15 +39,15 @@ function __construct($fso) {
 // ***********************************************************
 // handling vars
 // ***********************************************************
-public function getVars() {
+public function vars() {
 	return $this->vrs;
 }
 
-public function getValues($sec = "") {
+public function values($sec = "") {
 	if ($sec) $sec = $this->langSec($sec);
 	if ($sec) if (! STR::ends($sec, ".")) $sec.= ".";
 
-	$out = parent::getValues($sec);
+	$out = parent::values($sec);
 
 	foreach ($out as $key => $val) {
 		$out[$key] = $this->chkValue($val);
@@ -99,7 +99,7 @@ protected function isSec($sec) {
 // ***********************************************************
 // handling UIDs
 // ***********************************************************
-public function getUID() {
+public function UID() {
  // uniqueness handled by PFS
 	$uid = $this->get("props.uid");
 	if ( ! $this->isDefault($uid)) return $uid;
@@ -114,33 +114,33 @@ private function isDefault($uid) {
 	return true;
 }
 private function getDefault() {
-	$uid = $this->getTitle(); if ($uid) return STR::camel($uid);
-	$uid = $this->getName();  if ($uid != "Config") return $uid;
+	$uid = $this->title(); if ($uid) return STR::camel($uid);
+	$uid = $this->name();  if ($uid != "Config") return $uid;
 	return "§".uniqid();
 }
 
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public function getDir()  { return $this->dir;  }
-public function getFile() {	return $this->file; }
+public function dir()  { return $this->dir;  }
+public function file() { return $this->file; }
 
-private function getName() {
+private function name() {
 	$out = basename($this->dir);
 	$out = PRG::clrDigits($out);
 	return ucfirst($out);
 }
 
-public function getReDir() {
+public function target() {
 	return $this->get("props_red.trg");
 }
 
 // ***********************************************************
-public function getTitle($lng = CUR_LANG) {
+public function title($lng = CUR_LANG) {
 	$tit = $this->langProp("title");
 	$out = $this->scrTitle($tit); if ($out) return $out;
 	$out = $this->chkTitle($tit); if ($out) return $out;
-	return $this->getName();
+	return $this->name();
 }
 
 private function chkTitle($txt) {
@@ -156,14 +156,14 @@ private function scrTitle($txt) {
 }
 
 // ***********************************************************
-public function getHead($lng = CUR_LANG) {
+public function head($lng = CUR_LANG) {
 	$out = $this->lng("head");
 	$out = STR::clear($out, "GET_HEAD"); if ($out) return $out;
-	return $this->getTitle($lng);
+	return $this->title($lng);
 }
 
 // ***********************************************************
-public function getType($default = "inc") {
+public function type($default = "inc") {
 	$out = $this->get("props.typ", $default);
 	return STR::left($out, 3);
 }
@@ -180,7 +180,7 @@ public function read($file) {
 	$this->mergex($this->sec, $cod->getSecs()); if (! $this->sealed)
 	$this->mergex($this->typ, $cod->getTypes());
 	$this->mergex($this->vrs, $cod->getVars());
-	$this->mergex($this->vls, $cod->getValues());
+	$this->mergex($this->vls, $cod->values());
 }
 
 protected function mergex(&$dst, $arr) {
@@ -197,20 +197,20 @@ public function validTypes() {
 	$ini = new ini("LOC_CFG/ptypes.def");
 	$par = $this->parentType(); if (! $par) $par = "default";
 	$par = $this->findSec($par, "default");
-	return $ini->getValues($par);
+	return $ini->values($par);
 }
 
 public function parentType() {
 	$dir = dirname($this->dir);
 	$ini = new ini($dir);
-	return $ini->getType();
+	return $ini->type();
 }
 
 public function chkValue($val, $sec = NV) {
-	if ($val == "GET_UID")    return $this->getUID();
-	if ($val == "GET_TITLE")  return $this->getTitle($sec);
-	if ($val == "GET_HEAD")   return $this->getHead($sec);
-	if ($val == "DIR_NAME")   return $this->getName();
+	if ($val == "GET_UID")    return $this->UID();
+	if ($val == "GET_TITLE")  return $this->title($sec);
+	if ($val == "GET_HEAD")   return $this->head($sec);
+	if ($val == "DIR_NAME")   return $this->name();
 
 	if ($val == "NODE_TYPES") return "include";
 

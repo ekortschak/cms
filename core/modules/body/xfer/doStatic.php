@@ -1,34 +1,12 @@
 <?php
 
 incCls("input/confirm.php");
-incCls("input/qikOption.php");
-incCls("editor/xform.php");
+incCls("editor/statfs.php");
 
 // ***********************************************************
-$xfm = new xform(3);
-$dir = $xfm->getDir();
-$idx = $xfm->isPage();
-
-if ($idx) {
-	$url = APP::url($idx);
-	$msg = DIC::get("static.show");
-
-	$lnk = HTM::href($url, $msg, "static");
-	echo "<hr>$lnk<hr>";
-}
-else {
-	$msg = DIC::get("static.none");
-	echo "<hr>$msg<hr>";
-}
-
-// ***********************************************************
-// options
-// ***********************************************************
-$qik = new qikOption();
-$dbg = $qik->getVal("opt.debug", 1);
-$prv = $qik->gc();
-
+$xfm = new statfs(3);
 $dst = $xfm->getDir();
+$xxx = $xfm->status();
 
 // ***********************************************************
 // ask for confirmation
@@ -36,14 +14,11 @@ $dst = $xfm->getDir();
 $msg = DIC::get("static.create");
 
 $cnf = new confirm();
-$cnf->head($msg);
 $cnf->dic("from", PGE::$dir);
 $cnf->add("&rarr; $dst");
-$cnf->add("<hr>");
-$cnf->add($prv);
 $cnf->show();
 
-if (!$cnf->act()) return;
+if (! $cnf->act()) return;
 
 // ***********************************************************
 // create static files

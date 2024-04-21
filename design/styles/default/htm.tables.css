@@ -2,12 +2,9 @@
 /* table styles */
 /* ******************************************************** */
 table {
-	margin: 0px 0px 1em;
+	margin: 0px 0px 1rem;
 	border-spacing: 0px;
 	border-collapse: collapse;
-
-	font-size: 1em;
-	font-weight: normal;
 }
 
 /* ******************************************************** */

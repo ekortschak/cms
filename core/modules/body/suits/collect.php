@@ -6,7 +6,7 @@ DBG::file(__FILE__);
 
 // ***********************************************************
 $loc = PGE::$dir;
-$arr = PFS::sibs($loc);
+$arr = PFS::subtree($loc);
 
 if (count($arr) < 1) {
 	return MSG::now("no.subfolders");
@@ -41,6 +41,10 @@ $tpl = new tpl();
 $tpl->load("pages/collect.tpl");
 $tpl->set("text", $htm);
 $tpl->set("head", $tit);
+
+#if (VMODE == "xsite") {
+#	$tpl->substitute("pic", "thumb");
+#}
 
 switch ($pic) {
 	case true: $tpl->set("pic", $pic); break;

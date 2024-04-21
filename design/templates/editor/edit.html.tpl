@@ -1,6 +1,5 @@
 [include]
 LOC_TPL/editor/edit.tpl
-LOC_TPL/editor/toolbar.tpl
 
 [register]
 LOC_SCR/keyEvents.js
@@ -15,27 +14,11 @@ rows = 40
 [toolbar]
 # ***********************************************************
 <div class="toolbar flex">
-	<div>
-		<!SEC:edit!>
-		<!SEC:characters!>
-	</div>
-	<div>
-		<!SEC:formatting!>
-		<!SEC:addLFs!>
-	</div>
-	<div>
-		<!SEC:listings!>
-		<!SEC:tables!>
-		<!SEC:images!>
-		<!SEC:links!>
-	</div>
-	<div>
-		<!SEC:addSnips!>
-	</div>
-	<div>
-		<!SEC:switch.htm!>
-		<!SEC:item.view!>
-	</div>
+	<div><!SEC:edit!> <!SEC:characters!> </div>
+	<div><!SEC:formatting!> <!SEC:addLFs!> </div>
+	<div><!SEC:listings!> <!SEC:tables!> <!SEC:images!> <!SEC:links!> </div>
+	<div><!SEC:addSnips!></div>
+	<div><!SEC:switch.htm!> <!SEC:item.view!></div>
 </div>
 
 # ***********************************************************

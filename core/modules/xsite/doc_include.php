@@ -1,17 +1,24 @@
 <?php
 
-$loc = PGE::dir(); if (! $loc) return;
-#$loc = PGE::$dir; if (! $loc) return;
+$lev = PGE::level();
 
-if (FSO::isHidden($loc)) return;
+$siz = 25; if ($lev > 1)
+$siz = 15; if ($lev > 2)
+$siz = 10; if ($lev > 3)
+$siz = 7;
+
+#<section style="clear: both; margin-bottom: <?php echo $siz; ? >px;">
+?>
+<section style="clear: both;">
+<?php
+
+PGE::pic();
 
 // ***********************************************************
-// show item as default chapter
+// create output
 // ***********************************************************
-incCls("xsite/chapter.php");
-
-$kap = new chapter();
-$kap->init($loc);
-$kap->show();
+include "core/modules/body/head/main.php";
+include "core/modules/body/main.php";
 
 ?>
+</section>

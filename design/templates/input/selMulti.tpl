@@ -30,7 +30,7 @@ cls = ms
 # ***********************************************************
 <tr class="toolbar">
 	<td><img src="LOC_ICO/nav/toggle.gif" onClick="toggleCB('<!VAR:cls!>');"></td>
-	<td nowrap style="min-width: 150px;"><div class="cbtext"><small><!DIC:multi!></div></small></td>
+	<td nowrap style="min-width: 150px;"><small><!DIC:multi!></small></td>
 </tr>
 
 
@@ -38,7 +38,7 @@ cls = ms
 [input.mul]
 # ***********************************************************
 <tr>
-<td style="padding-left: 8px;"> # TODO: why not aligned with heading without additional padding
+<td style="padding-left: 8px;">
 	<input type="hidden"   name="<!VAR:fname!>[<!VAR:key!>]" value=0>
 	<input type="checkbox" name="<!VAR:fname!>[<!VAR:key!>]" value=1 <!VAR:checked!> class="<!VAR:cls!>">
 </td>

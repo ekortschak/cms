@@ -28,6 +28,7 @@ replicator = Seiten übertragen
 # ***********************************************************
 <div class="h3"><!DIC:replicator!></div>
 <!MOD:toc/topics!>
+<!MOD:toc/current!>
 <!MOD:toc/xfer!>
 
 # ***********************************************************

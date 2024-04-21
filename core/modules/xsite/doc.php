@@ -1,7 +1,8 @@
 <?php
-# collect sub pages for printable output
 
-incCls("xsite/chapter.php");
+if (PGE::skip()) return;
+
+PGE::pbreak();
 
 // ***********************************************************
 // check include file

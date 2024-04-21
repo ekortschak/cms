@@ -9,11 +9,11 @@ tstatus = BOOL_NO
 <!SEC:notpl!>
 
 [notpl]
-<div class="dropdown pre"><img src="LOC_ICO/buttons/file.missing.png" alt="load error"> <!VAR:tplfile!>COMBO_DOWN _
-<div class="dropbody">_
-BOOL_NO Section: <!VAR:section!> <hr><!VAR:history!> _
-</div> _
+<pre>
+<div class="dropdown"><img src="LOC_ICO/buttons/file.missing.png" alt="load error"> <!VAR:tplfile!>COMBO_DOWN
+<div class="dropbody"><!SEC:missing!><!VAR:history!></div>
 </div>
+</pre>
 
 # ***********************************************************
 [tplitem.1]
@@ -23,16 +23,11 @@ BOOL_NO Section: <!VAR:section!> <hr><!VAR:history!> _
 [tplitem.0]
 <div><red><!VAR:tplitem!></red></div>
 
+[missing]
+<div style="padding-left: 5px;"><b>Section</b> <!VAR:section!> &rarr; BOOL_NO</div>_
+<hr class="low">_
+
 # ***********************************************************
 [oid]
 # ***********************************************************
 <input type="hidden" name="oid" value="<!VAR:oid!>">
-
-# ***********************************************************
-[debug]
-# ***********************************************************
-<div class="dropdown pre head">&spades; <!VAR:tplfile!>COMBO_DOWN _
-<div class="dropbody"> _
-<!VAR:tstatus!> Section: <!VAR:section!> <hr><!VAR:history!> _
-</div> _
-</div>

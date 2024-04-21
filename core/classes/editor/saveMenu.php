@@ -247,7 +247,7 @@ private function pageProps($dir) { // change uid, display type
 	$ini->read($dir);
 	$ini->savePost();
 
-	ENV::setPage($ini->getUID());
+	ENV::setPage($ini->UID());
 	return true;
 }
 
@@ -257,7 +257,7 @@ private function pageDefault($dir) { // mark node as default
 
 	$ini = new iniWriter(); // update page.ini - if necessary
 	$xxx = $ini->read($dir);
-	$uid = $ini->getUID();
+	$uid = $ini->UID();
 	$xxx = $ini->set("uid", $uid);
 	$ini->save();
 

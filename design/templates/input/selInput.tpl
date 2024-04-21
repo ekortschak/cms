@@ -94,7 +94,7 @@ type = */*
 <div style="position: relative; width: 300px;">
 <input type="hidden"   name="<!VAR:fname!>" value=0 />
 <input type="checkbox" name="<!VAR:fname!>" value=1 id="<!VAR:fname!>" <!VAR:checked!> />
-<small style="position: absolute; top: 4px; display: inline-block;"><!VAR:choice!></small>
+<small style="position: absolute; top: 2px; display: inline-block;"><!VAR:choice!></small>
 </div>
 
 # ***********************************************************

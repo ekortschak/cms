@@ -22,7 +22,7 @@ class toc extends tpl {
 
 function __construct() {
 	parent::__construct();
- 	$this->load("menus/toc.view.tpl"); if (! PFS::isView())
+ 	$this->load("menus/toc.view.tpl"); if (! APP::isView())
 	$this->load("menus/toc.edit.tpl");
 }
 
@@ -33,16 +33,19 @@ public function setData($arr) { // $arr as from PFS::item();
 	$this->dat = $arr;
 }
 
+private function getData() {
+	$arr = $this->dat; if ($arr) return $arr;
+	return PFS::toc();
+}
+
 // ***********************************************************
 // display functions
 // ***********************************************************
 public function gc($sec = "main") {
-	$cur = PGE::$dir; $out = ""; $cnt = 0; $skp = false;
+	$cur = PGE::$dir; $out = ""; $cnt = 0;
+	$kap = PFS::get(NV, "chnum");
 
-	$arr = $this->dat; if (! $arr)
-	$arr = PFS::items();
-	$inf = PFS::item();
-	$kap = VEC::get($inf, "chnum");
+	$arr = $this->getData();
 
 	foreach ($arr as $inf) {
 		$this->merge($inf); extract($inf);
@@ -51,7 +54,8 @@ public function gc($sec = "main") {
 			if (STR::begins($vpath, $skp)) continue;
 			$skp = false;
 		}
-		$this->set("index",	 $cnt++);
+		$this->set("index", $cnt++);
+		$this->set("level", $level - 1);
 		$this->set("active", $state);
 
 		$this->set("sel", $this->isCurrent($kap, $chnum)); // highlighted
@@ -63,7 +67,7 @@ public function gc($sec = "main") {
 		$out.= $this->getSection($typ)."\n";
 
 		if ($dtype == "col")
-		if (PFS::isView()) $skp = $vpath;
+		if (APP::isView()) $skp = $vpath;
     }
     $this->set("items", $out);
     return parent::gc($sec);

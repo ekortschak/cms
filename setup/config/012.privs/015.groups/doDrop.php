@@ -13,8 +13,8 @@ if (! $mgr->cnfGroup("grp.drop")) return;
 // ***********************************************************
 // show choices
 // ***********************************************************
-$grp = $mgr->get("group");
-$arr = $mgr->getValues($grp);
+$grp = $mgr->info("group");
+$arr = $mgr->values($grp);
 $cnt = count($arr);
 
 MSG::now("grp.count", $cnt);

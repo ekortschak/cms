@@ -14,7 +14,7 @@ $oid = OID::register();
 $val = OID::set($oid, $key, $val);
 $val = OID::get($oid, $key, $default);
 
-$arr = OID::getValues();
+$arr = OID::values();
 
 */
 
@@ -71,7 +71,7 @@ public static function get($oid, $key, $default = false) {
 	$idx = STR::between($key,"[", "]");
 	$key = STR::before($key, "[");
 
-	$arr = OID::getValues($oid);           if (! $arr) return $default;
+	$arr = OID::values($oid);           if (! $arr) return $default;
 	$out = VEC::get($arr, $key, $default); if (! $idx) return $out;
 	return VEC::get($out, $idx, $default);
 }
@@ -95,11 +95,11 @@ public static function setIf($oid, $key, $value) {
 // ***********************************************************
 public static function getLast($oid = false) {
 	if (! $oid) $oid = ENV::getPost("oid");
- 	return OID::getValues($oid);
+ 	return OID::values($oid);
 }
 
 // ***********************************************************
-public static function getValues($oid) {
+public static function values($oid) {
  	return VEC::get(OID::$top, $oid);
 }
 

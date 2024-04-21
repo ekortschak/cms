@@ -55,7 +55,7 @@ rows = 7
 			<td class="selData"><!SEC:ctarea!></td>
 		</tr><tr>
 			<td class="selHead"><!DIC:step!> 4</td>
-			<td class="selData"><!DIC:xlate!>
+			<td class="selData" align="right">+
 				<input type="submit" name="act.xlate" value="<!DIC:apply!>" />
 			</td>
 		</tr><tr>

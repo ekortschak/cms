@@ -30,7 +30,7 @@ function __construct() {
 // ***********************************************************
 public function connect($ftp) {
 	$ini = new ini($ftp);
-	$vls = $ini->getValues(); $this->merge($vls);
+	$vls = $ini->values(); $this->merge($vls);
 	$prt = $ini->getSec("protect");
 	$pcl = $ini->get("web.pcl", "https");
 	$srv = $ini->get("web.url");
@@ -76,8 +76,8 @@ protected function query($act) {
 // check for protected files
 // **********************************************************
 protected function chkProtect($arr) {
-	$grd = $this->get("protect"); if (! $grd) return $arr;
-	$grd = VEC::explode($grd, "\n"); $out = array();
+	$grd = $this->values("protect"); if (! $grd) return $arr;
+	$grd = array_keys($grd); $out = array();
 	$obj = DiC::get("objects");
 	$chk = 0;
 

@@ -39,8 +39,13 @@ public function load($file) {
 }
 
 public function read($file) {
-	$fil = APP::file($file); if (! $fil) return false;
+	$fil = APP::file($file);
 
+	if (! $fil) {
+		$this->tplInfo("main", true);
+		$this->set("tplfile", CFG::encode($file));
+		return false;
+	}
 	$cod = new code();
 	$cod->read($fil);
 
@@ -147,8 +152,8 @@ public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
-	$out = $this->getTplInfo($sec);
-	$out.= $this->getSection($sec);
+	$xxx = $this->tplInfo($sec);
+	$out = $this->getSection($sec);
 	if (DEBUG)
 	$out = $this->addMarks($out);
 	return $out;
@@ -171,8 +176,8 @@ private function norm($sec) {
 // ***********************************************************
 // template call stack
 // ***********************************************************
-private function getTplInfo($sec) {
-	if (! DEBUG) return "";
+private function tplInfo($sec, $dbg = DEBUG) {
+	if (! $dbg) return "";
 
 	$lst = array_reverse($this->hst); $out = "";
 	$sts = $this->isSec($sec);
@@ -183,9 +188,9 @@ private function getTplInfo($sec) {
 		$xxx = $this->set("tplitem", $fil);
 		$out.= $this->getSection("tplitem.$val");
 	}
-#	$this->set("tstatus", $sts);
-	$this->set("section", $sec);
-#	$this->set("history", $out);
+	$this->set("tstatus",   $sts);
+	$this->set("section", "[$sec]");
+	$this->set("history",   $out);
 }
 
 // ***********************************************************

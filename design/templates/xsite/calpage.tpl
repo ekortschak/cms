@@ -1,8 +1,6 @@
 [include]
 LOC_TPL/xsite/main.tpl
 
-[vars]
-wid = 75
 
 # ***********************************************************
 [main]
@@ -11,17 +9,26 @@ wid = 75
 <div class="flex">
 
 <div>
-<!SEC:qrcode!>
-<!SEC:head!>
 <!SEC:text!>
 </div>
 
 <div style="margin-left: 25px;">
 <!VAR:month!>
+<!SEC:links!>
 </div>
 
 </div>
 </section>
 
-[qrcode]
-<img src="<!VAR:qr!>", align="right" width=<!VAR:wid!> style="margin: 0px 0px 5px 10px;" />
+# ***********************************************************
+[links]
+# ***********************************************************
+<div class="flex">
+<!VAR:links!>
+</div>
+
+[link]
+<div>
+<a href="<!VAR:href!>"><!VAR:caption!></a>
+<img src="<!VAR:qr!>" class="rgt">
+</div>

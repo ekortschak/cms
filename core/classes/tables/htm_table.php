@@ -107,7 +107,7 @@ public function gc($sec = "main") {
     $rcs = count($this->dat);
 
     if ($rcs < 1) {
-		$this->load("tables/empty.tpl");
+		parent::load("tables/empty.tpl");
 		$out = $this->getSection("main");
 		return "$out\n";
 	}

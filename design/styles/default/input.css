@@ -75,7 +75,7 @@ input[type='color'] { /* color input */
 /* ******************************************************** */
 input[type='checkbox'],
 input[type='radio'] {
-	margin-right: 0.5em;
+	margin: -4px 0.5em 0px 0px;
 	min-width: 1em;
 }
 
@@ -124,9 +124,4 @@ textarea.max {
 	margin: 3px 0px 5px;
 	padding: 0px 7px;
 	font-size: 0.85em;
-}
-
-.cbtext {
-	display: inline-block;
-	padding-top: 4px;
 }

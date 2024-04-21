@@ -15,16 +15,15 @@ $buk->read($dir);
 $buk->exec($dst, $opt);
 */
 
+incCls("editor/iniWriter.php");
+
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class bind extends objects {
 	private $dat = array();
 
-function __construct() {
-	$fil = FSO::join(TAB_HOME, "bind.ini");
-	$this->readIni($fil);
-}
+function __construct() {}
 
 // ***********************************************************
 // read all selected files
@@ -33,91 +32,53 @@ public function read($dir) {
 	$this->dat = PFS::items($dir);
 }
 
-public function exec($dst, $opt) {
-	$fnc = "get".ucfirst($opt); // ToC or Doc
-	$htm = $this->$fnc($dst);
+public function exec($dst, $mod) {
+	$htm = $this->content($mod);
+	$htm = $this->xform($htm, $mod);
+	$htm = CFG::apply($htm);
 
 	switch ($dst) {
-		case "fil": $this->write($htm, $opt); return $htm;
+		case "fil": $this->write($htm, $mod); return $htm;
 		case "pdf": $this->writePdf($htm);    return $htm;
 	}
 	echo $htm;
+
+	if ($mod == "toc") $this->writeIni();
 }
 
 // ***********************************************************
-// handling doc pages and footnotes
+// handling doc pages, toc and footnotes
 // ***********************************************************
-private function getDoc() {
-	$xxx = ob_start(); $this->doContent(); $this->doNotes();
-	return ob_get_clean();
-}
-
-// ***********************************************************
-private function doContent() {
-	$fil = FSO::join("LOC_MOD", "xsite", "doc.php");
-	$fil = APP::file($fil);
+private function content($mod) {
+	$doc = $this->incFile("doc"); $cnt = 1;
+	ob_start();
 
 	foreach($this->dat as $inf) {
 		$dir = $inf["fpath"]; if (! is_dir($dir)) continue;
-
+		$kap = $inf["chnum"];
 		PGE::load($dir);
-		include $fil;
+
+		switch ($mod) {
+			case "toc":	PGE::addToc(); break;
+			default:    include $doc;
+		}
 	}
-}
-private function doNotes() {
-	$its = PRN::notes(); if (! $its) return "";
-
-	$tpl = new tpl();
-	$tpl->load("xsite/footnote.tpl");
-	$tpl->set("items", implode("<br>\n", $its));
-	$tpl->show();
-}
-
-// ***********************************************************
-// handling ToC
-// ***********************************************************
-private function getToc() {
-	$xxx = ob_start(); $this->doToC();
 	return ob_get_clean();
 }
 
 // ***********************************************************
-private function doToC() {
-	$lst = array(); $cnt = 1;
-
-	$tpl = new tpl();
-	$tpl->load("xsite/toc.tpl");
-
-	foreach($this->dat as $dir => $nam) {
-		PGE::load($dir);
-		PGE::loadPFS($dir);
-
-		$lev = PGE::level();
-		$sec = $this->getSec($lev); if (! $sec) continue;
-
-		$key = $tpl->set("cap", $this->getTitle());
-		$key = $tpl->set("page", $cnt++);
-		$val = $tpl->gc("toc.$sec");
-
-		$lst[$key] = $val;
-	}
-	$tpl->set("items", implode("\n", $lst));
-
-	return $tpl->gc();
-}
-
+// transforming output as needed in a book
 // ***********************************************************
-private function getSec($lev) {
-	if ($lev == 0) return "lev0";
-	if ($lev == 1) return "lev1";
-	return "levx";
-}
+private function xform($htm, $mod) {
+	incCls("xsite/prn.php");
 
-private function getTitle() {
-	$typ = $this->get("bind.title");
+	$prn = new prn();
+	if ($mod == "toc") return $prn->toc();
 
-	if ($typ == "pfs.chap") return PGE::get($typ);
-	return PGE::title();
+	$htm = $prn->stripNotes($htm);
+	$htm = $prn->stripSections($htm);
+	$idx = $prn->fnotes();
+	return $toc.$htm.$idx;
 }
 
 // ***********************************************************
@@ -149,6 +110,39 @@ private function writePdf($doc) {
 
 	$pdf = new mypdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, "UTF-8", false);
 	$pdf->makePDF($doc);
+}
+
+// ***********************************************************
+// writing output to toc.ini
+// ***********************************************************
+private function writeIni() {
+	$ini = new iniWriter();
+	$ini->read("files/toc.ini");
+	$vls = $ini->values("toc"); if (! $vls) $ini->addSec("toc");
+	$ini->clearSec("toc");
+	$cnt = 0;
+
+	$arr = PGE::getToc();
+
+	foreach ($arr as $num => $cap) {
+		if (! $num) continue;
+		$cnt++;
+		$pge = VEC::get($vls, $num, "¬");
+
+		if ($pge == "¬") $pge = $cnt;
+		if ($pge > $cnt) $cnt = $pge;
+
+		$ini->set("toc.$num", $pge);
+		$ini->save();
+	}
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function incFile($opt) {
+	$fil = FSO::join("LOC_MOD", "xsite", "$opt.php");
+	return APP::file($fil);
 }
 
 // ***********************************************************

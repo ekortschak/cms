@@ -28,14 +28,14 @@ function __construct($server, $pcl = "https") {
 // querying remote server
 // ***********************************************************
 public function query($act, $dir = ".") {
-	$cmd = $this->getUrl($act, $dir);
+	$cmd = $this->url($act, $dir);
 #	$xxx = $this->debug($cmd);
 	$out = NET::read($cmd);
 	return $out;
 }
 
 // ***********************************************************
-public function getUrl($act, $fso = ".") { // create acceptable command
+public function url($act, $fso = ".") { // create acceptable command
 	$tim = date("YmdGis"); if (is_file($fso))
 	$tim = filemtime($fso);
 	$prm = "w:=$act &f:=$fso &t:=$tim";
@@ -49,7 +49,7 @@ public function getUrl($act, $fso = ".") { // create acceptable command
 // cURL upload
 // ***********************************************************
 public function upload($fso, $dir = "") {
-	$cmd = $this->getUrl("cpf", $fso);
+	$cmd = $this->url("cpf", $fso);
 #	$xxx = $this->debug($cmd, $fso);
 
 	$fil = FSO::join($dir, $fso);

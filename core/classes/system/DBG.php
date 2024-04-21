@@ -61,9 +61,16 @@ public static function path($msg, $info = "path") { // show path info
 // ***********************************************************
 public static function file($file) {
 	if (! DEBUG) return;
-	$lev = ""; if (STR::misses($file, "main.php")) $lev = 2;
+	$lev = "";
+	if (STR::misses($file, "main.php")) $lev = 2;
+	if (STR::begins($file, "cls = ")) $lev = 3;
+
 	$fil = CFG::encode($file);
 	echo "<dbg class='hint$lev'>§ $fil</dbg>";
+}
+
+public static function cls($cls) {
+	DBG::file("cls = $cls");
 }
 
 // ***********************************************************

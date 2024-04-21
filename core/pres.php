@@ -1,12 +1,25 @@
 <?php
 
-$fsz = "1.75rem"; if (isset($_GET["fsize"]))
-$fsz = $_GET["fsize"];
+// ***********************************************************
+// set font size
+// ***********************************************************
+$fsize = "1.75rem";
 
+if (isset($_SESSION["fsize"])) $fsize = $_SESSION["fsize"];
+if (isset($_GET["fsize"]))     $fsize = $_GET["fsize"];
+
+$_SESSION["fsize"] = $fsize;
+
+// ***********************************************************
+// set layout
+// ***********************************************************
 define("LAYOUT", "pres");
 define("SSHEET", "pres");
-define("FSIZE", $fsz);
+define("FSIZE",  $fsize);
 
+// ***********************************************************
+// show content
+// ***********************************************************
 include_once "core/index.php";
 
 ?>

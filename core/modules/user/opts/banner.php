@@ -15,6 +15,7 @@ $tpl->load($fil);
 $lgs = "";
 
 foreach (LNG::get() as $lng) {
+	if ($lng == CUR_LANG) continue;
 	$tpl->set("lang", $lng);
 	$lgs.= $tpl->gc("lang");
 }
@@ -29,6 +30,9 @@ if (  CFG::mod("uopts.login")) {
 	if (DB_LOGIN) $tpl->substitute("user", "logout");
 	else          $tpl->substitute("user", "login");
 }
+
+if (! $lgs)
+$tpl->substitute("langs", "no.langs");
 
 $tpl->set("langs", $lgs);
 $tpl->show("nav");

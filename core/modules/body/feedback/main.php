@@ -1,11 +1,14 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+// check if applicable
+// ***********************************************************
 if (! ENV::get("opt.feedback")) return;
 
 incCls("dbase/dbQuery.php");
 incCls("dbase/recEdit.php");
-
-DBG::file(__FILE__);
 
 // ***********************************************************
 HTW::xtag("Feedback", "h3");

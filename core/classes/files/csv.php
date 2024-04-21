@@ -41,8 +41,10 @@ function __construct($sep = ",", $heads = true) {
 // reading & writing
 // ***********************************************************
 public function read($file = "") {
-	$this->file = $file;
-	$rws = file($file); if (! $rws) return false;
+	$fil = FSO::norm($file); if (! is_file($fil)) return;
+
+	$this->file = $fil;
+	$rws = file($fil); if (! $rws) return false;
 
     foreach ($rws as $lin) {
 		if (! trim($lin)) continue; if (STR::begins($lin, "#")) continue;

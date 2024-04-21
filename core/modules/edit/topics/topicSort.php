@@ -1,4 +1,8 @@
+In Vorbereitung ...
+
 <?php
+
+return;
 
 incCls("menus/dropBox.php");
 incCls("menus/tabsets.php");

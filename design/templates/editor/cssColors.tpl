@@ -36,7 +36,7 @@ on = auf
 <tr>
 	<td width=100><!VAR:set!></td>
 	<td><input type="text" name="<!VAR:FCN!>" value="<!VAR:FCV!>" size=15></td>
-	<td style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>; border-radius: 7px;" align="center">
+	<td style="color:<!VAR:FCV!>; background-color:<!VAR:BCV!>; border-radius: BR_IMG;" align="center">
 		Sample
 	</td>
 	<td>

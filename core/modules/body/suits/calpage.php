@@ -2,12 +2,15 @@
 
 DBG::file(__FILE__);
 
+$fil = "xsite/calpage.tpl"; if (VMODE == "xsite")
+$fil = "pages/include.tpl";
+
 // ***********************************************************
 // get calendar
 // ***********************************************************
 $loc = PGE::$dir;
 $hed = PGE::title();
-$dat = PGE::get("props.cal.date");
+$dat = PGE::get("props_cal.date");
 
 // ***********************************************************
 // get text
@@ -29,8 +32,8 @@ $mon = $cal->gc();
 // write output
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("pages/calpage.tpl");
-$tpl->set("head",  $hed);
+$tpl->load($fil);
+$tpl->set("head",  $hed."xx");
 $tpl->set("text",  $htm);
 $tpl->set("month", $mon);
 $tpl->show();

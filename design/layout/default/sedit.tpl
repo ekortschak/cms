@@ -31,6 +31,5 @@ topics = Themen
 # ***********************************************************
 <div class="h3"><!DIC:topics!></div>
 <!MOD:edit/topics!>
-xxx
 
 [head]

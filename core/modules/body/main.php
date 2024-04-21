@@ -1,13 +1,16 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+// check if applicable
+// ***********************************************************
 if (TAB_TYPE == "sel")
 if (TAB_ROOT == TAB_HOME) return;
 
 if (! TAB_ROOT) {
 	return MSG::add("no.tabroot");
 }
-
-DBG::file(__FILE__);
 
 // ***********************************************************
 // check access permissions
@@ -16,6 +19,8 @@ $loc = PGE::dir();
 $prm = PGE::hasXs($loc); // force login ?
 
 if (! $prm) return APP::mod("body/login");
+
+if (VMODE != "xsite") PGE::pic();
 
 // ***********************************************************
 // retrieving main page

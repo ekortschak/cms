@@ -56,13 +56,15 @@ public static function inc($dir, $file) {
 }
 
 public static function mod($mod) {
-	$inc = FSO::join(LOC_MOD, $mod, "main.php");
-	$inc = APP::file($inc);
-	if ($inc) return include $inc;
-
-	$inc = FSO::join(LOC_MOD, "$mod.php");
-	$inc = APP::file($inc);
-	if ($inc) include $inc;
+	$arr = array(
+		FSO::join(LOC_MOD, "$mod", "main.php"),
+		FSO::join(LOC_MOD, "$mod.php"),
+		FSO::join(LOC_MOD, "$mod")
+	);
+	foreach ($arr as $inc) {
+		$inc = APP::file($inc);
+		if ($inc) return include $inc;
+	}
 }
 
 // ***********************************************************
@@ -173,7 +175,10 @@ public static function dir($dir) { // find dir in extended fs
 }
 
 public static function file($file) { // find file in extended fs
-	if (is_file($file)) return $file; $fil = APP::relPath($file);
+	if (is_null($file)) return false;
+	if (is_file($file)) return $file;
+
+	$fil = APP::relPath($file);
 
 	foreach (APP::$fbk as $loc) {
 		$ful = FSO::join($loc, $fil); if (is_file($ful)) return $ful;
@@ -194,6 +199,7 @@ public static function layout($name) {
 // ***********************************************************
 public static function url($fso) {
 	if (FSO::isUrl($fso)) return $fso;
+	if (is_null($fso)) return "";
 
 	$out = APP::file($fso); if (! $out)
 	$out = APP::dir($fso);  if (! $out) return $fso;
@@ -261,7 +267,8 @@ public static function gcSys($fso, $snip = "page") { // show any part of page
 }
 
 public static function gcMap($fso) { // show page or sitemap
-	$out = APP::gcFile($fso); if (trim($out)) return $out;
+	$out = APP::gcFile($fso); if (VMODE == "xsite")
+	$out = PGE::convHeads($out); if (trim($out)) return $out;
 	return APP::gcFile("LOC_MOD/sitemap.php");
 }
 
@@ -274,7 +281,8 @@ public static function gcFile($fil) {
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
 
-	if (! PFS::isView()) return $out;
+	if (! APP::isView()) return $out;
+
 	return CFG::apply($out);
 }
 
@@ -314,9 +322,17 @@ public static function writeTell($file, $content, $overwrite = true) {
 // ***********************************************************
 // other
 // ***********************************************************
+public static function isView() {
+	if (TAB_SET == "config") return false;
+	if (VMODE   == "view")   return true;
+	if (VMODE   == "pres")   return true;
+#	if (VMODE   == "xfer")   return true;
+	return false;
+}
+
 public static function lookup($txt) {
 	if (! ENV::get("lookup")) return $txt;
-	if (! PFS::isView())      return $txt;
+	if (! APP::isView())      return $txt;
 
 	$cls = CFG::iniVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
 

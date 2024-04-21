@@ -21,7 +21,7 @@ class ACR {
 
 static function init() {
 	$ini = new ini("lookup/acro.ini");
-	ACR::$lst = $ini->getValues("ref");
+	ACR::$lst = $ini->values("ref");
 }
 
 // ***********************************************************

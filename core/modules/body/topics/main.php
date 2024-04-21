@@ -1,8 +1,5 @@
+<?php DBG::file(__FILE__); ?>
+
 <div class="mobile">
-<?php
-
-DBG::file(__FILE__);
-APP::mod("toc/topics");
-
-?>
+<?php APP::mod("toc/topics"); ?>
 </div>

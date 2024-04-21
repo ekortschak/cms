@@ -7,3 +7,5 @@ LOC_LAY/LAYOUT/main.edit.tpl
 <div id="viewport">
 <!MOD:edit/menu!>
 </div>
+
+[head]

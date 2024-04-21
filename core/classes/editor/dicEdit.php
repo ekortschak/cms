@@ -10,9 +10,9 @@ Used to create lists for input objects for ini Files
 // ***********************************************************
 incCls("forms/dicEdit.php");
 
-$obj = new dicEdit();
-$obj->addInput($lang, $key, $val);
-$obj->show();
+$edi = new dicEdit();
+$edi->addInput($lang, $key, $val);
+$edi->show();
 */
 
 incCls("input/selector.php");

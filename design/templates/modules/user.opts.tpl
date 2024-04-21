@@ -25,9 +25,7 @@ pres = Präsentation
 <div>
 <div class="dropdown">
 	<img class="flag" src="LOC_ICO/flags/CUR_LANG.gif" alt="CUR_LANG" />
-	<div class="dropbody" style="min-width: 5rem; padding: 1px 4px 2px;">
-		<!VAR:langs!>
-	</div>
+	<!SEC:langs!>
 </div>
 &nbsp;
 
@@ -39,6 +37,12 @@ pres = Präsentation
 <!SEC:manual!>
 
 </div>
+
+[langs]
+<div class="dropbody" style="min-width: 5rem; padding: 1px 4px 2px;"><!VAR:langs!></div>
+
+[no.langs]
+
 
 [lang]
 <div><a href="?lang=<!VAR:lang!>"><img class="flag" src="LOC_ICO/flags/<!VAR:lang!>.gif" alt="<!VAR:lang!>" /> <!VAR:lang!></a></div>
@@ -83,7 +87,8 @@ pres = Präsentation
 
 [tedit]  <!BTN:tedit!> <!BTN:topic!>  <br>
 [medit]  <!BTN:medit!> <!BTN:mprops!> <br>
-[pedit]  <!BTN:pedit!> <!SEC:xlate!> <!SEC:seo!> <br>
+[pedit]  <!BTN:pedit!> <!SEC:xlate!> <!SEC:seo!> <!SEC:iedit!> <br>
+[iedit]  <!BTN:iedit!>
 [xedit]  <!BTN:xedit!>
 [xlate]  <!BTN:xlate!>
 [seo]    <!BTN:seo!>

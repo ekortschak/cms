@@ -179,6 +179,12 @@ public static function append($data, $key, $value, $glue = "") {
 	return $data;
 }
 
+public static function dropKey($data, $key) {
+	if (! isset($data[$key])) return $data;
+	unset($data[$key]);
+	return $data;
+}
+
 public static function drop($data, $value) {
 	$out = array(); if (! $data) return $out;
 

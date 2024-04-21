@@ -1,10 +1,13 @@
 <?php
 
+DBG::file(__FILE__);
+
+// ***********************************************************
+// check if applicable
+// ***********************************************************
 if (SEARCH_BOT) return;
 if (VMODE == "search") return;
 if (VMODE == "joker") return;
-
-DBG::file(__FILE__);
 
 // ***********************************************************
 $fil = "modules/user.opts.tpl"; if (TAB_SET != "default")

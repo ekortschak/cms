@@ -12,10 +12,12 @@ incCls("menues/PFS.php");
 
 PFS::read();
 
-$arr = PFS::items();
+$arr = PFS::toc();
 $inf = PFS::item($index);
 $dat = PFS::data($index);
 */
+
+incCls("files/redirector.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -32,12 +34,10 @@ class PFS {
 	private static $cnt = 0;        // menu items count
 	private static $syn = 1;        // menu items with identical uids
 
-	private static $red = 0;        // redirection level
 	private static $max = 9;        // max. toc depth
 
 public static function init($dir = TAB_HOME) {
-	PFS::$dir = $dir;
-	PFS::$cnt = PFS::$red = 0;
+	PFS::$dir = $dir; // set root dir
 	PFS::$fil = FSO::join("static", $dir, "pfs.stat");
 	PFS::$num = array_pad(PFS::$num, 10, 0);
 
@@ -47,16 +47,18 @@ public static function init($dir = TAB_HOME) {
 		SSV::set("$tpc.data", PFS::data(), "pfs");
 		SSV::set("$tpc.reload", 0, "pfs");
 	}
+ // set current page
 	$uid = ENV::getPage();
 
 	switch (ENV::getParm("pfs.nav")) {
 		case "prev": $uid = PFS::findNext($uid, -1); break;
 		case "next": $uid = PFS::findNext($uid, +1); break;
-		default:     $dir = PFS::verify($uid); PGE::load($dir);
+		default:     $uid = PFS::findGood($uid);
 	}
+	ENV::setPage($uid);
 	ENV::set("pfs.clang", CUR_LANG);
 	ENV::set("pfs.vmode", VMODE);
-	ENV::set("pfs.fpath", PGE::$dir);
+	ENV::set("pfs.last", $uid);
 }
 
 // ***********************************************************
@@ -66,64 +68,60 @@ public static function read($dir = NV) {
 	if (PFS::import()) return;
 	if ($dir === NV) $dir = PFS::$dir;
 
-	PFS::readDir($dir, $dir, PFS::$red);
+	$ofs = FSO::level(APP::relPath($dir));
+
+	PFS::append($dir, $dir);
+	PFS::readDir($dir, $dir, $ofs);
 }
 
-private static function readDir($top, $cur, $pfx = "", $ofs = 0) {
- // $cur = fs branch to virtually plug in to
-	$top = APP::dir($top);
- 	$drs = FSO::dTree($top, ! IS_LOCAL); $old = $pid = "¬";
-	$fst = FSO::level($top);
-	$col = false;
+private static function readDir($top, $vir, $ofs) {
+ // $vir = virtual path to redirected pages
+	$top = APP::dir($top); $col = "";
+ 	$drs = FSO::dTree($top, ! IS_LOCAL);
+
+	$red = new redirector($top, $ofs);
 
 	foreach ($drs as $dir => $nam) {
-		$ini = new ini($dir);
-		$typ = $ini->getType();
-		$trg = $ini->getReDir();
+		$arr = $red->load($dir, $vir); extract($arr);
 
-		$trl = STR::clear($dir, $top); // calc trailing elements
-		$vdr = FSO::join($cur, $trl);  // calc virtual dir
-		$lev = FSO::level($dir);
-
-		PFS::append($ini, $pfx, $lev - $fst + $ofs, $vdr, $col, $trg);
-
-		if ($typ === "col") $col = $vdr;
-		if ($typ === "red") { // internal redirection
-			$lvl = $lev - $fst - $ofs;
-
-			PFS::readDir($trg, $vdr, PFS::$red++, $lvl);
-		}
+		PFS::append($dir, $vdir, $level, $iscol); if ($type == "red")
+		PFS::readDir($target, $vdir, $ofs);
 	}
 }
 
 // ***********************************************************
 // reading & handling properties
 // ***********************************************************
-private static function append($ini, $pfx, $lev, $par, $col, $trg) { // single page info
-	$uid = $ini->getUID(); $uid = PFS::uniq($uid);
-	$dir = $ini->getDir(); $cnt = PFS::$cnt;
+private static function append($dir, $vdr, $lev = 0, $col = false) { // single page info
+	$ini = new ini($dir);
+	$uid = $ini->UID(); $uid = PFS::uniq($uid);
+	$trg = $ini->target(); $cnt = PFS::$cnt++;
+	$typ = $ini->type();
+	$hed = $ini->head();
 
 	PFS::setPropVal($uid, "uid",   $uid);
 	PFS::setPropVal($uid, "fpath", $dir);
-	PFS::setPropVal($uid, "head",  $ini->getHead());
-	PFS::setPropVal($uid, "title", $ini->getTitle());
-	PFS::setPropVal($uid, "dtype", $ini->getType());
-	PFS::setPropVal($uid, "noprn", $ini->get("props.noprint"));
+	PFS::setPropVal($uid, "head",  $hed);
+	PFS::setPropVal($uid, "title", $ini->title());
+	PFS::setPropVal($uid, "dtype", $typ);
 
-	PFS::setPropVal($uid, "redir", $trg);
-	PFS::setPropVal($uid, "vpath", $par);
+	PFS::setPropVal($uid, "vpath", $vdr);
 	PFS::setPropVal($uid, "level", $lev);
-	PFS::setPropVal($uid, "index", $cnt);
+	PFS::setPropVal($uid, "iscol", $col);
 
-	PFS::setPropVal($uid, "iscol", STR::begins($par, $col));
-	PFS::setPropVal($uid, "chnum", PFS::chapNum($uid));
-	PFS::setPropVal($uid, "sname", PFS::statID()); // for static output
+	PFS::setPropVal($uid, "mtype", PFS::mnuType($dir, $typ, $trg));
+	PFS::setPropVal($uid, "state", PFS::mnuState($uid));
 
-	PFS::$idx[$cnt] = $uid; PFS::$cnt++;
+	$num = PFS::chapNum($lev);
+	$sym = PFS::chapSym($num, $lev, $col);
+
+	PFS::setPropVal($uid, "chnum", $num);
+	PFS::setPropVal($uid, "chsym", $sym);
+	PFS::setPropVal($uid, "chap",  trim("$sym $hed"));
+
+	PFS::$idx[$cnt] = $uid;
 	PFS::$vrz[$dir] = $uid; if ($trg)
-	PFS::$vdr[$red] = $uid;
-
-	return $uid;
+	PFS::$vdr[$trg] = $uid;
 }
 
 // ***********************************************************
@@ -137,7 +135,7 @@ private static function recall() {
 	if (ENV::getParm("reset")) return false;
 	if (ENV::get("pfs.clang") != CUR_LANG) return false;
 	if (ENV::get("pfs.vmode") != "view")   return false;
-	if (! PFS::isView()) return false;
+	if (! APP::isView()) return false;
 
 	$tpc = TAB_HOME;
 	$chk = SSV::get("$tpc.reload", false, "pfs"); if (  $chk) return false;
@@ -146,18 +144,22 @@ private static function recall() {
 	PFS::$dat = $arr["dat"];
 	PFS::$idx = $arr["idx"];
 	PFS::$vrz = $arr["vrz"];
+	PFS::$vdr = $arr["vdr"];
 
 	PFS::$cnt = count(PFS::$idx);
 	return true;
 }
 
 // ***********************************************************
-public static function data() {
-	return array(
+public static function data($what = "*") {
+	$out = array(
 		"dat" => PFS::$dat,
 		"idx" => PFS::$idx,
-		"vrz" => PFS::$vrz
+		"vrz" => PFS::$vrz,
+		"vdr" => PFS::$vdr
 	);
+	if (isset($out[$what])) return $out[$what];
+	return $out;
 }
 
 // ***********************************************************
@@ -171,40 +173,45 @@ public static function level($dir, $ofs = 0) {
 
 // ***********************************************************
 public static function find($key = NV) { // dir, uid or num index expected !
-	if ($key === NV) $key = PGE::$dir;   // will return uid
+	if ($key === NV) $key = ENV::getPage(); // will always return uid
 	if ($key === false) return false;
 
 	if (is_numeric($key)) {
 		$uid = VEC::get(PFS::$idx, $key);
 		if ($uid) return $uid;
 	}
-	$idx = VEC::get(PFS::$dat, $key); if ($idx) return $key;
-	$idx = VEC::get(PFS::$vrz, $key); if ($idx) return $idx;
+	$uid = VEC::get(PFS::$dat, $key); if ($uid) return $key;
+	$uid = VEC::get(PFS::$vrz, $key); if ($uid) return $uid;
+	$key = STR::after($key, TOP_DIR);
 	return VEC::get(PFS::$vdr, $key);
 }
 
 private static function findNext($uid, $inc) {
 	$key = PFS::propVal($uid, "index", 0);
+	$max = PFS::$cnt - 1;
 
-	do {
-		$key = CHK::range($key + $inc, 0, PFS::$cnt - 1);
-		$uid = VEC::get(PFS::$idx, $key);
-		$col = PFS::propVal($uid, "iscol", false); if ($col) continue;
-		$dir = PFS::propVal($uid, "fpath", TAB_HOME); break;
-	} while(1);
-
-	ENV::setPage($uid);
-	PGE::load($dir);
+	while (true) {
+		$idx = $key + $inc; if ($idx > $max) break; if ($idx < 0) break;
+		$uid = VEC::get(PFS::$idx, $idx);
+		if ( ! PFS::propVal($uid, "iscol")) break;
+	}
+	return $uid;
 }
 
-private static function verify($uid) {
-	$dir = PFS::get($uid, "fpath"); if (strlen($dir) > 3) return $dir;
+private static function findGood($uid) { // in case a dir has been deleted
+	$dir = PFS::get($uid, "fpath"); if (strlen($dir) > 3) return $uid;
+	$dir = PFS::findLast();
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path
-		if (is_dir($dir)) return FSO::trim($dir);
+		if (is_dir($dir)) return PFS::find($dir);
 	}
-	return TAB_HOME;
+	return PFS::find(TAB_HOME);
+}
+
+private static function findLast() { // find last valid UID
+	$uid = ENV::get("pfs.last");
+	return PFS::get($uid, "fpath");
 }
 
 // ***********************************************************
@@ -219,8 +226,7 @@ private static function setPropVal($uid, $key, $value) {
 }
 
 // ***********************************************************
-private static function props($index) {
-	$uid = PFS::find($index); if (! $uid) return array();
+private static function props($uid) {
 	return VEC::get(PFS::$dat, $uid, array());
 }
 
@@ -229,7 +235,7 @@ public static function get($index, $key, $default = false) {
 	return PFS::propVal($uid, $key, $default);
 }
 
-private static function propVal($uid, $key, $default) {
+private static function propVal($uid, $key, $default = false) {
 	if (! isset(PFS::$dat[$uid][$key])) return $default;
 	return PFS::$dat[$uid][$key];
 }
@@ -237,40 +243,47 @@ private static function propVal($uid, $key, $default) {
 // ***********************************************************
 // chapter numbering
 // ***********************************************************
-private static function chapTitle($index) {
-	$num = PFS::propVal($index, "chnum", "");
-	$hed = PFS::propVal($index, "head", "???");
-	return "$num $hed";
+private static function chapNum($lev) {
+	$cur = $lev - 1; // array index starts at 0!
+
+	PFS::$num[$cur]++;
+	PFS::$num[$lev] = 0;
+
+	$out = implode(".", PFS::$num);
+	return STR::before("$out.0.", ".0.");
 }
 
-private static function chapNum($index) {
-	$lev = PFS::propVal($index, "level", 1);
+private static function chapSym($cap, $lev, $col) {
+	if ($col == 2) {
+		$out = end(explode(".", $cap)) + 96;
+		return chr($out).")";
+	}
+	if ($lev <  1) return "";
+	if ($lev == 6) return "&bull;";
+	if ($lev == 7) return "&#9702;";
+	if ($lev == 8) return "§";
+	if ($lev == 9) return "+";
+	if ($lev  > 9) return "-";
 
-	if ($lev < 1) return "";
-	if ($lev > 9) return "?.?";
-
-	PFS::$num[$lev - 1]++;
-	PFS::$num[$lev + 0] = 0;
-	$out = implode(".", PFS::$num);
-
-	return STR::before("$out.0.", ".0.");
+	return $cap;
 }
 
 // ***********************************************************
 // menu subtrees
 // ***********************************************************
-public static function items($dir = false) {
+public static function items($sub = false) {
 	$out = array(); $max = PFS::$cnt; $cnt = $top = 0;
 
 	for ($i = 0; $i < $max; $i++) { // skip root element
 		$inf = PFS::item($i); if (! $inf) continue;
+
+		$dir = $inf["fpath"];
 		$loc = $inf["vpath"];
 
-		if ($dir) { // heed selected sub tree
-			if (! STR::begins($loc, $dir)) continue;
+		if ($sub) { // heed selected sub tree
+			if (! STR::begins($loc, $sub)) continue;
 		}
-		if (PFS::isHidden($loc)) continue;
-		if (PFS::noPrint($inf)) continue;
+		if (PFS::isHidden($dir)) continue;
 
 		$lev = $inf["level"]; if ($cnt < 1) $top = $lev;
 		$xxx = $inf["level"] = $lev - $top + 1;
@@ -282,37 +295,35 @@ public static function items($dir = false) {
 }
 
 // ***********************************************************
-public static function sibs($dir) {
-	$idx = PFS::find($dir);
-	$dir = PFS::propVal($idx, "vpath", false);
+public static function toc() {
+	$arr = PFS::items(); unset($arr[0]);
+	return $arr;
+}
+
+public static function subtree($dir) {
+	$uid = PFS::find($dir);
+	$dir = PFS::propVal($uid, "vpath", false);
 	$out = PFS::items($dir); if (! $out) return false;
-	unset($out[0]);
+	array_shift($out);
 	return $out;
 }
 
 // ***********************************************************
 // menu node info
 // ***********************************************************
-public static function item($index = NV, $depth = 99) {
-	$idx = PFS::find($index);
-	$out = PFS::props($index); if (! $out) return array();
-	$dep = CHK::range($depth, 2, 15);
+public static function item($index = NV, $depth = 9) {
+	$uid = PFS::find($index);
+	$out = PFS::props($uid); if (! $out) return array();
+	$dep = CHK::range($depth, 2, $depth);
 
 	$lev = $out["level"]; if ($lev > $dep) return array();
-	$dir = $out["fpath"];
-	$trg = $out["redir"];
-	$typ = $out["dtype"];
-
-	$out["mtype"] = PFS::mnuType($dir, $typ, $trg);
-	$out["state"] = PFS::mnuState($idx);
-	$out["chap"]  = PFS::chapTitle($idx);
 	return $out;
 }
 
 // ***********************************************************
 private static function mnuType($dir, $typ, $trg = false) {
 	if ($typ == "col") {
-		if (PFS::isView()) return "file";
+		if (APP::isView()) return "file";
 		return "menu";
 	}
 	if ($typ == "red") { // TODO: may there be other suits than inc?
@@ -327,8 +338,8 @@ private static function mnuType($dir, $typ, $trg = false) {
 }
 
 // ***********************************************************
-private static function mnuState($idx) {
-	if (PFS::isHidden($idx)) return "inactive";
+private static function mnuState($dir) {
+	if (PFS::isHidden($dir)) return "inactive";
 	return "active";
 }
 
@@ -352,17 +363,12 @@ private static function export() { // write menu info to stat file
 }
 
 private static function import() {
-	if (! PFS::isView())   return false;
+	if (! APP::isView())   return false;
 	if (! PFS::isStatic()) return false;
 
 	include_once PFS::$fil; // read menu info from stat file
 	PFS::$cnt = count(PFS::$dat);
 	return PFS::$cnt;
-}
-
-// ***********************************************************
-private static function statID() {
-	return sprintf("p%05d.htm", PFS::$cnt);
 }
 
 // ***********************************************************
@@ -379,24 +385,23 @@ private static function uniq($uid, $pfx = "") {
 	return PFS::uniq("§$uid.$syn");
 }
 
-// ***********************************************************
-public static function isView() {
-	if (TAB_SET == "config") return false;
-	if (VMODE   == "view")   return true;
-	if (VMODE   == "pres")   return true;
-	if (VMODE   == "xfer")   return true;
-	return false;
-}
 private static function isHidden($dir) {
-	if ( ! PFS::isView()) return false;
+	if (VMODE != "xsite")
+	if ( ! APP::isView()) return false;
 	return FSO::isHidden($dir);
-}
-private static function noPrint($inf) {
-	if (VMODE != "xsite") return false;
-	return $inf["noprn"];
 }
 public static function isStatic() {
 	return is_file(PFS::$fil);
+}
+
+// ***********************************************************
+// debugging
+// ***********************************************************
+private static function dump() {
+	$arr = PFS::data("dat"); if (! $arr) return;
+	echo "<pre>";
+	DBG::text($arr, "pfs");
+	echo "</pre>";
 }
 
 // ***********************************************************

@@ -18,7 +18,10 @@ incCls("editor/iniMgr.php");
 // ***********************************************************
 class editIni extends editText {
 
-function __construct() {}
+function __construct() {
+	parent::__construct();
+	DBG::cls(__CLASS__);
+}
 
 // ***********************************************************
 // methods

@@ -44,9 +44,7 @@ std.always = Standard-Tab kann nicht ausgeblendet werden!
 	<td align="center">
 		<input type="radio" name="tab.default" value="<!VAR:tab!>" <!VAR:default!> />
 	</td>
-	<td>
-		<div class="cbtext"><!VAR:title!></div>
-	</td>
+	<td><!VAR:title!></td>
 	<td align="center">
 		<label class="text">
 			<input type="hidden" name="tabs[<!VAR:tab!>]" value="0" />

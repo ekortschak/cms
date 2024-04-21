@@ -63,7 +63,7 @@ private function sweep($txt, $edit = false) {
 	$txt = $this->addLFs($txt, $edit);
 	$txt = $this->addTabs($txt);
 
-	$txt = $this->addLF($txt, "REF::"); // TODO move to app
+	$txt = $this->addLF($txt, "REF::");
 	$txt = PRG::replace($txt, "<php>(\s+)REF::", "<php>REF::");
 
 	$txt = $this->restoreLFs($txt);
@@ -102,8 +102,8 @@ private function addPara($txt) {
 
 // ***********************************************************
 private function protectLFs($txt, $edit = false) {
-	$arr = STR::split("<php>bblLink(.*?)</php>", ".");
-	$rep = STR::split("<pxp>bblLink(.*?)</pxp>", ".");
+	$arr = STR::split("<php>REF::link(.*?)</php>", ".");
+	$rep = STR::split("<pxp>REF::link(.*?)</pxp>", ".");
 
 	foreach ($arr as $key => $val) {
 		$txt = STR::replace($txt, $val, $rep[$key]);

@@ -80,12 +80,12 @@ public function fields($table) {
 // general info
 // ***********************************************************
 public function fldTypes() {
-	return $this->getValues("opts.ftypes");
+	return $this->values("opts.ftypes");
 }
 
 // ***********************************************************
 public function fldLen($typ) {
-	return $this->getValues("opts.flen.$typ");
+	return $this->values("opts.flen.$typ");
 }
 
 public function fldLenFind($typ, $lng) {

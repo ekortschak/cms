@@ -11,7 +11,7 @@ incCls("search/sView.php");
 
 $vew = new sView();
 $xxx = $vew->showNav();
-$fls = $vew->getSnips();
+$fls = $vew->snips();
 
 */
 
@@ -68,12 +68,12 @@ public function getData() {
 	return $this->chkData($lst);
 }
 
-public function getSnips() {
+public function snips() {
 	$dir = ENV::get("search.dir");
 	$fnd = ENV::get("search.what");
 
 	$obj = new search();
-	return $obj->getSnips($dir, $fnd);
+	return $obj->snips($dir, $fnd);
 }
 
 public function getMode() {

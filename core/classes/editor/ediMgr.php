@@ -33,6 +33,7 @@ class ediMgr {
 
 function __construct($filesOnly = false) {
 	$this->fonly = (bool) $filesOnly;
+	DBG::cls(__CLASS__);
 }
 
 // ***********************************************************

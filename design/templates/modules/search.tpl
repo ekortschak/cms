@@ -34,12 +34,12 @@ help   = 1
 <!SEC:oid!>
 <!VAR:range!>
 
-	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: 100%;" />
+	<input type="text" name="search.what" value="<!VAR:search!>" placeholder="<!DIC:sinfo!>" style="width: 100%;" autofocus/>
 
 	<div class="flex">
 		<div class="dmbtn"><!SEC:help!></div>
 		<div align="right">
-			<a href="?search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
+			<a href="?vmode=search&search.reset=1"><div class="dmbtn">BOOL_NO</div></a>
 			<input type="submit" name="search.act" value="OK" />
 		</div>
 	</div>
@@ -112,6 +112,8 @@ help   = 1
 <div class="h3">How to use</div>
 <ul>
 	<li>Enter a search term into the text field.</li>
+	<li>Click on <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"></a> for help on search items.</li>
+	<li>Click on <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png"></a> for no more help.</li>
 	<li>Click OK.</li>
 </ul>
 
@@ -123,6 +125,10 @@ help   = 1
 [info.de]
 <div class="h3">Anleitung</div>
 <ul>
+	<li>Drücke <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"></a> für Hilfe zu Suchbegriffen.</li>
+	<li>Drücke <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png"></a> um die Hilfe zu beenden.</li>
+<ul>
+</ul>
 	<li>Gib einen Suchbegriff in das Textfeld ein.</li>
 	<li>Drücke OK.</li>
 </ul>
@@ -135,10 +141,10 @@ help   = 1
 # ***********************************************************
 [help]
 # ***********************************************************
-<a href="?search.help=1"><img src="LOC_ICO/buttons/info.png">
+<a href="?vmode=search&search.help=1"><img src="LOC_ICO/buttons/info.png">
 
 [nohelp]
-<a href="?search.help=0"><img src="LOC_ICO/buttons/infoClear.png">
+<a href="?vmode=search&search.help=0"><img src="LOC_ICO/buttons/infoClear.png">
 
 
 # ***********************************************************

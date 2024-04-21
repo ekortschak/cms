@@ -17,8 +17,6 @@ $dir = $sel->ronly("dir", PGE::$dir);
 $ptn = $sel->ronly("files", "$lng.htm");
 $act = $sel->show();
 
-HTM::lf();
-
 // ***********************************************************
 // preview
 // ***********************************************************
@@ -35,7 +33,7 @@ foreach ($arr as $ful => $nam) {
 	$lst = STR::find($txt, "href", ">");
 
 	$dir = dirname($ful);
-	$xxx = $pge->read($ful);
+	$xxx = $pge->load($ful);
 	$lnk = $pge->getLink($dir, "pedit");
 
 	$out[$lnk] = array();

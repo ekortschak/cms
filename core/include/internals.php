@@ -24,8 +24,10 @@ define("LOC_BTN", "design/buttons");
 // ***********************************************************
 define("NV", "N/A");
 
-define("HIDE", "~");
+define("PAGE_BREAK", '<hr class="pbr">');
 define("DIR_SEP", "/");
+define("HIDE", "~");
+
 define("CUR_DIR", "./");
 define("FS_PERMS", "0775");
 

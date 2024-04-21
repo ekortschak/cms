@@ -27,7 +27,6 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</small>\n";
-HTM::lf();
 
 ?>
 

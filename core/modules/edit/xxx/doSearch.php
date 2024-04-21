@@ -64,7 +64,7 @@ foreach ($arr as $ful => $nam) {
 	$cnt++;
 
 	if ($dbg) {
-		$xxx = $pge->read($ful);
+		$xxx = $pge->load($ful);
 		$lnk = $pge->getLink($dir, "pedit");
 
 		echo "<tr><td>$lnk</td><td align='right'>$anz</td></tr>";
@@ -76,8 +76,8 @@ foreach ($arr as $ful => $nam) {
 }
 
 echo "</table></small>\n";
-HTW::lf();
+echo PAGE_BREAK;
 echo "&nbsp; Finds: $cnt/$ttl files => $fds occurrencies\n";
-HTW::lf();
+echo PAGE_BREAK;
 
 ?>

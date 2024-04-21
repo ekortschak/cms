@@ -88,7 +88,7 @@ private static function getVals($arr) {
 	unset($arr["tan"]); unset($arr["rec_act"]);
 	unset($arr["oid"]); unset($arr["act"]);
 
-	$hid = SSV::getValues("tan");
+	$hid = SSV::values("tan");
 
 	foreach ($hid as $key => $val) {
 		if (STR::begins($key, "prop_")) continue;

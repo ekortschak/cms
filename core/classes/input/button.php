@@ -60,7 +60,7 @@ public function read($btn) {
 
 	$cod = new code();
 	$cod->read($fil);
-	$this->merge($cod->getValues());
+	$this->merge($cod->values());
 
 	$sel = $this->get("props.hilite", "");
 	$sel = $this->chkStatus($sel);

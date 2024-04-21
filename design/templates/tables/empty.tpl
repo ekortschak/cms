@@ -16,7 +16,6 @@ recNew = Neuen Datensatz anlegen
 </table>
 </p>
 
-
 [sorry]
 <table width=250>
 	<tr class="rh">

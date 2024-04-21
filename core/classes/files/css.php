@@ -41,7 +41,7 @@ public function get() { // get style sheet
 
 // ***********************************************************
 public function gc() { // get code
-	$css = $this->getStatic(); if ($css) return $css;
+#	$css = $this->getStatic(); if ($css) return $css;
 	$arr = $this->getFiles();
 	$css = "";
 
@@ -102,7 +102,7 @@ public function export($file) {
 // read all css files from styles folder(s) into array
 // ***********************************************************
 private function getStatic() {
-	return false; // TODO:kill this feature?
+ // currently not in use
 	$ful = APP::file($this->cms); if (! $ful) return false;
 	return file_get_contents($ful);
 }

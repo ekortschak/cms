@@ -9,10 +9,12 @@ img.flag {
 }
 
 img.rgt {
-	padding: 0px 0px 5px 15px;
+	max-height: THUMB_HGT;
+	margin: 0px 0px 5px 10px;
 }
 img.lft {
-	padding: 0px 0px 5px 15px;
+	max-height: THUMB_HGT;
+	margin: 0px 0px 5px 10px;
 }
 
 .thumb {
@@ -27,4 +29,11 @@ img.max {
 	border: 1px solid OUTLINE;
 	border-radius: BR_IMG;
 	margin-bottom: 7px;
+}
+
+img.full {
+	border: 1px solid OUTLINE;
+	border-radius: BR_IMG;
+	max-width:  100%;
+	max-height: 100%;
 }

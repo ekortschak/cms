@@ -66,7 +66,7 @@ public static function get($key, $default = false, $div = "env") {
 	return VEC::get($arr, $key, $default);
 }
 
-public static function getValues($div = "env") {
+public static function values($div = "env") {
 	return SSV::$dat[$div];
 }
 

@@ -7,7 +7,7 @@ $dir = ENV::get("search.dir");
 $fnd = ENV::get("search.what"); if (! $fnd) return;
 
 $obj = new search();
-$fls = $obj->getSnips($dir, $fnd);
+$fls = $obj->snips($dir, $fnd);
 
 // ***********************************************************
 // show results

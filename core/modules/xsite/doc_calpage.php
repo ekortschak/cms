@@ -3,19 +3,30 @@
 incCls("tables/cal_table.php");
 
 // ***********************************************************
-$loc = PGE::dir(); if (! $loc) return;
-$dat = PGE::get("props.cal.date");
+$dat = PGE::get("props_cal.date");
 
 $cal = new cal_table("monList");
 $cal->setRange($dat);
 $mon = $cal->gc();
 
 // ***********************************************************
-$kap = new chapter();
-$kap->load("xsite/calpage.tpl");
-$kap->init($loc);
-$kap->set("month", $mon);
-$kap->addQR();
-$kap->show();
+// create output
+// ***********************************************************
 
 ?>
+
+<div class="flex">
+<div>
+<?php
+include "core/modules/body/head/main.php";
+include "core/modules/body/main.php";
+?>
+</div>
+
+<div style="padding-left: 15px;">
+<?php
+echo $mon;
+?>
+</div>
+
+</div>

@@ -28,6 +28,7 @@ class editText extends tpl {
 
 function __construct() {
 	parent::__construct();
+	DBG::cls(__CLASS__);
 
 	$this->load("editor/edit.text.tpl");
 	$this->register();
@@ -53,7 +54,7 @@ public function suit($variant) {
 }
 
 public function edit() {
-	$htm = $this->getContent();
+	$htm = $this->content();
 	$xxx = $this->process($htm);
 }
 
@@ -61,11 +62,11 @@ protected function process($htm) {
 	$rws = STR::count($htm, "\n") + 30;
 	$rws = CHK::range($rws, 30, 7);
 
-	parent::set("file",  $this->file);
-	parent::set("snips", $this->getSnips());
-	parent::set("content", $htm);
-	parent::set("rows", $rws);
-	parent::show();
+	$this->set("file",  $this->file);
+	$this->set("snips", $this->snips());
+	$this->set("content", $htm);
+	$this->set("rows", $rws);
+	$this->show();
 }
 
 // ***********************************************************
@@ -77,11 +78,11 @@ protected function process($htm) {
 // ***********************************************************
 // reading info
 // ***********************************************************
-protected function getContent() {
+protected function content() {
 	return APP::read($this->file);
 }
 
-protected function getSnips() {
+protected function snips() {
 	$arr = CFG::iniGroup("snips:html");
 	$arr = VEC::flip($arr);
 

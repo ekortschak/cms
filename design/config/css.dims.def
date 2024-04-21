@@ -51,7 +51,7 @@ H_LINE = 1.5rem
 
 [borders]
 OUTLINE = \#AAA
-BR_IMG  = 7px
+BR_IMG  = 10px
 BR_TEXT = 7px
 BR_MENU = 10px
 BR_INP  = 5px

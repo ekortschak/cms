@@ -21,8 +21,12 @@ grey =
 <!VAR:items!>
 </div>
 
+[caption]
+#<!VAR:chnum!>
+<!VAR:title!>
+
 [link]
-<a class="<!VAR:active!>" href="?tpc=<!VAR:topic!>&pge=<!VAR:uid!>"><!VAR:title!></a>
+<a class="<!VAR:active!>" href="?tpc=<!VAR:topic!>&pge=<!VAR:uid!>"><!SEC:caption!></a>
 #<a href="javascript:load('<!VAR:uid!>');"><!VAR:title!></a>
 
 [qid]
@@ -49,9 +53,7 @@ lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 
 [link.menu]
 <div <!SEC:qid!> class="dir <!SEC:cls!>"> _
-<a href="javascript:toggleDiv('<!VAR:pfx!>', <!VAR:index!>);"> _
-<!VAR:title!> _
-</a> _
+<a href="javascript:toggleDiv('<!VAR:pfx!>', <!VAR:index!>);"><!SEC:caption!></a> _
 </div>
 
 # ***********************************************************
@@ -68,13 +70,13 @@ lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 [static.dir]
 <div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>
+	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!SEC:caption!></a>
 </div>
 
 [static.file]
 <div <!SEC:qid!> data-par="<!VAR:level!>" _
 	class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
-	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!VAR:title!></a>
+	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!SEC:caption!></a>
 </div>
 
 # ***********************************************************

@@ -20,6 +20,7 @@ class editPic extends editText {
 
 function __construct() {
 	parent::__construct();
+	DBG::cls(__CLASS__);
 
 	$this->load("editor/edit.pic.tpl");
 }
@@ -43,7 +44,7 @@ private function showPic($fil) {
 private function showCR($fil) { // show copyright info
 	if (! DB_MODE) return;
 
-	HTW::tag("(CR)-Information", "b");
+	HTW::tag("&copy;-Information", "b");
 	$md5 = md5($fil);
 
 	$dbe = new recEdit("default", "copyright");

@@ -34,11 +34,6 @@ public static function xtag($text, $tag = "h4") {
 	return HTM::tag($out, $tag);
 }
 
-public static function lf($tag = "hr") {
-	if ($tag == "pbr") return "\n\n<hr class='pbr'>\n";
-	return "<$tag>\n";
-}
-
 // ***********************************************************
 // standard tags
 // ***********************************************************

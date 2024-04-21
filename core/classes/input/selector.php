@@ -194,7 +194,7 @@ public function show($sec = "main") {
 
 public function gc($sec = "main") {
 	$inp = $this->itm->getData(); $out = "";
-	$vls = $this->getValues(); // backup vars
+	$vls = $this->values(); // backup vars
 
 	$this->set("oid", $this->oid);
 

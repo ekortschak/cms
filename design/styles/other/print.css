@@ -3,27 +3,15 @@ body.print {
 	background: white;
 	padding: 20px 20px 35px;
 	width: 100%;
-
-	margin: 20px;
 }
-
-div.h1 {
-	margin-top: 0px;
-}
-
-section h1, section h2, section h3 {
-	margin-top: 0px;
-}
-
-
 
 /* ******************************************************** */
 @media print {
 /* ******************************************************** */
 @page {
 #    size: A4 portrait;
-	widows: 3;
-	orphans: 2;
+#	widows: 3;
+#	orphans: 2;
 }
 
 body.print {
@@ -36,10 +24,8 @@ h1, h2, h3, h4, h5, h6, h7, h8, h9 {
 	page-break-after: avoid;
 }
 
-p {
+img {
 	page-break-inside: avoid;
-	widows: 2;
-	orphans: 2;
 }
 
 hr.pbr {
@@ -51,10 +37,6 @@ hr.pbr {
 
 .helpbox {
 	display: none;
-}
-
-tr, .br {
-	page-break-inside: avoid;
 }
 
 /* ******************************************************** */

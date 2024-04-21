@@ -42,19 +42,30 @@ public function addSec($sec) {
 }
 
 public function dropSec($sec) {
+	$this->clearSec($sec);
 	unset($this->sec[$sec]);
 }
 
 public function clearSec($sec) {
-	$vls = $this->getValues($sec);
+	$vls = $this->values($sec);
 
 	foreach ($vls as $key => $val) {
-		unset ($this->vls[$key]);
+		unset ($this->vls["$sec.$key"]);
 	}
 }
 
 public function fldType($sec, $default = "input") {
 	return VEC::get($this->typ, $sec, $default);
+}
+
+public function sort($sec = "props") {
+	if ( ! $this->isSec($sec)) return;
+	$arr = $this->values($sec);
+	$xxx = $this->clearSec($sec);
+
+	foreach ($arr as $key => $val) {
+		$this->set("$sec.$key", $val);
+	}
 }
 
 // ***********************************************************
@@ -66,8 +77,8 @@ public function getChoice($key) {
 	return $val;
 }
 
-public function isKey($key) {
-	return VEC::isKey($this->lst, $key);
+public function dropKey($key) {
+	$this->vls = VEC::dropKey($this->vls, $key);
 }
 
 // ***********************************************************
@@ -124,7 +135,7 @@ public function save($file = NV) {
 			$out.= "$txt\n";
 		}
 		else { // key = val sections
-			$arr = $this->getValues($sec); if (! $arr) continue;
+			$arr = $this->values($sec); if (! $arr) continue;
 
 			foreach ($arr as $key => $val) {
 				$key = STR::clear($key, "$sec.");
@@ -152,8 +163,8 @@ public function checkIni() {
 	foreach ($lgs as $lng) {
 		$this->addSec($lng);
 
-		$tit = $this->getTitle($lng); if (! $tit) $tit = $uid;
-		$hed = $this->getHead($lng);  if ($tit == $hed) $hed = "";
+		$tit = $this->title($lng); if (! $tit) $tit = $uid;
+		$hed = $this->head($lng);  if ($tit == $hed) $hed = "";
 
 		$this->set("$lng.title", $tit);
 		$this->set("$lng.head", $hed);
@@ -174,6 +185,7 @@ protected function secure($val) {
 // methods concerning templates
 // ***********************************************************
 private function chkTpl($fil) {
+	if (! $fil) return false;
 	if (strlen($fil) == 3) { // define by type
 		$tpl = $this->getTpl("page.$fil.def"); if ($tpl) return $tpl;
 		return $this->getTpl("page.def");
