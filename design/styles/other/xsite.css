@@ -54,6 +54,7 @@ h2 + h3, h3 + h4, h4 + h5, h5 + h6 {
 hx, hy, hz {
 	display: block;
 	margin: 0.5em 0px 0px;
+	page-break-after: avoid;
 }
 
 hx {
