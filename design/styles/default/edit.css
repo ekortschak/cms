@@ -31,7 +31,8 @@
 	border-radius: BR_MENU;
 	padding: 7px BR_MENU 25px;
 	min-height: 1.5rem;
-	max-height: 75vh;
+#	max-height: 100%;
+	max-height: calc(100vh - H_MENU - 150px);
 }
 
 .hot {

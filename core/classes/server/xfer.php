@@ -100,13 +100,27 @@ private function getEntry($fso, $root) {
 	$dir = FSO::norm($root);
 	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 
-	if (  is_dir ($fso)) return "d;1;;$itm;1\n";
-	if (! is_file($fso)) return "";
-
-	$dat = filemtime($fso); if (filesize($fso) < 1) $dat = 0;
+	$pfx = $this->prefix($fso, $root);
+	$dat = $this->fdate($fso);
 	$md5 = FSO::hash($fso);
 
-	return "f;$dat;;$itm;$md5\n";
+	return "$pfx;$dat;;$itm;$md5\n";
+}
+
+// ***********************************************************
+private function prefix($fso, $root) {
+	$chk = realpath($fso);
+	$lnk = STR::begins($chk, $root);
+
+	if (is_file($fso))
+	return ($lnk) ? "f": "l";
+	return ($lnk) ? "d": "L";
+}
+
+private function fdate($fso) {
+	if (is_dir($fso)) return 1;
+	if (filesize($fso) < 1) return 0;
+	return filemtime($fso);
 }
 
 // ***********************************************************

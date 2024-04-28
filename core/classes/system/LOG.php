@@ -28,7 +28,7 @@ public static function init() {
 
 // ***********************************************************
 public static function dir($app = "") {
-	return FSO::join(TOP_DIR, self::MY_DIR, $app);
+	return FSO::join(DOM_DIR, self::MY_DIR, $app);
 }
 public static function file($file, $app = APP_NAME) {
 	$dir = LOG::dir($app);

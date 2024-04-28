@@ -1,10 +1,7 @@
 [include]
-LOC_LAY/default/main.edit.tpl
+LOC_LAY/default/main.tpl
 
 # ***********************************************************
-[body] <!-- body.medit -->
+[main]
 # ***********************************************************
-<div id="viewport">
-<!MOD:edit/menu!>
-</div>
-
+<!SEC:body!>

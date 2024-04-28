@@ -20,21 +20,21 @@
 	background-position: center;
 	background-size: cover;
 
-	height:    H_MENU;
-	width:     100%;
-	max-width: 100%;
-	min-width: 300px;
+	height:     H_MENU;
+	width:      100%;
+	max-width:  100%;
+	min-width:  300px;
 
-	color:     FC_MENU;
+	color:      FC_MENU;
 }
 
 .modBody {
-	float:     top;
-	overflow:  auto;
-	height:    calc(100vh - H_MENU);
-	width:     100%;
-	min-width: 300px;
-	max-width: 100%;
+	float:      top;
+	overflow:   auto;
+	height:     calc(100vh - H_MENU);
+	width:      100%;
+	min-width:  300px;
+	max-width:  100%;
 
 	background: BC_BODY;
 	padding:    7px 20px 35px;

@@ -4,11 +4,11 @@ $fbk = CMS_DIR; if (is_link($fbk))
 $fbk = realpath($fbk);
 
 define("TOP_DIR", $_SERVER["DOCUMENT_ROOT"]);
-define("DOM_DIR", dirname(TOP_DIR));
 define("PRJ_DIR", dirname(APP_DIR));
+define("DOM_DIR", dirname(PRJ_DIR));
 define("FBK_DIR", $fbk);
 
-define("X_TOOLS", TOP_DIR."/xtools");
+define("X_TOOLS", DOM_DIR."/xtools");
 
 define("APP_NAME", basename(APP_DIR));
 
@@ -24,7 +24,6 @@ if (APP_DIR !== FBK_DIR) $pfd.= PATH_SEPARATOR.FBK_DIR;
 if (CMS_DIR !== FBK_DIR) $pfd.= PATH_SEPARATOR.CMS_DIR;
 
 $pfd.= PATH_SEPARATOR.PRJ_DIR;
-$pfd.= PATH_SEPARATOR.TOP_DIR;
 $pfd.= PATH_SEPARATOR.DOM_DIR;
 
 set_include_path($pfd);

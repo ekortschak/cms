@@ -190,7 +190,7 @@ public static function encode($dir) { // directory constants only
 	$dir = STR::replace($dir, APP_DIR, "\APP_DIR");
 	$dir = STR::replace($dir, FBK_DIR, "\FBK_DIR");
 	$dir = STR::replace($dir, PRJ_DIR, "\PRJ_DIR");
-	$dir = STR::replace($dir, TOP_DIR, "\TOP_DIR");
+	$dir = STR::replace($dir, DOM_DIR, "\DOM_DIR");
 
 	foreach (CFG::$dat as $key => $val) {
 		if ( ! STR::begins($key, "LOC_")) continue;

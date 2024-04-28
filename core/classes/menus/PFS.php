@@ -182,12 +182,17 @@ public static function find($key = NV) { // dir, uid or num index expected !
 	}
 	$uid = VEC::get(PFS::$dat, $key); if ($uid) return $key;
 	$uid = VEC::get(PFS::$vrz, $key); if ($uid) return $uid;
-	$key = STR::after($key, TOP_DIR);
+	$key = STR::after($key, DOM_DIR);
 	return VEC::get(PFS::$vdr, $key);
 }
 
+private static function findIndex($uid) {
+	$arr = array_flip(PFS::$idx);
+	return VEC::get($arr, $uid);
+}
+
 private static function findNext($uid, $inc) {
-	$key = PFS::propVal($uid, "index", 0);
+	$key = PFS::findIndex($uid);
 	$max = PFS::$cnt - 1;
 
 	while (true) {

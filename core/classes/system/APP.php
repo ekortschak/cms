@@ -206,7 +206,7 @@ public static function url($fso) {
 
 	if (STR::begins($out, APP_DIR)) return STR::after(  $out, APP_DIR.DIR_SEP);
 	if (STR::begins($out, FBK_DIR)) return STR::replace($out, FBK_DIR, CMS_URL);
-	return STR::clear($out, TOP_DIR);
+	return STR::clear($out, DOM_DIR);
 }
 
 public static function link($trg) { // convert file to request uri
@@ -216,7 +216,7 @@ public static function link($trg) { // convert file to request uri
 	$uid = PGE::UID($dir);
 
 	$hme = STR::after($hme, $idx.DIR_SEP);
-	$idx = STR::after($idx, TOP_DIR);
+	$idx = STR::after($idx, DOM_DIR);
 
 	return "$idx?tpc=$hme&pge=$uid";
 }

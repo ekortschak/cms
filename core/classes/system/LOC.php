@@ -25,7 +25,7 @@ class LOC {
 	private const MY_ARC = "cms.archive";
 
 public static function init() {
-	$top = dirname(TOP_DIR);
+	$top = dirname(DOM_DIR);
 	LOC::setArchive($top);
 }
 

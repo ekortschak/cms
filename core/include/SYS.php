@@ -29,11 +29,11 @@ public static function startFile($vmode) {
 }
 
 private static function getFile($vmode) {
-	if (substr($vmode, 1) == "edit") return "x.edit";
+	if (substr($vmode, 1) == "edit") return "edit";
 
-	if ($vmode == "xlate") return "x.edit";
-	if ($vmode == "xfer")  return "x.edit";
-	if ($vmode == "seo")   return "x.edit";
+	if ($vmode == "xlate") return "edit";
+	if ($vmode == "xfer")  return "edit";
+	if ($vmode == "seo")   return "edit";
 
 	if ($vmode == "pres")  return "pres";
 	return "index";

@@ -279,18 +279,18 @@ protected function chkErr($arr, $inf) {
 }
 
 // ***********************************************************
-protected function getNewer($src, $dst) {
+protected function getNewer($src, $trg) {
 	if ($this->chkErr($src, "source")) return array();
-#	if ($this->chkErr($dst, "target")) return array();
+#	if ($this->chkErr($trg, "target")) return array();
 
-	$out = $lst = array();
+	$out = $lst = array(); $lnk = "";
 
 	foreach ($src as $itm) { // source - e.g. local files
 		$inf = $this->split($itm, "s"); if (! $inf) continue; extract($inf);
 		$lst[$alf] = $inf; if ($typs == "d")
 		$this->ren[$alf]["src"] = $fsos;
 	}
-	foreach ($dst as $itm) { // destination - e.g. remote files
+	foreach ($trg as $itm) { // destination - e.g. remote files
 		$inf = $this->split($itm, "d"); if (! $inf) continue; extract($inf);
 		if (! isset($lst[$alf])) $lst[$alf] = array();
 		$lst[$alf]+= $inf;
@@ -300,10 +300,10 @@ protected function getNewer($src, $dst) {
 	foreach ($lst as $fso => $prp) { // check dates
 		$inf = $this->chkProps($prp); extract($inf);
 
-		if ($typs === "f")
+		if (STR::features("f.l", $typs))
 		if ($md5s === $md5d) continue;
 
-		$act = $this->getAction($typs.$typd, $dats >= $datd);
+		$act = $this->getAction($typs.$typd, $datd < $datd);
 		$act = $this->chkAction($act, $fso);
 
 		switch ($act) {
@@ -319,17 +319,20 @@ protected function getNewer($src, $dst) {
 // determining action
 // ***********************************************************
 protected function getAction($mds, $newer) {
-	if ($mds == "dx") return "mkd"; // mkdir
-	if ($mds == "xd") return "rmd"; // rmdir
-	if ($mds == "fx") return "cpf"; // copy file
-	if ($mds == "xf") return "dpf"; // drop file
+	switch ($mds) {
+		case "Ld":
+		case "dx": return "mkd"; // mkdir
+		case "xd": return "rmd"; // rmdir
 
-	if ($mds == "ff") {
-		if ($newer) return "cpf"; // update
-		if ($this->newProt) return "nwr"; // protect newer files
-		return "cpf";
+		case "lf":
+		case "fx": return "cpf"; // copy file
+		case "xf": return "dpf"; // drop file
+
+		case "ff": // update
+			if ($newer) if ($this->newProt) return "nwr"; // protect newer files
+			return "cpf";
 	}
-	return "x"; // ignore
+	return "x"; // ignore, e.g. do not overwrite links
 }
 
 protected function chkAction($act, $fso) { // dropping fso

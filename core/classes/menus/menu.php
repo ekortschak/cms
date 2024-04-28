@@ -10,7 +10,6 @@ Handles top navigation
 incCls("menus/menu.php");
 
 $nav = new menu();
-$nav->setData($arr); // $arr as from PFS::item();
 $nav->show();
 */
 
@@ -29,30 +28,13 @@ function __construct($typ = "menu") {
 // ***********************************************************
 // methods
 // ***********************************************************
-public function setData($arr, $ofs = 0) { // $arr as from PFS::item();
-	$top = "default";
-
-	foreach ($arr as $key => $inf) {
-		$lev = VEC::get($inf, "level") + $ofs; if ($lev < 1) continue;
-
-		switch ($lev) {
-			case 1: $this->top[$key] = $inf; $top = $key; break;
-			case 2:	$this->dat[$top][$key] = $inf; break;
-			default: // menues only support 1st sublevel
-		}
-	}
-}
-
-// ***********************************************************
-// display
-// ***********************************************************
 public function gc($sec = "main") {
-	$its = "";
+	$arr = PFS::toc(); $its = "";
 
-	foreach ($this->top as $key => $inf) {
-		$this->merge($inf); extract($inf);
+	foreach ($arr as $inf) {
+		$this->merge($inf); extract($inf); if ($level != 2) continue;
 
-		$sub = $this->getEntries($key);
+		$sub = $this->getEntries($uid);
 		$cls = $this->getClass($fpath);
 		$box = $this->getBox($sub);
 
@@ -68,10 +50,10 @@ public function gc($sec = "main") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getEntries($top) {
-	$dat = VEC::get($this->dat, $top); if (! $dat) return "";
+private function getEntries($dir) {
+	$arr = PFS::subtree($dir); if (! $arr) return;
 	$out = "";
-	foreach ($dat as $key => $inf) {
+	foreach ($arr as $inf) {
 		$out.= $this->getItem("subItem", $inf);
 	}
 	return $out;

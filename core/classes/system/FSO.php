@@ -287,7 +287,7 @@ public static function parents($dir) {
 	if (is_file($dir)) $dir = dirname($dir); $out = array();
 
 	while ($dir = dirname($dir)) {
-		if ($dir < TOP_DIR) break;
+		if ($dir < DOM_DIR) break;
 		$out[] = $dir;
 	}
 	return $out;
@@ -352,6 +352,7 @@ public static function filter($files, $ext) {
 }
 
 public static function hash($file) {
+	if (is_dir($file)) return 1;
 #	return sha1_file($file);
 	return md5_file($file);
 }
