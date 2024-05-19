@@ -20,24 +20,23 @@ class saveTab extends saveMany {
 
 function __construct() {
 	parent::__construct();
-
-	switch ($this->env("btn.tab")) {
-		case "G": return $this->exec();
-	}
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
 protected function exec() {
-	$act = $this->env("btn.tab");
+	$btn = $this->env("btn.tab");
+	$act = $this->get("tab.act");
 
-	switch ($act) {
-		case "T": return $this->toggle();   // turn tabs on/off
-		case "A": return $this->tabAdd();   // create a new tab
-		case "P": return $this->tabProps(); // save props
-		case "S": return $this->tabSort();  // sort tabs
-		case "G": return $this->tabPics();  // handle tab.xx.png files
+	switch ($btn.$act) {
+		case "TT": return $this->toggle();   // turn tabs on/off
+		case "TA": return $this->tabAdd();   // create a new tab
+		case "SS": return $this->tabSort();  // sort tabs
+		case "GA": return $this->pngAdd();   // create tab.xx.png files
+		case "GD": return $this->pngDel();   // delete tab.xx.png files
+
+		case "P":  return $this->tabProps(); // save props
 	}
 }
 
@@ -45,7 +44,7 @@ protected function exec() {
 // visibility & sort order
 // ***********************************************************
 private function toggle() {
-	$cmd = $this->get("set.act"); if (! $cmd) return;
+	$cmd = $this->get("tab.act"); if (! $cmd) return;
 	$set = $this->get("tabset");  if (! $set) return;
 	$vls = $this->get("tabs");    if (! $vls) return;
 	$lcs = $this->get("tabl");
@@ -70,7 +69,6 @@ private function toggle() {
 
 // ***********************************************************
 private function tabAdd() {
-	$cmd = $this->get("tab.act"); if (! $cmd) return;
 	$dir = $this->get("tab.dir"); if (! $dir) return;
 	$fil = FSO::join($dir, "tab.ini");
 	$set = TAB_SET;
@@ -91,7 +89,6 @@ private function tabAdd() {
 
 // ***********************************************************
 private function tabSort() {
-	$cmd = $this->get("sort.act");  if (! $cmd) return;
 	$lst = $this->get("sort.list"); if (! $lst) return;
 	$set = $this->get("sort.parm");
 
@@ -114,26 +111,15 @@ private function tabSort() {
 // methods for design/tabsets
 // ***********************************************************
 private function tabProps() {
-	$tab = $this->env("tedit.tab"); if (! $tab) return;
-	$fil = FSO::join($tab, "tab.ini");
+	$cmd = $this->get("act"); if (! $cmd) return;
+	$fil = FSO::join(TAB_ROOT, "tab.ini");
 
 	$edt = new tabEdit($fil);
 	$edt->savePost();
-
-	ENV::set("tab", $tab);
-	ENV::set("tpc", $tpc);
 }
 
 // ***********************************************************
 // graphic tabs
-// ***********************************************************
-private function tabPics() { // execute pic related tasks
-	switch (ENV::getParm("tab.act")) {
-		case "add":  return $this->pngTab();
-		case "drop": return $this->pngDel();
-	}
-}
-
 // ***********************************************************
 private function pngDel() { // remove tab pics
 	foreach (LNG::get() as $lng) {
@@ -143,12 +129,13 @@ private function pngDel() { // remove tab pics
 }
 
 // ***********************************************************
-private function pngTab() { // create tab pics
+private function pngAdd() { // create tab pics
 	foreach (LNG::get() as $lng) {
 		$fil = FSO::join(TAB_ROOT, "tab.$lng.png");
 		if (is_file($fil)) continue;
 
 		incCls("files/img.php");
+		incCls("files/iniTab.php");
 
 		$ini = new iniTab(TAB_ROOT);
 		$tit = $ini->title($lng);

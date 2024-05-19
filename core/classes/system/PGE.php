@@ -111,13 +111,6 @@ public static function pic($dir = false) {
 	}
 }
 
-public static function page() {
-	$key = PGE::get("pfs.chnum");
-
-	$ini = new ini("files/toc.ini");
-	return $ini->get("toc.$key", "-");
-}
-
 // ***********************************************************
 // include files
 // ***********************************************************

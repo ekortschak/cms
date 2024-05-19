@@ -16,8 +16,8 @@ $nav = new buttons("tab", "P", __DIR__);
 
 $nav->add("T", "doTab");
 $nav->add("S", "doSort");
+$nav->blank();
 $nav->add("P", "doProps");
-$nav->space();
 $nav->add("G", "doPics");
 $nav->space();
 $nav->link("V", HTM::icon("buttons/view.png"), "?vmode=view");

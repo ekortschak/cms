@@ -24,6 +24,10 @@ rows = 40
 # ***********************************************************
 [main]
 # ***********************************************************
+<style>
+	.modBody { overflow: hidden; }
+</style>
+
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?file.act=save">

@@ -8,7 +8,7 @@ clip.out = Append to current menu item
 sure     = Sind Sie sicher?
 
 [dic.de]
-clip.add = Ausgewählten Eintrag bearbeitens
+clip.add = Ausgewählten Eintrag bearbeiten
 clip.cut = ins Clipboard verschieben
 clip.cpy = ins Clipboard kopieren
 clip.dup = Ausgewählten Eintrag duplizieren

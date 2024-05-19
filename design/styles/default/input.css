@@ -113,7 +113,8 @@ textarea {
 }
 
 textarea.max {
-	width: 100%;
+	height: calc(100vh - H_MENU - 150px);
+ 	width: 100%;
 }
 
 /* ******************************************************** */

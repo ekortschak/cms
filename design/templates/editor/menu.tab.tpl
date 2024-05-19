@@ -37,7 +37,9 @@ cur.file = Dateiname
 <table>
 	<tr>
 		<td width=230><input name="tab.dir" type="text" placeholder="<!DIC:node.new!>" /></td>
-		<td><input type="submit" name="tab.act" value="<!DIC:create!>" /></td>
+		<td><input type="hidden" name="tab.act" value="A" />
+			<input type="submit" value="<!DIC:create!>" />
+		</td>
 	</tr>
 </table>
 </form>
@@ -52,7 +54,7 @@ cur.file = Dateiname
 
 <div align="right">
 	<!DIC:new.png!>
-	<a href="?tab.act=add">
+	<a href="?tab.act=A">
 		<button><!DIC:create!></button>
 	</a>
 </div>
@@ -69,7 +71,7 @@ cur.file = Dateiname
 
 <div align="right">
 	<!DIC:del.png!>
-	<a href="?tab.act=drop" onclick="return confirm('<!DIC:ask.sure!>');">
+	<a href="?tab.act=D" onclick="return confirm('<!DIC:ask.sure!>');">
 		<button>BOOL_NO</button>
 	</a>
 </div>

@@ -48,12 +48,12 @@ public static function button($lnk, $cap, $trg = "_self") {
 }
 
 public static function icon($ico, $alt = "") {
-	$img = "LOC_ICO/$ico";
+	$img = FSO::join(LOC_ICO, $ico);
 	return "<img src='$img' alt='$alt'>";
 }
 
 public static function flag($lng) {
-	$img = "LOC_ICO/flags/$lng.gif";
+	$img = FSO::join(LOC_ICO, "flags", "$lng.gif");
 	return "<img src='$img' class='flag' alt='$lng'>";
 }
 

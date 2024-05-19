@@ -4,7 +4,15 @@ incCls("menus/dropBox.php");
 incCls("input/selector.php");
 
 // ***********************************************************
-// show file selector
+// find tabsets
+// ***********************************************************
+$ini = new iniTab(TAB_ROOT);
+$tit = $ini->title();
+
+HTW::tag("Tab = $tit");
+
+// ***********************************************************
+// show font selector
 // ***********************************************************
 $fnt = APP::files("design/fonts", "*.ttf");
 
@@ -13,14 +21,6 @@ $fnt = $box->getKey("Font", $fnt);
 $xxx = $box->show();
 
 ENV::set("Font", $fnt);
-
-// ***********************************************************
-// find tabsets
-// ***********************************************************
-$ini = new iniTab(TAB_ROOT);
-$tit = $ini->title();
-
-HTW::tag("Tab = $tit");
 
 // ***********************************************************
 // create vtab pics

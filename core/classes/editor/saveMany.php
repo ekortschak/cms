@@ -17,24 +17,14 @@ class saveMany {
 	protected $oid = false;
 
 function __construct() {
-	$oid = ENV::getPost("oid");
-
-	if ($oid) { // post data
-		$this->oid = $oid;
-		$this->exec();
-	}
-	else { // get data
-		$this->exec_2();
-	}
+	$this->oid = ENV::getPost("oid");
+	$this->exec();
 }
 
 // ***********************************************************
 // methods
 // ***********************************************************
 protected function exec() {
-// dummy for derived classes
-}
-protected function exec_2() {
 // dummy for derived classes
 }
 

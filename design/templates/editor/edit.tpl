@@ -39,10 +39,9 @@ rows = 7
 # ***********************************************************
 [ctarea]
 # ***********************************************************
-<textarea id="content" name="content" class="max" style="min-height: <!VAR:rows!>rem;"
-placeholder="<!VAR:placeholder!>" tabindex=0 _
-autocomplete="off" autocorrect="off" autocapitalize="off" _
-spellcheck="false"><!VAR:content!></textarea>
+<textarea id="content" name="content" class="max" placeholder="<!VAR:placeholder!>" tabindex=0 _
+autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">_
+<!VAR:content!></textarea>
 
 # ***********************************************************
 # other

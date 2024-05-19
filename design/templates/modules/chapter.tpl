@@ -1,13 +1,11 @@
 [main]
 <div class="flex">
-<div class="nowrap" style="max-width: calc(100% - 50px);">
-	<div class="h2" style="display: inline-block; padding: 3px 0px 4px;">
-		<!VAR:title!>
-	</div>
-</div>
-
+<!SEC:title!>
 <!SEC:nav!>
 </div>
+
+[title]
+<div class="h2"><!VAR:title!></div>
 
 [nav]
 <div>

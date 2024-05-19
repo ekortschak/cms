@@ -15,7 +15,7 @@ $buk->read($dir);
 $buk->exec($dst, $opt);
 */
 
-incCls("editor/iniWriter.php");
+incCls("xsite/toctool.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -116,25 +116,15 @@ private function writePdf($doc) {
 // writing output to toc.ini
 // ***********************************************************
 private function writeIni() {
-	$ini = new iniWriter();
-	$ini->read("files/toc.ini");
-	$vls = $ini->values("toc"); if (! $vls) $ini->addSec("toc");
-	$ini->clearSec("toc");
-	$cnt = 0;
+	$toc = new toctool();
+	$toc->clearSec("toc");
 
 	$arr = PGE::getToc();
 
 	foreach ($arr as $num => $cap) {
-		if (! $num) continue;
-		$cnt++;
-		$pge = VEC::get($vls, $num, "¬");
-
-		if ($pge == "¬") $pge = $cnt;
-		if ($pge > $cnt) $cnt = $pge;
-
-		$ini->set("toc.$num", $pge);
-		$ini->save();
+		$toc->set("toc.$num", $pge);
 	}
+	$toc->save();
 }
 
 // ***********************************************************

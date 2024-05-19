@@ -89,8 +89,16 @@ public function link($qid, $caption, $url) {
 	$this->dat[$this->idx][$qid] = $btn->gc();
 }
 
-public function space() {
+public function space($num = 1) {
 	$this->idx++;
+}
+
+public function blank($num = 1) {
+	$cnt = 1;
+
+	for ($i = 0; $i < $num; $i++) {
+		$this->dat[$this->idx]["SPC".$cnt++] = "&nbsp;";
+	}
 }
 
 // ***********************************************************

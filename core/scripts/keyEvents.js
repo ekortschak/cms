@@ -9,7 +9,7 @@ function exKey(e) {
 	if (e.shiftKey) {
 		if (e.keyCode === 13) {
 			insAny("<br>");
-			return;
+			return stopEx(e);
 		}
 	}
 

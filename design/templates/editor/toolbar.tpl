@@ -163,8 +163,8 @@ askWidth = Bildbreite festlegen
 		<hr>
 		<div><a href="javascript:askWid();"><!DIC:askWidth!></a></div>
 		<hr>
-		<div><a href="javascript:insImg('il');"><!DIC:imgleft!></a></div>
 		<div><a href="javascript:insImg('ir');"><!DIC:imgright!></a></div>
+		<div><a href="javascript:insImg('il');"><!DIC:imgleft!></a></div>
 	</div>
 </div>
 

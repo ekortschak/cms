@@ -30,7 +30,8 @@ nodata = Keine sortierbaren Einträge ...
 			<!VAR:items!>
 		</div>
 		<div style="padding: 2px 30px;">
-			<input type="submit" name="sort.act" value="OK" style="padding:0px 20px;" />
+			<input type="hidden" name="tab.act" value="S" />
+			<input type="submit" value="OK" />
 		</div>
 	</div>
 </form>

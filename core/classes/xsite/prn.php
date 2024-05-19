@@ -19,17 +19,17 @@ function __construct() {
 // ***********************************************************
 public function toc() {
 	$its = PGE::getToc(); if (! $its) return "Empty ToC ...";
-	$out = array(); $cnt = 1;
+	$toc = new toctool(); $out = array();
 
 	foreach ($its as $key => $val) {
 		$lev = STR::before($val, ":");
 		$cap = STR::after($val, ":");
 
-		$cnt = $this->getNum($key, $cnt);
+		$cnt = $toc->get($key);
 		$sec = $this->format($lev);
 
 		$xxx = $this->set("cap", $cap);
-		$xxx = $this->set("page", $cnt++);
+		$xxx = $this->set("page", $cnt);
 		$val = $this->gc($sec);
 
 		$out[$key] = $val;
@@ -37,6 +37,7 @@ public function toc() {
 	$this->set("topic", "Das Glaubensbekenntnis");
 	$this->set("topic", "Glaubst du wirklich, was du sagst?");
 	$this->set("items", implode("\n", $out));
+
 	return $this->gc("main.toc");
 }
 
@@ -46,18 +47,6 @@ private function format($lev) {
 	if ($lev < 2) return "toc.lev1";
 	if ($lev < 3) return "toc.lev2";
 	return "toc.levx";
-}
-
-private function getNum($kap, $cnt) {
-	$ini = new ini("files/toc.ini");
-	$vls = $ini->values("toc"); if (! $vls) $ini->addSec("toc");
-	$pge = VEC::get($vls, $kap, "¬");
-
-	if ($pge == "¬") $pge = $cnt;
-	if ($pge > $cnt) $cnt = $pge;
-
-	PGE::addToc($kap, $pge);
-	return $cnt;
 }
 
 // ***********************************************************

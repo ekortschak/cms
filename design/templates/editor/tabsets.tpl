@@ -31,7 +31,8 @@ std.always = Standard-Tab kann nicht ausgeblendet werden!
 <!VAR:items!>
 		<tr class="rf">
 			<td colspan="100%" style="text-align: right;">
-				<input type="submit" name="set.act" value="OK" />
+				<input type="hidden" name="tab.act" value="T" />
+				<input type="submit" value="OK" />
 			</td>
 		</tr>
 	</table>

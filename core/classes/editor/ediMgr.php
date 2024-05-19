@@ -39,21 +39,21 @@ function __construct($filesOnly = false) {
 // ***********************************************************
 // display
 // ***********************************************************
-public function edit($dir, $files = false) { // dir = dir or file
+public function edit($fso, $files = false) {
 	$box = new dropBox("menu");
-	$old = $ful = $dir;
+	$old = $ful = $fso;
 
-	if (is_dir($dir)) {
-		if (! $this->fonly) $dir = $box->dirs($dir);
-		if (! $dir) $dir = $old;
+	if (is_dir($fso)) {
+		if (! $this->fonly) $fso = $box->dirs($fso);
+		if (! $fso) $fso = $old;
 
-		$arr = $this->files($dir);
-		$ful = $box->getKey("pic.file", $arr, $dir);
+		$arr = $this->files($fso);
+		$ful = $box->getKey("pic.file", $arr, $fso);
 	}
 	else {
-		if (! $dir) $ful = current($files);
+		if (! $fso) $ful = current($files);
 
-		$fil = basename($dir);
+		$fil = basename($fso);
 		$arr = array($ful => $fil);
 		$ful = $box->getKey("pic.file", $arr, $fil);
 	}

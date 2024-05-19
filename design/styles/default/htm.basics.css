@@ -2,6 +2,8 @@
 /* standard tags */
 /* ******************************************************** */
 h0, h1, h2, h3, h4, h5, h6 {
+	margin-top: 1rem;
+	margin-bottom: 3px;
 	color: FC_HEAD;
 }
 
@@ -11,10 +13,11 @@ h0 {
 }
 
 h4 {
+	margin-top: 0.75rem;
 	border-bottom: 1px solid;
 }
 h5, h6, h7, h8, h9 {
-	margin: 5px 0px 3px;
+	margin: 0.35rem 0px 3px;
 
 	font-size: 1rem;
 	font-weight: normal;

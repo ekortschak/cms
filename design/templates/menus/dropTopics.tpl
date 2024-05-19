@@ -27,13 +27,13 @@ class = dropMenu
 
 [main.box]
 <div class="dropdown">
-#<div class="droptext"><!DIC:tpc.list!>COMBO_DOWN</div>
-<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
+<div class="droptext"><!DIC:tpc.list!>COMBO_DOWN</div>
+#<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!VAR:links!></div>
 </div> &ensp;
 
 [main.one]
-<!DIC:topic!> &ensp;
+<div class="droptext"><!DIC:topic!></div>
 
 # ***********************************************************
 [nav]

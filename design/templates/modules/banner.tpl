@@ -2,7 +2,7 @@
 <style>
 
 .banner {
-	background: url("./img/banner.png");
+	background: url("./img/banner.jpg");
 	background-size: 100% 100%;
 	height: 100%;
 }
