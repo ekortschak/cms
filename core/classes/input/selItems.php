@@ -37,7 +37,7 @@ function __construct() {
 	parent::__construct();
 }
 
-public function add($uid, $inp) { // register an input object
+private function add($uid, $inp) { // register an input object
 	$this->itm[$uid][] = $inp; $idx = count($this->itm[$uid]) - 1;
 	$this->cur = &$this->itm[$uid][$idx];
 }

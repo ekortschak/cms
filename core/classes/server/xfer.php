@@ -78,11 +78,11 @@ private function send($txt) {
 // return a directory tree as d|f;yyyy.mm.dd;;file.ext;md5
 // ***********************************************************
 private function sendList($dir) {
-	$out = $this->getFiles($dir);
+	$out = $this->files($dir);
 	return $this->send($out);
 }
 
-public function getFiles($dir) {
+public function files($dir) {
 	if ($dir == ".") $dir = APP_DIR; if (! is_dir($dir)) return false;
 
 	$arr = FSO::fdTree($dir, "*", $this->visOnly);
@@ -90,13 +90,13 @@ public function getFiles($dir) {
 
 	foreach ($arr as $fso => $nam) {
 		if (! $fso) continue;
-		$out.= $this->getEntry($fso, $dir);
+		$out.= $this->info($fso, $dir);
 	}
 	return $out;
 }
 
 // ***********************************************************
-private function getEntry($fso, $root) {
+private function info($fso, $root) {
 	$dir = FSO::norm($root);
 	$itm = STR::afterX($fso, $dir.DIR_SEP, "");
 

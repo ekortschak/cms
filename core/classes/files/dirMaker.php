@@ -100,7 +100,7 @@ public function pathify($out) {
 // ***********************************************************
 // debugging
 // ***********************************************************
-private function debug() {
+private function dump() {
 	for ($i = 0; $i < $this->size; $i++) {
 		echo "\n<li>".$this->num[$i]." ".$this->dat[$i];
 	}

@@ -10,6 +10,11 @@ contains static functions for handling
 // ***********************************************************
 incCls("system/CFG.php");
 
+CFG::set("CONST", $value);
+
+$val = CFG::get("CONST", $default);
+$val = CFG::get("inifile:section.$key", $default);
+
 */
 
 CFG::init();
@@ -44,13 +49,13 @@ private static function addForced() { // constants set by startup script
 }
 
 private static function addServer() {
-	CFG::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR", "?.?.?.?"));
+	CFG::set("SRV_ADDR", VEC::get($_SERVER, "SERVER_ADDR"));
 	CFG::set("SRV_NAME", VEC::get($_SERVER, "SERVER_NAME", "localhost"));
 	CFG::set("SRV_PORT", VEC::get($_SERVER, "SERVER_PORT", "80"));
 	CFG::set("SRV_PROT", VEC::get($_SERVER, "REQUEST_SCHEME", "http"));
-	CFG::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", 0));
+	CFG::set("USER_IP",  VEC::get($_SERVER, "REMOTE_ADDR", "?.?.?.?"));
 
-	CFG::set("IS_LOCAL", self::isLocal(SRV_ADDR));
+	CFG::set("IS_LOCAL", CFG::isLocal(SRV_ADDR));
 }
 
 // ***********************************************************
@@ -100,13 +105,21 @@ private static function load($fil) {
 		$val = STR::after( $lin, "=");
 
 		CFG::update("$idx:$sec.$key", $val);
-		CFG::preset($key, $val);
+		CFG::suggest($key, $val);
 	}
+}
+
+// ***********************************************************
+// handling "temporary" constants
+// ***********************************************************
+private static function suggest($key, $val) { // suggest value for constant
+	CFG::set($key, $val, false);
 }
 
 private static function freeze() {
 	foreach (CFG::$dat as $key => $val) {
-		CFG::set($key, $val); // valid constant definition
+		if (defined($key)) continue;
+		define($key, $val); // valid constant definition
 	}
 }
 
@@ -117,18 +130,12 @@ public static function update($idx, $val) {
 	CFG::$cfg[$idx] = $val; // set config var
 }
 
-public static function set($key, $value) {
+public static function set($key, $value, $permanent = true) {
 	if ( ! CFG::chkKey($key)) return;
 	$val = CFG::chkVal($value);
 
 	CFG::$dat[$key] = $val; // set constant
-	define($key, $val);
-}
-
-private static function preset($key, $val) { // suggest value for constant
-	if ( ! CFG::chkKey($key)) return;
-	$val = CFG::chkVal($val);
-	CFG::$dat[$key] = $val;
+	if ($permanent) define($key, $val);
 }
 
 // ***********************************************************
@@ -200,7 +207,52 @@ public static function encode($dir) { // directory constants only
 }
 
 // ***********************************************************
-// retrieving info
+// retrieving constants
+// ***********************************************************
+public static function cats() {
+	$cst = get_defined_constants(true);
+	$cst = VEC::keys($cst); VEC::sort($cst); unset($cst["user"]);
+	$out = array("user" => "user", "" => "<hr>");
+	return $out + $cst;
+}
+
+public static function constants($sec = "user") {
+	$all = get_defined_constants(true);
+	$arr = VEC::get($all, $sec); if (! $arr) return $all;
+	$arr = VEC::sort($arr); if ($sec != "user") return $arr;
+	$out = array();
+
+	$arr["DB_FILE"]  = "*****"; // hide critical info
+	$arr["DB_PASS"]  = "*****";
+	$arr["CUR_PASS"] = "*****";
+
+	foreach ($arr as $key => $val) {
+		$out["\\$key"] = $val;
+	}
+	return $out;
+}
+
+public static function constant($key, $default = false) {
+	if (! defined($key)) return $default;
+	return constant($key);
+}
+
+// ***********************************************************
+// retrieving ini values
+// ***********************************************************
+public static function match($pfx = "") {
+	return VEC::match(CFG::$cfg, $pfx);
+}
+
+public static function get($key, $default = "") { // $key - format: file:sec.value
+	return VEC::get(CFG::$cfg, $key, $default);
+}
+public static function mod($key) {
+	return CFG::get("mods:$key");
+}
+
+// ***********************************************************
+// auxilliary methods
 // ***********************************************************
 private static function isLocal($srv) {
 	if (STR::begins($srv, "127")) return true;
@@ -216,45 +268,10 @@ public static function dbState($sec = "main") { // tpl section
 }
 
 // ***********************************************************
-// retrieving constants
+// debugging
 // ***********************************************************
-public static function cats() {
-	$cst = get_defined_constants(true);
-	$cst = array_keys($cst); ksort($cst); unset($cst["user"]);
-	$out = array("user" => "USER", "" => "<hr>");
-	return $out + $cst;
-}
-
-public static function constants($sec = "user") {
-	$out = get_defined_constants(true); if ($sec)
-	$out = $out[$sec]; ksort($out); if ($sec != "user") return $out;
-
-	$out["DB_FILE"]  = "*****"; // hide critical info
-	$out["DB_PASS"]  = "*****";
-	$out["CUR_PASS"] = "*****";
-
-	return $out;
-}
-
-public static function constant($key, $default = false) {
-	return false;
-#	if (! defined($key)) return $default;
-#	return constant($key);
-}
-
-// ***********************************************************
-// retrieving config vars
-// ***********************************************************
-public static function iniGroup($pfx = "") {
-	return VEC::match(CFG::$cfg, $pfx);
-}
-
-public static function iniVal($idx, $default = "") { // $idx - format: file:sec.value
-	return VEC::get(CFG::$cfg, $idx, $default);
-}
-
-public static function mod($key) {
-	return CFG::iniVal("mods:$key");
+public static function dump() {
+	DBG::tview(CFG::$dat);
 }
 
 // ***********************************************************

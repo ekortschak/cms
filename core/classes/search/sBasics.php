@@ -21,18 +21,58 @@ $lst = $obj->snips($dir, $fnd); // list of files and matching snips
 incCls("menus/dropBox.php");
 
 // ***********************************************************
+// check for reset
+// ***********************************************************
+if (ENV::getParm("search.reset")) {
+	ENV::set("search.what",  false);
+	ENV::set("search.parms", false);
+	ENV::set("search.last",  false);
+	ENV::set("search.help",  0);
+}
+
+// ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class sBasics {
 	protected $rng = TAB_HOME;
 	protected $vis = true;
 	protected $mod = "p";
+	protected $hlp = false;
+	protected $fnd = false;
 
 	const SEP = "@Q@";
 
 function __construct($dir = TAB_HOME) {
 	$this->rng = ENV::get("search.rng", $dir);
 	$this->mod = ENV::get("search.mod", $this->mod);
+	$this->hlp = ENV::get("search.help", 0);
+
+	$this->fnd = $this->findWhat();
+}
+
+// ***********************************************************
+// display form and results
+// ***********************************************************
+public function show() {
+	$this->showForm();
+	$this->results();
+}
+
+private function showForm() {
+	$fnd = $this->fnd;
+	$hlp = $this->hlp;
+
+	$tpl = new tpl();
+	$tpl->load("modules/search.tpl");
+	$tpl->set("range",  $this->scope());
+	$tpl->set("search", $this->fnd);
+
+	if ($fnd && $hlp)
+	$tpl->substitute("help", "nohelp");
+	$tpl->show();
+
+	if ((! $fnd) || ($hlp))
+	$tpl->show("howto");
 }
 
 // ***********************************************************
@@ -65,11 +105,11 @@ public function findWhat() {
 // ***********************************************************
 // retrieving relevant files
 // ***********************************************************
-public function results($what) {
-#	$out = $this->isSame($what); if ($out) return $out;
-#	$xxx = $this->saveParms("");
-
-	$psg = $this->search($what); if (! $psg) return false;
+public function results() {
+	$fnd = $this->fnd;
+	$out = $this->isSame($fnd); if ($out) return $out;
+	$xxx = $this->saveParms("");
+	$psg = $this->search($fnd); if (! $psg) return false;
 	$psg = $this->sort($psg);
 	$out = array();
 
@@ -78,8 +118,7 @@ public function results($what) {
 		$out[$tab][$fil] = PGE::title($fil);
 	}
 	$this->saveParms($out);
-	VEC::sort($out);
-	return $out;
+	return VEC::sort($out);
 }
 
 protected function tab($fil) {
@@ -151,8 +190,8 @@ protected function paths() {
 	if ($typ != "sel") $dir = TAB_HOME;
 
 	return array(
-		TAB_HOME => DIC::get("Local"),
-		$dir => DIC::get("Global"),
+		TAB_HOME => DIC::get("search.one"),
+		$dir => DIC::get("search.all"),
 	);
 }
 
@@ -167,6 +206,7 @@ protected function mods() {
 // verify if search context has changed
 // ***********************************************************
 protected function isSame($what) {
+return false;
 	if (strlen($what) < 3) return true;
 
 	$chk = $this->parms($what);
@@ -184,12 +224,8 @@ protected function isSame($what) {
 // ***********************************************************
 protected function prepare($src) {
 	$txt = $this->read($src); if (! $txt) return "";
-
-	switch ($this->mod) {
-		case "h": return $this->prepare_h($txt);
-		case "p": return $this->prepare_p($txt);
-	}
-	return $txt;
+	$fnc = "prepare_".$this->mod;
+	return $this->$fnc($txt);
 }
 
 protected function prepare_h($txt) {

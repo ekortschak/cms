@@ -62,10 +62,10 @@ public function findRec($recID = -1) {
 	$this->fds = $this->std; if (! $arr) return;
 
 	foreach ($arr as $fld => $val) {
-		$this->fds->addItem($fld);
-		$this->fds->setProp($fld, "value", $val);
+		$this->fds->add($fld);
+		$this->fds->set($fld, "value", $val);
 	}
-	$this->qid = $this->fds->getProp("ID", "value", -1);
+	$this->qid = $this->fds->get("ID", "value", -1);
 	$this->neu = ($this->qid < 1);
 }
 
@@ -81,15 +81,15 @@ public function findDefaults() {
 
 	foreach ($fds as $fld => $hed) {
 		$inf = $this->fldProps($this->tbl, $fld);
-		$this->std->addItem($fld);
+		$this->std->add($fld);
 
 		foreach ($inf as $prp => $val) {
 			$val = CFG::apply($val); if ($prp == "value")
 			$val = $this->recall($fld, $val);
 
-			$this->std->setProp($fld, $prp, $val);
+			$this->std->set($fld, $prp, $val);
 		}
-		$this->std->setProp($fld, "head", $hed);
+		$this->std->set($fld, "head", $hed);
 	}
 }
 
@@ -117,11 +117,9 @@ private function chkVal($inf, $prm) {
 // ***********************************************************
 // setting properties
 // ***********************************************************
-public function mergeProps($arr) { // $arr set by items->getitems();
-	foreach ($arr as $name => $props) {
-		foreach ($props as $key => $val) {
-			$this->setProp($name, $key, $val);
-		}
+public function mergeProps($arr) { // $arr set by items->items();
+	foreach ($arr as $fld => $props) {
+		$this->std->merge($fld, $props);
 	}
 }
 
@@ -130,11 +128,11 @@ public function setDefault($field, $val) {
 }
 
 public function setProp($field, $prop, $val) {
-	$this->std->setProp($field, $prop, $val); if ($prop == "fstd")
-	$this->std->setProp($field, "value", $val); ;
+	$this->std->set($field, $prop, $val); if ($prop == "fstd")
+	$this->std->set($field, "value", $val); ;
 }
 public function setType($field, $type) {
-	$this->std->setProp($field, "dtype", $type);
+	$this->std->set($field, "dtype", $type);
 }
 
 // ***********************************************************
@@ -165,7 +163,7 @@ public function show() {
 }
 
 public function gc() {
-	$fds = $this->fds->getItems(); $cnt = 0;
+	$fds = $this->fds->items(); $cnt = 0;
 	$txs = $this->getTPerms();
 
 	$tan = TAN::register($this->dbs, $this->tbl, $this->qid);

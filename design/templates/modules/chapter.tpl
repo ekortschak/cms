@@ -1,5 +1,5 @@
 [main]
-<div class="flex">
+<div class="flex" style="padding-top: 2px;">
 <!SEC:title!>
 <!SEC:nav!>
 </div>

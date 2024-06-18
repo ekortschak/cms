@@ -68,7 +68,7 @@ public function setLang() {
 	$this->lng = $trg;
 }
 
-public function setOverwrite($value) {
+public function overwrite($value) {
 	$this->ovr = $value;
 }
 

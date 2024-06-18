@@ -51,7 +51,7 @@ public static function decrypt($data) {
 
 public static function md5($text = "kor_cms") {
 	$now = SSL::getStamp();
-	$key = CFG::iniVal("xfer:upload.masterkey");
+	$key = CFG::get("xfer:upload.masterkey");
 	$out = md5("$key.$text.".date("Ym!d", $now));
 	return str_pad($now, 32, $out,  STR_PAD_LEFT);
 }

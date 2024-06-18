@@ -24,7 +24,7 @@ caps {
 }
 
 small {
-#	vertical-align: middle;
+	vertical-align: middle;
 	font-size: 0.75em;
 }
 
@@ -36,6 +36,7 @@ kbd {
 	padding: 1px 0.5em;
 	min-width: 12px;
 
+	vertical-align: middle;
 	font-size: 0.75em;
 	text-align: center;
 }

@@ -3,11 +3,10 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-// show banner
+// no results
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("modules/banner.tpl");
-$tpl->set("title", CFG::constant("PRJ_MOTTO", ""));
-$tpl->show();
+$tpl->load("modules/search.tpl");
+$tpl->show("err.empty");
 
 ?>

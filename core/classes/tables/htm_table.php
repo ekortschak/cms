@@ -40,17 +40,19 @@ function __construct() {
 // handling columns
 // ***********************************************************
 public function addCols($hed) {
-	$this->cls->addItems($hed);
+    foreach ($hed as $itm) {
+        $this->addCol($itm);
+    }
 }
 public function addCol($col, $inf = array()) {
-	$this->cls->addItem($col, $inf);
+	$this->cls->add($col, $inf);
 }
 
 public function setHeads($colheads) {
 	$arr = STR::split($colheads, ","); $cnt = 0;
 
 	foreach ($arr as $val)
-		$this->cls->setProp($cnt++, "head", $val);
+		$this->cls->set($cnt++, "head", $val);
 }
 
 public function setLines($num) {
@@ -58,20 +60,18 @@ public function setLines($num) {
 }
 
 // ***********************************************************
-public function mergeProps($arr) { // $arr set by items->getItems();
-	foreach ($arr as $name => $props) {
-		foreach ($props as $key => $val) {
-			$this->setProp($name, $key, $val);
-		}
+public function mergeProps($arr) { // $arr set by items->items();
+	foreach ($arr as $col => $props) {
+		$this->cls->merge($col, $props);
 	}
 }
 public function setProps($col) { // collection
 	foreach ($col as $name) {
-		$this->cls->setProps($name, $col);
+		$this->cls->merge($col, $name);
 	}
 }
 public function setProp($col, $prop, $value) {
-	$this->cls->setProp($col, $prop, $value);
+	$this->cls->set($col, $prop, $value);
 }
 
 // ***********************************************************
@@ -87,8 +87,8 @@ public function addRow($data) { // single record
 }
 
 public function addArray($data, $pfx = "") {
-	$this->cls->addItem("Key");
-	$this->cls->addItem("Value");
+	$this->cls->add("Key");
+	$this->cls->add("Value");
 
 	foreach ($data as $key => $val) {
 		$this->dat[] = array($pfx.$key, $val);
@@ -112,8 +112,8 @@ public function gc($sec = "main") {
 		return "$out\n";
 	}
 	$dat = $this->getRows();
-	$hed = $this->getRow("rh", $this->cls->getCols());
-	$fut = $this->getRow("rf", $this->cls->getSums());
+	$hed = $this->getRow("rh", $this->cls->items());
+	$fut = $this->getRow("rf", $this->cls->sums());
 
 	if ($rcs < $this->lns) {
 		$this->clearSec("stats");
@@ -140,7 +140,7 @@ protected function getRows() {
 		$rec = $this->getRec($i); if (! $rec) continue;
 		$qid = $this->getRecID($rec);
 
-		$xxx = $this->cls->set("recid", $qid);
+		$xxx = $this->cls->set($i, "recid", $qid);
 		$out.= $this->getRow("rw", $rec);
 	}
     return $out;

@@ -53,6 +53,8 @@ dbg.hint3 {
 hint, .hint {
 	color: FC_DEAD;
 	background: BC_DEAD;
+
+	vertical-align: middle;
 	font-size: 0.85em;
 	font-style: normal;
 }

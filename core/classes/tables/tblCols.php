@@ -27,7 +27,7 @@ function __construct() {}
 // handling properties
 // ***********************************************************
 public function setProp($item, $prop, $val) {
-	parent::setProp($item, $prop, $val);
+	$this->set($item, $prop, $val);
 
 	switch ($prop) {
 		case "dtype": case "type":
@@ -53,51 +53,47 @@ public function setProp($item, $prop, $val) {
 }
 
 private function setPropIf($item, $prop, $val) {
-	if (parent::getProp($item, $prop, NV) !== NV) return;
-	parent::setProp($item, $prop, $val);
+	if (! $this->isItem($item)) return;
+	$this->set($item, $prop, $val);
 }
 
 // ***********************************************************
 // retrieving useful info
 // ***********************************************************
-public function getCols() {
-	return $this->getItems();
-}
-
-public function getSums() {
+public function sums() {
 }
 
 // ***********************************************************
 // retrieving properties
 // ***********************************************************
 public function getInfo($item, $val = NV) {
-	$out = $this->getItem($item); if (! $out) return false;
+	$out = $this->item($item); if (! $out) return false;
 
-    $out["recid"] = parent::getProp($item, "recid", -1);
-    $out["name"]  = parent::getProp($item, "name",  "C$item");
-    $out["head"]  = parent::getProp($item, "head",  $out["name"]);
-    $out["fname"] = parent::getProp($item, "fname", $out["name"]);
-    $out["foot"]  = parent::getProp($item, "foot",  "");
-    $out["dtype"] = parent::getProp($item, "dtype", "var");
-    $out["align"] = parent::getProp($item, "align", "left");
-    $out["flen"]  = parent::getProp($item, "flen",  $this->flen);
-    $out["mlen"]  = parent::getProp($item, "mlen",  $this->mlen);
-    $out["iskey"] = parent::getProp($item, "iskey", $out["dtype"] == "key");
-    $out["ronly"] = parent::getProp($item, "ronly", false);
-    $out["fnull"] = parent::getProp($item, "fnull", false);
-    $out["hide"]  = parent::getProp($item, "hide",  $out["iskey"]);
-	$out["ref"]   = parent::getProp($item, "deref", "");
-    $out["mask"]  = parent::getProp($item, "mask",  "%s");
-    $out["fnc"]   = parent::getProp($item, "fnc",   false);
-    $out["fstd"]  = parent::getProp($item, "fstd",  $val);
-    $out["vals"]  = parent::getProp($item, "vals",  $val);
+    $out["recid"] = $this->get($item, "recid", -1);
+    $out["name"]  = $this->get($item, "name",  "C$item");
+    $out["head"]  = $this->get($item, "head",  $out["name"]);
+    $out["fname"] = $this->get($item, "fname", $out["name"]);
+    $out["foot"]  = $this->get($item, "foot",  "");
+    $out["dtype"] = $this->get($item, "dtype", "var");
+    $out["align"] = $this->get($item, "align", "left");
+    $out["flen"]  = $this->get($item, "flen",  $this->flen);
+    $out["mlen"]  = $this->get($item, "mlen",  $this->mlen);
+    $out["iskey"] = $this->get($item, "iskey", $out["dtype"] == "key");
+    $out["ronly"] = $this->get($item, "ronly", false);
+    $out["fnull"] = $this->get($item, "fnull", false);
+    $out["hide"]  = $this->get($item, "hide",  $out["iskey"]);
+	$out["ref"]   = $this->get($item, "deref", "");
+    $out["mask"]  = $this->get($item, "mask",  "%s");
+    $out["fnc"]   = $this->get($item, "fnc",   false);
+    $out["fstd"]  = $this->get($item, "fstd",  $val);
+    $out["vals"]  = $this->get($item, "vals",  $val);
     $out["raw"]   = $val;
 
 	if ($out["ref"]) {
 		$out["align"] = "left";
 		$val = $this->getRef($val, $out["ref"]);
 	}
-	$val = $this->mask($val, $out["mask"]);
+	$val = $this->mask($val,  $out["mask"]);
 	$val = $this->xform($val, $out["fnc"]);
 
     $out["type"]  = $out["dtype"];
@@ -110,6 +106,7 @@ public function getInfo($item, $val = NV) {
 // ***********************************************************
 private function mask($val, $msk) {
 	if (! $val) return $val;
+	if (is_object($val)) return $val;
 	if (is_array($val)) return $val;
 	if (STR::misses($msk, "%")) return $val;
 	return sprintf($msk, $val, $val, $val);

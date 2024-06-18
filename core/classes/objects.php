@@ -93,11 +93,12 @@ public function get($key, $default = "") {
 // ***********************************************************
 public function lng($key, $default = false) {
 	$lng = CUR_LANG; $gen = GEN_LANG;
-	$try = "$key.$lng";	$out = $this->get($try, NV); if ($out !== NV) return $out;
-	$try = "$lng.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;
-	$try = "$key.$gen";	$out = $this->get($try, NV); if ($out !== NV) return $out;
-	$try = "$gen.$key";	$out = $this->get($try, NV); if ($out !== NV) return $out;
-	return $this->get($key, $default);
+	$arr = array("$key.$lng", "$lng.$key", "$key.$gen", "$gen.$key", $key);
+
+	foreach ($arr as $try) {
+		$out = $this->get($try, NV); if ($out !== NV) return $out;
+	}
+	return $default;
 }
 
 // ***********************************************************

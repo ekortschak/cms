@@ -66,7 +66,7 @@ public function edit($fil, $lng = CUR_LANG) {
 	$ful = STR::replace($ful, FBK_DIR, "<red>CMS</red>");
 	HTW::tag("file = $ful", "hint");
 
-	$arr = $this->getItems($fil, $lng);
+	$arr = $this->items($fil, $lng);
 	$key = $this->showSel($arr);
 	$xxx = $this->showEdit($key);
 
@@ -82,7 +82,7 @@ public function edit($fil, $lng = CUR_LANG) {
 // ***********************************************************
 // collect info
 // ***********************************************************
-private function getItems($fil, $lng) {
+private function items($fil, $lng) {
 	$dic = new dicWriter();
 	$xxx = $dic->read($fil);
 	return $dic->getKeys("dic.$lng");

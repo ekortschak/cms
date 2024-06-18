@@ -33,9 +33,10 @@ public function hilite($find) {
 	$lst = $this->split($fnd);
 	$out = $this->txt;
 
-	foreach ($lst as $itm) {
+	foreach ($lst as $fnd) {
 		$idx = $cnt++ % 5 + 1;
-		$out = self::markit($out, $itm, $idx);
+		$fnd = $this->chkNoun($fnd);
+		$out = $this->markit($out, $fnd, $idx);
 	}
 	return $out;
 }
@@ -129,7 +130,6 @@ private function checkString($txt) {
 
 private static function markit(&$haystack, $find, $idx) {
 	$fnd = STR::clear($find, "^");
-
 	$beg = STR::begins($find, "^"); if (! $beg) $beg = 0;
 	$end = STR::ends($find, "^");   if (! $end) $end = 0;
 

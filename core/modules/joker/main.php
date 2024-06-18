@@ -7,7 +7,7 @@ incCls("menus/dropBox.php");
 // ***********************************************************
 // find tabs
 // ***********************************************************
-$arr = CFG::iniGroup("tabsets:".TAB_SET);
+$arr = CFG::match("tabsets:".TAB_SET);
 $tbs = array();
 
 foreach ($arr as $tab => $prp) {
@@ -23,15 +23,8 @@ $tbs = $box->gc();
 // ***********************************************************
 // adjustments to layout
 // ***********************************************************
-switch (LAYOUT) {
-	case "default": $lyt = true; break;
-	default: $lyt = false;
-}
-
-switch (VMODE) {
-	case "view": case "toc": $clr = true; break;
-	default: $clr = false;
-}
+$clr = APP::isView();
+$sch = CFG::mod("tabs.search");
 
 // ***********************************************************
 // show joker tool bar
@@ -40,8 +33,8 @@ $tpl = new tpl();
 $tpl->load("pages/joker.tpl");
 $tpl->set("topics", $tbs);
 
-if (! $lyt) $tpl->clearSec("menu");
 if (! $clr) $tpl->substitute("right", "right.back");
+if (! $sch) $tpl->clearSec("search");
 
 $tpl->show();
 

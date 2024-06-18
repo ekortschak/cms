@@ -10,8 +10,8 @@ designed to handle tree views based on arbitrary arrays
 incCls("menus/tview.php");
 
 $obj = new tview();
-$obj->readTree();
-$obj->setData($arr);
+$idx = $obj->setData($arr);
+$obj->set($idx, $prop, $value);
 $obj->show();
 
 */
@@ -24,13 +24,9 @@ CFG::set("EMPTY_VAL", "[]");
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
-class tview extends objects {
-	private $itm; // menu items & props
+class tview extends items {
 
-function __construct() {
-	$this->itm = new items();
-	$this->register();
-}
+function __construct() {}
 
 // ***********************************************************
 // handling items
@@ -41,38 +37,24 @@ public function setData($arr, $lev = 1, $pfx = "") {
 	foreach ($arr as $key => $val) {
 		$idx = FSO::join($pfx, $key);
 
-		$this->itm->addItem($idx);
-		$this->setProp($idx, "head",  $key);
-		$this->setProp($idx, "level", $lev);
-		$this->setProp($idx, "value", $val);
+		$this->add($idx);
+		$this->setHead($idx, $key);
+		$this->set($idx, "level", $lev);
+		$this->set($idx, "value", $val);
 
 		if (is_array($val)) {
 			$inf = MULTI_VAL; if (count($val) < 1)
 			$inf = EMPTY_VAL;
 
-			$this->setProp($idx, "value", $inf);
+			$this->set($idx, "value", $inf);
 			$this->setData($val, $lev + 1, $idx);
 		}
 	}
+	return $idx;
 }
 
 public function getData() {
-	return $this->itm->getItems();
-}
-
-// ***********************************************************
-public function count() {
-	return $this->itm->count();
-}
-
-// ***********************************************************
-// handling properties
-// ***********************************************************
-public function setProp($index, $key, $value) {
-	$this->itm->setProp($index, $key, $value);
-}
-private function getProp($index, $key, $default = false) {
-	return $this->itm->getProp($index, $key, $default);
+	return $this->items();
 }
 
 // ***********************************************************
@@ -83,16 +65,14 @@ public function show() {
 	$tpl->load("menus/tview.tpl");
 	$tpl->set("pfx", uniqid());
 
-	$arr = $this->getData(); $out = "";
-	$lst = $this->count();   $cnt = 0;
-
+	$arr = $this->getData();
 	$trg = array_key_first($arr);
 	$trg = $this->find($trg);
 
 	foreach ($arr as $idx => $inf) {
-		$tit = $inf["head"];      $tpl->set("title", $tit);
-		$val = $inf["value"];     $tpl->set("value", $val);
-		$lev = $inf["level"] + 1; $tpl->set("level", $lev);
+		$tit = $inf->get("head");  $tpl->set("title", $tit);
+		$val = $inf->get("value"); $tpl->set("value", $val);
+		$lev = $inf->get("level"); $tpl->set("level", $lev + 1);
 
 		$sec = "value"; if ($val === MULTI_VAL)
 		$sec = "folder";
@@ -110,10 +90,6 @@ public function show() {
 // ***********************************************************
 // determine display features
 // ***********************************************************
-private function find($default) {
-	return $this->recall("trg", $default);
-}
-
 private function isVisible($dir, $index, $lev) {
 	if ($lev < 2) return "block";
 	if ($lev > 3) return "none"; // exclude deep level subdirs
@@ -122,9 +98,18 @@ private function isVisible($dir, $index, $lev) {
 	if (STR::begins($dir, dirname($index))) return "block"; // show parents and siblings
 	return "none";
 }
+
 private function isOpen($dir, $index, $lev) {
 	if (STR::begins($dir, $index)) return "bottom";
 	return "top";
+}
+
+// ***********************************************************
+// auxilliary methods
+// ***********************************************************
+private function setHead($idx, $key) {
+	if ($key == strtoupper($key)) $key = "\\$key";
+	$this->set($idx, "head", $key);
 }
 
 // ***********************************************************

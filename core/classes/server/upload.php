@@ -9,7 +9,7 @@ used for uploading files
 // HOW TO USE
 // ***********************************************************
 $upl = new upload();
-$upl->setOverwrite(true | false);
+$upl->overwrite(true | false);
 $upl->moveAllFiles($destination);
 */
 
@@ -26,20 +26,20 @@ class upload {
 function __construct() {}
 
 // ***********************************************************
-public function setOverwrite($value = true) {
+public function overwrite($value = true) {
 	$this->overwrite = (bool) $value;
 }
-public function setMaxFiles($value = 1) {
+public function maxFiles($value = 1) {
 	$this->maxfiles = CHK::range($value, 1, 25);
 }
-public function setMaxSize($value = 1500000) {
+public function maxSize($value = 1500000) {
 	$this->maxfiles = CHK::range($value, $this->minsize, $this->maxsize);
 }
 
 // ***********************************************************
 // handle uploaded files
 // ***********************************************************
-public function getFiles($qid = "fload") {
+public function files($qid = "fload") {
 	$fls = array();
 	$upl = VEC::get($_FILES, $qid); if (! $upl) return $fls;
 	$anz = CHK::max($this->maxfiles, count($upl["name"]));
@@ -66,7 +66,7 @@ public function getFiles($qid = "fload") {
 // move files to destination
 // ***********************************************************
 public function moveAllFiles($dest) {
-	$fls = $this->getFiles();
+	$fls = $this->files();
 	return $this->moveFiles($fls, $dest);
 }
 

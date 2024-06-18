@@ -19,16 +19,13 @@ $var = ENV::find($idx, $default);
 */
 
 ENV::init();
-ENV::set("blockme", false);
+APP::block(false);
 
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
 class ENV {
 
-// ***********************************************************
-// merge environment variables
-// ***********************************************************
 public static function init() {
 	ENV::mergeArr($_GET);
 	ENV::mergeArr($_POST);
@@ -36,13 +33,6 @@ public static function init() {
 	ENV::setTab(APP_NAME.".".TAB_SET);
 	ENV::setTpc(APP_NAME.".".TAB_SET);
 	ENV::stdPage();
-}
-
-private static function mergeArr($arr) {
-	foreach ($arr as $key => $val) {
-		if (ENV::isAction($key)) continue;
-		ENV::set($key, $val);
-	}
 }
 
 // ***********************************************************
@@ -58,7 +48,7 @@ private static function setTab($idx) {
 private static function findTab($idx) {
 	$tab = ENV::getParm("tab");	 if ($tab) return $tab;
 	$tab = ENV::get("tab.$idx"); if ($tab) return $tab;
-	$arr = CFG::iniGroup("tabsets:".TAB_SET);
+	$arr = CFG::match("tabsets:".TAB_SET);
 
 	foreach ($arr as $key => $val) {
 		if (STR::contains($val, "default")) return $key;
@@ -200,6 +190,13 @@ private static function isAction($key) {
 	if ($key == "act") return true; // do not store pressed buttons
 	if (STR::ends($key, "_act")) return true;
 	return false;
+}
+
+private static function mergeArr($arr) {
+	foreach ($arr as $key => $val) {
+		if (ENV::isAction($key)) continue;
+		ENV::set($key, $val);
+	}
 }
 
 // ***********************************************************

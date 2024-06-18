@@ -41,7 +41,7 @@ public function gc($sec = "main") {
 		$this->set("class", $cls);
 		$this->set("subitems", $sub);
 
-		$its.= $this->getItem($box, $inf);
+		$its.= $this->item($box, $inf);
 	}
 	$xxx = $this->set("items", $its);
 	return $this->getSection($sec);
@@ -54,12 +54,12 @@ private function getEntries($dir) {
 	$arr = PFS::subtree($dir); if (! $arr) return;
 	$out = "";
 	foreach ($arr as $inf) {
-		$out.= $this->getItem("subItem", $inf);
+		$out.= $this->item("subItem", $inf);
 	}
 	return $out;
 }
 
-private function getItem($sec, $inf) {
+private function item($sec, $inf) {
 	$this->set("link", $inf["uid"]);
 	$this->set("text", $inf["title"]);
 	return $this->getSection($sec);

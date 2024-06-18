@@ -30,6 +30,8 @@ function __construct() {
 	$this->load("input/selector.tpl"); if (CUR_DEST != "screen")
 	$this->load("input/selView.tpl");
 	$this->register();
+
+	$this->itm = new selItems();
 }
 
 public function register($oid = NV, $sfx = "*") {
@@ -120,7 +122,7 @@ public function image($uid, $value, $file) { // image button
 	$fil = APP::file(FSO::join(LOC_ICO, "input", $file));
 
 	$out = $this->itm->addImage("img", $uid, $value);
-	$xxx = $this->itm->setProp("file", $fil);
+	$xxx = $this->itm->set("file", $fil);
 	return $out;
 }
 
@@ -170,7 +172,7 @@ public function setHeader($head) {
 }
 
 public function setProp($prop, $value) {
-	$this->itm->setProp($prop, $value);
+	$this->itm->set($prop, $value);
 }
 
 public function disable() {

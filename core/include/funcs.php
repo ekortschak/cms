@@ -3,9 +3,9 @@
 // ***********************************************************
 // find files or default to fallback dir
 // ***********************************************************
-function incCls($file) {
-#	$fil = SYS::file(LOC_CLS."/$file"); # TODO: why not working on server
-	$fil = appFile(LOC_CLS."/$file");
+function incCls($file, $dir = LOC_CLS) {
+#	$fil = SYS::file("$dir/$file"); # TODO: why not working on server
+	$fil = appFile("$dir/$file");
 	include_once $fil;
 }
 function appFile($file) {

@@ -24,15 +24,23 @@
 
 [right]
 <div>
-<button><a href="?vmode=jsearch"><img src="LOC_ICO/buttons/search.gif"></a></button>
-<button><a href="?vmode=joker"><img src="LOC_ICO/other/vw.gif"></a></button>
+<!SEC:search!>
+<!SEC:admin!>
 </div>
 
 [right.back]
 <div>
-<button><a href="?vmode=jsearch"><img src="LOC_ICO/buttons/search.gif"></a></button>
+<!SEC:search!>
 <button><a href="?vmode=view" ><img src="LOC_ICO/buttons/view.png"></a></button>
 </div>
 
 [nav]
 <div></div>
+
+
+[search]
+<button><a href="?vmode=jsearch"><img src="LOC_ICO/buttons/search.gif"></a></button>
+
+[admin]
+<button><a href="?vmode=joker"><img src="LOC_ICO/other/vw.gif"></a></button>
+

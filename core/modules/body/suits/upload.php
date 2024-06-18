@@ -11,10 +11,10 @@ incCls("input/qikOption.php");
 // ***********************************************************
 // read properties
 // ***********************************************************
-$ext = CFG::iniVal("upload:props_upl.ext", "*");
-$max = CFG::iniVal("upload:props_upl.max_size", 2000);
-$ovr = CFG::iniVal("upload:props_upl.overwrite", 0);
-$dst = CFG::iniVal("upload:props_upl.path", PGE::$dir);
+$ext = CFG::get("upload:props_upl.ext", "*");
+$max = CFG::get("upload:props_upl.max_size", 2000);
+$ovr = CFG::get("upload:props_upl.overwrite", 0);
+$dst = CFG::get("upload:props_upl.path", PGE::$dir);
 
 HTW::tag("dir = $dst", "hint");
 
@@ -26,9 +26,9 @@ $act = $ptk->watch("act", "OK");
 
 if ($act) {
 	$upl = new upload();
-	$upl->setMaxFiles(5);
-	$upl->setMaxSize($max);
-	$upl->setOverwrite(ENV::getPost("opt_overwrite", $ovr));
+	$upl->maxFiles(5);
+	$upl->maxSize($max);
+	$upl->overwrite(ENV::getPost("opt_overwrite", $ovr));
 	$upl->moveAllFiles($dst);
 }
 
@@ -46,7 +46,7 @@ $act = $sel->show();
 // ***********************************************************
 // show form
 // ***********************************************************
-REG::add("js", "LOC_SCR/upload.js");
+REG::add("LOC_SCR/upload.js");
 
 $sel = new selector();
 $sel->setHeader(DIC::get("upl.upload"));

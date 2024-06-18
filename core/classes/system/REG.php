@@ -10,8 +10,8 @@ contains static functions for handling
 // ***********************************************************
 incCls("system/REG.php");
 
-REG::add("css", "any.css");
-REG::add("js", "any.js");
+REG::add("path/to/any.css");
+REG::add("path/to/any.js");
 
 $arr = REG::get("js");
 
@@ -23,17 +23,18 @@ $arr = REG::get("js");
 class REG {
 	private static $dat = array();
 
-public static function init() {}
-
 // ***********************************************************
 // handling single constants
 // ***********************************************************
-public static function add($key, $file) {
+public static function add($file) {
+	$ext = strtolower(FSO::ext($file));
+	$fil = CFG::apply($file);
+
  // make sure file is only added once
-	REG::$dat[$key][$file] = $file;
+	REG::$dat[$ext][$file] = $fil;
 }
-public static function get($key) {
-	return VEC::get(REG::$dat, $key, false);
+public static function get($ext) {
+	return VEC::get(REG::$dat, $ext, false);
 }
 
 // ***********************************************************

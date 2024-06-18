@@ -53,7 +53,7 @@ private static function findVal($key, $default) {
 	return $default;
 }
 
-public static function debug() {
+public static function dump() {
 	error_reporting(E_ALL);
 
 	ini_set("display_startup_errors", true);

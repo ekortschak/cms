@@ -1,10 +1,9 @@
 <?php
 
-switch (CFG::constant("DB_MODE")) {
+switch (DB_MODE) {
 	case "true": case 1: case true; break;
 	default: return;
 }
-die("hier");
 
 // ***********************************************************
 incCls("dbase/dbBasics.php");

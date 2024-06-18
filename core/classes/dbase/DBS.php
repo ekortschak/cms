@@ -75,17 +75,16 @@ private static function ugroups($usr = CUR_USER)  {
 // string functions
 // ***********************************************************
 public static function secure($str) {
+	$str = str_replace("(CR)", "&copy;", $str);
 	$str = str_replace('"', "<dqot>", $str);
 	$str = str_replace("'", "<sqot>", $str);
 	$str = str_replace(";", "<scol>", $str);
-	$str = str_replace("&copy;", "(CR)", $str);
-	return $str;
+	return mysqli_real_escape_string($str);
 }
 public static function restore($str) {
 	$str = str_replace("<dqot>", '"', $str);
 	$str = str_replace("<sqot>", "'", $str);
 	$str = str_replace("<scol>", ";", $str);
-	$str = str_replace("(CR)", "&copy;", $str);
 	return $str;
 }
 

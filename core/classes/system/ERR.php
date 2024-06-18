@@ -150,7 +150,8 @@ private static function getStack($sec = "short") {
 		$out.= $tpl->getSection($sec);
 	}
 	$md5 = md5($out); if (VEC::get(ERR::$hst, $md5)) return "";
-	return trim($out);
+	$out = CFG::encode($out);
+	return $out;
 }
 
 // ***********************************************************

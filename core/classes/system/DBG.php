@@ -32,7 +32,7 @@ public static function setDest($val) {
 	DBG::$dest = "web";
 }
 
-public static function setMax($val = 99) {
+public static function show($val = 99) {
 	$val = intval($val);
 	$val = CHK::range($val, 7, 49);
 
@@ -83,8 +83,8 @@ public static function tview($arr, $info = "arr") {
 		$arr[$key] = htmlspecialchars($val);
 	}
 	$tvw = new tview();
-	$tvw->setData($arr);
-	$tvw->set("info", $info);
+	$idx = $tvw->setData($arr);
+	$tvw->set($idx, "info", $info);
 	$tvw->show("debug");
 }
 

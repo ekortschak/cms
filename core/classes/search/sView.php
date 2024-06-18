@@ -15,9 +15,7 @@ $fls = $vew->snips();
 
 */
 
-incCls("menus/dropBox.php");
 incCls("menus/dropNav.php");
-incCls("search/search.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -35,7 +33,12 @@ function __construct() {
 // ***********************************************************
 // show nav objects
 // ***********************************************************
-public function showNav() {
+public function findMode() {
+	$act = $this->showNav(); if (! $act) return "x";
+	return ENV::get("search.mod", "p");
+}
+
+private function showNav() {
 	$lst = $this->getData();
 
 	$tpc = ENV::get("search.tpc");
@@ -63,21 +66,9 @@ public function showNav() {
 // ***********************************************************
 // return data
 // ***********************************************************
-public function getData() {
+private function getData() {
 	$lst = VEC::keys($this->dat);
 	return $this->chkData($lst);
-}
-
-public function snips() {
-	$dir = ENV::get("search.dir");
-	$fnd = ENV::get("search.what");
-
-	$obj = new search();
-	return $obj->snips($dir, $fnd);
-}
-
-public function getMode() {
-	return ENV::get("search.mod", "p");
 }
 
 // ***********************************************************

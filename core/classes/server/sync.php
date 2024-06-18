@@ -264,7 +264,7 @@ protected function getTree($src, $dst) {
 // ***********************************************************
 protected function lclFiles($dir) {
 	$srv = new xfer($this->visOnly);
-	$out = $srv->getFiles($dir);
+	$out = $srv->files($dir);
 	return $this->conv($out);
 }
 

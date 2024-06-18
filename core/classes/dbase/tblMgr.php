@@ -74,12 +74,12 @@ public function setType($field, $type) {
 
 // ***********************************************************
 public function setProp($field, $prop, $value) {
-	$this->prp->addItem($field);
-	$this->prp->setProp($field, $prop, $value);
+	$this->prp->add($field);
+	$this->prp->set($field, $prop, $value);
 }
 
 protected function getProps() {
-	return $this->prp->getItems();
+	return $this->prp->items();
 }
 
 // ***********************************************************

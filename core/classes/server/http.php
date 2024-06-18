@@ -29,7 +29,7 @@ function __construct($server, $pcl = "https") {
 // ***********************************************************
 public function query($act, $dir = ".") {
 	$cmd = $this->url($act, $dir);
-#	$xxx = $this->debug($cmd);
+#	$xxx = $this->dump($cmd);
 	$out = NET::read($cmd);
 	return $out;
 }
@@ -50,7 +50,8 @@ public function url($act, $fso = ".") { // create acceptable command
 // ***********************************************************
 public function upload($fso, $dir = "") {
 	$cmd = $this->url("cpf", $fso);
-#	$xxx = $this->debug($cmd, $fso);
+#	$xxx = $this->dump($cmd, $fso);
+#	$xxx = $this->dump($cmd, $fso);
 
 	$fil = FSO::join($dir, $fso);
 	$fil = APP::file($fil); if (! $fil) return false;
@@ -77,7 +78,7 @@ public function upload($fso, $dir = "") {
 // ***********************************************************
 // debugging
 // ***********************************************************
-public static function debug($url, $inf = "dbg") {
+public static function dump($url, $inf = "dbg") {
 	HTW::href($url, "<div>$inf</div>");
 }
 

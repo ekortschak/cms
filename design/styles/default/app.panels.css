@@ -40,13 +40,13 @@
 
 .titBody {
 	width:      100%;
-	padding:    0px 20px 0px;
+	padding:    0px LR_PAD 0px;
 }
 
 .modBody {
 	width:      100%;
 	font-size:  F_BODY;
-	padding:    0px 20px 115px;
+	padding:    0px LR_PAD 115px;
 }
 
 .modBord {
@@ -58,7 +58,7 @@
 	overflow:   auto;
 	color:      FC_OPTS;
 	background: BC_OPTS;
-	padding:    1rem 20px 25px;
+	padding:    1rem LR_PAD 25px;
 	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
 }
 
@@ -68,5 +68,5 @@
 .topics {
 	float:      top;
 	width:      100%;
-	padding:    3px 20px 0px;
+	padding:    3px LR_PAD 0px;
 }

@@ -36,6 +36,16 @@ public static function init() {
 }
 
 // ***********************************************************
+// allow or deny display/execution of page contents
+// ***********************************************************
+public static function block($mode = true) {
+	ENV::set("blockme", (bool) $mode);
+}
+public static function blocked() {
+	return ENV::get("blockme");
+}
+
+// ***********************************************************
 // app dirs or files
 // ***********************************************************
 public static function addPath($dir) {
@@ -239,8 +249,7 @@ public static function snip($dir, $snip = "page", $fext = "php, htm, html") {
 	foreach ($lgs as $lng) {
 		foreach ($ext as $ptn) {
 			$fil = FSO::join($dir, "$snip.$lng.$ptn");
-			$ful = APP::file($fil);
-			if (is_file($ful)) return $ful;
+			$ful = APP::file($fil); if (is_file($ful)) return $ful;
 		}
 	}
 	return false;
@@ -259,31 +268,33 @@ public static function gcRec($dir, $snip) { // show banner/trailer
 	return $out;
 }
 
-public static function gcSys($fso, $snip = "page") { // show any part of page
-	if (ENV::get("blockme")) return "";
+public static function gcSys($dir, $snip = "page") { // show any part of page
+	if (APP::blocked()) return;
 
-	$ful = APP::snip($fso, $snip); if (! $ful) return "";
+	$ful = APP::snip($dir, $snip); if (! $ful) return "";
 	return APP::gcFile($ful);
 }
 
 public static function gcMap($fso) { // show page or sitemap
+	if (APP::blocked()) return;
+
 	$out = APP::gcFile($fso); if (VMODE == "xsite")
-	$out = PGE::convHeads($out); if (trim($out)) return $out;
+	$out = PGE::convHeads($out);
+
+	if (trim($out)) return $out;
 	return APP::gcFile("LOC_MOD/sitemap.php");
 }
 
 // ***********************************************************
 // retrieving any content
 // ***********************************************************
-public static function gcFile($fil) {
-	$ful = APP::file($fil); if (! $ful) return "";
-
+public static function gcFile($file) {
+	$ful = APP::file($file); if (! $ful) return "";
 	$xxx = ob_start(); include $ful;
 	$out = ob_get_clean();
 
-	if (! APP::isView()) return $out;
-
-	return CFG::apply($out);
+	if (APP::isView()) $out = CFG::apply($out);
+	return $out;
 }
 
 // ***********************************************************
@@ -324,17 +335,16 @@ public static function writeTell($file, $content, $overwrite = true) {
 // ***********************************************************
 public static function isView() {
 	if (TAB_SET == "config") return false;
-	if (VMODE   == "view")   return true;
-	if (VMODE   == "pres")   return true;
 #	if (VMODE   == "xfer")   return true;
-	return false;
+
+	return STR::features("view.pres.search", VMODE);
 }
 
 public static function lookup($txt) {
 	if (! ENV::get("lookup")) return $txt;
 	if (! APP::isView())      return $txt;
 
-	$cls = CFG::iniVal("classes:route.lookup", "lookup"); if (! $cls) return $txt;
+	$cls = CFG::get("classes:route.lookup", "lookup"); if (! $cls) return $txt;
 
 	incCls("search/$cls.php");
 

@@ -24,6 +24,7 @@ a label {
 label.text {
 	border: 0px;
 	background: transparent none;
+	font-size: 1em;
 }
 
 label.red {

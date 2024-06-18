@@ -83,7 +83,7 @@ protected function content() {
 }
 
 protected function snips() {
-	$arr = CFG::iniGroup("snips:html");
+	$arr = CFG::match("snips:html");
 	$arr = VEC::flip($arr);
 
 	$box = new dropBox("script");

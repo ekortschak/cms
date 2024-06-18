@@ -42,7 +42,7 @@ public function get() { // get style sheet
 // ***********************************************************
 public function gc() { // get code
 #	$css = $this->getStatic(); if ($css) return $css;
-	$arr = $this->getFiles();
+	$arr = $this->files();
 	$css = "";
 
 	foreach ($arr as $file) {
@@ -108,7 +108,7 @@ private function getStatic() {
 }
 
 // ***********************************************************
-private function getFiles() {
+private function files() {
 	$arr = $lst = $chk = array();
 
 	$sets = array( // assoc to avoid dups

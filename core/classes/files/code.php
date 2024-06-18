@@ -101,8 +101,7 @@ protected function regFiles($txt) { // register scripts
 	$arr = STR::split($reg);
 
 	foreach ($arr as $fil) {
-		$ext = FSO::ext($fil);
-		$xxx = REG::add($ext, $fil);
+		$xxx = REG::add($fil);
 	}
 }
 
