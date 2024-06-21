@@ -17,18 +17,15 @@
 h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 {
 	border: 0px;
 	margin: 0px;
-	margin-top: 1em;
+	margin-top: 1rem;
 }
 
 /* ******************************************************** */
-h1 {
-	margin-top: 2em;
-	color: maroon;
-}
-h2 { margin-top: 1.50em; }
-h3 { margin-top: 1.35em; }
-h4 { margin-top: 1.25em; }
-h5 { margin-top: 1.10em; }
+h1 { margin-top: 2rem; color: maroon; }
+h2 { margin-top: 1.50rem; }
+h3 { margin-top: 1.35rem; }
+h4 { margin-top: 1.25rem; }
+h5 { margin-top: 1.10rem; }
 
 h4, h5 {
 	font-style: normal;

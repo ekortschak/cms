@@ -1,12 +1,11 @@
 [vars]
 wid = THUMB_WID
 hgt = THUMB_HGT
-mrg = 5
 
 # ***********************************************************
 [main]
 # ***********************************************************
-<section style="clear: both; margin-bottom: <!VAR:mrg!>px;">
+<section>
 <!M:pic!>
 <!SEC:head!>
 <!SEC:text!>

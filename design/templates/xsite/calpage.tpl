@@ -5,7 +5,7 @@ LOC_TPL/xsite/main.tpl
 # ***********************************************************
 [main]
 # ***********************************************************
-<section style="clear: both; margin-bottom: <!VAR:mrg!>px;">
+<section>
 <div class="flex">
 
 <div>
