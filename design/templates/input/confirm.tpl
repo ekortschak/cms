@@ -18,7 +18,7 @@ button = <!DIC:ok!>
 # ***********************************************************
 [main]
 # ***********************************************************
-<div style="margin: 12px 0px 7px;"> # tspace
+<div style="margin: 12px 0px 7px;">
 <form method="post" action="<!VAR:link!>">
 <!SEC:oid!>
 

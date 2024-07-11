@@ -145,7 +145,7 @@ public static function get($key, $default = "") {
 }
 
 // ***********************************************************
-public static function getVMode() {
+public static function vmode() {
 	if (OFFLINE) if (! IS_LOCAL) return "offline";
 
 	if ($mod = ENV::getParm("dmode")) {

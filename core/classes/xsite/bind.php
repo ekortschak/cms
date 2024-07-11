@@ -30,6 +30,7 @@ function __construct() {}
 // ***********************************************************
 public function read($dir) {
 	$this->dat = PFS::items($dir);
+	unset($this->dat[0]);
 }
 
 public function exec($dst, $mod) {
@@ -41,9 +42,10 @@ public function exec($dst, $mod) {
 		case "fil": $this->write($htm, $mod); return $htm;
 		case "pdf": $this->writePdf($htm);    return $htm;
 	}
+	switch ($mod) {
+		case "toc": $this->writeToc();
+	}
 	echo $htm;
-
-	if ($mod == "toc") $this->writeIni();
 }
 
 // ***********************************************************
@@ -112,19 +114,9 @@ private function writePdf($doc) {
 	$pdf->makePDF($doc);
 }
 
-// ***********************************************************
-// writing output to toc.ini
-// ***********************************************************
-private function writeIni() {
+private function writeToc() {
 	$toc = new toctool();
-	$toc->clearSec("toc");
-
-	$arr = PGE::getToc();
-
-	foreach ($arr as $num => $cap) {
-		$toc->set("toc.$num", $pge);
-	}
-	$toc->save();
+	$toc->write();
 }
 
 // ***********************************************************

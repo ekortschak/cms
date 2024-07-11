@@ -2,15 +2,12 @@
 /* common props */
 /* ******************************************************** */
 [class^="mod"] {
-	float:      left;
 	overflow:   auto;
 	max-height: 100vh;
 	min-height: 100vh;
 }
 
 .colMain {
-	float:      left;
-	overflow:   hidden;
 	height: 	100vh;
 	width:      W_BODY;
 	background: BC_BODY;
@@ -26,11 +23,10 @@
 }
 
 .modToc {
-	overflow:   auto;
 	width:      W_TOC;
 	color:      FC_TOC;
 	background: BC_TOC;
-	padding:    1rem 15px 85px;
+	padding:    1rem 15px 5rem;
 }
 
 .modMbar {
@@ -40,18 +36,19 @@
 
 .titBody {
 	width:      100%;
-	padding:    0px LR_PAD 0px;
+	padding:    0px LR_PAD;
 }
 
 .modBody {
 	width:      100%;
 	font-size:  F_BODY;
-	padding:    0px LR_PAD 115px;
+	padding:    0px LR_PAD 7rem;
 }
 
 .modBord {
 	width:      10px;
 	background: url("LOC_IMG/opts/pborder.png") repeat-y;
+	background-position: right top;
 }
 
 .modOpts {

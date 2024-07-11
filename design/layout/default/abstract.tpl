@@ -1,21 +1,6 @@
 [include]
 LOC_LAY/LAYOUT/main.tpl
 
-# ***********************************************************
-[layout] <!-- layout -->
-# ***********************************************************
-<body>
-	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="modToc" ><!SEC:toc!> </div>
-	<div class="modMbar"><!SEC:mbar!></div>
-	<div class="colMain">
-		<div class="joker"><!SEC:joker!></div>
-		<div class="titBody"><!SEC:head!></div>
-		<div class="modBody"><!SEC:body!></div>
-	</div>
-	<div class="modBord"><!SEC:bord!></div>
-	<div class="modOpts"><!SEC:opts!></div>
-</body>
 
 # ***********************************************************
 [toc] <!-- toc.abstract -->
@@ -31,6 +16,8 @@ LOC_LAY/LAYOUT/main.tpl
 <!MOD:body/head!>
 
  # ***********************************************************
-[body] <!-- body.abstract -->
+[page] <!-- body.abstract -->
 # ***********************************************************
-<!MOD:body/abstract!>
+<div class="joker"><!SEC:joker!></div>
+<div class="titBody"><!SEC:head!></div>
+<div class="modBody"><!MOD:body/abstract!></div>

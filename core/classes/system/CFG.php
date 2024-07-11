@@ -62,8 +62,8 @@ private static function addServer() {
 // reading config files
 // ***********************************************************
 public static function initCfg() {
-	CFG::read("core/include/internals.ini");
-	CFG::read("core/include/defaults.ini");
+	CFG::read("LOC_INC/internals.ini");
+	CFG::read("LOC_INC/defaults.ini");
 }
 
 public static function readCfg() {

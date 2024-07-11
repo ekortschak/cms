@@ -24,11 +24,11 @@ public static function file($file) {
 // startup file
 // ***********************************************************
 public static function startFile($vmode) {
-	$inc = SYS::getFile($vmode);
+	$inc = SYS::starter($vmode);
 	return SYS::file("core/$inc.php");
 }
 
-private static function getFile($vmode) {
+private static function starter($vmode) {
 	if (substr($vmode, 1) == "edit") return "edit";
 
 	if ($vmode == "xlate") return "edit";

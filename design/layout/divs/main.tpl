@@ -2,18 +2,20 @@
 LOC_LAY/default/main.tpl
 
 
-[layout] <!-- layout.divs -->
-<body>
-	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="colMain">
-		<div class="horMenu"><!SEC:menu!> </div>
-		<div class="joker"  ><!SEC:joker!></div>
-		<div class="titBody"><!SEC:head!> </div>
-		<div class="modBody"><!SEC:body!> </div>
-	</div>
-	<div class="modBord"><!SEC:bord!></div>
-	<div class="modOpts"><!SEC:opts!></div>
-</body>
+# ***********************************************************
+[layout] <!-- layout -->
+# ***********************************************************
+<div class="modTabs"><!SEC:tabs!></div>
+<div class="colMain"><!SEC:page!></div>
+<div class="modBord"><!SEC:bord!></div>
+<div class="modOpts"><!SEC:opts!></div>
+
+[page]
+<div class="horMenu"><!SEC:menu!> </div>
+<div class="joker"  ><!SEC:joker!></div>
+<div class="titBody"><!SEC:head!> </div>
+<div class="modBody"><!SEC:body!> </div>
+
 
 # ***********************************************************
 # horizontal panels

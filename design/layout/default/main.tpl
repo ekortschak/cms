@@ -29,8 +29,16 @@ title = PRJ_TITLE
 <!SEC:scripts!>
 </head>
 
-<!SEC:layout!>
+<body>
+<!SEC:frame!>
+</body>
+
 </html>
+
+[frame]
+<div class="flex">
+<!SEC:layout!>
+</div>
 
 # ***********************************************************
 # last to execute
@@ -48,19 +56,19 @@ title = PRJ_TITLE
 # ***********************************************************
 [layout] <!-- layout -->
 # ***********************************************************
-<body>
-	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="modToc" ><!SEC:toc!> </div>
-	<div class="modMbar"><!SEC:mbar!></div>
-	<div class="colMain">
-		<div class="joker"><!SEC:joker!></div>
-		<div class="titBody"><!SEC:topics!></div>
-		<div class="titBody"><!SEC:head!></div>
-		<div class="modBody"><!SEC:body!></div>
-	</div>
-	<div class="modBord"><!SEC:bord!></div>
-	<div class="modOpts"><!SEC:opts!></div>
-</body>
+<div class="modTabs"><!SEC:tabs!></div>
+<div class="modToc" ><!SEC:toc!> </div>
+<div class="modMbar"><!SEC:mbar!></div>
+<div class="colMain"><!SEC:page!></div>
+<div class="modBord"><!SEC:bord!></div>
+<div class="modOpts"><!SEC:opts!></div>
+
+[page]
+<div class="joker"><!SEC:joker!></div>
+<div class="titBody"><!SEC:topics!></div>
+<div class="titBody"><!SEC:head!></div>
+<div class="modBody"><!SEC:body!></div>
+
 
 # ***********************************************************
 # horizontal panels
@@ -96,6 +104,7 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [mbar] <!-- middle bar -->
+[bord] <!-- border right -->
 
 # ***********************************************************
 [head] <!-- sticky info -->
@@ -104,9 +113,6 @@ title = PRJ_TITLE
 
 [body] <!-- body -->
 <!MOD:body!>
-
-# ***********************************************************
-[bord] <!-- border right -->
 
 # ***********************************************************
 [opts] <!-- opts -->

@@ -4,14 +4,11 @@ LOC_LAY/LAYOUT/main.tpl
 # ***********************************************************
 [layout] <!-- layout -->
 # ***********************************************************
-<body>
-	<div class="colMain">
-		<!SEC:body!>
-	</div>
-</body>
+<div class="colMain"><!SEC:page!></div>
+
 
 # ***********************************************************
-[body] <!-- body.search -->
+[page] <!-- body.search -->
 # ***********************************************************
 <div class="joker"><!SEC:joker!></div>
 <div class="titBody"><!MOD:toc/topics!></div>

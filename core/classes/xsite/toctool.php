@@ -10,7 +10,7 @@ used to convert a topic to a single document
 // ***********************************************************
 incCls("xsite/toctool.php");
 
-$buk = new toctool();
+$toc = new toctool();
 */
 
 incCls("editor/iniWriter.php");
@@ -43,11 +43,20 @@ public function set($key, $val = "¬") {
 	parent::set("toc.$key", $pge);
 
 	$this->cnt = $pge;
-	$this->save();
 }
 
 public function get($key, $val = "-") {
 	return parent::get("toc.$key", $val);
+}
+
+// ***********************************************************
+public function write() {
+	$arr = PGE::getToc();
+
+	foreach ($arr as $num => $cap) {
+		$this->set($num, 0);
+	}
+	parent::save();
 }
 
 // ***********************************************************

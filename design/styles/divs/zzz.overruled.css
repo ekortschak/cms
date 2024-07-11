@@ -1,12 +1,12 @@
 .colMain {
-	padding:    0px;
-}
-
-.modBody {
-	padding-top: 1rem;
+	padding: 0px 0px 5rem;
 }
 
 .joker {
 	overflow: visible;
 	margin-top: 0px;
+}
+
+.chapter {
+	margin: 0.75rem 0px -10px;
 }

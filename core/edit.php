@@ -13,7 +13,7 @@ SYS::forceAdmin();
 // ***********************************************************
 // setting VMODE
 // ***********************************************************
-$mod = ENV::getVMode(); if (! FS_ADMIN)
+$mod = ENV::vmode(); if (! FS_ADMIN)
 $mod = "login";
 
 CFG::set("VMODE", $mod);

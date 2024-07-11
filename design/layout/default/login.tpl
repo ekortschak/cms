@@ -1,9 +1,7 @@
 [include]
-LOC_LAY/default/offline.tpl
+LOC_LAY/default/msg.tpl
 
 # ***********************************************************
-[layout] <!-- layout.login -->
+[msgbox] <!-- layout.login -->
 # ***********************************************************
-<div class="box">
 <!MOD:user/login!>
-</div>

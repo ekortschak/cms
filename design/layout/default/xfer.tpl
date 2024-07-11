@@ -7,21 +7,6 @@ replicator = Site replicator
 [dic.de]
 replicator = Seiten übertragen
 
-# ***********************************************************
-[layout] <!-- layout -->
-# ***********************************************************
-<body>
-	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="modToc" ><!SEC:toc!> </div>
-	<div class="modMbar"><!SEC:mbar!></div>
-	<div class="colMain">
-		<div class="joker"><!SEC:joker!></div>
-		<div class="modBody"><!SEC:body!></div>
-	</div>
-	<div class="modBord"><!SEC:bord!></div>
-	<div class="modOpts"><!SEC:opts!></div>
-</body>
-
 
 # ***********************************************************
 [toc] <!-- toc.xfer -->
@@ -32,6 +17,7 @@ replicator = Seiten übertragen
 <!MOD:toc/xfer!>
 
 # ***********************************************************
-[body] <!-- body.xfer -->
+[page] <!-- body.xfer -->
 # ***********************************************************
-<!MOD:body/xfer!>
+<div class="joker"><!SEC:joker!></div>
+<div class="modBody"><!MOD:body/xfer!></div>

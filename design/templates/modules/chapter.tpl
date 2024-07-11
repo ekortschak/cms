@@ -1,14 +1,15 @@
 [main]
-<div class="flex" style="padding-top: 2px;">
+<div style="padding-top: 2px;"></div>
+<div class="flex">
 <!SEC:title!>
 <!SEC:nav!>
 </div>
 
 [title]
-<div class="h2"><!VAR:title!></div>
+<div class="h2 chapter"><!VAR:title!></div>
 
 [nav]
 <div>
-	<a href="?pfs.nav=prev&vmode=view"><button class="mobbut">◂</button></a>
-	<a href="?pfs.nav=next&vmode=view"><button class="mobbut">▸</button></a>
+	<a href="?pfs.nav=prev&vmode=view"><button class="mblbtn">◂</button></a>
+	<a href="?pfs.nav=next&vmode=view"><button class="mblbtn">▸</button></a>
 </div>

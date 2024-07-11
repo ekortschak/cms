@@ -5,6 +5,7 @@
 // ***********************************************************
 function incCls($file, $dir = LOC_CLS) {
 #	$fil = SYS::file("$dir/$file"); # TODO: why not working on server
+	$fil = $file; if (! is_file($file))
 	$fil = appFile("$dir/$file");
 	include_once $fil;
 }

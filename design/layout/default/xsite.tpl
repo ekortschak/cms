@@ -6,7 +6,7 @@ LOC_CSS/other/print.css
 LOC_CSS/other/xsite.css
 
 # ***********************************************************
-[layout] <!-- layout.xsite -->
+[frame] <!-- layout.xsite -->
 # ***********************************************************
 <body class="print">
 <!MOD:xsite!>

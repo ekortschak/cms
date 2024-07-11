@@ -13,7 +13,7 @@ include_once "include/load.ini.php"; // php settings
 // ***********************************************************
 // overruling vmode
 // ***********************************************************
-$mod = ENV::getVMode();
+$mod = ENV::vmode();
 
 if (STR::contains($mod, "edit")) $mod = "view";
 if (STR::features($mod, "seo"))  $mod = "view";

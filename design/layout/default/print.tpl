@@ -11,7 +11,7 @@ LOC_CSS/other/print.css
 <!VAR:title!> (Print)
 
 # ***********************************************************
-[layout] <!-- layout.print -->
+[frame] <!-- layout.print -->
 # ***********************************************************
 <body class="print">
 <!MOD:body/head!>

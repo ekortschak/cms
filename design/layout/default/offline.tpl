@@ -1,8 +1,14 @@
 [include]
 LOC_LAY/default/msg.tpl
 
+[vars]
+pic = baustelle.png
+alt = offline
 
+
+# ***********************************************************
 [msg]
+# ***********************************************************
 <h3>Info</h3>
 <p>This page is currently under construction.<br>
 Please, come back later.</p>

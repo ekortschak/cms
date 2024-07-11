@@ -7,7 +7,7 @@ LOC_TPL/msgs/sitemap.tpl
 <!SEC:banner!>
 <!SEC:help!>
 <!SEC:head!>
-<!SEC:page!>
+<!SEC:content!>
 <!SEC:tail!>
 <!SEC:trailer!>
 
@@ -26,7 +26,7 @@ LOC_TPL/msgs/sitemap.tpl
 </div>
 
 # ***********************************************************
-[page]
+[content]
 # ***********************************************************
 <div id="scView"><!VAR:page!></div>
 
