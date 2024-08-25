@@ -1,5 +1,5 @@
 form {
-	margin: 2px 0px 20px;
+	margin: 0.25rem 0px 1.25rem;
 }
 
 form table {
@@ -9,18 +9,20 @@ form table {
 /* ******************************************************** */
 /* input fields */
 /* ******************************************************** */
-input, select, button {
+input, select, button, .dmbtn {
 	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
-	padding: 0px 5px;
+	padding: 0px IB_PAD;
 	overflow: auto;
 
 	min-height: H_LINE;
-	min-width: 45px;
+	min-width: 2rem;
 
 	color: FC_INPUT;
 	background: BC_INPUT;
+
+	font-size: 0.9rem;
 }
 
 /* ******************************************************** */
@@ -31,7 +33,6 @@ input[type='reset'],
 input[type='button'],
 button {
 	background: linear-gradient(snow, lightgrey);
-	padding: 0px 10px;
 	cursor: pointer;
 }
 
@@ -41,12 +42,7 @@ input[type='reset'] {
 
 .dmbtn {
 	display: inline-block;
-	margin: 0px;
-	border: 1px solid OUTLINE;
-	border-radius: BR_INP;
-	padding: 0px 5px;
 
-	min-width: 45px;
 	line-height: H_LINE;
 	max-height: H_LINE;
 
@@ -75,7 +71,7 @@ input[type='color'] { /* color input */
 /* ******************************************************** */
 input[type='checkbox'],
 input[type='radio'] {
-	margin: -4px 0.5em 0px 0px;
+	margin: -4px 0.5rem 0px 0px;
 	min-width: 1em;
 }
 
@@ -87,7 +83,7 @@ select {
 	min-width: 0.2vw;
 	cursor: pointer;
 
-	padding: 3px 2em 3px 5px;
+	padding: 3px LR_PAD 3px 5px;
 	font-family: inherit;
 
 	appearance: none;
@@ -104,16 +100,16 @@ textarea {
 	min-height: 0.05vh;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
-	padding: 5px 2px 5px 7px;
+	padding: 5px IB_PAD;
 
 	width: 100%;
-	height: 7rem;
+	height: 5rem;
 
 	overflow: auto;
 }
 
 textarea.max {
-	height: calc(100vh - H_MENU - 150px);
+	height: calc(100vh - H_MENU - 9rem);
  	width: 100%;
 }
 
@@ -122,7 +118,7 @@ textarea.max {
 /* ******************************************************** */
 .comment { /* help text */
 	display: inline-block;
-	margin: 3px 0px 5px;
-	padding: 0px 7px;
-	font-size: 0.85em;
+	margin: 0.3rem 0px 0.5rem;
+	padding: 0px LR_PAD;
+	font-size: 0.85rem;
 }

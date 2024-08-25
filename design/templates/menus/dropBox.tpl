@@ -38,7 +38,7 @@ sep = :
 
 [combo]
 <div class="dropdown">
-<div class="droptext"><!VAR:current!>COMBO_DOWN &emsp;</div>
+<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!VAR:links!></div>
 </div>
 

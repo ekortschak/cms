@@ -8,8 +8,11 @@ nodata = Nothing to sort ...
 
 [dic.de]
 sort = Einträge sortieren
-howto = Elemente in die gewünschte Position ziehen!
+howto = Ziehe die Elemente in die gewünschte Position!
 nodata = Keine sortierbaren Einträge ...
+
+[vars]
+name = sort.act
 
 
 # ***********************************************************
@@ -17,7 +20,7 @@ nodata = Keine sortierbaren Einträge ...
 # ***********************************************************
 <h4><!DIC:sort!></h4>
 
-<small><b>Info</b>: <!DIC:howto!></small>
+<small><!DIC:howto!></small>
 
 <form method="post" action="?">
 <!SEC:oid!>
@@ -30,7 +33,7 @@ nodata = Keine sortierbaren Einträge ...
 			<!VAR:items!>
 		</div>
 		<div style="padding: 2px 30px;">
-			<input type="hidden" name="tab.act" value="S" />
+			<input type="hidden" name="<!VAR:name!>" value="S" />
 			<input type="submit" value="OK" />
 		</div>
 	</div>

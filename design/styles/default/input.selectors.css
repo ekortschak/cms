@@ -20,7 +20,7 @@
 .selHead {
 	white-space: nowrap;
 	padding: 0px 15px 0px 5px;
-	min-width: 150px;
+	min-width: 9rem;
 }
 .selData {
 	padding: 0px;
@@ -31,7 +31,7 @@
 /* ratings */
 /* ******************************************************** */
 .rating {
-	width: 105px;
+	width: 6rem;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
 

@@ -17,7 +17,14 @@
 /* ******************************************************** */
 .droptext {
 	display: inline-block;
- 	padding: 1px 7px;
+ 	padding: 0.25rem IB_PAD;
+}
+
+.dropnav {
+ 	padding: 0.25rem IB_PAD;
+ 	text-align: center;
+ 	vertical-align: middle;
+ 	min-width: 2rem;
 }
 
 /* ******************************************************** */

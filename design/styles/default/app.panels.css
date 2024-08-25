@@ -26,7 +26,7 @@
 	width:      W_TOC;
 	color:      FC_TOC;
 	background: BC_TOC;
-	padding:    1rem 15px 5rem;
+	padding:    1rem 1rem 5rem;
 }
 
 .modMbar {
@@ -41,7 +41,6 @@
 
 .modBody {
 	width:      100%;
-	font-size:  F_BODY;
 	padding:    0px LR_PAD 7rem;
 }
 
@@ -52,7 +51,6 @@
 }
 
 .modOpts {
-	overflow:   auto;
 	color:      FC_OPTS;
 	background: BC_OPTS;
 	padding:    1rem LR_PAD 25px;

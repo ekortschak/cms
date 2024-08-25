@@ -10,7 +10,7 @@ This is used to handle file information
 incCls("files/fileInfo.php");
 
 $obj = new fileInfo($file);
-$xxx = $obj->read($file);
+$xxx = $obj->init($file);
 $vls = $obj->values();
 $txt = $obj->insVars($txt);
 
@@ -24,12 +24,14 @@ incCls("system/DAT.php"); // basic date functions
 class fileInfo extends objects {
 	private $file = "";
 
-function __construct() {}
+function __construct($file = NV) {
+	if ($file === NV) $this->init($file);
+}
 
 // ***********************************************************
 // setting & retrieving info
 // ***********************************************************
-public function read($file) {
+public function init($file) {
     $this->file = $file;
 	$this->vls = array(); if (! is_file($file)) return false;
 

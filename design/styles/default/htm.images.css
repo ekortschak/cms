@@ -10,16 +10,20 @@ img.flag {
 
 img.rgt {
 	max-height: THUMB_HGT;
-	margin: 0px 0px 5px 10px;
+	margin: 0px 0px 0.5rem 1rem;
 }
 img.lft {
 	max-height: THUMB_HGT;
-	margin: 0px 0px 5px 10px;
+	margin: 0px 0px 0.5rem 1rem;
 }
 
 .thumb {
 	display: inline-block;
-	margin: 0px 5px 3px;
+	margin: 0px 0.5rem 0.25rem;
+}
+
+.icon {
+	height: 1.2rem;
 }
 
 /* ******************************************************** */
@@ -28,7 +32,7 @@ img.lft {
 img.max {
 	border: 1px solid OUTLINE;
 	border-radius: BR_IMG;
-	margin-bottom: 7px;
+	margin-bottom: 0.5rem;
 }
 
 img.full {

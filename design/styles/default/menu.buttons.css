@@ -38,7 +38,7 @@
 button.icon {
 	min-height: H_LINE;
 	min-width: 2rem;
-	padding: 0px 7px;
+	padding: 0px IB_PAD;
 }
 button.rose, .rose {
 	background: linear-gradient(#FCC, snow);

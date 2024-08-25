@@ -31,14 +31,14 @@ vmode = VMODE
 # ***********************************************************
 <div class="tabicon">
 <a href="?vmode=search">
-	<img src="LOC_ICO/buttons/search.gif" alt="Search" />
+	<img src="LOC_ICO/buttons/search.gif" class="icon" alt="Search" class="icon" />
 </a>
 </div>
 
 [search.return]
 <div class="tabicon">
 <a href="?vmode=view">
-	<img src="LOC_ICO/buttons/search.stop.gif" alt="Back" />
+	<img src="LOC_ICO/buttons/search.stop.gif" class="icon" alt="Back" />
 </a>
 </div>
 
@@ -47,6 +47,6 @@ vmode = VMODE
 # ***********************************************************
 <div class="tabicon">
 <a href="?vmode=view">
-	<img src="LOC_ICO/buttons/view.png" alt="View" />
+	<img src="LOC_ICO/buttons/view.png" class="icon" alt="View" />
 </a>
 </div>

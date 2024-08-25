@@ -100,7 +100,7 @@ private function files($what = "file") {
 	$inf = new fileInfo();
 
 	foreach($this->fls as $fil => $nam) {
-		$xxx = $inf->read($fil);
+		$xxx = $inf->init($fil);
  		$out.= $inf->insVars($lin);
 	}
 	if ($out) return $out;

@@ -33,7 +33,7 @@ grey =
 id="<!VAR:pfx!>[<!VAR:index!>]"
 
 [cls]
-lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
+icon lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 
 # ***********************************************************
 # level 1 entries
@@ -68,14 +68,12 @@ lev<!VAR:level!> <!VAR:vis!> <!VAR:hid!> <!VAR:pos!> <!VAR:sel!>
 # static files
 # ***********************************************************
 [static.dir]
-<div <!SEC:qid!> data-par="<!VAR:level!>" _
-	class="dir mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
+<div <!SEC:qid!> data-par="<!VAR:level!>" class="dir <!SEC:cls!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!SEC:caption!></a>
 </div>
 
 [static.file]
-<div <!SEC:qid!> data-par="<!VAR:level!>" _
-	class="file mnu lev<!VAR:level!> <!VAR:sel!> <!VAR:hid!>" _
+<div <!SEC:qid!> data-par="<!VAR:level!>" class="file <!SEC:cls!>" _
 	<a class="<!VAR:active!>" href="<!VAR:sname!>"><!SEC:caption!></a>
 </div>
 

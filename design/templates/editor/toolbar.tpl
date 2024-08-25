@@ -134,7 +134,7 @@ askWidth = Bildbreite festlegen
 # *****************************************************************
 [listings]
 # *****************************************************************
-<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/listing.png" />COMBO_DOWN</button>
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/listing.png"  class="icon"/>COMBO_DOWN</button>
 	<div id="edList" class="dropbody" style="white-space: nowrap;">
 		<div><a href="javascript:addList('ul');"><!DIC:listbul!></a></div>
 		<div><a href="javascript:addList('ol');"><!DIC:listnum!></a></div>
@@ -144,7 +144,7 @@ askWidth = Bildbreite festlegen
 </div>
 
 [tables]
-<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/table.png" />COMBO_DOWN</button>
+<div class="dropdown"><button class="icon rose"><img src="LOC_ICO/buttons/table.png" class="icon" />COMBO_DOWN</button>
 	<div id="tables" class="dropbody" style="white-space: nowrap;">
 		<div><a href="javascript:askCols();"><!DIC:askCols!></a></div>
 		<div><a href="javascript:addTable('tb');"><!DIC:tins!></a></div>
@@ -155,7 +155,7 @@ askWidth = Bildbreite festlegen
 
 [images]
 <div class="dropdown">
-	<button class="icon rose"><img src="LOC_ICO/buttons/img.png" />COMBO_DOWN</button>
+	<button class="icon rose"><img src="LOC_ICO/buttons/img.png" class="icon" />COMBO_DOWN</button>
 
 	<div id="edImg" class="dropbody" style="white-space: nowrap;">
 		<div><a href="javascript:insImg('ico');"><!DIC:img!></a></div>
@@ -201,10 +201,10 @@ askWidth = Bildbreite festlegen
 [switch.htm]
 # *****************************************************************
 <button class="icon" onclick="toggleView();">
-	<img src="LOC_ICO/buttons/edit.toggle.png" alt="Toggle Editor" />
+	<img src="LOC_ICO/buttons/edit.toggle.png" class="icon" alt="Toggle Editor" />
 </button>
 
 [item.view]
 <a href="?vmode=view">
-	<button class="icon"><img src="LOC_ICO/buttons/view.png" alt="View" /></button>
+	<button class="icon"><img src="LOC_ICO/buttons/view.png" class="icon" alt="View" /></button>
 </a>

@@ -41,8 +41,8 @@ if (! $act) return;
 // ***********************************************************
 // preview
 // ***********************************************************
-$arr = FSO::fTree($dir, $ptn);
-$ttl = count($arr);
+$fls = FSO::fTree($dir, $ptn);
+$ttl = count($fls);
 $cnt = $fds = 0;
 
 $msg = DIC::get("files.containing");
@@ -56,7 +56,7 @@ echo "<small><table>\n";
 $pge = new pageInfo();
 $fnd = STR::replace($fnd, "<dqot>", '"');
 
-foreach ($arr as $ful => $nam) {
+foreach ($fls as $ful => $nam) {
 	$txt = file_get_contents($ful); if (strlen($txt) < 1) continue;
 
 	$res = PRG::find($txt, $fnd); if (! $res) continue;
@@ -64,7 +64,7 @@ foreach ($arr as $ful => $nam) {
 	$cnt++;
 
 	if ($dbg) {
-		$xxx = $pge->load($ful);
+		$xxx = $pge->init($ful);
 		$lnk = $pge->getLink($dir, "pedit");
 
 		echo "<tr><td>$lnk</td><td align='right'>$anz</td></tr>";

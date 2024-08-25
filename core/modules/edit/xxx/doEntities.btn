@@ -1,0 +1,10 @@
+[props]
+pic =
+
+[de]
+caption = &xxx;
+tooltip = Ersetzt Entities durch UTF8-Zeichen.
+
+[en]
+caption = \#.\#\#\#
+tooltip = Turns numbers in words into digits.

@@ -9,7 +9,7 @@ This is used to handle file information
 // ***********************************************************
 incCls("files/pageInfo.php");
 
-$obj = new pageInfo();
+$obj = new pageInfo($file);
 */
 
 incCls("files/fileInfo.php");
@@ -20,16 +20,16 @@ incCls("files/fileInfo.php");
 class pageInfo extends fileInfo {
 	private $txt = "";
 
-// ***********************************************************
-function __construct($file = "") {
-    parent::__construct($file);
+function __construct($file = NV) {
+	parent::__construct($file);
 }
 
 // ***********************************************************
 // setting & retrieving info
 // ***********************************************************
-public function load() {
-	$this->txt = file_get_contents($this->file);
+public function load($file = NV) {
+	$this->init($file);
+	$this->txt = file_get_contents($file);
 	return $this->txt;
 }
 

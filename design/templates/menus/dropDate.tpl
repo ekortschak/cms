@@ -63,7 +63,7 @@ a.inactive {
 [combo.mon]
 # ***********************************************************
 <div class="dropdown">
-<div class="droptext"><!VAR:current!>COMBO_DOWN &emsp;</div>
+<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody">
 <div><!VAR:links!></div>
 </div>
@@ -76,7 +76,7 @@ a.inactive {
 [combo.day]
 # ***********************************************************
 <div class="dropdown">
-<div class="droptext"><!VAR:current!>COMBO_DOWN &emsp;</div>
+<div class="droptext"><!VAR:current!>COMBO_DOWN</div>
 <div class="dropbody"><!SEC:cal!></div>
 </div>
 </div>
@@ -113,10 +113,10 @@ a.inactive {
 # ***********************************************************
 [nav.left]
 <a href="?<!VAR:dparm!>=<!VAR:prev!>">
-	<div class="localicon <!VAR:class!>">&ltrif;</div>
+	<div class="droptext <!VAR:class!>">&ltrif;</div>
 </a>
 
 [nav.right]
 <a href="?<!VAR:dparm!>=<!VAR:next!>">
-	<div class="localicon <!VAR:class!>">&rtrif;</div>
+	<div class="droptext <!VAR:class!>">&rtrif;</div>
 </a>

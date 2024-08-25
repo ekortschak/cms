@@ -85,7 +85,7 @@ a.norm {
 /* sup sub */
 /* ******************************************************** */
 sup, sub {
-	font-size: 0.6em;
+	font-size: 0.6rem;
 }
 sub {
 	vertical-align: bottom;

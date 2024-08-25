@@ -3,13 +3,10 @@
 /* ******************************************************** */
 .toc {
 	overflow:   auto;
-	background: BC_TOC;
-
-#	line-height: 1.1rem;
-	padding: 3px 0px 12px;
+	margin: 0px 0px 0.5rem;
+	padding: 3px 0rem 0px;
 
 	color: FC_TOC;
-	font-size: F_MENU;
 	white-space: nowrap;
 }
 .toc a {
@@ -30,17 +27,17 @@
 }
 
 .topic {
-	margin: 0px 0px 3px;
+	margin: 0px 0px 0.5rem;
 	border: 1px solid OUTLINE;
 	border-radius: BR_TEXT;
-	padding: 3px 7px 1px;
+	padding: 3px IB_PAD 1px;
 
 	background: BC_DROP;
-	font-size: 1.2em;
+	font-size: 1.2rem;
 }
 .lev1 {
-	background-position: 5px top; padding-left:  25px;
-	font-size: 1em;
+	background-position: 5px top; padding-left: 25px;
+	font-size: 1rem;
 }
 
 .lev2 { background-position: 15px top; padding-left:  35px; }

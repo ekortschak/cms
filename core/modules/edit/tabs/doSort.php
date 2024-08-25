@@ -10,7 +10,7 @@ $lst = $tbs->items(TAB_SET);
 // show elements to sort
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("editor/sort.items.tpl");
+$tpl->load("editor/sort.tabs.tpl");
 $tpl->register();
 
 $its = "";

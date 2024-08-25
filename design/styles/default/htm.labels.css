@@ -5,12 +5,12 @@
 label {
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
-	padding: 3px 10px;
+	padding: 0.25rem LR_PAD;
 
 #	height: H_LINE;
 	line-height: H_LINE;
 
-	font-size: 0.85em;
+	font-size: 0.85rem;
 	color: FC_INPUT;
 	background: linear-gradient(snow, lightgrey);
 }
@@ -24,7 +24,7 @@ a label {
 label.text {
 	border: 0px;
 	background: transparent none;
-	font-size: 1em;
+	font-size: 1rem;
 }
 
 label.red {
@@ -45,7 +45,7 @@ label.upload {
 	white-space: nowrap;
 	height: H_LINE;
 	min-width: 100%;
-	padding: 0px 10px;
+	padding: 0px LR_PAD;
 }
 
 .ronly { /* data */

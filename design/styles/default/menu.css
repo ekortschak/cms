@@ -5,7 +5,7 @@
 	z-index: 150;
 	display: block;
 
-	margin: 0px 0px 2px;
+	margin: 0px 0px 0.25rem;
 	border: 1px 0px solid navy;
 	border-radius: BR_TEXT;
 
@@ -18,11 +18,6 @@
 	color: FC_MARK;
 	background: linear-gradient(-3deg, white, cadetblue 65%);
 	border: 1px solid OUTLINE;
-}
-
-.localicon {
-	display: inline-block;
-	padding: 1px 10px;
 }
 
 /* ******************************************************** */
@@ -69,7 +64,7 @@
 .topText {
 	display: inline-block;
 	border-radius: BR_MENU BR_MENU 0px 0px;
-	padding: 5px 12px 2px;
+	padding: 0.5rem 1rem 0.25rem;
 	font-weight: bold;
 	text-shadow: 1px 1px 2px grey;
 }
@@ -93,7 +88,7 @@
 
 .topList a {
 	display: block;
-	padding: 3px 10px;
+	padding: 3px IB_PAD;
 	color: FC_BODY;
 	font-weight: normal;
 }

@@ -36,7 +36,6 @@ br_inp  = Eckenradius Eingabe
 
 [fonts]
 F_SIZE = 1rem
-F_BODY = 1rem
 
 [panels]
 W_BODY = 43rem

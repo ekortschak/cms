@@ -9,6 +9,13 @@
  	vertical-align: top;
 }
 
+:root {
+	font-family: FreeSans, sans-serif, Arial;
+	font-size:   12pt;
+	font-weight: normal;
+	hyphens:     auto;
+}
+
 /* ******************************************************** */
 /* css default */
 /* ******************************************************** */
@@ -19,10 +26,6 @@ html, body {
 
 html {
  	background:  white;
-	font-family: FreeSans, sans-serif, Arial;
-	font-size:   F_SIZE;
-	font-weight: normal;
-	hyphens:     auto;
 }
 
 body {

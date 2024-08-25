@@ -38,7 +38,7 @@ class = dropMenu
 # ***********************************************************
 [nav]
 # ***********************************************************
-<a href="?vmode=abstract"><img src="LOC_ICO/buttons/info.png"></a> _
+<a href="?vmode=abstract"><img src="LOC_ICO/buttons/info.png" class="icon"></a> _
 
 [nav.back]
-<a href="?vmode=view"><img src="LOC_ICO/buttons/view.png"></a> _
+<a href="?vmode=view"><img src="LOC_ICO/buttons/view.png" class="icon"></a> _

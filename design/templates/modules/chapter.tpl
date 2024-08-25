@@ -6,7 +6,7 @@
 </div>
 
 [title]
-<div class="h2 chapter"><!VAR:title!></div>
+<div class="h2"><!VAR:title!></div>
 
 [nav]
 <div>

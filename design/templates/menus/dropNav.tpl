@@ -39,14 +39,14 @@ class = dropMenu
 # ***********************************************************
 [nav.left]
 <a href="?<!VAR:parm!>=<!VAR:prev!>">
-	<div class="localicon <!VAR:class!>">&ltrif;</div>
+	<div class="dropnav <!VAR:class!>">&ltrif;</div>
 </a>
 
 [nav.right]
 <a href="?<!VAR:parm!>=<!VAR:next!>">
-	<div class="localicon <!VAR:class!>">&rtrif;</div>
+	<div class="dropnav <!VAR:class!>">&rtrif;</div>
 </a>
 
 [nav.null]
-<div class="<!VAR:class!> droptext">&emsp;</div>
+<div class="dropnav <!VAR:class!>">&emsp;</div>
 

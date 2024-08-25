@@ -24,7 +24,7 @@ info = no info provided
 id="<!VAR:pfx!>[<!VAR:index!>]" name="<!VAR:pfx!>.<!VAR:index!>"
 
 [cls]
-lev<!VAR:level!>
+icon lev<!VAR:level!>
 
 [stl]
 display:<!VAR:vis!>; background-position-Y:<!VAR:pos!>

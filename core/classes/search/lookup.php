@@ -225,7 +225,7 @@ protected function insLFs($txt, $sep) {
 protected function insHRef($txt) {
 	if (STR::contains($txt, "<a ")) return $txt;
 
-	$rep = '<a href="http$1://$2"><img src="LOC_ICO/buttons/web.gif" /></a>';
+	$rep = '<a href="http$1://$2"><img src="LOC_ICO/buttons/web.gif" class="icon" /></a>';
 	$out = PRG::replace("$txt ", "http(s?)://(.*?)([ ,;\n]+)", $rep);
 	return trim($out);
 }

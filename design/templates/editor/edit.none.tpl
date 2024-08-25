@@ -28,13 +28,13 @@ redir = Umleitung
 <p>&rarr; <!VAR:target!></p>
 
 <a href="<!VAR:source!>&vmode=view" target="sf">
-<button><img src="LOC_ICO/buttons/view.png"></button>
+<button><img src="LOC_ICO/buttons/view.png" class="icon"></button>
 </a>
 <a href="<!VAR:source!>&vmode=pedit" target="sf">
-<button><img src="LOC_ICO/buttons/edit.png"></button>
+<button><img src="LOC_ICO/buttons/edit.png" class="icon"></button>
 </a>
 <a href="<!VAR:source!>&vmode=medit&btn.menu=P" target="sf">
-<button><img src="LOC_ICO/buttons/props.png"></button>
+<button><img src="LOC_ICO/buttons/props.png" class="icon"></button>
 </a>
 
 

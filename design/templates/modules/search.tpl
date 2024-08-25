@@ -61,7 +61,7 @@ help   = 1
 <!VAR:items!>
 
 [nav.toc]
-<a href="?vmode=view"><button><img src="LOC_ICO/buttons/view.png" align="right" /></a>
+<a href="?vmode=view"><button><img src="LOC_ICO/buttons/view.png" class="icon" align="right" /></a>
 
 [topic]
 <div class="nowrap"><h5><!VAR:topic!></h5></div>
@@ -78,13 +78,13 @@ help   = 1
 [prv.goto]
 <div style="float: right; margin-top: -7px;">
 	<a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>">
-		<button><img src="LOC_ICO/buttons/view.png" alt="View"></button>
+		<button><img src="LOC_ICO/buttons/view.png" class="icon" alt="View"></button>
 	</a>
 </div>
 
 [prv.topic]
 <div class="submenu">
-<img src="LOC_ICO/buttons/view.png" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
+<img src="LOC_ICO/buttons/view.png" class="icon" alt="view"> <a href="?vmode=view&tpc=<!VAR:topic!>&pge=<!VAR:page!>"><!VAR:titel!></a>
 </div>
 
 [item.sep]
@@ -116,8 +116,8 @@ help   = 1
 <div class="h3">How to use</div>
 <ul>
 	<li>Enter a search term into the text field.</li>
-	<li>Click on <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"></a> for help on search items.</li>
-	<li>Click on <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png"></a> for no more help.</li>
+	<li>Click on <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"      class="icon"></a> for help on search items.</li>
+	<li>Click on <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png" class="icon"></a> for no more help.</li>
 	<li>Click OK.</li>
 </ul>
 
@@ -129,8 +129,8 @@ help   = 1
 [info.de]
 <div class="h3">Anleitung</div>
 <ul>
-	<li>Drücke <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"></a> für Hilfe zu Suchbegriffen.</li>
-	<li>Drücke <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png"></a> um die Hilfe zu beenden.</li>
+	<li>Drücke <a href="?vmode=search&amp;search.help=1"><img src="LOC_ICO/buttons/info.png"      class="icon"></a> für Hilfe zu Suchbegriffen.</li>
+	<li>Drücke <a href="?vmode=search&amp;search.help=0"><img src="LOC_ICO/buttons/infoClear.png" class="icon"></a> um die Hilfe zu beenden.</li>
 <ul>
 </ul>
 	<li>Gib einen Suchbegriff in das Textfeld ein.</li>
@@ -145,10 +145,10 @@ help   = 1
 # ***********************************************************
 [help]
 # ***********************************************************
-<a href="?vmode=search&search.help=1"><img src="LOC_ICO/buttons/info.png">
+<a href="?vmode=search&search.help=1"><img src="LOC_ICO/buttons/info.png" class="icon">
 
 [nohelp]
-<a href="?vmode=search&search.help=0"><img src="LOC_ICO/buttons/infoClear.png">
+<a href="?vmode=search&search.help=0"><img src="LOC_ICO/buttons/infoClear.png" class="icon">
 
 
 # ***********************************************************

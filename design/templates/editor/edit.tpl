@@ -32,7 +32,7 @@ rows = 7
 # ***********************************************************
 <div style="text-align: right; margin: 5px 0px;">
 	<button name="file.act" value="save" onclick="exSubmit();">
-		<img src="LOC_ICO/buttons/save.png" />
+		<img src="LOC_ICO/buttons/save.png" class="icon" />
 	</button>
 </div>
 
@@ -48,10 +48,10 @@ autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">_
 # ***********************************************************
 [restore]
 	<a href="?file.act=backup&fil=<!VAR:file!>">
-		<div class="dmbtn"><img src="LOC_ICO/buttons/backup.png" /></div>
+		<div class="dmbtn"><img src="LOC_ICO/buttons/backup.png" class="icon" /></div>
 	</a>
 	<a href="?file.act=restore&fil=<!VAR:file!>">
-		<div class="dmbtn"><img src="LOC_ICO/buttons/restore.png" /></div>
+		<div class="dmbtn"><img src="LOC_ICO/buttons/restore.png" class="icon" /></div>
 	</a>
 
 [drop.file]
@@ -64,10 +64,10 @@ autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">_
 
 [save.file]
 	<button name="file.act" value="save" onclick="exSubmit();">
-		<img src="LOC_ICO/buttons/save.png" />
+		<img src="LOC_ICO/buttons/save.png" class="icon" />
 	</button>
 
 [save.cms]
 	<button name="file.act" value="save"  onclick="exSubmit();">
-		<img src="LOC_ICO/buttons/add.png" />
+		<img src="LOC_ICO/buttons/add.png" class="icon" />
 	</button>

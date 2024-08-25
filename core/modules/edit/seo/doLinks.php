@@ -33,7 +33,7 @@ foreach ($arr as $ful => $nam) {
 	$lst = STR::find($txt, "href", ">");
 
 	$dir = dirname($ful);
-	$xxx = $pge->load($ful);
+	$xxx = $pge->init($ful);
 	$lnk = $pge->getLink($dir, "pedit");
 
 	$out[$lnk] = array();
