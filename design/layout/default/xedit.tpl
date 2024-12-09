@@ -1,5 +1,11 @@
 [include]
-LOC_LAY/LAYOUT/main.edit.tpl
+LOC_LAY/LAYOUT/main.tpl
+
+[dic]
+whatsup = Advanced editing
+
+[dic.de]
+whatsup = Erweiterte Bearbeitung
 
 # ***********************************************************
 [body] <!-- body.xedit -->
@@ -9,3 +15,4 @@ LOC_LAY/LAYOUT/main.edit.tpl
 </div>
 
 [head]
+<div class="h3"><!DIC:whatsup!></div>

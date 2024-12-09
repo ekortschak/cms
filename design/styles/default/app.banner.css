@@ -1,0 +1,21 @@
+.banner {
+	background: url("LOC_IMG/banner.jpg");
+	background-size: 100% 100%;
+	height: H_MENU;
+	margin: 0px -1rem;
+}
+
+.banHead {
+	padding: 0px 2rem;
+	padding-top: calc(H_MENU - 5rem);
+	color: white;
+	font-size: 1.75em;
+	font-weight: bold;
+	text-align: right;
+	text-shadow: 1px 1px 1px black;
+	vertical-align: bottom;
+}
+
+.logo {
+	padding: 1rem 2rem;
+}

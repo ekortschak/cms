@@ -22,9 +22,10 @@ function addTag(tag) { // bracket selection by tag
 
 	htm = selString(); if (! htm) htm = "¶";
 	htm = cleanSel(htm);
-	htm = "<" + tag + ">" + htm + "</" + tag + ">"
+	htm = "<" + tag + ">" + htm + "</" + tag + ">";
 
 	if (wlf) htm = htm + "\n";
+	if (tag.includes("h")) htm = htm + "\n<p>x</p>";
 
 	repString(htm);
 }

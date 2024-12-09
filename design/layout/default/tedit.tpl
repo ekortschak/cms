@@ -1,11 +1,11 @@
 [include]
-LOC_LAY/LAYOUT/main.edit.tpl
+LOC_LAY/LAYOUT/main.tpl
 
 [dic]
-vtabs = Vertical tabs
+whatsup = Vertical tabs
 
 [dic.de]
-vtabs = Registerkarten (Tabs)
+whatsup = Registerkarten (Tabs)
 
 
 # ***********************************************************
@@ -35,4 +35,4 @@ vtabs = Registerkarten (Tabs)
 <!MOD:edit/tabs!>
 
 [head]
-<div class="h3"><!DIC:vtabs!></div>
+<div class="h2"><!DIC:whatsup!></div>

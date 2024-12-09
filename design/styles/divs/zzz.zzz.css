@@ -1,3 +1,21 @@
+.modPage {
+	padding:    0px 1rem 2rem;
+}
+
+
+.joker {
+	overflow: visible;
+	margin-top: 0px;
+}
+
+.chapter {
+	margin: 0.75rem 0px -10px;
+}
+
+.sticky {
+	top: -2rem;
+}
+
 @media only screen {
 	.mobilex { display: none; }
 	.joker   { display: none; }

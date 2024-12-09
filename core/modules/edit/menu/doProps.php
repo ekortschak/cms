@@ -22,6 +22,6 @@ $sel->show();
 // show ini editor
 // ***********************************************************
 $edi = new ediMgr();
-$edi->edit($fil);
+$edi->edit($loc, "*.ini");
 
 ?>

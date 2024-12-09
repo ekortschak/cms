@@ -3,6 +3,7 @@
 DBG::file(__FILE__);
 
 incCls("menus/dropBox.php");
+incCls("menus/topics.php");
 
 // ***********************************************************
 // find tabs
@@ -15,16 +16,16 @@ foreach ($arr as $tab => $prp) {
 	$tbs[$tab] = PGE::title($ini);
 }
 
-$box = new dropBox("button");
-$xxx = $box->hideDesc();
-$tab = $box->getKey("tab", $tbs);
-$tbs = $box->gc();
+$tps = new topics();
+$arr = $tps->items();
 
-// ***********************************************************
-// adjustments to layout
-// ***********************************************************
-$clr = APP::isView();
-$sch = CFG::mod("tabs.search");
+$box = new dropBox();
+$box->hideDesc();
+
+$tab = $box->getKey("tab", $tbs);
+$tpc = $box->getKey("tpc.$tab", $arr, TAB_HOME);
+
+$tbs = $box->gc();
 
 // ***********************************************************
 // show joker tool bar
@@ -32,6 +33,12 @@ $sch = CFG::mod("tabs.search");
 $tpl = new tpl();
 $tpl->load("pages/joker.tpl");
 $tpl->set("topics", $tbs);
+
+// ***********************************************************
+// adjustments to layout
+// ***********************************************************
+$clr = APP::isView();
+$sch = CFG::mod("tabs.search");
 
 if (! $clr) $tpl->substitute("right", "right.back");
 if (! $sch) $tpl->clearSec("search");

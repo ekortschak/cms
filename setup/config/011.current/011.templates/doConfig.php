@@ -4,7 +4,7 @@ incCls("editor/ediMgr.php");
 
 // ***********************************************************
 $edi = new ediMgr();
-$edi->edit(LOC_CFG);
+$edi->edit(LOC_CFG, "*.ini");
 
 ?>
 

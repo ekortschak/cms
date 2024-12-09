@@ -1,21 +1,17 @@
 [main]
-<div class="flex">
-<!SEC:topics!>
-#<!SEC:left!>
+<!VAR:topics!>
+
+<div class="flex" style="background: \#E7F0F5; margin-bottom: 1rem; padding: 0px 12px;">
+<!SEC:left!>
 #<!SEC:middle!>
 #<!SEC:nav!>
 <!SEC:right!>
 </div>
 
 
-[topics]
-<div style="padding-left: IB_PAD;">
-<!VAR:topics!>
-<button><a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/menu.png" class="icon"></a></button>
-</div>
-
 [left]
 <div>
+<button><a href="?vmode=view&dmode=toc"><img src="LOC_ICO/buttons/menu.png" class="icon"></a></button>
 </div>
 
 [middle]
@@ -43,4 +39,3 @@
 
 [admin]
 <button><a href="?vmode=joker"><img src="LOC_ICO/other/vw.gif" class="icon"></a></button>
-

@@ -1,31 +1,23 @@
 /* ********************************************************
 @media only screen and (orientation: landscape)
 ******************************************************** */
-:root {
-}
-
 @media only screen and (max-width: 1550px) {
-#	.modBody { background: orange; }
 	.modToc  { border-right: 1px solid OUTLINE; }
 	.modMbar { display: none; }
 	.modOpts { width: calc(100% - W_TABS - W_TOC - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1400px) {
-#	.modBody { background: yellow; }
 	.modToc  { width: W_MIN; border-right: 1px solid OUTLINE; }
 	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY - 10px); }
 }
 
 @media only screen and (max-width: 1250px) {
-#	.modBody { background: lightgreen; }
-	.colMain { width: calc(W_BODY * 0.85); }
+#	.modPage { width: calc(W_BODY * 0.85); }
 	.modOpts { width: calc(100% - W_TABS - W_MIN - W_BODY * 0.85 - 10px); }
 }
 
 @media only screen and (max-width: 1100px) {
-#	.modBody { background: green; }
-
 	:root {
 		font-size: 18pt;
 	}
@@ -33,13 +25,11 @@
 	[class^="mod"] {
 		display: none;
 	}
-	.colMain { width: 100%; }
-	.titBody { padding: 0px 0.5rem; }
-
 	.joker   { display: block; }
-	.modBody { display: block; }
+	.modPage { display: block; }
 	.mobile  { display: block; }
 	.mobilex { display: inline-block; }
+	.screen  { display: none; }
 
 	.toc {
 		padding: 3px 0.75rem 0px;
@@ -48,10 +38,6 @@
 
 @media only screen and (max-width: 1100px) and (orientation: portrait) {
 	:root {
-		font-size: 36pt;
-	}
-	.modBody {
-#		background: magenta;
-		padding:    0px 0.5rem 7rem;
+#		font-size: 24pt;
 	}
 }

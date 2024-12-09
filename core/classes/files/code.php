@@ -58,6 +58,7 @@ public function read($file) { // ini lines
 // ***********************************************************
 protected function content($file) {
 	$txt = APP::read($file); if (! $txt) return "";
+
 	$txt = STR::dropComments($txt);
 	$txt = STR::dropSpaces($txt);
 	$txt = STR::clear($txt, "\r");

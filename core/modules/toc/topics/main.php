@@ -20,10 +20,6 @@ $arr = $tps->items(); if (! $arr) return;
 // show topics - if any
 // ***********************************************************
 $box = new dropBox("topics");
-
-if (VMODE == "abstract")
-$box->substitute("nav", "nav.back");
-
 $box->getKey("tpc", $arr);
 $box->show();
 

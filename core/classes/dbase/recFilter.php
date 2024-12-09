@@ -67,7 +67,7 @@ public function show() {
 
 public function gc() {
 	$fds = $this->fds; $cnt = 0;
-	$vls = OID::getLast($this->oid);
+	$vls = OID::values($this->oid);
 
 	$sel = new fldFilter($this->dbs);
 	$sel->set("oid", $this->oid);

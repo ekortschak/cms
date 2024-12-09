@@ -4,6 +4,6 @@ incCls("editor/ediMgr.php");
 
 // ***********************************************************
 $edi = new ediMgr();
-$edi->edit(LOC_BTN);
+$edi->edit(LOC_BTN, "*.ini");
 
 ?>

@@ -1,11 +1,21 @@
 [include]
 LOC_LAY/LAYOUT/main.tpl
 
+[dic]
+whatsup = Search for content
+
+[dic.de]
+whatsup = Nach Inhalt suchen
+
 
 [toc]
 <!MOD:toc/search!>
 
-[page]
-<div id="scView" class="modBody">
+# ***********************************************************
+# overruled sections
+# ***********************************************************
+[body] <!-- body.search -->
 <!MOD:body/search!>
-</div>
+
+[head]
+<div class="h3"><!DIC:whatsup!></div>

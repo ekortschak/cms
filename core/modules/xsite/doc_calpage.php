@@ -6,7 +6,7 @@ incCls("tables/cal_table.php");
 $dat = PGE::get("props_cal.date");
 
 $cal = new cal_table("monList");
-$cal->setRange($dat);
+$cal->range($dat);
 $mon = $cal->gc();
 
 // ***********************************************************

@@ -1,0 +1,22 @@
+/* ********************************************************
+@media only screen and (orientation: landscape)
+******************************************************** */
+:root {
+}
+
+@media only screen and (max-width: 1100px) {
+	:root {
+		font-size: 18pt;
+	}
+
+	[class^="mod"] {
+		display: none;
+	}
+	.modPage { width: 100%; }
+
+	.joker   { display: block; }
+	.modPage { display: block; }
+	.mobile  { display: block; }
+	.mobilex { display: inline-block; }
+	.screen  { display: none; }
+}

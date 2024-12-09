@@ -3,11 +3,25 @@
 DBG::file(__FILE__);
 
 // ***********************************************************
-// show banner
+// load banner
 // ***********************************************************
 $tpl = new tpl();
 $tpl->load("modules/banner.tpl");
 $tpl->set("title", CFG::constant("PRJ_MOTTO", ""));
+
+$arr = glob("img/logo.*");
+
+if (! $arr) {
+	$tpl->clearSec("logo");
+}
+else {
+	$ext = FSO::ext($arr[0]);
+	$tpl->set("ext", $ext);
+}
+
+// ***********************************************************
+// show banner
+// ***********************************************************
 $tpl->show();
 
 ?>

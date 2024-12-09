@@ -12,12 +12,12 @@ LOC_LAY/LAYOUT/main.tpl
 <!MOD:toc/blocks!>
 <!MOD:toc/status!>
 
-[head] <!-- sticky info -->
+# ***********************************************************
+# overruled sections
+# ***********************************************************
+[head]
 <!MOD:body/head!>
 
- # ***********************************************************
-[page] <!-- body.abstract -->
-# ***********************************************************
-<div class="joker"><!SEC:joker!></div>
-<div class="titBody"><!SEC:head!></div>
-<div class="modBody"><!MOD:body/abstract!></div>
+[body] <!-- body.abstract -->
+<!MOD:body/abstract!>
+

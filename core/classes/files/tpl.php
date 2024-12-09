@@ -40,12 +40,10 @@ public function load($file) {
 
 public function read($file) {
 	$fil = APP::file($file);
+	$loc = CFG::encode($fil); $this->set("tplfile", $loc);
 
-	if (! $fil) {
-		$this->tplInfo("main", true);
-		$this->set("tplfile", CFG::encode($file));
-		return false;
-	}
+	if (! $fil) return false;
+
 	$cod = new code();
 	$cod->read($fil);
 
@@ -53,7 +51,6 @@ public function read($file) {
 	$this->hst = array_merge($this->hst, $cod->getHist());
 	$this->merge($cod->getVars());
 
-	$this->set("tplfile", CFG::encode($fil));
 	return $fil;
 }
 
@@ -152,6 +149,8 @@ public function show($sec = "main") {
 	echo $this->gc($sec);
 }
 public function gc($sec = "main") {
+	$this->set("section", "[$sec]");
+
 	$xxx = $this->tplInfo($sec);
 	$out = $this->getSection($sec);
 	if (DEBUG)
@@ -189,7 +188,6 @@ private function tplInfo($sec, $dbg = DEBUG) {
 		$out.= $this->getSection("tplitem.$val");
 	}
 	$this->set("tstatus",   $sts);
-	$this->set("section", "[$sec]");
 	$this->set("history",   $out);
 }
 

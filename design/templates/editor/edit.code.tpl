@@ -34,10 +34,6 @@ LOC_SCR/inline.js
 # ***********************************************************
 [main]
 # ***********************************************************
-<style>
-	.modBody { overflow: hidden; }
-</style>
-
 <!SEC:toolbar!>
 
 <form id="inlineEdit" method="post" action="?">

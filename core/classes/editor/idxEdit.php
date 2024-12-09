@@ -26,7 +26,7 @@ function __construct() {
 // methods
 // ***********************************************************
 public function save($key, $value = "") {
-	$arr = OID::getLast($oid);
+	$arr = OID::values();
 
 	foreach ($arr as $fil => $val) {
 		$fil = $this->getFile($fil);

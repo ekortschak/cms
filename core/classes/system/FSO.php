@@ -147,13 +147,16 @@ public static function mvDir($src, $dst) {
 
 // ***********************************************************
 public static function rmDir($dir) {
-	$arr = FSO::fdTree($dir); if (! $arr) return;
 	$xxx = LOG::dirty(APP_NAME);
-	$arr = VEC::sort($arr, "krsort"); // put subdirs first
+	$arr = FSO::fdTree($dir);
 
-	foreach ($arr as $fso => $nam) { // kill files
-		if (is_dir ($fso)) rmdir($fso);
-		else FSO::kill($fso);
+	if ($arr) {
+		$arr = VEC::sort($arr, "krsort"); // put subdirs first
+
+		foreach ($arr as $fso => $nam) { // kill files
+			if (is_dir ($fso)) rmdir($fso);
+			else FSO::kill($fso);
+		}
 	}
 	return rmdir($dir);
 }

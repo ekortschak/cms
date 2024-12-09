@@ -24,13 +24,6 @@
 	width: W_MBAR;
 }
 
-.modBody {
-	color: FC_BODY;
-	width: W_BODY;
-	padding: 1rem 15px 35px;
-
-	background: BC_BODY url("LOC_IMG/opts/pborder.png") repeat-y right;
-}
 .modOpts {
 	overflow: auto;
 	color: FC_OPTS;

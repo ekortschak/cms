@@ -1,28 +1,10 @@
 @media only screen and (max-width: 1200px) {
-	.colMain {
-		width: 100%;
+	:root {
+		font-size: 15pt;
 	}
+
 	.modTabs, .modOpts {
 		display: none;
-	}
-
-	.joker {
- 		display: block;
-	}
-}
-
-@media only screen and (max-width: 1500px) and (max-resolution: 3dppx) and (orientation: portrait) {
-	.colMain {
-		width: 50%;
-		transform-origin: top left;
-		transform: scale(2);
-	}
-}
-
-@media only screen and (max-width: 1500px) and (max-resolution: 2dppx) and (orientation: portrait) {
-	.colMain {
-		width: 33%;
-		transform: scale(3);
 	}
 }
 

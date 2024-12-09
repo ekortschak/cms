@@ -35,8 +35,8 @@ function __construct() {
 // ***********************************************************
 public function exec($file, $lang) {
 	$act = ENV::getPost("act"); if ($act != "OK") return;
-	$arr = OID::getLast($this->oid); if (! $arr) return;
-	$key = VEC::get($arr, "ckey"); if (! $key) return;
+	$arr = OID::values($this->oid); if (! $arr) return;
+	$key = VEC::get($arr, "ckey");  if (! $key) return;
 
 	$dir = dirname(dirname($file));
 	$fil = basename($file);

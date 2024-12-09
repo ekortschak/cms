@@ -1,11 +1,11 @@
 [include]
-LOC_LAY/LAYOUT/main.edit.tpl
+LOC_LAY/LAYOUT/main.tpl
 
 [dic]
-topics = Topics
+whatsup = Manage topics
 
 [dic.de]
-topics = Themen
+whatsup = Themen verwalten
 
 
 # ***********************************************************
@@ -29,7 +29,7 @@ topics = Themen
 # ***********************************************************
 [body] <!-- body.tedit -->
 # ***********************************************************
-<div class="h3"><!DIC:topics!></div>
 <!MOD:edit/topics!>
 
 [head]
+<div class="h3"><!DIC:whatsup!></div>

@@ -19,7 +19,7 @@ Info für FireFox
 incCls("editor/ediMgr.php");
 
 $edi = new ediMgr();
-$edi->edit($dir);
+$edi->edit($dir, "*.ext");
 */
 
 incCls("menus/dropBox.php");
@@ -39,28 +39,24 @@ function __construct($filesOnly = false) {
 // ***********************************************************
 // display
 // ***********************************************************
-public function edit($fso, $files = false) {
+public function edit($fso, $pattern = "*.htm") {
 	$box = new dropBox("menu");
-	$old = $ful = $fso;
+	$dir = $old = $ful = $fso;
 
 	if (is_dir($fso)) {
 		if (! $this->fonly) $fso = $box->dirs($fso);
 		if (! $fso) $fso = $old;
-
-		$arr = $this->files($fso);
-		$ful = $box->getKey("pic.file", $arr, $fso);
 	}
 	else {
-		if (! $fso) $ful = current($files);
-
-		$fil = basename($fso);
-		$arr = array($ful => $fil);
-		$ful = $box->getKey("pic.file", $arr, $fil);
+		$dir = dirname($fso);
 	}
+
+	$arr = $this->files($dir, $pattern);
+	$ful = $box->getKey("pic.file", $arr, $fso);
+
 	$typ = $this->findType($ful);
 	$eds = $this->editors($typ);
 
-	if ($typ != "none")
 	$typ = $box->getKey("pic.editor", $eds);
 	$xxx = $box->show();
 
@@ -123,11 +119,15 @@ private function modes($items) {
 	return $out;
 }
 
-private function files($dir) {
-	$arr = FSO::files($dir);
+private function files($dir, $pattern = "*.htm") {
+	$arr = FSO::files($dir, $pattern);
 
 	foreach ($arr as $key => $val) {
-		if ($val == "page.ini") unset($arr[$key]);
+		if (STR::misses($pattern, ".ini"))
+		if ($val == "page.ini") {
+			unset($arr[$key]);
+			break;
+		}
 	}
 	return $arr;
 }

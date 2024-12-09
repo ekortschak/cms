@@ -22,7 +22,7 @@ class htm_table extends tpl {
     protected $cls;             // column info object
 	protected $dat = array();   // table data rows
 
-	protected $lns = 35;        // max lines per page
+	protected $lns = 35;        // max lines per current
 	protected $max = 250;       // max lines per screen
 
 function __construct() {
@@ -111,15 +111,15 @@ public function gc($sec = "main") {
 		$out = $this->getSection("main");
 		return "$out\n";
 	}
-	$dat = $this->getRows();
-	$hed = $this->getRow("rh", $this->cls->items());
-	$fut = $this->getRow("rf", $this->cls->sums());
+	$dat = $this->tblData();
+	$hed = $this->tblRow("rh", $this->cls->items()); // header
+	$fut = $this->tblRow("rf", $this->cls->sums());  // footer
 
 	if ($rcs < $this->lns) {
 		$this->clearSec("stats");
 		$this->clearSec("nav");
 	}
-	$out = $this->getTable($hed.$dat.$fut);
+	$out = $this->tblCode($hed.$dat.$fut);
 	return "$out\n";
 }
 
@@ -130,24 +130,21 @@ public function rowCount() {
 	return count($this->dat);
 }
 
-protected function getRows() {
-	$pge = $this->getPage(); $out = "";
+protected function tblData() {
+	$pge = $this->current(); $out = "";
 
-    $fst = $this->getFirst($pge);
+    $fst = $this->page($pge);
     $lst = $fst + $this->lns;
 
     for ($i = $fst; $i < $lst; $i++) {
 		$rec = $this->getRec($i); if (! $rec) continue;
-		$qid = $this->getRecID($rec);
-
-		$xxx = $this->cls->set($i, "recid", $qid);
-		$out.= $this->getRow("rw", $rec);
+		$out.= $this->tblRow("rw", $rec);
 	}
     return $out;
 }
 
 // ***********************************************************
-protected function getRow($style, $arr) {
+protected function tblRow($style, $arr) {
 	if (! $arr) return "";
     if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
 
@@ -158,15 +155,15 @@ protected function getRow($style, $arr) {
 			case "rf": $sec = "TFoot"; break;
 			default:   $sec = "TData";
 		}
-        $out.= $this->getCell($sec, $inf)."\n";
+        $out.= $this->tblCell($sec, $inf)."\n";
 	}
 	$qid = VEC::get($arr, "ID", -1);
-    $out = $this->getLine($out, $style, $qid);
+    $out = $this->tblRowTpl($out, $style, $qid);
 	return $out."\n";
 }
 
 // ***********************************************************
-protected function getLine($data, $style, $qid) {
+protected function tblRowTpl($data, $style, $qid) {
 	switch ($style) {
 		case "rf": $sec = "TSums"; break;
 		case "rh": $sec = "TCols"; break;
@@ -180,7 +177,7 @@ protected function getLine($data, $style, $qid) {
 }
 
 // ***********************************************************
-protected function getCell($sec, $inf) {
+protected function tblCell($sec, $inf) {
 	if ($inf["hide"]) return "";
 
 	$xxx = $this->merge($inf);
@@ -193,19 +190,15 @@ protected function getCell($sec, $inf) {
 public function getRec($index = 0) {
 	return VEC::get($this->dat, $index);
 }
-public function getCurVal($colIndex, $default = NV) {
-	$rec = VEC::get($this->dat, 0);
-	return VEC::get($rec, $colIndex, $default);
-}
 
-protected function getRecID($arr) {
+protected function recID($arr) {
 	return VEC::get($arr, "ID", 0);
 }
 
 // ***********************************************************
 // handling navigation
 // ***********************************************************
-protected function getPage() {
+protected function current() {
     $lst = count($this->dat);
     $pge = $this->recall("cur", 0);
 
@@ -215,22 +208,20 @@ protected function getPage() {
         case "n": $pge = $pge + 1; break;
         case "l": $pge = 9999;
     }
-    $max = $this->getMax($lst);
-    $pge = CHK::range($pge, $max);
-
+    $max = $this->pages($lst); $pge = CHK::range($pge, $max);
     $xxx = $this->hold("cur", $pge);
     return $pge;
 }
 
-protected function getMax($idx) {
-//  with 3 lines per page:
+protected function pages($idx) {
+//  with 3 lines per current:
 //	0, 1, 2 => 1
 //	3, 4, 5 => 2
 
     return intval(($idx - 1) / $this->lns);
 }
 
-protected function getFirst($pge) {
+protected function page($pge) {
 	$fst = $pge * $this->lns;
 	$lst = count($this->dat) - 1; #$this->lns;
 	return CHK::range($fst, $lst);
@@ -239,10 +230,10 @@ protected function getFirst($pge) {
 // ***********************************************************
 // filling templates
 // ***********************************************************
-protected function getTable($body) {
+protected function tblCode($body) {
     if (! $body) return "";
 
-    $lst = count($this->dat); $lst = $this->getMax($lst);
+    $lst = count($this->dat); $lst = $this->pages($lst);
     $pge = $this->recall("cur", 0);
 
 	$this->set("body", $body);
@@ -251,10 +242,6 @@ protected function getTable($body) {
     $this->set("cnt",  $lst + 1);
 
     return $this->getSection("main");
-}
-
-protected function getQid() {
-	return VEC::get($this->dat[0], "ID", -1);
 }
 
 // ***********************************************************

@@ -66,7 +66,7 @@ private static function get($key, $default = false) {
 // executing transaction
 // ***********************************************************
 public static function exec() {
-	if (! DB_LOGIN) return false; $arr = OID::getLast();
+	if (! DB_LOGIN) return false; $arr = OID::values();
 	if (! $arr) return false;
 
 	if (! isset($arr["tan"])) return false;

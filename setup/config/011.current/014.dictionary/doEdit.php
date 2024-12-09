@@ -4,6 +4,6 @@ incCls("editor/ediMgr.php");
 
 // ***********************************************************
 $edi = new ediMgr();
-$edi->edit(LOC_DIC);
+$edi->edit(LOC_DIC, "*.dic");
 
 ?>

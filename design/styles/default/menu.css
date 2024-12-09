@@ -23,9 +23,10 @@
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.mbanner {
+.banner {
 	position: relative;
 	height: H_MENU;
+	margin-bottom: 1rem;
 }
 
 .topMenu {
@@ -88,7 +89,7 @@
 
 .topList a {
 	display: block;
-	padding: 3px IB_PAD;
+	padding: 3px 1rem;
 	color: FC_BODY;
 	font-weight: normal;
 }

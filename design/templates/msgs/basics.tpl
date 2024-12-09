@@ -1,18 +1,14 @@
 [vars]
-history = tstatus: OK
+history = tpl stack: empty
 tstatus = BOOL_NO
 
 
 # ***********************************************************
 [main]
 # ***********************************************************
-<!SEC:notpl!>
-
-[notpl]
 <pre>
-<div class="dropdown"><img src="LOC_ICO/buttons/file.missing.png" class="icon" alt="load error"> <!VAR:tplfile!>COMBO_DOWN
+<div class="dropdown"><img src="LOC_ICO/buttons/file.missing.png" class="icon" alt="load error"> <!VAR:tplfile!>
 <div class="dropbody"><!SEC:missing!><!VAR:history!></div>
-</div>
 </pre>
 
 # ***********************************************************

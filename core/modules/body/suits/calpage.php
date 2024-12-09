@@ -25,7 +25,7 @@ $htm = ACR::clean($htm);
 incCls("tables/cal_table.php");
 
 $cal = new cal_table("monList");
-$cal->setRange($dat);
+$cal->range($dat);
 $mon = $cal->gc();
 
 // ***********************************************************

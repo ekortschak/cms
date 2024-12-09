@@ -103,10 +103,6 @@ public function getRec() {
 	}
 	return $out;
 }
-public function getCurVal($field, $default = NV) {
-	$rec = $this->getRec();
-	return VEC::get($rec, $field, $default);
-}
 
 private function chkVal($inf, $prm) {
 	if ($prm == "a")

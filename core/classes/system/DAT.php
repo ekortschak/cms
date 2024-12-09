@@ -87,20 +87,19 @@ public static function islater($date, $comp) {
 }
 
 // ***********************************************************
-// calculating with dates
+// calculating dates
 // ***********************************************************
 public static function now($offset = 0, $format = DATE_FMT) {
  // $offset = number of days from now, e.g. +7, 7 or -7
 	return DAT::addDays(time(), $offset, $format);
 }
 public static function calc($date, $offset = 1, $format = DATE_FMT) {
-	$dat = DAT::toSecs($date);
-	return DAT::addDays($dat, $offset, $format);
+	return DAT::addDays($date, $offset, $format);
 }
 
 // ***********************************************************
 private static function addDays($timestamp, $offset, $format = DATE_FMT) {
-	$ofs = $offset * DAT::DAY_SECS - 1;
+	$ofs = $offset * DAT::DAY_SECS;
 	$out = $timestamp + $ofs; if (! $format) return $out;
 	return date($format, $out);
 }
@@ -156,8 +155,7 @@ private static function find($what) {
 
 public static function weekday($date) {
 	$wkd = DAT::get($date, "w");
-	if ($wkd == 0) return 7;
-	return $wkd;
+	return ($wkd == 0) ? 7 : $wkd;
 }
 
 // ***********************************************************
@@ -170,6 +168,8 @@ public static function split($date) {
 		"d" => intval(DAT::get($date, "d")),
 		"h" => intval(DAT::get($date, "H")),
 		"n" => intval(DAT::get($date, "n")),
+
+		"w" => DAT::weekday($date),
 	);
 }
 
@@ -186,10 +186,9 @@ public static function toSecs($string) { // return time stamp
 	$dat = DAT::strip($string); if (! $dat) return false;
 	if (is_numeric($dat)) return $dat;
 
-	if ($out = strtotime($dat)) return $out; $dat = str_replace(".", "/", $dat);
-	if ($out = strtotime($dat)) return $out; $dat = str_replace("-", "/", $dat);
-	if ($out = strtotime($dat)) return $out;
-	return false;
+	$dat = str_replace(".", "/", $dat);
+	$dat = str_replace("-", "/", $dat);
+	return strtotime($dat);
 }
 
 public static function getDay($date, $mode = "short") {

@@ -36,7 +36,7 @@ title = PRJ_TITLE
 </html>
 
 [frame]
-<div class="flex">
+<div class="flex"> # horizontal panels
 <!SEC:layout!>
 </div>
 
@@ -59,15 +59,17 @@ title = PRJ_TITLE
 <div class="modTabs"><!SEC:tabs!></div>
 <div class="modToc" ><!SEC:toc!> </div>
 <div class="modMbar"><!SEC:mbar!></div>
-<div class="colMain"><!SEC:page!></div>
+<div class="modPage"><!SEC:page!></div>
 <div class="modBord"><!SEC:bord!></div>
 <div class="modOpts"><!SEC:opts!></div>
 
 [page]
-<div class="joker"><!SEC:joker!></div>
-<div class="titBody"><!SEC:topics!></div>
-<div class="titBody"><!SEC:head!></div>
-<div class="modBody"><!SEC:body!></div>
+<div class="sticky">
+<div class="joker" ><!SEC:joker!></div>
+<div><!SEC:head!></div>
+</div>
+
+<div><!SEC:body!></div>
 
 
 # ***********************************************************
@@ -89,15 +91,16 @@ title = PRJ_TITLE
 # vertical panels
 # ***********************************************************
 [tabs] <!-- tabs -->
-<div style="padding: 7px 0px;">
 <!MOD:tabs!>
-</div>
 
 # ***********************************************************
 [toc] <!-- toc -->
+<div class="sticky">
 <!MOD:toc/banner!>
 <!MOD:toc/topics!>
 <!MOD:toc/current!>
+</div>
+
 <!MOD:toc!>
 <!MOD:toc/blocks!>
 <!MOD:toc/status!>
@@ -116,7 +119,11 @@ title = PRJ_TITLE
 
 # ***********************************************************
 [opts] <!-- opts -->
+<div class="sticky">
 <!MOD:app/info!>
+<!MOD:user/banner!>
+</div>
+
 <!MOD:user/opts!>
 <!MOD:user/tags!>
 <!MOD:msgs!>

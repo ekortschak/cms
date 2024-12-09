@@ -43,12 +43,11 @@ input[type='reset'] {
 .dmbtn {
 	display: inline-block;
 
-	line-height: H_LINE;
 	max-height: H_LINE;
 
 	background: linear-gradient(snow, lightgrey);
 	text-align: center;
-#	vertical-align: bottom;
+	vertical-align: middle;
 }
 
 .dmbtn img {

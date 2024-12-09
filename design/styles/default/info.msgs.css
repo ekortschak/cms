@@ -20,6 +20,12 @@ php, code, dbg, pre {
 	white-space: pre-wrap;
 }
 
+p php, li php {
+	display: inline-block;
+	padding: 0px;
+	white-space: normal;
+}
+
 code {
 	display: block;
 	overflow: auto;
@@ -107,4 +113,3 @@ trace {
 	font-family: monospace;
 	font-weight: bold;
 }
-

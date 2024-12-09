@@ -92,11 +92,6 @@ section {
 	background: transparent url("static/img/mbar/spirals.png") repeat-y;
 }
 
-.titBody {
-	width:      100%;
-	padding:    0px 20px;
-}
-
 .modBody {
 	width:      100%;
 	font-size:  1rem;
@@ -1014,15 +1009,10 @@ textarea.max {
 	border: 1px solid #AAA;
 }
 
-.localicon {
-	display: inline-block;
-	padding: 1px 10px;
-}
-
 /* ******************************************************** */
 /* top navigation bar - with drop down content */
 /* ******************************************************** */
-.mbanner {
+.banner {
 	position: relative;
 	height: 0px;
 }
@@ -1469,7 +1459,6 @@ topic {
 	.mobile  { display: block; }
 	.mobilex { display: inline-block; }
 	.joker   { display: block; }
-	.titBody { padding: 0px var(--pad_min); }
 	.toc     { padding: auto 25px auto; }
 
 	.modBody {

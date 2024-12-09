@@ -6,5 +6,5 @@ caption = &xxx;
 tooltip = Ersetzt Entities durch UTF8-Zeichen.
 
 [en]
-caption = \#.\#\#\#
-tooltip = Turns numbers in words into digits.
+caption = &xxx;
+tooltip = Translates entities to UTF8 chars.

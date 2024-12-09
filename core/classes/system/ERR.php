@@ -2,6 +2,8 @@
 /* ***********************************************************
 // INFO
 // ***********************************************************
+error handling is actually handled by load.err.php
+
 - Handling log messages
 - Debugging
 
@@ -16,24 +18,7 @@ ERR::trace();
 
 */
 
-// ***********************************************************
-// error handling
-// ***********************************************************
-function shutDownTpl() {
-	ERR::shutDown();
-}
-function errHandlerTpl($num, $msg, $file, $line) {
-	ERR::handler($num, $msg, $file, $line);
-}
-
-// ***********************************************************
-// define error options
-// ***********************************************************
-#register_shutdown_function("shutDown"); // defined above
-#set_error_handler("errHandler");        // defined above
-
-ERR::mode(0);
-
+errMode(false);
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -41,83 +26,19 @@ ERR::mode(0);
 class ERR {
 	private static $err = array(); // error information
 	private static $hst = array(); // trace history
-	private static $done = 0;	// only first error will be displayed
-
-    const DEPTH = 7;  // call stack depth to display
-
-
-public static function show($mode = true) {
-	errMode($mode);
-}
-public static function hide() {
-	errMode(false);
-}
 
 // ***********************************************************
-// add messages
+// adding messages
 // ***********************************************************
 public static function msg($msg, $val = NV) {
+	if (ERR::isknown($msg)) return "";
 	return MSG::err($msg, $val);
 }
 
 public static function sql($msg, $sql) {
-	$chk = STR::after($msg, "to use near");
-	if ($chk) {
-		$chk = STR::before($chk, " ");
-		$msg = "SQL error near: $chk\n";
-	}
+	$chk = STR::between($msg, "to use near", " "); if ($chk)
+	$msg = "SQL error near: $chk\n";
 	MSG::sql($msg, $sql);
-}
-
-// ***********************************************************
-// turning errors on or off
-// ***********************************************************
-public static function mode($value = true) {
-	switch ($value) {
-		case true: error_reporting(E_ALL); break;
-		default:   error_reporting(null);
-	}
-}
-
-// ***********************************************************
-// error handling
-// ***********************************************************
-public static function handler($num, $msg, $file, $line) {
-	if (! ERR_SHOW) return; if (! $num) return;
-
-	if (ERR::suppress()) return; // do not show suppressed errors
-	if (ERR::$done++) return; // handle only first error
-
-	$tpl = new tpl();
-	$tpl->load("msgs/error.tpl");
-	$tpl->set("errID", "$num:$line");
-	$tpl->set("line",   $line);
-	$tpl->set("errNum", ERR::fmtNum($num, $msg));
-	$tpl->set("errMsg", ERR::fmtMsg($msg));
-	$tpl->set("file",   ERR::fmtFName($file));
-	$tpl->set("items",  ERR::getStack("item"));
-	$tpl->show();
-}
-
-// ***********************************************************
-public static function shutDown() {
-	if (! ERR_SHOW) {
-		die("A fatal error occured ...");
-	}
-	$inf = error_get_last(); extract($inf); if (! $inf) return;
-
-	$tpl = new tpl();
-	$tpl->load("msgs/error.tpl");
-	$tpl->set("type", $type);
-	$tpl->set("file", $file);
-	$tpl->set("line", $line);
-	$tpl->set("message", $message);
-	$tpl->show("fatal");
-}
-
-// ***********************************************************
-public static function state() {
-	return (count(ERR::$hst) > 0);
 }
 
 // ***********************************************************
@@ -139,7 +60,7 @@ public static function trace() {
 }
 
 private static function getStack($sec = "short") {
-	$arr = ERR::getList(0, ERR::DEPTH); // get list of calling functions
+	$arr = ERR::getList(); // get list of calling functions
 
 	$tpl = new tpl();
 	$tpl->load("msgs/error.tpl");
@@ -149,7 +70,6 @@ private static function getStack($sec = "short") {
 		$xxx = $tpl->merge($itm);
 		$out.= $tpl->getSection($sec);
 	}
-	$md5 = md5($out); if (VEC::get(ERR::$hst, $md5)) return "";
 	$out = CFG::encode($out);
 	return $out;
 }
@@ -157,25 +77,18 @@ private static function getStack($sec = "short") {
 // ***********************************************************
 // reading backtrace info into array
 // ***********************************************************
-private static function getList($fst = 0, $cnt = NV) {
-	if ($cnt === NV) $cnt = ERR::DEPTH;
-
-	$ign = ".shutDown.errHandler.trace.";
-	$ign.= ".include.include_once.require.require_once.";
-	$ign.= ".incCls.mod.";
-
-	$arr = debug_backtrace();
-	$out = array();
+private static function getList() {
+	$arr = debug_backtrace(); $out = array();
 
 	foreach ($arr as $itm) {
 		unset ($itm["object"]);
 
 		$fil = VEC::get($itm, "file", false);  if (! $fil) continue;
 		$cls = VEC::get($itm, "class", "app"); if ($cls == "ERR") continue;
-		$fnc = VEC::get($itm, "function");     #if (STR::contains($ign, $fnc)) continue;
+		$fnc = VEC::get($itm, "function");     if ($fnc == "getBlock") break;
 		$arg = VEC::get($itm, "args", array());
 
-		if ($fnc == "getBlock") break;
+		if (ERR::ignore($fnc)) continue;
 
 		$itm["file"] = ERR::fmtFName($fil);
 		$itm["args"] = ERR::fmtArgs($arg);
@@ -183,25 +96,11 @@ private static function getList($fst = 0, $cnt = NV) {
 		$out[] = $itm;
 	}
 	return $out;
-	return array_slice($out, $fst, $cnt);
 }
 
 // ***********************************************************
 // formatting
 // ***********************************************************
-private static function fmtNum($num, $msg) {
-	$msg = STR::before($msg, ":");
-	return "$num: $msg";
-}
-
-private static function fmtMsg($msg) {
-	$msg = STR::after($msg, ":"); if (! $msg) return "";
-	$msg = preg_replace("~\((\d+)\/(\d+)\):~", "",  $msg);
-	$msg = str_ireplace(":", "<br>", $msg);
-	$msg = str_ireplace("\n", "<br>\n", $msg);
-	return $msg;
-}
-
 private static function fmtFName($file) {
 	$ful = CFG::encode($file); // reduce path
 	$fil = basename($file);
@@ -229,8 +128,8 @@ private static function getArg($itm, $max) {
 	if (STR::contains($typ, "resource")) return "Ressource";
 	if (STR::contains($itm, "<?php")) return "PHP-Code";
 	if (STR::contains($itm, "</")) return "HTML-Code";
-	if (strlen($itm) > $max) return substr($itm, 0, $max);
-	return $itm;
+
+	return STR::left($itm, $max, false);
 }
 
 // ***********************************************************
@@ -245,6 +144,7 @@ public static function box() {
 
 public static function assist($cat, $key, $parm = "") {
 	if (! ERR_SHOW) return;
+	if (ERR::isknown("$cat.$key")) return "";
 
 	$tpl = new tpl();
 	$tpl->read(FSO::join("design/errors", "main.tpl"));
@@ -259,8 +159,18 @@ public static function assist($cat, $key, $parm = "") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private static function suppress() {
-	return (! error_get_last());
+private static function isknown($msg) {
+	$md5 = md5($msg); if (isset(ERR::$hst[$md5])) return true;
+	ERR::$hst[$md5] = $msg;
+	return false;
+}
+
+private static function ignore($fnc) {
+	$ign = ".shutDown.errHandler.trace.";
+	$ign.= ".include.include_once.require.require_once.";
+	$ign.= ".incCls.mod.";
+
+	return (STR::contains($ign, $fnc));
 }
 
 private static function mailto($num, $msg) {

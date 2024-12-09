@@ -32,7 +32,7 @@ function __construct($inifile) {
 // overruled methods
 // ***********************************************************
 public function savePost($file = NV) {
-	$arr = OID::getLast(); if (! $arr) return;
+	$arr = OID::values(); if (! $arr) return;
 
 	$typ = VEC::get($arr, "typ", "root");
 	$tpc = VEC::get($arr, "std", ""); if ($typ != "select") $tpc = "";

@@ -80,6 +80,7 @@ public function getKey($qid, $data, $selected = false) {
 	if (! is_array($data)) $data = array($data => $data);
 
 	$sel = $this->getSel($qid, $data, $selected);
+
 	$cur = VEC::get($data, $sel); if (! $cur)
 	$cur = current($data);
 

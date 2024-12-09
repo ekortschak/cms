@@ -236,7 +236,7 @@ protected function prepare_h($txt) {
 }
 
 protected function prepare_p($txt) {
-	$txt = $this->prepare_h($txt);
+#	$txt = $this->prepare_h($txt);
 	$txt = STR::replace($txt, "<p>", self::SEP."<p>");
 	$txt = STR::replace($txt, "<p ", self::SEP."<p ");
 	return $txt;
@@ -268,6 +268,8 @@ protected function match($txt, $find) {
 	$arr = STR::split($txt, self::SEP); $out = array();
 
 	foreach ($arr as $pgf) {
+		if ($this->mod == "p") $pgf = STR::before($pgf, "<h");
+
 		$chk = strip_tags($pgf); if (! STR::matches($chk, $find)) continue;
 		$out[] = $pgf;
 	}

@@ -264,7 +264,7 @@ private function userOpts($dir) {
 	$chk = $this->get("perms.act"); if (! $chk) return;
 
 	$ful = FSO::join($dir, "perms.ini");
-	$arr = OID::getLast(); unset($arr["perms_act"]);
+	$arr = OID::values(); unset($arr["perms_act"]);
 	$out = array();
 
 	foreach ($arr as $key => $val) {

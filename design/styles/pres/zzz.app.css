@@ -1,11 +1,6 @@
-.colMain {
+.modPage {
 	min-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 65px);
 	max-width:  CALC(100vw - W_TABS - W_TOC - W_MBAR - 65px);
-}
-
-.titBody {
-	width:      100%;
-	padding:    15px 20px 15px;
 }
 
 .modPres {

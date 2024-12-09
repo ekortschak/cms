@@ -118,7 +118,7 @@ public function replace($sec, $arr) {
 // rewriting content
 // ***********************************************************
 public function savePost($file = NV) {
-	$arr = OID::getLast(); if (! $arr) return;
+	$arr = OID::values(); if (! $arr) return;
 
 	$this->setProps($arr);
 	$this->save($file);

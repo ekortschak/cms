@@ -5,13 +5,7 @@
 	overflow:   auto;
 	max-height: 100vh;
 	min-height: 100vh;
-}
-
-.colMain {
-	height: 	100vh;
-	width:      W_BODY;
-	background: BC_BODY;
-	padding:    1rem 0px 0px;
+	padding:    0px;
 }
 
 /* ******************************************************** */
@@ -19,14 +13,15 @@
 /* ******************************************************** */
 .modTabs {
 	width:      W_TABS;
+	padding:    7px 0px;
 	background: BC_PAGE url("LOC_IMG/tabs/pborder.png") repeat-y right;
 }
 
 .modToc {
 	width:      W_TOC;
-	color:      FC_TOC;
+	padding:    1rem 1rem 2rem;
 	background: BC_TOC;
-	padding:    1rem 1rem 5rem;
+	color:      FC_TOC;
 }
 
 .modMbar {
@@ -34,14 +29,10 @@
 	background: transparent url("LOC_IMG/mbar/spirals.png") repeat-y;
 }
 
-.titBody {
-	width:      100%;
-	padding:    0px LR_PAD;
-}
-
-.modBody {
-	width:      100%;
-	padding:    0px LR_PAD 7rem;
+.modPage {
+	width:      W_BODY;
+	padding:    1rem 1rem 2rem;
+	background: BC_BODY;
 }
 
 .modBord {
@@ -51,17 +42,20 @@
 }
 
 .modOpts {
-	color:      FC_OPTS;
-	background: BC_OPTS;
-	padding:    1rem LR_PAD 25px;
 	width:      calc(100% - W_TABS - W_TOC - W_MBAR - W_BODY - 10px);
+	padding:    1rem 1rem 2rem;
+	background: BC_OPTS;
+	color:      FC_OPTS;
 }
 
 /* ******************************************************** */
-/* horizontal panels */
+/* sticky stuff */
 /* ******************************************************** */
-.topics {
-	float:      top;
-	width:      100%;
-	padding:    3px LR_PAD 0px;
+.sticky {
+	position:   sticky;
+	top:        -1rem;
+
+	background: inherit;
+	padding:    0px 0px 3px;
+	z-index:    100000;
 }

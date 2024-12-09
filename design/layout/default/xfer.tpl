@@ -3,9 +3,11 @@ LOC_LAY/LAYOUT/main.tpl
 
 [dic]
 replicator = Site replicator
+whatsup = Transfer content
 
 [dic.de]
-replicator = Seiten übertragen
+replicator = Replikator
+whatsup = Inhalte übertragen
 
 
 # ***********************************************************
@@ -17,7 +19,10 @@ replicator = Seiten übertragen
 <!MOD:toc/xfer!>
 
 # ***********************************************************
-[page] <!-- body.xfer -->
+# overruled sections
 # ***********************************************************
-<div class="joker"><!SEC:joker!></div>
-<div class="modBody"><!MOD:body/xfer!></div>
+[body] <!-- body.xfer -->
+<!MOD:body/xfer!>
+
+[head]
+<div class="h3"><!DIC:whatsup!></div>

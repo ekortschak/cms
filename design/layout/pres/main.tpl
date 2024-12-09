@@ -5,16 +5,17 @@ LOC_LAY/default/main.tpl
 # ***********************************************************
 [layout] <!-- layout -->
 # ***********************************************************
-<body>
-	<div class="modTabs"><!SEC:tabs!></div>
-	<div class="modToc" ><!SEC:toc!> </div>
-	<div class="modMbar"><!SEC:mbar!></div>
-	<div class="colMain"><!SEC:page!></div>
-</body>
+<div class="modTabs"><!SEC:tabs!></div>
+<div class="modToc" ><!SEC:toc!> </div>
+<div class="modMbar"><!SEC:mbar!></div>
+<div class="modPage"><!SEC:page!></div>
 
 [page]
-<div class="titBody"><!SEC:head!></div>
-<div class="modBody"><!SEC:body!></div>
+<div class="sticky">
+<div><!SEC:head!></div>
+</div>
+
+<div><!SEC:body!></div>
 
 
 # ***********************************************************

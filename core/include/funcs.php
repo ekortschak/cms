@@ -25,6 +25,7 @@ function errMode($mode = ERR_SHOW) {
 		case true: error_reporting(E_ALL); break;
 		default:   error_reporting(0);
 	}
+	ini_set("ignore_repeated_errors", true);
 	ini_set("display_startup_errors", $mod);
 	ini_set("display_errors", $mod);
 }
@@ -36,6 +37,10 @@ function dbg($msg = "hier", $info = "dbg") { // show plain text
 	if (class_exists("DBG")) {
 		return DBG::text($msg, $info);
 	}
+	dbgt($msg, $info);
+}
+
+function dbgt($msg, $info = "dbg") {
 	echo "<pre>$info: ".print_r($msg, true)."</pre>";
 }
 

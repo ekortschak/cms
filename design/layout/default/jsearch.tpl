@@ -4,14 +4,11 @@ LOC_LAY/LAYOUT/main.tpl
 # ***********************************************************
 [layout] <!-- layout -->
 # ***********************************************************
-<div class="colMain"><!SEC:page!></div>
+<div class="modPage"><!SEC:page!></div>
 
 
 # ***********************************************************
-[page] <!-- body.search -->
+# overruled sections
 # ***********************************************************
-<div class="joker"><!SEC:joker!></div>
-
-<div class="modBody">
-	<!MOD:joker/search.php!>
-</div>
+[body] <!-- body.search -->
+<!MOD:joker/search.php!>

@@ -102,6 +102,9 @@ private function addPara($txt) {
 
 // ***********************************************************
 private function protectLFs($txt, $edit = false) {
+	$txt = STR::replace($txt, "( <php>", "(<php>");
+	$txt = PRG::replace($txt, "<php>(\s+)REF::link", "<php>REF::link");
+
 	$arr = STR::split("<php>REF::link(.*?)</php>", ".");
 	$rep = STR::split("<pxp>REF::link(.*?)</pxp>", ".");
 

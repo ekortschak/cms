@@ -147,8 +147,8 @@ public function getRec($cols = "*") {
 // ***********************************************************
 public function getPairs($kidx, $vidx = false) {
 	$out = array(); if (! $vidx) $vidx = $kidx;
-	$kidx = $this->getIndex($kidx);
-	$vidx = $this->getIndex($vidx);
+	$kidx = $this->index($kidx);
+	$vidx = $this->index($vidx);
 
 	foreach ($this->data as $row) {
 		$key = VEC::get($row, $kidx); if (! $key) continue;
@@ -185,11 +185,11 @@ public function getDec($hed, $default = "") {
 
 public function getVal($hed, $default = "") {
 	if (! $this->cRow) $this->findRow();
-	$hed = $this->getIndex($hed);
+	$hed = $this->index($hed);
 	return VEC::get($this->cRow, $hed, $default);
 }
 
-private function getIndex($hed) {
+private function index($hed) {
 	if (! is_array($this->heds)) return false;
 	if (is_numeric($hed)) return $hed;
 	return array_search($hed, $this->heds);

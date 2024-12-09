@@ -93,13 +93,8 @@ public static function setIf($oid, $key, $value) {
 }
 
 // ***********************************************************
-public static function getLast($oid = false) {
+public static function values($oid = false) {
 	if (! $oid) $oid = ENV::getPost("oid");
- 	return OID::values($oid);
-}
-
-// ***********************************************************
-public static function values($oid) {
  	return VEC::get(OID::$top, $oid);
 }
 

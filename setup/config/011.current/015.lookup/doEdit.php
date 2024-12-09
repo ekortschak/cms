@@ -4,6 +4,6 @@ incCls("editor/ediMgr.php");
 
 // ***********************************************************
 $edi = new ediMgr();
-$edi->edit("lookup");
+$edi->edit("lookup", "*.ini");
 
 ?>

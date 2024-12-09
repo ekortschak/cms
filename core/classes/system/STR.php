@@ -278,6 +278,7 @@ public static function splitAt($haystack, $sep) { // retains $sep as part of res
 }
 
 public static function split($haystack, $sep = "\n", $trim = true) { // removes $sep from result
+	$out = $haystack; if (! is_array($haystack))
 	$out = explode($sep, $haystack);
 
 	foreach ($out as $key => $val) {

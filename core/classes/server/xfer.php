@@ -49,8 +49,8 @@ public function act() {
 
  // bulk operations
 	if ($act == "ren") return $this->do_ren  ($fso);
-	if ($act == "mkd") return $this->do_mkDir($fso);
 	if ($act == "rmd") return $this->do_rmDir($fso);
+	if ($act == "mkd") return $this->do_mkDir($fso);
 	if ($act == "dpf") return $this->do_kill ($fso);
 	if ($act == "mod") return $this->do_touch($fso);
 

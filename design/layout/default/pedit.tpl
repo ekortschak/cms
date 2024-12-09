@@ -1,5 +1,5 @@
 [include]
-LOC_LAY/LAYOUT/main.edit.tpl
+LOC_LAY/LAYOUT/main.tpl
 
 # ***********************************************************
 [body] <!-- body.pedit -->
