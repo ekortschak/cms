@@ -1,8 +1,11 @@
 <?php
 
-switch (DB_MODE) {
-	case "true": case 1: case true; break;
-	default: return;
+if (! DB_MODE) {
+	CFG::set("DB_CON", 0);
+	CFG::set("DB_LOGIN", 0);
+	CFG::set("DB_ADMIN", 0);
+	CFG::set("USR_GRPS", "www");
+	return;
 }
 
 // ***********************************************************

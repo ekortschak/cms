@@ -46,7 +46,7 @@ function __construct($dbase = "default") {
 	$this->con = $this->dbo->connect($user, $pass);
 	$this->dbs = $dbase;
 
-	parent::__construct($type); // read syntax
+	$this->readSyntax($type); // read syntax
 }
 
 // ***********************************************************
@@ -57,7 +57,7 @@ public function isDbase($dbs) {
     return in_array($dbs, $arr);
 }
 
-public function getState() {
+public function state() {
 	return $this->con;
 }
 

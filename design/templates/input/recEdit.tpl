@@ -1,34 +1,33 @@
 [include]
 LOC_TPL/input/selector.tpl
 
-[dic.de]
-upd = Änderungen speichern
-ins = Als neuen Datensatz anlegen
-del = Datensatz löschen
-rom = Nur Leserechte
-nxs = Zusätzliche Rechte erforderlich!
-ron = <a href="?vmode=login">Anmelden</a>
-
-field = Feld
-value = Wert
-
-mandatory = Mit * markierte Felder müssen ausgefüllt werden!
-to.table = Zur Tabellenansicht wechseln
-
-
-[dic.xx]
+[dic]
 upd = Save current record
 ins = Insert as new record
 del = Delete this record
 rom = Read Only
 nxs = Additional permissions required!
-ron = <a href="?vmode=login">Login</a>
+ron = <a href="?dmode=login">Login</a>
 
 field = Field
 value = Value
 
 mandatory = Fields marked with * must be supplied!
 to.table = Switch to table view
+
+[dic.de]
+upd = Änderungen speichern
+ins = Als neuen Datensatz anlegen
+del = Datensatz löschen
+rom = Nur Leserechte
+nxs = Zusätzliche Rechte erforderlich!
+ron = <a href="?dmode=login">Anmelden</a>
+
+field = Feld
+value = Wert
+
+mandatory = Mit * markierte Felder müssen ausgefüllt werden!
+to.table = Zur Tabellenansicht wechseln
 
 
 [vars]

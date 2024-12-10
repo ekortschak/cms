@@ -19,7 +19,7 @@
 
 .modToc {
 	width:      W_TOC;
-	padding:    1rem 1rem 2rem;
+	padding:    1rem 0.5rem 2rem;
 	background: BC_TOC;
 	color:      FC_TOC;
 }

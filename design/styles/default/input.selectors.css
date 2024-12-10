@@ -32,7 +32,7 @@
 /* ******************************************************** */
 .rating {
 	width: 6rem;
-	border: 1px solid OUTLINE;
+#	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
 
 	background: url("LOC_ICO/input/rating.png") no-repeat top;

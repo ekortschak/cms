@@ -36,37 +36,36 @@ function __construct($dbs) {
 // adding input fields
 // ***********************************************************
 public function add($inf, $val) {
-	$tit = VEC::get($inf, "head",  "?");
-	$fnm = VEC::get($inf, "fname", "?");
-	$typ = VEC::get($inf, "dtype");
-	$nul = VEC::get($inf, "fnull");
-	$ref = VEC::get($inf, "input");
-	$fxs = VEC::get($inf, "perms");
+	$tit = $inf->get("head",  "?");
+	$fnm = $inf->get("fname", "?");
+	$typ = $inf->get("dtype");
+	$nul = $inf->get("fnull");
+	$ref = $inf->get("input");
+	$fxs = $inf->get("perms");
 
-	$typ = $this->getType($typ, $ref);
-	$typ = $this->chkType($typ, $fxs); if (! $typ) return;
-	$ref = $this->chkRef($ref);
+	$typ = $this->fldType($typ, $ref);
+	$typ = $this->fldPerms($typ, $fxs); if (! $typ) return;
+	$ref = $this->fldVals($ref);
 	$out = false;
-
-	$this->set("fnull", $nul);
 
 	switch ($typ) {
 		case "hid": TAN::set($fnm, $val); return false;
 
 		case "ron":
-			$val = $this->chkROnly($ref, $val);
+			$val = $this->fldValue($ref, $val);
 			$out = $this->ronly($tit, $val); break;
 
 		case "mem": $out = $this->tarea($fnm, $val); break;
 		case "pwd": $out = $this->pwd  ($fnm); break;
 
 		case "cmb":	$out = $this->combo($fnm, $ref, $val); break;
-		case "rat": $out = $this->image($fnm, $val, "rating.png"); break;
+		case "rat":	$out = $this->image($fnm, $val, "rating.png"); break;
 		case "chk": $out = $this->check($fnm, $val); break;
 		case "yon": $out = $this->boole($fnm, $val); break;
 
 		default:	$out = $this->input($fnm, $val);
 	}
+	$this->set("fnull", $nul ? "*" : "");
 	$this->setProp("title", $tit);
 	$this->setProp("fnull", $nul);
 
@@ -74,7 +73,9 @@ public function add($inf, $val) {
 }
 
 // ***********************************************************
-protected function getType($typ, $ref) {
+// define inputbox format
+// ***********************************************************
+protected function fldType($typ, $ref) {
 	if (! $ref) return $typ;
 
 	switch(STR::left($ref)) {
@@ -86,19 +87,8 @@ protected function getType($typ, $ref) {
 }
 
 // ***********************************************************
-protected function chkType($typ, $fxs) {
-	if (STR::features("key.cur.ski", $typ)) return false; // primary keys, time stamps, fields to skip ...
-
-	if ($fxs == "h") return "hid"; // no write access
-	if ($fxs != "w") {
-		if ($typ == "chk") return "yon";
-		return "ron"; // no write access
-	}
-	return $typ;
-}
-
-// ***********************************************************
-protected function chkRef($ref) {
+protected function fldVals($ref) {
+ // provide list of preset values where available
 	if (! $ref) return false;
 
 	$fnc = STR::before($ref, ":");
@@ -107,8 +97,8 @@ protected function chkRef($ref) {
 	switch(STR::left($fnc)) {
 		case "folders": return APP::dirs($ref);
 		case "files":   return APP::files($ref);
-		case "tables":  return $this->getDbInfo("tbl");
-		case "fields":  return $this->getDbInfo("fld", $ref);
+		case "tables":  return $this->dbInfo("tbl");
+		case "fields":  return $this->dbInfo("fld", $ref);
 
 		case "dic": $ref = DIC::get("ref.$ref"); break;
 	}
@@ -117,7 +107,19 @@ protected function chkRef($ref) {
 }
 
 // ***********************************************************
-protected function chkROnly($ref, $key) {
+protected function fldPerms($typ, $fxs) {
+ // never show primary keys, time stamps, fields to skip ...
+	if (STR::features("key.cur.ski", $typ)) return false;
+	if (STR::features("rat", $typ)) return $typ;
+
+	if ($fxs == "h") return "hid"; // no write access
+	if ($fxs == "w") return $typ;
+
+	return "ron"; // no write access
+}
+
+// ***********************************************************
+protected function fldValue($ref, $key) { // translate $ref in case of ReadOnly
 	if (! is_array($ref)) return $key;
 	if (! array_key_exists($key, $ref)) return $key;
 	return $ref[$key];
@@ -126,7 +128,7 @@ protected function chkROnly($ref, $key) {
 // ***********************************************************
 // handling dbInfo
 // ***********************************************************
-protected function getDbInfo($typ, $prm = "") {
+protected function dbInfo($typ, $prm = "") {
 	$dbi = new dbInfo($this->dbs);
 	if ($typ == "tbl") return $dbi->tables();
 	if ($typ == "fld") return $dbi->fields($prm);

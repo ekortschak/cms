@@ -1,7 +1,7 @@
 [props]
 pic = LOC_ICO/buttons/debug.png
 url = ?debug=1
-hilite = \DEBUG == true
+hilite =
 
 [de]
 caption =

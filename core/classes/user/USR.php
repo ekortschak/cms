@@ -48,7 +48,7 @@ public static function isUser($usr = CUR_USER, $pwd = CUR_PASS) {
 }
 
 private static function chkUser($grp, $usr, $pwd) {
-	$chk = VEC::get(USR::$dat, "$grp.$usr"); if (! $chk) return false;
+	$chk = VEC::get(USR::$dat, "$grp.$usr");
 	$chk = STR::maskPwd($chk);
 	$pwd = STR::maskPwd($pwd);
 	return ($chk == $pwd);

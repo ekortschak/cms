@@ -64,7 +64,7 @@ type = */*
 <!SEC:info!>
 
 [input.hid]
-<input type="hidden" name="<!VAR:fname!>" value="<!VAR:curVal!>" />
+# values are stored in and retrieved from server vars
 
 # ***********************************************************
 [input.tar]
@@ -76,7 +76,7 @@ type = */*
 # ***********************************************************
 [input.ron] # read only information
 # ***********************************************************
-<label class="ronly"><!VAR:curVal!></kabek>
+<div class="ronly"><!VAR:curVal!></div>
 <!SEC:info!>
 
 [input.inf] # any comment

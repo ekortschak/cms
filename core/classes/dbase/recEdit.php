@@ -38,7 +38,7 @@ class recEdit extends dbBasics {
 	protected $btn = "";
 
 function __construct($dbase = "default", $table = NV) {
-	parent::__construct($dbase, $table);
+	parent::__construct($dbase);
 
 	$this->register("$dbase.$table");
 	$this->setTable($table);
@@ -99,15 +99,14 @@ public function findDefaults() {
 public function getRec() {
 	$out = array();
 	foreach ($this->fds as $fld => $inf) {
-		$out[$fld] = VEC::get($inf, "value");
+		$out[$fld] = $inf->get("value");
 	}
 	return $out;
 }
 
 private function chkVal($inf, $prm) {
-	if ($prm == "a")
-	return VEC::get($inf, "fstd");
-	return VEC::get($inf, "value");
+	$key = "value"; if ($prm == "a") $key = "fstd";
+	return $inf->get($key);
 }
 
 // ***********************************************************
@@ -160,7 +159,7 @@ public function show() {
 
 public function gc() {
 	$fds = $this->fds->items(); $cnt = 0;
-	$txs = $this->getTPerms();
+	$txs = $this->tblPerms();
 
 	$tan = TAN::register($this->dbs, $this->tbl, $this->qid);
 	$xxx = $this->hold("tan", $tan);
@@ -194,19 +193,12 @@ public function permit($perms = "r") { // table perms only
 }
 
 // ***********************************************************
-protected function getTPerms() {
+protected function tblPerms() {
 	$txs = $this->txs;
 
 	if ($txs == "x") return "x";
 	if ($txs == "r") return "r"; if ($this->neu) return "a";
 	return $txs;
-}
-protected function getFPerms($inf) {
-	$txs = $this->txs;
-	if ($txs == "x") return "x";
-	if ($txs == "r") return "r";
-
-	return $inf["perms"];
 }
 
 // ***********************************************************

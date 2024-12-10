@@ -73,9 +73,10 @@ public function gc() {
 	$sel->set("oid", $this->oid);
 
 	foreach ($fds as $fld => $inf) {
-		$hed = VEC::lng(CUR_LANG, $inf, "head");
-		$typ = VEC::get($inf, "dtype"); if (! $typ) continue;
-		$val = VEC::get($inf, "fstd");
+		$hed = $inf->lng(CUR_LANG, "head");
+		$typ = $inf->get("dtype"); if (! $typ) continue;
+		$val = $inf->get("fstd");
+
 		$val = VEC::get($vls, $fld, $val);
 		$val = CFG::apply($val);
 

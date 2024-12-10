@@ -24,7 +24,7 @@ function getDB() {
 	return "no access";
 }
 
-if (! defined("DB_GRPS")) define("DB_GRPS", "not set");
+if (! defined("USR_GRPS")) define("USR_GRPS", "not set");
 
 ?>
 
@@ -38,7 +38,7 @@ if (! defined("DB_GRPS")) define("DB_GRPS", "not set");
 	</tr>
 	<tr>
 		<td>Groups</td>
-		<td><?php echo DB_GRPS; ?></td>
+		<td><?php echo USR_GRPS; ?></td>
 	</tr>
 	<tr>
 		<td>FS</td>

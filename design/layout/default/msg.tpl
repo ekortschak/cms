@@ -20,7 +20,14 @@ alt = work in progress
 </head>
 
 <!SEC:styles!>
-<!SEC:layout!>
+
+<body>
+
+<div class="box">
+	<!SEC:msgbox!>
+</div>
+
+</body>
 </html>
 
 # ***********************************************************
@@ -65,11 +72,6 @@ button {
 }
 
 </style>
-
-[body]
-<div class="box">
-	<!SEC:msgbox!>
-</div>
 
 
 # ***********************************************************

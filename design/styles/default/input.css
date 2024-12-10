@@ -9,7 +9,7 @@ form table {
 /* ******************************************************** */
 /* input fields */
 /* ******************************************************** */
-input, select, button, .dmbtn {
+input, select, button, .dmbtn, .ronly {
 	margin: 0px;
 	border: 1px solid OUTLINE;
 	border-radius: BR_INP;
@@ -110,6 +110,14 @@ textarea {
 textarea.max {
 	height: calc(100vh - H_MENU - 9rem);
  	width: 100%;
+}
+
+/* ******************************************************** */
+/* read only */
+/* ******************************************************** */
+.ronly { /* data */
+	max-height: 5rem;
+	overflow: auto;
 }
 
 /* ******************************************************** */

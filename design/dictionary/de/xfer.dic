@@ -13,7 +13,7 @@ arr.ren = Umbenannt
 arr.rmd = Verzeichnisse gelöscht
 bkp.drop = Sicherungen
 bkp.drop.info = Folgende Backups werden gelöscht
-bkp.manage = Backups verwalten
+bkp.manage = Backups löschen
 cms.dist = Wechsle zum <a href="/www/cms_dist">Replikator</a>!
 cms.update = CMS Version aktualisieren
 do.nothing = Keine Aktion erforderlich.

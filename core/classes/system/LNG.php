@@ -68,7 +68,6 @@ public static function isLang($lang) {
 
 public static function find($lang) {
 	if (LNG::isLang($lang)) return $lang;
-	if ($lang == "xx") return CUR_LANG;
 	return GEN_LANG;
 }
 

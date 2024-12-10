@@ -10,7 +10,7 @@
 [ftp.exists]
 <p><b>Error uploading file!</b><br>
 <p>data = <!VAR:parm!></p>
-File exists already on server!</p>
+<p>File exists already on server!</p>
 <ul>
 <li>Check option "overwrite"</li>
 </ul>

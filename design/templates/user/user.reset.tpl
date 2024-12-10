@@ -52,7 +52,7 @@ mis   = password mismatch
 <h4><!DIC:head!></h4>
 <!VAR:uid!>
 
-<form method="post" action="?vmode=login&btn.usr=R">
+<form method="post" action="?dmode=login&btn.usr=R">
 <!SEC:oid!>
 
 	<table>

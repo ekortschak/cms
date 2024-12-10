@@ -125,7 +125,7 @@ private static function convert($msg) {
 private static function toString($msg) {
 	if ($msg === false)  return "FALSE";
 
-	if (is_object($msg)) return var_export($obj, true);
+	if (is_object($msg)) return print_r($msg, true);
 	if (is_array( $msg)) return VEC::xform($msg, DBG::$max);
 	return $msg;
 }

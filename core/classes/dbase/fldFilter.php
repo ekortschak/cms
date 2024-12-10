@@ -21,11 +21,11 @@ function __construct($dbs) {
 // adding filters
 // ***********************************************************
 public function add($inf, $val) {
-	$tit = VEC::get($inf, "head", "?");
-	$typ = VEC::get($inf, "dtype");
-	$fnm = VEC::get($inf, "fname", "?");
-	$ref = VEC::get($inf, "vals"); if ($ref) $typ = "cmb";
-	$fxs = VEC::get($inf, "perms");
+	$tit = $inf->get("head", "?");
+	$typ = $inf->get("dtype");
+	$fnm = $inf->get("fname", "?");
+	$ref = $inf->get("vals"); if ($ref) $typ = "cmb";
+	$fxs = $inf->get("perms");
 	$out = false;
 
 	$typ = $this->getType($typ, $fxs); if (! $typ) return;

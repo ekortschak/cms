@@ -48,12 +48,6 @@ label.upload {
 	padding: 0px LR_PAD;
 }
 
-.ronly { /* data */
-	border: 1px solid cadetblue;
-	width: 10rem;
-	background: BC_BODY;
-}
-
 /* ******************************************************** */
 /* hidden labels for radio buttons */
 /* ******************************************************** */

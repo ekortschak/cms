@@ -26,6 +26,10 @@ class sqlStmt extends objects {
 	protected $tbl = NV;
 
 public function __construct($dbtype) {
+	$this->readSyntax($dbtype);
+}
+
+protected function readSyntax($dbtype) {
 	$typ = strtolower($dbtype);
 
 	$ini = new ini(NV);

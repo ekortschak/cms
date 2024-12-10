@@ -33,7 +33,7 @@ public static function init() {
 // ***********************************************************
 private static function loadDbs() {
 	DBS::$dbs = new dbInfo();
-	return DBS::$dbs->getState();
+	return DBS::$dbs->state();
 }
 
 // ***********************************************************

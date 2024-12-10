@@ -137,6 +137,7 @@ public static function incFile() {
 	if ($act == "cal") return "calpage.php";  // calender page
 	if ($act == "red") return "redirect.php"; // internal redirection
 
+	if (! $act) return "include.php";
 	return "invalid.php";
 }
 

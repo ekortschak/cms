@@ -5,13 +5,16 @@ DBG::file(__FILE__);
 // ***********************************************************
 // check if applicable
 // ***********************************************************
+if (STR::contains(TAB_HOME, "setup/")) return;
+
 if (! ENV::get("opt.feedback")) return;
+if (! DB_CON) return;
 
 incCls("dbase/dbQuery.php");
 incCls("dbase/recEdit.php");
 
 // ***********************************************************
-HTW::xtag("Feedback", "h3");
+HTW::xtag("Feedback", "b");
 // ***********************************************************
 $dbe = new recEdit("default", "feedback");
 $loc = PGE::$dir;

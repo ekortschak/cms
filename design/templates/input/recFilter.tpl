@@ -1,13 +1,14 @@
 [include]
 LOC_TPL/input/selector.tpl
 
+[dic]
+filter = Use record filter
+filtered = Filtered Records
+
 [dic.de]
 filter = Datenfilter
 filtered = Passende Datensätze
 
-[dic.xx]
-filter = Use record filter
-filtered = Filtered Records
 
 [vars]
 equal = &sime;
