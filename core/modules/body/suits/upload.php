@@ -5,7 +5,6 @@ DBG::file(__FILE__);
 // ***********************************************************
 incCls("server/upload.php");
 incCls("input/selector.php");
-incCls("input/ptracker.php");
 incCls("input/qikOption.php");
 
 // ***********************************************************
@@ -21,10 +20,9 @@ HTW::tag("dir = $dst", "hint");
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
-$ptk = new ptracker();
-$act = $ptk->watch("act", "OK");
+$act = ENV::getPost("act");
 
-if ($act) {
+if ($act == "OK") {
 	$upl = new upload();
 	$upl->maxFiles(5);
 	$upl->maxSize($max);

@@ -1,19 +1,22 @@
 <?php
 
 incCls("input/selector.php");
+incCls("input/ptracker.php");
 incCls("input/confirm.php");
+
+$mee = "bkp.drop";
 
 // ***********************************************************
 // react to previous commands
 // ***********************************************************
 $ptk = new ptracker();
-$xxx = $ptk->watch();
-$arr = $ptk->get("bkp.drop");
+$act = $ptk->watch();
 
-if ($arr) {
+if ($act) {
+	$arr = $ptk->get($mee);
+
 	foreach ($arr as $dir => $sel) {
-		if (! $sel) continue;
-		FSO::rmDir($dir);
+		if ($sel) FSO::rmDir($dir);
 	}
 }
 
@@ -28,7 +31,7 @@ $arr = VEC::sort($arr, "krsort"); // latest first
 // show selector
 // ***********************************************************
 $sel = new selector();
-$exc = $sel->multi("bkp.drop", $arr);
+$exc = $sel->multi($mee, $arr);
 $act = $sel->show();
 
 if (! $act) return;

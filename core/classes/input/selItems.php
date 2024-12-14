@@ -9,7 +9,7 @@ Designed to handle input instances for selector
 // ***********************************************************
 incCls("input/selItems.php");
 
-$itm = new selItems();
+$itm = new selItems($pid);
 $itm->add($uid, $input_object);
 
 $out = $itm->getRow();
@@ -33,8 +33,8 @@ class selItems extends objects {
 	private $dic = true; // allow translations
 	private $cur = "";   // last added item
 
-function __construct() {
-	parent::__construct();
+function __construct($pid) {
+	$this->register($pid);
 }
 
 private function add($uid, $inp) { // register an input object

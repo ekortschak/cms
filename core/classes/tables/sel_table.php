@@ -38,8 +38,8 @@ function __construct() {
 // executing selections
 // ***********************************************************
 protected function exec($dbase, $tbl, $flt) { // recSel templates
-	$act = ENV::getPost("rec.act", false);      if (! $act) return;
-	$rec = $this->recall("sel", "list"); if (! $rec) return;
+	$act = ENV::getPost("rec.act", false); if (! $act) return;
+	$rec = $this->recall("sel", "list");   if (! $rec) return;
 
 	$act = strtolower($act);
 

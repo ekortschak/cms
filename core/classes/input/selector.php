@@ -24,14 +24,14 @@ incCls("input/selItems.php");
 class selector extends tpl {
 	protected $itm = false; // list of input instances
 
-function __construct() {
+function __construct($pid = NV) {
 	parent::__construct();
 
 	$this->load("input/selector.tpl"); if (CUR_DEST != "screen")
 	$this->load("input/selView.tpl");
-	$this->register();
+	$this->register($pid);
 
-	$this->itm = new selItems();
+	$this->itm = new selItems($this->oid);
 }
 
 public function register($oid = NV, $sfx = "*") {
@@ -45,8 +45,16 @@ public function act() {
 }
 
 protected function reset() {
-	$this->itm = new selItems();
-	$this->itm->register($this->oid);
+	$this->itm = new selItems($this->oid);
+}
+
+// ***********************************************************
+// react to previous posts
+// ***********************************************************
+public function exec($fnc) {
+	$chk = $this->act(); if (! $chk) return;
+	$arr = OID::values();
+	$fnc($arr);
 }
 
 // ***********************************************************

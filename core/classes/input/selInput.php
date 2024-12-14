@@ -29,10 +29,10 @@ class selInput extends tpl {
 
 function __construct($pid) {
 	parent::__construct();
-	$this->load("input/selInput.tpl");
 
 	$this->register($pid);
-	$this->set("perms", "w");	// table permissions
+	$this->load("input/selInput.tpl");
+	$this->set("perms", "w"); // table permissions
 }
 
 public function init($type, $qid, $default) {
@@ -65,7 +65,8 @@ public function set($prop, $value) {
 
 // ***********************************************************
 protected function setFName($fname) {
-	parent::set("fname", $fname);
+	$nam = STR::replace($fname, ".", "_");
+	parent::set("fname", $nam);
 }
 
 protected function setTitle($caption) {
@@ -76,9 +77,9 @@ protected function setTitle($caption) {
 	parent::set("title", $cap);
 }
 
-protected function setValue($value = NV) {
+protected function setValue($default = NV) {
  // will receive "initial" value, actual value from session
-	$val = $this->getValue($value);
+	$val = $this->getValue($default);
 	parent::set("curVal", $val);
 }
 
@@ -117,11 +118,15 @@ public function setSec($sec, $value = "") {
 }
 
 // ***********************************************************
-public function getValue($default = NV) { // get session value
-	$chk = $this->get("curVal", NV); if ($chk !== NV) return $chk;
+public function post($default = NV) { // get session value
 	$key = $this->get("fname");
-	$val = $this->recall($key, $default);
-	return self::secure($val);
+	return $this->recall($key, $default);
+}
+
+public function getValue($default = NV) { // get session value
+	$out = $this->get("curVal", NV); if ($out !== NV) return $out;
+	$out = $this->post($default);
+	return self::secure($out);
 }
 
 // ***********************************************************

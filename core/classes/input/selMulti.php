@@ -48,10 +48,11 @@ private function getChoice($arr, $sel) {
 
 // ***********************************************************
 public function getValue($default = NV) { // get session value
-	$out = $this->vals;
+	$out = array();
+	$sel = $this->post($default);
 
-	foreach ($this->sels as $key => $val) {
-		if (! $val) unset($out[$key]);
+	foreach ($sel as $key => $val) {
+		if ($val) $out[$key] = $val;
 	}
 	return $out;
 }

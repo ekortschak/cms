@@ -20,8 +20,6 @@ $cnf->show();
 if ($cnf->act()) ...
 */
 
-incCls("input/ptracker.php");
-
 // ***********************************************************
 // BEGIN OF CLASS
 // ***********************************************************
@@ -29,10 +27,10 @@ class confirm extends tpl {
 	private $msg = array();
 	private $val = "done";
 
-function __construct() {
+function __construct($pid = NV) {
 	parent::__construct();
 	$this->load("input/confirm.tpl");
-	$this->set("oid", OID::register());
+	$this->register($pid);
 }
 
 // ***********************************************************

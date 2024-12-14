@@ -22,7 +22,7 @@ whatsup = Inhalte übertragen
 # overruled sections
 # ***********************************************************
 [body] <!-- body.xfer -->
-<!MOD:body/xfer!>
+<!MOD:xfer!>
 
 [head]
 <div class="h3"><!DIC:whatsup!></div>

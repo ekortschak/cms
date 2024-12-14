@@ -71,7 +71,7 @@ public static function get($oid, $key, $default = false) {
 	$idx = STR::between($key,"[", "]");
 	$key = STR::before($key, "[");
 
-	$arr = OID::values($oid);           if (! $arr) return $default;
+	$arr = OID::values($oid);              if (! $arr) return $default;
 	$out = VEC::get($arr, $key, $default); if (! $idx) return $out;
 	return VEC::get($out, $idx, $default);
 }
