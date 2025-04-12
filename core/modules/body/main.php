@@ -20,8 +20,6 @@ $prm = PGE::hasXs($loc); // force login ?
 
 if (! $prm) return APP::mod("body/login");
 
-if (VMODE != "xsite") PGE::pic();
-
 // ***********************************************************
 // retrieving main page
 // ***********************************************************

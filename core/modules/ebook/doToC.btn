@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = ToC
+tooltip = Inhaltsverzeichnis erstellen
+
+[en]
+caption = ToC
+tooltip = Create table of content

@@ -930,7 +930,7 @@ textarea {
 }
 
 textarea.max {
-	height: calc(100vh - 0px - 150px);
+	height: calc(100vh - 150px);
  	width: 100%;
 }
 

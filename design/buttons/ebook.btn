@@ -1,0 +1,12 @@
+[props]
+pic = LOC_ICO/buttons/file.pdf.png
+url = ?vmode=ebook
+hilite = \VMODE == "ebook"
+
+[de]
+caption =
+tooltip = Wechselt zum Konverter für Veröffentlichungen.
+
+[en]
+caption =
+tooltip = Switches to the converter for publishing.

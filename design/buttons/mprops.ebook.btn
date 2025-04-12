@@ -1,0 +1,11 @@
+[props]
+pic = LOC_ICO/buttons/props.png
+url = 
+
+[de]
+caption =
+tooltip = Seiten-Eigenschaften
+
+[en]
+caption =
+tooltip = Page properties

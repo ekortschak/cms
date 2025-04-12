@@ -2,7 +2,7 @@
 
 DBG::file(__FILE__);
 
-$fil = "xsite/calpage.tpl"; if (VMODE == "xsite")
+$fil = "ebook/calpage.tpl"; if (VMODE == "ebook")
 $fil = "pages/include.tpl";
 
 // ***********************************************************

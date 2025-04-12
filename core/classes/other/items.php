@@ -90,6 +90,7 @@ public function get($item, $prop, $default = false) {
 protected function find($key) {
 	$out = VEC::get($this->lst, $key, NV); if ($out !== NV) return $out;
 	$out = VEC::get($this->idx, $key, NV); if ($out !== NV) return $key;
+	if ($key === 0) return 0;
 	return false;
 }
 

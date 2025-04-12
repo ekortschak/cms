@@ -44,9 +44,16 @@ public function init($type, $qid, $default) {
 	$this->setType($type); // refers to template section
 }
 
+// ***********************************************************
+// handling properties
+// ***********************************************************
 public function setProps($props, $dic = true) {
 	$this->merge($props);
 	$this->dic = (bool) $dic;
+}
+
+public function setProp($prop, $value) {
+	$this->set($prop, $value);
 }
 
 // ***********************************************************

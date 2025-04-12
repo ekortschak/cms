@@ -81,15 +81,6 @@ public static function rename($old, $new) {
 // ***********************************************************
 // file permissions
 // ***********************************************************
-public static function hasXs($fso, $tell = true) {
-	return true;
-
-// TODO
-	if (is_writable($fso)) return true;
-	if ($tell) MSG::now("file.denied", $fso);
-	return false;
-}
-
 public static function permit($fso, $mod = 0775) {
 	if (! IS_LOCAL) return;
 // TODO: not setting correct permissions

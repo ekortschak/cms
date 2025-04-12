@@ -114,6 +114,14 @@ public function replace($sec, $arr) {
 	}
 }
 
+public function setNoprint($val) {
+	$this->set("props.noprint", $val);
+}
+
+public function setPbreak($val) {
+	$this->set(CUR_LANG.".pbreak", $val);
+}
+
 // ***********************************************************
 // rewriting content
 // ***********************************************************

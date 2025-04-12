@@ -37,7 +37,7 @@ function __construct() {
 	if (CUR_LANG == "de") $this->len = 3;
 
 	switch (VMODE) {
-		case "xfer": $this->tpl = "xsite"; break;
+		case "xfer": $this->tpl = "ebook"; break;
 	}
 	$this->load("other/lookup.tpl");
 	$this->readRef();

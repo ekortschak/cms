@@ -7,7 +7,6 @@ incCls("editor/ediMgr.php");
 HTW::xtag("page.props");
 // ***********************************************************
 $loc = PGE::$dir;
-$fil = FSO::join($loc, "page.ini");
 
 $tab = new iniTab(TAB_HOME);
 $fst = $tab->get("props.std");
@@ -17,6 +16,8 @@ $chk = PGE::isCurrent($fst);
 $sel = new selector();
 $sel->check("default", $chk);
 $sel->show();
+
+HTW::vspace(30);
 
 // ***********************************************************
 // show ini editor

@@ -1,6 +1,6 @@
 <?php
 
-incCls("xsite/toctool.php");
+incCls("ebook/toctool.php");
 
 // ***********************************************************
 $key = PGE::get("pfs.chnum");

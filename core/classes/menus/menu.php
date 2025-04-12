@@ -29,14 +29,14 @@ function __construct($typ = "menu") {
 // methods
 // ***********************************************************
 public function gc($sec = "main") {
-	$arr = PFS::toc(); $its = "";
+	$arr = PFS::tree(); $its = "";
 
 	foreach ($arr as $inf) {
 		$this->merge($inf); extract($inf); if ($level != 2) continue;
 
-		$sub = $this->getEntries($uid);
-		$cls = $this->getClass($fpath);
-		$box = $this->getBox($sub);
+		$sub = $this->items($fpath);
+		$cls = $this->state($fpath);
+		$box = $this->frame($sub);
 
 		$this->set("class", $cls);
 		$this->set("subitems", $sub);
@@ -50,9 +50,9 @@ public function gc($sec = "main") {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function getEntries($dir) {
-	$arr = PFS::subtree($dir); if (! $arr) return;
-	$out = "";
+private function items($dir) {
+	$arr = PFS::items($dir); $out = "";
+
 	foreach ($arr as $inf) {
 		$out.= $this->item("subItem", $inf);
 	}
@@ -65,12 +65,12 @@ private function item($sec, $inf) {
 	return $this->getSection($sec);
 }
 
-private function getClass($dir) {
+private function state($dir) {
 	if (STR::begins(PGE::$dir, $dir)) return "active";
 	return "std";
 }
 
-private function getBox($sub) {
+private function frame($sub) {
 	if (! $sub) return "empty";
 	if (! APP::isView()) return "edit";
 	return "item";

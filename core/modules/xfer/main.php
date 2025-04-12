@@ -13,7 +13,6 @@ $nav->space();
 $nav->add("R", "doRestore");
 $nav->add("D", "syncDown", "download");
 $nav->space();
-$nav->add("I", "doSingle", "pdf");
 #$nav->add("S", "doStatic", "static");
 $nav->space();
 $nav->add("V", "syncCms");

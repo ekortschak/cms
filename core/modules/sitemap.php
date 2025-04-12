@@ -2,15 +2,12 @@
 
 DBG::file(__FILE__);
 
-if (VMODE == "xsite") return;
-
-$loc = PGE::$dir;
-$arr = PFS::subtree($loc);
+if (VMODE == "ebook") return;
 
 // ***********************************************************
 // show default sitemap message
 // ***********************************************************
-if (! $arr) {
+if (! PFS::count()) {
 	$tpl = new tpl();
 	$tpl->load("msgs/sitemap.tpl");
 	return $tpl->show("notyet");
@@ -22,7 +19,6 @@ if (! $arr) {
 incCls("menus/toc.php");
 
 $toc = new toc();
-$toc->setData($arr);
 $toc->set("pfx", "smap");
 $toc->show();
 

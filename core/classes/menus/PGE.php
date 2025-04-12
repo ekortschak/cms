@@ -40,17 +40,23 @@ public static function isCurrent($dir) {
 	return ($dir === PGE::$dir);
 }
 
-public static function path($fso) {
-	$fso = FSO::norm($fso);
-	$out = APP::dir($fso); if ($out) return $out;
-	return APP::file($fso);
+public static function ebook() {
+	if (VMODE == "ebook") return true;
+	if (VMODE == "vbook") return true;
+	return false;
+}
+
+public static function path($dir) {
+	$dir = FSO::norm($dir);
+	$out = APP::dir($dir); if ($out) return $out;
+	return APP::file($dir);
 }
 
 // ***********************************************************
 // loading page props
 // ***********************************************************
-public static function load($dir = NV) {
-	if ($dir === NV) $dir = PFS::get(NV, "fpath");
+public static function load($dir = false) {
+	if (! $dir) $dir = PFS::get(NV, "fpath");
 	if (! is_dir($dir)) return;
 
 	ENV::set("curDir", $dir);
@@ -73,7 +79,7 @@ public static function load($dir = NV) {
 }
 
 // ***********************************************************
-// retrieving page props
+// handling page props
 // ***********************************************************
 public static function set($key, $value) {
 	PGE::$inf[$key] = $value;
@@ -82,33 +88,16 @@ public static function get($key, $default = false) {
 	return VEC::get(PGE::$inf, $key, $default);
 }
 
-public static function dir() {
-	switch (PGE::$typ) {
-		case "red": $dir = PGE::get("props_red.trg"); break;
-		default:    $dir = PGE::$dir;
-	}
-	if (FSO::isHidden($dir)) return false;
-	return APP::dir($dir);;
-}
-
-public static function level() {
-	$loc = PGE::$dir;
-	return PGE::get("pfs.level");
-}
+// ***********************************************************
 public static function props($sec = "") {
 	return VEC::match(PGE::$inf, $sec);
 }
 
-public static function pic($dir = false) {
+private static function prop($dir, $fnc, $prm = false) {
 	if (! $dir) $dir = PGE::dir();
-
-	$pic = FSO::files($dir, "pic.*"); $pic = key($pic);
-	$pic = APP::url($pic); if (! $pic) return;
-
-	switch (VMODE) {
-		case "xsite": HTW::thumbR($pic); break;
-		default:      HTW::img($pic);
-	}
+	
+	$ini = new ini($dir);
+	return $ini->$fnc($prm);
 }
 
 // ***********************************************************
@@ -122,7 +111,7 @@ public static function incFile() {
 	if ($act == "cha") return "chapter.php";  // collection of chapters
 
 	if ($act == "col") {
-		if (VMODE == "xsite") return "include.php";
+		if (VMODE == "ebook") return "include.php";
 		return "collect.php";  // collection of files in separate dirs
 	}
 	if ($act == "mim") return "mimeview.php"; // show files
@@ -162,34 +151,42 @@ public static function hasXs($dir) {
 // ***********************************************************
 // common ini related tasks
 // ***********************************************************
-public static function UID($fso = false) {
-	if (! $fso) return PGE::get("props.uid");
-	return PGE::prop($fso, "UID");
+public static function UID($dir = false) {
+	if (! $dir) return PGE::get("props.uid");
+	return PGE::prop($dir, "UID");
 }
-public static function type($fso = false) {
-	return PGE::prop($fso, "type", "inc");
-}
-public static function title($fso = false) {
-	if ($fso) return PGE::prop($fso, "head");
 
-	$prp = "title"; if (VMODE == "xsite")
+public static function type($dir = false) {
+	return PGE::prop($dir, "type", "inc");
+}
+
+public static function dir() {
+	switch (PGE::$typ) {
+		case "red": $dir = PGE::get("props_red.trg"); break;
+		default:    $dir = PGE::$dir;
+	}
+	if (FSO::isHidden($dir)) return false;
+	return APP::dir($dir);;
+}
+
+public static function title($dir = false) {
+	if ($dir) return PGE::prop($dir, "head");
+
+	$prp = "title"; if (VMODE == "ebook")
 	$prp = "pfs.chap";
 
 	return PGE::get($prp);
 }
 
-// ***********************************************************
-private static function prop($fso, $fnc, $prm = false) {
-	if (! $fso) $fso = PGE::dir();
-	$ini = new ini($fso);
-	return $ini->$fnc($prm);
+public static function level() {
+	return PGE::get("pfs.level");
 }
 
 // ***********************************************************
-// specials
+// specials when printing
 // ***********************************************************
 public static function pbreak() {
-	if (VMODE != "xsite") return;
+	if (! PGE::ebook()) return;
 	if (PGE::$pgs++  < 2) return; // never on first page
 
 	if (! PGE::get(CUR_LANG.".pbreak")) return;
@@ -198,7 +195,7 @@ public static function pbreak() {
 }
 
 public static function skip() {
-	if (VMODE != "xsite") return false;
+	if (! PGE::ebook()) return false;
 
 	$dir = PGE::get("pfs.vpath");
 
@@ -213,6 +210,7 @@ public static function skip() {
 	return false;
 }
 
+// ***********************************************************
 private static function symbol($cap, $lev, $col) {
 	if ($col == 2) {
 		$out = end(explode(".", $cap)) + 96;
@@ -226,6 +224,13 @@ private static function symbol($cap, $lev, $col) {
 	if ($lev  > 9) return "-";
 
 	return $cap;
+}
+
+// ***********************************************************
+public static function hasPbr($dir) {
+	$fil = FSO::join($dir, "page.".CUR_LANG.".htm");
+	$txt = APP::read($fil);
+	return STR::contains($txt, PAGE_BREAK);
 }
 
 // ***********************************************************

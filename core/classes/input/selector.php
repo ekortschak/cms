@@ -63,8 +63,10 @@ public function exec($fnc) {
 public function input($uid, $value = "") {
 	return $this->itm->addInput("std", $uid, $value);
 }
-public function number($uid, $value = "") {
-	return $this->itm->addInput("num", $uid, $value);
+public function number($uid, $value = "", $unit = "") {
+	$out = $this->itm->addInput("num", $uid, $value);
+	$xxx = $this->itm->setProp("unit", $unit);
+	return $out;
 }
 public function upload($uid) {
 	return $this->itm->addInput("upl", $uid);
@@ -174,17 +176,20 @@ public function glue($uid, $value) {
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public function setHeader($head) {
+public function title($head = "") {
+	if (! $head) {
+		$this->clearSec("header");
+		return;
+	}
 	$this->set("header", $head);
-	$this->copy("header.x", "header");
-}
-
-public function setProp($prop, $value) {
-	$this->itm->set($prop, $value);
 }
 
 public function disable() {
 	$this->clearSec("buttons");
+}
+
+public function setProp($prop, $value) {
+	$this->itm->setProp($prop, $value);
 }
 
 // ***********************************************************

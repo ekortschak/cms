@@ -65,6 +65,7 @@ pres = Präsentation
 <!SEC:medit!>
 <!SEC:pedit!>
 <!SEC:xedit!>
+<!SEC:ebook!>
 </div>
 
 # ***********************************************************
@@ -90,6 +91,7 @@ pres = Präsentation
 [pedit]  <!BTN:pedit!> <!SEC:xlate!> <!SEC:seo!> <!SEC:iedit!> <br>
 [iedit]  <!BTN:iedit!>
 [xedit]  <!BTN:xedit!>
+[ebook]  <!BTN:ebook!>
 [xlate]  <!BTN:xlate!>
 [seo]    <!BTN:seo!>
 

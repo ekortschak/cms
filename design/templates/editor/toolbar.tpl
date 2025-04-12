@@ -171,7 +171,7 @@ askWidth = Bildbreite festlegen
 [addLFs]
 <div class="dropdown"><button class="icon" onclick="insAny('<br>\n');">&crarr;COMBO_DOWN</button>
 	<div id="edLFs" class="dropbody" style="white-space: nowrap;">
-		<div><a href="javascript:insAny('\n<hr class=\'pbr\'>\n');"><!DIC:pbreak!></a></div>
+		<div><a href="javascript:insAny('\nPAGE_BREAK\n');"><!DIC:pbreak!></a></div>
 		<div><a href="javascript:insAny('<br>\n');"><!DIC:lfeed!></a></div>
 		<div><a href="javascript:insAny('\n<hr>\n');"><!DIC:hrule!></a></div>
 		<div><a href="javascript:insAny('&shy;');"><!DIC:sbreak!></a></div>

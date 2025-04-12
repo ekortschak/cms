@@ -8,14 +8,14 @@ used to convert a topic to a single document
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("xsite/bind.php");
+incCls("ebook/bind.php");
 
 $buk = new bind();
 $buk->read($dir);
 $buk->exec($dst, $opt);
 */
 
-incCls("xsite/toctool.php");
+incCls("ebook/toctool.php");
 
 // ***********************************************************
 // BEGIN OF CLASS
@@ -29,8 +29,7 @@ function __construct() {}
 // read all selected files
 // ***********************************************************
 public function read($dir) {
-	$this->dat = PFS::items($dir);
-	unset($this->dat[0]);
+	$this->dat = PFS::tree($dir);
 }
 
 public function exec($dst, $mod) {
@@ -57,7 +56,7 @@ private function content($mod) {
 
 	foreach($this->dat as $inf) {
 		$dir = $inf["fpath"]; if (! is_dir($dir)) continue;
-		$kap = $inf["chnum"];
+		$kap = $inf["chnum"]; if (FSO::isHidden($dir)) continue;
 		PGE::load($dir);
 
 		switch ($mod) {
@@ -72,7 +71,7 @@ private function content($mod) {
 // transforming output as needed in a book
 // ***********************************************************
 private function xform($htm, $mod) {
-	incCls("xsite/prn.php");
+	incCls("ebook/prn.php");
 
 	$prn = new prn();
 	if ($mod == "toc") return $prn->toc();
@@ -108,7 +107,7 @@ private function write($doc, $mod) {
 // writing output to pdf
 // ***********************************************************
 private function writePdf($doc) {
-	incCls("xsite/tcpdf.php");
+	incCls("ebook/tcpdf.php");
 
 	$pdf = new mypdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, "UTF-8", false);
 	$pdf->makePDF($doc);
@@ -120,10 +119,23 @@ private function writeToc() {
 }
 
 // ***********************************************************
+// handling linefeeds
+// ***********************************************************
+public function togglePBreak($dir) {
+	$cur = PGE::pbreak();
+}
+
+private function addPBreak($dir) {
+}
+
+private function dropPBreak($dir) {
+}
+
+// ***********************************************************
 // auxilliary methods
 // ***********************************************************
 private function incFile($opt) {
-	$fil = FSO::join("LOC_MOD", "xsite", "$opt.php");
+	$fil = FSO::join("LOC_MOD", "ebook/viewer", "$opt.php");
 	return APP::file($fil);
 }
 

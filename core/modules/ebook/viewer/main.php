@@ -5,14 +5,14 @@
 # DBG::file(__FILE__);
 
 incCls("system/PRN.php");
-incCls("xsite/bind.php");
+incCls("ebook/bind.php");
 
 // ***********************************************************
 // what's up
 // ***********************************************************
-$dir = ENV::get("xsite.top", TAB_HOME);
-$opt = ENV::get("xsite.opt", "doc");
-$dst = ENV::get("xsite.dst", "scr");
+$dir = ENV::get("ebook.top", TAB_HOME);
+$opt = ENV::get("ebook.opt", "doc");
+$dst = ENV::get("ebook.dst", "scr");
 
 // ***********************************************************
 // assemble pages into single doc

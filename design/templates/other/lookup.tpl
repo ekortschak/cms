@@ -13,7 +13,7 @@ color = FC_BODY
 <refbody><b><!VAR:key!></b><br><!VAR:info!></refbody> _
 </refbox>
 
-[xsite]
+[ebook]
 <!VAR:caption!>
 
 [doc]

@@ -27,10 +27,6 @@ $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();
 
-if (! FSO::hasXs($dir)) {
-	return MSG::now("no.access");
-}
-
 if ($fnc == "manage") {
 	include_once "exManage.php";
 	return;

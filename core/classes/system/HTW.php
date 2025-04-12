@@ -89,7 +89,7 @@ public static function img($file) {
 }
 
 private static function doImage($sec, $link = "") {
-	if (VMODE == "xsite") return HTW::thumbRH($link);
+	if (VMODE == "ebook") return HTW::thumbRH($link);
 
 	HTW::$tpl->set("file", PGE::path($link));
 	HTW::$tpl->show($sec);

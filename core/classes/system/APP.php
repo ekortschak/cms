@@ -278,7 +278,7 @@ public static function gcSys($dir, $snip = "page") { // show any part of page
 public static function gcMap($fso) { // show page or sitemap
 	if (APP::blocked()) return;
 
-	$out = APP::gcFile($fso); if (VMODE == "xsite")
+	$out = APP::gcFile($fso); if (VMODE == "ebook")
 	$out = PGE::convHeads($out);
 
 	if (trim($out)) return $out;
@@ -328,6 +328,13 @@ public static function writeTell($file, $content, $overwrite = true) {
 	if (is_file($file)) if (! $overwrite) return MSG::add("file.exists", $fil);
 	if (APP::write($file, $content) !== false) return true;
 	return ERR::msg("no.write", $file);
+}
+
+public static function strip($file, $strip) { // remove $text from $file
+	$ful = APP::file($file); if (! $ful) return;
+	$txt = file_get_contents($ful); if (! STR::contains($txt, $strip)) return;
+	$txt = STR::clear($txt, $strip);
+	return APP::writeFile($ful, $txt);
 }
 
 // ***********************************************************

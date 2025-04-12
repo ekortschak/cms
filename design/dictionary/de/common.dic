@@ -47,3 +47,7 @@ sec.unknown = Vorlagenabschnitt nicht definiert
 tel.no number = Bitte Telefonnummer überprüfen
 timer = Stoppuhr
 choice.01 = JA / NEIN
+noprint = Nicht drucken
+pbrB4 = Seitenumbruch vor dem Kapitel
+pbrIn = Seitenumbrüche im Kapitel
+

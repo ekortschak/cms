@@ -63,7 +63,7 @@ private function nodeOpts($dir) {
 private function nodeRename($dir) { // rename directory
 	$dst = $this->get("ren.dir"); if (! $dst) return;
 	$par = dirname($dir);
-	$dst = "$par/$dst";
+	$dst = FSO::join($par, $dst);
 
 	if (is_dir($dst)) return ERR::msg("dir.exists", $dir); $res = rename($dir, $dst);
     if (! $res) return ERR::assist("dir", "no.write", $dir);
@@ -77,6 +77,7 @@ private function nodeHide($dir) { // hide or remove node
 	ENV::setPage($dst);
 }
 private function nodeDrop($dir) {
+	ENV::set("pfs.last", $dir);
 	FSO::rmDir($dir);
 }
 
@@ -122,11 +123,13 @@ private function nodeAdd($dir) {
 	$dst = $this->get("sub.dir"); if (! $dst) return;
 	$ovr = $this->env("opt.overwrite");
 	$dst = STR::toArray($dst);
+	$itm = $dir;
 
 	foreach ($dst as $sub) {
 		$itm = FSO::join($dir, $sub);
 		$this->saveStdIni($itm, $ovr);
 	}
+	ENV::setPage($itm);
 }
 
 // ***********************************************************

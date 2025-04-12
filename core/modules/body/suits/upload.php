@@ -14,6 +14,7 @@ $ext = CFG::get("upload:props_upl.ext", "*");
 $max = CFG::get("upload:props_upl.max_size", 2000);
 $ovr = CFG::get("upload:props_upl.overwrite", 0);
 $dst = CFG::get("upload:props_upl.path", PGE::$dir);
+$anz = 5;
 
 HTW::tag("dir = $dst", "hint");
 
@@ -24,21 +25,21 @@ $act = ENV::getPost("act");
 
 if ($act == "OK") {
 	$upl = new upload();
-	$upl->maxFiles(5);
+	$upl->maxFiles($anz);
 	$upl->maxSize($max);
 	$upl->overwrite(ENV::getPost("opt_overwrite", $ovr));
 	$upl->moveAllFiles($dst);
 }
 
 // ***********************************************************
-HTW::xtag("settings");
+HTW::xtag("restrictions", "h5");
 // ***********************************************************
 $sel = new selector(); // just for information
+$sel->title();
 $sel->disable();
 $ext = $sel->ronly("upl.types", $ext);
-$cnt = $sel->ronly("upl.count", 5);
-$max = $sel->ronly("upl.size", $max);
-$xxx = $sel->setProp("info", "KB");
+$cnt = $sel->ronly("upl.count", $anz);
+$max = $sel->ronly("upl.size", "$max KB");
 $act = $sel->show();
 
 // ***********************************************************
@@ -47,7 +48,7 @@ $act = $sel->show();
 REG::add("LOC_SCR/upload.js");
 
 $sel = new selector();
-$sel->setHeader(DIC::get("upl.upload"));
+$sel->title();
 $sel->hide("dest", $dst);
 $sel->set("ext", $ext);
 $sel->set("max", $max * 1000);

@@ -76,7 +76,7 @@ title = PRJ_TITLE
 # horizontal panels
 # ***********************************************************
 [joker] <!-- escape for small viewports -->
-<!MOD:joker!>
+<!MOD:app/joker!>
 
 [topics]
 <!MOD:body/topics!>

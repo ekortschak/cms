@@ -9,5 +9,5 @@ LOC_CSS/other/xsite.css
 [frame] <!-- layout.xsite -->
 # ***********************************************************
 <body class="print">
-<!MOD:xsite!>
+<!MOD:ebook/viewer!>
 </body>

@@ -46,6 +46,8 @@ public function grab($file) {
 }
 
 public function suit($variant) {
+	if (VMODE == "ebook") $variant = "book";
+	
 	$tpl = "editor/edit.$variant.tpl";
 	$chk = FSO::join(LOC_TPL, $tpl);
 

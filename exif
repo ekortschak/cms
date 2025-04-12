@@ -1,0 +1,13 @@
+sudo apt-get install exiftool
+
+exiftool test.jpg
+exiftool -FileName test.jpg
+
+exiftool -<fieldName>=<new value> test.jpg
+exiftool "-DateTimeOriginal>FileModifyDate" test.jpg
+
+general format for gps data:
+exiftool -GPSLatitude=40.6892 -GPSLatitudeRef=N -GPSLongitude=-74.0445 -GPSLongitudeRef=W -GPSAltitude=10 -GPSAltitudeRef="Above Sea Level" FILEexiftool -GPSLatitude=40.6892 -GPSLatitudeRef=N -GPSLongitude=-74.0445 -GPSLongitudeRef=W -GPSAltitude=10 -GPSAltitudeRef="Above Sea Level" FILE
+
+short version:
+exiftool -GPSLatitude*=40.6892 -GPSLongitude*=-74.0445 -GPSAltitude*=10 FILE

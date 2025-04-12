@@ -8,7 +8,7 @@ if (PFS::isStatic()) {
 // set state
 // ***********************************************************
 $loc = PGE::$dir;
-$lev = PGE::level($loc);
+$lev = PGE::level();
 
 $sts = "off"; if (FSO::isHidden($loc))
 $sts = "on";

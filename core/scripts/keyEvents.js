@@ -21,6 +21,7 @@ function exKey(e) {
 		case "u":           addTag("u"); break;
 		case "s":           exSubmit();  break;
 		case "c":
+		case "z":
 		case "v": break;
 		default: return e;
 	}

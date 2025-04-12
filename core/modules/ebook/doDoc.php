@@ -6,61 +6,45 @@ incCls("menus/dropBox.php");
 incCls("editor/QED.php");
 
 $loc = PGE::$dir;
-
-// ***********************************************************
-// offer option(s)
-// ***********************************************************
-$arr = array(
-	"doc" => "Document",
-	"toc" => "Table of Contents",
-);
-$dst = array(
-	"scr" => "Screen",
-	"fil" => "File",
-#	"pdf" => "PDF",
-);
-
-$box = new dropBox("menu");
-$opt = $box->getKey("xsite.opt", $arr);
-$mod = $box->getKey("xsite.dst", $dst);
-$act = $box->show();
+ENV::set("ebook.opt", "doc");
 
 // ***********************************************************
 // show info
 // ***********************************************************
 $tpl = new tpl();
-$tpl->load("modules/xsite.tpl");
+$tpl->load("modules/ebook.tpl");
 $tpl->show("info");
 
 // ***********************************************************
-// show module xsite
+// show module ebook
 // ***********************************************************
-# output handled by the module xsite itself
+# output handled by the module ebook itself
 
 // ***********************************************************
 // react to quick edit options
 // ***********************************************************
 $sel = ENV::getParm("opt.starthere", 0);
-$top = ENV::get("xsite.top", TAB_HOME);
+$top = ENV::get("ebook.top", TAB_HOME);
 
 if ($sel)
-if ($top != $loc) $top = ENV::set("xsite.top", $loc);
+if ($top != $loc) $top = ENV::set("ebook.top", $loc);
 
 $sel = ($top === $loc);
 
 // ***********************************************************
 // ask for confirmation
 // ***********************************************************
-$dst = DIC::get("output.screen"); if ($mod != "scr");
+$dst = DIC::get("output.screen"); if ($mod != "scr")
 $dst = DIC::get("output.file");
 $hed = DIC::get("file.merge");
 $tit = PGE::title($top);
 
 $cnf = new confirm();
-$cnf->set("link", "?dmode=xsite");
+$cnf->set("link", "?dmode=vbook");
 $cnf->head($hed);
 $cnf->dic("scope", $tit);
-$cnf->add("&rarr; $dst");
+$cnf->add("&rarr; Erstelle Dokument");
+$cnf->add("&rarr; Screen");
 $cnf->show();
 
 // ***********************************************************

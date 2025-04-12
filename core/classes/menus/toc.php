@@ -10,8 +10,8 @@ use for menues based on stylesheets only
 // ***********************************************************
 incCls("menus/toc.php");
 
-$mnu = new toc($tpl);
-$mnu->show();
+$toc = new toc($tpl);
+$toc->show();
 */
 
 REG::add("LOC_SCR/oc.view.js");
@@ -24,32 +24,22 @@ class toc extends tpl {
 
 function __construct() {
 	parent::__construct();
+
  	$this->load("menus/toc.view.tpl"); if (! APP::isView())
 	$this->load("menus/toc.edit.tpl");
-}
 
-// ***********************************************************
-// methods
-// ***********************************************************
-public function setData($arr) { // $arr as from PFS::item();
+	$arr = PFS::tree(); array_shift($arr);
 	$this->dat = $arr;
 }
 
-private function getData() {
-	$arr = $this->dat; if ($arr) return $arr;
-	return PFS::toc();
-}
-
 // ***********************************************************
-// display functions
+// display methods
 // ***********************************************************
 public function gc($sec = "main") {
 	$cur = PGE::$dir; $out = ""; $cnt = 0;
 	$kap = PFS::get(NV, "chnum");
 
-	$arr = $this->getData();
-
-	foreach ($arr as $inf) {
+	foreach ($this->dat as $inf) {
 		$this->merge($inf); extract($inf);
 
 		if ($skp) { // skip collection dirs

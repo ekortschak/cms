@@ -12,7 +12,8 @@ incCls("menues/PFS.php");
 
 PFS::read();
 
-$arr = PFS::toc();
+$arr = PFS::tree($dir);	    // list of dirs including $dir
+$arr = PFS::items($dir);	// list of subdirs excludint $dir
 $inf = PFS::item($index);
 $dat = PFS::data($index);
 */
@@ -58,7 +59,6 @@ public static function init($dir = TAB_HOME) {
 	ENV::setPage($uid);
 	ENV::set("pfs.clang", CUR_LANG);
 	ENV::set("pfs.vmode", VMODE);
-	ENV::set("pfs.last", $uid);
 }
 
 // ***********************************************************
@@ -89,6 +89,10 @@ private static function readDir($top, $vir, $ofs) {
 	}
 }
 
+public static function count() {
+	return PFS::$cnt;
+}
+
 // ***********************************************************
 // reading & handling properties
 // ***********************************************************
@@ -99,25 +103,25 @@ private static function append($dir, $vdr, $lev = 0, $col = false) { // single p
 	$typ = $ini->type();
 	$hed = $ini->head();
 
-	PFS::setPropVal($uid, "uid",   $uid);
-	PFS::setPropVal($uid, "fpath", $dir);
-	PFS::setPropVal($uid, "head",  $hed);
-	PFS::setPropVal($uid, "title", $ini->title());
-	PFS::setPropVal($uid, "dtype", $typ);
+	PFS::set($uid, "uid",   $uid);
+	PFS::set($uid, "fpath", $dir);
+	PFS::set($uid, "head",  $hed);
+	PFS::set($uid, "title", $ini->title());
+	PFS::set($uid, "dtype", $typ);
 
-	PFS::setPropVal($uid, "vpath", $vdr);
-	PFS::setPropVal($uid, "level", $lev);
-	PFS::setPropVal($uid, "iscol", $col);
+	PFS::set($uid, "vpath", $vdr);
+	PFS::set($uid, "level", $lev);
+	PFS::set($uid, "iscol", $col);
 
-	PFS::setPropVal($uid, "mtype", PFS::mnuType($dir, $typ, $trg));
-	PFS::setPropVal($uid, "state", PFS::mnuState($uid));
+	PFS::set($uid, "mtype", PFS::mnuType($dir, $typ, $trg));
+	PFS::set($uid, "state", PFS::mnuState($uid));
 
 	$num = PFS::chapNum($lev);
 	$sym = PFS::chapSym($num, $lev, $col);
 
-	PFS::setPropVal($uid, "chnum", $num);
-	PFS::setPropVal($uid, "chsym", $sym);
-	PFS::setPropVal($uid, "chap",  trim("$sym $hed"));
+	PFS::set($uid, "chnum", $num);
+	PFS::set($uid, "chsym", $sym);
+	PFS::set($uid, "chap",  trim("$sym $hed"));
 
 	PFS::$idx[$cnt] = $uid;
 	PFS::$vrz[$dir] = $uid; if ($trg)
@@ -165,13 +169,6 @@ public static function data($what = "*") {
 // ***********************************************************
 // retrieving info
 // ***********************************************************
-public static function level($dir, $ofs = 0) {
-	$lev = FSO::level($dir);
-	$out = $lev + $ofs;
-	return CHK::range($out, 0, PFS::$max);
-}
-
-// ***********************************************************
 public static function find($key = NV) { // dir, uid or num index expected !
 	if ($key === NV) $key = ENV::getPage(); // will always return uid
 	if ($key === false) return false;
@@ -205,7 +202,8 @@ private static function findNext($uid, $inc) {
 
 private static function findGood($uid) { // in case a dir has been deleted
 	$dir = PFS::get($uid, "fpath"); if (strlen($dir) > 3) return $uid;
-	$dir = PFS::findLast();
+	$dir = ENV::get("pfs.last");
+dbg($dir);
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path
@@ -222,12 +220,14 @@ private static function findLast() { // find last valid UID
 // ***********************************************************
 // handling properties
 // ***********************************************************
-public static function setProp($index, $key, $value) {
-	$uid = PFS::find($index); if (! $uid) return;
-	PFS::setPropVal($uid, $key, $value);
-}
-private static function setPropVal($uid, $key, $value) {
+private static function set($uid, $key, $value) {
 	PFS::$dat[$uid][$key] = $value;
+}
+
+public static function get($index, $key, $default = false) {
+	$uid = PFS::find($index);
+	if (! isset(PFS::$dat[$uid][$key])) return $default;
+	return PFS::$dat[$uid][$key];
 }
 
 // ***********************************************************
@@ -235,14 +235,16 @@ private static function props($uid) {
 	return VEC::get(PFS::$dat, $uid, array());
 }
 
-public static function get($index, $key, $default = false) {
-	$uid = PFS::find($index);
-	return PFS::propVal($uid, $key, $default);
-}
+public static function pic($dir = false) {
+	if (! $dir) $dir = PGE::dir();
 
-private static function propVal($uid, $key, $default = false) {
-	if (! isset(PFS::$dat[$uid][$key])) return $default;
-	return PFS::$dat[$uid][$key];
+	$pic = FSO::files($dir, "pic.*"); $pic = key($pic);
+	$pic = APP::url($pic); if (! $pic) return;
+
+	switch (VMODE) {
+		case "ebook": HTW::thumbR($pic); break;
+		default:      HTW::img($pic);
+	}
 }
 
 // ***********************************************************
@@ -276,20 +278,16 @@ private static function chapSym($cap, $lev, $col) {
 // ***********************************************************
 // menu subtrees
 // ***********************************************************
-public static function items($sub = false) {
+public static function tree($dir = false) { // return $dir and subdirs
+	if (! $dir) $dir = PFS::$dir;
+	
 	$out = array(); $max = PFS::$cnt; $cnt = $top = 0;
 
-	for ($i = 0; $i < $max; $i++) { // skip root element
+	for ($i = 0; $i < $max; $i++) {
 		$inf = PFS::item($i); if (! $inf) continue;
 
-		$dir = $inf["fpath"];
-		$loc = $inf["vpath"];
-
-		if ($sub) { // heed selected sub tree
-			if (! STR::begins($loc, $sub)) continue;
-		}
-		if (PFS::isHidden($dir)) continue;
-
+		$loc = $inf["vpath"]; if (! STR::begins($loc, $dir)) continue;
+		$cur = $inf["fpath"]; if (PFS::isHidden($cur)) continue;
 		$lev = $inf["level"]; if ($cnt < 1) $top = $lev;
 		$xxx = $inf["level"] = $lev - $top + 1;
 		$out[] = $inf;
@@ -299,16 +297,10 @@ public static function items($sub = false) {
 	return $out;
 }
 
-// ***********************************************************
-public static function toc() {
-	$arr = PFS::items(); unset($arr[0]);
-	return $arr;
-}
+public static function items($dir = false) { // return subdirs of $dir
+	if (! $dir) $dir = PGE::$dir;
 
-public static function subtree($dir) {
-	$uid = PFS::find($dir);
-	$dir = PFS::propVal($uid, "vpath", false);
-	$out = PFS::items($dir); if (! $out) return false;
+	$out = PFS::tree($dir);
 	array_shift($out);
 	return $out;
 }
@@ -351,6 +343,10 @@ private static function mnuState($dir) {
 // ***********************************************************
 // handling static menues
 // ***********************************************************
+public static function isStatic() {
+	return is_file(PFS::$fil);
+}
+
 public static function toggle() {
 	if (PFS::isStatic()) return FSO::kill(PFS::$fil);
 	PFS::export();
@@ -379,10 +375,6 @@ private static function import() {
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-public static function count() {
-	return PFS::$cnt;
-}
-
 private static function uniq($uid, $pfx = "") {
 	if ($pfx) $uid = "$pfx.$uid";
 	$chk = VEC::get(PFS::$dat, $uid); if (! $chk) return $uid;
@@ -391,12 +383,9 @@ private static function uniq($uid, $pfx = "") {
 }
 
 private static function isHidden($dir) {
-	if (VMODE != "xsite")
-	if ( ! APP::isView()) return false;
+	if (APP::isView()) 
 	return FSO::isHidden($dir);
-}
-public static function isStatic() {
-	return is_file(PFS::$fil);
+	return false;
 }
 
 // ***********************************************************

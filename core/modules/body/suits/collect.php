@@ -4,17 +4,14 @@
 
 DBG::file(__FILE__);
 
-// ***********************************************************
-$loc = PGE::$dir;
-$arr = PFS::subtree($loc);
-
-if (count($arr) < 1) {
+if (! PFS::count()) {
 	return MSG::now("no.subfolders");
 }
 
 // ***********************************************************
-// read subdirs
+// read collected items (subdirs)
 // ***********************************************************
+$arr = PFS::items();
 $lst = array();
 
 foreach ($arr as $inf) {
@@ -32,7 +29,7 @@ $xxx = $box->show();
 
 $xxx = APP::addPath($dir);
 $htm = APP::gcSys($dir);
-$pic = PGE::pic($dir);
+$pic = PFS::pic($dir);
 
 // ***********************************************************
 // show collected pages
@@ -42,7 +39,7 @@ $tpl->load("pages/collect.tpl");
 $tpl->set("text", $htm);
 $tpl->set("head", $tit);
 
-#if (VMODE == "xsite") {
+#if (VMODE == "ebook") {
 #	$tpl->substitute("pic", "thumb");
 #}
 

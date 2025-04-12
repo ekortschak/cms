@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = ↵
+tooltip = Seitenvorschübe bearbeiten
+
+[en]
+caption = ↵
+tooltip = Edit linefeeds

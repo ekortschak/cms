@@ -11,4 +11,4 @@ LOC_LAY/LAYOUT/main.tpl
 # overruled sections
 # ***********************************************************
 [body] <!-- body.search -->
-<!MOD:joker/search.php!>
+<!MOD:app/joker/search.php!>

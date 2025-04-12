@@ -1,5 +1,5 @@
 [include]
-LOC_TPL/xsite/main.tpl
+LOC_TPL/ebook/main.tpl
 
 
 # ***********************************************************

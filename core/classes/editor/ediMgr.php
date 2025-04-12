@@ -39,7 +39,16 @@ function __construct($filesOnly = false) {
 // ***********************************************************
 // display
 // ***********************************************************
+private function verify($fso) {
+	if (is_dir($fso)) return true;
+
+	MSG::now("not.appliccable");
+	MSG::now("dir.missing", $fso);
+}
+
 public function edit($fso, $pattern = "*.htm") {
+	if (! $this->verify($fso)) return;
+
 	$box = new dropBox("menu");
 	$dir = $old = $ful = $fso;
 
@@ -73,6 +82,8 @@ public function edit($fso, $pattern = "*.htm") {
 // retrieving options
 // ***********************************************************
 private function editors($typ) {
+	if (VMODE == "ebook") return "text";
+	
 	if ($typ == "none") return array();
 	if ($typ == "code") return $this->modes("code,xtern,text");
 	if ($typ ==	"html") return $this->modes("html,xtern,ck4,ck5,code");

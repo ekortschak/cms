@@ -26,8 +26,6 @@ $fnc = $box->getKey("pic.mode", $act);
 $dev = $box->getKey("pic.medium", $dev); // backup media
 $xxx = $box->show();
 
-if (! FSO::hasXs($dev)) return;
-
 // ***********************************************************
 // define archive dir
 // ***********************************************************

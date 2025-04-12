@@ -18,6 +18,7 @@ opt.overwrite = Überschreiben
 opt.preview = Vorschaumodus
 rename = Umbenennen in
 settings = Einstellungen
+restrictions = Beschränkungen
 text.xlate = Text übersetzen
 topics = Themen
 Method = Methode

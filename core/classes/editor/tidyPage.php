@@ -39,6 +39,7 @@ public function read($file, $edit = false) {
 }
 
 public function restore($htm) {
+	$htm = STR::replace($htm, "PAGE_BREAK", PAGE_BREAK);
 	$htm = STR::replace($htm, "¶", "");
 
 	$htm = $this->phpRestore($htm);

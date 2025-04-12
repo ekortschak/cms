@@ -18,7 +18,6 @@ header = <!DIC:header!>
 # ***********************************************************
 <form method="post" action="?" enctype="multipart/form-data">
 <!SEC:oid!>
-
 <table width="100%">
 	<!SEC:header!>
 	<!SEC:data!>
@@ -35,8 +34,9 @@ header = <!DIC:header!>
 </tr>
 
 [header]
+<!SEC:header.std!>
 
-[header.x]
+[header.std]
 <tr class="rh"><th colspan="100%"><!VAR:header!></th></tr>
 
 # ***********************************************************

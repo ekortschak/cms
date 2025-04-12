@@ -1,16 +1,16 @@
 [dic.en]
-Anmerkung = Anmerkung**
-Bewertung = Bewertung**
+Anmerkung = Anmerkung*
+Bewertung = Bewertung*
 bible.ver = Bibelversion*
-loc = Loc**
-memo = Memo**
+loc = Loc*
+memo = Memo*
 no.tabroot = TAB_ROOT nicht definiert*
-rating = Rating**
-ref = Ref**
-settings = Settings**
+rating = Rating*
+ref = Ref*
+settings = Settings*
 feedback = Feedback*
 options = Optionen*
-topics = Topics**
-coll = Coll**
-link = Link**
+topics = Topics*
+coll = Coll*
+link = Link*
 tpc = Themen*

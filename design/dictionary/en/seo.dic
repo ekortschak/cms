@@ -1,7 +1,7 @@
 [dic.en]
-ed.dsc = Ed.dsc**
-ed.key = Ed.key**
-loc = Loc**
-settings = Settings**
+ed.dsc = Ed.dsc*
+ed.key = Ed.key*
+loc = Loc*
+settings = Settings*
 seo = Suchmaschinenoptimierung*
-topics = Topics**
+topics = Topics*

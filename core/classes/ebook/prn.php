@@ -11,7 +11,7 @@ page related functionality
 class prn extends tpl {
 
 function __construct() {
-	$this->load("xsite/prn.tpl");
+	$this->load("ebook/prn.tpl");
 }
 
 // ***********************************************************

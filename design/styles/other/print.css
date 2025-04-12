@@ -9,7 +9,7 @@ body.print {
 @media print {
 /* ******************************************************** */
 @page {
-#    size: A4 portrait;
+#   size: A4 portrait;
 #	widows: 3;
 #	orphans: 2;
 }
@@ -17,6 +17,10 @@ body.print {
 body.print {
 	margin: 0px;
 	padding: 0px;
+}
+
+.noprint {
+	display: none;
 }
 
 h1, h2, h3, h4, h5, h6, h7, h8, h9 {
@@ -33,10 +37,6 @@ hr.pbr {
 	background-color: transparent;
 	border-top: 0px none;
 	height: 0px;
-}
-
-.helpbox {
-	display: none;
 }
 
 /* ******************************************************** */

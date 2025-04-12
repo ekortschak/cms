@@ -1,0 +1,10 @@
+[props]
+pic = 
+
+[de]
+caption = Doc
+tooltip = Dokument erstellen
+
+[en]
+caption = Doc
+tooltip = Create document

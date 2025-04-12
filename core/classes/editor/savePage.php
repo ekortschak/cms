@@ -29,20 +29,21 @@ protected function exec() {
 	$act = $this->get("file.act");
 
 	switch (STR::left($act)) {
-		case "sav": $this->savePage($act); return;
-		case "dro": $this->dropFile($act); return;
-		case "res": $this->restore($act);  return;
-		case "bac": $this->backup($act);   return;
-		case "imp": $this->import($act);   return;
-		case "det": $this->detach($act);   return;
+		case "sav": $this->savePage(); return;
+		case "dro": $this->dropFile(); return;
+		case "res": $this->restore();  return;
+		case "bac": $this->backup();   return;
+		case "imp": $this->import();   return;
+		case "det": $this->detach();   return;
 	}
 }
 
-private function savePage($act) {
+protected function savePage() {
 	$txt = $this->get("content");  if (! $txt) return;
 	$old = $this->get("orgName");  if (! $old) return;
 	$fil = $this->file("filName"); if (! $fil) $fil = $old;
 	$ext = FSO::ext($fil);
+
 
 	if (STR::features("htm.html", $ext)) {
 		$tdy = new tidyPage();
@@ -54,7 +55,7 @@ private function savePage($act) {
 	if ($fil != $old) FSO::kill($old);
 }
 
-private function dropFile($act) {
+protected function dropFile() {
 	$fil = $this->file("fil"); if (! $fil) return;
 	FSO::kill($fil);
 }
@@ -62,7 +63,7 @@ private function dropFile($act) {
 // ***********************************************************
 // backup and restore
 // ***********************************************************
-private function restore($act) {
+protected function restore() {
 	$fil = $this->get("fil");
 	$trg = APP::file($fil); if (! $trg) return;
 	$dir = LOC::arcDir(APP_NAME, "sync");
@@ -70,7 +71,7 @@ private function restore($act) {
 	$res = FSO::copy($src, $trg);
 }
 
-private function backup($act) {
+protected function backup() {
 	$fil = $this->file("fil"); if (! $fil) return;
 
 	$dir = LOC::arcDir(APP_NAME, "sync");
@@ -78,7 +79,7 @@ private function backup($act) {
 	$res = FSO::copy($fil, $ful);
 }
 
-private function import($act) { // import redirected page
+protected function import() { // import redirected page
 	$trg = $this->get("target"); if (! $trg) return;
 	$src = $this->get("source"); if (! $src) return; $src = APP::dir($src);
 	$arr = FSO::dirs($src);      if (! $arr) return;
@@ -102,7 +103,7 @@ private function import($act) { // import redirected page
 	}
 }
 
-private function detach($act) { // import redirected document
+protected function detach() { // import redirected document
 	$trg = $this->get("target"); $trg = APP::dir($trg);
 	$src = $this->get("source"); $src = APP::dir($src);
 
@@ -118,7 +119,7 @@ private function detach($act) { // import redirected document
 // ***********************************************************
 // auxilliary methods
 // ***********************************************************
-private function file($prm) {
+protected function file($prm) {
 	$fil = $this->get($prm);
 	return APP::file($fil);
 }

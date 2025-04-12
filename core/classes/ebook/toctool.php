@@ -8,7 +8,7 @@ used to convert a topic to a single document
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-incCls("xsite/toctool.php");
+incCls("ebook/toctool.php");
 
 $toc = new toctool();
 */

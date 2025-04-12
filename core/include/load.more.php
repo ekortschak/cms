@@ -12,7 +12,6 @@ incCls("system/ERR.php"); // error handling
 incCls("system/PRG.php"); // more string functions
 incCls("system/HTM.php"); // basic html objects
 incCls("system/HTW.php"); // basic html objects
-incCls("system/PGE.php"); // tab and page info
 
 incCls("files/tpl.php");  // base template class
 incCls("files/code.php"); // reading ini files and templates

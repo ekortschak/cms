@@ -4,13 +4,20 @@
 // ***********************************************************
 Intended to simplify handling of tables
 - including row totals
-- aligning right by default
 
 // ***********************************************************
 // HOW TO USE
 // ***********************************************************
-For a full description see
-http://gim.glaubeistmehr.at/?tab=cms
+incCls("tables/htm_table.php");
+
+$tbl = new htm_table();
+$tbl->addCols("Info", "Value");
+$tbl->width("Info" | 0, 150);
+$tbl->align("Value" | 1, "right");
+$tbl->addRow("Apples", 5);
+$tbl->addRow("Pears", 15);
+$tbl->show();
+
 */
 
 incCls("tables/tblCols.php");
@@ -39,8 +46,10 @@ function __construct() {
 // ***********************************************************
 // handling columns
 // ***********************************************************
-public function addCols($hed) {
-    foreach ($hed as $itm) {
+public function addCols($colheads) {
+	if (! is_array($colheads)) $colheads = func_get_args();
+
+    foreach ($colheads as $itm) {
         $this->addCol($itm);
     }
 }
@@ -48,15 +57,30 @@ public function addCol($col, $inf = array()) {
 	$this->cls->add($col, $inf);
 }
 
-public function setHeads($colheads) {
-	$arr = STR::split($colheads, ","); $cnt = 0;
+// ***********************************************************
+public function aligns($data) {
+	if (! is_array($data)) $data = func_get_args();
+	$cnt = 0;
 
-	foreach ($arr as $val)
-		$this->cls->set($cnt++, "head", $val);
+	foreach ($data as $val)
+		$this->align($cnt++, $val);
 }
 
-public function setLines($num) {
-	$this->lns = CHK::range($num, 500, 1);
+public function align($col, $value) {
+	$this->setProp($col, "align", $value);
+}
+
+// ***********************************************************
+public function widths($data) {
+	if (! is_array($data)) $data = func_get_args();
+	$cnt = 0;
+
+	foreach ($data as $val)
+		$this->width($cnt++, $val);
+}
+
+public function width($col, $value) {
+	$this->setProp($col, "width", $value);
 }
 
 // ***********************************************************
@@ -77,11 +101,18 @@ public function setProp($col, $prop, $value) {
 // ***********************************************************
 // handling rows
 // ***********************************************************
+public function setLines($num) { // lines per page
+	$this->lns = CHK::range($num, 500, 1);
+}
+
 public function addRows($data) { // record set
 	if (! is_array($data)) return;
 	$this->dat = array_values($data);
 }
 public function addRow($data) { // single record
+	if (! is_array($data)) {
+		$data = func_get_args();
+	}
 	if (! is_array($data)) return;
 	$this->dat[] = array_values($data);
 }
@@ -145,8 +176,7 @@ protected function tblData() {
 
 // ***********************************************************
 protected function tblRow($style, $arr) {
-	if (! $arr) return "";
-    if (count($arr) < 1) return ""; $out = ""; $cnt = 0;
+	if (! $arr) return ""; $out = ""; $cnt = 0;
 
     foreach ($arr as $fld => $val) {
         $inf = $this->cls->getInfo($cnt++, $val);

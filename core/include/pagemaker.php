@@ -12,6 +12,7 @@ APP::inc("core/include", "load.app.php");
 // read page file system - if needed
 // ***********************************************************
 incCls("menus/PFS.php");   // load menu builder
+incCls("menus/PGE.php");   // tab and page info
 
 PFS::init();               // load menu
 PGE::init();               // reset page info

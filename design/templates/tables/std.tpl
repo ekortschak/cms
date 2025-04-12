@@ -25,13 +25,11 @@ page = Seite
 # ***********************************************************
 	<tr class="<!VAR:class!>">
 		<!VAR:data!>
-		<td width="100%">&nbsp;</td>
 	</tr>
 
 [TCols]
 	<tr class="<!VAR:class!>">
 		<!VAR:data!>
-		<th width="100%">&nbsp;</th>
 	</tr>
 
 [TSums]
@@ -39,7 +37,7 @@ page = Seite
 # ***********************************************************
 [THead]
 # ***********************************************************
-		<th nowrap align="<!VAR:align!>"><!VAR:head!></th>
+		<th nowrap align="<!VAR:align!>" style="width:<!VAR:width!>px;"><!VAR:head!></th>
 
 [TData]
 		<td nowrap align="<!VAR:align!>"><!VAR:value!></td>

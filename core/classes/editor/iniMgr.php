@@ -76,12 +76,13 @@ public function edit() {
 // auxilliary methods
 // ***********************************************************
 private function showPath($fil) {
-	$ful = $fil; if ( ! STR::ends($fil, ".ini"))
+	$ful = $fil; if (! STR::ends($fil, ".ini"))
 	$ful = FSO::join($fil, "page.ini");
 	$ful = APP::file($ful);
 	$ful = STR::replace($ful, FBK_DIR, "<red>CMS</red>");
 
 	HTW::tag("file = $ful", "hint");
+	HTW::vspace(12);
 }
 
 // ***********************************************************

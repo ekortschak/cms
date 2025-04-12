@@ -39,7 +39,7 @@ public static function xtag($text, $tag = "h4") {
 // ***********************************************************
 public static function href($lnk, $cap, $trg = "_self") {
 	if (! $trg) return "<a href='$lnk'>$cap</a>";
-	return "<a href='$lnk' target='sf'>$cap</a>";
+	return "<a href='$lnk' target='$trg'>$cap</a>";
 }
 
 public static function button($lnk, $cap, $trg = "_self") {
