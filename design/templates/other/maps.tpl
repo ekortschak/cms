@@ -9,7 +9,7 @@ zoom = 14
 <iframe width="<!VAR:wid!>" height="<!VAR:hgt!>" Loading="lazy" allowfullscreen <!SEC:src!>></iframe> 
 
 [key]
-key=AIzaSyA4TJBlqIdOhzb5HG4NZgL8ebhPJjwv4Ps
+key=
 
 [src]
 <!SEC:location!>
