@@ -311,17 +311,17 @@ public static function append($file, $data) {
 
 public static function write($file, $data, $overwrite = true) {
 	if (! $overwrite) if (is_file($file)) return false;
-	return APP::writeFile($file, $data, false);
+	return APP::writeFile($file, $data);
 }
 
-private static function writeFile($file, $data, $overwrite = false) {
+private static function writeFile($file, $data, $mode = false) {
 	if (is_dir($file)) return false;
 
 	$dir = FSO::force(dirname($file));
 	$txt = VEC::xform($data);
 	$txt = trim($txt)."\n";
 
-	return FSO::write($file, $txt);
+	return FSO::write($file, $txt, $mode);
 }
 
 public static function writeTell($file, $content, $overwrite = true) {

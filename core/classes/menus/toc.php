@@ -14,7 +14,7 @@ $toc = new toc($tpl);
 $toc->show();
 */
 
-REG::add("LOC_SCR/oc.view.js");
+REG::add("LOC_SCR/toc.view.js");
 
 // ***********************************************************
 // BEGIN OF CLASS

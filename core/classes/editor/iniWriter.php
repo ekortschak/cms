@@ -127,7 +127,6 @@ public function setPbreak($val) {
 // ***********************************************************
 public function savePost($file = NV) {
 	$arr = OID::values(); if (! $arr) return;
-
 	$this->setProps($arr);
 	$this->save($file);
 }
@@ -212,6 +211,13 @@ private function chkTpl($fil) {
 private function getTpl($fil) {
 	$tpl = FSO::join(LOC_CFG, $fil);
 	return APP::file($tpl);
+}
+
+// ***********************************************************
+// debugging
+// ***********************************************************
+public function debug() {
+	DBG::text($this->vls);
 }
 
 // ***********************************************************

@@ -219,7 +219,6 @@ public function chkValue($val, $sec = NV) {
 	}
 	$val = STR::before($val, "|");
 	$val = STR::before($val, ":=");
-
 	return $val;
 }
 

@@ -131,14 +131,14 @@ public static function copyDir($src, $dst) {
 // ***********************************************************
 public static function mvDir($src, $dst) {
 	$dir = FSO::force(dirname($dst));
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty();
 	$res = rename($src, $dst); if ($res) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
 
 // ***********************************************************
 public static function rmDir($dir) {
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty();
 	$arr = FSO::fdTree($dir, "*", false);
 
 	if ($arr) { // remove subdirs
@@ -194,7 +194,7 @@ public static function backup($file) {
 public static function copy($src, $dst) { // copy a file
 	$src = APP::file($src); if (! is_file($src)) return false;
 	$dir = FSO::force(dirname($dst));
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty();
 	$res = copy($src, $dst); if ($res) return true;
 	return ERR::assist("file", "no.write", $dst);
 }
@@ -202,21 +202,21 @@ public static function copy($src, $dst) { // copy a file
 public static function move($old, $new) { // rename a file
 	if (! is_file($old)) return false;
 	$dir = FSO::force(dirname($new));
-	$xxx = LOG::dirty(APP_NAME);
+	$xxx = LOG::dirty();
 	$res = rename($old, $new); if ($res) return true;
 	return ERR::assist("file", "no.write", $new);
 }
 
 public static function kill($file) { // delete a file
 	if (! is_file($file)) return false;
-	$xxx = LOG::dirty(APP_NAME, $file);
+	$xxx = LOG::dirty($file);
 	return unlink($file);
 }
 
-public static function write($file, $text) {
+public static function write($file, $text, $mode = false) {
 	$dir = FSO::force(dirname($file));
-	$xxx = LOG::dirty(APP_NAME, $file);
-	$res = file_put_contents($file, $text); if (! $res) return false;
+	$xxx = LOG::dirty($file);
+	$res = file_put_contents($file, $text, $mode); if (! $res) return false;
 	FSO::permit($file);
 	return true;
 }

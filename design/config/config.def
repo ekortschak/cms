@@ -42,8 +42,8 @@ LANGUAGES = de.en
 GEN_LANG = en
 
 [design]
-LAYOUT = folders:LOC_LAY
-SSHEET = folders:LOC_LAY
+LAYOUT = default|divs
+SSHEET = default|divs|table
 COLORS = inifile:LOC_CLR
 EDITOR = default|ck4|ck5
 

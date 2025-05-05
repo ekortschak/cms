@@ -207,7 +207,7 @@ private function fileAddPrj($dir) { // add a project file
 private function fileAddAny($dir) { // create any file
 	$nam = $this->get("any.name");
 	$ovr = $this->env("opt.overwrite");
-	$fil = FSO::join($dir, $nam);
+	$fil = FSO::join($dir, $nam); if (! is_file($fil)) $ovr = true;
 	$res = APP::writeTell($fil, "", $ovr);
 }
 

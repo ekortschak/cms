@@ -27,7 +27,7 @@ public static function init() {
 }
 
 // ***********************************************************
-public static function dir($app = "") {
+public static function dir($app = APP_NAME) {
 	return FSO::join(DOM_DIR, self::MY_DIR, $app);
 }
 public static function file($file, $app = APP_NAME) {
@@ -60,10 +60,10 @@ public static function get($key, $default = false) {
 // ***********************************************************
 // mark modified projects
 // ***********************************************************
-public static function dirty($app, $file = "") {
+public static function dirty($file = "") {
 	if (STR::contains($file, self::MY_DIR)) return;
 
-	$fil = LOG::file(LOG::$drt, $app);
+	$fil = LOG::file(LOG::$drt);
 	$xxx = FSO::force(dirname($fil));
 	$txt = APP::read($fil);
 	$txt = STR::replace($txt, "= 1", "= 0");

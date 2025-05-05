@@ -46,7 +46,7 @@ public static function text($msg, $info = "dbg") {
 	$msg = DBG::convert($msg); DBG::save($info, $msg);
 
 	if (DBG::$dest == "cl") { // write to command line
-		echo "$info: $msg\n"; return;
+		DBG::force($msg, $info); return;
 	}
 	echo "<dbg><blue>$info</blue> $msg</dbg>";
 }
@@ -54,6 +54,10 @@ public static function text($msg, $info = "dbg") {
 public static function path($msg, $info = "path") { // show path info
 	$msg = str_replace("/",  "|",  $msg);
 	DBG::text($msg, $info);
+}
+
+public static function force($msg, $info = "forced") {
+	echo "$info: $msg\n";
 }
 
 // ***********************************************************

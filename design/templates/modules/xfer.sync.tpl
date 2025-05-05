@@ -26,7 +26,7 @@ vtrg = VERSION
 <div class="rh"><!DIC:confirm!></div>
 <div class="confirm">
 	<table class="nomargin">
-		<tr><td class="nopad"><!DIC:source!></td> <td>v<!VAR:vsrc!></td> <td><!VAR:source!></td></tr>
+		<tr><td class="nopad" width=55><!DIC:source!></td> <td>v<!VAR:vsrc!></td> <td><!VAR:source!></td></tr>
 		<tr><td class="nopad"><!DIC:target!></td> <td>v<!VAR:vtrg!></td> <td><!SEC:dest!></td>  </tr>
 	</table>
 

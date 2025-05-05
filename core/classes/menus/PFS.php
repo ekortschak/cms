@@ -195,7 +195,7 @@ private static function findNext($uid, $inc) {
 	while (true) {
 		$idx = $key + $inc; if ($idx > $max) break; if ($idx < 0) break;
 		$uid = VEC::get(PFS::$idx, $idx);
-		if ( ! PFS::propVal($uid, "iscol")) break;
+		if ( ! PFS::get($uid, "iscol")) break;
 	}
 	return $uid;
 }
@@ -203,7 +203,6 @@ private static function findNext($uid, $inc) {
 private static function findGood($uid) { // in case a dir has been deleted
 	$dir = PFS::get($uid, "fpath"); if (strlen($dir) > 3) return $uid;
 	$dir = ENV::get("pfs.last");
-dbg($dir);
 
 	while ($dir = dirname($dir)) { // find closest parent
 		if ($dir <= TAB_HOME) break; // no access outside tab path
